@@ -1,14 +1,16 @@
 """Diagrams gallery page — all 24 SVG diagram templates."""
 from __future__ import annotations
 
-PAGE = {
-    "slug": "diagrams",
-    "title": "Diagram Templates",
-    "intro": "24 SVG diagram archetypes across 6 families.",
-    "family": "Patterns",
-    "layout": "gallery",
-    "order": 5,
-}
+
+def _fam_section_id(name: str) -> str:
+    """Stable fragment id for each diagram family section."""
+    return "fam-" + (
+        name.lower()
+        .replace(" & ", "-")
+        .replace(" ", "-")
+        .replace(",", "")
+    )
+
 
 _FAMILIES = [
     {
@@ -73,6 +75,17 @@ _FAMILIES = [
     },
 ]
 
+PAGE = {
+    "slug": "diagrams",
+    "title": "Diagram Templates",
+    "intro": "24 SVG diagram archetypes across 6 families.",
+    "family": "Patterns",
+    "layout": "gallery",
+    "order": 5,
+    "toc": [("sec-diagrams", "Overview")]
+    + [(_fam_section_id(f["name"]), f["name"]) for f in _FAMILIES],
+}
+
 
 def extra_css() -> str:
     return """\
@@ -95,14 +108,17 @@ def render() -> str:
                 f'<img src="assets/svg/{svg_file}" alt="{label}">'
                 f'<p class="section-label mt-2 mb-0">{label}</p></div>'
             )
+        fam_id = _fam_section_id(fam["name"])
         sections.append(
-            f'<h4 class="mt-4 mb-1" style="color:var(--forge-amber)">'
+            f'<section id="{fam_id}" class="ks-section">\n'
+            f'  <h4 class="mt-4 mb-1" style="color:var(--forge-amber)">'
             f'{fam["name"]}</h4>\n'
-            f'<p class="forge-support mb-3" style="font-size:0.85rem">'
+            f'  <p class="forge-support mb-3" style="font-size:0.85rem">'
             f'{fam["desc"]}</p>\n'
-            f'<div class="bento-grid bento-3 mb-4">\n'
-            f'  {"".join(cards)}\n'
-            f'</div>'
+            f'  <div class="bento-grid bento-3 mb-4">\n'
+            f'    {"".join(cards)}\n'
+            f'  </div>\n'
+            f'</section>'
         )
 
     body = "\n\n".join(sections)
@@ -110,8 +126,9 @@ def render() -> str:
 <section id="sec-diagrams" class="ks-section">
   <h2 class="ks-section-title">SVG Diagram Type Templates</h2>
   <p class="forge-support mb-4">Reusable diagram archetypes from the Forge design system (24 templates across 6 families). Content-specific diagrams live in each project; these templates define the visual language. Click any card to expand with interactive node descriptions.</p>
-{body}
 </section>
+
+{body}
 
 <div id="diagramModal" class="diagram-modal-backdrop">
   <div class="diagram-modal">

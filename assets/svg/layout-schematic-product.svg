@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="400" height="260" role="img" aria-labelledby="lt">
+  <title id="lt">product_page layout schematic</title>
+  <rect width="100%" height="100%" fill="#111827"/>
+  <text x="200" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#94A3B8">Marketing site, fs-* theme, tier-grouped sidebar</text>
+  <g data-node="Mobile bar" pointer-events="all">
+    <rect x="24" y="36" width="352" height="28" rx="4" fill="rgba(100,116,139,0.2)" stroke="rgba(100,116,139,0.45)" stroke-width="1"/>
+    <text x="200" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#94A3B8" font-weight="600">Mobile bar (lg:hidden)</text>
+  </g>
+  <g data-node="Product sidebar" pointer-events="all">
+    <rect x="24" y="76" width="96" height="168" rx="4" fill="rgba(6,182,212,0.1)" stroke="rgba(6,182,212,0.5)" stroke-width="1.2"/>
+    <text x="72" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#06B6D4" font-weight="600">Sidebar</text>
+    <text x="72" y="136" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#708090">tier groups</text>
+  </g>
+  <g data-node="Article" pointer-events="all">
+    <rect x="132" y="76" width="244" height="168" rx="4" fill="rgba(245,158,11,0.08)" stroke="rgba(245,158,11,0.45)" stroke-width="1.2"/>
+    <text x="254" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#F59E0B" font-weight="600">Article</text>
+    <text x="254" y="146" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#708090">body_html, cross_refs, footer</text>
+  </g>
+</svg>

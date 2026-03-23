@@ -1138,23 +1138,31 @@ code {
   background: rgba(5,7,12,0.92);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  padding: 1.5rem;
+  /* Equal inset on all sides; used for dialog max dimensions */
+  --diagram-modal-gutter: clamp(1rem, 3vmin, 2rem);
+  padding: var(--diagram-modal-gutter);
   overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 .diagram-modal-backdrop.active {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 }
 .diagram-modal {
   background: var(--forge-surface);
   border: 1px solid var(--forge-border);
   border-radius: 16px;
-  max-width: 94vw;
-  width: 100%;
-  margin-top: 1vh;
+  width: min(1400px, calc(100vw - 2 * var(--diagram-modal-gutter)));
+  max-width: min(1400px, calc(100vw - 2 * var(--diagram-modal-gutter)));
+  max-height: calc(100vh - 2 * var(--diagram-modal-gutter));
+  margin: 0;
+  flex-shrink: 0;
   overflow: hidden;
   box-shadow: 0 0 60px rgba(6,182,212,0.08), 0 0 2px rgba(6,182,212,0.15);
+  display: flex;
+  flex-direction: column;
 }
 .diagram-modal-header {
   display: flex;
@@ -1190,24 +1198,57 @@ code {
 }
 .diagram-modal-body {
   display: grid;
-  grid-template-columns: 1fr 300px;
-  min-height: 75vh;
+  grid-template-columns: 1fr min(320px, 34vw);
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  align-items: stretch;
 }
 @media (max-width: 767px) {
   .diagram-modal-body { grid-template-columns: 1fr; }
 }
 .diagram-modal-canvas {
-  padding: 1.5rem 2rem;
+  padding: 1rem 1.25rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: auto;
+  max-height: min(62vh, 560px);
+  min-height: 0;
+}
+.diagram-modal-canvas > svg,
+.diagram-modal-canvas > img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.diagram-modal-static-hint {
+  flex-shrink: 0;
+  width: 100%;
+  font-size: 0.75rem;
+  color: var(--forge-text-2);
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.28);
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.45;
+}
+.diagram-modal-static-hint code {
+  font-size: 0.68rem;
+  word-break: break-word;
 }
 .diagram-modal-canvas svg {
   width: 100% !important;
   max-width: 100%;
   height: auto;
-  min-height: 55vh;
+  max-height: min(52vh, 480px);
+  pointer-events: auto;
+}
+/* Ensure glyph hit targets (some UAs skip unpainted text for pointer events). */
+.diagram-modal-canvas .svg-node-zone text,
+.diagram-modal-canvas .svg-node-zone tspan {
   pointer-events: auto;
 }
 /* Scale up text inside expanded diagram */
@@ -1229,10 +1270,12 @@ code {
 }
 .diagram-modal-detail {
   border-left: 1px solid var(--forge-border);
-  padding: 1.5rem;
+  padding: 1.25rem;
   background: var(--forge-surface-2);
   overflow-y: auto;
-  max-height: 80vh;
+  overflow-x: hidden;
+  max-height: min(62vh, 560px);
+  min-height: 0;
 }
 .diagram-modal-detail .detail-title {
   font-family: var(--font-display);
@@ -1241,13 +1284,21 @@ code {
   margin-bottom: 0.85rem;
 }
 .diagram-modal-detail .detail-item {
-  margin-bottom: 0.65rem;
-  padding: 0.55rem 0.7rem;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  outline: 1px solid transparent;
-  outline-offset: 0px;
-  transition: background 0.25s, border-color 0.25s, outline-color 0.25s;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid var(--forge-border);
+  background: var(--forge-surface);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.02);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.diagram-modal-detail .detail-item:last-child {
+  margin-bottom: 0;
+}
+.diagram-modal-detail .detail-item:hover {
+  border-color: rgba(6,182,212,0.35);
+  box-shadow: 0 0 0 1px rgba(6,182,212,0.12), 0 4px 16px rgba(0,0,0,0.18);
 }
 .diagram-modal-detail .detail-item .detail-term {
   font-family: var(--font-label);
@@ -1265,12 +1316,19 @@ code {
 /* =================================================================
    22. INTERACTIVE NODE ↔ DETAIL HIGHLIGHT
    ================================================================= */
+@keyframes diagram-detail-breathe {
+  0%, 100% {
+    box-shadow: inset 0 0 0 1px rgba(6,182,212,0.28), 0 0 2px rgba(6,182,212,0.12);
+  }
+  50% {
+    box-shadow: inset 0 0 0 2px rgba(6,182,212,0.45), 0 0 14px rgba(6,182,212,0.22);
+  }
+}
 .diagram-modal-detail .detail-item.highlight {
-  background: rgba(6,182,212,0.06);
-  border-color: rgba(6,182,212,0.2);
-  outline-style: solid;
-  outline-width: 1px;
-  animation: breathe-cyan 2s ease-in-out infinite;
+  background: rgba(6,182,212,0.08);
+  border-color: rgba(6,182,212,0.35);
+  outline: none;
+  animation: diagram-detail-breathe 2s ease-in-out infinite;
 }
 .diagram-modal-detail .detail-item.highlight .detail-desc {
   color: var(--forge-text-2);
@@ -1283,22 +1341,43 @@ code {
 }
 .diagram-modal-canvas .svg-node-zone rect,
 .diagram-modal-canvas .svg-node-zone polygon,
+.diagram-modal-canvas .svg-node-zone polyline,
+.diagram-modal-canvas .svg-node-zone line,
 .diagram-modal-canvas .svg-node-zone circle,
 .diagram-modal-canvas .svg-node-zone path,
 .diagram-modal-canvas .svg-node-zone ellipse {
-  transition: filter 0.25s, stroke 0.25s, stroke-width 0.15s;
+  transition: filter 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease;
+}
+/* Glow + stroke on shapes (filter on <g> is inconsistent across SVG engines) */
+@keyframes diagram-svg-node-breathe {
+  0%, 100% {
+    stroke: rgba(6,182,212,0.9);
+    stroke-width: 2px;
+    filter: drop-shadow(0 0 2px rgba(6,182,212,0.15));
+  }
+  50% {
+    stroke: rgba(34,211,238,1);
+    stroke-width: 3.5px;
+    filter: drop-shadow(0 0 14px rgba(6,182,212,0.55));
+  }
+}
+@keyframes diagram-svg-label-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(6,182,212,0.2)); }
+  50% { filter: drop-shadow(0 0 10px rgba(6,182,212,0.55)); }
 }
 .diagram-modal-canvas .svg-node-zone.active rect,
 .diagram-modal-canvas .svg-node-zone.active polygon,
+.diagram-modal-canvas .svg-node-zone.active polyline,
+.diagram-modal-canvas .svg-node-zone.active line,
 .diagram-modal-canvas .svg-node-zone.active circle,
 .diagram-modal-canvas .svg-node-zone.active path,
 .diagram-modal-canvas .svg-node-zone.active ellipse {
   stroke: var(--forge-cyan) !important;
-  stroke-width: 2px !important;
-  animation: node-breathe-stroke 2s ease-in-out infinite;
+  animation: diagram-svg-node-breathe 2s ease-in-out infinite;
 }
-.diagram-modal-canvas .svg-node-zone.active {
-  animation: node-breathe-glow 2s ease-in-out infinite;
+/* Series colors are preserved via animation keyframes using cyan pulse; legend lines included */
+.diagram-modal-canvas .svg-node-zone.active text {
+  animation: diagram-svg-label-glow 2s ease-in-out infinite;
 }
 
 @keyframes node-breathe-stroke {

@@ -30,27 +30,29 @@
     <text x="292" y="226" text-anchor="middle" font-size="8" fill="#708090">Apr</text>
     <text x="356" y="226" text-anchor="middle" font-size="8" fill="#708090">May</text>
 
-    <!-- Series A (cyan) -->
-    <polyline points="100,170 164,140 228,100 292,80 356,55" fill="none" stroke="#06B6D4" stroke-width="2"/>
+    <!-- Series A (cyan) — data-node ties chart + legend to showcase hover wiring -->
+    <g data-node="Series A" pointer-events="all">
+    <polyline points="100,170 164,140 228,100 292,80 356,55" fill="none" stroke="#06B6D4" stroke-width="2" pointer-events="stroke"/>
     <circle cx="100" cy="170" r="4" fill="#06B6D4"/>
     <circle cx="164" cy="140" r="4" fill="#06B6D4"/>
     <circle cx="228" cy="100" r="4" fill="#06B6D4"/>
     <circle cx="292" cy="80" r="4" fill="#06B6D4"/>
     <circle cx="356" cy="55" r="4" fill="#06B6D4"/>
+    <line x1="100" y1="240" x2="120" y2="240" stroke="#06B6D4" stroke-width="2"/>
+    <text x="125" y="244" font-size="9" fill="#F1F5F9">Series A</text>
+    </g>
 
     <!-- Series B (amber) -->
-    <polyline points="100,190 164,175 228,160 292,150 356,120" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 3"/>
+    <g data-node="Series B" pointer-events="all">
+    <polyline points="100,190 164,175 228,160 292,150 356,120" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 3" pointer-events="stroke"/>
     <circle cx="100" cy="190" r="4" fill="#F59E0B"/>
     <circle cx="164" cy="175" r="4" fill="#F59E0B"/>
     <circle cx="228" cy="160" r="4" fill="#F59E0B"/>
     <circle cx="292" cy="150" r="4" fill="#F59E0B"/>
     <circle cx="356" cy="120" r="4" fill="#F59E0B"/>
-
-    <!-- Legend -->
-    <line x1="100" y1="240" x2="120" y2="240" stroke="#06B6D4" stroke-width="2"/>
-    <text x="125" y="244" font-size="9" fill="#F1F5F9">Series A</text>
     <line x1="190" y1="240" x2="210" y2="240" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 3"/>
     <text x="215" y="244" font-size="9" fill="#F1F5F9">Series B</text>
+    </g>
   </g>
   <text x="200" y="258" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  data source or sampling period]</text>
 </svg>

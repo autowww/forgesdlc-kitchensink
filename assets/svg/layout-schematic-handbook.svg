@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="400" height="260" role="img" aria-labelledby="lt">
+  <title id="lt">Handbook / chapter style layout schematic</title>
+  <rect width="100%" height="100%" fill="#111827"/>
+  <text x="200" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#94A3B8">No unified top header bar (content starts in main)</text>
+  <g data-node="Sidebar" pointer-events="all">
+    <rect x="24" y="40" width="88" height="200" rx="4" fill="rgba(6,182,212,0.1)" stroke="rgba(6,182,212,0.5)" stroke-width="1.2"/>
+    <text x="68" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#06B6D4" font-weight="600">Sidebar</text>
+    <text x="68" y="136" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#708090">chapters</text>
+  </g>
+  <g data-node="Main article" pointer-events="all">
+    <rect x="124" y="40" width="188" height="200" rx="4" fill="rgba(245,158,11,0.08)" stroke="rgba(245,158,11,0.45)" stroke-width="1.2"/>
+    <text x="218" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#F59E0B" font-weight="600">Main article</text>
+    <text x="218" y="116" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#708090">body_html, H1 + prose</text>
+  </g>
+  <g data-node="ToC" pointer-events="all">
+    <rect x="324" y="40" width="52" height="200" rx="4" fill="rgba(16,185,129,0.08)" stroke="rgba(16,185,129,0.45)" stroke-width="1.2"/>
+    <text x="350" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#10B981" font-weight="600">ToC</text>
+    <text x="350" y="134" text-anchor="middle" font-family="system-ui,sans-serif" font-size="6" fill="#708090">right rail</text>
+  </g>
+</svg>

@@ -63,8 +63,9 @@
       title: 'Gate Chain',
       items: [
         { node: 'Stage 1', color: 'cyan',    desc: 'First activity block. Work happens here until the gate checkpoint.' },
-        { node: 'G',       color: 'amber',   desc: 'Gate checkpoint (diamond). Criteria must be met before proceeding.' },
-        { node: 'Stage 2', color: 'emerald', desc: 'Second activity block, entered only after passing the gate.' },
+        { node: 'Gate 1',  color: 'amber',   desc: 'First gate (diamond). Criteria must be met before proceeding to the next stage.' },
+        { node: 'Stage 2', color: 'emerald', desc: 'Second activity block, entered only after passing the first gate.' },
+        { node: 'Gate 2',  color: 'amber',   desc: 'Second gate checkpoint before the final stage.' },
         { node: 'Stage 3', color: 'amber',   desc: 'Final activity. The pill shape indicates successful completion.' }
       ]
     },
@@ -252,13 +253,90 @@
     heatmap: {
       title: 'Heatmap',
       items: [
-        { node: 'Col A', color: 'cyan',  desc: 'Column header. Cell intensity (opacity) maps to the value.' },
-        { node: 'Col B', color: 'cyan',  desc: 'Second column. Higher values are brighter; lower values are dimmer.' },
-        { node: 'Col C', color: 'cyan',  desc: 'Third column. The gradient legend at the bottom shows the scale.' },
-        { node: 'Row 1', color: 'amber', desc: 'Row label. Each cell shows its numeric value inside.' },
-        { node: 'Row 2', color: 'amber', desc: 'Second row. The grid pattern works for correlation matrices, coverage maps, etc.' }
+        { node: 'Row 1', color: 'cyan',  desc: 'First data row — five cells across columns A–E. Intensity (opacity) maps to the value.' },
+        { node: 'Row 2', color: 'cyan',  desc: 'Second row. Compare cells left-to-right within the row.' },
+        { node: 'Row 3', color: 'cyan',  desc: 'Third row. Brighter cells indicate higher scores in this template.' },
+        { node: 'Row 4', color: 'amber', desc: 'Fourth row. The gradient legend below shows the intensity scale.' }
       ]
     }
+  };
+
+  /** Page layout schematics (layouts.html) — same modal + hover wiring as diagrams. */
+  var LAYOUT_DETAILS = {
+    'layout-showcase': {
+      title: 'showcase_page — structure',
+      items: [
+        { node: 'Site header', color: 'cyan', desc: 'Sticky header row: brand column + breadcrumb and page title. Implemented as .site-header + two Bootstrap columns.' },
+        { node: 'Sidebar', color: 'cyan', desc: 'Left rail navigation (.forge-sidebar). Fills viewport below the header; scrolls independently.' },
+        { node: 'Main content', color: 'amber', desc: 'Primary reading column (body_html). Typically max-width ~56rem inside the main column.' },
+        { node: 'ToC', color: 'emerald', desc: 'Optional right rail (.forge-toc) when toc_html is provided; hidden or reordered on small screens.' }
+      ]
+    },
+    'layout-landing': {
+      title: 'landing_page — structure',
+      items: [
+        { node: 'Top nav', color: 'cyan', desc: 'Full-width sticky bar: brand + nav_links_html. No sidebar column.' },
+        { node: 'Hero', color: 'amber', desc: 'Centered hero region (hero_html) — headline, CTAs, illustration.' },
+        { node: 'Body', color: 'emerald', desc: 'Main prose / cards below the hero (body_html).' },
+        { node: 'Footer', color: 'cyan', desc: 'Optional footer_html after main content.' }
+      ]
+    },
+    'layout-gallery': {
+      title: 'gallery_page — structure',
+      items: [
+        { node: 'Site header', color: 'cyan', desc: 'Same showcase header pattern: title + breadcrumb in the top bar.' },
+        { node: 'Sidebar', color: 'cyan', desc: 'Same left rail as showcase; navigation only.' },
+        { node: 'Main grid', color: 'amber', desc: 'Wide content column for card grids / bento (body_html). No right ToC column by default.' }
+      ]
+    },
+    'layout-split': {
+      title: 'split_page — structure',
+      items: [
+        { node: 'Site header', color: 'cyan', desc: 'Shared showcase header above the split region.' },
+        { node: 'Sidebar', color: 'cyan', desc: 'Documentation nav, same as other showcase-family pages.' },
+        { node: 'Example panel', color: 'amber', desc: 'Left column (left_html): live demo, iframe, or component preview.' },
+        { node: 'Docs panel', color: 'emerald', desc: 'Right column (right_html): API, props, usage. Stacks above the example on narrow viewports.' }
+      ]
+    },
+    'layout-handbook': {
+      title: 'handbook_page — structure',
+      items: [
+        { node: 'Sidebar', color: 'cyan', desc: 'Server-rendered chapter list (sidebar_html). Full-height rail; no separate sticky “site header” band like showcase.' },
+        { node: 'Main article', color: 'amber', desc: 'Handbook article body (body_html) with H1 + Markdown output.' },
+        { node: 'ToC', color: 'emerald', desc: 'Right-hand section headings (toc_html / toc_sidebar_html).' }
+      ]
+    },
+    'layout-chapter': {
+      title: 'chapter_page — structure',
+      items: [
+        { node: 'Sidebar', color: 'cyan', desc: 'Same grid cell as handbook, but nav links are injected client-side (e.g. docs-nav.js) into #doc-sidebar-nav.' },
+        { node: 'Main article', color: 'amber', desc: 'Chapter content (main_sections) — methodology pages using docs-theme.css.' },
+        { node: 'ToC', color: 'emerald', desc: 'Right-rail scroll-spy ToC; pairs with chapter content anchors.' }
+      ]
+    },
+    'layout-product': {
+      title: 'product_page — structure',
+      items: [
+        { node: 'Mobile bar', color: 'cyan', desc: 'Compact sticky strip + offcanvas menu on small screens (fs-mobile-bar).' },
+        { node: 'Product sidebar', color: 'amber', desc: 'Tier-grouped product navigation (sidebar_html / nav_html) with fs-* styling.' },
+        { node: 'Article', color: 'emerald', desc: 'Main column: cross_refs_html + body_html + footer_html inside .fs-main.' }
+      ]
+    }
+  };
+
+  function getDetailData(key) {
+    return DIAGRAM_DETAILS[key] || LAYOUT_DETAILS[key];
+  }
+
+  /** Relative URLs for layouts.html modal — live HTML pages (iframe), not SVG. */
+  var LAYOUT_PREVIEW_URLS = {
+    'layout-showcase': 'tokens.html',
+    'layout-landing': 'index.html',
+    'layout-gallery': 'diagrams.html',
+    'layout-split': 'preview-split.html',
+    'layout-handbook': 'preview-handbook.html',
+    'layout-chapter': 'preview-chapter.html',
+    'layout-product': 'preview-product.html'
   };
 
   var colorMap = {
@@ -271,8 +349,125 @@
   // 3. Diagram modal  (open / close / render)
   // -----------------------------------------------------------------
 
+  function looksLikeSvgText(s) {
+    return Boolean(s && typeof s === 'string' && s.indexOf('<svg') !== -1);
+  }
+
+  /**
+   * Load raw SVG markup: XHR, then fetch, then <object> (helps some file:// cases).
+   * img-only fallback has no DOM — wireSvgHovers cannot attach.
+   */
+  function loadSvgText(url, onSuccess, onFail) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onload = function () {
+      var t = xhr.responseText;
+      if ((xhr.status === 200 || xhr.status === 0) && looksLikeSvgText(t)) {
+        onSuccess(t);
+        return;
+      }
+      tryFetch();
+    };
+    xhr.onerror = tryFetch;
+
+    function tryFetch() {
+      if (typeof fetch === 'undefined') {
+        tryObjectEmbed();
+        return;
+      }
+      fetch(url, { cache: 'no-store' })
+        .then(function (r) {
+          return r.ok ? r.text() : Promise.reject(new Error('fetch not ok'));
+        })
+        .then(function (t) {
+          if (looksLikeSvgText(t)) onSuccess(t);
+          else tryObjectEmbed();
+        })
+        .catch(function () {
+          tryObjectEmbed();
+        });
+    }
+
+    var objTimer;
+    function tryObjectEmbed() {
+      var obj = document.createElement('object');
+      obj.type = 'image/svg+xml';
+      obj.data = url;
+      obj.setAttribute('aria-hidden', 'true');
+      obj.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none';
+      objTimer = setTimeout(function () {
+        cleanup();
+        onFail();
+      }, 5000);
+      function cleanup() {
+        clearTimeout(objTimer);
+        if (obj.parentNode) obj.parentNode.removeChild(obj);
+      }
+      obj.onload = function () {
+        setTimeout(function () {
+          try {
+            var doc = obj.contentDocument;
+            var svgEl = doc && doc.querySelector('svg');
+            if (svgEl) {
+              cleanup();
+              onSuccess(svgEl.outerHTML);
+              return;
+            }
+          } catch (e) {}
+          cleanup();
+          onFail();
+        }, 0);
+      };
+      obj.onerror = function () {
+        cleanup();
+        onFail();
+      };
+      document.body.appendChild(obj);
+    }
+
+    try {
+      xhr.send();
+    } catch (e) {
+      tryFetch();
+    }
+  }
+
+  /**
+   * Open layout documentation modal with an embedded example page (iframe).
+   * Used from layouts.html; diagrams still use openDiagramWithDetail + SVG.
+   */
+  window.openLayoutPreview = function (key) {
+    var url = LAYOUT_PREVIEW_URLS[key];
+    var canvas = document.getElementById('diagramModalCanvas');
+    var detail = document.getElementById('diagramModalDetail');
+    var titleEl = document.getElementById('diagramModalTitle');
+    var modal = document.getElementById('diagramModal');
+    if (!canvas || !modal) return;
+
+    var data = getDetailData(key);
+    if (detail) detail.innerHTML = renderDetailPanel(key);
+    if (titleEl && data) titleEl.textContent = data.title;
+
+    canvas.innerHTML = '';
+    if (!url) {
+      canvas.innerHTML =
+        '<p class="forge-support p-3 mb-0">No live preview URL is configured for this layout.</p>';
+    } else {
+      var iframe = document.createElement('iframe');
+      iframe.className = 'layout-preview-iframe';
+      iframe.setAttribute('title', data ? data.title : 'Layout preview');
+      iframe.setAttribute('loading', 'lazy');
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.src = url;
+      canvas.appendChild(iframe);
+    }
+    diagramModalHover.clear();
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
   function renderDetailPanel(key) {
-    var data = DIAGRAM_DETAILS[key];
+    var data = getDetailData(key);
     if (!data) return '';
     var html = '<p class="detail-title">' + data.title + '</p>';
     for (var i = 0; i < data.items.length; i++) {
@@ -295,7 +490,10 @@
     if (!canvas) return;
 
     if (detail) detail.innerHTML = renderDetailPanel(key);
-    if (title && DIAGRAM_DETAILS[key]) title.textContent = DIAGRAM_DETAILS[key].title;
+    if (title && getDetailData(key)) title.textContent = getDetailData(key).title;
+
+    /* Bind once; must run after diagrams page has #diagramModalDetail in DOM. */
+    ensureDiagramModalDetailHover();
 
     document.getElementById('diagramModal').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -308,38 +506,52 @@
         svg.removeAttribute('height');
         svg.style.width = '100%';
         svg.style.height = 'auto';
-        svg.style.minHeight = '40vh';
+        svg.style.maxHeight = '100%';
       }
       wireSvgHovers(canvas, detail, key);
     }
 
+    function showStaticHint() {
+      var existing = canvas.querySelector('.diagram-modal-static-hint');
+      if (existing) return;
+      var hint = document.createElement('div');
+      hint.className = 'diagram-modal-static-hint';
+      hint.setAttribute('role', 'status');
+      hint.innerHTML =
+        '<strong>Static image only</strong> — hover highlights need inline SVG. ' +
+        'Opening as <code>file://</code> usually blocks loading the SVG file. ' +
+        'Run a local server from the <code>showcase</code> folder, e.g. ' +
+        '<code>python3 -m http.server 8080</code>, then open ' +
+        '<code>http://localhost:8080/diagrams.html</code>.';
+      canvas.insertBefore(hint, canvas.firstChild);
+    }
+
     function showImgFallback() {
+      canvas.innerHTML = '';
+      showStaticHint();
       var clone = img.cloneNode(true);
       clone.style.width = '100%';
+      clone.style.maxWidth = '100%';
       clone.style.height = 'auto';
-      clone.style.minHeight = '40vh';
+      clone.style.maxHeight = 'min(52vh, 480px)';
       clone.style.objectFit = 'contain';
-      canvas.innerHTML = '';
       canvas.appendChild(clone);
     }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', img.src, true);
-    xhr.onload = function () {
-      if (xhr.status === 200 || xhr.status === 0) {
-        inlineSvg(xhr.responseText);
-      } else {
-        showImgFallback();
-      }
-    };
-    xhr.onerror = function () { showImgFallback(); };
-    try { xhr.send(); } catch (e) { showImgFallback(); }
+    loadSvgText(img.src, inlineSvg, showImgFallback);
   };
 
   window.closeDiagramModal = function () {
     var modal = document.getElementById('diagramModal');
     if (modal) modal.classList.remove('active');
     document.body.style.overflow = '';
+    diagramModalHover.clear();
+    var canvas = document.getElementById('diagramModalCanvas');
+    if (canvas) {
+      var iframe = canvas.querySelector('iframe.layout-preview-iframe');
+      if (iframe) iframe.src = 'about:blank';
+      canvas.innerHTML = '';
+    }
   };
 
   // Close on backdrop click
@@ -362,6 +574,15 @@
     var items = detailRoot.querySelectorAll('.detail-item');
     for (var i = 0; i < items.length; i++) {
       if (items[i].getAttribute('data-node') === nodeName) return items[i];
+    }
+    return null;
+  }
+
+  function findElementByDataNode(svg, nodeName) {
+    var els = svg.querySelectorAll('[data-node]');
+    var i;
+    for (i = 0; i < els.length; i++) {
+      if (els[i].getAttribute('data-node') === nodeName) return els[i];
     }
     return null;
   }
@@ -422,6 +643,21 @@
       }
       bbox = { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
       if (bbox.w < 8 || bbox.h < 8) return null;
+    } else if (s.tagName === 'polyline') {
+      var pts2 = s.getAttribute('points');
+      if (!pts2) return null;
+      var coords2 = pts2.trim().split(/[\s,]+/).map(Number);
+      var pminX = Infinity; var pminY = Infinity; var pmaxX = -Infinity; var pmaxY = -Infinity;
+      var k;
+      for (k = 0; k < coords2.length; k += 2) {
+        if (coords2[k] < pminX) pminX = coords2[k];
+        if (coords2[k] > pmaxX) pmaxX = coords2[k];
+        if (coords2[k + 1] < pminY) pminY = coords2[k + 1];
+        if (coords2[k + 1] > pmaxY) pmaxY = coords2[k + 1];
+      }
+      bbox = { x: pminX, y: pminY, w: pmaxX - pminX, h: pmaxY - pminY };
+      if (bbox.w < 8) bbox.w = 8;
+      if (bbox.h < 8) bbox.h = 8;
     } else if (s.tagName === 'circle') {
       var ccx = parseFloat(s.getAttribute('cx') || 0);
       var ccy = parseFloat(s.getAttribute('cy') || 0);
@@ -435,6 +671,22 @@
       var ery = parseFloat(s.getAttribute('ry') || 0);
       if (erx < 4 || ery < 4) return null;
       bbox = { x: ex - erx, y: ey - ery, w: erx * 2, h: ery * 2 };
+    } else if (s.tagName === 'line') {
+      var lx1 = parseFloat(s.getAttribute('x1') || 0);
+      var ly1 = parseFloat(s.getAttribute('y1') || 0);
+      var lx2 = parseFloat(s.getAttribute('x2') || 0);
+      var ly2 = parseFloat(s.getAttribute('y2') || 0);
+      var lminX = Math.min(lx1, lx2);
+      var lmaxX = Math.max(lx1, lx2);
+      var lminY = Math.min(ly1, ly2);
+      var lmaxY = Math.max(ly1, ly2);
+      var sw = parseFloat(s.getAttribute('stroke-width') || 2);
+      bbox = {
+        x: lminX - sw,
+        y: lminY - sw,
+        w: Math.max(lmaxX - lminX + sw * 2, 8),
+        h: Math.max(lmaxY - lminY + sw * 2, 8)
+      };
     } else if (s.tagName === 'path') {
       try {
         var pb = s.getBBox();
@@ -464,17 +716,104 @@
     return null;
   }
 
+  /**
+   * Single source of truth for diagram modal SVG ↔ detail highlight.
+   * (Per-invocation closures in wireSvgHovers broke after reopening the modal.)
+   */
+  var diagramModalHover = {
+    activeZone: null,
+    clear: function () {
+      var z = this.activeZone;
+      if (!z) return;
+      try {
+        z.classList.remove('active');
+      } catch (e) {}
+      var detail = document.getElementById('diagramModalDetail');
+      var node = z.getAttribute('data-node');
+      if (detail && node) {
+        var di = findDetailItem(detail, node);
+        if (di) di.classList.remove('highlight');
+      }
+      this.activeZone = null;
+    },
+    set: function (zone) {
+      if (!zone) return;
+      if (this.activeZone === zone) return;
+      this.clear();
+      this.activeZone = zone;
+      zone.classList.add('active');
+      var detail = document.getElementById('diagramModalDetail');
+      var node = zone.getAttribute('data-node');
+      if (detail && node) {
+        var di = findDetailItem(detail, node);
+        if (di) {
+          di.classList.add('highlight');
+          di.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+      }
+    }
+  };
+
+  /**
+   * Detail panel → SVG zone (one delegation; guard so we never stack listeners).
+   * Also invoked from openDiagramWithDetail so binding always happens after modal markup exists.
+   */
+  function ensureDiagramModalDetailHover() {
+    var detail = document.getElementById('diagramModalDetail');
+    if (!detail || detail.getAttribute('data-forge-detail-hover') === '1') return;
+    detail.setAttribute('data-forge-detail-hover', '1');
+
+    detail.addEventListener('mouseover', function (ev) {
+      var modal = document.getElementById('diagramModal');
+      if (!modal || !modal.classList.contains('active')) return;
+      var item = ev.target.closest ? ev.target.closest('.detail-item') : null;
+      if (!item) return;
+      var canvas = document.getElementById('diagramModalCanvas');
+      if (!canvas) return;
+      var zone = findZoneByNodeName(canvas, item.getAttribute('data-node'));
+      if (zone) diagramModalHover.set(zone);
+    });
+
+    detail.addEventListener('mouseout', function (ev) {
+      var modal = document.getElementById('diagramModal');
+      if (!modal || !modal.classList.contains('active')) return;
+      var item = ev.target.closest ? ev.target.closest('.detail-item') : null;
+      if (!item) return;
+      var rel = ev.relatedTarget;
+      if (rel && item.contains(rel)) return;
+      var canvas = document.getElementById('diagramModalCanvas');
+      if (!canvas) return;
+      var zone = findZoneByNodeName(canvas, item.getAttribute('data-node'));
+      if (zone && diagramModalHover.activeZone === zone) diagramModalHover.clear();
+    });
+  }
+
   function wireSvgHovers(canvas, detail, key) {
-    var data = DIAGRAM_DETAILS[key];
+    var data = getDetailData(key);
     if (!data || !canvas || !detail) return;
 
     var nodeNames = data.items.map(function (it) { return it.node; });
     var svg = canvas.querySelector('svg');
     if (!svg) return;
 
-    var allShapes = Array.from(svg.querySelectorAll('rect, polygon, circle, ellipse, path'));
+    var allShapes = Array.from(
+      svg.querySelectorAll('rect, polygon, polyline, line, circle, ellipse, path')
+    );
 
     nodeNames.forEach(function (nodeName) {
+      /* Explicit grouping in SVG (e.g. line/area series): <g data-node="Series A">…</g> */
+      var explicit = findElementByDataNode(svg, nodeName);
+      if (explicit && explicit.tagName.toLowerCase() === 'g') {
+        if (explicit.classList) {
+          explicit.classList.add('svg-node-zone');
+        } else {
+          explicit.setAttribute('class', 'svg-node-zone');
+        }
+        explicit.setAttribute('data-node', nodeName);
+        explicit.setAttribute('pointer-events', 'all');
+        return;
+      }
+
       var matchEl = findLabelElement(svg, nodeName);
       if (!matchEl) return;
       /* Prefer the owning <text> so we move the whole label block (tspan lives under text). */
@@ -523,62 +862,33 @@
     });
 
     /* -----------------------------------------------------------------
-     * Hover wiring: do NOT use mouseenter/mouseleave on <g> — many
-     * browsers never fire them on SVG groups. Use mouseover/mouseout on
-     * the root <svg> (bubbling) so rect/text/path receive hits.
+     * Hover wiring:
+     * - Do NOT rely on mouseover + target.closest('.svg-node-zone') on
+     *   the root <svg> — many browsers do not implement Element.closest
+     *   correctly for SVG sub-elements, so the zone is never found.
+     * - Bubbling mouseover/mouseout on each zone <g> (pointer-events=all) with
+     *   relatedTarget checks — avoids per-shape pointer bugs in SVG engines.
      * ----------------------------------------------------------------- */
-    var activeZone = null;
 
-    function clearSvgActive() {
-      if (!activeZone) return;
-      activeZone.classList.remove('active');
-      var node = activeZone.getAttribute('data-node');
-      var di = findDetailItem(detail, node);
-      if (di) di.classList.remove('highlight');
-      activeZone = null;
+    function bindZoneHover(zone) {
+      zone.addEventListener('mouseover', function (e) {
+        var rel = e.relatedTarget;
+        if (rel && zone.contains(rel)) return;
+        diagramModalHover.set(zone);
+      });
+      zone.addEventListener('mouseout', function (e) {
+        var rel = e.relatedTarget;
+        if (rel && zone.contains(rel)) return;
+        if (diagramModalHover.activeZone === zone) diagramModalHover.clear();
+      });
     }
 
-    function setSvgActive(zone) {
-      if (activeZone === zone) return;
-      clearSvgActive();
-      activeZone = zone;
-      zone.classList.add('active');
-      var di = findDetailItem(detail, zone.getAttribute('data-node'));
-      if (di) {
-        di.classList.add('highlight');
-        di.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      }
+    var allZones = canvas.querySelectorAll('.svg-node-zone');
+    var zi;
+    for (zi = 0; zi < allZones.length; zi++) {
+      bindZoneHover(allZones[zi]);
     }
-
-    svg.addEventListener('mouseover', function (ev) {
-      var z = ev.target.closest ? ev.target.closest('.svg-node-zone') : closestSvgNodeZone(ev.target, svg);
-      if (z) setSvgActive(z);
-    });
-
-    svg.addEventListener('mouseout', function (ev) {
-      var z = ev.target.closest ? ev.target.closest('.svg-node-zone') : closestSvgNodeZone(ev.target, svg);
-      if (!z) return;
-      var rel = ev.relatedTarget;
-      if (rel && z.contains(rel)) return;
-      if (activeZone === z) clearSvgActive();
-    });
-
-    detail.addEventListener('mouseover', function (ev) {
-      var item = ev.target.closest ? ev.target.closest('.detail-item') : null;
-      if (!item) return;
-      var nodeName = item.getAttribute('data-node');
-      var zone = findZoneByNodeName(canvas, nodeName);
-      if (zone) setSvgActive(zone);
-    });
-
-    detail.addEventListener('mouseout', function (ev) {
-      var item = ev.target.closest ? ev.target.closest('.detail-item') : null;
-      if (!item) return;
-      var rel = ev.relatedTarget;
-      if (rel && item.contains(rel)) return;
-      var nodeName = item.getAttribute('data-node');
-      var zone = findZoneByNodeName(canvas, nodeName);
-      if (activeZone === zone) clearSvgActive();
-    });
   }
+
+  ensureDiagramModalDetailHover();
 })();

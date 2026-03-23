@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="400" height="260" role="img" aria-labelledby="lt">
+  <title id="lt">gallery_page layout schematic</title>
+  <rect width="100%" height="100%" fill="#111827"/>
+  <text x="200" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#94A3B8">Same shell as showcase, no right ToC column</text>
+  <g data-node="Site header" pointer-events="all">
+    <rect x="24" y="36" width="352" height="44" rx="4" fill="rgba(6,182,212,0.12)" stroke="rgba(6,182,212,0.55)" stroke-width="1.5"/>
+    <text x="200" y="62" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#06B6D4" font-weight="600">Site header</text>
+    <text x="200" y="74" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#708090">breadcrumb, H1</text>
+  </g>
+  <g data-node="Sidebar" pointer-events="all">
+    <rect x="24" y="92" width="72" height="148" rx="4" fill="rgba(6,182,212,0.08)" stroke="rgba(6,182,212,0.4)" stroke-width="1.2"/>
+    <text x="60" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#06B6D4" font-weight="600">Sidebar</text>
+  </g>
+  <g data-node="Main grid" pointer-events="all">
+    <rect x="108" y="92" width="268" height="148" rx="4" fill="rgba(245,158,11,0.08)" stroke="rgba(245,158,11,0.45)" stroke-width="1.2"/>
+    <text x="242" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#F59E0B" font-weight="600">Main / card grid</text>
+    <text x="242" y="134" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#708090">body_html, bento / gallery cards</text>
+    <g stroke="#334155" stroke-width="0.8" opacity="0.8">
+      <rect x="124" y="148" width="72" height="44" rx="2" fill="rgba(30,41,59,0.5)"/>
+      <rect x="206" y="148" width="72" height="44" rx="2" fill="rgba(30,41,59,0.5)"/>
+      <rect x="288" y="148" width="72" height="44" rx="2" fill="rgba(30,41,59,0.5)"/>
+    </g>
+  </g>
+</svg>

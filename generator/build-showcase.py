@@ -27,6 +27,7 @@ sys.path.insert(0, str(REPO_ROOT / "components"))
 sys.path.insert(0, str(REPO_ROOT / "generator"))
 
 from components import e  # noqa: E402
+from layout_previews import write_layout_preview_pages  # noqa: E402
 from layouts import (  # noqa: E402
     gallery_page,
     landing_page,
@@ -215,7 +216,8 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
     )
 
     if layout == "gallery":
-        return gallery_page(body_html=body, **common)
+        toc = _build_toc(page)
+        return gallery_page(body_html=body, toc_html=toc, **common)
     elif layout == "split":
         left = body
         right = "<p class='forge-support'>Documentation panel</p>"
@@ -288,7 +290,16 @@ def main():
         (OUTPUT_DIR / filename).write_text(html, encoding="utf-8")
         print(f"  ✓ {filename}")
 
-    print(f"[showcase] Done — {len(pages)} pages written to {OUTPUT_DIR}/")
+    write_layout_preview_pages(OUTPUT_DIR)
+    for name in (
+        "preview-split.html",
+        "preview-handbook.html",
+        "preview-chapter.html",
+        "preview-product.html",
+    ):
+        print(f"  ✓ {name}")
+
+    print(f"[showcase] Done — {len(pages)} pages + layout previews written to {OUTPUT_DIR}/")
 
 
 if __name__ == "__main__":

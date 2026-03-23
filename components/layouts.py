@@ -701,13 +701,14 @@ def gallery_page(
     sidebar_html: str,
     offcanvas_html: str = "",
     body_html: str,
+    toc_html: str = "",
     footer_html: str = "",
     extra_css: str = "",
     extra_js: list[str] | None = None,
     theme_css_href: str = "assets/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
 ) -> str:
-    """Gallery page: sidebar + full-width card grid (no right-rail ToC)."""
+    """Gallery page: sidebar + full-width card grid; optional right-rail ToC like showcase_page."""
     return showcase_page(
         browser_title=browser_title,
         brand_name=brand_name,
@@ -717,7 +718,7 @@ def gallery_page(
         sidebar_html=sidebar_html,
         offcanvas_html=offcanvas_html,
         body_html=body_html,
-        toc_html="",
+        toc_html=toc_html,
         footer_html=footer_html,
         extra_css=extra_css,
         extra_js=extra_js,
