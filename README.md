@@ -9,7 +9,20 @@ Shared design system for ForgeSDLC documentation sites.
 | `css/` | Theme stylesheets — `forge-theme.css` (blueprints), `forgesdlc-theme.css` (forgesdlc.com), `docs-theme.css` (shared docs) |
 | `js/` | Client-side scripts — navigation, portal, theme logic |
 | `components/` | Python UI component library — atomic HTML renderers, page layouts, HTML transforms |
-| `assets/svg/` | Shared SVG diagrams (methodology flows, architecture visuals) |
+| `assets/svg/` | Diagram **type templates** only (Forge palette); content diagrams live in each project |
+| `generator/` | Builds the Kitchen Sink **showcase** mini-site into `showcase/` (gitignored) |
+
+## Kitchen Sink showcase
+
+From the repo root:
+
+```bash
+python3 generator/build-showcase.py
+```
+
+Open `index.html` in a browser (it redirects to `showcase/index.html`). For reliable diagram previews and modals, serve over HTTP, e.g. `python3 -m http.server` then visit `http://localhost:8000/showcase/index.html`.
+
+The legacy `test.html` is a redirect to the same entry point.
 
 ## Usage as submodule
 

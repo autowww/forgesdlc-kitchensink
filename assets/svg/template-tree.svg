@@ -4,7 +4,7 @@
   <desc id="desc">Root node branching into children and grandchildren</desc>
   <rect width="100%" height="100%" fill="#111827"/>
   <g font-family="system-ui, Segoe UI, sans-serif">
-    <text x="240" y="22" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  hierarchy]</text>
+    <text x="240" y="22" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  -  hierarchy]</text>
 
     <!-- Root -->
     <rect x="170" y="38" width="140" height="36" rx="4" fill="#111827" stroke="#06B6D4" stroke-width="2"/>
@@ -57,5 +57,5 @@
     <rect x="370" y="156" width="60" height="28" rx="2" fill="#111827" stroke="#1f2937"/>
     <text x="400" y="174" text-anchor="middle" font-size="9" fill="#F1F5F9">[Leaf 5]</text>
   </g>
-  <text x="240" y="210" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  nesting or ownership description]</text>
+  <text x="240" y="210" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  -  nesting or ownership description]</text>
 </svg>

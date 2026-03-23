@@ -4,7 +4,7 @@
   <desc id="desc">Stages separated by diamond-shaped gate checkpoints</desc>
   <rect width="100%" height="100%" fill="#111827"/>
   <g font-family="system-ui, Segoe UI, sans-serif">
-    <text x="350" y="16" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  gated process]</text>
+    <text x="350" y="16" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  -  gated process]</text>
 
     <!-- Stage 1 -->
     <rect x="10" y="30" width="120" height="48" rx="4" fill="#2c5282"/>
@@ -31,7 +31,7 @@
 
     <!-- Final marker -->
     <rect x="630" y="38" width="40" height="32" rx="16" fill="#553c9a"/>
-    <text x="650" y="58" text-anchor="middle" fill="#fff" font-weight="700" font-size="10"></text>
+    <text x="650" y="58" text-anchor="middle" fill="#fff" font-weight="700" font-size="10">&#10003;</text>
   </g>
 
   <g stroke="#0e7490" stroke-width="1.5" fill="none">
@@ -49,5 +49,5 @@
     <polygon points="630,54 624,50 624,58"/>
   </g>
 
-  <text x="350" y="92" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  gate criteria or escalation policy]</text>
+  <text x="350" y="92" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  -  gate criteria or escalation policy]</text>
 </svg>
