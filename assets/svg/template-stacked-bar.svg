@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 290" width="400" height="290" role="img" aria-labelledby="title desc">
+  <title id="title">Stacked bar chart template</title>
+  <desc id="desc">Bars subdivided into colored segments showing composition</desc>
+  <rect width="100%" height="100%" fill="none"/>
+  <g font-family="system-ui, Segoe UI, sans-serif">
+    <text x="200" y="18" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  composition breakdown]</text>
+
+    <!-- Y-axis -->
+    <line x1="70" y1="36" x2="70" y2="230" stroke="#334155" stroke-width="1.5"/>
+    <text x="58" y="48" text-anchor="end" font-size="8" fill="#708090">100</text>
+    <text x="58" y="96" text-anchor="end" font-size="8" fill="#708090">75</text>
+    <text x="58" y="146" text-anchor="end" font-size="8" fill="#708090">50</text>
+    <text x="58" y="194" text-anchor="end" font-size="8" fill="#708090">25</text>
+    <text x="58" y="234" text-anchor="end" font-size="8" fill="#708090">0</text>
+
+    <!-- X-axis -->
+    <line x1="70" y1="230" x2="370" y2="230" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Bar 1: segments bottom to top -->
+    <rect x="90" y="160" width="50" height="70" rx="0" fill="#3d5a80"/>
+    <rect x="90" y="100" width="50" height="60" rx="0" fill="#285e61"/>
+    <rect x="90" y="60" width="50" height="40" rx="0" fill="#744210"/>
+    <text x="115" y="246" text-anchor="middle" font-size="9" fill="#708090">Group A</text>
+
+    <!-- Bar 2 -->
+    <rect x="160" y="140" width="50" height="90" rx="0" fill="#3d5a80"/>
+    <rect x="160" y="90" width="50" height="50" rx="0" fill="#285e61"/>
+    <rect x="160" y="50" width="50" height="40" rx="0" fill="#744210"/>
+    <text x="185" y="246" text-anchor="middle" font-size="9" fill="#708090">Group B</text>
+
+    <!-- Bar 3 -->
+    <rect x="230" y="170" width="50" height="60" rx="0" fill="#3d5a80"/>
+    <rect x="230" y="120" width="50" height="50" rx="0" fill="#285e61"/>
+    <rect x="230" y="80" width="50" height="40" rx="0" fill="#744210"/>
+    <text x="255" y="246" text-anchor="middle" font-size="9" fill="#708090">Group C</text>
+
+    <!-- Bar 4 -->
+    <rect x="300" y="180" width="50" height="50" rx="0" fill="#3d5a80"/>
+    <rect x="300" y="130" width="50" height="50" rx="0" fill="#285e61"/>
+    <rect x="300" y="70" width="50" height="60" rx="0" fill="#744210"/>
+    <text x="325" y="246" text-anchor="middle" font-size="9" fill="#708090">Group D</text>
+
+    <!-- Legend -->
+    <rect x="90" y="260" width="10" height="10" rx="1" fill="#3d5a80"/>
+    <text x="106" y="270" font-size="9" fill="#F1F5F9">Layer A</text>
+    <rect x="170" y="260" width="10" height="10" rx="1" fill="#285e61"/>
+    <text x="186" y="270" font-size="9" fill="#F1F5F9">Layer B</text>
+    <rect x="250" y="260" width="10" height="10" rx="1" fill="#744210"/>
+    <text x="266" y="270" font-size="9" fill="#F1F5F9">Layer C</text>
+  </g>
+  <text x="200" y="286" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  allocation basis or budget period]</text>
+</svg>

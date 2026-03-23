@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" width="360" height="300" role="img" aria-labelledby="title desc">
+  <title id="title">Pie / donut chart template</title>
+  <desc id="desc">Segmented ring showing proportional breakdown</desc>
+  <rect width="100%" height="100%" fill="none"/>
+  <g font-family="system-ui, Segoe UI, sans-serif">
+    <text x="180" y="18" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  proportional breakdown]</text>
+
+    <!-- Donut segments (stroke-dasharray technique) -->
+    <!-- Total circumference = 2*pi*70 H 440 -->
+    <!-- Segment A: 35% = 154 -->
+    <circle cx="180" cy="140" r="70" fill="none" stroke="#3d5a80" stroke-width="36"
+            stroke-dasharray="154 286" stroke-dashoffset="0" transform="rotate(-90 180 140)"/>
+    <!-- Segment B: 25% = 110 -->
+    <circle cx="180" cy="140" r="70" fill="none" stroke="#2c5282" stroke-width="36"
+            stroke-dasharray="110 330" stroke-dashoffset="-154" transform="rotate(-90 180 140)"/>
+    <!-- Segment C: 22% = 97 -->
+    <circle cx="180" cy="140" r="70" fill="none" stroke="#285e61" stroke-width="36"
+            stroke-dasharray="97 343" stroke-dashoffset="-264" transform="rotate(-90 180 140)"/>
+    <!-- Segment D: 18% = 79 -->
+    <circle cx="180" cy="140" r="70" fill="none" stroke="#744210" stroke-width="36"
+            stroke-dasharray="79 361" stroke-dashoffset="-361" transform="rotate(-90 180 140)"/>
+
+    <!-- Center label -->
+    <circle cx="180" cy="140" r="42" fill="#111827"/>
+    <text x="180" y="136" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="16">100%</text>
+    <text x="180" y="152" text-anchor="middle" fill="#708090" font-size="9">[total]</text>
+
+    <!-- Legend -->
+    <rect x="60" y="232" width="12" height="12" rx="2" fill="#3d5a80"/>
+    <text x="78" y="243" font-size="10" fill="#F1F5F9">Slice A  <tspan fill="#708090">35%</tspan></text>
+
+    <rect x="60" y="252" width="12" height="12" rx="2" fill="#2c5282"/>
+    <text x="78" y="263" font-size="10" fill="#F1F5F9">Slice B  <tspan fill="#708090">25%</tspan></text>
+
+    <rect x="200" y="232" width="12" height="12" rx="2" fill="#285e61"/>
+    <text x="218" y="243" font-size="10" fill="#F1F5F9">Slice C  <tspan fill="#708090">22%</tspan></text>
+
+    <rect x="200" y="252" width="12" height="12" rx="2" fill="#744210"/>
+    <text x="218" y="263" font-size="10" fill="#F1F5F9">Slice D  <tspan fill="#708090">18%</tspan></text>
+  </g>
+  <text x="180" y="290" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  measurement basis or period]</text>
+</svg>

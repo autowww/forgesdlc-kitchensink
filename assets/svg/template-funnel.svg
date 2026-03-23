@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-labelledby="title desc">
+  <title id="title">Funnel template</title>
+  <desc id="desc">Top-wide to bottom-narrow stages showing volume reduction</desc>
+  <rect width="100%" height="100%" fill="none"/>
+  <g font-family="system-ui, Segoe UI, sans-serif">
+    <text x="200" y="18" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  conversion funnel]</text>
+
+    <!-- Stage 1 (widest) -->
+    <polygon points="40,36 360,36 340,92 60,92" fill="#3d5a80"/>
+    <text x="200" y="60" text-anchor="middle" fill="#fff" font-weight="700" font-size="12">Stage 1</text>
+    <text x="200" y="78" text-anchor="middle" fill="#fff" font-size="9">[100%]</text>
+
+    <!-- Stage 2 -->
+    <polygon points="60,98 340,98 310,154 90,154" fill="#2c5282"/>
+    <text x="200" y="122" text-anchor="middle" fill="#fff" font-weight="700" font-size="12">Stage 2</text>
+    <text x="200" y="140" text-anchor="middle" fill="#fff" font-size="9">[65%]</text>
+
+    <!-- Stage 3 -->
+    <polygon points="90,160 310,160 270,216 130,216" fill="#285e61"/>
+    <text x="200" y="184" text-anchor="middle" fill="#fff" font-weight="700" font-size="12">Stage 3</text>
+    <text x="200" y="202" text-anchor="middle" fill="#fff" font-size="9">[30%]</text>
+
+    <!-- Stage 4 (narrowest) -->
+    <polygon points="130,222 270,222 240,268 160,268" fill="#744210"/>
+    <text x="200" y="242" text-anchor="middle" fill="#fff" font-weight="700" font-size="12">Stage 4</text>
+    <text x="200" y="258" text-anchor="middle" fill="#fff" font-size="9">[12%]</text>
+  </g>
+  <text x="200" y="292" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  drop-off rates or conversion metrics]</text>
+</svg>

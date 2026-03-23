@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-labelledby="title desc">
+  <title id="title">Scatter plot template</title>
+  <desc id="desc">Dots plotted on x/y axes showing correlation or distribution</desc>
+  <rect width="100%" height="100%" fill="none"/>
+  <g font-family="system-ui, Segoe UI, sans-serif">
+    <text x="200" y="18" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  correlation plot]</text>
+
+    <!-- Y-axis -->
+    <line x1="60" y1="36" x2="60" y2="240" stroke="#334155" stroke-width="1.5"/>
+    <text x="50" y="48" text-anchor="end" font-size="8" fill="#708090">[high]</text>
+    <text x="50" y="142" text-anchor="end" font-size="8" fill="#708090">[mid]</text>
+    <text x="50" y="244" text-anchor="end" font-size="8" fill="#708090">[low]</text>
+    <text x="30" y="142" text-anchor="middle" font-size="9" fill="#708090" transform="rotate(-90 30 142)">[Y axis]</text>
+
+    <!-- Grid -->
+    <g stroke="#1f2937" stroke-width="0.5">
+      <line x1="60" y1="88" x2="380" y2="88"/>
+      <line x1="60" y1="140" x2="380" y2="140"/>
+      <line x1="60" y1="192" x2="380" y2="192"/>
+    </g>
+
+    <!-- X-axis -->
+    <line x1="60" y1="240" x2="380" y2="240" stroke="#334155" stroke-width="1.5"/>
+    <text x="60" y="256" font-size="8" fill="#708090">[low]</text>
+    <text x="220" y="256" text-anchor="middle" font-size="8" fill="#708090">[mid]</text>
+    <text x="380" y="256" text-anchor="end" font-size="8" fill="#708090">[high]</text>
+    <text x="220" y="272" text-anchor="middle" font-size="9" fill="#708090">[X axis]</text>
+
+    <!-- Group A dots (cyan) -->
+    <circle cx="100" cy="180" r="6" fill="rgba(6,182,212,0.6)" stroke="#06B6D4" stroke-width="1"/>
+    <circle cx="140" cy="160" r="8" fill="rgba(6,182,212,0.6)" stroke="#06B6D4" stroke-width="1"/>
+    <circle cx="180" cy="130" r="5" fill="rgba(6,182,212,0.6)" stroke="#06B6D4" stroke-width="1"/>
+    <circle cx="220" cy="110" r="7" fill="rgba(6,182,212,0.6)" stroke="#06B6D4" stroke-width="1"/>
+    <circle cx="270" cy="80" r="6" fill="rgba(6,182,212,0.6)" stroke="#06B6D4" stroke-width="1"/>
+    <circle cx="310" cy="60" r="9" fill="rgba(6,182,212,0.6)" stroke="#06B6D4" stroke-width="1"/>
+    <circle cx="350" cy="50" r="5" fill="rgba(6,182,212,0.6)" stroke="#06B6D4" stroke-width="1"/>
+
+    <!-- Group B dots (amber) -->
+    <circle cx="90" cy="210" r="7" fill="rgba(245,158,11,0.5)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="150" cy="200" r="5" fill="rgba(245,158,11,0.5)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="200" cy="170" r="8" fill="rgba(245,158,11,0.5)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="250" cy="150" r="6" fill="rgba(245,158,11,0.5)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="300" cy="130" r="5" fill="rgba(245,158,11,0.5)" stroke="#F59E0B" stroke-width="1"/>
+    <circle cx="340" cy="100" r="7" fill="rgba(245,158,11,0.5)" stroke="#F59E0B" stroke-width="1"/>
+
+    <!-- Legend -->
+    <circle cx="110" cy="286" r="4" fill="rgba(6,182,212,0.6)" stroke="#06B6D4" stroke-width="1"/>
+    <text x="120" y="290" font-size="9" fill="#F1F5F9">Group A</text>
+    <circle cx="200" cy="286" r="4" fill="rgba(245,158,11,0.5)" stroke="#F59E0B" stroke-width="1"/>
+    <text x="210" y="290" font-size="9" fill="#F1F5F9">Group B</text>
+  </g>
+</svg>

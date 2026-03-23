@@ -42,29 +42,44 @@
     .ks-thumb svg, .ks-thumb img { width: 100%; height: auto; }
     .diagram-modal-canvas .svg-node-zone { cursor: pointer; }
     .diagram-modal-canvas .svg-node-zone rect,
-    .diagram-modal-canvas .svg-node-zone polygon {
+    .diagram-modal-canvas .svg-node-zone polygon,
+    .diagram-modal-canvas .svg-node-zone circle {
       transition: filter 0.25s, stroke 0.25s, stroke-width 0.15s;
     }
     .diagram-modal-canvas .svg-node-zone.active rect,
-    .diagram-modal-canvas .svg-node-zone.active polygon {
+    .diagram-modal-canvas .svg-node-zone.active polygon,
+    .diagram-modal-canvas .svg-node-zone.active circle {
       stroke: var(--forge-cyan) !important;
       animation: node-breathe-stroke 2s ease-in-out infinite;
     }
     .diagram-modal-canvas .svg-node-zone.active {
       animation: node-breathe-glow 2s ease-in-out infinite;
     }
+    :root { --site-header-h: auto; }
     .doc-main { position: relative; }
-    .doc-header {
+    .site-header {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
       background: var(--forge-bg);
       border-bottom: 1px solid var(--forge-border);
-      padding: 1rem 0 0.75rem;
-      margin-bottom: 1.5rem;
     }
-    .ks-section[id] { scroll-margin-top: 8rem; }
-    .forge-toc { top: 8rem; }
+    .site-header-brand {
+      border-right: 1px solid var(--forge-border);
+      background: var(--forge-bg);
+      padding: 0.75rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .site-header-content {
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .ks-section[id] { scroll-margin-top: calc(var(--site-header-h, 4rem) + 1.5rem); }
+    .forge-toc { top: calc(var(--site-header-h, 4rem) + 1.5rem); }
   </style>
 </head>
 <body>
@@ -77,33 +92,115 @@
 </button>
 
 <div class="container-fluid px-0">
+
+<!-- ====== UNIFIED STICKY HEADER ====== -->
+<header class="site-header d-none d-lg-block">
+  <div class="row g-0">
+    <div class="col-lg-3 col-xl-2 site-header-brand">
+      <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">Kitchen Sink</span></p>
+      <p class="mt-1 mb-0" style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--forge-text-4);letter-spacing:0.06em">Design system &middot; Test page</p>
+    </div>
+    <div class="col-lg-9 col-xl-10 site-header-content">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb mb-1" style="font-size:0.75rem"><li class="breadcrumb-item"><a href="#" class="text-cyan" style="text-decoration:none">forgesdlc-kitchensink</a></li><li class="breadcrumb-item active text-dim" aria-current="page">Kitchen Sink</li></ol></nav>
+      <h1 class="font-display forge-gradient-text mb-0" style="font-size:clamp(1.25rem,3vw,1.75rem)">Kitchen Sink</h1>
+    </div>
+  </div>
+</header>
+
 <div class="row g-0 flex-lg-nowrap min-vh-100">
 
   <!-- ====== LEFT SIDEBAR ====== -->
-  <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" style="min-height:100vh;position:sticky;top:0;overflow-y:auto">
-    <div class="px-3 py-3" style="border-bottom:1px solid var(--forge-border)">
-      <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">Kitchen Sink</span></p>
-      <p class="mt-2 mb-0" style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--forge-text-4);letter-spacing:0.06em">Design system &middot; Test page</p>
-    </div>
-    <nav class="nav-scroll flex-grow-1 px-2 py-3" aria-label="Component sections">
+  <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" id="ks-sidebar-aside">
+    <nav class="nav-scroll flex-grow-1 px-2 py-3" style="overflow-y:auto;min-height:0" aria-label="Component sections">
       <p class="nav-section-label">Sections</p>
       <div class="nav-rail" id="ks-sidebar-nav">
-        <a class="nav-link active" href="#sec-tokens">Design tokens</a>
-        <a class="nav-link" href="#sec-typography">Typography</a>
-        <a class="nav-link" href="#sec-glass">Glass panels</a>
-        <a class="nav-link" href="#sec-sidebar">Sidebar nav</a>
-        <a class="nav-link" href="#sec-cards">Cards</a>
-        <a class="nav-link" href="#sec-bento">Bento grid</a>
-        <a class="nav-link" href="#sec-tables">Tables</a>
-        <a class="nav-link" href="#sec-callouts">Callouts</a>
-        <a class="nav-link" href="#sec-badges">Badges</a>
-        <a class="nav-link" href="#sec-buttons">Buttons</a>
-        <a class="nav-link" href="#sec-code">Code blocks</a>
-        <a class="nav-link" href="#sec-diagrams">SVG diagrams</a>
-        <a class="nav-link" href="#sec-dividers">Dividers</a>
-        <a class="nav-link" href="#sec-animations">Animations</a>
-        <a class="nav-link" href="#sec-flow">Flow diagram</a>
-        <a class="nav-link" href="#sec-stats">Stat counters</a>
+        <a class="doc-sidebar-link active" href="#sec-tokens">Design tokens</a>
+        <a class="doc-sidebar-link" href="#sec-typography">Typography</a>
+
+        <!-- Surfaces & Layout -->
+        <div class="doc-sidebar-group">
+          <div class="doc-sidebar-row">
+            <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#nav-surfaces" aria-expanded="true" aria-controls="nav-surfaces" aria-label="Toggle Surfaces">
+              <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+            <span class="doc-sidebar-heading doc-sidebar-heading--label">Surfaces &amp; Layout</span>
+          </div>
+          <div class="collapse show" id="nav-surfaces">
+            <div class="doc-sidebar-children">
+              <a class="doc-sidebar-sublink" href="#sec-glass">Glass panels</a>
+              <a class="doc-sidebar-sublink" href="#sec-cards">Cards</a>
+              <a class="doc-sidebar-sublink" href="#sec-bento">Bento grid</a>
+              <a class="doc-sidebar-sublink" href="#sec-tables">Tables</a>
+              <a class="doc-sidebar-sublink" href="#sec-dividers">Dividers</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="doc-sidebar-group">
+          <div class="doc-sidebar-row">
+            <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#nav-controls" aria-expanded="true" aria-controls="nav-controls" aria-label="Toggle Controls">
+              <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+            <span class="doc-sidebar-heading doc-sidebar-heading--label">Controls</span>
+          </div>
+          <div class="collapse show" id="nav-controls">
+            <div class="doc-sidebar-children">
+              <a class="doc-sidebar-sublink" href="#sec-buttons">Buttons</a>
+              <a class="doc-sidebar-sublink" href="#sec-badges">Badges</a>
+              <a class="doc-sidebar-sublink" href="#sec-callouts">Callouts</a>
+              <a class="doc-sidebar-sublink" href="#sec-code">Code blocks</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="doc-sidebar-group">
+          <div class="doc-sidebar-row">
+            <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#nav-navigation" aria-expanded="true" aria-controls="nav-navigation" aria-label="Toggle Navigation">
+              <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+            <span class="doc-sidebar-heading doc-sidebar-heading--label">Navigation</span>
+          </div>
+          <div class="collapse show" id="nav-navigation">
+            <div class="doc-sidebar-children">
+              <a class="doc-sidebar-sublink" href="#sec-sidebar">Sidebar nav</a>
+              <a class="doc-sidebar-sublink" href="#sec-flow">Flow diagram</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualizations -->
+        <div class="doc-sidebar-group">
+          <div class="doc-sidebar-row">
+            <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#nav-viz" aria-expanded="true" aria-controls="nav-viz" aria-label="Toggle Visualizations">
+              <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+            <span class="doc-sidebar-heading doc-sidebar-heading--label">Visualizations</span>
+          </div>
+          <div class="collapse show" id="nav-viz">
+            <div class="doc-sidebar-children">
+              <a class="doc-sidebar-sublink" href="#sec-diagrams">SVG diagrams</a>
+              <a class="doc-sidebar-sublink" href="#sec-stats">Stat counters</a>
+
+              <!-- Nested level 3: Motion -->
+              <div class="doc-sidebar-nested">
+                <div class="doc-sidebar-row">
+                  <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#nav-motion" aria-expanded="true" aria-controls="nav-motion" aria-label="Toggle Motion">
+                    <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+                  </button>
+                  <span class="doc-sidebar-heading doc-sidebar-heading--label">Motion</span>
+                </div>
+                <div class="collapse show" id="nav-motion">
+                  <div class="doc-sidebar-children">
+                    <a class="doc-sidebar-sublink" href="#sec-animations">Pulse &amp; breathe</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </nav>
   </aside>
@@ -117,36 +214,95 @@
     <div class="offcanvas-body forge-sidebar p-2" id="ks-offcanvas-nav">
       <p class="nav-section-label">Sections</p>
       <div class="nav-rail">
-        <a class="nav-link" href="#sec-tokens">Design tokens</a>
-        <a class="nav-link" href="#sec-typography">Typography</a>
-        <a class="nav-link" href="#sec-glass">Glass panels</a>
-        <a class="nav-link" href="#sec-sidebar">Sidebar nav</a>
-        <a class="nav-link" href="#sec-cards">Cards</a>
-        <a class="nav-link" href="#sec-bento">Bento grid</a>
-        <a class="nav-link" href="#sec-tables">Tables</a>
-        <a class="nav-link" href="#sec-callouts">Callouts</a>
-        <a class="nav-link" href="#sec-badges">Badges</a>
-        <a class="nav-link" href="#sec-buttons">Buttons</a>
-        <a class="nav-link" href="#sec-code">Code blocks</a>
-        <a class="nav-link" href="#sec-diagrams">SVG diagrams</a>
-        <a class="nav-link" href="#sec-dividers">Dividers</a>
-        <a class="nav-link" href="#sec-animations">Animations</a>
-        <a class="nav-link" href="#sec-flow">Flow diagram</a>
-        <a class="nav-link" href="#sec-stats">Stat counters</a>
+        <a class="doc-sidebar-link" href="#sec-tokens">Design tokens</a>
+        <a class="doc-sidebar-link" href="#sec-typography">Typography</a>
+
+        <div class="doc-sidebar-group">
+          <div class="doc-sidebar-row">
+            <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#mob-surfaces" aria-expanded="true" aria-controls="mob-surfaces" aria-label="Toggle Surfaces">
+              <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+            <span class="doc-sidebar-heading doc-sidebar-heading--label">Surfaces &amp; Layout</span>
+          </div>
+          <div class="collapse show" id="mob-surfaces">
+            <div class="doc-sidebar-children">
+              <a class="doc-sidebar-sublink" href="#sec-glass">Glass panels</a>
+              <a class="doc-sidebar-sublink" href="#sec-cards">Cards</a>
+              <a class="doc-sidebar-sublink" href="#sec-bento">Bento grid</a>
+              <a class="doc-sidebar-sublink" href="#sec-tables">Tables</a>
+              <a class="doc-sidebar-sublink" href="#sec-dividers">Dividers</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-sidebar-group">
+          <div class="doc-sidebar-row">
+            <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#mob-controls" aria-expanded="true" aria-controls="mob-controls" aria-label="Toggle Controls">
+              <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+            <span class="doc-sidebar-heading doc-sidebar-heading--label">Controls</span>
+          </div>
+          <div class="collapse show" id="mob-controls">
+            <div class="doc-sidebar-children">
+              <a class="doc-sidebar-sublink" href="#sec-buttons">Buttons</a>
+              <a class="doc-sidebar-sublink" href="#sec-badges">Badges</a>
+              <a class="doc-sidebar-sublink" href="#sec-callouts">Callouts</a>
+              <a class="doc-sidebar-sublink" href="#sec-code">Code blocks</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-sidebar-group">
+          <div class="doc-sidebar-row">
+            <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#mob-navigation" aria-expanded="true" aria-controls="mob-navigation" aria-label="Toggle Navigation">
+              <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+            <span class="doc-sidebar-heading doc-sidebar-heading--label">Navigation</span>
+          </div>
+          <div class="collapse show" id="mob-navigation">
+            <div class="doc-sidebar-children">
+              <a class="doc-sidebar-sublink" href="#sec-sidebar">Sidebar nav</a>
+              <a class="doc-sidebar-sublink" href="#sec-flow">Flow diagram</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-sidebar-group">
+          <div class="doc-sidebar-row">
+            <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#mob-viz" aria-expanded="true" aria-controls="mob-viz" aria-label="Toggle Visualizations">
+              <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+            <span class="doc-sidebar-heading doc-sidebar-heading--label">Visualizations</span>
+          </div>
+          <div class="collapse show" id="mob-viz">
+            <div class="doc-sidebar-children">
+              <a class="doc-sidebar-sublink" href="#sec-diagrams">SVG diagrams</a>
+              <a class="doc-sidebar-sublink" href="#sec-stats">Stat counters</a>
+              <div class="doc-sidebar-nested">
+                <div class="doc-sidebar-row">
+                  <button type="button" class="doc-sidebar-toggle" data-bs-toggle="collapse" data-bs-target="#mob-motion" aria-expanded="true" aria-controls="mob-motion" aria-label="Toggle Motion">
+                    <svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+                  </button>
+                  <span class="doc-sidebar-heading doc-sidebar-heading--label">Motion</span>
+                </div>
+                <div class="collapse show" id="mob-motion">
+                  <div class="doc-sidebar-children">
+                    <a class="doc-sidebar-sublink" href="#sec-animations">Pulse &amp; breathe</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
   <!-- ====== MAIN CONTENT ====== -->
-  <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5 doc-main">
+  <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main">
   <div class="mx-auto doc-content" style="max-width:56rem">
-
-    <!-- Sticky header -->
-    <header class="doc-header">
-      <nav aria-label="breadcrumb"><ol class="breadcrumb mb-2" style="font-size:0.75rem"><li class="breadcrumb-item"><a href="#" class="text-cyan" style="text-decoration:none">forgesdlc-kitchensink</a></li><li class="breadcrumb-item active text-dim" aria-current="page">Kitchen Sink</li></ol></nav>
-      <h1 class="font-display forge-gradient-text mb-0" style="font-size:clamp(1.75rem,4vw,2.5rem)">Kitchen Sink</h1>
-      <p class="forge-support mt-2 mb-0" style="font-size:1rem">Forge design system — all components in one page. Sections map to <code>forge-theme.css</code> chapters.</p>
-    </header>
+    <p class="forge-support mb-4" style="font-size:1rem">Forge design system — all components in one page. Sections map to <code>forge-theme.css</code> chapters.</p>
 
     <div class="row g-3 g-lg-4">
     <div class="col-lg-8 col-xl-9 order-2 order-lg-1">
@@ -354,31 +510,66 @@
   <!-- 14. SVG Diagram Type Templates -->
   <section id="sec-diagrams" class="ks-section">
     <h2 class="ks-section-title">14 &middot; SVG Diagram Type Templates</h2>
-    <p class="forge-support mb-4">Reusable diagram archetypes from the Forge design system. Content-specific diagrams live in each project (e.g. blueprints); these templates define the visual language. Click to expand.</p>
+    <p class="forge-support mb-4">Reusable diagram archetypes from the Forge design system (24 templates across 6 families). Content-specific diagrams live in each project; these templates define the visual language. Click any card to expand with interactive node descriptions.</p>
 
-    <!-- Featured: Linear Flow -->
-    <h5 class="mt-4 mb-2">Linear Flow</h5>
-    <div class="forge-diagram forge-diagram-trigger ks-diagram-card mb-4" data-diagram="linear"
-         onclick="openDiagramWithDetail(this, 'linear')">
-      <img src="assets/svg/template-linear-flow.svg" alt="Linear flow template">
+    <!-- ── Family 1: Process & Flow ── -->
+    <h4 class="mt-4 mb-1" style="color:var(--forge-amber)">Process &amp; Flow</h4>
+    <p class="forge-support mb-3" style="font-size:0.85rem">How work moves through stages.</p>
+    <div class="bento-grid bento-3 mb-4">
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'linear')"><img src="assets/svg/template-linear-flow.svg" alt="Linear flow"><p class="section-label mt-2 mb-0">linear-flow</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'loop')"><img src="assets/svg/template-loop-cycle.svg" alt="Loop cycle"><p class="section-label mt-2 mb-0">loop-cycle</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'gate')"><img src="assets/svg/template-gate-chain.svg" alt="Gate chain"><p class="section-label mt-2 mb-0">gate-chain</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'swimlane')"><img src="assets/svg/template-swimlane.svg" alt="Swimlane"><p class="section-label mt-2 mb-0">swimlane</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'decision')"><img src="assets/svg/template-decision-flow.svg" alt="Decision flow"><p class="section-label mt-2 mb-0">decision-flow</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'funnel')"><img src="assets/svg/template-funnel.svg" alt="Funnel"><p class="section-label mt-2 mb-0">funnel</p></div>
     </div>
 
-    <!-- Featured: Gate Chain -->
-    <h5 class="mt-4 mb-2">Gate Chain</h5>
-    <div class="forge-diagram forge-diagram-trigger ks-diagram-card mb-4" data-diagram="gate"
-         onclick="openDiagramWithDetail(this, 'gate')">
-      <img src="assets/svg/template-gate-chain.svg" alt="Gate chain template">
+    <!-- ── Family 2: Structural & Relational ── -->
+    <h4 class="mt-4 mb-1" style="color:var(--forge-amber)">Structural &amp; Relational</h4>
+    <p class="forge-support mb-3" style="font-size:0.85rem">How things are organized or connected.</p>
+    <div class="bento-grid bento-3 mb-4">
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'tree')"><img src="assets/svg/template-tree.svg" alt="Tree hierarchy"><p class="section-label mt-2 mb-0">tree</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'board')"><img src="assets/svg/template-board-columns.svg" alt="Board columns"><p class="section-label mt-2 mb-0">board-columns</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'checklist')"><img src="assets/svg/template-checklist.svg" alt="Checklist"><p class="section-label mt-2 mb-0">checklist</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'network')"><img src="assets/svg/template-network.svg" alt="Network"><p class="section-label mt-2 mb-0">network</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'venn')"><img src="assets/svg/template-venn.svg" alt="Venn diagram"><p class="section-label mt-2 mb-0">venn</p></div>
     </div>
 
-    <!-- All 6 templates as gallery -->
-    <h5 class="mt-5 mb-3">All Diagram Type Templates</h5>
-    <div class="bento-grid bento-3 mb-3">
-      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-linear-flow.svg" alt="Linear flow"><p class="section-label mt-2 mb-0">linear-flow</p></div>
-      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-loop-cycle.svg" alt="Loop cycle"><p class="section-label mt-2 mb-0">loop-cycle</p></div>
-      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-board-columns.svg" alt="Board columns"><p class="section-label mt-2 mb-0">board-columns</p></div>
-      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-gate-chain.svg" alt="Gate chain"><p class="section-label mt-2 mb-0">gate-chain</p></div>
-      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-checklist.svg" alt="Checklist"><p class="section-label mt-2 mb-0">checklist</p></div>
-      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-tree.svg" alt="Tree hierarchy"><p class="section-label mt-2 mb-0">tree</p></div>
+    <!-- ── Family 3: Timeline & Scheduling ── -->
+    <h4 class="mt-4 mb-1" style="color:var(--forge-amber)">Timeline &amp; Scheduling</h4>
+    <p class="forge-support mb-3" style="font-size:0.85rem">Events or work spread across time.</p>
+    <div class="bento-grid bento-3 mb-4">
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'gantt')"><img src="assets/svg/template-gantt.svg" alt="Gantt chart"><p class="section-label mt-2 mb-0">gantt</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'timeline')"><img src="assets/svg/template-timeline.svg" alt="Timeline"><p class="section-label mt-2 mb-0">timeline</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'roadmap')"><img src="assets/svg/template-roadmap.svg" alt="Roadmap"><p class="section-label mt-2 mb-0">roadmap</p></div>
+    </div>
+
+    <!-- ── Family 4: Data Charts ── -->
+    <h4 class="mt-4 mb-1" style="color:var(--forge-amber)">Data Charts</h4>
+    <p class="forge-support mb-3" style="font-size:0.85rem">Quantitative data visualization (Excel / Power BI territory).</p>
+    <div class="bento-grid bento-3 mb-4">
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'bar')"><img src="assets/svg/template-bar-chart.svg" alt="Bar chart"><p class="section-label mt-2 mb-0">bar-chart</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'line')"><img src="assets/svg/template-line-chart.svg" alt="Line chart"><p class="section-label mt-2 mb-0">line-chart</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'pie')"><img src="assets/svg/template-pie-donut.svg" alt="Pie / donut"><p class="section-label mt-2 mb-0">pie-donut</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'stacked')"><img src="assets/svg/template-stacked-bar.svg" alt="Stacked bar"><p class="section-label mt-2 mb-0">stacked-bar</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'area')"><img src="assets/svg/template-area-chart.svg" alt="Area chart"><p class="section-label mt-2 mb-0">area-chart</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'scatter')"><img src="assets/svg/template-scatter.svg" alt="Scatter plot"><p class="section-label mt-2 mb-0">scatter</p></div>
+    </div>
+
+    <!-- ── Family 5: Comparison & Status ── -->
+    <h4 class="mt-4 mb-1" style="color:var(--forge-amber)">Comparison &amp; Status</h4>
+    <p class="forge-support mb-3" style="font-size:0.85rem">Current state, thresholds, or relative positioning.</p>
+    <div class="bento-grid bento-3 mb-4">
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'quadrant')"><img src="assets/svg/template-quadrant.svg" alt="Quadrant matrix"><p class="section-label mt-2 mb-0">quadrant</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'gauge')"><img src="assets/svg/template-gauge.svg" alt="Gauge"><p class="section-label mt-2 mb-0">gauge</p></div>
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'kpi')"><img src="assets/svg/template-kpi-card.svg" alt="KPI card"><p class="section-label mt-2 mb-0">kpi-card</p></div>
+    </div>
+
+    <!-- ── Family 6: Specialized ── -->
+    <h4 class="mt-4 mb-1" style="color:var(--forge-amber)">Specialized</h4>
+    <p class="forge-support mb-3" style="font-size:0.85rem">Domain-specific visualization patterns.</p>
+    <div class="bento-grid bento-3 mb-4">
+      <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'heatmap')"><img src="assets/svg/template-heatmap.svg" alt="Heatmap"><p class="section-label mt-2 mb-0">heatmap</p></div>
     </div>
   </section>
 
@@ -493,16 +684,35 @@
 <script>
 (function () {
   'use strict';
+  var hdr = document.querySelector('.site-header');
+  var aside = document.getElementById('ks-sidebar-aside');
+  function syncSidebar() {
+    if (!hdr || !aside) return;
+    var h = hdr.offsetHeight;
+    aside.style.position = 'sticky';
+    aside.style.top = h + 'px';
+    aside.style.height = 'calc(100vh - ' + h + 'px)';
+    aside.style.overflow = 'hidden';
+    document.documentElement.style.setProperty('--site-header-h', h + 'px');
+  }
+  syncSidebar();
+  window.addEventListener('resize', syncSidebar);
+})();
+</script>
+<script>
+(function () {
+  'use strict';
   var sections = document.querySelectorAll('.ks-section[id]');
   var tocLinks = document.querySelectorAll('.forge-toc .nav-link');
-  var sideLinks = document.querySelectorAll('#ks-sidebar-nav .nav-link');
+  var sideLinks = document.querySelectorAll('#ks-sidebar-nav a[href^="#"]');
 
   function setActive(id) {
+    var sel = '#' + id;
     tocLinks.forEach(function (a) {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      a.classList.toggle('active', a.getAttribute('href') === sel);
     });
     sideLinks.forEach(function (a) {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      a.classList.toggle('active', a.getAttribute('href') === sel);
     });
   }
 
@@ -521,21 +731,221 @@
 
   var DIAGRAM_DETAILS = {
     linear: {
-      title: 'Linear Flow Template',
+      title: 'Linear Flow',
       items: [
         { node: 'Step A', color: 'cyan',  desc: 'First stage in a sequential process. Replace [subtitle] with the specific activity.' },
         { node: 'Step B', color: 'cyan',  desc: 'Second stage. Each box represents a discrete phase with a clear handoff.' },
         { node: 'Step C', color: 'amber', desc: 'Third stage. Connectors show the direction of flow between steps.' },
-        { node: 'Step D', color: 'amber', desc: 'Final stage. Use the footer note for caveats (e.g. "iterate as needed").' },
+        { node: 'Step D', color: 'amber', desc: 'Final stage. Use the footer note for caveats (e.g. "iterate as needed").' }
+      ]
+    },
+    loop: {
+      title: 'Loop / Cycle',
+      items: [
+        { node: 'Phase 1', color: 'cyan',  desc: 'First phase of the iterative cycle (e.g. Plan). The cycle restarts after the last phase.' },
+        { node: 'Phase 2', color: 'cyan',  desc: 'Second phase (e.g. Execute). Connectors trace a circular path.' },
+        { node: 'Phase 3', color: 'amber', desc: 'Third phase (e.g. Review). Feedback flows back into the next iteration.' },
+        { node: 'Phase 4', color: 'amber', desc: 'Fourth phase (e.g. Adapt). The "repeat" label indicates continuous cycling.' }
       ]
     },
     gate: {
-      title: 'Gate Chain Template',
+      title: 'Gate Chain',
       items: [
         { node: 'Stage 1', color: 'cyan',    desc: 'First activity block. Work happens here until the gate checkpoint.' },
         { node: 'G',       color: 'amber',   desc: 'Gate checkpoint (diamond). Criteria must be met before proceeding.' },
         { node: 'Stage 2', color: 'emerald', desc: 'Second activity block, entered only after passing the gate.' },
-        { node: 'Stage 3', color: 'amber',   desc: 'Final activity. The checkmark indicates successful completion.' },
+        { node: 'Stage 3', color: 'amber',   desc: 'Final activity. The pill shape indicates successful completion.' }
+      ]
+    },
+    swimlane: {
+      title: 'Swimlane',
+      items: [
+        { node: 'Step A', color: 'cyan',    desc: 'Begins in Role A\'s lane. Horizontal lanes group steps by responsibility.' },
+        { node: 'Step B', color: 'emerald', desc: 'Handed off to Role B. Cross-lane arrows show handoff points.' },
+        { node: 'Step C', color: 'amber',   desc: 'Parallel work in Role C\'s lane. Multiple lanes can be active simultaneously.' },
+        { node: 'Step D', color: 'cyan',    desc: 'Returns to Role A. Steps can move freely across lanes.' },
+        { node: 'Step E', color: 'emerald', desc: 'Second step in Role B. The pattern continues until the process completes.' },
+        { node: 'Step F', color: 'amber',   desc: 'Final step in Role C. Footer notes describe handoff policies.' }
+      ]
+    },
+    decision: {
+      title: 'Decision Flow',
+      items: [
+        { node: 'Start',      color: 'emerald', desc: 'Rounded terminal marking the process entry point.' },
+        { node: 'Process A',  color: 'cyan',    desc: 'Action step (rectangle). Represents a concrete activity.' },
+        { node: 'Condition?', color: 'amber',   desc: 'Decision diamond. The flow branches based on a yes/no condition.' },
+        { node: 'Process B',  color: 'cyan',    desc: 'Yes-branch action. Taken when the condition is satisfied.' },
+        { node: 'Process C',  color: 'emerald', desc: 'No-branch action. Taken when the condition fails.' },
+        { node: 'End',        color: 'amber',   desc: 'Terminal node. Both branches converge here.' }
+      ]
+    },
+    funnel: {
+      title: 'Funnel',
+      items: [
+        { node: 'Stage 1', color: 'cyan',    desc: 'Widest top stage (100%). Everything enters here.' },
+        { node: 'Stage 2', color: 'cyan',    desc: 'Narrower stage (65%). Volume decreases as items are filtered.' },
+        { node: 'Stage 3', color: 'emerald', desc: 'Further narrowing (30%). Each stage has drop-off metrics.' },
+        { node: 'Stage 4', color: 'amber',   desc: 'Narrowest stage (12%). The final conversion output.' }
+      ]
+    },
+    tree: {
+      title: 'Tree / Hierarchy',
+      items: [
+        { node: '[Root]',     color: 'cyan',  desc: 'Top-level root node. Everything branches from here.' },
+        { node: '[Branch A]', color: 'cyan',  desc: 'First branch. Sub-branches and leaves nest below.' },
+        { node: '[Branch B]', color: 'amber', desc: 'Second branch with a different accent color (purple).' },
+        { node: '[Branch C]', color: 'amber', desc: 'Third branch. Single leaf child shown.' }
+      ]
+    },
+    board: {
+      title: 'Board / Columns',
+      items: [
+        { node: 'Column A', color: 'cyan',    desc: 'First column (e.g. Backlog). Cards pile up inside each column.' },
+        { node: 'Column B', color: 'emerald', desc: 'Second column. Items flow left to right across columns.' },
+        { node: 'Column C', color: 'amber',   desc: 'Third column with dashed border indicating a constraint (e.g. WIP limit).' },
+        { node: 'Column D', color: 'amber',   desc: 'Final column (e.g. Done). Purple accent marks the endpoint.' }
+      ]
+    },
+    checklist: {
+      title: 'Checklist',
+      items: [
+        { node: '[Criterion A', color: 'cyan', desc: 'First criterion with check mark. All items must hold for acceptance.' },
+        { node: '[Criterion B', color: 'cyan', desc: 'Second criterion. Consistent styling for each row.' },
+        { node: '[Criterion C', color: 'cyan', desc: 'Third criterion. Extend the list as needed.' },
+        { node: '[Criterion D', color: 'cyan', desc: 'Fourth criterion. Use for DoD, acceptance criteria, or audit checklists.' },
+        { node: '[Criterion E', color: 'cyan', desc: 'Fifth criterion. Footer note explains pass/fail rules.' }
+      ]
+    },
+    network: {
+      title: 'Network / Topology',
+      items: [
+        { node: 'Hub',    color: 'cyan',    desc: 'Central hub node with connections radiating to all peers.' },
+        { node: 'Node A', color: 'cyan',    desc: 'Peer node. Edges show direct connections between nodes.' },
+        { node: 'Node B', color: 'emerald', desc: 'Another peer. Different stroke colors distinguish node types.' },
+        { node: 'Node C', color: 'amber',   desc: 'Inner node with purple accent. Connected to multiple neighbors.' },
+        { node: 'Node D', color: 'amber',   desc: 'Leaf-level node. Amber accent for emphasis.' },
+        { node: 'Node E', color: 'amber',   desc: 'Edge node connected to its neighbor. Footer describes connection semantics.' }
+      ]
+    },
+    venn: {
+      title: 'Venn Diagram',
+      items: [
+        { node: 'Set A', color: 'cyan',  desc: 'First circle. Overlaps with Set B at the top and Set C at the left.' },
+        { node: 'Set B', color: 'cyan',  desc: 'Second circle. Overlaps with Set A at the top and Set C at the right.' },
+        { node: 'Set C', color: 'amber', desc: 'Third circle. Overlaps with both A and B. Triple intersection highlighted in amber.' }
+      ]
+    },
+    gantt: {
+      title: 'Gantt Chart',
+      items: [
+        { node: 'Task A', color: 'cyan',    desc: 'First task bar spanning weeks 1-2. Horizontal position shows timing.' },
+        { node: 'Task B', color: 'cyan',    desc: 'Second task starting in week 2. Dependency arrow links from Task A.' },
+        { node: 'Task C', color: 'emerald', desc: 'Third task spanning weeks 3-4. Bars can overlap across rows.' },
+        { node: 'Task D', color: 'amber',   desc: 'Fourth task in the later phase. The milestone diamond marks a checkpoint.' },
+        { node: 'Task E', color: 'amber',   desc: 'Final task. Color variations indicate different work streams.' }
+      ]
+    },
+    timeline: {
+      title: 'Timeline',
+      items: [
+        { node: 'Event A', color: 'cyan',  desc: 'First milestone on the axis. Labels alternate above and below for readability.' },
+        { node: 'Event B', color: 'cyan',  desc: 'Second event. Date labels sit opposite the event description.' },
+        { node: 'Event C', color: 'cyan',  desc: 'Mid-timeline event. Circles mark the exact point on the axis.' },
+        { node: 'Event D', color: 'amber', desc: 'Later event with amber accent. Highlights a notable milestone.' },
+        { node: 'Event E', color: 'amber', desc: 'Final event. Purple accent for the terminus.' }
+      ]
+    },
+    roadmap: {
+      title: 'Roadmap',
+      items: [
+        { node: 'Feature 1', color: 'cyan',    desc: 'First feature bar in Track A. Horizontal span shows duration across quarters.' },
+        { node: 'Feature 2', color: 'cyan',    desc: 'Second feature in Track A, later in the timeline.' },
+        { node: 'Feature 3', color: 'emerald', desc: 'Long-running feature in Track B spanning multiple quarters.' },
+        { node: 'Feature 4', color: 'amber',   desc: 'Short feature in Track C. Multiple bars per track show parallel efforts.' },
+        { node: 'Feature 5', color: 'amber',   desc: 'Another short feature in Track C.' },
+        { node: 'Feature 6', color: 'amber',   desc: 'Final feature with purple accent. Milestone diamond marks a key date.' }
+      ]
+    },
+    bar: {
+      title: 'Bar Chart',
+      items: [
+        { node: 'Cat A', color: 'cyan',    desc: 'First category bar (85). Bar height maps to the Y-axis value.' },
+        { node: 'Cat B', color: 'cyan',    desc: 'Second category (60). Values above each bar for quick reading.' },
+        { node: 'Cat C', color: 'emerald', desc: 'Tallest bar (92). Color distinguishes different categories.' },
+        { node: 'Cat D', color: 'amber',   desc: 'Shortest bar (45). The Y-axis grid provides scale reference.' },
+        { node: 'Cat E', color: 'amber',   desc: 'Fifth bar (72). Footer note describes the unit of measure.' }
+      ]
+    },
+    line: {
+      title: 'Line Chart',
+      items: [
+        { node: 'Series A', color: 'cyan',  desc: 'Primary trend line (solid cyan). Data points are marked with dots.' },
+        { node: 'Series B', color: 'amber', desc: 'Secondary series (dashed amber). Dash style differentiates multiple lines.' }
+      ]
+    },
+    pie: {
+      title: 'Pie / Donut',
+      items: [
+        { node: 'Slice A', color: 'cyan',  desc: 'Largest segment (35%). Donut ring technique with center label.' },
+        { node: 'Slice B', color: 'cyan',  desc: 'Second segment (25%). Legend below maps colors to labels.' },
+        { node: 'Slice C', color: 'emerald', desc: 'Third segment (22%). Consistent color coding across the palette.' },
+        { node: 'Slice D', color: 'amber', desc: 'Smallest segment (18%). Percentages sum to 100%.' }
+      ]
+    },
+    stacked: {
+      title: 'Stacked Bar',
+      items: [
+        { node: 'Group A', color: 'cyan',    desc: 'First stacked bar. Each bar is subdivided into colored layers.' },
+        { node: 'Group B', color: 'cyan',    desc: 'Second bar. Layer proportions vary to show composition differences.' },
+        { node: 'Group C', color: 'emerald', desc: 'Third bar. Legend maps each layer color to its meaning.' },
+        { node: 'Group D', color: 'amber',   desc: 'Fourth bar. Total height shows the aggregate value.' }
+      ]
+    },
+    area: {
+      title: 'Area Chart',
+      items: [
+        { node: 'Area A', color: 'cyan',  desc: 'Primary area (cyan fill). Filled region shows cumulative volume.' },
+        { node: 'Area B', color: 'amber', desc: 'Secondary area (amber fill, dashed). Overlapping areas show two series.' }
+      ]
+    },
+    scatter: {
+      title: 'Scatter Plot',
+      items: [
+        { node: 'Group A', color: 'cyan',  desc: 'Cyan dots showing one group. Dot size can encode a third dimension.' },
+        { node: 'Group B', color: 'amber', desc: 'Amber dots for a second group. Position on X/Y axes shows correlation.' }
+      ]
+    },
+    quadrant: {
+      title: 'Quadrant Matrix',
+      items: [
+        { node: 'Quadrant A', color: 'cyan',    desc: 'Top-left quadrant. Label and description customize each zone.' },
+        { node: 'Quadrant B', color: 'cyan',    desc: 'Top-right quadrant. Dots represent data points positioned by two criteria.' },
+        { node: 'Quadrant C', color: 'amber',   desc: 'Bottom-left quadrant. Axis labels define the evaluation dimensions.' },
+        { node: 'Quadrant D', color: 'emerald', desc: 'Bottom-right quadrant. Footer describes the decision framework.' }
+      ]
+    },
+    gauge: {
+      title: 'Gauge / Meter',
+      items: [
+        { node: '75%', color: 'cyan', desc: 'Current value displayed prominently. Needle position maps to the arc.' },
+        { node: 'Target', color: 'amber', desc: 'Dashed target line for comparison. Red/amber/green zones show health bands.' }
+      ]
+    },
+    kpi: {
+      title: 'KPI Card',
+      items: [
+        { node: '1,234', color: 'cyan',  desc: 'Big number — the primary metric. Designed for dashboard tiles.' },
+        { node: '+12%',  color: 'emerald', desc: 'Trend indicator with direction arrow. Green = positive, red = negative.' }
+      ]
+    },
+    heatmap: {
+      title: 'Heatmap',
+      items: [
+        { node: 'Col A', color: 'cyan',  desc: 'Column header. Cell intensity (opacity) maps to the value.' },
+        { node: 'Col B', color: 'cyan',  desc: 'Second column. Higher values are brighter; lower values are dimmer.' },
+        { node: 'Col C', color: 'cyan',  desc: 'Third column. The gradient legend at the bottom shows the scale.' },
+        { node: 'Row 1', color: 'amber', desc: 'Row label. Each cell shows its numeric value inside.' },
+        { node: 'Row 2', color: 'amber', desc: 'Second row. The grid pattern works for correlation matrices, coverage maps, etc.' }
       ]
     }
   };
@@ -599,7 +1009,7 @@
     var svg = canvas.querySelector('svg');
     if (!svg) return;
 
-    var allShapes = Array.from(svg.querySelectorAll('rect, polygon'));
+    var allShapes = Array.from(svg.querySelectorAll('rect, polygon, circle'));
     var allTexts = Array.from(svg.querySelectorAll('text'));
 
     nodeNames.forEach(function (nodeName) {
@@ -642,6 +1052,12 @@
           }
           bbox = { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
           if (bbox.w < 15 || bbox.h < 15) return;
+        } else if (s.tagName === 'circle') {
+          var ccx = parseFloat(s.getAttribute('cx') || 0);
+          var ccy = parseFloat(s.getAttribute('cy') || 0);
+          var cr = parseFloat(s.getAttribute('r') || 0);
+          if (cr < 10) return;
+          bbox = { x: ccx - cr, y: ccy - cr, w: cr * 2, h: cr * 2 };
         } else return;
 
         if (tx >= bbox.x - 5 && tx <= bbox.x + bbox.w + 5 &&

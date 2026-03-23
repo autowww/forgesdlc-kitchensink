@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 160" width="340" height="160" role="img" aria-labelledby="title desc">
+  <title id="title">KPI card template</title>
+  <desc id="desc">Compact dashboard tile with big number, trend arrow, and sparkline</desc>
+  <rect width="100%" height="100%" fill="none"/>
+  <g font-family="system-ui, Segoe UI, sans-serif">
+    <!-- Card background -->
+    <rect x="10" y="10" width="320" height="140" rx="8" fill="#111827" stroke="#1f2937" stroke-width="1.5"/>
+
+    <!-- KPI label -->
+    <text x="30" y="40" font-size="10" fill="#708090" font-weight="600" letter-spacing="0.08em">[METRIC LABEL]</text>
+
+    <!-- Big number -->
+    <text x="30" y="82" font-weight="700" font-size="32" fill="#06B6D4">1,234</text>
+
+    <!-- Trend arrow (up) -->
+    <polygon points="170,58 178,46 186,58" fill="#065f46"/>
+    <text x="190" y="58" font-size="10" fill="#065f46" font-weight="700">+12%</text>
+
+    <!-- Sparkline -->
+    <polyline points="30,120 55,115 80,118 105,108 130,112 155,100 180,105 205,95 230,98 255,88 280,90 305,80"
+              fill="none" stroke="#06B6D4" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- Period label -->
+    <text x="305" y="138" text-anchor="end" font-size="8" fill="#708090">[vs previous period]</text>
+
+    <!-- Secondary metric -->
+    <text x="30" y="138" font-size="9" fill="#708090">Target: <tspan fill="#F59E0B" font-weight="600">1,500</tspan></text>
+  </g>
+</svg>
