@@ -104,14 +104,12 @@ def _build_sidebar(pages: list[dict], current_slug: str) -> str:
         lines.append('<div class="doc-sidebar-group">')
         lines.append('  <div class="doc-sidebar-row">')
         lines.append(
-            f'    <button type="button" class="doc-sidebar-toggle" '
+            f'    <button type="button" class="doc-sidebar-toggle doc-sidebar-toggle--full" '
             f'data-bs-toggle="collapse" data-bs-target="#nav-{fam_id}" '
             f'aria-expanded="{expanded}" aria-controls="nav-{fam_id}" '
-            f'aria-label="Toggle {e(fam)}">{_CHEVRON_SVG}</button>'
-        )
-        lines.append(
-            f'    <span class="doc-sidebar-heading doc-sidebar-heading--label">'
-            f'{e(fam)}</span>'
+            f'aria-label="Toggle {e(fam)} section">{_CHEVRON_SVG}'
+            f'<span class="doc-sidebar-heading doc-sidebar-heading--label">{e(fam)}</span>'
+            f'</button>'
         )
         lines.append('  </div>')
         lines.append(f'  <div class="collapse{show}" id="nav-{fam_id}">')

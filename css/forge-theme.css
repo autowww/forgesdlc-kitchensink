@@ -516,6 +516,26 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   transform: rotate(90deg);
 }
 
+/* Full-width group header: chevron + label share one hit target (like clicking the arrow) */
+.forge-sidebar .doc-sidebar-toggle--full {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  justify-content: flex-start;
+  gap: 0.35rem;
+  padding: 0.15rem 0.25rem 0.15rem 0.35rem;
+  border-radius: 4px;
+  text-align: left;
+}
+.forge-sidebar .doc-sidebar-toggle--full .doc-sidebar-chevron {
+  flex-shrink: 0;
+}
+.forge-sidebar .doc-sidebar-toggle--full .doc-sidebar-heading--label {
+  cursor: pointer;
+  flex: 1 1 auto;
+  padding: 0.1rem 0;
+}
+
 .forge-sidebar .doc-sidebar-heading {
   display: block;
   flex: 1 1 auto;
@@ -1253,6 +1273,31 @@ code {
 }
 .diagram-modal-detail .detail-item.highlight .detail-desc {
   color: var(--forge-text-2);
+}
+
+/* Inline-SVG diagram zones (showcase modal) — keep in theme so hover works on every page */
+.diagram-modal-canvas .svg-node-zone {
+  cursor: pointer;
+  pointer-events: all;
+}
+.diagram-modal-canvas .svg-node-zone rect,
+.diagram-modal-canvas .svg-node-zone polygon,
+.diagram-modal-canvas .svg-node-zone circle,
+.diagram-modal-canvas .svg-node-zone path,
+.diagram-modal-canvas .svg-node-zone ellipse {
+  transition: filter 0.25s, stroke 0.25s, stroke-width 0.15s;
+}
+.diagram-modal-canvas .svg-node-zone.active rect,
+.diagram-modal-canvas .svg-node-zone.active polygon,
+.diagram-modal-canvas .svg-node-zone.active circle,
+.diagram-modal-canvas .svg-node-zone.active path,
+.diagram-modal-canvas .svg-node-zone.active ellipse {
+  stroke: var(--forge-cyan) !important;
+  stroke-width: 2px !important;
+  animation: node-breathe-stroke 2s ease-in-out infinite;
+}
+.diagram-modal-canvas .svg-node-zone.active {
+  animation: node-breathe-glow 2s ease-in-out infinite;
 }
 
 @keyframes node-breathe-stroke {

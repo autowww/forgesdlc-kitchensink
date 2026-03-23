@@ -80,21 +80,6 @@ def extra_css() -> str:
     .ks-diagram-card { cursor: pointer; }
     .ks-diagram-card svg { width: 100%; height: auto; }
     .ks-thumb svg, .ks-thumb img { width: 100%; height: auto; }
-    .diagram-modal-canvas .svg-node-zone { cursor: pointer; }
-    .diagram-modal-canvas .svg-node-zone rect,
-    .diagram-modal-canvas .svg-node-zone polygon,
-    .diagram-modal-canvas .svg-node-zone circle {
-      transition: filter 0.25s, stroke 0.25s, stroke-width 0.15s;
-    }
-    .diagram-modal-canvas .svg-node-zone.active rect,
-    .diagram-modal-canvas .svg-node-zone.active polygon,
-    .diagram-modal-canvas .svg-node-zone.active circle {
-      stroke: var(--forge-cyan) !important;
-      animation: node-breathe-stroke 2s ease-in-out infinite;
-    }
-    .diagram-modal-canvas .svg-node-zone.active {
-      animation: node-breathe-glow 2s ease-in-out infinite;
-    }
   </style>"""
 
 

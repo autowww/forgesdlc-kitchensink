@@ -354,6 +354,99 @@
   // 4. SVG hover wiring  (bidirectional highlight between SVG + detail)
   // -----------------------------------------------------------------
 
+  function normLabel(s) {
+    return String(s).replace(/\s+/g, ' ').trim();
+  }
+
+  function findDetailItem(detailRoot, nodeName) {
+    var items = detailRoot.querySelectorAll('.detail-item');
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].getAttribute('data-node') === nodeName) return items[i];
+    }
+    return null;
+  }
+
+  function findLabelElement(svg, nodeName) {
+    var want = normLabel(nodeName);
+    var texts = svg.querySelectorAll('text');
+    var i;
+    for (i = 0; i < texts.length; i++) {
+      var tn = normLabel(texts[i].textContent);
+      if (tn === want) return texts[i];
+      /* SVG often has longer placeholder text than the detail key (e.g. "[Criterion A" vs "[Criterion A - …") */
+      if (want.length >= 2 && tn.indexOf(want) === 0) return texts[i];
+    }
+    var tspans = svg.querySelectorAll('tspan');
+    for (i = 0; i < tspans.length; i++) {
+      var sn = normLabel(tspans[i].textContent);
+      if (sn === want) return tspans[i];
+      if (want.length >= 2 && sn.indexOf(want) === 0) return tspans[i];
+    }
+    return null;
+  }
+
+  function labelCenter(el) {
+    try {
+      var bb = el.getBBox();
+      return { x: bb.x + bb.width / 2, y: bb.y + bb.height / 2 };
+    } catch (e) {
+      var x = parseFloat(el.getAttribute('x') || 0);
+      var y = parseFloat(el.getAttribute('y') || 0);
+      return { x: x, y: y };
+    }
+  }
+
+  function shapeBBox(s) {
+    var bbox;
+    if (s.tagName === 'rect') {
+      var wAttr = s.getAttribute('width') || '';
+      var hAttr = s.getAttribute('height') || '';
+      if (wAttr.indexOf('%') >= 0 || hAttr.indexOf('%') >= 0) return null;
+      var rx = parseFloat(s.getAttribute('x') || 0);
+      var ry = parseFloat(s.getAttribute('y') || 0);
+      var rw = parseFloat(s.getAttribute('width') || 0);
+      var rh = parseFloat(s.getAttribute('height') || 0);
+      if (rw < 8 || rh < 8) return null;
+      bbox = { x: rx, y: ry, w: rw, h: rh };
+    } else if (s.tagName === 'polygon') {
+      var pts = s.getAttribute('points');
+      if (!pts) return null;
+      var coords = pts.trim().split(/[\s,]+/).map(Number);
+      var minX = Infinity; var minY = Infinity; var maxX = -Infinity; var maxY = -Infinity;
+      var j;
+      for (j = 0; j < coords.length; j += 2) {
+        if (coords[j] < minX) minX = coords[j];
+        if (coords[j] > maxX) maxX = coords[j];
+        if (coords[j + 1] < minY) minY = coords[j + 1];
+        if (coords[j + 1] > maxY) maxY = coords[j + 1];
+      }
+      bbox = { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+      if (bbox.w < 8 || bbox.h < 8) return null;
+    } else if (s.tagName === 'circle') {
+      var ccx = parseFloat(s.getAttribute('cx') || 0);
+      var ccy = parseFloat(s.getAttribute('cy') || 0);
+      var cr = parseFloat(s.getAttribute('r') || 0);
+      if (cr < 4) return null;
+      bbox = { x: ccx - cr, y: ccy - cr, w: cr * 2, h: cr * 2 };
+    } else if (s.tagName === 'ellipse') {
+      var ex = parseFloat(s.getAttribute('cx') || 0);
+      var ey = parseFloat(s.getAttribute('cy') || 0);
+      var erx = parseFloat(s.getAttribute('rx') || 0);
+      var ery = parseFloat(s.getAttribute('ry') || 0);
+      if (erx < 4 || ery < 4) return null;
+      bbox = { x: ex - erx, y: ey - ery, w: erx * 2, h: ery * 2 };
+    } else if (s.tagName === 'path') {
+      try {
+        var pb = s.getBBox();
+        bbox = { x: pb.x, y: pb.y, w: pb.width, h: pb.height };
+      } catch (e2) { return null; }
+      if (bbox.w < 4 || bbox.h < 4) return null;
+    } else {
+      return null;
+    }
+    return bbox;
+  }
+
   function wireSvgHovers(canvas, detail, key) {
     var data = DIAGRAM_DETAILS[key];
     if (!data || !canvas || !detail) return;
@@ -362,61 +455,26 @@
     var svg = canvas.querySelector('svg');
     if (!svg) return;
 
-    var allShapes = Array.from(svg.querySelectorAll('rect, polygon, circle'));
-    var allTexts  = Array.from(svg.querySelectorAll('text'));
+    var allShapes = Array.from(svg.querySelectorAll('rect, polygon, circle, ellipse, path'));
 
     nodeNames.forEach(function (nodeName) {
-      var matchText = allTexts.find(function (t) {
-        return t.textContent.trim() === nodeName;
-      });
-      if (!matchText) return;
+      var matchEl = findLabelElement(svg, nodeName);
+      if (!matchEl) return;
+      /* Prefer the owning <text> so we move the whole label block (tspan lives under text). */
+      var matchText = matchEl.closest ? (matchEl.closest('text') || matchEl) : matchEl;
 
-      var tx = parseFloat(matchText.getAttribute('x') || 0);
-      var ty = parseFloat(matchText.getAttribute('y') || 0);
-
-      var transform = matchText.parentElement && matchText.parentElement.tagName === 'g'
-        ? matchText.parentElement.getAttribute('transform') : null;
-      if (transform) {
-        var m = transform.match(/translate\(\s*([\d.]+)\s*,\s*([\d.]+)\s*\)/);
-        if (m) { tx += parseFloat(m[1]); ty += parseFloat(m[2]); }
-      }
+      var pt = labelCenter(matchText);
+      var tx = pt.x;
+      var ty = pt.y;
 
       var bestShape = null;
       var bestDist = Infinity;
       allShapes.forEach(function (s) {
-        var bbox;
-        if (s.tagName === 'rect') {
-          var rx = parseFloat(s.getAttribute('x') || 0);
-          var ry = parseFloat(s.getAttribute('y') || 0);
-          var rw = parseFloat(s.getAttribute('width') || 0);
-          var rh = parseFloat(s.getAttribute('height') || 0);
-          if (rw < 30 || rh < 15) return;
-          bbox = { x: rx, y: ry, w: rw, h: rh };
-        } else if (s.tagName === 'polygon') {
-          var pts = s.getAttribute('points');
-          if (!pts) return;
-          var coords = pts.trim().split(/[\s,]+/).map(Number);
-          var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-          for (var i = 0; i < coords.length; i += 2) {
-            if (coords[i] < minX) minX = coords[i];
-            if (coords[i] > maxX) maxX = coords[i];
-            if (coords[i + 1] < minY) minY = coords[i + 1];
-            if (coords[i + 1] > maxY) maxY = coords[i + 1];
-          }
-          bbox = { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
-          if (bbox.w < 15 || bbox.h < 15) return;
-        } else if (s.tagName === 'circle') {
-          var ccx = parseFloat(s.getAttribute('cx') || 0);
-          var ccy = parseFloat(s.getAttribute('cy') || 0);
-          var cr  = parseFloat(s.getAttribute('r') || 0);
-          if (cr < 10) return;
-          bbox = { x: ccx - cr, y: ccy - cr, w: cr * 2, h: cr * 2 };
-        } else {
-          return;
-        }
+        var bbox = shapeBBox(s);
+        if (!bbox) return;
 
-        if (tx >= bbox.x - 5 && tx <= bbox.x + bbox.w + 5 &&
-            ty >= bbox.y - 5 && ty <= bbox.y + bbox.h + 5) {
+        if (tx >= bbox.x - 8 && tx <= bbox.x + bbox.w + 8 &&
+            ty >= bbox.y - 8 && ty <= bbox.y + bbox.h + 8) {
           var cx = bbox.x + bbox.w / 2;
           var cy = bbox.y + bbox.h / 2;
           var dist = Math.abs(tx - cx) + Math.abs(ty - cy);
@@ -431,6 +489,8 @@
       if (bestShape && bestShape.parentNode) {
         bestShape.parentNode.insertBefore(zone, bestShape);
         zone.appendChild(bestShape);
+      } else if (matchText.parentNode) {
+        matchText.parentNode.insertBefore(zone, matchText);
       }
 
       var sibling = matchText.nextElementSibling;
@@ -443,7 +503,7 @@
         zone.appendChild(sibling);
       }
 
-      var detailItem = detail.querySelector('.detail-item[data-node="' + nodeName + '"]');
+      var detailItem = findDetailItem(detail, nodeName);
 
       zone.addEventListener('mouseenter', function () {
         zone.classList.add('active');
