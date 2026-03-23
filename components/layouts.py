@@ -17,7 +17,10 @@ canonical note, footer, aurora gradient.
 """
 from __future__ import annotations
 
-from .components import e
+try:
+    from .components import e
+except ImportError:
+    from components import e
 
 # ---------------------------------------------------------------------------
 # Shared fragments
