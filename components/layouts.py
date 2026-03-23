@@ -1,6 +1,6 @@
 """Full-page layout templates — Forge theme.
 
-Three layout variants:
+Seven layout variants:
 
 ``handbook_page``
     Auto-generated handbook pages (``build-handbook.py``).  Server-rendered
@@ -17,6 +17,18 @@ Three layout variants:
 Handbook and chapter layouts share the Forge structural skeleton (aurora, data-rail
 sidebar, offcanvas, ToC column).  Product layout uses ``fs-*`` classes for a
 distinct visual identity while reusing shared CDN links and Mermaid init.
+
+``showcase_page``
+    Component documentation with unified sticky header, sidebar, optional ToC.
+
+``landing_page``
+    Full-width hero page with no sidebar (homepages, overviews).
+
+``gallery_page``
+    Sidebar + card grid content, no right-rail ToC (catalogs, browsers).
+
+``split_page``
+    Sidebar + two-panel content: example left, docs right.
 """
 from __future__ import annotations
 
@@ -394,3 +406,370 @@ def product_page(
 </body>
 </html>
 """
+
+
+# ---------------------------------------------------------------------------
+# Shared: showcase-family helpers (used by showcase/gallery/split layouts)
+# ---------------------------------------------------------------------------
+
+_SHOWCASE_EXTRA_CSS = """\
+  <style>
+    :root { --site-header-h: auto; }
+    .doc-main { position: relative; }
+    .site-header {
+      position: sticky; top: 0; z-index: 30;
+      background: var(--forge-bg);
+      border-bottom: 1px solid var(--forge-border);
+    }
+    .site-header-brand {
+      border-right: 1px solid var(--forge-border);
+      background: var(--forge-bg);
+      padding: 0.75rem 1rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .site-header-content {
+      padding: 0.75rem 1.5rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .ks-section { margin-bottom: 3.5rem; }
+    .ks-section-title {
+      font-family: var(--font-label);
+      font-size: 0.65rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--forge-text-3);
+      border-bottom: 1px solid var(--forge-border);
+      padding-bottom: 0.4rem; margin-bottom: 1.25rem;
+    }
+    .ks-swatch {
+      display: inline-flex; flex-direction: column;
+      align-items: center; gap: 0.35rem; min-width: 80px;
+    }
+    .ks-swatch-box {
+      width: 56px; height: 56px; border-radius: 10px;
+      border: 1px solid var(--forge-border);
+    }
+    .ks-swatch-label {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--forge-text-3);
+    }
+    .ks-section[id] { scroll-margin-top: calc(var(--site-header-h, 4rem) + 1.5rem); }
+    .forge-toc { top: calc(var(--site-header-h, 4rem) + 1.5rem); }
+  </style>"""
+
+
+def _showcase_header(
+    brand_name: str,
+    brand_subtitle: str,
+    page_title: str,
+    breadcrumb_html: str,
+) -> str:
+    return f"""\
+<header class="site-header d-none d-lg-block">
+  <div class="row g-0">
+    <div class="col-lg-3 col-xl-2 site-header-brand">
+      <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">{e(brand_name)}</span></p>
+      <p class="mt-1 mb-0" style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--forge-text-4);letter-spacing:0.06em">{e(brand_subtitle)}</p>
+    </div>
+    <div class="col-lg-9 col-xl-10 site-header-content">
+      {breadcrumb_html}
+      <h1 class="font-display forge-gradient-text mb-0" style="font-size:clamp(1.25rem,3vw,1.75rem)">{e(page_title)}</h1>
+    </div>
+  </div>
+</header>"""
+
+
+def _showcase_sidebar(sidebar_html: str) -> str:
+    return f"""\
+  <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" id="ks-sidebar-aside">
+    <nav class="nav-scroll flex-grow-1 px-2 py-3" style="overflow-y:auto;min-height:0" aria-label="Sections">
+      {sidebar_html}
+    </nav>
+  </aside>"""
+
+
+_SHOWCASE_SIDEBAR_SYNC_JS = """\
+<script>
+(function () {
+  'use strict';
+  var hdr = document.querySelector('.site-header');
+  var aside = document.getElementById('ks-sidebar-aside');
+  function sync() {
+    if (!hdr || !aside) return;
+    var h = hdr.offsetHeight;
+    aside.style.position = 'sticky';
+    aside.style.top = h + 'px';
+    aside.style.height = 'calc(100vh - ' + h + 'px)';
+    aside.style.overflow = 'hidden';
+    document.documentElement.style.setProperty('--site-header-h', h + 'px');
+  }
+  sync();
+  window.addEventListener('resize', sync);
+})();
+</script>"""
+
+
+# ---------------------------------------------------------------------------
+# Layout 4: showcase_page  (component documentation)
+# ---------------------------------------------------------------------------
+
+def showcase_page(
+    *,
+    browser_title: str,
+    brand_name: str = "Kitchen Sink",
+    brand_subtitle: str = "Design system",
+    page_title: str,
+    breadcrumb_html: str = "",
+    sidebar_html: str,
+    offcanvas_html: str = "",
+    body_html: str,
+    toc_html: str = "",
+    footer_html: str = "",
+    extra_css: str = "",
+    extra_js: list[str] | None = None,
+    theme_css_href: str = "assets/forge-theme.css",
+    theme_js_href: str = "assets/forge-theme.js",
+) -> str:
+    """Showcase documentation page: unified header + sticky sidebar + content + optional ToC."""
+    offcanvas = offcanvas_html or sidebar_html
+    extra_scripts = "\n".join(
+        f'<script src="{e(src)}"></script>' for src in (extra_js or [])
+    )
+    toc_col = ""
+    col_class = "col-12"
+    if toc_html:
+        col_class = "col-lg-8 col-xl-9 order-2 order-lg-1"
+        toc_col = f"""
+    <div class="col-lg-4 col-xl-3 order-1 order-lg-2">
+      <nav class="forge-toc" aria-label="On this page">
+        <p class="toc-title mb-2">On this page</p>
+        {toc_html}
+      </nav>
+    </div>"""
+
+    return f"""<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{e(browser_title)}</title>
+  {CDN_BOOTSTRAP_CSS}
+  {FONT_LINKS}
+{_resolve_theme_css(theme_css_href)}
+{_SHOWCASE_EXTRA_CSS}
+{extra_css}
+</head>
+<body>
+<div class="forge-aurora"></div>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="Open navigation">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
+</button>
+
+<div class="container-fluid px-0">
+{_showcase_header(brand_name, brand_subtitle, page_title, breadcrumb_html)}
+
+<div class="row g-0 flex-lg-nowrap min-vh-100">
+{_showcase_sidebar(sidebar_html)}
+
+  <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="docNavOffcanvas" style="background:var(--forge-bg);border-right:1px solid var(--forge-border);max-width:280px">
+    <div class="offcanvas-header" style="border-bottom:1px solid var(--forge-border)">
+      <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">{e(brand_name)}</span></p>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body forge-sidebar p-2">
+      {offcanvas}
+    </div>
+  </div>
+
+  <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main">
+  <div class="mx-auto doc-content" style="max-width:56rem">
+    <div class="row g-3 g-lg-4">
+    <div class="{col_class}">
+{body_html}
+    </div>
+{toc_col}
+    </div>
+    {footer_html}
+  </div>
+  </main>
+</div>
+</div>
+
+{CDN_BOOTSTRAP_JS}
+{_resolve_theme_js(theme_js_href)}
+{_SHOWCASE_SIDEBAR_SYNC_JS}
+{extra_scripts}
+</body>
+</html>
+"""
+
+
+# ---------------------------------------------------------------------------
+# Layout 5: landing_page  (hero / marketing — no sidebar)
+# ---------------------------------------------------------------------------
+
+def landing_page(
+    *,
+    browser_title: str,
+    brand_name: str = "Kitchen Sink",
+    brand_subtitle: str = "Design system",
+    nav_links_html: str = "",
+    hero_html: str,
+    body_html: str,
+    footer_html: str = "",
+    extra_css: str = "",
+    extra_js: list[str] | None = None,
+    theme_css_href: str = "assets/forge-theme.css",
+    theme_js_href: str = "assets/forge-theme.js",
+) -> str:
+    """Full-width hero landing page with no sidebar."""
+    extra_scripts = "\n".join(
+        f'<script src="{e(src)}"></script>' for src in (extra_js or [])
+    )
+    return f"""<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{e(browser_title)}</title>
+  {CDN_BOOTSTRAP_CSS}
+  {FONT_LINKS}
+{_resolve_theme_css(theme_css_href)}
+  <style>
+    .landing-header {{
+      position: sticky; top: 0; z-index: 30;
+      background: var(--forge-bg);
+      border-bottom: 1px solid var(--forge-border);
+      padding: 0.75rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }}
+    .landing-nav a {{
+      color: var(--forge-text-2); text-decoration: none;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      padding: 0.25rem 0.75rem; border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }}
+    .landing-nav a:hover {{ color: var(--forge-text); background: var(--forge-surface); }}
+    .landing-nav a.active {{ color: var(--forge-cyan); }}
+    .landing-hero {{
+      text-align: center; padding: 4rem 1.5rem 3rem;
+      max-width: 56rem; margin: 0 auto;
+    }}
+  </style>
+{extra_css}
+</head>
+<body>
+<div class="forge-aurora"></div>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="landing-header">
+  <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">{e(brand_name)}</span></p>
+  <nav class="landing-nav d-flex gap-1" aria-label="Site navigation">
+    {nav_links_html}
+  </nav>
+</header>
+
+<main id="main">
+  <div class="landing-hero">
+    {hero_html}
+  </div>
+  <div class="mx-auto px-3 pb-5" style="max-width:64rem">
+    {body_html}
+  </div>
+  {footer_html}
+</main>
+
+{CDN_BOOTSTRAP_JS}
+{_resolve_theme_js(theme_js_href)}
+{extra_scripts}
+</body>
+</html>
+"""
+
+
+# ---------------------------------------------------------------------------
+# Layout 6: gallery_page  (sidebar + card grid, no ToC)
+# ---------------------------------------------------------------------------
+
+def gallery_page(
+    *,
+    browser_title: str,
+    brand_name: str = "Kitchen Sink",
+    brand_subtitle: str = "Design system",
+    page_title: str,
+    breadcrumb_html: str = "",
+    sidebar_html: str,
+    offcanvas_html: str = "",
+    body_html: str,
+    footer_html: str = "",
+    extra_css: str = "",
+    extra_js: list[str] | None = None,
+    theme_css_href: str = "assets/forge-theme.css",
+    theme_js_href: str = "assets/forge-theme.js",
+) -> str:
+    """Gallery page: sidebar + full-width card grid (no right-rail ToC)."""
+    return showcase_page(
+        browser_title=browser_title,
+        brand_name=brand_name,
+        brand_subtitle=brand_subtitle,
+        page_title=page_title,
+        breadcrumb_html=breadcrumb_html,
+        sidebar_html=sidebar_html,
+        offcanvas_html=offcanvas_html,
+        body_html=body_html,
+        toc_html="",
+        footer_html=footer_html,
+        extra_css=extra_css,
+        extra_js=extra_js,
+        theme_css_href=theme_css_href,
+        theme_js_href=theme_js_href,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Layout 7: split_page  (sidebar + two-panel content)
+# ---------------------------------------------------------------------------
+
+def split_page(
+    *,
+    browser_title: str,
+    brand_name: str = "Kitchen Sink",
+    brand_subtitle: str = "Design system",
+    page_title: str,
+    breadcrumb_html: str = "",
+    sidebar_html: str,
+    offcanvas_html: str = "",
+    left_html: str,
+    right_html: str,
+    footer_html: str = "",
+    extra_css: str = "",
+    extra_js: list[str] | None = None,
+    theme_css_href: str = "assets/forge-theme.css",
+    theme_js_href: str = "assets/forge-theme.js",
+) -> str:
+    """Split page: sidebar + two-panel layout (example left, docs right)."""
+    body = f"""
+    <div class="row g-4">
+      <div class="col-lg-7 order-2 order-lg-1">
+        {left_html}
+      </div>
+      <div class="col-lg-5 order-1 order-lg-2">
+        {right_html}
+      </div>
+    </div>"""
+    return showcase_page(
+        browser_title=browser_title,
+        brand_name=brand_name,
+        brand_subtitle=brand_subtitle,
+        page_title=page_title,
+        breadcrumb_html=breadcrumb_html,
+        sidebar_html=sidebar_html,
+        offcanvas_html=offcanvas_html,
+        body_html=body,
+        toc_html="",
+        footer_html=footer_html,
+        extra_css=extra_css,
+        extra_js=extra_js,
+        theme_css_href=theme_css_href,
+        theme_js_href=theme_js_href,
+    )
