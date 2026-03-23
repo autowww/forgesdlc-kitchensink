@@ -2,7 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 320" width="420" height="320" role="img" aria-labelledby="title desc">
   <title id="title">Venn diagram template</title>
   <desc id="desc">Overlapping circles showing concept intersections</desc>
-  <rect width="100%" height="100%" fill="none"/>
+  <rect width="100%" height="100%" fill="#111827"/>
   <g font-family="system-ui, Segoe UI, sans-serif">
     <text x="210" y="20" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  concept overlap]</text>
 

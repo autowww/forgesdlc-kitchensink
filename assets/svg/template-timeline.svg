@@ -2,7 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 180" width="680" height="180" role="img" aria-labelledby="title desc">
   <title id="title">Timeline template</title>
   <desc id="desc">Horizontal milestone chain with date markers and event descriptions</desc>
-  <rect width="100%" height="100%" fill="none"/>
+  <rect width="100%" height="100%" fill="#111827"/>
   <g font-family="system-ui, Segoe UI, sans-serif">
     <text x="340" y="18" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  milestone timeline]</text>
 

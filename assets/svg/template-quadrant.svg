@@ -2,7 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 360" width="400" height="360" role="img" aria-labelledby="title desc">
   <title id="title">Quadrant / 2x2 matrix template</title>
   <desc id="desc">Two-axis matrix with labeled quadrants for positioning</desc>
-  <rect width="100%" height="100%" fill="none"/>
+  <rect width="100%" height="100%" fill="#111827"/>
   <g font-family="system-ui, Segoe UI, sans-serif">
     <text x="200" y="20" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  positioning matrix]</text>
 
@@ -11,8 +11,8 @@
     <line x1="220" y1="40" x2="220" y2="320" stroke="#334155" stroke-width="2"/>
 
     <!-- Axis labels -->
-    <text x="220" y="338" text-anchor="middle" font-size="10" fill="#708090">[X axis label] ’</text>
-    <text x="36" y="180" text-anchor="middle" font-size="10" fill="#708090" transform="rotate(-90 36 180)">[Y axis label] ’</text>
+    <text x="220" y="338" text-anchor="middle" font-size="10" fill="#708090">[X axis label] '</text>
+    <text x="36" y="180" text-anchor="middle" font-size="10" fill="#708090" transform="rotate(-90 36 180)">[Y axis label] '</text>
 
     <!-- Quadrant backgrounds -->
     <rect x="62" y="42" width="156" height="136" rx="4" fill="rgba(44,82,130,0.12)"/>

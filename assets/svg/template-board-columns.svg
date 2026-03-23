@@ -2,7 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 110" width="680" height="110" role="img" aria-labelledby="title desc">
   <title id="title">Board / columns template</title>
   <desc id="desc">Card-based board with placeholder columns and items</desc>
-  <rect width="100%" height="100%" fill="none"/>
+  <rect width="100%" height="100%" fill="#111827"/>
   <text x="340" y="18" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-weight="700" font-size="12" fill="#06B6D4">[Title  board view]</text>
   <g font-family="system-ui, sans-serif">
     <!-- Column A -->

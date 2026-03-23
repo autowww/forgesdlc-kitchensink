@@ -985,20 +985,40 @@
     document.getElementById('diagramModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    fetch(img.src)
-      .then(function (r) { return r.text(); })
-      .then(function (svgText) {
-        canvas.innerHTML = svgText;
-        var svg = canvas.querySelector('svg');
-        if (svg) {
-          svg.removeAttribute('width');
-          svg.removeAttribute('height');
-          svg.style.width = '100%';
-          svg.style.height = 'auto';
-          svg.style.minHeight = '40vh';
-        }
-        wireSvgHovers(canvas, detail, key);
-      });
+    function inlineSvg(svgText) {
+      canvas.innerHTML = svgText;
+      var svg = canvas.querySelector('svg');
+      if (svg) {
+        svg.removeAttribute('width');
+        svg.removeAttribute('height');
+        svg.style.width = '100%';
+        svg.style.height = 'auto';
+        svg.style.minHeight = '40vh';
+      }
+      wireSvgHovers(canvas, detail, key);
+    }
+
+    function showImgFallback() {
+      var clone = img.cloneNode(true);
+      clone.style.width = '100%';
+      clone.style.height = 'auto';
+      clone.style.minHeight = '40vh';
+      clone.style.objectFit = 'contain';
+      canvas.innerHTML = '';
+      canvas.appendChild(clone);
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', img.src, true);
+    xhr.onload = function () {
+      if (xhr.status === 200 || xhr.status === 0) {
+        inlineSvg(xhr.responseText);
+      } else {
+        showImgFallback();
+      }
+    };
+    xhr.onerror = function () { showImgFallback(); };
+    try { xhr.send(); } catch (e) { showImgFallback(); }
   };
 
   function wireSvgHovers(canvas, detail, key) {
