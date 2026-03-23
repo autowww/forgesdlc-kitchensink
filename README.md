@@ -10,7 +10,7 @@ Shared design system for ForgeSDLC documentation sites.
 | `js/` | Client-side scripts — navigation, portal, theme logic |
 | `components/` | Python UI component library — atomic HTML renderers, page layouts, HTML transforms |
 | `assets/svg/` | Diagram **type templates** only (Forge palette); content diagrams live in each project |
-| `generator/` | Builds the Kitchen Sink **showcase** mini-site into `showcase/` (gitignored) |
+| `generator/` | `build-showcase.py` — Kitchen Sink **showcase** mini-site into `showcase/` (gitignored); `ks_assets.py` — copy theme/JS/SVG into consumer `website/assets/` (forgesdlc.com, blueprints handbook) |
 
 ## Kitchen Sink showcase
 

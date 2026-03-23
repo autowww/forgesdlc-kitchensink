@@ -541,6 +541,35 @@ def render_cross_refs(
     )
 
 
+def render_product_landing_hero(title: str, tagline: str | None = None) -> str:
+    """Landing hero fragment for forgesdlc.com (gradient display title + optional tagline).
+
+    Matches the typography treatment used on the Kitchen Sink showcase landing:
+    ``font-display``, ``forge-gradient-text``, ``forge-support``.
+    """
+    h1 = (
+        f'<h1 class="font-display forge-gradient-text mb-3" '
+        f'style="font-size:clamp(2rem,5vw,3.25rem)">{e_content(title)}</h1>'
+    )
+    if not tagline:
+        return h1
+    sub = (
+        '<p class="forge-support mb-0" '
+        'style="font-size:1.05rem;max-width:42rem;margin:0 auto;line-height:1.6">'
+        f"{e_content(tagline)}</p>"
+    )
+    return h1 + sub
+
+
+def wrap_product_site_article(inner_html: str) -> str:
+    """Wrap main-column HTML so ``forgesdlc-theme.css`` ``.fs-main`` rules apply.
+
+    Use under ``landing_page`` body content; ``product_page`` already wraps its
+    article in ``fs-main``.
+    """
+    return f'<div class="fs-main"><article>{inner_html}</article></div>'
+
+
 def render_product_footer(
     brand_name: str = "ForgeSDLC",
     tagline: str = "product-oriented SDLC guidance",

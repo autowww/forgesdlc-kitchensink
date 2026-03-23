@@ -349,11 +349,15 @@ def product_page(
     lens: str | None = None,
     has_mermaid: bool = False,
     theme_css_href: str = "assets/forgesdlc-theme.css",
+    extra_css: str = "",
 ) -> str:
     """Complete HTML page for a product / marketing site.
 
     Uses ``fs-*`` CSS classes from ``forgesdlc-theme.css``.
     The sidebar is tier-grouped and rendered server-side.
+
+    For full handbook typography and prose (markdown), load ``forge-theme.css``
+    first via ``theme_css_href`` and append ``forgesdlc-theme.css`` in ``extra_css``.
     """
     lens_attr = f' data-lens="{e(lens)}"' if lens else ""
     offcanvas = offcanvas_nav_html or nav_html
@@ -368,6 +372,7 @@ def product_page(
   {CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
+{extra_css}
 </head>
 <body{lens_attr}>
   <div class="d-lg-none fs-mobile-bar sticky-top py-2 px-3 d-flex align-items-center justify-content-between">
