@@ -486,3 +486,72 @@ def render_page_header_chapter(
         f'<p class="forge-support mt-2 mb-0">{intro}</p>'
         "</header>"
     )
+
+
+# ---------------------------------------------------------------------------
+# Product-site components (forgesdlc.com)
+# ---------------------------------------------------------------------------
+
+def render_tier_nav(
+    grouped: list[tuple[str, list[tuple[str, str]]]],
+    current_href: str,
+) -> str:
+    """Tier-grouped sidebar nav for product sites (``fs-*`` classes).
+
+    *grouped* is a list of ``(tier_heading, [(href, title), ...])``.
+    *current_href* is the active page's href for highlighting.
+    """
+    parts: list[str] = []
+    for heading, items in grouped:
+        parts.append(
+            f'<div class="fs-nav-tier text-muted">{e(heading)}</div>'
+        )
+        parts.append('<ul class="nav flex-column px-1 mb-2">')
+        for href, title in items:
+            active = " active" if href == current_href else ""
+            parts.append(
+                f'<li class="nav-item"><a class="nav-link{active}" '
+                f'href="{e(href)}">{e(title)}</a></li>'
+            )
+        parts.append("</ul>")
+    return "\n        ".join(parts)
+
+
+def render_cross_refs(
+    items: list[tuple[str, str]],
+) -> str:
+    """Related-content aside for product sites (``fs-cross-refs``).
+
+    *items* is a list of resolved ``(href, label)`` pairs.
+    Returns empty string if *items* is empty.
+    """
+    if not items:
+        return ""
+    lis = "\n    ".join(
+        f'<li><a href="{e(href)}">{e(label)}</a></li>'
+        for href, label in items
+    )
+    return (
+        '<aside class="fs-cross-refs" role="complementary">\n'
+        '  <div class="fs-cross-refs-title">Related</div>\n'
+        '  <ul class="mb-0">\n'
+        f'    {lis}\n'
+        '  </ul>\n'
+        '</aside>'
+    )
+
+
+def render_product_footer(
+    brand_name: str = "ForgeSDLC",
+    tagline: str = "product-oriented SDLC guidance",
+    powered_by_url: str = "https://blueprints.forgesdlc.com",
+    powered_by_label: str = "Blueprints",
+) -> str:
+    """Footer block for product sites (``fs-footer``)."""
+    return (
+        '<footer class="fs-footer">'
+        f'<p class="mb-1">{e(brand_name)} — {e(tagline)}.</p>'
+        f'<p class="mb-0">Powered by '
+        f'<a href="{e(powered_by_url)}" rel="noopener">{e(powered_by_label)}</a>.</p>'
+        '</footer>'
+    )

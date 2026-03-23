@@ -1,19 +1,22 @@
-"""Full-page layout templates for blueprint handbook HTML — Forge theme.
+"""Full-page layout templates — Forge theme.
 
-Two layout variants cover all current use-cases:
+Three layout variants:
 
 ``handbook_page``
-    Used by ``build-handbook.py`` for auto-generated pages.  The sidebar is
-    rendered server-side from the page list; CSS is linked.
+    Auto-generated handbook pages (``build-handbook.py``).  Server-rendered
+    sidebar; CSS from ``forge-theme.css``.
 
 ``chapter_page``
-    Used by ``build_methodology_chapters.py`` for hand-crafted methodology
-    chapters.  The sidebar is driven by a client-side JS nav file; CSS is
-    linked from ``forge-theme.css``.
+    Hand-crafted methodology chapters.  Client-side JS-driven sidebar;
+    CSS from ``docs-theme.css``.
 
-Both share the same Forge structural skeleton: dark AI-native sidebar with
-data-rail navigation, offcanvas mobile nav, optional ToC column, nav buttons,
-canonical note, footer, aurora gradient.
+``product_page``
+    Product / marketing sites (``build-site.py``).  Tier-grouped sidebar nav;
+    CSS from ``forgesdlc-theme.css``.
+
+Handbook and chapter layouts share the Forge structural skeleton (aurora, data-rail
+sidebar, offcanvas, ToC column).  Product layout uses ``fs-*`` classes for a
+distinct visual identity while reusing shared CDN links and Mermaid init.
 """
 from __future__ import annotations
 
@@ -311,6 +314,82 @@ def chapter_page(
   {CDN_BOOTSTRAP_JS}
 {_resolve_theme_js(theme_js_href)}
 {extra}
+{mermaid_script}
+</body>
+</html>
+"""
+
+
+# ---------------------------------------------------------------------------
+# Layout 3: product_page  (build-site.py — forgesdlc.com)
+# ---------------------------------------------------------------------------
+
+def product_page(
+    *,
+    browser_title: str,
+    brand_name: str = "Forge",
+    brand_accent: str = "SDLC",
+    body_html: str,
+    nav_html: str,
+    offcanvas_nav_html: str = "",
+    cross_refs_html: str = "",
+    footer_html: str,
+    lens: str | None = None,
+    has_mermaid: bool = False,
+    theme_css_href: str = "assets/forgesdlc-theme.css",
+) -> str:
+    """Complete HTML page for a product / marketing site.
+
+    Uses ``fs-*`` CSS classes from ``forgesdlc-theme.css``.
+    The sidebar is tier-grouped and rendered server-side.
+    """
+    lens_attr = f' data-lens="{e(lens)}"' if lens else ""
+    offcanvas = offcanvas_nav_html or nav_html
+    mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
+
+    return f"""<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{e(browser_title)} &middot; {e(brand_name)}{e(brand_accent)}</title>
+  {CDN_BOOTSTRAP_CSS}
+  {FONT_LINKS}
+{_resolve_theme_css(theme_css_href)}
+</head>
+<body{lens_attr}>
+  <div class="d-lg-none fs-mobile-bar sticky-top py-2 px-3 d-flex align-items-center justify-content-between">
+    <a class="fs-brand text-decoration-none" href="index.html">{e(brand_name)}<span class="fs-accent">{e(brand_accent)}</span></a>
+    <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#fsNav" aria-controls="fsNav">Menu</button>
+  </div>
+
+  <div class="offcanvas offcanvas-start fs-offcanvas d-lg-none" tabindex="-1" id="fsNav" aria-labelledby="fsNavLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="fsNavLabel">Navigate</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      {offcanvas}
+    </div>
+  </div>
+
+  <div class="container-fluid fs-layout">
+    <div class="row g-0">
+      <aside class="col-lg-3 col-xl-2 d-none d-lg-block fs-sidebar p-3">
+        <a class="fs-brand d-block text-decoration-none mb-3" href="index.html">{e(brand_name)}<span class="fs-accent">{e(brand_accent)}</span></a>
+        {nav_html}
+      </aside>
+      <main class="col-lg-9 col-xl-10 fs-main">
+        <article>
+          {cross_refs_html}
+          {body_html}
+        </article>
+        {footer_html}
+      </main>
+    </div>
+  </div>
+
+  {CDN_BOOTSTRAP_JS}
 {mermaid_script}
 </body>
 </html>
