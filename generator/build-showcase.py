@@ -5,6 +5,11 @@ Collects page definitions from generator/pages/, builds sidebar navigation,
 dispatches to layout functions in components/layouts.py, and writes the
 generated HTML into the showcase/ directory.
 
+**Canonical documentation shell:** the default path in ``_render_page`` uses
+``showcase_page`` with the ``common`` kwargs pattern—this is the reference
+implementation for other static-site generators embedding this design system.
+See README.md ("Canonical documentation shell").
+
 Usage (from the forgesdlc-kitchensink repo root):
     python3 generator/build-showcase.py
 """
@@ -173,6 +178,8 @@ def _breadcrumb(page: dict) -> str:
 # ---------------------------------------------------------------------------
 # Render a single page
 # ---------------------------------------------------------------------------
+# Default branch: showcase_page — canonical doc shell for consumers (see README).
+
 
 def _render_page(page: dict, all_pages: list[dict]) -> str:
     mod = page["_module"]

@@ -102,6 +102,10 @@ def render() -> str:
 <section id="sec-layout-intro" class="ks-section">
   <h2 class="ks-section-title">Reading the layouts</h2>
   <p class="forge-support mb-3">Each template below is a <strong>Python function</strong> in <code>components/layouts.py</code> that assembles a full HTML page from fragments (headers, sidebars, <code>body_html</code>, etc.). Names like <code>showcase_page</code> map to those functions.</p>
+  <div class="forge-callout forge-callout-cyan mb-3">
+    <p class="callout-label">Canonical doc shell</p>
+    <p class="forge-support mb-0"><code>showcase_page</code> is the <strong>canonical layout</strong> for generated static documentation in sibling projects. Use <code>generator/build-showcase.py</code> as the reference for how to call it. The other layouts below are <strong>legacy or specialized</strong> (landing/hero, gallery grids, split panels, blueprint handbook/chapter/product shells)—use them only when you have a specific need.</p>
+  </div>
   <div class="forge-callout forge-callout-surface mb-0">
     <p class="callout-label">What the schematic shows</p>
     <ul class="forge-support mb-0 small" style="line-height:1.55">
@@ -127,7 +131,7 @@ def render() -> str:
                 ("extra_css", "str", "Additional inline <style> block"),
                 ("extra_js", "list[str]", "Paths to extra JS files"),
             ],
-            "Kitchen Sink showcase mini-site (this site)",
+            "Kitchen Sink showcase mini-site (this site) — canonical reference for external generators",
             "layout-showcase",
             "layout-schematic-showcase.svg",
             [
