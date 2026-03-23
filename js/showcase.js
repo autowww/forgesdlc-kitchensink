@@ -447,6 +447,23 @@
     return bbox;
   }
 
+  function closestSvgNodeZone(el, root) {
+    while (el && el !== root) {
+      if (el.classList && el.classList.contains('svg-node-zone')) return el;
+      el = el.parentNode;
+    }
+    return null;
+  }
+
+  function findZoneByNodeName(canvas, nodeName) {
+    var zones = canvas.querySelectorAll('.svg-node-zone');
+    var i;
+    for (i = 0; i < zones.length; i++) {
+      if (zones[i].getAttribute('data-node') === nodeName) return zones[i];
+    }
+    return null;
+  }
+
   function wireSvgHovers(canvas, detail, key) {
     var data = DIAGRAM_DETAILS[key];
     if (!data || !canvas || !detail) return;
@@ -485,6 +502,7 @@
       var zone = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       zone.setAttribute('class', 'svg-node-zone');
       zone.setAttribute('data-node', nodeName);
+      zone.setAttribute('pointer-events', 'all');
 
       if (bestShape && bestShape.parentNode) {
         bestShape.parentNode.insertBefore(zone, bestShape);
@@ -502,31 +520,65 @@
         sibling.parentNode.removeChild(sibling);
         zone.appendChild(sibling);
       }
+    });
 
-      var detailItem = findDetailItem(detail, nodeName);
+    /* -----------------------------------------------------------------
+     * Hover wiring: do NOT use mouseenter/mouseleave on <g> — many
+     * browsers never fire them on SVG groups. Use mouseover/mouseout on
+     * the root <svg> (bubbling) so rect/text/path receive hits.
+     * ----------------------------------------------------------------- */
+    var activeZone = null;
 
-      zone.addEventListener('mouseenter', function () {
-        zone.classList.add('active');
-        if (detailItem) {
-          detailItem.classList.add('highlight');
-          detailItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        }
-      });
-      zone.addEventListener('mouseleave', function () {
-        zone.classList.remove('active');
-        if (detailItem) detailItem.classList.remove('highlight');
-      });
+    function clearSvgActive() {
+      if (!activeZone) return;
+      activeZone.classList.remove('active');
+      var node = activeZone.getAttribute('data-node');
+      var di = findDetailItem(detail, node);
+      if (di) di.classList.remove('highlight');
+      activeZone = null;
+    }
 
-      if (detailItem) {
-        detailItem.addEventListener('mouseenter', function () {
-          detailItem.classList.add('highlight');
-          zone.classList.add('active');
-        });
-        detailItem.addEventListener('mouseleave', function () {
-          detailItem.classList.remove('highlight');
-          zone.classList.remove('active');
-        });
+    function setSvgActive(zone) {
+      if (activeZone === zone) return;
+      clearSvgActive();
+      activeZone = zone;
+      zone.classList.add('active');
+      var di = findDetailItem(detail, zone.getAttribute('data-node'));
+      if (di) {
+        di.classList.add('highlight');
+        di.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
+    }
+
+    svg.addEventListener('mouseover', function (ev) {
+      var z = ev.target.closest ? ev.target.closest('.svg-node-zone') : closestSvgNodeZone(ev.target, svg);
+      if (z) setSvgActive(z);
+    });
+
+    svg.addEventListener('mouseout', function (ev) {
+      var z = ev.target.closest ? ev.target.closest('.svg-node-zone') : closestSvgNodeZone(ev.target, svg);
+      if (!z) return;
+      var rel = ev.relatedTarget;
+      if (rel && z.contains(rel)) return;
+      if (activeZone === z) clearSvgActive();
+    });
+
+    detail.addEventListener('mouseover', function (ev) {
+      var item = ev.target.closest ? ev.target.closest('.detail-item') : null;
+      if (!item) return;
+      var nodeName = item.getAttribute('data-node');
+      var zone = findZoneByNodeName(canvas, nodeName);
+      if (zone) setSvgActive(zone);
+    });
+
+    detail.addEventListener('mouseout', function (ev) {
+      var item = ev.target.closest ? ev.target.closest('.detail-item') : null;
+      if (!item) return;
+      var rel = ev.relatedTarget;
+      if (rel && item.contains(rel)) return;
+      var nodeName = item.getAttribute('data-node');
+      var zone = findZoneByNodeName(canvas, nodeName);
+      if (activeZone === zone) clearSvgActive();
     });
   }
 })();
