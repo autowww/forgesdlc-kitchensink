@@ -40,6 +40,19 @@
     .ks-diagram-card { cursor: pointer; }
     .ks-diagram-card svg { width: 100%; height: auto; }
     .ks-thumb svg, .ks-thumb img { width: 100%; height: auto; }
+    .diagram-modal-canvas .svg-node-zone { cursor: pointer; }
+    .diagram-modal-canvas .svg-node-zone rect,
+    .diagram-modal-canvas .svg-node-zone polygon {
+      transition: filter 0.25s, stroke 0.25s, stroke-width 0.15s;
+    }
+    .diagram-modal-canvas .svg-node-zone.active rect,
+    .diagram-modal-canvas .svg-node-zone.active polygon {
+      stroke: var(--forge-cyan) !important;
+      animation: node-breathe-stroke 2s ease-in-out infinite;
+    }
+    .diagram-modal-canvas .svg-node-zone.active {
+      animation: node-breathe-glow 2s ease-in-out infinite;
+    }
     .doc-main { position: relative; }
     .doc-header {
       position: sticky;
@@ -556,21 +569,135 @@
     var title  = document.getElementById('diagramModalTitle');
     if (!canvas) return;
 
-    var expanded = document.createElement('img');
-    expanded.src = img.src;
-    expanded.alt = img.alt;
-    expanded.style.width = '100%';
-    expanded.style.height = 'auto';
-    expanded.style.minHeight = '40vh';
-    canvas.innerHTML = '';
-    canvas.appendChild(expanded);
-
     if (detail) detail.innerHTML = renderDetailPanel(key);
     if (title && DIAGRAM_DETAILS[key]) title.textContent = DIAGRAM_DETAILS[key].title;
 
     document.getElementById('diagramModal').classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    fetch(img.src)
+      .then(function (r) { return r.text(); })
+      .then(function (svgText) {
+        canvas.innerHTML = svgText;
+        var svg = canvas.querySelector('svg');
+        if (svg) {
+          svg.removeAttribute('width');
+          svg.removeAttribute('height');
+          svg.style.width = '100%';
+          svg.style.height = 'auto';
+          svg.style.minHeight = '40vh';
+        }
+        wireSvgHovers(canvas, detail, key);
+      });
   };
+
+  function wireSvgHovers(canvas, detail, key) {
+    var data = DIAGRAM_DETAILS[key];
+    if (!data || !canvas || !detail) return;
+
+    var nodeNames = data.items.map(function (it) { return it.node; });
+    var svg = canvas.querySelector('svg');
+    if (!svg) return;
+
+    var allShapes = Array.from(svg.querySelectorAll('rect, polygon'));
+    var allTexts = Array.from(svg.querySelectorAll('text'));
+
+    nodeNames.forEach(function (nodeName) {
+      var matchText = allTexts.find(function (t) {
+        return t.textContent.trim() === nodeName;
+      });
+      if (!matchText) return;
+
+      var tx = parseFloat(matchText.getAttribute('x') || 0);
+      var ty = parseFloat(matchText.getAttribute('y') || 0);
+
+      var transform = matchText.parentElement && matchText.parentElement.tagName === 'g'
+        ? matchText.parentElement.getAttribute('transform') : null;
+      if (transform) {
+        var m = transform.match(/translate\(\s*([\d.]+)\s*,\s*([\d.]+)\s*\)/);
+        if (m) { tx += parseFloat(m[1]); ty += parseFloat(m[2]); }
+      }
+
+      var bestShape = null;
+      var bestDist = Infinity;
+      allShapes.forEach(function (s) {
+        var bbox;
+        if (s.tagName === 'rect') {
+          var rx = parseFloat(s.getAttribute('x') || 0);
+          var ry = parseFloat(s.getAttribute('y') || 0);
+          var rw = parseFloat(s.getAttribute('width') || 0);
+          var rh = parseFloat(s.getAttribute('height') || 0);
+          if (rw < 30 || rh < 15) return;
+          bbox = { x: rx, y: ry, w: rw, h: rh };
+        } else if (s.tagName === 'polygon') {
+          var pts = s.getAttribute('points');
+          if (!pts) return;
+          var coords = pts.trim().split(/[\s,]+/).map(Number);
+          var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+          for (var i = 0; i < coords.length; i += 2) {
+            if (coords[i] < minX) minX = coords[i];
+            if (coords[i] > maxX) maxX = coords[i];
+            if (coords[i+1] < minY) minY = coords[i+1];
+            if (coords[i+1] > maxY) maxY = coords[i+1];
+          }
+          bbox = { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+          if (bbox.w < 15 || bbox.h < 15) return;
+        } else return;
+
+        if (tx >= bbox.x - 5 && tx <= bbox.x + bbox.w + 5 &&
+            ty >= bbox.y - 5 && ty <= bbox.y + bbox.h + 5) {
+          var cx = bbox.x + bbox.w / 2;
+          var cy = bbox.y + bbox.h / 2;
+          var dist = Math.abs(tx - cx) + Math.abs(ty - cy);
+          if (dist < bestDist) { bestDist = dist; bestShape = s; }
+        }
+      });
+
+      var zone = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      zone.setAttribute('class', 'svg-node-zone');
+      zone.setAttribute('data-node', nodeName);
+
+      if (bestShape && bestShape.parentNode) {
+        bestShape.parentNode.insertBefore(zone, bestShape);
+        zone.appendChild(bestShape);
+      }
+
+      var sibling = matchText.nextElementSibling;
+      if (matchText.parentNode === zone.parentNode || matchText.parentNode) {
+        if (matchText.parentNode) matchText.parentNode.removeChild(matchText);
+        zone.appendChild(matchText);
+      }
+      if (sibling && sibling.tagName === 'text' && sibling.parentNode) {
+        sibling.parentNode.removeChild(sibling);
+        zone.appendChild(sibling);
+      }
+
+      var detailItem = detail.querySelector('.detail-item[data-node="' + nodeName + '"]');
+
+      zone.addEventListener('mouseenter', function () {
+        zone.classList.add('active');
+        if (detailItem) {
+          detailItem.classList.add('highlight');
+          detailItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+      });
+      zone.addEventListener('mouseleave', function () {
+        zone.classList.remove('active');
+        if (detailItem) detailItem.classList.remove('highlight');
+      });
+
+      if (detailItem) {
+        detailItem.addEventListener('mouseenter', function () {
+          detailItem.classList.add('highlight');
+          zone.classList.add('active');
+        });
+        detailItem.addEventListener('mouseleave', function () {
+          detailItem.classList.remove('highlight');
+          zone.classList.remove('active');
+        });
+      }
+    });
+  }
 })();
 </script>
 </body>
