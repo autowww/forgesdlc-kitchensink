@@ -1,0 +1,488 @@
+"""Atomic UI components for blueprint handbook pages — Forge theme.
+
+Every function returns an HTML string fragment.  Compose them freely—none
+produce a full page; see ``layouts`` for that.
+
+Naming convention:
+    ``render_*``  — returns ready-to-insert HTML
+    ``build_*``   — assembles HTML from sub-parts (typically takes a list)
+"""
+from __future__ import annotations
+
+import html as html_mod
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def e(s: str) -> str:
+    """HTML-escape a string (quotes included)."""
+    return html_mod.escape(s, quote=True)
+
+
+def e_content(s: str) -> str:
+    """HTML-escape without quoting (for element content)."""
+    return html_mod.escape(s, quote=False)
+
+
+def bold(s: str) -> str:
+    """Wrap *s* in a ``<strong>``."""
+    return f'<strong>{e_content(s)}</strong>'
+
+
+# ---------------------------------------------------------------------------
+# Tables
+# ---------------------------------------------------------------------------
+
+def render_table(
+    headers: list[str],
+    rows: list[list[str]],
+    *,
+    striped: bool = True,
+    cell_escape: bool = False,
+) -> str:
+    """Forge-themed responsive table.
+
+    Parameters
+    ----------
+    headers : list[str]
+        Column headers (rendered as-is—may contain HTML).
+    rows : list[list[str]]
+        Row data (rendered as-is unless *cell_escape* is True).
+    striped : bool
+        Apply ``table-striped`` class.
+    cell_escape : bool
+        If True, HTML-escape every cell value.
+    """
+    cls = "table table-sm mb-0"
+    if striped:
+        cls += " table-striped"
+    th = "".join(f"<th scope='col'>{h}</th>" for h in headers)
+    body = ""
+    for r in rows:
+        cells = "".join(f"<td>{e_content(c) if cell_escape else c}</td>" for c in r)
+        body += f"<tr>{cells}</tr>"
+    return (
+        f'<div class="forge-table-wrap mt-2"><table class="{cls}">'
+        f"<thead><tr>{th}</tr></thead>"
+        f"<tbody>{body}</tbody></table></div>"
+    )
+
+
+def render_io_table(
+    rows: list[tuple[str, str, str, str, str]],
+) -> str:
+    """Intent / Inputs / Outputs / Participants / Timebox table."""
+    headers = ["Intent", "Inputs", "Outputs", "Participants", "Timebox / cadence"]
+    body_rows = [[e_content(a), e_content(b), e_content(c), e_content(d), e_content(t)]
+                 for a, b, c, d, t in rows]
+    return render_table(headers, body_rows)
+
+
+# ---------------------------------------------------------------------------
+# Sections
+# ---------------------------------------------------------------------------
+
+def render_section(
+    sid: str,
+    title: str,
+    inner: str,
+    *,
+    first: bool = False,
+    label: str = "",
+    label_color: str = "text-cyan",
+) -> str:
+    """Content section with an ``<h2>`` heading and optional pre-label.
+
+    Parameters
+    ----------
+    sid : str
+        HTML ``id`` attribute (anchor target).
+    title : str
+        Section heading (escaped automatically).
+    inner : str
+        Body HTML (inserted as-is).
+    first : bool
+        If True, omit the top divider.
+    label : str
+        Optional pre-label shown above the heading (e.g. "Process").
+    label_color : str
+        CSS class for the label color (default ``text-cyan``).
+    """
+    divider = "" if first else '<hr class="forge-divider" />'
+    lbl = (
+        f'<p class="section-label {label_color} mb-2">{e(label)}</p>'
+        if label else ""
+    )
+    return (
+        f'{divider}'
+        f'<section class="mb-5" id="{e(sid)}">'
+        f'{lbl}'
+        f'<h2 class="font-display mb-4" style="font-size:1.75rem">{e(title)}</h2>'
+        f'{inner}</section>'
+    )
+
+
+# ---------------------------------------------------------------------------
+# Mermaid diagrams
+# ---------------------------------------------------------------------------
+
+def render_mermaid_block(diagram: str, *, expandable: bool = False) -> str:
+    """Single Mermaid diagram wrapped in a Forge-styled container.
+
+    *diagram* is raw Mermaid source (no HTML).
+    If *expandable* is True, adds click-to-expand trigger class.
+    """
+    esc = (
+        diagram.replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
+    trigger = ' forge-diagram-trigger" onclick="openDiagramModal(this)' if expandable else ''
+    return (
+        f'<div class="forge-diagram breathe-static{trigger}">'
+        f'<div class="mermaid small">{esc}</div></div>'
+    )
+
+
+def render_diagrams_section(
+    title: str,
+    sid: str,
+    diagrams: list[str],
+) -> str:
+    """Section containing one or more Mermaid diagrams."""
+    inner = "".join(render_mermaid_block(d) for d in diagrams)
+    inner = (
+        '<p class="forge-support mb-2">'
+        "Rendered when JavaScript runs. Same diagrams in canonical Markdown.</p>"
+        + inner
+    )
+    return render_section(sid, title, inner, label="Visualization", label_color="text-cyan")
+
+
+# ---------------------------------------------------------------------------
+# Alerts / Callouts
+# ---------------------------------------------------------------------------
+
+_CALLOUT_VARIANTS = {
+    "info":      "forge-callout-cyan",
+    "warning":   "forge-callout-amber",
+    "success":   "forge-callout-emerald",
+    "danger":    "forge-callout-red",
+    "secondary": "forge-callout-surface",
+    "light":     "forge-callout-surface",
+}
+
+_CALLOUT_LABEL_COLORS = {
+    "info":      "text-cyan",
+    "warning":   "text-amber",
+    "success":   "color:var(--forge-emerald)",
+    "danger":    "color:#EF4444",
+    "secondary": "text-dim-2",
+    "light":     "text-dim-2",
+}
+
+
+def render_alert(content: str, *, variant: str = "secondary", label: str = "") -> str:
+    """Forge-themed callout box.
+
+    *variant* is one of ``info | warning | success | danger | secondary | light``.
+    """
+    cls = _CALLOUT_VARIANTS.get(variant, "forge-callout-surface")
+    lbl_color = _CALLOUT_LABEL_COLORS.get(variant, "text-dim-2")
+    lbl_html = ""
+    if label:
+        style = f' style="{lbl_color}"' if lbl_color.startswith("color:") else ""
+        cls_lbl = lbl_color if not lbl_color.startswith("color:") else ""
+        lbl_html = f'<p class="callout-label {cls_lbl}"{style}>{e(label)}</p>'
+    return (
+        f'<div class="forge-callout {cls}">'
+        f'{lbl_html}'
+        f'<p class="forge-support mb-0">{content}</p></div>'
+    )
+
+
+def render_template_banner() -> str:
+    """Amber banner shown on template pages."""
+    return render_alert(
+        "<strong>Template</strong> &mdash; Copy this file into your project "
+        "and fill in the sections. Do not edit the blueprint original.",
+        variant="warning",
+        label="Template",
+    )
+
+
+def render_canonical_note(
+    canonical_md: str,
+    *,
+    generator: str = "docs/build-handbook.py",
+) -> str:
+    """Surface-colored callout linking to the canonical Markdown source."""
+    return (
+        '<div class="forge-callout forge-callout-surface mt-4">'
+        '<p class="callout-label text-dim-2">Canonical source</p>'
+        f'<p class="forge-support mb-0">Edit '
+        f'<a href="{e(canonical_md)}">'
+        f"<code>{e(canonical_md)}</code></a> first; regenerate with "
+        f"<code>{e(generator)}</code>.</p></div>"
+    )
+
+
+# ---------------------------------------------------------------------------
+# Breadcrumbs
+# ---------------------------------------------------------------------------
+
+def render_breadcrumbs(
+    crumbs: list[tuple[str | None, str]],
+) -> str:
+    """Forge-styled breadcrumb trail.
+
+    Each entry is ``(href, label)``; use ``href=None`` for the active item.
+    """
+    items: list[str] = []
+    for href, label in crumbs:
+        if href is None:
+            items.append(
+                f'<li class="breadcrumb-item active" aria-current="page">'
+                f"{e(label)}</li>"
+            )
+        else:
+            items.append(
+                f'<li class="breadcrumb-item">'
+                f'<a href="{e(href)}">{e(label)}</a></li>'
+            )
+    return '<ol class="breadcrumb small mb-3">' + "".join(items) + "</ol>"
+
+
+# ---------------------------------------------------------------------------
+# Navigation buttons
+# ---------------------------------------------------------------------------
+
+def render_nav_buttons(
+    prev_link: tuple[str, str] | None = None,
+    next_link: tuple[str, str] | None = None,
+) -> str:
+    """Previous / Next chapter buttons using Forge button styles."""
+    prev_btn = ""
+    if prev_link:
+        prev_btn = (
+            f'<a href="{e(prev_link[0])}" class="btn btn-cyan-outline btn-sm">'
+            f"&larr; {e(prev_link[1])}</a>"
+        )
+    next_btn = ""
+    if next_link:
+        next_btn = (
+            f'<a href="{e(next_link[0])}" class="btn btn-forge-outline btn-sm">'
+            f"{e(next_link[1])} &rarr;</a>"
+        )
+    if not prev_btn and not next_btn:
+        return ""
+    return (
+        '<nav class="d-flex flex-wrap justify-content-between gap-2 mt-4 pt-3" '
+        'style="border-top:1px solid var(--forge-border)" '
+        'aria-label="Chapter navigation">'
+        f"{prev_btn}{next_btn}</nav>"
+    )
+
+
+# ---------------------------------------------------------------------------
+# External sources / references
+# ---------------------------------------------------------------------------
+
+def render_external_sources_section(
+    sid: str,
+    items: list[tuple[str, str, str]],
+    *,
+    reference_link: str = "../methodologies/REFERENCE-LINKS.md",
+) -> str:
+    """Section listing authoritative sources with summaries.
+
+    Each item is ``(url, link_label, executive_summary)``.
+    """
+    lis: list[str] = []
+    for i, (url, label, summary) in enumerate(items):
+        mb = "mb-2" if i < len(items) - 1 else "mb-0"
+        lis.append(
+            f'<li class="{mb}">'
+            f'<a href="{e(url)}" rel="noopener">{e(label)}</a>'
+            f' <span class="forge-support">{e(summary)}</span></li>'
+        )
+    ref_note = (
+        '<p class="forge-support mb-0 mt-3">'
+        "Full curated list with matching blurbs: "
+        f'<a href="{e(reference_link)}">'
+        f"<code>{e('REFERENCE-LINKS.md')}</code></a> (repository path).</p>"
+    )
+    inner = (
+        '<ul class="list-unstyled">'
+        + "".join(lis)
+        + "</ul>"
+        + ref_note
+    )
+    return render_section(sid, "Authoritative sources & further reading", inner)
+
+
+# ---------------------------------------------------------------------------
+# Flow details (walkthrough narrative)
+# ---------------------------------------------------------------------------
+
+def render_flow_details_section(
+    sid: str,
+    items: list[tuple[str, str]],
+) -> str:
+    """Section with per-diagram narrative subsections.
+
+    Each item is ``(subsection_title, paragraph_text)``.
+    """
+    chunks: list[str] = []
+    for idx, (title, para) in enumerate(items):
+        mt = "mt-1" if idx == 0 else "mt-3"
+        chunks.append(
+            f'<h3 class="font-display {mt} mb-2" style="font-size:1.25rem">'
+            f"{e(title)}</h3>"
+            f'<p class="forge-support mb-0">{e(para)}</p>'
+        )
+    return render_section(sid, "Flow details (walkthrough)", "".join(chunks))
+
+
+# ---------------------------------------------------------------------------
+# ToC sidebar
+# ---------------------------------------------------------------------------
+
+def render_toc_sidebar(toc: list[tuple[str, str, int]]) -> str:
+    """Right-column "On this page" sticky navigation (Forge-themed).
+
+    *toc* entries are ``(id, text, heading_level)``.
+    Returns the full ``<div class="col-lg-4 …">`` wrapper.
+    If *toc* is empty returns ``""`` (caller omits the column).
+    """
+    if not toc:
+        return ""
+    links = ""
+    for hid, text, level in toc:
+        indent = ' style="padding-left:1.25rem"' if level == 3 else ""
+        links += (
+            f'<a class="nav-link"{indent} '
+            f'href="#{e(hid)}">{e(text)}</a>\n'
+        )
+    return f"""
+            <div class="col-lg-4 col-xl-3 order-1 order-lg-2">
+              <nav class="forge-toc" aria-label="On this page">
+                <p class="toc-title mb-2">On this page</p>
+{links}
+              </nav>
+            </div>"""
+
+
+def render_toc_sidebar_simple(toc: list[tuple[str, str]]) -> str:
+    """Simpler ToC variant used by chapter pages (no heading level).
+
+    *toc* entries are ``(id, text)``.
+    """
+    links = "".join(
+        f'<a class="nav-link" href="#{e(sid)}">{e(lab)}</a>'
+        for sid, lab in toc
+    )
+    return f"""
+              <nav class="forge-toc" aria-label="On this page">
+                <p class="toc-title mb-2">On this page</p>
+{links}
+              </nav>"""
+
+
+# ---------------------------------------------------------------------------
+# Skip link
+# ---------------------------------------------------------------------------
+
+def render_skip_link(target: str = "#main") -> str:
+    """Accessibility skip-to-content link."""
+    return f'<a href="{e(target)}" class="skip-link">Skip to content</a>'
+
+
+# ---------------------------------------------------------------------------
+# Mobile nav button
+# ---------------------------------------------------------------------------
+
+def render_mobile_nav_button(
+    *,
+    target_id: str = "docNavOffcanvas",
+) -> str:
+    """Fixed hamburger button for opening the offcanvas sidebar."""
+    return (
+        f'<button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 '
+        f'd-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" '
+        f'data-bs-target="#{e(target_id)}" aria-controls="{e(target_id)}" '
+        f'aria-label="Open navigation">'
+        '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" '
+        'viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" '
+        'd="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 '
+        '.5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 '
+        '1H3a.5.5 0 0 1-.5-.5z"/></svg></button>'
+    )
+
+
+# ---------------------------------------------------------------------------
+# Page footer
+# ---------------------------------------------------------------------------
+
+def render_footer(
+    date: str,
+    *,
+    label: str = "Generated from blueprint Markdown",
+) -> str:
+    """Forge-themed page footer."""
+    return (
+        '<footer class="mt-5 pt-4 small" '
+        'style="border-top:1px solid var(--forge-border);color:var(--forge-text-3)">'
+        f'<p class="mb-1">{label}: '
+        f'<strong>{e(date)}</strong>.</p>'
+        f'<p class="mb-0" style="font-size:.75rem;color:var(--forge-text-4)">'
+        'Bootstrap 5.3 dark mode + Forge design tokens. '
+        'Fonts: Inter, JetBrains Mono, Space Mono.</p>'
+        "</footer>"
+    )
+
+
+# ---------------------------------------------------------------------------
+# Page header
+# ---------------------------------------------------------------------------
+
+def render_page_header(
+    page_title: str,
+    intro: str,
+    *,
+    breadcrumb_html: str = "",
+    label: str = "Handbook",
+    label_color: str = "text-cyan",
+) -> str:
+    """Forge-styled page header with title, intro, and optional breadcrumbs."""
+    bc = f'<nav aria-label="breadcrumb">{breadcrumb_html}</nav>' if breadcrumb_html else ""
+    lbl = (
+        f'<p class="section-label {label_color} mb-2">{e(label)}</p>'
+        if label and not breadcrumb_html
+        else ""
+    )
+    return (
+        '<header class="mb-4 pb-3" style="border-bottom:1px solid var(--forge-border)">'
+        f"{bc}{lbl}"
+        f'<h1 class="font-display" style="font-size:clamp(1.75rem,4vw,2.5rem)">'
+        f"{e(page_title)}</h1>"
+        f'<p class="forge-support mt-2 mb-0" style="font-size:1rem">{intro}</p>'
+        "</header>"
+    )
+
+
+def render_page_header_chapter(
+    h1: str,
+    intro: str,
+    breadcrumb_html: str,
+) -> str:
+    """Chapter-style header with breadcrumbs (used by methodology pages)."""
+    return (
+        '<header class="mb-3 pb-3" style="border-bottom:1px solid var(--forge-border)">'
+        f'<nav aria-label="breadcrumb">{breadcrumb_html}</nav>'
+        f'<h1 class="font-display mb-0" style="font-size:1.75rem">{h1}</h1>'
+        f'<p class="forge-support mt-2 mb-0">{intro}</p>'
+        "</header>"
+    )

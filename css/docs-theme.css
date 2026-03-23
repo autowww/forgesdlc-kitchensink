@@ -1,0 +1,1309 @@
+/*
+ * Forge — AI-native design system
+ * ================================
+ * Canonical CSS for all blueprint handbook pages.
+ *
+ * This file is the SINGLE SOURCE OF TRUTH for handbook styling.
+ * Built on Bootstrap 5.3 dark mode.
+ * Typography: Inter (body), JetBrains Mono (code), Space Mono (labels).
+ *
+ * Sections
+ * --------
+ *  1. Design tokens (CSS custom properties)
+ *  2. Base (html, body, backgrounds, selection)
+ *  3. Typography (display, mono, labels, gradients)
+ *  4. Glassmorphic panels (glass, glass-amber, glass-solid)
+ *  5. Sidebar (data-rail navigation)
+ *  6. In-page TOC (right rail)
+ *  7. Cards (chapter cards, area cards)
+ *  8. Bento grid
+ *  9. Tables
+ * 10. Callouts / alerts
+ * 11. Badges
+ * 12. Buttons
+ * 13. Code blocks & trees
+ * 14. Diagram wrapper (Mermaid)
+ * 15. Dividers
+ * 16. Idle pulse animations
+ * 17. Hover breathing (expanding outline)
+ * 18. Flow diagram (pure CSS)
+ * 19. Stat counters
+ * 20. Scrollbar
+ * 21. Expandable diagram overlay (modal)
+ * 22. Interactive node ↔ detail highlight
+ */
+
+/* =================================================================
+   1. DESIGN TOKENS
+   ================================================================= */
+:root {
+  --forge-bg:          #0A0E17;
+  --forge-surface:     #111827;
+  --forge-surface-2:   #1a2235;
+  --forge-border:      rgba(6,182,212,0.12);
+  --forge-border-hover:rgba(6,182,212,0.35);
+  --forge-amber:       #F59E0B;
+  --forge-amber-dim:   rgba(245,158,11,0.15);
+  --forge-cyan:        #06B6D4;
+  --forge-cyan-dim:    rgba(6,182,212,0.10);
+  --forge-orange:      #F97316;
+  --forge-emerald:     #10B981;
+  --forge-text:        #F1F5F9;
+  --forge-text-2:      #94A3B8;
+  --forge-text-3:      #708090;
+  --forge-text-4:      #4E5D6E;
+  --forge-glow-amber:  0 0 20px rgba(245,158,11,0.15), 0 0 3px rgba(245,158,11,0.1);
+  --forge-glow-cyan:   0 0 20px rgba(6,182,212,0.15), 0 0 3px rgba(6,182,212,0.1);
+
+  --bs-body-bg:        var(--forge-bg);
+  --bs-body-color:     var(--forge-text);
+  --bs-body-font-family: "Inter", system-ui, -apple-system, sans-serif;
+  --bs-body-font-size: 0.9375rem;
+  --bs-border-color:   var(--forge-border);
+
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", "Fira Code", monospace;
+  --font-label:   "Space Mono", monospace;
+}
+
+/* =================================================================
+   2. BASE
+   ================================================================= */
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+body {
+  font-family: var(--bs-body-font-family);
+  background: var(--forge-bg);
+  color: var(--forge-text);
+  min-height: 100vh;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: radial-gradient(circle, rgba(6,182,212,0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+.forge-aurora {
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140%;
+  height: 600px;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(6,182,212,0.08) 0deg,
+    rgba(245,158,11,0.06) 120deg,
+    rgba(249,115,22,0.04) 240deg,
+    rgba(6,182,212,0.08) 360deg
+  );
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+}
+::selection {
+  background: rgba(6,182,212,0.3);
+  color: #fff;
+}
+section[id], h2[id], h3[id] { scroll-margin-top: 4rem; }
+.doc-content img { max-width: 100%; height: auto; }
+
+/* =================================================================
+   3. TYPOGRAPHY
+   ================================================================= */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+code, kbd, pre, samp, .doc-mono {
+  font-family: var(--font-mono) !important;
+  font-size: 0.85em;
+}
+.font-label {
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.section-label {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+a { color: var(--forge-cyan); }
+a:hover { color: var(--forge-amber); }
+strong { color: var(--forge-text); }
+
+.text-amber  { color: var(--forge-amber) !important; }
+.text-cyan   { color: var(--forge-cyan) !important; }
+.text-dim    { color: var(--forge-text-2) !important; }
+.text-dim-2  { color: var(--forge-text-3) !important; }
+.text-muted-4 { color: var(--forge-text-4) !important; }
+
+.forge-support {
+  color: var(--forge-text-3);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
+
+.forge-gradient-text {
+  background: linear-gradient(135deg, var(--forge-amber) 0%, var(--forge-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute; left: -9999px; z-index: 1080;
+  padding: .4rem .85rem; background: var(--forge-amber);
+  color: #000; border-radius: 8px; font-weight: 700; text-decoration: none;
+}
+.skip-link:focus { left: 1rem; top: 1rem; outline: 2px solid var(--forge-amber); outline-offset: 2px; }
+
+/* =================================================================
+   4. GLASSMORPHIC PANELS
+   ================================================================= */
+.glass {
+  background: rgba(17,24,39,0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+}
+.glass:hover {
+  border-color: var(--forge-border-hover);
+  box-shadow: var(--forge-glow-cyan);
+}
+.glass-amber {
+  background: rgba(17,24,39,0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245,158,11,0.15);
+  border-radius: 12px;
+}
+.glass-amber:hover {
+  border-color: rgba(245,158,11,0.4);
+  box-shadow: var(--forge-glow-amber);
+}
+.glass-solid {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+}
+
+/* =================================================================
+   5. SIDEBAR — AI data-rail navigation
+   ================================================================= */
+.forge-sidebar {
+  background: var(--forge-bg);
+  border-right: 1px solid var(--forge-border);
+  position: relative;
+}
+.forge-sidebar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(6,182,212,0.018) 3px,
+    rgba(6,182,212,0.018) 4px
+  );
+  pointer-events: none;
+}
+.forge-sidebar .forge-brand {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.05rem;
+  letter-spacing: -0.03em;
+}
+.forge-sidebar .forge-brand .brand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--forge-amber), rgba(245,158,11,0.6));
+  color: var(--forge-bg);
+  font-size: 14px;
+  font-weight: 900;
+  margin-right: 8px;
+}
+.forge-sidebar .nav-section-label {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forge-text-3);
+  padding-left: 1.35rem;
+  margin-bottom: 0.15rem;
+}
+.forge-sidebar .nav-rail {
+  position: relative;
+  padding-left: 0;
+}
+.forge-sidebar .nav-rail:not(:has(.doc-sidebar-link))::before {
+  content: "";
+  position: absolute;
+  left: calc(0.6rem + 1px);
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--forge-border) 6%,
+    var(--forge-border) 94%,
+    transparent 100%
+  );
+}
+.forge-sidebar .nav-link {
+  position: relative;
+  font-family: "JetBrains Mono", "Space Mono", monospace;
+  font-size: 0.8rem;
+  color: var(--forge-text-2);
+  padding: 0.4rem 0.5rem 0.4rem 1.55rem;
+  border-radius: 0;
+  border-left: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  margin-bottom: 0;
+}
+.forge-sidebar .nav-link::before {
+  content: "";
+  position: absolute;
+  left: 0.38rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid var(--forge-border);
+  background: transparent;
+  transition: all 0.2s;
+  z-index: 1;
+}
+.forge-sidebar .nav-link:hover {
+  color: var(--forge-text);
+  border-left-color: rgba(6,182,212,0.25);
+  background: rgba(6,182,212,0.04);
+}
+.forge-sidebar .nav-link:hover::before {
+  border-color: var(--forge-cyan);
+  background: rgba(6,182,212,0.4);
+  box-shadow: 0 0 6px rgba(6,182,212,0.3);
+}
+.forge-sidebar .nav-link.active {
+  color: var(--forge-cyan);
+  border-left-color: var(--forge-cyan);
+  background: rgba(6,182,212,0.06);
+  font-weight: 500;
+}
+.forge-sidebar .nav-link.active::before {
+  border-color: var(--forge-cyan);
+  background: var(--forge-cyan);
+  box-shadow: 0 0 8px rgba(6,182,212,0.5);
+}
+.forge-sidebar .nav-group-toggle {
+  position: relative;
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--forge-text-2);
+  padding: 0.55rem 0.5rem 0.55rem 1.55rem;
+  margin-top: 0.5rem;
+  border-left: 2px solid rgba(245,158,11,0.2);
+  transition: color 0.2s, border-color 0.2s;
+  text-decoration: none;
+  border-radius: 0;
+}
+.forge-sidebar .nav-group-toggle::before {
+  content: "";
+  position: absolute;
+  left: 0.38rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 2px;
+  border: 1px solid rgba(245,158,11,0.4);
+  background: rgba(245,158,11,0.2);
+  z-index: 1;
+}
+.forge-sidebar .nav-group-toggle:hover {
+  color: var(--forge-text);
+  border-left-color: rgba(245,158,11,0.4);
+}
+.forge-sidebar .nav-group-toggle:hover::before {
+  border-color: var(--forge-amber);
+  background: rgba(245,158,11,0.3);
+  box-shadow: 0 0 6px rgba(245,158,11,0.25);
+}
+.forge-sidebar .nav-group-toggle svg {
+  transition: transform 0.2s ease;
+  margin-right: 0.35rem;
+}
+.forge-sidebar .nav-group-toggle:not(.collapsed) svg { transform: rotate(90deg); }
+
+.forge-sidebar .nav-sub-group {
+  position: relative;
+  margin-left: 1.55rem;
+  padding-left: 0;
+}
+.forge-sidebar .nav-sub-group::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0.4rem;
+  width: 1px;
+  background: rgba(245,158,11,0.18);
+}
+.forge-sidebar .nav-sub-link {
+  position: relative;
+  font-family: "JetBrains Mono", "Space Mono", monospace;
+  font-size: 0.74rem;
+  color: var(--forge-text-3);
+  padding: 0.32rem 0.5rem 0.32rem 1.3rem;
+  border-radius: 0;
+  border-left: none;
+  transition: color 0.2s, background 0.2s;
+  text-decoration: none;
+  margin-left: 0;
+}
+.forge-sidebar .nav-sub-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0.65rem;
+  height: 1px;
+  background: rgba(245,158,11,0.18);
+  transition: background 0.2s;
+}
+.forge-sidebar .nav-sub-link::after {
+  content: "";
+  position: absolute;
+  left: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(245,158,11,0.25);
+  transition: all 0.2s;
+}
+.forge-sidebar .nav-sub-link:hover {
+  color: var(--forge-text);
+  background: rgba(245,158,11,0.06);
+}
+.forge-sidebar .nav-sub-link:hover::before {
+  background: rgba(245,158,11,0.45);
+}
+.forge-sidebar .nav-sub-link:hover::after {
+  background: rgba(245,158,11,0.6);
+  box-shadow: 0 0 5px rgba(245,158,11,0.3);
+}
+.forge-sidebar .nav-sub-link.active {
+  color: var(--forge-amber);
+  background: rgba(245,158,11,0.08);
+  font-weight: 500;
+}
+.forge-sidebar .nav-sub-link.active::before {
+  background: var(--forge-amber);
+}
+.forge-sidebar .nav-sub-link.active::after {
+  background: var(--forge-amber);
+  box-shadow: 0 0 8px rgba(245,158,11,0.5);
+}
+
+/* -----------------------------------------------------------------
+   5b. SIDEBAR — doc-sidebar-* classes (generated pages)
+   ----------------------------------------------------------------- */
+
+/* --- Top-level leaf links ---------------------------------------- */
+.forge-sidebar .doc-sidebar-link {
+  display: block;
+  position: relative;
+  font-family: "JetBrains Mono", "Space Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--forge-text-2);
+  padding: 0.4rem 0.6rem 0.4rem 0.75rem;
+  border-left: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.forge-sidebar .doc-sidebar-link:hover {
+  color: var(--forge-text);
+  border-left-color: rgba(6,182,212,0.3);
+  background: rgba(6,182,212,0.04);
+}
+.forge-sidebar .doc-sidebar-link.active {
+  color: var(--forge-cyan);
+  border-left-color: var(--forge-cyan);
+  background: rgba(6,182,212,0.06);
+  font-weight: 500;
+}
+
+/* --- Collapsible group wrapper ----------------------------------- */
+.forge-sidebar .doc-sidebar-group {
+  position: relative;
+  margin-top: 0.65rem;
+  margin-bottom: 0.2rem;
+}
+.forge-sidebar .doc-sidebar-nested {
+  position: relative;
+  margin-top: 0.25rem;
+}
+
+/* --- Group header row (chevron + label) -------------------------- */
+.forge-sidebar .doc-sidebar-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.35rem 0.4rem;
+  border-radius: 6px;
+  background: rgba(245,158,11,0.04);
+  border-left: 2px solid rgba(245,158,11,0.25);
+}
+.forge-sidebar .doc-sidebar-row:hover {
+  background: rgba(245,158,11,0.07);
+}
+.forge-sidebar .doc-sidebar-nested .doc-sidebar-row {
+  background: rgba(6,182,212,0.03);
+  border-left-color: rgba(6,182,212,0.2);
+  margin-left: 0.2rem;
+}
+.forge-sidebar .doc-sidebar-nested .doc-sidebar-row:hover {
+  background: rgba(6,182,212,0.06);
+}
+
+.forge-sidebar .doc-sidebar-toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3rem;
+  padding: 0.2rem 0;
+  background: none;
+  border: none;
+  color: var(--forge-amber);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.forge-sidebar .doc-sidebar-nested .doc-sidebar-toggle {
+  color: var(--forge-text-3);
+}
+.forge-sidebar .doc-sidebar-toggle:hover {
+  color: var(--forge-text);
+}
+.forge-sidebar .doc-sidebar-chevron {
+  transition: transform 0.2s ease;
+}
+.forge-sidebar .doc-sidebar-toggle:not(.collapsed) .doc-sidebar-chevron {
+  transform: rotate(90deg);
+}
+
+.forge-sidebar .doc-sidebar-heading {
+  display: block;
+  flex: 1 1 auto;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--forge-text);
+  padding: 0.2rem 0.3rem;
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+.forge-sidebar .doc-sidebar-heading:hover {
+  color: var(--forge-amber);
+}
+.forge-sidebar .doc-sidebar-heading.active {
+  color: var(--forge-amber);
+}
+.forge-sidebar .doc-sidebar-heading--label {
+  cursor: default;
+}
+
+/* --- Children container (indented panel) ------------------------- */
+.forge-sidebar .doc-sidebar-children {
+  position: relative;
+  margin-left: 0.6rem;
+  padding: 0.25rem 0 0.25rem 0;
+  border-left: 2px solid rgba(245,158,11,0.15);
+}
+.forge-sidebar .doc-sidebar-nested .doc-sidebar-children {
+  border-left-color: rgba(6,182,212,0.12);
+  margin-left: 0.8rem;
+}
+
+/* --- Sub-level links --------------------------------------------- */
+.forge-sidebar .doc-sidebar-sublink {
+  display: block;
+  position: relative;
+  font-family: "JetBrains Mono", "Space Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--forge-text-3);
+  padding: 0.3rem 0.5rem 0.3rem 1rem;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  border-left: 2px solid transparent;
+  margin-left: -2px;
+}
+.forge-sidebar .doc-sidebar-sublink:hover {
+  color: var(--forge-text);
+  background: rgba(245,158,11,0.05);
+  border-left-color: rgba(245,158,11,0.4);
+}
+.forge-sidebar .doc-sidebar-sublink.active {
+  color: var(--forge-amber);
+  border-left-color: var(--forge-amber);
+  background: rgba(245,158,11,0.07);
+  font-weight: 500;
+}
+
+/* Nested sub-links use cyan accent instead of amber */
+.forge-sidebar .doc-sidebar-nested .doc-sidebar-sublink:hover {
+  background: rgba(6,182,212,0.04);
+  border-left-color: rgba(6,182,212,0.4);
+}
+.forge-sidebar .doc-sidebar-nested .doc-sidebar-sublink.active {
+  color: var(--forge-cyan);
+  border-left-color: var(--forge-cyan);
+  background: rgba(6,182,212,0.06);
+}
+
+/* Sidebar scroll container */
+.forge-sidebar .nav-scroll {
+  max-height: calc(100vh - 7rem);
+  overflow-y: auto;
+}
+
+/* =================================================================
+   6. IN-PAGE TOC (right rail)
+   ================================================================= */
+.forge-toc {
+  font-size: 0.8rem;
+  position: sticky;
+  top: 5rem;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+}
+.forge-toc .toc-title {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text-3);
+}
+.forge-toc .nav-link {
+  color: var(--forge-text-3);
+  padding: 0.25rem 0 0.25rem 0.75rem;
+  border-left: 2px solid transparent;
+  font-size: 0.8rem;
+  transition: all 0.15s;
+}
+.forge-toc .nav-link:hover {
+  color: var(--forge-text-2);
+  border-left-color: var(--forge-border-hover);
+}
+.forge-toc .nav-link.active {
+  color: var(--forge-cyan);
+  border-left-color: var(--forge-cyan);
+  font-weight: 600;
+}
+
+/* =================================================================
+   7. CARDS
+   ================================================================= */
+.forge-card {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: var(--forge-text);
+  display: block;
+}
+.forge-card:hover { color: var(--forge-text); }
+.forge-card .card-label {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--forge-cyan);
+}
+.forge-card.card-amber:hover {
+  border-color: rgba(245,158,11,0.4);
+  box-shadow: var(--forge-glow-amber);
+}
+.forge-card.card-amber .card-label { color: var(--forge-amber); }
+
+/* =================================================================
+   8. BENTO GRID
+   ================================================================= */
+.bento-grid { display: grid; gap: 1rem; }
+.bento-2 { grid-template-columns: repeat(2, 1fr); }
+.bento-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 767px) {
+  .bento-2, .bento-3 { grid-template-columns: 1fr; }
+}
+
+/* =================================================================
+   9. TABLES
+   ================================================================= */
+.forge-table-wrap {
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.forge-table-wrap table {
+  margin-bottom: 0;
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--forge-text-2);
+  --bs-table-striped-bg: rgba(6,182,212,0.03);
+}
+.forge-table-wrap thead {
+  background: var(--forge-surface);
+  border-bottom: 1px solid var(--forge-border);
+}
+.forge-table-wrap thead th {
+  color: var(--forge-text-3);
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.6rem 0.75rem;
+  border: none;
+}
+.forge-table-wrap tbody td {
+  padding: 0.5rem 0.75rem;
+  border-color: var(--forge-border);
+  font-size: 0.875rem;
+}
+.forge-table-wrap tbody tr:hover {
+  background: var(--forge-cyan-dim) !important;
+}
+
+/* =================================================================
+   10. CALLOUTS / ALERTS
+   ================================================================= */
+.forge-callout {
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  outline: 1px solid transparent;
+  outline-offset: 0px;
+  transition: border-color 0.25s, outline-color 0.25s;
+}
+.forge-callout:hover {
+  outline-style: solid;
+  outline-width: 1px;
+  animation: breathe-cyan 2.5s ease-in-out infinite;
+}
+.forge-callout-cyan {
+  background: var(--forge-cyan-dim);
+  border: 1px solid rgba(6,182,212,0.2);
+}
+.forge-callout-amber {
+  background: var(--forge-amber-dim);
+  border: 1px solid rgba(245,158,11,0.2);
+}
+.forge-callout-emerald {
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.2);
+}
+.forge-callout-red {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.2);
+}
+.forge-callout-surface {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+}
+.forge-callout .callout-label {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+/* =================================================================
+   11. BADGES
+   ================================================================= */
+.forge-badge {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.badge-cyan {
+  background: var(--forge-cyan-dim);
+  color: var(--forge-cyan);
+  border: 1px solid rgba(6,182,212,0.2);
+}
+.badge-amber {
+  background: var(--forge-amber-dim);
+  color: var(--forge-amber);
+  border: 1px solid rgba(245,158,11,0.2);
+}
+.badge-emerald {
+  background: rgba(16,185,129,0.1);
+  color: var(--forge-emerald);
+  border: 1px solid rgba(16,185,129,0.2);
+}
+.badge-red {
+  background: rgba(239,68,68,0.1);
+  color: #EF4444;
+  border: 1px solid rgba(239,68,68,0.2);
+}
+.badge-dim {
+  background: rgba(100,116,139,0.15);
+  color: var(--forge-text-3);
+  border: 1px solid rgba(100,116,139,0.15);
+}
+
+/* =================================================================
+   12. BUTTONS
+   ================================================================= */
+.btn-forge {
+  background: linear-gradient(135deg, var(--forge-amber), var(--forge-orange));
+  color: #000;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+.btn-forge:hover {
+  box-shadow: var(--forge-glow-amber);
+  transform: translateY(-1px);
+  color: #000;
+}
+.btn-forge-outline {
+  background: transparent;
+  color: var(--forge-amber);
+  font-weight: 600;
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+.btn-forge-outline:hover {
+  border-color: var(--forge-amber);
+  background: var(--forge-amber-dim);
+  color: var(--forge-amber);
+}
+.btn-cyan-outline {
+  background: transparent;
+  color: var(--forge-cyan);
+  font-weight: 600;
+  border: 1px solid rgba(6,182,212,0.3);
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+.btn-cyan-outline:hover {
+  border-color: var(--forge-cyan);
+  background: var(--forge-cyan-dim);
+  color: var(--forge-cyan);
+}
+
+/* =================================================================
+   13. CODE BLOCKS & TREES
+   ================================================================= */
+.forge-code {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--forge-text-2);
+  overflow-x: auto;
+}
+.forge-code .comment { color: var(--forge-text-3); }
+.forge-code .highlight { color: var(--forge-cyan); }
+.forge-code .keyword { color: var(--forge-amber); }
+
+kbd {
+  background: var(--forge-surface-2);
+  border: 1px solid var(--forge-border);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  color: var(--forge-text-2);
+}
+code {
+  color: var(--forge-cyan);
+  background: var(--forge-cyan-dim);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+/* =================================================================
+   14. DIAGRAM WRAPPER (Mermaid)
+   ================================================================= */
+.forge-diagram {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+.forge-diagram .mermaid svg { background: transparent !important; }
+.forge-diagram .node rect,
+.forge-diagram .node polygon {
+  fill: var(--forge-surface-2) !important;
+  stroke: rgba(6,182,212,0.35) !important;
+  stroke-width: 1.5px !important;
+  rx: 6 !important;
+  ry: 6 !important;
+}
+.forge-diagram .node .label,
+.forge-diagram .nodeLabel {
+  color: var(--forge-text) !important;
+  fill: var(--forge-text) !important;
+  font-family: Inter, system-ui, sans-serif !important;
+}
+.forge-diagram .cluster rect {
+  fill: rgba(6,182,212,0.04) !important;
+  stroke: rgba(6,182,212,0.15) !important;
+  stroke-width: 1px !important;
+  rx: 10 !important;
+  ry: 10 !important;
+}
+.forge-diagram .cluster span,
+.forge-diagram .cluster .nodeLabel {
+  color: var(--forge-text-3) !important;
+  fill: var(--forge-text-3) !important;
+  font-family: "Space Mono", monospace !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+}
+.forge-diagram .edgePath path.path {
+  stroke: rgba(6,182,212,0.35) !important;
+  stroke-width: 1.5px !important;
+}
+.forge-diagram .edgePath marker path {
+  fill: rgba(6,182,212,0.5) !important;
+  stroke: rgba(6,182,212,0.5) !important;
+}
+.forge-diagram .edgeLabel,
+.forge-diagram .edgeLabel rect {
+  background-color: var(--forge-surface) !important;
+  fill: var(--forge-surface) !important;
+}
+.forge-diagram .edgeLabel span,
+.forge-diagram .edgeLabel .edgeLabel {
+  color: var(--forge-amber) !important;
+  fill: var(--forge-amber) !important;
+  font-family: "Space Mono", monospace !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.03em !important;
+}
+
+/* =================================================================
+   15. DIVIDERS
+   ================================================================= */
+.forge-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--forge-border-hover), transparent);
+  margin: 3rem 0;
+}
+
+/* =================================================================
+   16. IDLE PULSE (always-on ambient glow)
+   ================================================================= */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 4px rgba(6,182,212,0.2); }
+  50%      { box-shadow: 0 0 12px rgba(6,182,212,0.4); }
+}
+.pulse { animation: pulse-glow 3s ease-in-out infinite; }
+
+@keyframes pulse-amber {
+  0%, 100% { box-shadow: 0 0 4px rgba(245,158,11,0.2); }
+  50%      { box-shadow: 0 0 12px rgba(245,158,11,0.35); }
+}
+.pulse-amber { animation: pulse-amber 3s ease-in-out infinite; }
+
+/* =================================================================
+   17. HOVER BREATHING — expanding outline pulse
+   ================================================================= */
+@keyframes breathe-amber {
+  0%   { outline-offset: 0px;  outline-color: rgba(245,158,11,0.35); box-shadow: 0 0 4px rgba(245,158,11,0.08); }
+  50%  { outline-offset: 5px;  outline-color: rgba(245,158,11,0.12); box-shadow: 0 0 16px rgba(245,158,11,0.15); }
+  100% { outline-offset: 0px;  outline-color: rgba(245,158,11,0.35); box-shadow: 0 0 4px rgba(245,158,11,0.08); }
+}
+@keyframes breathe-cyan {
+  0%   { outline-offset: 0px;  outline-color: rgba(6,182,212,0.30); box-shadow: 0 0 4px rgba(6,182,212,0.08); }
+  50%  { outline-offset: 5px;  outline-color: rgba(6,182,212,0.10); box-shadow: 0 0 16px rgba(6,182,212,0.15); }
+  100% { outline-offset: 0px;  outline-color: rgba(6,182,212,0.30); box-shadow: 0 0 4px rgba(6,182,212,0.08); }
+}
+
+.breathe-link {
+  position: relative;
+  outline: 1px solid transparent;
+  outline-offset: 0px;
+  transition: border-color 0.25s, transform 0.25s, outline-color 0.25s;
+}
+.breathe-link::before {
+  content: "\2192";
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--forge-amber);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+  z-index: 1;
+}
+.breathe-link:hover {
+  border-color: rgba(245,158,11,0.35);
+  outline-style: solid;
+  outline-width: 1px;
+  animation: breathe-amber 2.2s ease-in-out infinite;
+  transform: translateY(-2px);
+}
+.breathe-link:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.breathe-static {
+  outline: 1px solid transparent;
+  outline-offset: 0px;
+  transition: border-color 0.25s, outline-color 0.25s;
+}
+.breathe-static:hover {
+  border-color: rgba(6,182,212,0.3);
+  outline-style: solid;
+  outline-width: 1px;
+  animation: breathe-cyan 2.5s ease-in-out infinite;
+}
+
+/* =================================================================
+   18. FLOW DIAGRAM (pure CSS)
+   ================================================================= */
+.forge-flow {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.forge-flow-node {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--forge-text-2);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.forge-flow-node:hover {
+  border-color: var(--forge-cyan);
+  color: var(--forge-cyan);
+  box-shadow: var(--forge-glow-cyan);
+}
+.forge-flow-node.node-active {
+  border-color: var(--forge-amber);
+  color: var(--forge-amber);
+  background: var(--forge-amber-dim);
+}
+.forge-flow-arrow {
+  color: var(--forge-text-3);
+  font-size: 0.75rem;
+}
+
+/* =================================================================
+   19. STAT COUNTERS
+   ================================================================= */
+.forge-stat { text-align: center; }
+.forge-stat .stat-value {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.5rem;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.forge-stat .stat-label {
+  font-family: var(--font-label);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text-4);
+  margin-top: 0.5rem;
+}
+
+/* =================================================================
+   20. SCROLLBAR
+   ================================================================= */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--forge-bg); }
+::-webkit-scrollbar-thumb { background: rgba(6,182,212,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(6,182,212,0.4); }
+
+/* =================================================================
+   21. EXPANDABLE DIAGRAM OVERLAY (modal)
+   ================================================================= */
+.forge-diagram-trigger {
+  cursor: pointer;
+  position: relative;
+  outline: 1px solid transparent;
+  outline-offset: 0px;
+}
+.forge-diagram-trigger::after {
+  content: "Click to expand";
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  font-family: var(--font-label);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--forge-text-4);
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.forge-diagram-trigger:hover::after { opacity: 1; }
+.forge-diagram-trigger:hover {
+  border-color: rgba(6,182,212,0.3);
+  outline-style: solid;
+  outline-width: 1px;
+  animation: breathe-cyan 2.5s ease-in-out infinite;
+}
+
+.diagram-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(5,7,12,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+.diagram-modal-backdrop.active {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.diagram-modal {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: 16px;
+  max-width: 94vw;
+  width: 100%;
+  margin-top: 1vh;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(6,182,212,0.08), 0 0 2px rgba(6,182,212,0.15);
+}
+.diagram-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--forge-border);
+}
+.diagram-modal-header h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin: 0;
+}
+.diagram-modal-close {
+  background: none;
+  border: 1px solid var(--forge-border);
+  border-radius: 8px;
+  color: var(--forge-text-3);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.15s;
+}
+.diagram-modal-close:hover {
+  color: var(--forge-text);
+  border-color: var(--forge-border-hover);
+  background: var(--forge-surface-2);
+}
+.diagram-modal-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  min-height: 75vh;
+}
+@media (max-width: 767px) {
+  .diagram-modal-body { grid-template-columns: 1fr; }
+}
+.diagram-modal-canvas {
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+.diagram-modal-canvas svg {
+  width: 100% !important;
+  max-width: 100%;
+  height: auto;
+  min-height: 55vh;
+}
+/* Scale up text inside expanded diagram */
+.diagram-modal-canvas .node .label,
+.diagram-modal-canvas .nodeLabel {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+.diagram-modal-canvas .cluster span,
+.diagram-modal-canvas .cluster .nodeLabel {
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+}
+.diagram-modal-canvas .edgeLabel span,
+.diagram-modal-canvas .edgeLabel .edgeLabel {
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+}
+.diagram-modal-detail {
+  border-left: 1px solid var(--forge-border);
+  padding: 1.5rem;
+  background: var(--forge-surface-2);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+.diagram-modal-detail .detail-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.85rem;
+}
+.diagram-modal-detail .detail-item {
+  margin-bottom: 0.65rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  outline: 1px solid transparent;
+  outline-offset: 0px;
+  transition: background 0.25s, border-color 0.25s, outline-color 0.25s;
+}
+.diagram-modal-detail .detail-item .detail-term {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+.diagram-modal-detail .detail-item .detail-desc {
+  font-size: 0.85rem;
+  color: var(--forge-text-3);
+  line-height: 1.5;
+}
+
+/* =================================================================
+   22. INTERACTIVE NODE ↔ DETAIL HIGHLIGHT
+   ================================================================= */
+.diagram-modal-detail .detail-item.highlight {
+  background: rgba(6,182,212,0.06);
+  border-color: rgba(6,182,212,0.2);
+  outline-style: solid;
+  outline-width: 1px;
+  animation: breathe-cyan 2s ease-in-out infinite;
+}
+.diagram-modal-detail .detail-item.highlight .detail-desc {
+  color: var(--forge-text-2);
+}
+
+@keyframes node-breathe-stroke {
+  0%   { stroke-width: 1.5px; }
+  50%  { stroke-width: 4px; }
+  100% { stroke-width: 1.5px; }
+}
+@keyframes node-breathe-glow {
+  0%   { filter: drop-shadow(0 0 1px rgba(6,182,212,0.1)); }
+  50%  { filter: drop-shadow(0 0 8px rgba(6,182,212,0.35)); }
+  100% { filter: drop-shadow(0 0 1px rgba(6,182,212,0.1)); }
+}
+.diagram-modal-canvas .node {
+  cursor: pointer;
+  transition: filter 0.25s;
+}
+.diagram-modal-canvas .node.node-glow {
+  animation: node-breathe-glow 2s ease-in-out infinite;
+}
+.diagram-modal-canvas .node.node-glow rect,
+.diagram-modal-canvas .node.node-glow polygon,
+.diagram-modal-canvas .node.node-glow circle,
+.diagram-modal-canvas .node.node-glow .label-container {
+  stroke: var(--forge-cyan) !important;
+  animation: node-breathe-stroke 2s ease-in-out infinite !important;
+}
+
+/* --- Cluster / subgraph breathing when child node is hovered ---- */
+@keyframes cluster-breathe-stroke {
+  0%   { stroke-width: 1px; }
+  50%  { stroke-width: 3px; }
+  100% { stroke-width: 1px; }
+}
+@keyframes cluster-breathe-glow {
+  0%   { filter: drop-shadow(0 0 1px rgba(6,182,212,0.05)); }
+  50%  { filter: drop-shadow(0 0 12px rgba(6,182,212,0.25)); }
+  100% { filter: drop-shadow(0 0 1px rgba(6,182,212,0.05)); }
+}
+.diagram-modal-canvas .cluster {
+  cursor: pointer;
+  transition: filter 0.25s;
+}
+.diagram-modal-canvas .cluster.cluster-glow {
+  animation: cluster-breathe-glow 2s ease-in-out infinite;
+}
+.diagram-modal-canvas .cluster.cluster-glow rect {
+  stroke: var(--forge-cyan) !important;
+  animation: cluster-breathe-stroke 2s ease-in-out infinite !important;
+}
+.diagram-modal-canvas .cluster.cluster-glow span,
+.diagram-modal-canvas .cluster.cluster-glow .nodeLabel {
+  color: var(--forge-cyan) !important;
+  fill: var(--forge-cyan) !important;
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 108" width="720" height="108" role="img" aria-labelledby="title desc">
+  <title id="title">Phased delivery with gates</title>
+  <desc id="desc">Sequential phases with approval gates between; may hybridize with iterations inside a phase</desc>
+  <rect width="100%" height="100%" fill="#f6f3ed"/>
+  <text x="360" y="18" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-weight="700" font-size="12" fill="#2c5f4e">Phased delivery — sequential phases &amp; gates (illustrative)</text>
+  <g font-family="system-ui, sans-serif" font-size="9">
+    <rect x="12" y="40" width="100" height="48" rx="4" fill="#3d5a80"/>
+    <text x="62" y="62" text-anchor="middle" fill="#fff" font-weight="700">Requirements</text>
+    <text x="62" y="76" text-anchor="middle" fill="#cbd5e1">Baseline</text>
+    <polygon points="122,64 132,54 132,74" fill="#f59e0b"/>
+    <text x="138" y="68" fill="#92400e" font-size="8">Gate</text>
+    <rect x="152" y="40" width="100" height="48" rx="4" fill="#2c5282"/>
+    <text x="202" y="62" text-anchor="middle" fill="#fff" font-weight="700">Design</text>
+    <text x="202" y="76" text-anchor="middle" fill="#cbd5e1">Approved design</text>
+    <polygon points="262,64 272,54 272,74" fill="#f59e0b"/>
+    <text x="278" y="68" fill="#92400e" font-size="8">Gate</text>
+    <rect x="292" y="40" width="100" height="48" rx="4" fill="#285e61"/>
+    <text x="342" y="62" text-anchor="middle" fill="#fff" font-weight="700">Build</text>
+    <text x="342" y="76" text-anchor="middle" fill="#cbd5e1">Code + CI</text>
+    <polygon points="402,64 412,54 412,74" fill="#f59e0b"/>
+    <text x="418" y="68" fill="#92400e" font-size="8">Gate</text>
+    <rect x="432" y="40" width="100" height="48" rx="4" fill="#744210"/>
+    <text x="482" y="62" text-anchor="middle" fill="#fff" font-weight="700">Verify</text>
+    <text x="482" y="76" text-anchor="middle" fill="#cbd5e1">Test evidence</text>
+    <polygon points="542,64 552,54 552,74" fill="#f59e0b"/>
+    <text x="558" y="68" fill="#92400e" font-size="8">Gate</text>
+    <rect x="572" y="40" width="136" height="48" rx="4" fill="#822659"/>
+    <text x="640" y="62" text-anchor="middle" fill="#fff" font-weight="700">Release</text>
+    <text x="640" y="76" text-anchor="middle" fill="#cbd5e1">Ship / operate</text>
+  </g>
+  <g stroke="#64748b" stroke-width="1.5" fill="none">
+    <path d="M 112 64 L 122 64"/>
+    <path d="M 252 64 L 262 64"/>
+    <path d="M 392 64 L 402 64"/>
+    <path d="M 532 64 L 542 64"/>
+  </g>
+  <text x="360" y="100" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#64748b">Formal approvals often live outside git · hybrids: iterate inside a phase while gates hold for major baselines</text>
+</svg>
