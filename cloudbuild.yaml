@@ -12,12 +12,12 @@
 #        --member="serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com" \
 #        --role="roles/secretmanager.secretAccessor"
 #
-# 3) Set substitution _FIREBASE_PROJECT to your Firebase project id (same as .firebaserc default).
+# 3) Set substitution _FIREBASE_PROJECT to your Firebase project id.
 #
 # 4) Create a trigger on push to main/master pointing at this file.
 #
 substitutions:
-  _FIREBASE_PROJECT: REPLACE_WITH_FIREBASE_PROJECT_ID
+  _FIREBASE_PROJECT: forge-kitchen-sink
 
 options:
   logging: CLOUD_LOGGING_ONLY
@@ -38,9 +38,13 @@ steps:
         set -euo pipefail
         python3 generator/build-showcase.py
         rm -rf dist
-        mkdir -p dist
-        cp index.html dist/
-        cp -r showcase dist/showcase
+        mkdir -p dist/cases
+        cp index.html dist/cases/
+        cp -r showcase dist/cases/showcase
+        cp scripts/hosting-dist-root-index.html dist/index.html
+        if [[ -d hosting-static/.well-known ]]; then
+          cp -R hosting-static/.well-known dist/
+        fi
 
   - id: firebase-deploy
     name: node:20

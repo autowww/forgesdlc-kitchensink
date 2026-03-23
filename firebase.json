@@ -1,9 +1,10 @@
 {
   "hosting": {
+    "site": "forge-kitchen-sink",
     "public": "dist",
     "ignore": [
       "firebase.json",
-      "**/.*",
+      "**/.DS_Store",
       "**/node_modules/**"
     ]
   }
