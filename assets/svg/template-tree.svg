@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" width="480" height="280" role="img" aria-labelledby="title desc">
+  <title id="title">Tree / hierarchy template</title>
+  <desc id="desc">Root node branching into children and grandchildren</desc>
+  <rect width="100%" height="100%" fill="none"/>
+  <g font-family="system-ui, Segoe UI, sans-serif">
+    <text x="240" y="22" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  hierarchy]</text>
+
+    <!-- Root -->
+    <rect x="170" y="38" width="140" height="36" rx="4" fill="#111827" stroke="#06B6D4" stroke-width="2"/>
+    <text x="240" y="61" text-anchor="middle" font-weight="600" font-size="11" fill="#F1F5F9">[Root]</text>
+
+    <!-- Trunk lines -->
+    <line x1="240" y1="74" x2="240" y2="90" stroke="#334155" stroke-width="1.5"/>
+    <line x1="80" y1="90" x2="400" y2="90" stroke="#334155" stroke-width="1.5"/>
+    <line x1="80" y1="90" x2="80" y2="100" stroke="#334155" stroke-width="1.5"/>
+    <line x1="240" y1="90" x2="240" y2="100" stroke="#334155" stroke-width="1.5"/>
+    <line x1="400" y1="90" x2="400" y2="100" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Branch A -->
+    <rect x="20" y="100" width="120" height="36" rx="3" fill="#0d1f1a" stroke="#06B6D4" stroke-width="1.5"/>
+    <text x="80" y="122" text-anchor="middle" font-weight="600" font-size="10" fill="#06B6D4">[Branch A]</text>
+
+    <!-- Branch B -->
+    <rect x="180" y="100" width="120" height="36" rx="3" fill="#1a1633" stroke="#a78bfa" stroke-width="1.5"/>
+    <text x="240" y="122" text-anchor="middle" font-weight="600" font-size="10" fill="#a78bfa">[Branch B]</text>
+
+    <!-- Branch C -->
+    <rect x="340" y="100" width="120" height="36" rx="3" fill="#1f1a10" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="400" y="122" text-anchor="middle" font-weight="600" font-size="10" fill="#F59E0B">[Branch C]</text>
+
+    <!-- Sub-branches under A -->
+    <line x1="80" y1="136" x2="80" y2="148" stroke="#334155" stroke-width="1.5"/>
+    <line x1="40" y1="148" x2="120" y2="148" stroke="#334155" stroke-width="1.5"/>
+    <line x1="40" y1="148" x2="40" y2="156" stroke="#334155" stroke-width="1.5"/>
+    <line x1="120" y1="148" x2="120" y2="156" stroke="#334155" stroke-width="1.5"/>
+
+    <rect x="10" y="156" width="60" height="28" rx="2" fill="#111827" stroke="#1f2937"/>
+    <text x="40" y="174" text-anchor="middle" font-size="9" fill="#F1F5F9">[Leaf 1]</text>
+    <rect x="90" y="156" width="60" height="28" rx="2" fill="#111827" stroke="#1f2937"/>
+    <text x="120" y="174" text-anchor="middle" font-size="9" fill="#F1F5F9">[Leaf 2]</text>
+
+    <!-- Sub-branches under B -->
+    <line x1="240" y1="136" x2="240" y2="148" stroke="#334155" stroke-width="1.5"/>
+    <line x1="200" y1="148" x2="280" y2="148" stroke="#334155" stroke-width="1.5"/>
+    <line x1="200" y1="148" x2="200" y2="156" stroke="#334155" stroke-width="1.5"/>
+    <line x1="280" y1="148" x2="280" y2="156" stroke="#334155" stroke-width="1.5"/>
+
+    <rect x="170" y="156" width="60" height="28" rx="2" fill="#111827" stroke="#1f2937"/>
+    <text x="200" y="174" text-anchor="middle" font-size="9" fill="#F1F5F9">[Leaf 3]</text>
+    <rect x="250" y="156" width="60" height="28" rx="2" fill="#111827" stroke="#1f2937"/>
+    <text x="280" y="174" text-anchor="middle" font-size="9" fill="#F1F5F9">[Leaf 4]</text>
+
+    <!-- Sub-branches under C -->
+    <line x1="400" y1="136" x2="400" y2="156" stroke="#334155" stroke-width="1.5"/>
+
+    <rect x="370" y="156" width="60" height="28" rx="2" fill="#111827" stroke="#1f2937"/>
+    <text x="400" y="174" text-anchor="middle" font-size="9" fill="#F1F5F9">[Leaf 5]</text>
+  </g>
+  <text x="240" y="210" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  nesting or ownership description]</text>
+</svg>

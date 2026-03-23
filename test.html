@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kitchen Sink — Forge Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/forge-theme.css" rel="stylesheet">
+  <style>
+    .ks-section { margin-bottom: 3.5rem; }
+    .ks-section-title {
+      font-family: var(--font-label);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--forge-text-3);
+      border-bottom: 1px solid var(--forge-border);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+    .ks-swatch {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      min-width: 80px;
+    }
+    .ks-swatch-box {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      border: 1px solid var(--forge-border);
+    }
+    .ks-swatch-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--forge-text-3);
+    }
+    .ks-diagram-card { cursor: pointer; }
+    .ks-diagram-card svg { width: 100%; height: auto; }
+    .ks-thumb svg, .ks-thumb img { width: 100%; height: auto; }
+    .doc-main { position: relative; }
+    .doc-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--forge-bg);
+      border-bottom: 1px solid var(--forge-border);
+      padding: 1rem 0 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .ks-section[id] { scroll-margin-top: 8rem; }
+    .forge-toc { top: 8rem; }
+  </style>
+</head>
+<body>
+<div class="forge-aurora"></div>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- Mobile nav toggle -->
+<button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="Open navigation">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
+</button>
+
+<div class="container-fluid px-0">
+<div class="row g-0 flex-lg-nowrap min-vh-100">
+
+  <!-- ====== LEFT SIDEBAR ====== -->
+  <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" style="min-height:100vh;position:sticky;top:0;overflow-y:auto">
+    <div class="px-3 py-3" style="border-bottom:1px solid var(--forge-border)">
+      <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">Kitchen Sink</span></p>
+      <p class="mt-2 mb-0" style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--forge-text-4);letter-spacing:0.06em">Design system &middot; Test page</p>
+    </div>
+    <nav class="nav-scroll flex-grow-1 px-2 py-3" aria-label="Component sections">
+      <p class="nav-section-label">Sections</p>
+      <div class="nav-rail" id="ks-sidebar-nav">
+        <a class="nav-link active" href="#sec-tokens">Design tokens</a>
+        <a class="nav-link" href="#sec-typography">Typography</a>
+        <a class="nav-link" href="#sec-glass">Glass panels</a>
+        <a class="nav-link" href="#sec-sidebar">Sidebar nav</a>
+        <a class="nav-link" href="#sec-cards">Cards</a>
+        <a class="nav-link" href="#sec-bento">Bento grid</a>
+        <a class="nav-link" href="#sec-tables">Tables</a>
+        <a class="nav-link" href="#sec-callouts">Callouts</a>
+        <a class="nav-link" href="#sec-badges">Badges</a>
+        <a class="nav-link" href="#sec-buttons">Buttons</a>
+        <a class="nav-link" href="#sec-code">Code blocks</a>
+        <a class="nav-link" href="#sec-diagrams">SVG diagrams</a>
+        <a class="nav-link" href="#sec-dividers">Dividers</a>
+        <a class="nav-link" href="#sec-animations">Animations</a>
+        <a class="nav-link" href="#sec-flow">Flow diagram</a>
+        <a class="nav-link" href="#sec-stats">Stat counters</a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Mobile offcanvas sidebar -->
+  <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="docNavOffcanvas" style="background:var(--forge-bg);border-right:1px solid var(--forge-border);max-width:280px">
+    <div class="offcanvas-header" style="border-bottom:1px solid var(--forge-border)">
+      <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">Kitchen Sink</span></p>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body forge-sidebar p-2" id="ks-offcanvas-nav">
+      <p class="nav-section-label">Sections</p>
+      <div class="nav-rail">
+        <a class="nav-link" href="#sec-tokens">Design tokens</a>
+        <a class="nav-link" href="#sec-typography">Typography</a>
+        <a class="nav-link" href="#sec-glass">Glass panels</a>
+        <a class="nav-link" href="#sec-sidebar">Sidebar nav</a>
+        <a class="nav-link" href="#sec-cards">Cards</a>
+        <a class="nav-link" href="#sec-bento">Bento grid</a>
+        <a class="nav-link" href="#sec-tables">Tables</a>
+        <a class="nav-link" href="#sec-callouts">Callouts</a>
+        <a class="nav-link" href="#sec-badges">Badges</a>
+        <a class="nav-link" href="#sec-buttons">Buttons</a>
+        <a class="nav-link" href="#sec-code">Code blocks</a>
+        <a class="nav-link" href="#sec-diagrams">SVG diagrams</a>
+        <a class="nav-link" href="#sec-dividers">Dividers</a>
+        <a class="nav-link" href="#sec-animations">Animations</a>
+        <a class="nav-link" href="#sec-flow">Flow diagram</a>
+        <a class="nav-link" href="#sec-stats">Stat counters</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5 doc-main">
+  <div class="mx-auto doc-content" style="max-width:56rem">
+
+    <!-- Sticky header -->
+    <header class="doc-header">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb mb-2" style="font-size:0.75rem"><li class="breadcrumb-item"><a href="#" class="text-cyan" style="text-decoration:none">forgesdlc-kitchensink</a></li><li class="breadcrumb-item active text-dim" aria-current="page">Kitchen Sink</li></ol></nav>
+      <h1 class="font-display forge-gradient-text mb-0" style="font-size:clamp(1.75rem,4vw,2.5rem)">Kitchen Sink</h1>
+      <p class="forge-support mt-2 mb-0" style="font-size:1rem">Forge design system — all components in one page. Sections map to <code>forge-theme.css</code> chapters.</p>
+    </header>
+
+    <div class="row g-3 g-lg-4">
+    <div class="col-lg-8 col-xl-9 order-2 order-lg-1">
+
+  <!-- 1. Design Tokens / Colors -->
+  <section id="sec-tokens" class="ks-section">
+    <h2 class="ks-section-title">1 &middot; Design Tokens — Colors</h2>
+    <div class="d-flex flex-wrap gap-3">
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-bg);"></div><span class="ks-swatch-label">bg</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-surface);"></div><span class="ks-swatch-label">surface</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-surface-2);"></div><span class="ks-swatch-label">surface-2</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-amber);"></div><span class="ks-swatch-label">amber</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-cyan);"></div><span class="ks-swatch-label">cyan</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-orange);"></div><span class="ks-swatch-label">orange</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-emerald);"></div><span class="ks-swatch-label">emerald</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-text);"></div><span class="ks-swatch-label">text</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-text-2);"></div><span class="ks-swatch-label">text-2</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-text-3);"></div><span class="ks-swatch-label">text-3</span></div>
+      <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--forge-text-4);"></div><span class="ks-swatch-label">text-4</span></div>
+    </div>
+  </section>
+
+  <!-- 3. Typography -->
+  <section id="sec-typography" class="ks-section">
+    <h2 class="ks-section-title">3 &middot; Typography</h2>
+    <h1 class="font-display">Display heading (Inter 800)</h1>
+    <h2>Heading 2</h2>
+    <h3>Heading 3</h3>
+    <p>Body text in Inter 400. Lorem ipsum dolor sit amet, <strong>bold text</strong>, <a href="#">cyan link</a>, and <code>inline code</code>.</p>
+    <p class="forge-support">Support text — smaller, muted.</p>
+    <p><span class="font-label">Label font</span> &nbsp; <span class="section-label">Section label</span></p>
+    <p class="forge-gradient-text font-display" style="font-size: 1.5rem;">Gradient text (amber → cyan)</p>
+    <p><span class="text-amber">text-amber</span> &nbsp; <span class="text-cyan">text-cyan</span> &nbsp; <span class="text-dim">text-dim</span> &nbsp; <span class="text-dim-2">text-dim-2</span> &nbsp; <span class="text-muted-4">text-muted-4</span></p>
+  </section>
+
+  <!-- 4. Glass Panels -->
+  <section id="sec-glass" class="ks-section">
+    <h2 class="ks-section-title">4 &middot; Glassmorphic Panels</h2>
+    <div class="row g-3">
+      <div class="col-md-4"><div class="glass p-3"><p class="section-label text-cyan mb-1">Glass</p><p class="mb-0 forge-support">Cyan border on hover with glow.</p></div></div>
+      <div class="col-md-4"><div class="glass-amber p-3"><p class="section-label text-amber mb-1">Glass Amber</p><p class="mb-0 forge-support">Amber border on hover with glow.</p></div></div>
+      <div class="col-md-4"><div class="glass-solid p-3"><p class="section-label mb-1">Glass Solid</p><p class="mb-0 forge-support">Solid surface background.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 5. Sidebar -->
+  <section id="sec-sidebar" class="ks-section">
+    <h2 class="ks-section-title">5 &middot; Sidebar Navigation</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="forge-sidebar p-3" style="border-radius: 12px; border: 1px solid var(--forge-border); min-height: 280px;">
+          <div class="forge-brand mb-3"><span class="brand-icon">F</span> Forge Handbook</div>
+          <p class="nav-section-label">Chapters</p>
+          <nav class="nav-rail">
+            <a class="nav-link active" href="#">Overview &amp; roles</a>
+            <a class="nav-link" href="#">Phases A–F</a>
+            <a class="nav-link" href="#">Definition of done</a>
+            <a class="nav-link" href="#">Change control</a>
+          </nav>
+          <a class="nav-group-toggle mt-2" href="#">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            Methodologies
+          </a>
+          <div class="nav-sub-group">
+            <a class="nav-sub-link active" href="#">Scrum</a>
+            <a class="nav-sub-link" href="#">Kanban</a>
+            <a class="nav-sub-link" href="#">XP</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="forge-sidebar p-3" style="border-radius: 12px; border: 1px solid var(--forge-border); min-height: 280px;">
+          <p class="nav-section-label">Generated sidebar</p>
+          <a class="doc-sidebar-link active" href="#">Handbook home</a>
+          <a class="doc-sidebar-link" href="#">Overview &amp; roles</a>
+          <div class="doc-sidebar-group">
+            <div class="doc-sidebar-row">
+              <button type="button" class="doc-sidebar-toggle" aria-label="Toggle"><svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg></button>
+              <a href="#" class="doc-sidebar-heading">Spec-driven</a>
+            </div>
+            <div class="doc-sidebar-children">
+              <a class="doc-sidebar-sublink" href="#">Overview</a>
+              <a class="doc-sidebar-sublink active" href="#">SDD schema</a>
+              <a class="doc-sidebar-sublink" href="#">Ceremonies</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Cards -->
+  <section id="sec-cards" class="ks-section">
+    <h2 class="ks-section-title">7 &middot; Cards</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <a class="forge-card breathe-link" href="#">
+          <p class="card-label">Cyan card</p>
+          <h5 class="mt-2 mb-1">SDLC Handbook</h5>
+          <p class="forge-support mb-0">Phases, ceremonies, and governance.</p>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a class="forge-card card-amber breathe-link" href="#">
+          <p class="card-label">Amber card</p>
+          <h5 class="mt-2 mb-1">Forge Methodology</h5>
+          <p class="forge-support mb-0">AI-native delivery methodology.</p>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <div class="forge-card breathe-static">
+          <p class="card-label">Static card</p>
+          <h5 class="mt-2 mb-1">Non-link card</h5>
+          <p class="forge-support mb-0">Breathe-static effect on hover.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Bento Grid -->
+  <section id="sec-bento" class="ks-section">
+    <h2 class="ks-section-title">8 &middot; Bento Grid</h2>
+    <div class="bento-grid bento-3">
+      <div class="glass p-3"><p class="section-label text-cyan mb-1">Cell 1</p><p class="forge-support mb-0">Three-column bento.</p></div>
+      <div class="glass p-3"><p class="section-label text-amber mb-1">Cell 2</p><p class="forge-support mb-0">Responsive — stacks on mobile.</p></div>
+      <div class="glass p-3"><p class="section-label mb-1">Cell 3</p><p class="forge-support mb-0">Glass panels inside bento.</p></div>
+    </div>
+  </section>
+
+  <!-- 9. Tables -->
+  <section id="sec-tables" class="ks-section">
+    <h2 class="ks-section-title">9 &middot; Tables</h2>
+    <div class="forge-table-wrap">
+      <table class="table table-striped mb-0">
+        <thead><tr><th>Methodology</th><th>Type</th><th>Team size</th><th>Iteration</th></tr></thead>
+        <tbody>
+          <tr><td>Scrum</td><td>Agile</td><td>5–9</td><td>2-week sprint</td></tr>
+          <tr><td>Kanban</td><td>Lean</td><td>Any</td><td>Continuous</td></tr>
+          <tr><td>Forge</td><td>AI-native</td><td>1–3</td><td>Spark-driven</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10. Callouts -->
+  <section id="sec-callouts" class="ks-section">
+    <h2 class="ks-section-title">10 &middot; Callouts / Alerts</h2>
+    <div class="forge-callout forge-callout-cyan mb-3">
+      <p class="callout-label text-cyan">Info</p>
+      <p class="mb-0">Cyan callout — informational context or tips.</p>
+    </div>
+    <div class="forge-callout forge-callout-amber mb-3">
+      <p class="callout-label text-amber">Warning</p>
+      <p class="mb-0">Amber callout — caution or important notes.</p>
+    </div>
+    <div class="forge-callout forge-callout-emerald mb-3">
+      <p class="callout-label" style="color: var(--forge-emerald);">Success</p>
+      <p class="mb-0">Emerald callout — success or positive outcome.</p>
+    </div>
+    <div class="forge-callout forge-callout-red mb-3">
+      <p class="callout-label" style="color: #EF4444;">Error</p>
+      <p class="mb-0">Red callout — errors or critical warnings.</p>
+    </div>
+    <div class="forge-callout forge-callout-surface">
+      <p class="callout-label">Surface</p>
+      <p class="mb-0">Surface callout — neutral container.</p>
+    </div>
+  </section>
+
+  <!-- 11. Badges -->
+  <section id="sec-badges" class="ks-section">
+    <h2 class="ks-section-title">11 &middot; Badges</h2>
+    <div class="d-flex flex-wrap gap-2">
+      <span class="forge-badge badge-cyan">Cyan</span>
+      <span class="forge-badge badge-amber">Amber</span>
+      <span class="forge-badge badge-emerald">Emerald</span>
+      <span class="forge-badge badge-red">Red</span>
+      <span class="forge-badge badge-dim">Dim</span>
+    </div>
+  </section>
+
+  <!-- 12. Buttons -->
+  <section id="sec-buttons" class="ks-section">
+    <h2 class="ks-section-title">12 &middot; Buttons</h2>
+    <div class="d-flex flex-wrap gap-3 align-items-center">
+      <button class="btn btn-forge">Primary (Forge)</button>
+      <button class="btn btn-forge-outline">Outline amber</button>
+      <button class="btn btn-cyan-outline">Outline cyan</button>
+    </div>
+  </section>
+
+  <!-- 13. Code Blocks -->
+  <section id="sec-code" class="ks-section">
+    <h2 class="ks-section-title">13 &middot; Code Blocks &amp; Inline</h2>
+    <p>Inline <code>code</code> and <kbd>Ctrl+K</kbd> keyboard shortcut.</p>
+    <div class="forge-code">
+<span class="keyword">def</span> forge_spark(backlog, agent):
+    <span class="comment"># AI-native delivery loop</span>
+    task = backlog.<span class="highlight">pop</span>()
+    result = agent.execute(task)
+    <span class="keyword">return</span> result
+    </div>
+  </section>
+
+  <!-- 14. SVG Diagram Type Templates -->
+  <section id="sec-diagrams" class="ks-section">
+    <h2 class="ks-section-title">14 &middot; SVG Diagram Type Templates</h2>
+    <p class="forge-support mb-4">Reusable diagram archetypes from the Forge design system. Content-specific diagrams live in each project (e.g. blueprints); these templates define the visual language. Click to expand.</p>
+
+    <!-- Featured: Linear Flow -->
+    <h5 class="mt-4 mb-2">Linear Flow</h5>
+    <div class="forge-diagram forge-diagram-trigger ks-diagram-card mb-4" data-diagram="linear"
+         onclick="openDiagramWithDetail(this, 'linear')">
+      <img src="assets/svg/template-linear-flow.svg" alt="Linear flow template">
+    </div>
+
+    <!-- Featured: Gate Chain -->
+    <h5 class="mt-4 mb-2">Gate Chain</h5>
+    <div class="forge-diagram forge-diagram-trigger ks-diagram-card mb-4" data-diagram="gate"
+         onclick="openDiagramWithDetail(this, 'gate')">
+      <img src="assets/svg/template-gate-chain.svg" alt="Gate chain template">
+    </div>
+
+    <!-- All 6 templates as gallery -->
+    <h5 class="mt-5 mb-3">All Diagram Type Templates</h5>
+    <div class="bento-grid bento-3 mb-3">
+      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-linear-flow.svg" alt="Linear flow"><p class="section-label mt-2 mb-0">linear-flow</p></div>
+      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-loop-cycle.svg" alt="Loop cycle"><p class="section-label mt-2 mb-0">loop-cycle</p></div>
+      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-board-columns.svg" alt="Board columns"><p class="section-label mt-2 mb-0">board-columns</p></div>
+      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-gate-chain.svg" alt="Gate chain"><p class="section-label mt-2 mb-0">gate-chain</p></div>
+      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-checklist.svg" alt="Checklist"><p class="section-label mt-2 mb-0">checklist</p></div>
+      <div class="forge-diagram p-2 text-center ks-thumb"><img src="assets/svg/template-tree.svg" alt="Tree hierarchy"><p class="section-label mt-2 mb-0">tree</p></div>
+    </div>
+  </section>
+
+  <!-- 15. Dividers -->
+  <section id="sec-dividers" class="ks-section">
+    <h2 class="ks-section-title">15 &middot; Dividers</h2>
+    <p class="forge-support">Gradient divider below:</p>
+    <hr class="forge-divider">
+    <p class="forge-support">Content continues after divider.</p>
+  </section>
+
+  <!-- 16 & 17. Animations -->
+  <section id="sec-animations" class="ks-section">
+    <h2 class="ks-section-title">16–17 &middot; Pulse &amp; Breathing Animations</h2>
+    <div class="row g-3">
+      <div class="col-md-3"><div class="glass p-3 pulse text-center"><span class="section-label">Pulse cyan</span></div></div>
+      <div class="col-md-3"><div class="glass-amber p-3 pulse-amber text-center"><span class="section-label">Pulse amber</span></div></div>
+      <div class="col-md-3"><a class="forge-card breathe-link d-block text-center" href="#"><span class="section-label">Breathe link</span><br><span class="forge-support">Hover me</span></a></div>
+      <div class="col-md-3"><div class="forge-card breathe-static text-center"><span class="section-label">Breathe static</span><br><span class="forge-support">Hover me</span></div></div>
+    </div>
+  </section>
+
+  <!-- 18. Flow Diagram -->
+  <section id="sec-flow" class="ks-section">
+    <h2 class="ks-section-title">18 &middot; Flow Diagram (Pure CSS)</h2>
+    <div class="forge-flow">
+      <span class="forge-flow-node node-active">Spark</span>
+      <span class="forge-flow-arrow">&rarr;</span>
+      <span class="forge-flow-node">Spec</span>
+      <span class="forge-flow-arrow">&rarr;</span>
+      <span class="forge-flow-node">Build</span>
+      <span class="forge-flow-arrow">&rarr;</span>
+      <span class="forge-flow-node">Review</span>
+      <span class="forge-flow-arrow">&rarr;</span>
+      <span class="forge-flow-node">Ship</span>
+    </div>
+  </section>
+
+  <!-- 19. Stat Counters -->
+  <section id="sec-stats" class="ks-section">
+    <h2 class="ks-section-title">19 &middot; Stat Counters</h2>
+    <div class="bento-grid bento-3">
+      <div class="glass p-4 forge-stat">
+        <div class="stat-value text-amber">12</div>
+        <div class="stat-label">Methodologies</div>
+      </div>
+      <div class="glass p-4 forge-stat">
+        <div class="stat-value text-cyan">42</div>
+        <div class="stat-label">Handbook pages</div>
+      </div>
+      <div class="glass p-4 forge-stat">
+        <div class="stat-value" style="color: var(--forge-emerald);">99%</div>
+        <div class="stat-label">Coverage</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="forge-divider">
+  <footer class="text-center pb-4">
+    <p class="forge-support">forgesdlc-kitchensink &middot; Forge design system test page</p>
+  </footer>
+
+    </div><!-- /col content -->
+
+    <!-- ====== RIGHT TOC ====== -->
+    <div class="col-lg-4 col-xl-3 order-1 order-lg-2">
+      <nav class="forge-toc" aria-label="On this page">
+        <p class="toc-title mb-2">On this page</p>
+        <a class="nav-link" href="#sec-tokens">Design tokens</a>
+        <a class="nav-link" href="#sec-typography">Typography</a>
+        <a class="nav-link" href="#sec-glass">Glass panels</a>
+        <a class="nav-link" href="#sec-sidebar">Sidebar nav</a>
+        <a class="nav-link" href="#sec-cards">Cards</a>
+        <a class="nav-link" href="#sec-bento">Bento grid</a>
+        <a class="nav-link" href="#sec-tables">Tables</a>
+        <a class="nav-link" href="#sec-callouts">Callouts</a>
+        <a class="nav-link" href="#sec-badges">Badges</a>
+        <a class="nav-link" href="#sec-buttons">Buttons</a>
+        <a class="nav-link" href="#sec-code">Code blocks</a>
+        <a class="nav-link" href="#sec-diagrams">SVG diagrams</a>
+        <a class="nav-link" href="#sec-dividers">Dividers</a>
+        <a class="nav-link" href="#sec-animations">Animations</a>
+        <a class="nav-link" href="#sec-flow">Flow diagram</a>
+        <a class="nav-link" href="#sec-stats">Stat counters</a>
+      </nav>
+    </div>
+
+    </div><!-- /row -->
+  </div><!-- /doc-content -->
+  </main>
+</div><!-- /row -->
+</div><!-- /container -->
+
+<!-- ================================================================
+     Diagram expand modal (sections 21 / 22)
+     ================================================================ -->
+<div id="diagramModal" class="diagram-modal-backdrop">
+  <div class="diagram-modal">
+    <div class="diagram-modal-header">
+      <h3 id="diagramModalTitle" class="forge-gradient-text">Diagram</h3>
+      <button class="diagram-modal-close" onclick="closeDiagramModal()" aria-label="Close">&times;</button>
+    </div>
+    <div class="diagram-modal-body">
+      <div id="diagramModalCanvas" class="diagram-modal-canvas"></div>
+      <div id="diagramModalDetail" class="diagram-modal-detail"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/forge-theme.js"></script>
+<script>
+(function () {
+  'use strict';
+  var sections = document.querySelectorAll('.ks-section[id]');
+  var tocLinks = document.querySelectorAll('.forge-toc .nav-link');
+  var sideLinks = document.querySelectorAll('#ks-sidebar-nav .nav-link');
+
+  function setActive(id) {
+    tocLinks.forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+    sideLinks.forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  sections.forEach(function (sec) { observer.observe(sec); });
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+
+  var DIAGRAM_DETAILS = {
+    linear: {
+      title: 'Linear Flow Template',
+      items: [
+        { node: 'Step A', color: 'cyan',  desc: 'First stage in a sequential process. Replace [subtitle] with the specific activity.' },
+        { node: 'Step B', color: 'cyan',  desc: 'Second stage. Each box represents a discrete phase with a clear handoff.' },
+        { node: 'Step C', color: 'amber', desc: 'Third stage. Connectors show the direction of flow between steps.' },
+        { node: 'Step D', color: 'amber', desc: 'Final stage. Use the footer note for caveats (e.g. "iterate as needed").' },
+      ]
+    },
+    gate: {
+      title: 'Gate Chain Template',
+      items: [
+        { node: 'Stage 1', color: 'cyan',    desc: 'First activity block. Work happens here until the gate checkpoint.' },
+        { node: 'G',       color: 'amber',   desc: 'Gate checkpoint (diamond). Criteria must be met before proceeding.' },
+        { node: 'Stage 2', color: 'emerald', desc: 'Second activity block, entered only after passing the gate.' },
+        { node: 'Stage 3', color: 'amber',   desc: 'Final activity. The checkmark indicates successful completion.' },
+      ]
+    }
+  };
+
+  var colorMap = {
+    cyan:    'var(--forge-cyan)',
+    amber:   'var(--forge-amber)',
+    emerald: 'var(--forge-emerald)',
+  };
+
+  function renderDetailPanel(key) {
+    var data = DIAGRAM_DETAILS[key];
+    if (!data) return '';
+    var html = '<p class="detail-title">' + data.title + '</p>';
+    for (var i = 0; i < data.items.length; i++) {
+      var item = data.items[i];
+      html += '<div class="detail-item" data-node="' + item.node + '">';
+      html += '<p class="detail-term" style="color:' + (colorMap[item.color] || colorMap.cyan) + ';">' + item.node + '</p>';
+      html += '<p class="detail-desc">' + item.desc + '</p>';
+      html += '</div>';
+    }
+    return html;
+  }
+
+  window.openDiagramWithDetail = function (trigger, key) {
+    var img = trigger.querySelector('img');
+    if (!img) return;
+
+    var canvas = document.getElementById('diagramModalCanvas');
+    var detail = document.getElementById('diagramModalDetail');
+    var title  = document.getElementById('diagramModalTitle');
+    if (!canvas) return;
+
+    var expanded = document.createElement('img');
+    expanded.src = img.src;
+    expanded.alt = img.alt;
+    expanded.style.width = '100%';
+    expanded.style.height = 'auto';
+    expanded.style.minHeight = '40vh';
+    canvas.innerHTML = '';
+    canvas.appendChild(expanded);
+
+    if (detail) detail.innerHTML = renderDetailPanel(key);
+    if (title && DIAGRAM_DETAILS[key]) title.textContent = DIAGRAM_DETAILS[key].title;
+
+    document.getElementById('diagramModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+})();
+</script>
+</body>
+</html>
