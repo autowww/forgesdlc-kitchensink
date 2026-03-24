@@ -1570,6 +1570,22 @@ html.fs-embed .fs-main .toc {
   content: counter(fs-step);
 }
 
+.fs-home-step h3 {
+  font-family: var(--fs-font-sans);
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+  color: var(--fs-text);
+}
+
+.fs-home-step p {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--fs-text-muted);
+  margin-bottom: 0;
+}
+
 .fs-home-compare {
   display: grid;
   gap: clamp(1.25rem, 3vw, 2rem);
