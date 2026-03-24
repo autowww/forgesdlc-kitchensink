@@ -26,6 +26,114 @@ body {
   font-family: var(--fs-font-sans);
 }
 
+/* --- Embed mode (?fs-embed=1): iframe / in-page preview — hide global chrome --- */
+html.fs-embed .forge-theme-dropdown,
+html.fs-embed .fs-mobile-bar,
+html.fs-embed .fs-primary-nav-global,
+html.fs-embed #fsNav,
+html.fs-embed .fs-sidebar {
+  display: none !important;
+}
+
+html.fs-embed .fs-layout .row > main.col-lg-9,
+html.fs-embed .fs-layout .row > main {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+html.fs-embed .landing-header {
+  display: none !important;
+}
+
+/* In-page Markdown TOC: keep visible and pin under the (now removed) top bar */
+html.fs-embed .fs-main .toc {
+  position: sticky;
+  top: 0.75rem;
+  z-index: 6;
+  margin-top: 0;
+}
+
+/* Topic preview trigger — distinct from pathway forge-cards (accent rail + compact) */
+.fs-topic-preview-card {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 1.35rem 1.5rem 1.15rem;
+  margin: 0 0 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(6, 182, 212, 0.28);
+  background: linear-gradient(
+    145deg,
+    rgba(26, 31, 44, 0.95) 0%,
+    rgba(13, 18, 28, 0.98) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.2);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.fs-topic-preview-card:hover {
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 1px rgba(6, 182, 212, 0.12),
+    0 12px 40px rgba(6, 182, 212, 0.08);
+  text-decoration: none;
+  color: inherit;
+  transform: translateY(-1px);
+}
+
+.fs-topic-preview-card:focus-visible {
+  outline: 2px solid var(--fs-cyan);
+  outline-offset: 3px;
+}
+
+.fs-topic-preview-card__eyebrow {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fs-mint);
+  margin-bottom: 0.5rem;
+}
+
+.fs-topic-preview-card__title {
+  display: block;
+  font-family: var(--fs-font-display);
+  font-weight: 900;
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  letter-spacing: -0.02em;
+  color: var(--fs-text);
+  line-height: 1.2;
+  margin-bottom: 0.45rem;
+}
+
+.fs-topic-preview-card__desc {
+  font-size: 0.9rem;
+  color: var(--fs-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.fs-topic-preview-card__hint {
+  display: block;
+  margin-top: 0.85rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.55);
+}
+
 .fs-layout {
   min-height: 100vh;
 }
@@ -990,4 +1098,16 @@ html[data-bs-theme="light"] .fs-sidebar .nav-link.active {
 
 html[data-bs-theme="light"] .fs-cross-refs--subtle {
   background: rgba(15, 23, 42, 0.04);
+}
+
+html[data-bs-theme="light"] .fs-topic-preview-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+  border-color: rgba(8, 145, 178, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+html[data-bs-theme="light"] .fs-topic-preview-card:hover {
+  border-color: rgba(8, 145, 178, 0.55);
 }

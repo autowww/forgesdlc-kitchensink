@@ -751,3 +751,32 @@ def render_product_footer(
         " — process templates, ceremonies, and discipline depth.</p>"
         '</footer>'
     )
+
+
+def render_topic_preview_trigger(
+    *,
+    href: str,
+    title: str,
+    description: str = "",
+    eyebrow: str = "Topic",
+) -> str:
+    """Card-style control that opens *href* in an on-page preview (iframe with ``?fs-embed=1``).
+
+    Requires ``forge-theme.js`` (modal + click wiring) and ``forgesdlc-theme.css``
+    (embed chrome hiding + card styles). Without JS, the link navigates normally.
+    """
+    desc_html = (
+        f'<p class="fs-topic-preview-card__desc">{e(description)}</p>'
+        if description.strip()
+        else ""
+    )
+    return (
+        '<a class="fs-topic-preview-card" '
+        f'href="{e(href)}" '
+        'role="button" aria-haspopup="dialog">'
+        f'<span class="fs-topic-preview-card__eyebrow">{e(eyebrow)}</span>'
+        f'<span class="fs-topic-preview-card__title">{e(title)}</span>'
+        f"{desc_html}"
+        '<span class="fs-topic-preview-card__hint">Preview on this page</span>'
+        "</a>"
+    )

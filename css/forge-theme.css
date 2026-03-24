@@ -1840,3 +1840,62 @@ code {
   color: var(--forge-cyan) !important;
   fill: var(--forge-cyan) !important;
 }
+
+/* =================================================================
+   23. TOPIC PREVIEW MODAL (full-page topic in iframe)
+   ================================================================= */
+.topic-preview-modal-backdrop .diagram-modal {
+  width: min(1200px, calc(100vw - 2 * var(--diagram-modal-gutter)));
+  max-width: min(1200px, calc(100vw - 2 * var(--diagram-modal-gutter)));
+}
+
+.topic-preview-modal-header.diagram-modal-header {
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+}
+
+.topic-preview-modal-header .topic-preview-header-spacer {
+  flex: 1 1 auto;
+  min-width: 0.5rem;
+}
+
+.topic-preview-open-full {
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--forge-text-3);
+  text-decoration: none;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid var(--forge-border);
+  white-space: nowrap;
+}
+
+.topic-preview-open-full:hover {
+  color: var(--forge-cyan);
+  border-color: rgba(6, 182, 212, 0.35);
+  text-decoration: none;
+}
+
+.topic-preview-modal-body.diagram-modal-body {
+  display: block !important;
+  grid-template-columns: unset !important;
+  padding: 0 !important;
+}
+
+.topic-preview-modal-canvas.diagram-modal-canvas {
+  max-height: none !important;
+  min-height: min(78vh, 720px);
+  padding: 0 !important;
+  background: var(--fs-bg, var(--forge-bg));
+}
+
+.topic-preview-iframe {
+  width: 100%;
+  height: min(78vh, 720px);
+  border: 0;
+  display: block;
+  background: var(--fs-bg, var(--forge-bg));
+}
