@@ -10,12 +10,15 @@
 (function () {
   'use strict';
 
-  /* Product / landing chrome strip for in-page preview (iframe ?fs-embed=1) */
+  /* Product / landing: in-page preview iframe (?fs-embed=1, optional ?fs-preview-rail=1) */
   try {
     if (typeof location !== 'undefined') {
-      var _emb = new URLSearchParams(location.search).get('fs-embed');
-      if (_emb === '1') {
+      var _params = new URLSearchParams(location.search);
+      if (_params.get('fs-embed') === '1') {
         document.documentElement.classList.add('fs-embed');
+      }
+      if (_params.get('fs-preview-rail') === '1') {
+        document.documentElement.classList.add('fs-preview-rail');
       }
     }
   } catch (_e) { /* ignore */ }
@@ -124,7 +127,60 @@
         if (storedPreference() === 'auto') applyColorScheme();
       });
     }
+    function topicPreviewTitleFromAnchor(a) {
+      var tCard = a.querySelector('.fs-topic-preview-card__title');
+      if (tCard) return (tCard.textContent || '').trim();
+      return (a.textContent || '').trim().replace(/\s+/g, ' ');
+    }
+
+    function wireLandingPageTopicPreviews() {
+      if (!document.body.classList.contains('fs-landing-topic-preview-active')) return;
+      document.body.addEventListener('click', function (ev) {
+        if (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+        var a = ev.target.closest('a');
+        if (!a) return;
+        if (a.classList.contains('fs-topic-preview-external')) return;
+        if (a.closest('.landing-header')) return;
+        if (a.closest('#topicPreviewModal')) return;
+        if (a.classList.contains('topic-preview-open-full')) return;
+        if (a.getAttribute('download')) return;
+        var href = a.getAttribute('href');
+        if (!href) return;
+        if (/^\s*#/.test(href)) return;
+        if (/^javascript:/i.test(href.trim())) return;
+        if (/^mailto:/i.test(href.trim()) || /^tel:/i.test(href.trim())) return;
+        var url;
+        try {
+          url = new URL(href, window.location.href);
+        } catch (err) {
+          return;
+        }
+        if (url.origin !== window.location.origin) return;
+        if (!/\.html$/i.test(url.pathname)) return;
+        var cur = new URL(window.location.href);
+        function landingPath(p) {
+          return p === '/' || /\/index\.html$/i.test(p);
+        }
+        var samePath = url.pathname === cur.pathname && url.search === cur.search;
+        var bothLanding =
+          landingPath(url.pathname) &&
+          landingPath(cur.pathname) &&
+          url.search === cur.search;
+        if (samePath || bothLanding) return;
+        ev.preventDefault();
+        var titleText = topicPreviewTitleFromAnchor(a);
+        if (!titleText) {
+          titleText =
+            url.pathname.replace(/^.*\//, '').replace(/\.html$/i, '') || 'Preview';
+        }
+        window.openTopicPreviewModal(url.pathname + url.search + url.hash, titleText);
+      });
+    }
+
+    wireLandingPageTopicPreviews();
+
     document.querySelectorAll('a.fs-topic-preview-card').forEach(function (el) {
+      if (document.body.classList.contains('fs-landing-topic-preview-active')) return;
       el.addEventListener('click', function (ev) {
         ev.preventDefault();
         var href = el.getAttribute('href');
@@ -265,10 +321,47 @@
     try {
       var u = new URL(href, window.location.href);
       u.searchParams.set('fs-embed', '1');
+      u.searchParams.set('fs-preview-rail', '1');
       return u.pathname + u.search + u.hash;
     } catch (err) {
       var sep = href.indexOf('?') >= 0 ? '&' : '?';
-      return href + sep + 'fs-embed=1';
+      var tail = 'fs-embed=1&fs-preview-rail=1';
+      return href + sep + tail;
+    }
+  }
+
+  function resetTopicPreviewTocRail(modal) {
+    var body = modal.querySelector('.topic-preview-modal-body');
+    var rail = document.getElementById('topicPreviewTocRail');
+    if (body) body.classList.remove('topic-preview-modal-body--with-rail');
+    if (rail) {
+      rail.innerHTML = '';
+      rail.hidden = true;
+    }
+  }
+
+  function syncTopicPreviewTocFromIframe(iframe, modal) {
+    var rail = document.getElementById('topicPreviewTocRail');
+    var body = modal.querySelector('.topic-preview-modal-body');
+    if (!rail || !body) return;
+    rail.innerHTML = '';
+    rail.hidden = true;
+    body.classList.remove('topic-preview-modal-body--with-rail');
+    try {
+      var doc = iframe.contentDocument;
+      if (!doc) return;
+      var toc = doc.querySelector('.fs-main .toc');
+      if (!toc) return;
+      var inner = toc.cloneNode(true);
+      inner.removeAttribute('id');
+      var wrap = document.createElement('div');
+      wrap.className = 'topic-preview-toc-rail__inner';
+      wrap.appendChild(inner);
+      rail.appendChild(wrap);
+      rail.hidden = false;
+      body.classList.add('topic-preview-modal-body--with-rail');
+    } catch (_err) {
+      /* cross-origin or parse error */
     }
   }
 
@@ -283,14 +376,14 @@
     wrap.setAttribute('aria-labelledby', 'topicPreviewModalTitle');
     wrap.innerHTML =
       '<div class="diagram-modal topic-preview-modal-dialog">' +
-      '<div class="diagram-modal-header topic-preview-modal-header">' +
-      '<h3 id="topicPreviewModalTitle" class="forge-gradient-text mb-0">Preview</h3>' +
-      '<span class="topic-preview-header-spacer" aria-hidden="true"></span>' +
+      '<h3 id="topicPreviewModalTitle" class="topic-preview-modal-sr-title">Preview</h3>' +
+      '<div class="topic-preview-modal-toolbar">' +
       '<a id="topicPreviewOpenFull" class="topic-preview-open-full" href="#" target="_blank" rel="noopener">Open full page</a>' +
-      '<button type="button" class="diagram-modal-close" data-topic-preview-close aria-label="Close">&times;</button>' +
+      '<button type="button" class="diagram-modal-close topic-preview-modal-close" data-topic-preview-close aria-label="Close">&times;</button>' +
       '</div>' +
       '<div class="diagram-modal-body topic-preview-modal-body">' +
       '<div id="topicPreviewModalCanvas" class="diagram-modal-canvas topic-preview-modal-canvas"></div>' +
+      '<nav id="topicPreviewTocRail" class="topic-preview-toc-rail" aria-label="On this page" hidden></nav>' +
       '</div></div>';
     document.body.appendChild(wrap);
     wrap.addEventListener('click', function (e) {
@@ -299,6 +392,27 @@
     wrap.querySelector('[data-topic-preview-close]').addEventListener('click', function () {
       window.closeTopicPreviewModal();
     });
+    var rail = document.getElementById('topicPreviewTocRail');
+    if (rail) {
+      rail.addEventListener('click', function (e) {
+        var a = e.target.closest('a');
+        if (!a || !rail.contains(a)) return;
+        var href = a.getAttribute('href');
+        if (!href || href.charAt(0) !== '#') return;
+        e.preventDefault();
+        var iframe = wrap.querySelector('.topic-preview-iframe');
+        if (!iframe || !iframe.contentWindow || !iframe.contentWindow.document) return;
+        var id = decodeURIComponent(href.slice(1).replace(/\+/g, ' '));
+        var target = iframe.contentWindow.document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          try {
+            iframe.contentWindow.location.hash = href;
+          } catch (_h) { /* ignore */ }
+        }
+      });
+    }
     return wrap;
   }
 
@@ -308,7 +422,11 @@
     modal.classList.remove('active');
     document.body.style.overflow = '';
     var iframe = modal.querySelector('.topic-preview-iframe');
-    if (iframe) iframe.src = 'about:blank';
+    if (iframe) {
+      iframe.onload = null;
+      iframe.src = 'about:blank';
+    }
+    resetTopicPreviewTocRail(modal);
   };
 
   window.openTopicPreviewModal = function (href, titleText) {
@@ -328,12 +446,16 @@
         fullLink.href = href;
       }
     }
+    resetTopicPreviewTocRail(modal);
     canvas.innerHTML = '';
     var iframe = document.createElement('iframe');
     iframe.className = 'topic-preview-iframe';
     iframe.setAttribute('title', titleText ? titleText + ' (preview)' : 'Topic preview');
     iframe.setAttribute('loading', 'lazy');
     iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.onload = function () {
+      syncTopicPreviewTocFromIframe(iframe, modal);
+    };
     iframe.src = src;
     canvas.appendChild(iframe);
     modal.classList.add('active');

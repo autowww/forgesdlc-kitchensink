@@ -783,6 +783,29 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   margin-bottom: 0.35rem;
 }
 
+/* In-flow panel that stays visible while scrolling (e.g. showcase toolbars).
+   Aligns below .site-header when --site-header-h is set (showcase_page). */
+.ks-sticky-panel {
+  position: sticky;
+  z-index: 25;
+  top: calc(var(--site-header-h, 4rem) + 0.35rem);
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--forge-border) 140%, var(--forge-surface-2));
+  background: color-mix(in srgb, var(--forge-surface-2) 82%, var(--forge-bg));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    0 10px 36px rgba(0, 0, 0, 0.38);
+}
+html[data-bs-theme="light"] .ks-sticky-panel {
+  background: color-mix(in srgb, var(--forge-surface) 90%, #fff);
+  border-color: color-mix(in srgb, var(--forge-border) 80%, #cbd5e1);
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+}
+
 /* =================================================================
    11. BADGES
    ================================================================= */
@@ -1842,22 +1865,38 @@ code {
 }
 
 /* =================================================================
-   23. TOPIC PREVIEW MODAL (full-page topic in iframe)
+   23. TOPIC PREVIEW MODAL (full-page topic in iframe + optional TOC rail)
    ================================================================= */
 .topic-preview-modal-backdrop .diagram-modal {
-  width: min(1200px, calc(100vw - 2 * var(--diagram-modal-gutter)));
-  max-width: min(1200px, calc(100vw - 2 * var(--diagram-modal-gutter)));
+  width: min(1280px, calc(100vw - 2 * var(--diagram-modal-gutter)));
+  max-width: min(1280px, calc(100vw - 2 * var(--diagram-modal-gutter)));
+  position: relative;
 }
 
-.topic-preview-modal-header.diagram-modal-header {
-  flex-wrap: wrap;
-  gap: 0.5rem 0.75rem;
+.topic-preview-modal-sr-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.topic-preview-modal-toolbar {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.55rem;
+  z-index: 6;
+  display: flex;
   align-items: center;
+  gap: 0.4rem;
 }
 
-.topic-preview-modal-header .topic-preview-header-spacer {
-  flex: 1 1 auto;
-  min-width: 0.5rem;
+.topic-preview-modal-close.diagram-modal-close {
+  flex-shrink: 0;
 }
 
 .topic-preview-open-full {
@@ -1871,6 +1910,7 @@ code {
   border-radius: 8px;
   border: 1px solid var(--forge-border);
   white-space: nowrap;
+  background: var(--forge-surface);
 }
 
 .topic-preview-open-full:hover {
@@ -1880,22 +1920,105 @@ code {
 }
 
 .topic-preview-modal-body.diagram-modal-body {
-  display: block !important;
-  grid-template-columns: unset !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(min(78vh, 720px), 1fr);
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 0 !important;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.topic-preview-modal-body.topic-preview-modal-body--with-rail {
+  grid-template-columns: minmax(0, 1fr) min(13.5rem, 32%) !important;
+}
+
+@media (max-width: 767.98px) {
+  .topic-preview-modal-body.topic-preview-modal-body--with-rail {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto auto;
+  }
 }
 
 .topic-preview-modal-canvas.diagram-modal-canvas {
   max-height: none !important;
   min-height: min(78vh, 720px);
+  height: 100%;
   padding: 0 !important;
   background: var(--fs-bg, var(--forge-bg));
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  overflow: hidden;
 }
 
 .topic-preview-iframe {
   width: 100%;
-  height: min(78vh, 720px);
+  flex: 1 1 auto;
+  min-height: min(78vh, 720px);
   border: 0;
   display: block;
   background: var(--fs-bg, var(--forge-bg));
+}
+
+.topic-preview-toc-rail {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-left: 1px solid var(--forge-border);
+  background: var(--forge-bg-elevated, var(--forge-surface-2));
+  padding: 0.55rem 0.45rem 0.75rem 0.55rem;
+  min-height: 0;
+  min-width: 0;
+  max-height: min(78vh, 720px);
+  align-self: start;
+  font-size: 0.78rem;
+}
+
+@media (max-width: 767.98px) {
+  .topic-preview-toc-rail:not([hidden]) {
+    max-height: 11rem;
+    border-left: none;
+    border-top: 1px solid var(--forge-border);
+  }
+}
+
+.topic-preview-toc-rail__inner .toc {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-height: none;
+  overflow: visible;
+}
+
+.topic-preview-toc-rail__inner .toc ul {
+  margin-bottom: 0;
+  padding-left: 1rem;
+}
+
+.topic-preview-toc-rail__inner .toc a {
+  color: var(--forge-text-3);
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.12rem 0;
+  line-height: 1.35;
+}
+
+.topic-preview-toc-rail__inner .toc a:hover,
+.topic-preview-toc-rail__inner .toc a:focus-visible {
+  color: var(--forge-cyan);
+  text-decoration: underline;
+}
+
+.topic-preview-toc-rail__inner .toc-title,
+.topic-preview-toc-rail__inner p.toc-title {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--forge-text-3);
+  margin: 0 0 0.35rem;
 }

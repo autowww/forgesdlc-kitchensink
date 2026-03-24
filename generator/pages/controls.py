@@ -29,7 +29,7 @@ def render() -> str:
     topic_preview_demo = render_topic_preview_trigger(
         href="preview-product.html",
         title="Product layout (embed demo)",
-        description="Opens preview-product.html in a modal iframe with ?fs-embed=1 — top nav, mobile bar, and left sidebar hidden; Markdown .toc scrolls in-flow (not sticky) so it does not cover the article.",
+        description="Opens preview in a modal: iframe uses ?fs-embed=1&fs-preview-rail=1 — site chrome hidden inside the frame; Markdown .toc is cloned into a right-hand rail when present.",
         eyebrow="Product site",
     )
     return """\
@@ -109,8 +109,7 @@ def render() -> str:
   <p class="forge-support mb-3">
     For product sites that load <code>forge-theme.js</code> + <code>forgesdlc-theme.css</code>, use
     <code>render_topic_preview_trigger()</code> (or an <code>&lt;a class="fs-topic-preview-card" href="…"&gt;</code>)
-    to open a page in a same-tab modal. The iframe requests <code>?fs-embed=1</code>; <code>forge-theme.js</code> adds
-    <code>html.fs-embed</code> so global chrome is hidden; in-article Markdown <code>.toc</code> remains in normal flow with a capped height so previews stay readable.
+    to open a page in a same-tab modal. The iframe requests <code>?fs-embed=1</code> and <code>fs-preview-rail=1</code>; <code>forge-theme.js</code> adds matching <code>html</code> classes so global chrome (sidebar, primary nav, mobile bar, offcanvas, theme dropdown) is hidden inside the iframe. A Markdown <code>.toc</code>, if present, is hoisted into the modal&rsquo;s right rail; otherwise it stays in-article (embed-only without the rail flag). The modal shell uses a minimal top-right toolbar (open full page + close).
   </p>
   <p class="forge-support mb-3">This page loads product CSS only for this section — see <strong>For Agents</strong> if tokens clash on a handbook-themed page.</p>
   <div class="mb-3">
@@ -118,7 +117,7 @@ def render() -> str:
   </div>
   <div class="forge-callout forge-callout-surface mt-3">
     <p class="callout-label">Python / API</p>
-    <p class="mb-0"><code>render_topic_preview_trigger(href=…, title=…, description=…, eyebrow=…)</code> · JS: <code>openTopicPreviewModal</code> · query: <code>fs-embed=1</code></p>
+    <p class="mb-0"><code>render_topic_preview_trigger(href=…, title=…, description=…, eyebrow=…)</code> · JS: <code>openTopicPreviewModal</code> · query: <code>fs-embed=1</code> + <code>fs-preview-rail=1</code></p>
   </div>
 </section>""".replace(
         "TOPIC_PREVIEW_CARD_PLACEHOLDER",

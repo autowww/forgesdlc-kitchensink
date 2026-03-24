@@ -26,9 +26,18 @@ body {
   font-family: var(--fs-font-sans);
 }
 
-/* --- Embed mode (?fs-embed=1): iframe / in-page preview — trim chrome, keep sticky nav --- */
+/* --- Embed mode (?fs-embed=1): iframe / in-page preview — hide global chrome --- */
 html.fs-embed .forge-theme-dropdown,
+html.fs-embed .fs-mobile-bar,
+html.fs-embed .fs-primary-nav-global,
+html.fs-embed #fsNav,
+html.fs-embed .fs-offcanvas,
 html.fs-embed .fs-sidebar {
+  display: none !important;
+}
+
+/* Topic preview modal hoists Markdown .toc to parent; hide duplicate inside iframe */
+html.fs-embed.fs-preview-rail .fs-main .toc {
   display: none !important;
 }
 
@@ -534,10 +543,17 @@ html.fs-embed .fs-main .toc {
   margin-bottom: 1rem;
 }
 
+/* Descenders on "g" (and gradient text) were clipped: line-height 1.04 is too tight
+   for background-clip:text; hero band also uses overflow:hidden -- keep glyphs inside the line box. */
 .landing-hero .product-landing-title {
   font-size: clamp(2.85rem, 8vw, 4.5rem);
-  line-height: 1.04;
+  line-height: 1.18;
   letter-spacing: -0.035em;
+  padding-bottom: 0.08em;
+}
+
+.landing-hero-copy {
+  overflow: visible;
 }
 
 .landing-hero .landing-hero-tagline {
