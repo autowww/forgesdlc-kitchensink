@@ -283,6 +283,33 @@ body {
   text-decoration: underline;
 }
 
+.fs-main .landing-authorship {
+  max-width: 40rem;
+  margin: 2rem auto 0.5rem;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--fs-border);
+  text-align: center;
+}
+
+.fs-main .landing-authorship-lead {
+  font-family: var(--fs-font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fs-text-muted);
+  margin-bottom: 0.5rem;
+  line-height: 1.45;
+}
+
+.fs-main .landing-authorship-support {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Product home (landing_page): larger executive hero */
 .landing-hero {
   padding: 5.5rem 1.25rem 3.75rem;

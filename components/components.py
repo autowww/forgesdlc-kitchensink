@@ -552,6 +552,34 @@ def render_cross_refs(
     )
 
 
+def render_authorship_signal(
+    lead: str,
+    support: str | None = None,
+) -> str:
+    """Short human-authorship strip for product landing pages (``.landing-authorship``).
+
+    Communicates that artifacts may be agent-produced while intent, direction,
+    and judgment remain human — restrained, not defensive.
+    """
+    lead = lead.strip()
+    if not lead:
+        return ""
+    sup = support.strip() if support else ""
+    sup_html = ""
+    if sup:
+        sup_html = (
+            f'<p class="landing-authorship-support forge-support text-muted mb-0">'
+            f"{e_content(sup)}</p>"
+        )
+    return (
+        '<aside class="landing-authorship" role="note" '
+        'aria-label="How this site is produced">'
+        f'<p class="landing-authorship-lead mb-2">{e_content(lead)}</p>'
+        f"{sup_html}"
+        "</aside>"
+    )
+
+
 def render_product_landing_hero(
     title: str,
     tagline: str | None = None,
