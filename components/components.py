@@ -530,7 +530,7 @@ def render_cross_refs(
     """Related-content aside for product sites (``fs-cross-refs``).
 
     *items* is a list of resolved ``(href, label)`` pairs.
-    *variant* — pass ``\"subtle\"`` for a lower-emphasis panel (e.g. home above-the-fold).
+    *variant* — pass ``"subtle"`` for a lower-emphasis panel (e.g. home above-the-fold).
     Returns empty string if *items* is empty.
     """
     if not items:
