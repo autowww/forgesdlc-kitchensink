@@ -739,6 +739,8 @@ def landing_page(
     *,
     browser_title: str,
     brand_name: str = "Kitchen Sink",
+    brand_accent: str = "",
+    brand_href: str = "index.html",
     brand_subtitle: str = "Design system",
     nav_links_html: str = "",
     hero_html: str,
@@ -752,6 +754,9 @@ def landing_page(
     """Full-width hero landing page with no sidebar."""
     extra_scripts = "\n".join(
         f'<script src="{e(src)}"></script>' for src in (extra_js or [])
+    )
+    accent_html = (
+        f'<span class="fs-accent">{e(brand_accent)}</span>' if brand_accent else ""
     )
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -772,7 +777,7 @@ def landing_page(
 
 <header class="landing-header">
   <div class="landing-header-inner">
-    <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">{e(brand_name)}</span></p>
+    <a class="fs-brand text-decoration-none" href="{e(brand_href)}">{e(brand_name)}{accent_html}</a>
     <nav class="landing-nav" aria-label="Site navigation">
       {nav_links_html}
     </nav>

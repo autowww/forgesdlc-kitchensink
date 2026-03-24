@@ -887,6 +887,24 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   justify-content: flex-start;
   gap: 0.5rem 1.75rem;
 }
+
+/* Lockup: matches product_page sidebar / mobile (.fs-brand in forgesdlc-theme when both load). */
+.fs-brand {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--forge-text) !important;
+  font-size: 1.05rem;
+}
+.fs-brand span.fs-accent {
+  color: var(--forge-amber);
+}
+.landing-header .fs-brand:focus-visible {
+  outline: 2px solid var(--forge-cyan);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 .landing-nav {
   display: flex;
   flex-wrap: wrap;
