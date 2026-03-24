@@ -463,6 +463,8 @@ def product_page(
     extra_css: str = "",
     theme_js_href: str = "assets/forge-theme.js",
     primary_nav_html: str = "",
+    head_extra: str = "",
+    title_override: str | None = None,
 ) -> str:
     """Complete HTML page for a product / marketing site.
 
@@ -475,6 +477,13 @@ def product_page(
     lens_attr = f' data-lens="{e(lens)}"' if lens else ""
     offcanvas = offcanvas_nav_html or nav_html
     mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
+    doc_title = (
+        e(title_override)
+        if title_override
+        else f"{e(browser_title)} &middot; {e(brand_name)}{e(brand_accent)}"
+    )
+    head_x = head_extra.strip()
+    head_block = (head_x + "\n  ") if head_x else ""
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -482,8 +491,8 @@ def product_page(
   <meta charset="utf-8" />
 {FORGE_COLOR_SCHEME_INIT}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{e(browser_title)} &middot; {e(brand_name)}{e(brand_accent)}</title>
-  {CDN_BOOTSTRAP_CSS}
+  <title>{doc_title}</title>
+  {head_block}{CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
 {extra_css}
@@ -757,6 +766,8 @@ def landing_page(
     theme_css_href: str = "assets/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
     body_extra_class: str = "",
+    head_extra: str = "",
+    title_override: str | None = None,
 ) -> str:
     """Full-width hero landing page with no sidebar."""
     extra_scripts = "\n".join(
@@ -765,14 +776,18 @@ def landing_page(
     accent_html = (
         f'<span class="fs-accent">{e(brand_accent)}</span>' if brand_accent else ""
     )
+    doc_title = e(title_override) if title_override else e(browser_title)
+    head_x = head_extra.strip()
+    head_block = (head_x + "\n  ") if head_x else ""
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
 {FORGE_COLOR_SCHEME_INIT}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{e(browser_title)}</title>
-  {CDN_BOOTSTRAP_CSS}
+  <title>{doc_title}</title>
+  {head_block}{CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
 {extra_css}
