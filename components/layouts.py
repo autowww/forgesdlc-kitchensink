@@ -756,6 +756,7 @@ def landing_page(
     extra_js: list[str] | None = None,
     theme_css_href: str = "assets/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
+    body_extra_class: str = "",
 ) -> str:
     """Full-width hero landing page with no sidebar."""
     extra_scripts = "\n".join(
@@ -776,7 +777,7 @@ def landing_page(
 {_resolve_theme_css(theme_css_href)}
 {extra_css}
 </head>
-<body>
+<body{f' class="{e(body_extra_class.strip())}"' if body_extra_class.strip() else ""}>
 <div class="forge-aurora"></div>
 <a href="#main" class="skip-link">Skip to content</a>
 {THEME_TOGGLE_DROPDOWN}

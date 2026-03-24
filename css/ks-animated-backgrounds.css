@@ -1,0 +1,113 @@
+/**
+ * Forge Kitchensink — ambient SVG background utilities.
+ * Uses Forge tokens only; pair with inlined SVG so var() resolves on the host document.
+ */
+:root {
+  --ks-bg-accent-a: var(--forge-cyan);
+  --ks-bg-accent-b: var(--forge-amber);
+  --ks-bg-accent-c: var(--forge-emerald);
+  --ks-bg-line: color-mix(in srgb, var(--forge-cyan) 22%, transparent);
+  --ks-bg-line-soft: color-mix(in srgb, var(--forge-text-3) 35%, transparent);
+  --ks-bg-dot: color-mix(in srgb, var(--forge-text-3) 45%, transparent);
+  --ks-bg-glow: color-mix(in srgb, var(--forge-cyan) 14%, transparent);
+  --ks-bg-ambient-opacity: 1;
+}
+
+.ks-has-ambient-bg {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ks-ambient-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--ks-bg-ambient-opacity, 1);
+}
+
+.ks-ambient-bg > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* preserveAspectRatio on the asset handles slice; object-fit on SVG can confuse painting in some UAs */
+}
+
+.ks-ambient-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--forge-bg) 0%, transparent);
+  transition: background 0.35s ease;
+}
+
+.ks-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Overlay scrim strength (Forge bg tint for readability) */
+.ks-bg-overlay--none .ks-ambient-bg-overlay {
+  background: transparent;
+}
+.ks-bg-overlay--soft .ks-ambient-bg-overlay {
+  background: color-mix(in srgb, var(--forge-bg) 28%, transparent);
+}
+.ks-bg-overlay--medium .ks-ambient-bg-overlay {
+  background: color-mix(in srgb, var(--forge-bg) 48%, transparent);
+}
+.ks-bg-overlay--strong .ks-ambient-bg-overlay {
+  background: color-mix(in srgb, var(--forge-bg) 68%, transparent);
+}
+
+/* Density = overall pattern strength */
+.ks-bg-density--low {
+  --ks-bg-ambient-opacity: 0.42;
+}
+.ks-bg-density--medium {
+  --ks-bg-ambient-opacity: 0.62;
+}
+.ks-bg-density--high {
+  --ks-bg-ambient-opacity: 0.88;
+}
+
+/* Hide animated layer (toolbar toggle) */
+.ks-bg-suppressed .ks-ambient-bg {
+  opacity: 0 !important;
+  visibility: hidden;
+}
+
+/* Per-asset hooks: default density hint via opacity on inner svg optional */
+.ks-bg--dots-drift-01,
+.ks-bg--dots-cluster-01,
+.ks-bg--dots-field-01,
+.ks-bg--dots-pulse-01,
+.ks-bg--neurons-softmesh-01,
+.ks-bg--neurons-pulsegraph-01,
+.ks-bg--neurons-synapse-01,
+.ks-bg--neurons-cluster-01,
+.ks-bg--sine-layered-01,
+.ks-bg--sine-ribbon-01,
+.ks-bg--sine-interference-01,
+.ks-bg--fourier-forge-spectral-01,
+.ks-bg--fourier-forge-spectral-animated-01,
+.ks-bg--signal-trace-01,
+.ks-bg--stars-parallax-01,
+.ks-bg--stars-drift-01,
+.ks-bg--stars-sparse-01,
+.ks-bg--grid-pulse-01,
+.ks-bg--grid-shift-01,
+.ks-bg--lattice-flow-01,
+.ks-bg--hex-drift-01,
+.ks-bg--contour-flow-01,
+.ks-bg--contour-depth-01,
+.ks-bg--topology-soft-01,
+.ks-bg--orbit-minimal-01,
+.ks-bg--orbit-node-01,
+.ks-bg--signal-beacon-01,
+.ks-bg--pulse-ring-01 {
+  /* class presence selects asset in JS / markup; no background-image */
+}
+

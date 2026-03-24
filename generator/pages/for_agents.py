@@ -15,7 +15,7 @@ PAGE = {
     "intro": "Single-page spec: tokens, surfaces, controls, nav, diagrams, motion, layouts, Python API, JS, product theme.",
     "family": "Patterns",
     "layout": "showcase",
-    "order": 8,
+    "order": 9,
     "toc": [
         ("ag-intro", "Intro · How to use this page"),
         ("ag-tokens-colors", "Tokens · Color palette"),

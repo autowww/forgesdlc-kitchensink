@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="800" height="450" fill="none"/>
+  <g stroke="color-mix(in srgb, var(--forge-text-4, #4E5D6E) 45%, transparent)" stroke-width="1.21" fill="none">
+    <g><animateTransform attributeName="transform" type="translate" values="0,0; 80,0; 0,0" dur="72s" repeatCount="indefinite" calcMode="linear"/>
+      <line x1="0" y1="0" x2="0" y2="450"/><line x1="80" y1="0" x2="80" y2="450"/><line x1="160" y1="0" x2="160" y2="450"/><line x1="240" y1="0" x2="240" y2="450"/><line x1="320" y1="0" x2="320" y2="450"/><line x1="400" y1="0" x2="400" y2="450"/><line x1="480" y1="0" x2="480" y2="450"/><line x1="560" y1="0" x2="560" y2="450"/><line x1="640" y1="0" x2="640" y2="450"/><line x1="720" y1="0" x2="720" y2="450"/><line x1="800" y1="0" x2="800" y2="450"/>
+      <line x1="0" y1="0" x2="800" y2="0"/><line x1="0" y1="90" x2="800" y2="90"/><line x1="0" y1="180" x2="800" y2="180"/><line x1="0" y1="270" x2="800" y2="270"/><line x1="0" y1="360" x2="800" y2="360"/><line x1="0" y1="450" x2="800" y2="450"/>
+    </g>
+  </g>
+</svg>

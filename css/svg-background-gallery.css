@@ -1,0 +1,266 @@
+/* Showcase page: SVG ambient background gallery (default overlay: none — patterns stay visible in previews) */
+#ks-bg-gallery-root {
+  --ks-gallery-overlay: none;
+}
+
+#ks-bg-gallery-root.ks-bg-overlay--none {
+  --ks-gallery-overlay: none;
+}
+#ks-bg-gallery-root.ks-bg-overlay--soft {
+  --ks-gallery-overlay: soft;
+}
+#ks-bg-gallery-root.ks-bg-overlay--medium {
+  --ks-gallery-overlay: medium;
+}
+#ks-bg-gallery-root.ks-bg-overlay--strong {
+  --ks-gallery-overlay: strong;
+}
+
+.ks-bg-gallery-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.ks-bg-gallery-toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  color: var(--forge-text-2);
+}
+
+.ks-bg-gallery-toolbar select {
+  background: var(--forge-surface-2);
+  color: var(--forge-text);
+  border: 1px solid var(--forge-border);
+  border-radius: 6px;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.8rem;
+}
+
+.ks-bg-gallery-card {
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+  background: var(--forge-surface);
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.ks-bg-gallery-card__head {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--forge-border);
+  background: color-mix(in srgb, var(--forge-surface-2) 55%, var(--forge-surface));
+}
+
+.ks-bg-gallery-card__title {
+  font-family: var(--font-label, inherit);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-amber);
+  margin-bottom: 0.25rem;
+}
+
+.ks-bg-gallery-card__name {
+  font-size: 1.05rem;
+  color: var(--forge-text);
+  margin: 0 0 0.35rem;
+}
+
+.ks-bg-gallery-card__meta {
+  font-size: 0.78rem;
+  color: var(--forge-text-3);
+  margin: 0;
+}
+
+.ks-bg-gallery-contexts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.ks-bg-preview-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--forge-text-4);
+  margin-bottom: 0.35rem;
+}
+
+.ks-bg-preview-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--forge-border);
+  min-height: 5rem;
+}
+
+.ks-bg-preview--hero .ks-bg-preview-frame {
+  min-height: 7.5rem;
+}
+
+.ks-bg-preview--section .ks-bg-preview-frame {
+  min-height: 5.5rem;
+}
+
+.ks-bg-preview--card .ks-bg-preview-frame {
+  min-height: 6rem;
+}
+
+.ks-bg-preview--compact .ks-bg-preview-frame {
+  min-height: 3.25rem;
+  max-width: 140px;
+}
+
+/* Fill the frame: parent min-height does not stretch auto-height children; flex-grow does. */
+.ks-bg-preview-frame .ks-has-ambient-bg {
+  flex: 1 1 auto;
+  min-height: 5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ks-bg-preview--hero .ks-bg-preview-frame .ks-has-ambient-bg {
+  min-height: 7.5rem;
+}
+
+.ks-bg-preview--section .ks-bg-preview-frame .ks-has-ambient-bg {
+  min-height: 5.5rem;
+}
+
+.ks-bg-preview--card .ks-bg-preview-frame .ks-has-ambient-bg {
+  min-height: 6rem;
+}
+
+.ks-bg-preview--compact .ks-bg-preview-frame .ks-has-ambient-bg {
+  min-height: 3.25rem;
+}
+
+/* Preview tiles: patterns must read clearly (still subtle, but visible). */
+#ks-bg-gallery-root .ks-has-ambient-bg {
+  isolation: auto;
+}
+
+.ks-bg-preview-frame .ks-ambient-bg {
+  opacity: var(--ks-bg-ambient-opacity, 0.62);
+  z-index: 0;
+}
+
+/* Gallery previews: keep patterns visible; density still tunes strength */
+#ks-bg-gallery-root.ks-bg-density--low .ks-bg-preview-frame .ks-ambient-bg {
+  opacity: 0.55;
+}
+#ks-bg-gallery-root.ks-bg-density--medium .ks-bg-preview-frame .ks-ambient-bg {
+  opacity: 0.82;
+}
+#ks-bg-gallery-root.ks-bg-density--high .ks-bg-preview-frame .ks-ambient-bg {
+  opacity: 1;
+}
+
+#ks-bg-gallery-root .ks-bg-preview-frame .ks-ambient-bg-overlay {
+  z-index: 1;
+}
+
+.ks-bg-preview-frame .ks-content {
+  padding: 0.5rem 0.65rem;
+  font-size: 0.72rem;
+  color: var(--forge-text);
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--forge-bg) 40%, transparent);
+}
+
+.ks-bg-preview--hero .ks-content {
+  padding: 1rem;
+  font-size: 0.8rem;
+  max-width: 70%;
+}
+
+.ks-bg-preview--card .glass {
+  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--forge-surface) 55%, transparent);
+  border: 1px solid var(--forge-border);
+  margin: 0.5rem;
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.72rem;
+}
+
+#ks-bg-gallery-root.ks-bg-density--low .ks-bg-preview-frame {
+  --ks-bg-ambient-opacity: 0.4;
+}
+#ks-bg-gallery-root.ks-bg-density--medium .ks-bg-preview-frame {
+  --ks-bg-ambient-opacity: 0.62;
+}
+#ks-bg-gallery-root.ks-bg-density--high .ks-bg-preview-frame {
+  --ks-bg-ambient-opacity: 0.88;
+}
+
+/* Non-@supports: map overlay strength with rgba approximations */
+#ks-bg-gallery-root.ks-bg-overlay--none .ks-bg-preview-frame .ks-ambient-bg-overlay {
+  background: transparent;
+}
+#ks-bg-gallery-root.ks-bg-overlay--soft .ks-bg-preview-frame .ks-ambient-bg-overlay {
+  background: rgba(10, 14, 23, 0.12);
+}
+html[data-bs-theme="light"] #ks-bg-gallery-root.ks-bg-overlay--soft .ks-bg-preview-frame .ks-ambient-bg-overlay {
+  background: rgba(244, 247, 251, 0.22);
+}
+#ks-bg-gallery-root.ks-bg-overlay--medium .ks-bg-preview-frame .ks-ambient-bg-overlay {
+  background: rgba(10, 14, 23, 0.22);
+}
+html[data-bs-theme="light"] #ks-bg-gallery-root.ks-bg-overlay--medium .ks-bg-preview-frame .ks-ambient-bg-overlay {
+  background: rgba(244, 247, 251, 0.38);
+}
+#ks-bg-gallery-root.ks-bg-overlay--strong .ks-bg-preview-frame .ks-ambient-bg-overlay {
+  background: rgba(10, 14, 23, 0.38);
+}
+html[data-bs-theme="light"] #ks-bg-gallery-root.ks-bg-overlay--strong .ks-bg-preview-frame .ks-ambient-bg-overlay {
+  background: rgba(244, 247, 251, 0.55);
+}
+
+@supports (background: color-mix(in srgb, red 50%, blue)) {
+  #ks-bg-gallery-root.ks-bg-overlay--none .ks-bg-preview-frame .ks-ambient-bg-overlay {
+    background: transparent;
+  }
+  #ks-bg-gallery-root.ks-bg-overlay--soft .ks-bg-preview-frame .ks-ambient-bg-overlay {
+    background: color-mix(in srgb, var(--forge-bg) 16%, transparent);
+  }
+  #ks-bg-gallery-root.ks-bg-overlay--medium .ks-bg-preview-frame .ks-ambient-bg-overlay {
+    background: color-mix(in srgb, var(--forge-bg) 32%, transparent);
+  }
+  #ks-bg-gallery-root.ks-bg-overlay--strong .ks-bg-preview-frame .ks-ambient-bg-overlay {
+    background: color-mix(in srgb, var(--forge-bg) 52%, transparent);
+  }
+}
+
+#ks-bg-gallery-root.ks-bg-suppressed .ks-ambient-bg {
+  opacity: 0 !important;
+  visibility: hidden;
+}
+
+/*
+ * Gallery preview tiles: slow CSS translate on each root SVG. Supplements SMIL (slow / stuck
+ * engines) so every pattern shows gentle drift; disabled when Pause is on or reduced motion.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  #ks-bg-gallery-root:not(.ks-bg-gallery--animations-paused)
+    .ks-bg-preview-frame
+    .ks-ambient-bg
+    > svg {
+    animation: ks-gallery-ambient-css-drift 52s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes ks-gallery-ambient-css-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(1.2%, 0.85%);
+  }
+}

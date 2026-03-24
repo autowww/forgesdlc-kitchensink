@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="800" height="450" fill="none"/>
+  <g transform="translate(400,225)" fill="none" stroke="color-mix(in srgb, var(--forge-text-3, #708090) 35%, transparent)" stroke-width="1.65">
+    <path d="M 0,-70 A 70,70 0 1 1 0,70 A 70,70 0 1 1 0,-70" stroke-dasharray="4 10" opacity="0.7">
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="90s" repeatCount="indefinite"/>
+    </path>
+    <circle r="12" fill="var(--forge-surface-2, #1a2235)" stroke="var(--forge-cyan, #06B6D4)" stroke-width="1.76" opacity="0.85"/>
+    <circle cx="0" cy="-70" r="8.75" fill="var(--forge-amber, #F59E0B)" stroke="none" opacity="0.45"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="90s" repeatCount="indefinite"/></circle>
+  </g>
+</svg>

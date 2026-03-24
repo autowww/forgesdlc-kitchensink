@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="800" height="450" fill="none"/>
+  <polyline fill="none" stroke="color-mix(in srgb, var(--forge-text-3, #708090) 38%, transparent)" stroke-width="1.65" stroke-linejoin="round"
+    points="40,280 120,260 200,270 280,240 360,250 440,220 520,235 600,210 680,225 760,200"/>
+  <polyline fill="none" stroke="var(--forge-cyan, #06B6D4)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"
+    stroke-dasharray="14 240" points="40,280 120,260 200,270 280,240 360,250 440,220 520,235 600,210 680,225 760,200">
+    <animate attributeName="stroke-dashoffset" values="254;0;254" dur="36s" repeatCount="indefinite" calcMode="linear"/>
+  </polyline>
+</svg>

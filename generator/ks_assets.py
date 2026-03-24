@@ -36,13 +36,17 @@ def copy_forge_theme_core(kitchensink_root: Path, dest_assets: Path) -> list[str
 
 
 def copy_diagram_svgs(kitchensink_root: Path, dest_assets: Path) -> None:
-    """Copy all ``assets/svg/*.svg`` diagram templates from Kitchen Sink."""
+    """Copy all ``assets/svg/**/*.svg`` from Kitchen Sink, preserving subpaths."""
     ks_svg = kitchensink_root / "assets" / "svg"
     if not ks_svg.is_dir():
         return
-    dest_assets.mkdir(parents=True, exist_ok=True)
-    for svg in sorted(ks_svg.glob("*.svg")):
-        shutil.copy2(svg, dest_assets / svg.name)
+    dest_svg = dest_assets / "svg"
+    dest_svg.mkdir(parents=True, exist_ok=True)
+    for svg in sorted(ks_svg.rglob("*.svg")):
+        rel = svg.relative_to(ks_svg)
+        out = dest_svg / rel
+        out.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(svg, out)
 
 
 def sync_product_site_assets(

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="800" height="450" fill="none"/>
+  <g transform="translate(400,225)" fill="none" stroke="var(--forge-cyan, #06B6D4)" stroke-width="1.87" opacity="0.35">
+    <circle r="20"><animate attributeName="r" values="18;52;18" dur="32s" repeatCount="indefinite" calcMode="spline" keySplines="0.35 0 0.65 1;0.35 0 0.65 1" keyTimes="0;0.5;1"/><animate attributeName="opacity" values="0.32;0.05;0.32" dur="32s" repeatCount="indefinite" calcMode="spline" keySplines="0.35 0 0.65 1;0.35 0 0.65 1" keyTimes="0;0.5;1"/></circle>
+    <circle r="28" stroke="color-mix(in srgb, var(--forge-amber, #F59E0B) 40%, transparent)"><animate attributeName="r" values="26;60;26" dur="40s" repeatCount="indefinite" calcMode="spline" keySplines="0.35 0 0.65 1;0.35 0 0.65 1" keyTimes="0;0.5;1"/><animate attributeName="opacity" values="0.22;0.04;0.22" dur="40s" repeatCount="indefinite" calcMode="spline" keySplines="0.35 0 0.65 1;0.35 0 0.65 1" keyTimes="0;0.5;1"/></circle>
+  </g>
+</svg>

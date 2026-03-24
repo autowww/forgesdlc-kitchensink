@@ -430,7 +430,7 @@ def render_body() -> str:
   <h2 class="ks-section-title">Controls · Callouts / alerts</h2>
   {_spec_dl([
     ("Purpose", "Highlighted notes: info, warning, success, error, neutral surface."),
-    ("Styling", "Wrapper <code>.forge-callout</code> + variant: <code>.forge-callout-cyan</code>, <code>.forge-callout-amber</code>, <code>.forge-callout-emerald</code>, <code>.forge-callout-red</code>, <code>.forge-callout-surface</code>. Optional <code>.callout-label</code> with <code>.text-cyan</code> / <code>.text-amber</code> etc."),
+    ("Styling", "Wrapper <code>.forge-callout</code> + variant: <code>.forge-callout-cyan</code>, <code>.forge-callout-amber</code>, <code>.forge-callout-emerald</code>, <code>.forge-callout-red</code>, <code>.forge-callout-surface</code>. Optional <code>.callout-label</code> with <code>.text-cyan</code> / <code>.text-amber</code> etc. For a pinned toolbar in <code>showcase_page</code> main content, use <code>.ks-sticky-panel</code> (sticky below <code>.site-header</code> via <code>--site-header-h</code>; darker glass surface in <code>forge-theme.css</code> / <code>docs-theme.css</code>)."),
     ("Python", "<code>render_alert(content, variant=…, label=…)</code> maps variants <code>info|warning|success|danger|secondary|light</code> to those classes. For bespoke markup, hand-write the divs as below."),
   ])}
   <p class="section-label text-cyan mb-2">Example (hand markup)</p>

@@ -9,7 +9,7 @@ PAGE = {
     "intro": "All available layout templates for building sites.",
     "family": "Patterns",
     "layout": "showcase",
-    "order": 7,
+    "order": 8,
     "toc": [
         ("sec-layout-intro", "Overview"),
         ("sec-showcase", "Showcase"),

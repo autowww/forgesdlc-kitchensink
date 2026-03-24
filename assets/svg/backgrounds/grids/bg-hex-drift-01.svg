@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="800" height="450" fill="none"/>
+  <g fill="none" stroke="color-mix(in srgb, var(--forge-cyan, #06B6D4) 20%, transparent)" stroke-width="1.21">
+    <g><animateTransform attributeName="transform" type="translate" values="0,0; 34,-20; 0,0" dur="108s" repeatCount="indefinite" calcMode="linear"/>
+      <path d="M 100 100 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/><path d="M 200 80 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/><path d="M 300 120 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/>
+      <path d="M 450 90 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/><path d="M 550 130 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/><path d="M 650 85 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/>
+      <path d="M 150 200 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/><path d="M 380 200 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/><path d="M 520 220 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/>
+      <path d="M 220 280 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/><path d="M 400 300 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/><path d="M 580 290 l 26 -15 l 26 15 v 30 l -26 15 l -26 -15 z"/>
+    </g>
+  </g>
+</svg>

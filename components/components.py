@@ -763,7 +763,7 @@ def render_topic_preview_trigger(
     """Card-style control that opens *href* in an on-page preview (iframe with ``?fs-embed=1``).
 
     Requires ``forge-theme.js`` (modal + click wiring) and ``forgesdlc-theme.css``
-    (embed chrome hiding + card styles). Without JS, the link navigates normally.
+    (embed trims sidebar/theme control; sticky primary nav remains; card styles). Without JS, the link navigates normally.
     """
     desc_html = (
         f'<p class="fs-topic-preview-card__desc">{e(description)}</p>'

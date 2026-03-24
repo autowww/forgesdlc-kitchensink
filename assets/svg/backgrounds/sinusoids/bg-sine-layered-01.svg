@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="800" height="450" fill="none"/>
+  <g fill="none" stroke-linecap="round" stroke-width="2.2">
+    <path d="M0,180 Q100,140 200,180 T400,180 T600,180 T800,180" stroke="color-mix(in srgb, var(--forge-cyan, #06B6D4) 25%, transparent)">
+      <animateTransform attributeName="transform" type="translate" values="0,0; -120,0; 0,0" dur="72s" repeatCount="indefinite" calcMode="linear"/>
+    </path>
+    <path d="M0,220 Q100,260 200,220 T400,220 T600,220 T800,220" stroke="color-mix(in srgb, var(--forge-text-3, #708090) 32%, transparent)" stroke-width="1.87">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 100,0; 0,0" dur="84s" repeatCount="indefinite" calcMode="linear"/>
+    </path>
+    <path d="M0,250 Q100,210 200,250 T400,250 T600,250 T800,250" stroke="color-mix(in srgb, var(--forge-amber, #F59E0B) 18%, transparent)" stroke-width="1.65">
+      <animateTransform attributeName="transform" type="translate" values="0,0; -80,0; 0,0" dur="96s" repeatCount="indefinite" calcMode="linear"/>
+    </path>
+  </g>
+</svg>

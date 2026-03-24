@@ -200,11 +200,11 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
     sidebar_html = _build_sidebar(all_pages, page["slug"])
 
     extra_css = ""
-    extra_js: list[str] = []
+    extra_js: list[str] = ["assets/showcase.js"]
     if hasattr(mod, "extra_css"):
         extra_css = mod.extra_css()
-    if layout in ("gallery",) or page["slug"] == "diagrams":
-        extra_js.append("assets/showcase.js")
+    if hasattr(mod, "extra_js_paths"):
+        extra_js.extend(mod.extra_js_paths())
 
     body = mod.render()
 
@@ -217,7 +217,7 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
         sidebar_html=sidebar_html,
         footer_html=_footer(),
         extra_css=extra_css,
-        extra_js=extra_js or ["assets/showcase.js"],
+        extra_js=extra_js,
         theme_css_href="assets/forge-theme.css",
         theme_js_href="assets/forge-theme.js",
     )
@@ -234,7 +234,7 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
         return split_page(
             left_html=left,
             right_html=right,
-            extra_js=extra_js or ["assets/showcase.js"],
+            extra_js=extra_js,
             **common,
         )
     else:

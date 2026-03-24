@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="800" height="450" fill="none"/>
+  <g fill="var(--forge-text-3, #708090)" opacity="0.4">
+    <g transform="translate(320,160)">
+      <circle cx="0" cy="0" r="7.7"><animateTransform attributeName="transform" type="translate" values="0,0; 24,18; -12,30; 0,0" dur="18s" repeatCount="indefinite" additive="sum"/></circle>
+      <circle cx="24" cy="-8" r="5.25"><animateTransform attributeName="transform" type="translate" values="0,0; -18,12; 12,-18; 0,0" dur="20s" repeatCount="indefinite" additive="sum"/></circle>
+      <circle cx="-18" cy="14" r="4.55"><animateTransform attributeName="transform" type="translate" values="0,0; 15,-15; -9,24; 0,0" dur="17s" repeatCount="indefinite" additive="sum"/></circle>
+      <circle cx="12" cy="22" r="4"><animateTransform attributeName="transform" type="translate" values="0,0; -12,-9; 18,6; 0,0" dur="21s" repeatCount="indefinite" additive="sum"/></circle>
+      <circle cx="-10" cy="-20" r="4.9"><animateTransform attributeName="transform" type="translate" values="0,0; 9,21; -15,-6; 0,0" dur="19s" repeatCount="indefinite" additive="sum"/></circle>
+    </g>
+    <g transform="translate(520,280)">
+      <circle cx="0" cy="0" r="5.6"><animateTransform attributeName="transform" type="translate" values="0,0; -21,15; 15,-12; 0,0" dur="22s" repeatCount="indefinite" additive="sum"/></circle>
+      <circle cx="16" cy="10" r="4.2"><animateTransform attributeName="transform" type="translate" values="0,0; 12,-18; -6,15; 0,0" dur="20s" repeatCount="indefinite" additive="sum"/></circle>
+      <circle cx="-12" cy="-6" r="4"><animateTransform attributeName="transform" type="translate" values="0,0; -9,-12; 12,9; 0,0" dur="21s" repeatCount="indefinite" additive="sum"/></circle>
+    </g>
+    <g transform="translate(140,300)">
+      <circle cx="0" cy="0" r="5.25"><animateTransform attributeName="transform" type="translate" values="0,0; 18,-12; -15,18; 0,0" dur="24s" repeatCount="indefinite" additive="sum"/></circle>
+      <circle cx="-14" cy="8" r="4"><animateTransform attributeName="transform" type="translate" values="0,0; -12,9; 6,-15; 0,0" dur="22s" repeatCount="indefinite" additive="sum"/></circle>
+    </g>
+    <!-- Duplicated sets so slice/crop previews still intersect sparse clusters -->
+    <g transform="translate(-120,-90)">
+      <g transform="translate(320,160)">
+        <circle cx="0" cy="0" r="7.7"><animateTransform attributeName="transform" type="translate" values="0,0; 24,18; -12,30; 0,0" dur="18s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="24" cy="-8" r="5.25"><animateTransform attributeName="transform" type="translate" values="0,0; -18,12; 12,-18; 0,0" dur="20s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="-18" cy="14" r="4.55"><animateTransform attributeName="transform" type="translate" values="0,0; 15,-15; -9,24; 0,0" dur="17s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="12" cy="22" r="4"><animateTransform attributeName="transform" type="translate" values="0,0; -12,-9; 18,6; 0,0" dur="21s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="-10" cy="-20" r="4.9"><animateTransform attributeName="transform" type="translate" values="0,0; 9,21; -15,-6; 0,0" dur="19s" repeatCount="indefinite" additive="sum"/></circle>
+      </g>
+      <g transform="translate(520,280)">
+        <circle cx="0" cy="0" r="5.6"><animateTransform attributeName="transform" type="translate" values="0,0; -21,15; 15,-12; 0,0" dur="22s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="16" cy="10" r="4.2"><animateTransform attributeName="transform" type="translate" values="0,0; 12,-18; -6,15; 0,0" dur="20s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="-12" cy="-6" r="4"><animateTransform attributeName="transform" type="translate" values="0,0; -9,-12; 12,9; 0,0" dur="21s" repeatCount="indefinite" additive="sum"/></circle>
+      </g>
+      <g transform="translate(140,300)">
+        <circle cx="0" cy="0" r="5.25"><animateTransform attributeName="transform" type="translate" values="0,0; 18,-12; -15,18; 0,0" dur="24s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="-14" cy="8" r="4"><animateTransform attributeName="transform" type="translate" values="0,0; -12,9; 6,-15; 0,0" dur="22s" repeatCount="indefinite" additive="sum"/></circle>
+      </g>
+    </g>
+    <g transform="translate(220,40)">
+      <g transform="translate(320,160)">
+        <circle cx="0" cy="0" r="7.7"><animateTransform attributeName="transform" type="translate" values="0,0; 24,18; -12,30; 0,0" dur="18s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="24" cy="-8" r="5.25"><animateTransform attributeName="transform" type="translate" values="0,0; -18,12; 12,-18; 0,0" dur="20s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="-18" cy="14" r="4.55"><animateTransform attributeName="transform" type="translate" values="0,0; 15,-15; -9,24; 0,0" dur="17s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="12" cy="22" r="4"><animateTransform attributeName="transform" type="translate" values="0,0; -12,-9; 18,6; 0,0" dur="21s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="-10" cy="-20" r="4.9"><animateTransform attributeName="transform" type="translate" values="0,0; 9,21; -15,-6; 0,0" dur="19s" repeatCount="indefinite" additive="sum"/></circle>
+      </g>
+      <g transform="translate(520,280)">
+        <circle cx="0" cy="0" r="5.6"><animateTransform attributeName="transform" type="translate" values="0,0; -21,15; 15,-12; 0,0" dur="22s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="16" cy="10" r="4.2"><animateTransform attributeName="transform" type="translate" values="0,0; 12,-18; -6,15; 0,0" dur="20s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="-12" cy="-6" r="4"><animateTransform attributeName="transform" type="translate" values="0,0; -9,-12; 12,9; 0,0" dur="21s" repeatCount="indefinite" additive="sum"/></circle>
+      </g>
+      <g transform="translate(140,300)">
+        <circle cx="0" cy="0" r="5.25"><animateTransform attributeName="transform" type="translate" values="0,0; 18,-12; -15,18; 0,0" dur="24s" repeatCount="indefinite" additive="sum"/></circle>
+        <circle cx="-14" cy="8" r="4"><animateTransform attributeName="transform" type="translate" values="0,0; -12,9; 6,-15; 0,0" dur="22s" repeatCount="indefinite" additive="sum"/></circle>
+      </g>
+    </g>
+  </g>
+</svg>

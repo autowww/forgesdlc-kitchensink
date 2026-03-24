@@ -18,6 +18,13 @@ PAGE = {
 
 def render() -> str:
     return """\
+<div class="forge-callout forge-callout-surface mb-4">
+  <p class="callout-label mb-1">See also</p>
+  <p class="mb-0 forge-support">Slow looping <strong>SVG ambient backgrounds</strong> for sections and cards —
+  <a href="svg-backgrounds.html">SVG ambient backgrounds gallery</a>
+  (<a href="svg-backgrounds.html#asset-fourier-forge-spectral-01">Fourier FORGE spectral</a>).</p>
+</div>
+
 <section id="sec-pulse" class="ks-section">
   <h2 class="ks-section-title">Pulse Animation</h2>
   <p class="forge-support mb-3">Continuous subtle border glow that draws attention.</p>

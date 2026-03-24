@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="800" height="450" fill="none"/>
+  <g fill="var(--forge-text-4, #4E5D6E)" opacity="0.62">
+    <g><animateTransform attributeName="transform" type="translate" values="0,0; 60,0; 0,0" dur="75s" repeatCount="indefinite" calcMode="linear"/>
+      <circle cx="50" cy="100" r="8.4"/><circle cx="180" cy="60" r="7.35"/><circle cx="310" cy="95" r="9.1"/><circle cx="440" cy="55" r="7.7"/><circle cx="570" cy="88" r="8.05"/><circle cx="700" cy="72" r="7"/>
+      <circle cx="120" cy="200" r="7.7"/><circle cx="280" cy="230" r="8.75"/><circle cx="450" cy="190" r="7"/><circle cx="620" cy="215" r="9.1"/><circle cx="750" cy="195" r="7.7"/>
+      <circle cx="80" cy="340" r="8.05"/><circle cx="240" cy="380" r="7"/><circle cx="400" cy="350" r="9.1"/><circle cx="560" cy="370" r="7.35"/><circle cx="720" cy="340" r="8.4"/>
+    </g>
+  </g>
+</svg>
