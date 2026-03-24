@@ -130,12 +130,17 @@ body {
 
 .fs-main a {
   color: var(--fs-cyan);
-  text-decoration: underline;
+  text-decoration: none;
   text-underline-offset: 2px;
 }
 
 .fs-main a:hover {
   color: var(--fs-amber);
+  text-decoration: underline;
+}
+
+.fs-main a:focus-visible {
+  text-decoration: underline;
 }
 
 .fs-main code,
@@ -228,6 +233,145 @@ body {
 
 .fs-cross-refs a {
   font-weight: 500;
+  text-decoration: none;
+}
+
+.fs-cross-refs a:hover,
+.fs-cross-refs a:focus-visible {
+  text-decoration: underline;
+}
+
+.fs-cross-refs--subtle {
+  border: 1px solid var(--fs-border);
+  background: rgba(17, 24, 39, 0.45);
+  padding: 0.65rem 0.85rem;
+  margin: 0 0 1.25rem;
+}
+
+.fs-cross-refs--subtle .fs-cross-refs-title {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--fs-text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.fs-cross-refs--subtle a {
+  font-weight: 400;
+  color: var(--fs-text-muted);
+}
+
+.fs-cross-refs--subtle a:hover,
+.fs-cross-refs--subtle a:focus-visible {
+  color: var(--fs-cyan);
+}
+
+.fs-main .landing-support-nav {
+  font-size: 0.8125rem;
+  color: var(--fs-text-muted);
+  margin: 1.25rem 0 1.5rem;
+  line-height: 1.5;
+}
+
+.fs-main .landing-support-nav a {
+  color: var(--fs-cyan);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.fs-main .landing-support-nav a:hover,
+.fs-main .landing-support-nav a:focus-visible {
+  text-decoration: underline;
+}
+
+/* Product home (landing_page): larger executive hero */
+.landing-hero {
+  padding: 5.5rem 1.25rem 3.75rem;
+  max-width: 58rem;
+}
+
+@media (min-width: 768px) {
+  .landing-hero {
+    padding: 6.75rem 2rem 4.25rem;
+  }
+}
+
+.landing-hero .landing-hero-kicker {
+  font-family: var(--fs-font-sans);
+  font-size: clamp(0.8125rem, 1.6vw, 0.9375rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fs-amber);
+  margin-bottom: 1rem;
+}
+
+.landing-hero .product-landing-title {
+  font-size: clamp(2.85rem, 8vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.landing-hero .landing-hero-tagline {
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1.08rem, 2.4vw, 1.35rem);
+  line-height: 1.55;
+  color: var(--fs-text-muted);
+}
+
+.landing-hero .landing-hero-clarification {
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(0.98rem, 2vw, 1.12rem);
+  line-height: 1.55;
+  color: var(--fs-text);
+}
+
+.landing-hero .landing-hero-explainer {
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(0.95rem, 1.85vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--fs-text-muted);
+}
+
+.landing-hero .landing-hero-audience {
+  max-width: 34rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(0.8125rem, 1.5vw, 0.875rem);
+  line-height: 1.5;
+}
+
+.landing-hero .landing-hero-actions {
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0.25rem;
+}
+
+.landing-hero .landing-hero-secondary-links {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.landing-hero .landing-hero-secondary-link {
+  color: var(--fs-text-muted);
+  text-decoration: none;
+}
+
+.landing-hero .landing-hero-secondary-link:hover,
+.landing-hero .landing-hero-secondary-link:focus-visible {
+  color: var(--fs-cyan);
+  text-decoration: underline;
+}
+
+.landing-hero .landing-hero-secondary-sep {
+  color: var(--fs-border);
+  user-select: none;
 }
 
 .fs-footer {
@@ -267,6 +411,23 @@ body {
 .fs-main h2.text-center {
   border-bottom: none;
   padding-bottom: 0;
+}
+
+.fs-main h2.landing-pathway-title {
+  text-align: start;
+  font-size: 1.15rem;
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0;
+  color: var(--fs-text-muted);
+  font-family: var(--fs-font-sans);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fs-main h2.landing-pathway-title:first-of-type {
+  margin-top: 0.5rem;
 }
 
 .fs-main article .row.g-3.mb-4 {
@@ -344,4 +505,8 @@ html[data-bs-theme="light"] .fs-offcanvas .btn-close {
 
 html[data-bs-theme="light"] .fs-sidebar .nav-link.active {
   color: #0f172a;
+}
+
+html[data-bs-theme="light"] .fs-cross-refs--subtle {
+  background: rgba(15, 23, 42, 0.04);
 }

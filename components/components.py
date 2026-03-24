@@ -524,10 +524,13 @@ def render_tier_nav(
 
 def render_cross_refs(
     items: list[tuple[str, str]],
+    *,
+    variant: str | None = None,
 ) -> str:
     """Related-content aside for product sites (``fs-cross-refs``).
 
     *items* is a list of resolved ``(href, label)`` pairs.
+    *variant* — pass ``\"subtle\"`` for a lower-emphasis panel (e.g. home above-the-fold).
     Returns empty string if *items* is empty.
     """
     if not items:
@@ -536,8 +539,11 @@ def render_cross_refs(
         f'<li><a href="{e(href)}">{e(label)}</a></li>'
         for href, label in items
     )
+    aside_cls = "fs-cross-refs"
+    if variant == "subtle":
+        aside_cls += " fs-cross-refs--subtle"
     return (
-        '<aside class="fs-cross-refs" role="complementary">\n'
+        f'<aside class="{aside_cls}" role="complementary">\n'
         '  <div class="fs-cross-refs-title">Related</div>\n'
         '  <ul class="mb-0">\n'
         f'    {lis}\n'
@@ -546,24 +552,97 @@ def render_cross_refs(
     )
 
 
-def render_product_landing_hero(title: str, tagline: str | None = None) -> str:
-    """Landing hero fragment for forgesdlc.com (gradient display title + optional tagline).
+def render_product_landing_hero(
+    title: str,
+    tagline: str | None = None,
+    *,
+    kicker: str | None = None,
+    clarification: str | None = None,
+    explainer: str | None = None,
+    audience: str | None = None,
+    primary_cta_href: str | None = None,
+    primary_cta_label: str | None = None,
+    secondary_links: list[tuple[str, str]] | None = None,
+) -> str:
+    """Landing hero fragment for forgesdlc.com (kicker, title, tagline, optional CTA stack).
 
-    Matches the typography treatment used on the Kitchen Sink showcase landing:
-    ``font-display``, ``forge-gradient-text``, ``forge-support``.
+    ``kicker`` is a short line above the title (e.g. positioning for executives).
+    ``clarification`` sits directly under the tagline (inversion / thesis support).
+    ``primary_cta_*`` renders one dominant ``btn-forge`` when both are set.
+    ``secondary_links`` are muted text links below the primary CTA.
+    Sizing: ``forgesdlc-theme.css`` (``.landing-hero-*``).
     """
-    h1 = (
-        f'<h1 class="font-display forge-gradient-text mb-3" '
-        f'style="font-size:clamp(2rem,5vw,3.25rem)">{e_content(title)}</h1>'
+    sec = secondary_links or []
+    has_cta_row = bool(
+        (primary_cta_href and primary_cta_label) or len(sec) > 0
     )
-    if not tagline:
-        return h1
-    sub = (
-        '<p class="forge-support mb-0" '
-        'style="font-size:1.05rem;max-width:42rem;margin:0 auto;line-height:1.6">'
-        f"{e_content(tagline)}</p>"
+    has_below_tagline = bool(
+        clarification
+        or explainer
+        or audience
+        or has_cta_row
     )
-    return h1 + sub
+
+    parts: list[str] = []
+    if kicker:
+        parts.append(
+            f'<p class="landing-hero-kicker mb-0">{e_content(kicker)}</p>'
+        )
+    parts.append(
+        f'<h1 class="font-display forge-gradient-text product-landing-title mb-3">'
+        f"{e_content(title)}</h1>"
+    )
+    if tagline:
+        tcls = (
+            "forge-support landing-hero-tagline mb-2"
+            if has_below_tagline
+            else "forge-support landing-hero-tagline mb-0"
+        )
+        parts.append(f'<p class="{tcls}">{e_content(tagline)}</p>')
+    if clarification:
+        parts.append(
+            '<p class="landing-hero-clarification forge-support mb-3">'
+            f"{e_content(clarification)}</p>"
+        )
+    if explainer:
+        parts.append(
+            '<p class="landing-hero-explainer forge-support mb-2">'
+            f"{e_content(explainer)}</p>"
+        )
+    if audience:
+        margin = "mb-4" if has_cta_row else "mb-0"
+        parts.append(
+            f'<p class="landing-hero-audience forge-support text-muted {margin}">'
+            f"{e_content(audience)}</p>"
+        )
+    if has_cta_row:
+        parts.append('<div class="landing-hero-actions">')
+        if primary_cta_href and primary_cta_label:
+            parts.append(
+                '<p class="mb-3 mb-md-2">'
+                f'<a class="btn btn-forge" href="{e(primary_cta_href)}">'
+                f"{e_content(primary_cta_label)}</a></p>"
+            )
+        if sec:
+            sep = ' <span class="landing-hero-secondary-sep" aria-hidden="true">·</span> '
+            link_bits: list[str] = []
+            for href, label in sec:
+                ext = (
+                    ' rel="noopener"'
+                    if href.startswith(("http://", "https://"))
+                    else ""
+                )
+                link_bits.append(
+                    f'<a class="landing-hero-secondary-link" href="{e(href)}"{ext}>'
+                    f"{e_content(label)}</a>"
+                )
+            parts.append(
+                '<p class="landing-hero-secondary-links forge-support text-muted mb-0">'
+                + sep.join(link_bits)
+                + "</p>"
+            )
+        parts.append("</div>")
+    return "".join(parts)
 
 
 def wrap_product_site_article(inner_html: str) -> str:
