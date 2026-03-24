@@ -2,6 +2,12 @@
 from __future__ import annotations
 
 from pages._for_agents_content import render_body
+from pages.diagrams import _FAMILIES, _fam_section_id
+
+_DIAGRAM_FAMILY_TOC = [
+    (f"ag-{_fam_section_id(f['name'])}", f"Diagrams · {f['name']}")
+    for f in _FAMILIES
+]
 
 PAGE = {
     "slug": "for-agents",
@@ -31,7 +37,8 @@ PAGE = {
         ("ag-python-inventory", "Python · Function inventory"),
         ("ag-transforms", "Transforms · Markdown HTML"),
         ("ag-diag-svg", "Diagrams · SVG templates"),
-        ("ag-diag-catalog", "Diagrams · Full catalog (24)"),
+        ("ag-diag-catalog", "Diagrams · All templates (intro)"),
+        *_DIAGRAM_FAMILY_TOC,
         ("ag-diag-mermaid", "Diagrams · Mermaid"),
         ("ag-diag-js", "Diagrams · Modal & JS"),
         ("ag-motion-pulse", "Motion · Pulse"),
@@ -58,6 +65,9 @@ def extra_css() -> str:
     .ag-spec dt { font-weight: 600; color: var(--forge-text-2); margin-top: 0.5rem; }
     .ag-spec dd { margin-left: 0; margin-bottom: 0.25rem; color: var(--forge-text-3); font-size: 0.9rem; }
     .ag-spec { margin-bottom: 0; }
+    .ks-diagram-card { cursor: pointer; }
+    .ks-diagram-card svg { width: 100%; height: auto; }
+    .ks-thumb svg, .ks-thumb img { width: 100%; height: auto; }
   </style>"""
 
 

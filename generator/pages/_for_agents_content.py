@@ -2,12 +2,14 @@
 from __future__ import annotations
 
 from components import (
+    e,
+    e_content,
     render_alert,
     render_breadcrumbs,
     render_skip_link,
     render_table,
 )
-from pages.diagrams import _FAMILIES
+from pages.diagrams import _FAMILIES, _fam_section_id
 
 _CHEVRON = (
     '<svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" '
@@ -22,23 +24,31 @@ def _spec_dl(items: list[tuple[str, str]]) -> str:
     return f'<dl class="ag-spec forge-support small mb-3">{dds}</dl>'
 
 
-def _diagram_catalog_table() -> str:
-    rows: list[list[str]] = []
+def _all_diagram_gallery_sections_html() -> str:
+    """One ks-section per family; every template as a clickable thumb (same as diagrams.html)."""
+    sections: list[str] = []
     for fam in _FAMILIES:
+        cards: list[str] = []
         for key, svg_file, label in fam["items"]:
-            rows.append(
-                [
-                    fam["name"],
-                    f"<code>{key}</code>",
-                    f"<code>{svg_file}</code>",
-                    label,
-                ]
+            cards.append(
+                '<div class="forge-diagram forge-diagram-trigger ks-diagram-card '
+                'p-2 text-center ks-thumb" '
+                f"onclick=\"openDiagramWithDetail(this, '{key}')\">"
+                f'<img src="assets/svg/{svg_file}" alt="{e(label)}">'
+                f'<p class="section-label mt-2 mb-0">{e_content(label)}</p></div>'
             )
-    return render_table(
-        ["Family", "JS key (<code>openDiagramWithDetail</code>)", "SVG file", "Label"],
-        rows,
-        cell_escape=False,
-    )
+        fam_anchor = f"ag-{_fam_section_id(fam['name'])}"
+        sections.append(
+            f'<section id="{fam_anchor}" class="ks-section">\n'
+            f'  <h3 class="font-display mt-2 mb-1" style="font-size:1.35rem;color:var(--forge-amber)">'
+            f"{e_content(fam['name'])}</h3>\n"
+            f'  <p class="forge-support mb-3" style="font-size:0.9rem">{e_content(fam["desc"])}</p>\n'
+            f'  <div class="bento-grid bento-3 mb-2">\n'
+            f'    {"".join(cards)}\n'
+            f"  </div>\n"
+            f"</section>"
+        )
+    return "\n\n".join(sections)
 
 
 def _python_function_inventory_table() -> str:
@@ -247,7 +257,7 @@ def render_body() -> str:
         [["Alpha", "One"], ["Beta", "Two"]],
         cell_escape=True,
     )
-    diagram_catalog = _diagram_catalog_table()
+    diagram_gallery_sections = _all_diagram_gallery_sections_html()
     python_inventory = _python_function_inventory_table()
     transforms_inventory = _transforms_inventory_table()
     layouts_inventory = _layouts_inventory_table()
@@ -562,20 +572,15 @@ def render_body() -> str:
     ("Markup", "Typical thumb: <code>&lt;div class=&quot;forge-diagram forge-diagram-trigger …&quot; onclick=&quot;openDiagramWithDetail(this, 'linear')&quot;&gt;&lt;img src=&quot;assets/svg/template-….svg&quot; alt=&quot;…&quot;&gt;</code>. The key (<code>linear</code>, <code>loop</code>, …) must exist in <code>DIAGRAM_DETAILS</code> inside <code>showcase.js</code>."),
     ("Behavior", "<code>openDiagramWithDetail</code> clones SVG into the modal and wires hover/legend from JS metadata."),
   ])}
-  <p class="section-label text-cyan mb-2">Example (click to open modal)</p>
-  <div class="bento-grid bento-3">
-    <div class="forge-diagram forge-diagram-trigger ks-diagram-card p-2 text-center ks-thumb" onclick="openDiagramWithDetail(this, 'linear')">
-      <img src="assets/svg/template-linear-flow.svg" alt="linear flow">
-      <p class="section-label mt-2 mb-0">linear-flow</p>
-    </div>
-  </div>
+  <p class="forge-support mb-0">Live thumbnails for all 24 templates follow in the next sections — each card is clickable.</p>
 </section>
 
 <section id="ag-diag-catalog" class="ks-section">
-  <h2 class="ks-section-title">Diagrams · Full SVG template catalog (24)</h2>
-  <p class="forge-support mb-3">Every template shipped under <code>assets/svg/</code> for the diagram gallery. The <strong>JS key</strong> column must match an entry in <code>DIAGRAM_DETAILS</code> in <code>js/showcase.js</code> (used by <code>openDiagramWithDetail(this, key)</code>). Thumbnail grid UI: <a href="diagrams.html"><code>diagrams.html</code></a>.</p>
-  {diagram_catalog}
+  <h2 class="ks-section-title">Diagrams · All 24 SVG templates (visual)</h2>
+  <p class="forge-support mb-4">Below are the same archetypes as <a href="diagrams.html"><code>diagrams.html</code></a>: one <code>.bento-grid.bento-3</code> per family, each tile uses <code>onclick=&quot;openDiagramWithDetail(this, '&lt;key&gt;')&quot;</code> where <code>&lt;key&gt;</code> matches <code>DIAGRAM_DETAILS</code> in <code>js/showcase.js</code>. Scroll is long by design so models and humans can see every asset.</p>
 </section>
+
+{diagram_gallery_sections}
 
 <section id="ag-diag-mermaid" class="ks-section">
   <h2 class="ks-section-title">Diagrams · Mermaid</h2>
