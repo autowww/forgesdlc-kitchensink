@@ -883,102 +883,28 @@ html.fs-embed .fs-main .toc {
   min-height: 12rem;
 }
 
-.landing-signal-field {
+/* Animated FORGE spectral wordmark (img → SMIL SVG from kitchensink assets). */
+.landing-forge-visual {
   width: 100%;
-  max-width: 28rem;
-  opacity: 0.92;
-  filter: drop-shadow(0 0 28px rgba(6, 182, 212, 0.08));
+  max-width: min(36rem, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.94;
+  filter: drop-shadow(0 0 32px rgba(6, 182, 212, 0.1));
 }
 
-.landing-signal-field__svg {
+.landing-forge-visual__img {
   width: 100%;
   height: auto;
   display: block;
-}
-
-.landing-signal-field__routes {
-  animation: lsf-drift 38s ease-in-out infinite alternate;
-}
-
-.landing-signal-field__phases {
-  animation: lsf-phase-flow 48s ease-in-out infinite alternate;
-}
-
-.landing-signal-field__nodes--drift {
-  animation: lsf-drift 42s ease-in-out infinite alternate-reverse;
-}
-
-.landing-signal-field__nodes--pulse {
-  animation: lsf-node-pulse 28s ease-in-out infinite;
-}
-
-.landing-signal-field__phase-dot {
-  animation: lsf-phase-dot 22s ease-in-out infinite;
-}
-
-.landing-signal-field__phase-dot:nth-child(2) {
-  animation-delay: -5s;
-}
-
-.landing-signal-field__phase-dot:nth-child(3) {
-  animation-delay: -11s;
-}
-
-.landing-signal-field__phase-dot:nth-child(4) {
-  animation-delay: -17s;
+  border-radius: 0.35rem;
+  border: 1px solid var(--fs-border);
+  background: rgba(6, 182, 212, 0.04);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .landing-signal-field__routes,
-  .landing-signal-field__phases,
-  .landing-signal-field__nodes--drift,
-  .landing-signal-field__nodes--pulse,
-  .landing-signal-field__phase-dot {
-    animation: none;
-  }
-}
-
-@keyframes lsf-drift {
-  from {
-    transform: translate(0, 0);
-    opacity: 0.85;
-  }
-  to {
-    transform: translate(6px, -4px);
-    opacity: 1;
-  }
-}
-
-@keyframes lsf-phase-flow {
-  from {
-    opacity: 0.55;
-    stroke-dashoffset: 0;
-  }
-  to {
-    opacity: 0.88;
-    stroke-dashoffset: -18;
-  }
-}
-
-@keyframes lsf-node-pulse {
-  0%,
-  100% {
-    opacity: 0.42;
-  }
-  50% {
-    opacity: 0.62;
-  }
-}
-
-@keyframes lsf-phase-dot {
-  0%,
-  100% {
-    opacity: 0.45;
-    stroke-width: 1px;
-  }
-  50% {
-    opacity: 0.85;
-    stroke-width: 1.35px;
+  .landing-forge-visual {
+    opacity: 0.92;
   }
 }
 

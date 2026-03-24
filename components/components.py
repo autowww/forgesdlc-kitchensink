@@ -580,68 +580,26 @@ def render_authorship_signal(
     )
 
 
-def render_landing_signal_field() -> str:
-    """Abstract topology / signal SVG for wide landing hero (decorative).
+# Product landing hero: animated FORGE wordmark (Fourier spectral lines, SMIL).
+# Shipped under kitchensink ``assets/svg/backgrounds/sinusoids/``; copied to site
+# ``assets/`` by consumer builds.
+LANDING_FORGE_SPECTRAL_SVG = (
+    "assets/svg/backgrounds/sinusoids/bg-fourier-forge-spectral-animated-01.svg"
+)
 
-    Layered routes, phased flow band, and node accents — motion via CSS
-    (``prefers-reduced-motion`` respected in theme).
+
+def render_landing_signal_field() -> str:
+    """Wide landing hero visual: animated FORGE spectral SVG (kitchensink asset).
+
+    Replaces the older inline route/wave diagram. Motion is slow SMIL inside the
+    SVG; ``prefers-reduced-motion`` cannot disable external SMIL when loaded via
+    ``img`` — keep animation subtle in the asset itself.
     """
     return (
-        '<div class="landing-signal-field" role="presentation" aria-hidden="true">'
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 340" '
-        'class="landing-signal-field__svg" focusable="false">'
-        '<defs>'
-        '<linearGradient id="lsf-grad-c" x1="0%" y1="0%" x2="100%" y2="100%">'
-        '<stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.35"/>'
-        '<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.05"/>'
-        "</linearGradient>"
-        '<linearGradient id="lsf-grad-a" x1="100%" y1="0%" x2="0%" y2="100%">'
-        '<stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.28"/>'
-        '<stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.04"/>'
-        "</linearGradient>"
-        '<linearGradient id="lsf-grad-phase" x1="0%" y1="0%" x2="100%" y2="0%">'
-        '<stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.12"/>'
-        '<stop offset="50%" style="stop-color:#f59e0b;stop-opacity:0.14"/>'
-        '<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.1"/>'
-        "</linearGradient>"
-        "</defs>"
-        '<rect width="420" height="340" fill="transparent"/>'
-        '<g class="landing-signal-field__phases" fill="none" '
-        'stroke="url(#lsf-grad-phase)" stroke-width="0.85" stroke-dasharray="4 7" '
-        'stroke-linecap="round" opacity="0.75">'
-        '<path d="M48 52 L372 52"/>'
-        "</g>"
-        '<g class="landing-signal-field__phase-nodes" fill="none" '
-        'stroke="rgba(6,182,212,0.35)" stroke-width="1">'
-        '<circle class="landing-signal-field__phase-dot" cx="88" cy="52" r="5"/>'
-        '<circle class="landing-signal-field__phase-dot" cx="188" cy="52" r="5"/>'
-        '<circle class="landing-signal-field__phase-dot" cx="288" cy="52" r="5"/>'
-        '<circle class="landing-signal-field__phase-dot" cx="332" cy="52" r="5"/>'
-        "</g>"
-        '<g class="landing-signal-field__routes" fill="none" '
-        'stroke="url(#lsf-grad-c)" stroke-width="1.1" stroke-linecap="round">'
-        '<path d="M40 180 Q120 80 200 160 T360 120"/>'
-        '<path d="M60 260 Q180 200 280 240 T400 200"/>'
-        '<path d="M80 60 Q200 140 320 80"/>'
-        "</g>"
-        '<g class="landing-signal-field__routes landing-signal-field__routes--amber" '
-        'fill="none" stroke="url(#lsf-grad-a)" stroke-width="0.9" opacity="0.9">'
-        '<path d="M100 220 L220 100 L340 200"/>'
-        "</g>"
-        '<g class="landing-signal-field__nodes landing-signal-field__nodes--drift" '
-        'fill="#06b6d4">'
-        '<circle cx="200" cy="160" r="4" opacity="0.55"/>'
-        '<circle cx="120" cy="100" r="2.5" opacity="0.4"/>'
-        '<circle cx="320" cy="90" r="2.5" opacity="0.4"/>'
-        '<circle cx="280" cy="240" r="2.5" opacity="0.35"/>'
-        '<circle cx="220" cy="100" r="3" opacity="0.45"/>'
-        "</g>"
-        '<g class="landing-signal-field__nodes--amber landing-signal-field__nodes--pulse" '
-        'fill="#f59e0b" opacity="0.5">'
-        '<circle cx="100" cy="220" r="3"/>'
-        '<circle cx="340" cy="200" r="2.5"/>'
-        "</g>"
-        "</svg></div>"
+        '<div class="landing-forge-visual" role="presentation" aria-hidden="true">'
+        f'<img src="{e(LANDING_FORGE_SPECTRAL_SVG)}" alt="" width="800" height="450" '
+        'class="landing-forge-visual__img" decoding="async" fetchpriority="low" />'
+        "</div>"
     )
 
 
