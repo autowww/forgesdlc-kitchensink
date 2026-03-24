@@ -581,7 +581,11 @@ def render_authorship_signal(
 
 
 def render_landing_signal_field() -> str:
-    """Abstract topology / signal SVG for wide landing hero (decorative)."""
+    """Abstract topology / signal SVG for wide landing hero (decorative).
+
+    Layered routes, phased flow band, and node accents — motion via CSS
+    (``prefers-reduced-motion`` respected in theme).
+    """
     return (
         '<div class="landing-signal-field" role="presentation" aria-hidden="true">'
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 340" '
@@ -595,8 +599,25 @@ def render_landing_signal_field() -> str:
         '<stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.28"/>'
         '<stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.04"/>'
         "</linearGradient>"
+        '<linearGradient id="lsf-grad-phase" x1="0%" y1="0%" x2="100%" y2="0%">'
+        '<stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.12"/>'
+        '<stop offset="50%" style="stop-color:#f59e0b;stop-opacity:0.14"/>'
+        '<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.1"/>'
+        "</linearGradient>"
         "</defs>"
         '<rect width="420" height="340" fill="transparent"/>'
+        '<g class="landing-signal-field__phases" fill="none" '
+        'stroke="url(#lsf-grad-phase)" stroke-width="0.85" stroke-dasharray="4 7" '
+        'stroke-linecap="round" opacity="0.75">'
+        '<path d="M48 52 L372 52"/>'
+        "</g>"
+        '<g class="landing-signal-field__phase-nodes" fill="none" '
+        'stroke="rgba(6,182,212,0.35)" stroke-width="1">'
+        '<circle class="landing-signal-field__phase-dot" cx="88" cy="52" r="5"/>'
+        '<circle class="landing-signal-field__phase-dot" cx="188" cy="52" r="5"/>'
+        '<circle class="landing-signal-field__phase-dot" cx="288" cy="52" r="5"/>'
+        '<circle class="landing-signal-field__phase-dot" cx="332" cy="52" r="5"/>'
+        "</g>"
         '<g class="landing-signal-field__routes" fill="none" '
         'stroke="url(#lsf-grad-c)" stroke-width="1.1" stroke-linecap="round">'
         '<path d="M40 180 Q120 80 200 160 T360 120"/>'
@@ -607,14 +628,16 @@ def render_landing_signal_field() -> str:
         'fill="none" stroke="url(#lsf-grad-a)" stroke-width="0.9" opacity="0.9">'
         '<path d="M100 220 L220 100 L340 200"/>'
         "</g>"
-        '<g class="landing-signal-field__nodes" fill="#06b6d4">'
+        '<g class="landing-signal-field__nodes landing-signal-field__nodes--drift" '
+        'fill="#06b6d4">'
         '<circle cx="200" cy="160" r="4" opacity="0.55"/>'
         '<circle cx="120" cy="100" r="2.5" opacity="0.4"/>'
         '<circle cx="320" cy="90" r="2.5" opacity="0.4"/>'
         '<circle cx="280" cy="240" r="2.5" opacity="0.35"/>'
         '<circle cx="220" cy="100" r="3" opacity="0.45"/>'
         "</g>"
-        '<g fill="#f59e0b" opacity="0.5">'
+        '<g class="landing-signal-field__nodes--amber landing-signal-field__nodes--pulse" '
+        'fill="#f59e0b" opacity="0.5">'
         '<circle cx="100" cy="220" r="3"/>'
         '<circle cx="340" cy="200" r="2.5"/>'
         "</g>"
@@ -627,30 +650,42 @@ def render_product_landing_hero(
     tagline: str | None = None,
     *,
     kicker: str | None = None,
+    title_line2: str | None = None,
     clarification: str | None = None,
     explainer: str | None = None,
     audience: str | None = None,
     primary_cta_href: str | None = None,
     primary_cta_label: str | None = None,
+    secondary_cta_href: str | None = None,
+    secondary_cta_label: str | None = None,
     secondary_links: list[tuple[str, str]] | None = None,
+    support_points: list[str] | None = None,
 ) -> str:
     """Landing hero fragment for forgesdlc.com (kicker, title, tagline, optional CTA stack).
 
     ``kicker`` is a short line above the title (e.g. positioning for executives).
+    ``title_line2`` optional second display line inside the same ``h1`` (gradient text).
     ``clarification`` sits directly under the tagline (inversion / thesis support).
     ``primary_cta_*`` renders one dominant ``btn-forge`` when both are set.
-    ``secondary_links`` are muted text links below the primary CTA.
+    ``secondary_cta_*`` renders ``btn-cyan-outline`` beside the primary when set.
+    ``secondary_links`` are muted text links below the button row.
+    ``support_points`` renders a compact list under the CTA stack.
     Sizing: ``forgesdlc-theme.css`` (``.landing-hero-*``).
     """
     sec = secondary_links or []
+    pts = [p.strip() for p in (support_points or []) if str(p).strip()]
+    has_secondary_btn = bool(secondary_cta_href and secondary_cta_label)
     has_cta_row = bool(
-        (primary_cta_href and primary_cta_label) or len(sec) > 0
+        (primary_cta_href and primary_cta_label)
+        or has_secondary_btn
+        or len(sec) > 0
     )
     has_below_tagline = bool(
         clarification
         or explainer
         or audience
         or has_cta_row
+        or pts
     )
 
     parts: list[str] = []
@@ -658,9 +693,15 @@ def render_product_landing_hero(
         parts.append(
             f'<p class="landing-hero-kicker mb-0">{e_content(kicker)}</p>'
         )
+    title2_html = ""
+    if title_line2:
+        title2_html = (
+            '<span class="product-landing-title__line2 d-block mt-1">'
+            f"{e_content(title_line2)}</span>"
+        )
     parts.append(
         f'<h1 class="font-display forge-gradient-text product-landing-title mb-3">'
-        f"{e_content(title)}</h1>"
+        f"{e_content(title)}{title2_html}</h1>"
     )
     if tagline:
         tcls = (
@@ -687,12 +728,22 @@ def render_product_landing_hero(
         )
     if has_cta_row:
         parts.append('<div class="landing-hero-actions">')
-        if primary_cta_href and primary_cta_label:
+        if (primary_cta_href and primary_cta_label) or has_secondary_btn:
             parts.append(
-                '<p class="mb-3 mb-md-2">'
-                f'<a class="btn btn-forge" href="{e(primary_cta_href)}">'
-                f"{e_content(primary_cta_label)}</a></p>"
+                '<p class="landing-hero-actions__buttons d-flex flex-wrap gap-2 '
+                'align-items-center justify-content-center justify-content-xl-start mb-3 mb-md-2">'
             )
+            if primary_cta_href and primary_cta_label:
+                parts.append(
+                    f'<a class="btn btn-forge" href="{e(primary_cta_href)}">'
+                    f"{e_content(primary_cta_label)}</a>"
+                )
+            if has_secondary_btn:
+                parts.append(
+                    f'<a class="btn btn-cyan-outline" href="{e(secondary_cta_href)}">'
+                    f"{e_content(secondary_cta_label)}</a>"
+                )
+            parts.append("</p>")
         if sec:
             sep = ' <span class="landing-hero-secondary-sep" aria-hidden="true">·</span> '
             link_bits: list[str] = []
@@ -712,6 +763,14 @@ def render_product_landing_hero(
                 + "</p>"
             )
         parts.append("</div>")
+    if pts:
+        items = "".join(
+            f'<li class="landing-hero-support__item">{e_content(x)}</li>' for x in pts
+        )
+        parts.append(
+            '<ul class="landing-hero-support list-unstyled forge-support mb-0 mt-3">'
+            f"{items}</ul>"
+        )
     copy_html = "".join(parts)
     visual = render_landing_signal_field()
     return (
