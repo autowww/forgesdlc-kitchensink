@@ -572,11 +572,53 @@ def render_authorship_signal(
             f"{e_content(sup)}</p>"
         )
     return (
-        '<aside class="landing-authorship" role="note" '
+        '<aside class="landing-authorship landing-authorship--bridge" role="note" '
         'aria-label="How this site is produced">'
         f'<p class="landing-authorship-lead mb-2">{e_content(lead)}</p>'
         f"{sup_html}"
         "</aside>"
+    )
+
+
+def render_landing_signal_field() -> str:
+    """Abstract topology / signal SVG for wide landing hero (decorative)."""
+    return (
+        '<div class="landing-signal-field" role="presentation" aria-hidden="true">'
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 340" '
+        'class="landing-signal-field__svg" focusable="false">'
+        '<defs>'
+        '<linearGradient id="lsf-grad-c" x1="0%" y1="0%" x2="100%" y2="100%">'
+        '<stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.35"/>'
+        '<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.05"/>'
+        "</linearGradient>"
+        '<linearGradient id="lsf-grad-a" x1="100%" y1="0%" x2="0%" y2="100%">'
+        '<stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.28"/>'
+        '<stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.04"/>'
+        "</linearGradient>"
+        "</defs>"
+        '<rect width="420" height="340" fill="transparent"/>'
+        '<g class="landing-signal-field__routes" fill="none" '
+        'stroke="url(#lsf-grad-c)" stroke-width="1.1" stroke-linecap="round">'
+        '<path d="M40 180 Q120 80 200 160 T360 120"/>'
+        '<path d="M60 260 Q180 200 280 240 T400 200"/>'
+        '<path d="M80 60 Q200 140 320 80"/>'
+        "</g>"
+        '<g class="landing-signal-field__routes landing-signal-field__routes--amber" '
+        'fill="none" stroke="url(#lsf-grad-a)" stroke-width="0.9" opacity="0.9">'
+        '<path d="M100 220 L220 100 L340 200"/>'
+        "</g>"
+        '<g class="landing-signal-field__nodes" fill="#06b6d4">'
+        '<circle cx="200" cy="160" r="4" opacity="0.55"/>'
+        '<circle cx="120" cy="100" r="2.5" opacity="0.4"/>'
+        '<circle cx="320" cy="90" r="2.5" opacity="0.4"/>'
+        '<circle cx="280" cy="240" r="2.5" opacity="0.35"/>'
+        '<circle cx="220" cy="100" r="3" opacity="0.45"/>'
+        "</g>"
+        '<g fill="#f59e0b" opacity="0.5">'
+        '<circle cx="100" cy="220" r="3"/>'
+        '<circle cx="340" cy="200" r="2.5"/>'
+        "</g>"
+        "</svg></div>"
     )
 
 
@@ -670,7 +712,19 @@ def render_product_landing_hero(
                 + "</p>"
             )
         parts.append("</div>")
-    return "".join(parts)
+    copy_html = "".join(parts)
+    visual = render_landing_signal_field()
+    return (
+        '<div class="container-fluid landing-hero-wide px-3 px-xxl-5">'
+        '<div class="row align-items-center g-4 g-xl-5 landing-hero-grid '
+        'justify-content-center justify-content-xl-between">'
+        '<div class="col-12 col-xl-7 col-lg-10 landing-hero-copy '
+        'text-center text-xl-start">'
+        f"{copy_html}</div>"
+        '<div class="col-12 col-xl-5 col-lg-10 landing-hero-visual">'
+        f"{visual}</div>"
+        "</div></div>"
+    )
 
 
 def wrap_product_site_article(inner_html: str) -> str:
@@ -690,7 +744,7 @@ def render_product_footer(
 ) -> str:
     """Footer block for product sites (``fs-footer``)."""
     return (
-        '<footer class="fs-footer">'
+        '<footer class="fs-footer fs-landing-footer-band" data-fs-section="footer">'
         f'<p class="mb-1">{e(brand_name)} — {e(tagline)}.</p>'
         f'<p class="mb-0">'
         f'<a href="{e(powered_by_url)}" rel="noopener">{e(powered_by_label)}</a>'

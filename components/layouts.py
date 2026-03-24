@@ -462,6 +462,7 @@ def product_page(
     theme_css_href: str = "assets/forgesdlc-theme.css",
     extra_css: str = "",
     theme_js_href: str = "assets/forge-theme.js",
+    primary_nav_html: str = "",
 ) -> str:
     """Complete HTML page for a product / marketing site.
 
@@ -493,6 +494,11 @@ def product_page(
     <a class="fs-brand text-decoration-none" href="index.html">{e(brand_name)}<span class="fs-accent">{e(brand_accent)}</span></a>
     <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#fsNav" aria-controls="fsNav">Menu</button>
   </div>
+  <nav class="fs-primary-nav-global" aria-label="Site sections">
+    <div class="fs-primary-nav-global-inner">
+      {primary_nav_html}
+    </div>
+  </nav>
 
   <div class="offcanvas offcanvas-start fs-offcanvas d-lg-none" tabindex="-1" id="fsNav" aria-labelledby="fsNavLabel">
     <div class="offcanvas-header">
@@ -510,7 +516,7 @@ def product_page(
         <a class="fs-brand d-block text-decoration-none mb-3" href="index.html">{e(brand_name)}<span class="fs-accent">{e(brand_accent)}</span></a>
         {nav_html}
       </aside>
-      <main class="col-lg-9 col-xl-10 fs-main">
+      <main class="col-lg-9 col-xl-10 fs-main fs-main--product-wide">
         <article>
           {cross_refs_html}
           {body_html}
@@ -784,11 +790,11 @@ def landing_page(
   </div>
 </header>
 
-<main id="main">
-  <div class="landing-hero">
+<main id="main" class="fs-landing-main">
+  <div class="landing-hero fs-landing-hero-band" data-fs-section="hero">
     {hero_html}
   </div>
-  <div class="mx-auto px-3 pb-5" style="max-width:64rem">
+  <div class="fs-landing-body-shell">
     {body_html}
   </div>
   {footer_html}
