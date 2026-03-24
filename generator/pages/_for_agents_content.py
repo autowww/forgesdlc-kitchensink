@@ -7,6 +7,7 @@ from components import (
     render_skip_link,
     render_table,
 )
+from pages.diagrams import _FAMILIES
 
 _CHEVRON = (
     '<svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" '
@@ -19,6 +20,216 @@ _CHEVRON = (
 def _spec_dl(items: list[tuple[str, str]]) -> str:
     dds = "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in items)
     return f'<dl class="ag-spec forge-support small mb-3">{dds}</dl>'
+
+
+def _diagram_catalog_table() -> str:
+    rows: list[list[str]] = []
+    for fam in _FAMILIES:
+        for key, svg_file, label in fam["items"]:
+            rows.append(
+                [
+                    fam["name"],
+                    f"<code>{key}</code>",
+                    f"<code>{svg_file}</code>",
+                    label,
+                ]
+            )
+    return render_table(
+        ["Family", "JS key (<code>openDiagramWithDetail</code>)", "SVG file", "Label"],
+        rows,
+        cell_escape=False,
+    )
+
+
+def _python_function_inventory_table() -> str:
+    rows: list[list[str]] = [
+        ["<code>e(s)</code>", "str", "HTML-escape for attributes (includes quotes)."],
+        ["<code>e_content(s)</code>", "str", "Escape for text nodes (no quote encoding)."],
+        ["<code>bold(s)</code>", "str", "Wrap escaped content in <code>&lt;strong&gt;</code>."],
+        ["<code>render_table(headers, rows, …)</code>", "str", "Striped Forge table inside <code>.forge-table-wrap</code>."],
+        ["<code>render_io_table(rows)</code>", "str", "Intent/Inputs/Outputs/Participants/Timebox columns via <code>render_table</code>."],
+        [
+            "<code>render_section(sid, title, inner, …)</code>",
+            "str",
+            "Article section: optional top <code>.forge-divider</code>, <code>&lt;section id&gt;</code>, optional <code>.section-label</code>, <code>&lt;h2 class=&quot;font-display&quot;&gt;</code>.",
+        ],
+        [
+            "<code>render_mermaid_block(diagram, expandable=False)</code>",
+            "str",
+            "<code>.forge-diagram</code> + <code>.mermaid</code>; if expandable, adds <code>forge-diagram-trigger</code> and <code>openDiagramModal(this)</code>.",
+        ],
+        [
+            "<code>render_diagrams_section(title, sid, diagrams)</code>",
+            "str",
+            "Calls <code>render_section</code> with intro line + one <code>render_mermaid_block</code> per diagram string.",
+        ],
+        [
+            "<code>render_alert(content, variant=…, label=…)</code>",
+            "str",
+            "Maps Bootstrap-like variants to <code>.forge-callout-*</code>; content is not re-escaped (HTML allowed).",
+        ],
+        ["<code>render_template_banner()</code>", "str", "Fixed amber template warning via <code>render_alert</code>."],
+        [
+            "<code>render_canonical_note(canonical_md, generator=…)</code>",
+            "str",
+            "Surface callout pointing editors at source Markdown + generator command.",
+        ],
+        ["<code>render_breadcrumbs(crumbs)</code>", "str", "<code>(href, label)</code> pairs; <code>href=None</code> marks active crumb."],
+        ["<code>render_nav_buttons(prev_link, next_link)</code>", "str", "Prev/next <code>.btn-cyan-outline</code> / <code>.btn-forge-outline</code> row; empty if both unset."],
+        [
+            "<code>render_external_sources_section(sid, items, …)</code>",
+            "str",
+            "Unstyled list of external links + blurbs; optional pointer to REFERENCE-LINKS.md.",
+        ],
+        [
+            "<code>render_flow_details_section(sid, items)</code>",
+            "str",
+            "Per-diagram narrative: <code>(title, paragraph)</code> tuples as <code>&lt;h3&gt;</code> + paragraph inside <code>render_section</code>.",
+        ],
+        [
+            "<code>render_toc_sidebar(toc)</code>",
+            "str",
+            "Right column wrapper + <code>.forge-toc</code>; entries <code>(id, text, level)</code> — level 3 links get extra left padding.",
+        ],
+        ["<code>render_toc_sidebar_simple(toc)</code>", "str", "Same nav markup without level (chapter pages)."],
+        ["<code>render_skip_link(target=&quot;#main&quot;)</code>", "str", "<code>.skip-link</code> anchor for accessibility."],
+        [
+            "<code>render_mobile_nav_button(target_id=…)</code>",
+            "str",
+            "Fixed hamburger <code>.btn-forge</code> toggling Bootstrap offcanvas sidebar.",
+        ],
+        ["<code>render_footer(date, label=…)</code>", "str", "Muted top-border footer with generation note."],
+        [
+            "<code>render_page_header(title, subtitle=…, …)</code>",
+            "str",
+            "Handbook-style page title block (labels + display heading).",
+        ],
+        [
+            "<code>render_page_header_chapter(…)</code>",
+            "str",
+            "Chapter variant of page header (methodology pages).",
+        ],
+        [
+            "<code>render_tier_nav(groups)</code>",
+            "str",
+            "Product sidebar tier groups (used with <code>product_page</code> / fs theme).",
+        ],
+        [
+            "<code>render_cross_refs(items, variant=…)</code>",
+            "str",
+            "<code>.fs-cross-refs</code> aside; <code>variant=&quot;subtle&quot;</code> lowers emphasis.",
+        ],
+        [
+            "<code>render_authorship_signal(lead, support=…)</code>",
+            "str",
+            "<code>.landing-authorship</code> aside for human direction vs agent output.",
+        ],
+        [
+            "<code>render_product_landing_hero(…)</code>",
+            "str",
+            "Hero stack: kicker, gradient H1, tagline, CTAs — classes <code>.landing-hero-*</code> in product CSS.",
+        ],
+        [
+            "<code>wrap_product_site_article(inner_html)</code>",
+            "str",
+            "Wraps body in <code>.fs-main &gt; article</code> for product landing content.",
+        ],
+        [
+            "<code>render_product_footer(…)</code>",
+            "str",
+            "<code>.fs-footer</code> block with brand line + handbook link.",
+        ],
+    ]
+    return render_table(
+        ["Function", "Returns", "Role / emitted markup"],
+        rows,
+        cell_escape=False,
+    )
+
+
+def _transforms_inventory_table() -> str:
+    rows: list[list[str]] = [
+        [
+            "<code>apply_all(html)</code>",
+            "tuple[str, bool]",
+            "Canonical pipeline end-to-end; returns <code>(html, has_mermaid)</code> for layout script injection.",
+        ],
+        [
+            "<code>convert_mermaid_blocks(html)</code>",
+            "tuple[str, bool]",
+            "Replaces fenced Mermaid <code>&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;</code> with <code>.forge-diagram</code> + <code>.mermaid</code>.",
+        ],
+        [
+            "<code>enhance_tables(html)</code>",
+            "str",
+            "Wraps bare <code>&lt;table&gt;</code> and adds Forge table classes.",
+        ],
+        [
+            "<code>enhance_blockquotes(html)</code>",
+            "str",
+            "Maps blockquotes to <code>.forge-callout-*</code>; recognizes <strong>Warning</strong> / <strong>Note</strong> / <strong>Template</strong> prefixes.",
+        ],
+        [
+            "<code>enhance_code_blocks(html)</code>",
+            "str",
+            "Adds <code>.forge-code</code> to <code>&lt;pre&gt;</code> (including language-* code classes).",
+        ],
+        [
+            "<code>extract_toc(html)</code>",
+            "list[tuple[str, str, int]]",
+            "Collects <code>&lt;h2 id&gt;</code> / <code>&lt;h3 id&gt;</code> for ToC builders.",
+        ],
+    ]
+    return render_table(
+        ["Function", "Returns", "Role"],
+        rows,
+        cell_escape=False,
+    )
+
+
+def _layouts_inventory_table() -> str:
+    rows: list[list[str]] = [
+        [
+            "<code>handbook_page</code>",
+            "Blueprint handbook: sidebar + article + right ToC column.",
+            "blueprints-website",
+        ],
+        [
+            "<code>chapter_page</code>",
+            "Methodology chapter shell; uses <code>docs-theme.css</code>; often JS-hydrated nav.",
+            "blueprints-website chapters",
+        ],
+        [
+            "<code>product_page</code>",
+            "Marketing/product article + tier sidebar; <code>forgesdlc-theme.css</code>.",
+            "forgesdlc.com",
+        ],
+        [
+            "<code>showcase_page</code>",
+            "Sticky site header + sidebar + body + optional right <code>.forge-toc</code> — canonical doc shell.",
+            "Kitchensink showcase; consumer doc generators",
+        ],
+        [
+            "<code>landing_page</code>",
+            "Top nav + hero + body; no sidebar.",
+            "Showcase <code>index.html</code>",
+        ],
+        [
+            "<code>gallery_page</code>",
+            "Same shell as showcase but main column full width (no right ToC column).",
+            "<code>diagrams.html</code>",
+        ],
+        [
+            "<code>split_page</code>",
+            "Two-column main: left demo, right documentation.",
+            "Optional detail / playground pages",
+        ],
+    ]
+    return render_table(
+        ["Layout", "Structure / theme", "Used by"],
+        rows,
+        cell_escape=False,
+    )
 
 
 def render_body() -> str:
@@ -36,6 +247,10 @@ def render_body() -> str:
         [["Alpha", "One"], ["Beta", "Two"]],
         cell_escape=True,
     )
+    diagram_catalog = _diagram_catalog_table()
+    python_inventory = _python_function_inventory_table()
+    transforms_inventory = _transforms_inventory_table()
+    layouts_inventory = _layouts_inventory_table()
     return f"""\
 <section id="ag-intro" class="ks-section">
   <h2 class="ks-section-title">How to use this page</h2>
@@ -236,7 +451,7 @@ def render_body() -> str:
   <h2 class="ks-section-title">Navigation · Sidebar patterns</h2>
   {_spec_dl([
     ("Purpose", "Handbook-style left rail: flat links or collapsible groups."),
-    ("Styling", "Classic: <code>.forge-sidebar</code>, <code>.nav-section-label</code>, <code>.nav-rail</code>, <code>.nav-link</code> (<code>.active</code> for current), <code>.nav-group-toggle</code>, <code>.nav-sub-group</code>, <code>.nav-sub-link</code>. Collapsible doc pattern: <code>.doc-sidebar-group</code>, <code>.doc-sidebar-row</code>, <code>.doc-sidebar-toggle</code>, <code>.doc-sidebar-heading</code>, <code>.doc-sidebar-children</code>, <code>.doc-sidebar-link</code>, <code>.doc-sidebar-sublink</code>."),
+    ("Styling", "Classic: <code>.forge-sidebar</code>, <code>.nav-section-label</code>, <code>.nav-rail</code>, <code>.nav-link</code> (<code>.active</code> for current), <code>.nav-group-toggle</code>, <code>.nav-sub-group</code>, <code>.nav-sub-link</code>. Site header brand: <code>.forge-brand</code> + <code>.brand-icon</code> (see sticky header in <code>showcase_page</code>). Collapsible doc pattern: <code>.doc-sidebar-group</code>, <code>.doc-sidebar-row</code>, <code>.doc-sidebar-toggle</code> (showcase also uses <code>.doc-sidebar-toggle--full</code> for full-width family rows), <code>.doc-sidebar-heading</code> / <code>.doc-sidebar-heading--label</code>, <code>.doc-sidebar-children</code>, <code>.doc-sidebar-link</code>, <code>.doc-sidebar-sublink</code>."),
     ("Behavior", "Showcase sidebar is server-rendered HTML. Some consumer sites hydrate chapter sidebars with JSON + JS — structure classes stay the same for CSS."),
   ])}
   <p class="section-label text-cyan mb-2">Example</p>
@@ -288,7 +503,7 @@ def render_body() -> str:
   {_spec_dl([
     ("Purpose", "Accessibility and orientation: skip to content, breadcrumb trail, mobile menu trigger, page footer."),
     ("Styling", "Breadcrumbs: <code>&lt;ol class=&quot;breadcrumb small mb-3&quot;&gt;</code> with <code>.breadcrumb-item</code>, <code>.active</code>, <code>aria-current</code>. Skip link is visually hidden until focused. Footer uses <code>render_footer</code> patterns (links + support text)."),
-    ("Python", "<code>render_breadcrumbs([(href, label), …])</code> — use <code>href=None</code> for active crumb. <code>render_skip_link(target=&quot;#main&quot;)</code>. <code>render_mobile_nav_button()</code> for offcanvas toggle. <code>render_footer(year=…, links=…)</code>."),
+    ("Python", "<code>render_breadcrumbs([(href, label), …])</code> — use <code>href=None</code> for active crumb. <code>render_skip_link(target=&quot;#main&quot;)</code>. <code>render_mobile_nav_button()</code> for offcanvas toggle. <code>render_footer(date, label=…)</code> for generated-page footer."),
   ])}
   <p class="section-label text-cyan mb-2">Example (<code>render_breadcrumbs</code>)</p>
   {bc_demo}
@@ -318,6 +533,12 @@ def render_body() -> str:
   </div>
 </section>
 
+<section id="ag-python-inventory" class="ks-section">
+  <h2 class="ks-section-title">Python · Complete function inventory</h2>
+  <p class="forge-support mb-3">Every public symbol in <code>components/components.py</code> that emits markup (plus escaping helpers). Parameters and edge cases live in the module docstrings — this table is for coverage checking and routing agents to the right helper.</p>
+  {python_inventory}
+</section>
+
 <section id="ag-transforms" class="ks-section">
   <h2 class="ks-section-title">Transforms · <code>components/transforms.py</code></h2>
   {_spec_dl([
@@ -329,6 +550,8 @@ def render_body() -> str:
     ("convert_mermaid_blocks", "Finds <code>&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;</code> and replaces with <code>.forge-diagram</code> + <code>.mermaid</code> div."),
     ("extract_toc", "Parses <code>&lt;h2 id&gt;</code> / <code>&lt;h3 id&gt;</code> for right-rail ToC tuples."),
   ])}
+  <p class="section-label text-cyan mb-2">Complete API</p>
+  {transforms_inventory}
 </section>
 
 <section id="ag-diag-svg" class="ks-section">
@@ -346,6 +569,12 @@ def render_body() -> str:
       <p class="section-label mt-2 mb-0">linear-flow</p>
     </div>
   </div>
+</section>
+
+<section id="ag-diag-catalog" class="ks-section">
+  <h2 class="ks-section-title">Diagrams · Full SVG template catalog (24)</h2>
+  <p class="forge-support mb-3">Every template shipped under <code>assets/svg/</code> for the diagram gallery. The <strong>JS key</strong> column must match an entry in <code>DIAGRAM_DETAILS</code> in <code>js/showcase.js</code> (used by <code>openDiagramWithDetail(this, key)</code>). Thumbnail grid UI: <a href="diagrams.html"><code>diagrams.html</code></a>.</p>
+  {diagram_catalog}
 </section>
 
 <section id="ag-diag-mermaid" class="ks-section">
@@ -418,6 +647,8 @@ def render_body() -> str:
     ("Canonical shell", "<code>showcase_page</code> is the reference documentation layout (header + sidebar + body + optional right ToC). Consumer generators should mirror <code>generator/build-showcase.py</code> <code>_render_page</code> kwargs."),
     ("Live previews", 'Build writes <code>preview-handbook.html</code>, <code>preview-chapter.html</code>, <code>preview-product.html</code>, <code>preview-split.html</code> next to other showcase HTML via <code>layout_previews.py</code>. The <a href="layouts.html">Page Layouts</a> page opens them in a modal iframe.'),
   ])}
+  <p class="section-label text-cyan mb-2">Layout functions (<code>layouts.py</code>)</p>
+  {layouts_inventory}
 </section>
 
 <section id="ag-layout-showcase" class="ks-section">
