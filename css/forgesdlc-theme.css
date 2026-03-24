@@ -10,8 +10,10 @@
   --fs-amber-dim: rgba(245, 158, 11, 0.15);
   --fs-cyan: #06b6d4;
   --fs-cyan-dim: rgba(6, 182, 212, 0.12);
-  --fs-font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --fs-font-mono: "JetBrains Mono", "Space Mono", ui-monospace, monospace;
+  /* Proxima Nova: add Adobe Fonts kit or @font-face. */
+  --fs-font-display: "Proxima Nova Black", "Proxima Nova", "proxima-nova", "Open Sans", system-ui, sans-serif;
+  --fs-font-sans: "Open Sans", system-ui, -apple-system, sans-serif;
+  --fs-font-mono: "Courier New", Courier, ui-monospace, monospace;
 }
 
 html,
@@ -42,7 +44,8 @@ body {
 }
 
 .fs-brand {
-  font-weight: 700;
+  font-family: var(--fs-font-display);
+  font-weight: 900;
   letter-spacing: -0.02em;
   color: var(--fs-text) !important;
 }
@@ -100,7 +103,8 @@ body {
 }
 
 .fs-main h1 {
-  font-weight: 700;
+  font-family: var(--fs-font-display);
+  font-weight: 900;
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
   background: linear-gradient(90deg, var(--fs-text), var(--fs-cyan));
@@ -254,4 +258,28 @@ body {
 
 .fs-offcanvas .btn-close {
   filter: invert(1);
+}
+
+/* --- Light mode (html[data-bs-theme] set by forge-theme.js) ---------- */
+html[data-bs-theme="light"] {
+  color-scheme: light;
+  --fs-bg: #f4f7fb;
+  --fs-bg-elevated: #ffffff;
+  --fs-bg-sidebar: #e8eef5;
+  --fs-border: rgba(15, 23, 42, 0.1);
+  --fs-text: #0f172a;
+  --fs-text-muted: #64748b;
+  --fs-amber: #d97706;
+  --fs-amber-dim: rgba(245, 158, 11, 0.2);
+  --fs-cyan: #0891b2;
+  --fs-cyan-dim: rgba(6, 182, 212, 0.16);
+}
+
+html[data-bs-theme="light"] .fs-offcanvas .btn-close {
+  filter: none;
+  opacity: 0.55;
+}
+
+html[data-bs-theme="light"] .fs-sidebar .nav-link.active {
+  color: #0f172a;
 }

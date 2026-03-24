@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 def copy_forge_theme_core(kitchensink_root: Path, dest_assets: Path) -> list[str]:
-    """Copy ``forge-theme.css`` and ``forge-theme.js`` if present.
+    """Copy ``forge-theme.css``, ``forge-light-theme.css``, and ``forge-theme.js`` if present.
 
     Returns warning lines for any missing file.
     """
@@ -22,6 +22,11 @@ def copy_forge_theme_core(kitchensink_root: Path, dest_assets: Path) -> list[str
         shutil.copy2(css, dest_assets / "forge-theme.css")
     else:
         warnings.append("forge-theme.css missing — handbook / product prose tokens incomplete")
+    light_css = kitchensink_root / "css" / "forge-light-theme.css"
+    if light_css.is_file():
+        shutil.copy2(light_css, dest_assets / "forge-light-theme.css")
+    else:
+        warnings.append("forge-light-theme.css missing — light mode tokens incomplete")
     js = kitchensink_root / "js" / "forge-theme.js"
     if js.is_file():
         shutil.copy2(js, dest_assets / "forge-theme.js")
@@ -77,7 +82,7 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
     ks_css = kitchensink_root / "css"
     ks_js = kitchensink_root / "js"
 
-    for css_name in ("forge-theme.css", "docs-theme.css"):
+    for css_name in ("forge-theme.css", "forge-light-theme.css", "docs-theme.css"):
         src = ks_css / css_name
         if src.is_file():
             shutil.copy2(src, dest_assets / css_name)

@@ -439,7 +439,7 @@ def render_footer(
         f'<strong>{e(date)}</strong>.</p>'
         f'<p class="mb-0" style="font-size:.75rem;color:var(--forge-text-4)">'
         'Bootstrap 5.3 dark mode + Forge design tokens. '
-        'Fonts: Inter, JetBrains Mono, Space Mono.</p>'
+        'Fonts: Proxima Nova Black, Open Sans, Courier New.</p>'
         "</footer>"
     )
 
@@ -509,9 +509,14 @@ def render_tier_nav(
         parts.append('<ul class="nav flex-column px-1 mb-2">')
         for href, title in items:
             active = " active" if href == current_href else ""
+            ext = (
+                ' rel="noopener"'
+                if href.startswith(("http://", "https://"))
+                else ""
+            )
             parts.append(
                 f'<li class="nav-item"><a class="nav-link{active}" '
-                f'href="{e(href)}">{e(title)}</a></li>'
+                f'href="{e(href)}"{ext}>{e(title)}</a></li>'
             )
         parts.append("</ul>")
     return "\n        ".join(parts)
@@ -572,15 +577,16 @@ def wrap_product_site_article(inner_html: str) -> str:
 
 def render_product_footer(
     brand_name: str = "ForgeSDLC",
-    tagline: str = "product-oriented SDLC guidance",
+    tagline: str = "Methodology for AI-assisted-by-human software delivery",
     powered_by_url: str = "https://blueprints.forgesdlc.com",
-    powered_by_label: str = "Blueprints",
+    powered_by_label: str = "Blueprints handbook",
 ) -> str:
     """Footer block for product sites (``fs-footer``)."""
     return (
         '<footer class="fs-footer">'
         f'<p class="mb-1">{e(brand_name)} — {e(tagline)}.</p>'
-        f'<p class="mb-0">Powered by '
-        f'<a href="{e(powered_by_url)}" rel="noopener">{e(powered_by_label)}</a>.</p>'
+        f'<p class="mb-0">'
+        f'<a href="{e(powered_by_url)}" rel="noopener">{e(powered_by_label)}</a>'
+        " — process templates, ceremonies, and discipline depth.</p>"
         '</footer>'
     )

@@ -29,6 +29,9 @@ distinct visual identity while reusing shared CDN links and Mermaid init.
 
 ``split_page``
     Sidebar + two-panel content: example left, docs right.
+
+Color mode: ``FORGE_COLOR_SCHEME_INIT`` (inline head), ``forge-theme.js``, cookie
+``forge_color_scheme`` (``light`` | ``dark`` | ``auto``), and ``html[data-bs-theme]``.
 """
 from __future__ import annotations
 
@@ -55,44 +58,148 @@ FONT_LINKS = (
     '<link rel="preconnect" href="https://fonts.googleapis.com" />\n'
     '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n'
     '  <link href="https://fonts.googleapis.com/css2?family='
-    'Inter:wght@400;500;600;700;800;900&family='
-    'JetBrains+Mono:wght@400;500;600;700&family='
-    'Space+Mono:wght@400;700&display=swap" rel="stylesheet" />'
+    'Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" '
+    'rel="stylesheet" />'
 )
+
+# Inline before CSS to avoid a flash of the wrong ``data-bs-theme`` (must match forge-theme.js).
+FORGE_COLOR_SCHEME_INIT = """\
+  <script>
+  (function(){try{var m=document.cookie.match(/(?:^|;)\\s*forge_color_scheme=([^;]*)/);var v=m?decodeURIComponent(m[1].trim()):'';var mq=window.matchMedia('(prefers-color-scheme: dark)');var t='dark';if(v==='light')t='light';else if(v==='dark')t='dark';else if(v==='auto')t=mq.matches?'dark':'light';document.documentElement.setAttribute('data-bs-theme',t);}catch(e){}})();
+  </script>"""
+
+THEME_TOGGLE_DROPDOWN = """\
+<div class="dropdown forge-theme-dropdown position-fixed top-0 end-0 m-2" style="z-index:1050" data-forge-pref="dark">
+  <button type="button" class="forge-theme-trigger dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" id="forgeThemeMenu" aria-haspopup="true" aria-label="Appearance and color theme" title="Theme">
+    <span class="forge-theme-trigger__aurora" aria-hidden="true"></span>
+    <span class="forge-theme-trigger__inner">
+      <span class="forge-theme-trigger__icons" aria-hidden="true">
+        <svg class="forge-theme-ico forge-theme-ico--light" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="forge-theme-ico forge-theme-ico--dark" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="forge-theme-ico forge-theme-ico--auto" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8"/><path d="M12 18v4"/><path d="M8 14h.01M12 14h.01M16 14h.01"/></svg>
+      </span>
+      <span class="forge-theme-trigger__copy">
+        <span class="forge-theme-eyebrow">Appearance</span>
+        <span class="forge-theme-current">Dark</span>
+      </span>
+      <svg class="forge-theme-chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end forge-theme-menu" aria-labelledby="forgeThemeMenu">
+    <li>
+      <button type="button" class="dropdown-item forge-theme-option" data-forge-color-scheme="light">
+        <svg class="forge-theme-opt-ico" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/></svg>
+        <span>Light</span>
+        <svg class="forge-theme-tick" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="dropdown-item forge-theme-option active" data-forge-color-scheme="dark">
+        <svg class="forge-theme-opt-ico" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span>Dark</span>
+        <svg class="forge-theme-tick" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="dropdown-item forge-theme-option" data-forge-color-scheme="auto">
+        <svg class="forge-theme-opt-ico" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8"/><path d="M12 18v4"/></svg>
+        <span>System</span>
+        <svg class="forge-theme-tick" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      </button>
+    </li>
+  </ul>
+</div>"""
 
 MERMAID_SCRIPT = """\
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: 'base',
-      themeVariables: {
-        darkMode: true,
-        background:       '#111827',
-        primaryColor:     '#1a2235',
-        primaryTextColor: '#F1F5F9',
-        primaryBorderColor: 'rgba(6,182,212,0.35)',
-        secondaryColor:   '#1a2235',
-        secondaryTextColor: '#94A3B8',
-        secondaryBorderColor: 'rgba(245,158,11,0.3)',
-        tertiaryColor:    '#0A0E17',
-        tertiaryTextColor: '#94A3B8',
-        tertiaryBorderColor: 'rgba(6,182,212,0.15)',
-        lineColor:        'rgba(6,182,212,0.4)',
-        textColor:        '#F1F5F9',
-        mainBkg:          '#1a2235',
-        nodeBorder:       'rgba(6,182,212,0.35)',
-        clusterBkg:       'rgba(6,182,212,0.06)',
-        clusterBorder:    'rgba(6,182,212,0.2)',
-        titleColor:       '#F1F5F9',
-        edgeLabelBackground: '#111827',
-        nodeTextColor:    '#F1F5F9',
-        fontFamily:       'Inter, system-ui, sans-serif',
-        fontSize:         '13px'
-      }
-    });
-  </script>
-"""
+
+    function forgeMermaidThemeVariables(dark) {
+      return dark
+        ? {
+            darkMode: true,
+            background: '#111827',
+            primaryColor: '#1a2235',
+            primaryTextColor: '#F1F5F9',
+            primaryBorderColor: 'rgba(6,182,212,0.35)',
+            secondaryColor: '#1a2235',
+            secondaryTextColor: '#94A3B8',
+            secondaryBorderColor: 'rgba(245,158,11,0.3)',
+            tertiaryColor: '#0A0E17',
+            tertiaryTextColor: '#94A3B8',
+            tertiaryBorderColor: 'rgba(6,182,212,0.15)',
+            lineColor: 'rgba(6,182,212,0.4)',
+            textColor: '#F1F5F9',
+            mainBkg: '#1a2235',
+            nodeBorder: 'rgba(6,182,212,0.35)',
+            clusterBkg: 'rgba(6,182,212,0.06)',
+            clusterBorder: 'rgba(6,182,212,0.2)',
+            titleColor: '#F1F5F9',
+            edgeLabelBackground: '#111827',
+            nodeTextColor: '#F1F5F9',
+            fontFamily: 'Inter, system-ui, sans-serif',
+            fontSize: '13px'
+          }
+        : {
+            darkMode: false,
+            background: '#f1f5f9',
+            primaryColor: '#e2e8f0',
+            primaryTextColor: '#0f172a',
+            primaryBorderColor: 'rgba(8,145,178,0.45)',
+            secondaryColor: '#e2e8f0',
+            secondaryTextColor: '#475569',
+            secondaryBorderColor: 'rgba(217,119,6,0.35)',
+            tertiaryColor: '#f8fafc',
+            tertiaryTextColor: '#64748b',
+            tertiaryBorderColor: 'rgba(8,145,178,0.2)',
+            lineColor: 'rgba(8,145,178,0.45)',
+            textColor: '#0f172a',
+            mainBkg: '#e2e8f0',
+            nodeBorder: 'rgba(8,145,178,0.45)',
+            clusterBkg: 'rgba(6,182,212,0.08)',
+            clusterBorder: 'rgba(8,145,178,0.25)',
+            titleColor: '#0f172a',
+            edgeLabelBackground: '#f1f5f9',
+            nodeTextColor: '#0f172a',
+            fontFamily: 'Inter, system-ui, sans-serif',
+            fontSize: '13px'
+          };
+    }
+
+    function snapshotMermaidSources() {
+      document.querySelectorAll('.mermaid').forEach(function (el) {
+        if (el.dataset.forgeMermaidSrc) return;
+        var t = (el.textContent || '').trim();
+        if (t) el.dataset.forgeMermaidSrc = t;
+      });
+    }
+
+    function resetMermaidElements() {
+      document.querySelectorAll('.mermaid').forEach(function (el) {
+        var src = el.dataset.forgeMermaidSrc;
+        if (!src) return;
+        el.removeAttribute('data-processed');
+        el.textContent = src;
+      });
+    }
+
+    async function forgeMermaidRefresh() {
+      var nodes = document.querySelectorAll('.mermaid');
+      if (!nodes.length) return;
+      snapshotMermaidSources();
+      var dark = document.documentElement.getAttribute('data-bs-theme') !== 'light';
+      resetMermaidElements();
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        themeVariables: forgeMermaidThemeVariables(dark)
+      });
+      await mermaid.run({ querySelector: '.mermaid' });
+    }
+
+    window.forgeMermaidRefresh = forgeMermaidRefresh;
+    forgeMermaidRefresh().catch(function () {});
+  </script>"""
 
 
 def _resolve_theme_css(theme_css_href: str) -> str:
@@ -117,7 +224,7 @@ def _render_sidebar(handbook_name: str, sidebar_html: str) -> str:
             <span class="brand-icon">F</span>
             <span class="text-amber">{e(handbook_name)}</span>
           </p>
-          <p class="mt-2 mb-0" style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--forge-text-4);letter-spacing:0.06em">Handbook &middot; Product-agnostic</p>
+          <p class="mt-2 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">Handbook &middot; Product-agnostic</p>
         </div>
         <nav class="nav-scroll flex-grow-1 px-2 py-3" aria-label="Handbook chapters">
           <p class="nav-section-label">Chapters</p>
@@ -137,7 +244,7 @@ def _render_sidebar_js_driven(handbook_name: str, subtitle: str) -> str:
             <span class="brand-icon">F</span>
             <span class="text-amber">{e(handbook_name)}</span>
           </p>
-          <p class="mt-2 mb-0" style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--forge-text-4);letter-spacing:0.06em">{e(subtitle)}</p>
+          <p class="mt-2 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{e(subtitle)}</p>
         </div>
         <nav class="nav-scroll flex-grow-1 px-2 py-3" id="doc-sidebar-nav" aria-label="Handbook chapters"></nav>
       </aside>"""
@@ -206,9 +313,10 @@ def handbook_page(
     mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
 
     return f"""<!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
+{FORGE_COLOR_SCHEME_INIT}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{e(handbook_name)} &mdash; {e(browser_title)}</title>
   {CDN_BOOTSTRAP_CSS}
@@ -218,6 +326,7 @@ def handbook_page(
 <body>
   <div class="forge-aurora"></div>
   <a href="#main" class="skip-link">Skip to content</a>
+{THEME_TOGGLE_DROPDOWN}
   <button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="Open navigation">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
   </button>
@@ -286,9 +395,10 @@ def chapter_page(
     )
 
     return f"""<!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
+{FORGE_COLOR_SCHEME_INIT}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{handbook_name} — {browser_title}</title>
   {CDN_BOOTSTRAP_CSS}
@@ -298,6 +408,7 @@ def chapter_page(
 <body>
   <div class="forge-aurora"></div>
   <a href="#main" class="skip-link">Skip to content</a>
+{THEME_TOGGLE_DROPDOWN}
   <button type="button" class="btn {nav_btn_class} position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="Open navigation">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
   </button>
@@ -350,6 +461,7 @@ def product_page(
     has_mermaid: bool = False,
     theme_css_href: str = "assets/forgesdlc-theme.css",
     extra_css: str = "",
+    theme_js_href: str = "assets/forge-theme.js",
 ) -> str:
     """Complete HTML page for a product / marketing site.
 
@@ -364,9 +476,10 @@ def product_page(
     mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
 
     return f"""<!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
+{FORGE_COLOR_SCHEME_INIT}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{e(browser_title)} &middot; {e(brand_name)}{e(brand_accent)}</title>
   {CDN_BOOTSTRAP_CSS}
@@ -375,6 +488,7 @@ def product_page(
 {extra_css}
 </head>
 <body{lens_attr}>
+{THEME_TOGGLE_DROPDOWN}
   <div class="d-lg-none fs-mobile-bar sticky-top py-2 px-3 d-flex align-items-center justify-content-between">
     <a class="fs-brand text-decoration-none" href="index.html">{e(brand_name)}<span class="fs-accent">{e(brand_accent)}</span></a>
     <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#fsNav" aria-controls="fsNav">Menu</button>
@@ -407,6 +521,7 @@ def product_page(
   </div>
 
   {CDN_BOOTSTRAP_JS}
+{_resolve_theme_js(theme_js_href)}
 {mermaid_script}
 </body>
 </html>
@@ -436,6 +551,11 @@ _SHOWCASE_EXTRA_CSS = """\
       padding: 0.75rem 1.5rem;
       display: flex; flex-direction: column; justify-content: center;
     }
+    @media (min-width: 992px) {
+      .site-header-content {
+        padding-right: max(7rem, 9.5vw);
+      }
+    }
     .ks-section { margin-bottom: 3.5rem; }
     .ks-section-title {
       font-family: var(--font-label);
@@ -453,7 +573,7 @@ _SHOWCASE_EXTRA_CSS = """\
       border: 1px solid var(--forge-border);
     }
     .ks-swatch-label {
-      font-family: var(--font-mono); font-size: 0.65rem;
+      font-family: var(--font-label); font-size: 0.65rem; font-weight: 600;
       color: var(--forge-text-3);
     }
     .ks-section[id] { scroll-margin-top: calc(var(--site-header-h, 4rem) + 1.5rem); }
@@ -472,7 +592,7 @@ def _showcase_header(
   <div class="row g-0">
     <div class="col-lg-3 col-xl-2 site-header-brand">
       <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">{e(brand_name)}</span></p>
-      <p class="mt-1 mb-0" style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--forge-text-4);letter-spacing:0.06em">{e(brand_subtitle)}</p>
+      <p class="mt-1 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{e(brand_subtitle)}</p>
     </div>
     <div class="col-lg-9 col-xl-10 site-header-content">
       {breadcrumb_html}
@@ -551,9 +671,10 @@ def showcase_page(
     </div>"""
 
     return f"""<!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
+{FORGE_COLOR_SCHEME_INIT}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{e(browser_title)}</title>
   {CDN_BOOTSTRAP_CSS}
@@ -565,6 +686,7 @@ def showcase_page(
 <body>
 <div class="forge-aurora"></div>
 <a href="#main" class="skip-link">Skip to content</a>
+{THEME_TOGGLE_DROPDOWN}
 
 <button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="Open navigation">
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
@@ -632,46 +754,29 @@ def landing_page(
         f'<script src="{e(src)}"></script>' for src in (extra_js or [])
     )
     return f"""<!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
+{FORGE_COLOR_SCHEME_INIT}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{e(browser_title)}</title>
   {CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
-  <style>
-    .landing-header {{
-      position: sticky; top: 0; z-index: 30;
-      background: var(--forge-bg);
-      border-bottom: 1px solid var(--forge-border);
-      padding: 0.75rem 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-    }}
-    .landing-nav a {{
-      color: var(--forge-text-2); text-decoration: none;
-      font-family: var(--font-mono); font-size: 0.8rem;
-      padding: 0.25rem 0.75rem; border-radius: 4px;
-      transition: color 0.2s, background 0.2s;
-    }}
-    .landing-nav a:hover {{ color: var(--forge-text); background: var(--forge-surface); }}
-    .landing-nav a.active {{ color: var(--forge-cyan); }}
-    .landing-hero {{
-      text-align: center; padding: 4rem 1.5rem 3rem;
-      max-width: 56rem; margin: 0 auto;
-    }}
-  </style>
 {extra_css}
 </head>
 <body>
 <div class="forge-aurora"></div>
 <a href="#main" class="skip-link">Skip to content</a>
+{THEME_TOGGLE_DROPDOWN}
 
 <header class="landing-header">
-  <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">{e(brand_name)}</span></p>
-  <nav class="landing-nav d-flex gap-1" aria-label="Site navigation">
-    {nav_links_html}
-  </nav>
+  <div class="landing-header-inner">
+    <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">{e(brand_name)}</span></p>
+    <nav class="landing-nav" aria-label="Site navigation">
+      {nav_links_html}
+    </nav>
+  </div>
 </header>
 
 <main id="main">

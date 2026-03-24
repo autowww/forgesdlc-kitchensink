@@ -5,7 +5,7 @@
  *
  * This file is the SINGLE SOURCE OF TRUTH for handbook styling.
  * Built on Bootstrap 5.3 dark mode.
- * Typography: Inter (body), JetBrains Mono (code), Space Mono (labels).
+ * Typography: Proxima Nova Black (display), Open Sans (body / labels), Courier New (code).
  *
  * Sections
  * --------
@@ -33,10 +33,13 @@
  * 22. Interactive node ↔ detail highlight
  */
 
+@import "forge-light-theme.css";
+
 /* =================================================================
    1. DESIGN TOKENS
    ================================================================= */
 :root {
+  color-scheme: dark;
   --forge-bg:          #0A0E17;
   --forge-surface:     #111827;
   --forge-surface-2:   #1a2235;
@@ -57,13 +60,14 @@
 
   --bs-body-bg:        var(--forge-bg);
   --bs-body-color:     var(--forge-text);
-  --bs-body-font-family: "Inter", system-ui, -apple-system, sans-serif;
+  /* Proxima Nova: add Adobe Fonts kit or @font-face; "Black" may be a separate family name. */
+  --bs-body-font-family: "Open Sans", system-ui, -apple-system, sans-serif;
   --bs-body-font-size: 0.9375rem;
   --bs-border-color:   var(--forge-border);
 
-  --font-display: "Inter", system-ui, sans-serif;
-  --font-mono:    "JetBrains Mono", "Fira Code", monospace;
-  --font-label:   "Space Mono", monospace;
+  --font-display: "Proxima Nova Black", "Proxima Nova", "proxima-nova", "Open Sans", system-ui, sans-serif;
+  --font-mono:    "Courier New", Courier, monospace;
+  --font-label:   "Open Sans", system-ui, sans-serif;
 }
 
 /* =================================================================
@@ -115,7 +119,7 @@ section[id], h2[id], h3[id] { scroll-margin-top: 4rem; }
    ================================================================= */
 .font-display {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.03em;
 }
 code, kbd, pre, samp, .doc-mono {
@@ -125,12 +129,14 @@ code, kbd, pre, samp, .doc-mono {
 .font-label {
   font-family: var(--font-label);
   font-size: 0.65rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .section-label {
   font-family: var(--font-label);
   font-size: 0.6rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
@@ -268,7 +274,7 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
 }
 .forge-sidebar .nav-link {
   position: relative;
-  font-family: "JetBrains Mono", "Space Mono", monospace;
+  font-family: var(--bs-body-font-family);
   font-size: 0.8rem;
   color: var(--forge-text-2);
   padding: 0.4rem 0.5rem 0.4rem 1.55rem;
@@ -372,7 +378,7 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
 }
 .forge-sidebar .nav-sub-link {
   position: relative;
-  font-family: "JetBrains Mono", "Space Mono", monospace;
+  font-family: var(--bs-body-font-family);
   font-size: 0.74rem;
   color: var(--forge-text-3);
   padding: 0.32rem 0.5rem 0.32rem 1.3rem;
@@ -436,7 +442,7 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
 .forge-sidebar .doc-sidebar-link {
   display: block;
   position: relative;
-  font-family: "JetBrains Mono", "Space Mono", monospace;
+  font-family: var(--bs-body-font-family);
   font-size: 0.78rem;
   color: var(--forge-text-2);
   padding: 0.4rem 0.6rem 0.4rem 0.75rem;
@@ -575,7 +581,7 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
 .forge-sidebar .doc-sidebar-sublink {
   display: block;
   position: relative;
-  font-family: "JetBrains Mono", "Space Mono", monospace;
+  font-family: var(--bs-body-font-family);
   font-size: 0.72rem;
   color: var(--forge-text-3);
   padding: 0.3rem 0.5rem 0.3rem 1rem;
@@ -673,6 +679,18 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   box-shadow: var(--forge-glow-amber);
 }
 .forge-card.card-amber .card-label { color: var(--forge-amber); }
+
+/* Primary title inside catalogue / link cards (above description) */
+.forge-card h3,
+.forge-card h4,
+.forge-card h5 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.12rem, 2.2vw, 1.4rem);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--forge-text);
+}
 
 /* =================================================================
    8. BENTO GRID
@@ -852,6 +870,373 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
 }
 
 /* =================================================================
+   12b. TOP CHROME — landing bar, theme menu, showcase header
+   ================================================================= */
+.landing-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--forge-bg);
+  border-bottom: 1px solid var(--forge-border);
+  padding: 0.65rem 1.25rem;
+}
+.landing-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem 1.75rem;
+}
+.landing-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem;
+}
+.landing-nav a {
+  font-family: var(--bs-body-font-family);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--forge-text-2);
+  text-decoration: none;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.landing-nav a:hover {
+  color: var(--forge-text);
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.12), var(--forge-glow-cyan);
+}
+.landing-nav a:focus-visible {
+  outline: 2px solid var(--forge-cyan);
+  outline-offset: 2px;
+}
+.landing-nav a.active {
+  color: var(--forge-cyan);
+  font-weight: 800;
+  background: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.12);
+}
+
+.landing-hero {
+  text-align: center;
+  padding: 4rem 1.5rem 3rem;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.site-header .site-header-content {
+  align-items: flex-start;
+  text-align: left;
+}
+.site-header .breadcrumb {
+  --bs-breadcrumb-divider-color: var(--forge-text-4);
+  margin-bottom: 0.35rem;
+}
+.site-header .breadcrumb-item a {
+  font-weight: 700;
+  color: var(--forge-text-2);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.site-header .breadcrumb-item a:hover {
+  color: var(--forge-cyan);
+}
+
+/* --- Appearance / theme control (glass capsule + menu) ---------------- */
+@keyframes forge-theme-aurora {
+  0%,
+  100% {
+    transform: translate(-20%, -30%) rotate(0deg) scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate(10%, 15%) rotate(180deg) scale(1.12);
+    opacity: 0.75;
+  }
+}
+
+.forge-theme-dropdown .forge-theme-trigger {
+  position: relative;
+  display: block;
+  border: none;
+  padding: 0;
+  background: transparent;
+  border-radius: 9999px;
+  color: inherit;
+  text-align: left;
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(6, 182, 212, 0.12);
+  transition: box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.forge-theme-dropdown .forge-theme-trigger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.75),
+    rgba(6, 182, 212, 0.55),
+    rgba(249, 115, 22, 0.45),
+    rgba(245, 158, 11, 0.65)
+  );
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: forge-theme-border-shift 8s ease infinite;
+}
+
+@keyframes forge-theme-border-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.forge-theme-dropdown .forge-theme-trigger__aurora {
+  position: absolute;
+  inset: -32%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 200deg,
+    rgba(6, 182, 212, 0.25),
+    rgba(245, 158, 11, 0.2),
+    rgba(249, 115, 22, 0.12),
+    rgba(6, 182, 212, 0.22)
+  );
+  filter: blur(28px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  animation: forge-theme-aurora 14s ease-in-out infinite;
+}
+
+.forge-theme-dropdown .forge-theme-trigger__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.28rem 0.48rem 0.28rem 0.4rem;
+  border-radius: inherit;
+  background: rgba(17, 24, 39, 0.55);
+  backdrop-filter: blur(16px) saturate(1.35);
+  -webkit-backdrop-filter: blur(16px) saturate(1.35);
+}
+
+.forge-theme-dropdown .forge-theme-trigger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(6, 182, 212, 0.28),
+    var(--forge-glow-cyan);
+}
+
+.forge-theme-dropdown .forge-theme-trigger:focus-visible {
+  outline: 2px solid var(--forge-cyan);
+  outline-offset: 3px;
+}
+
+.forge-theme-dropdown .forge-theme-trigger.dropdown-toggle::after {
+  display: none;
+}
+
+.forge-theme-dropdown .forge-theme-trigger__icons {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--forge-amber);
+  filter: drop-shadow(0 0 7px rgba(245, 158, 11, 0.32));
+}
+
+.forge-theme-dropdown .forge-theme-ico {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.34, 1.45, 0.64, 1);
+}
+
+.forge-theme-dropdown[data-forge-pref="light"] .forge-theme-ico--dark,
+.forge-theme-dropdown[data-forge-pref="light"] .forge-theme-ico--auto,
+.forge-theme-dropdown[data-forge-pref="dark"] .forge-theme-ico--light,
+.forge-theme-dropdown[data-forge-pref="dark"] .forge-theme-ico--auto,
+.forge-theme-dropdown[data-forge-pref="auto"] .forge-theme-ico--light,
+.forge-theme-dropdown[data-forge-pref="auto"] .forge-theme-ico--dark {
+  opacity: 0;
+  transform: scale(0.5) rotate(-12deg);
+  pointer-events: none;
+}
+
+.forge-theme-dropdown[data-forge-pref="light"] .forge-theme-ico--light,
+.forge-theme-dropdown[data-forge-pref="dark"] .forge-theme-ico--dark,
+.forge-theme-dropdown[data-forge-pref="auto"] .forge-theme-ico--auto {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.forge-theme-dropdown .forge-theme-trigger__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  min-width: 0;
+  padding-right: 0.1rem;
+}
+
+.forge-theme-dropdown .forge-theme-eyebrow {
+  font-family: var(--font-label);
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text-4);
+  line-height: 1.35;
+}
+
+.forge-theme-dropdown .forge-theme-current {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.8125rem;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  background: linear-gradient(120deg, var(--forge-amber) 0%, var(--forge-cyan) 55%, var(--forge-amber) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: forge-theme-shimmer 6s ease-in-out infinite;
+}
+
+@keyframes forge-theme-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.forge-theme-dropdown .forge-theme-chevron {
+  flex-shrink: 0;
+  margin-left: 0.1rem;
+  color: var(--forge-text-3);
+  opacity: 0.85;
+  transition: transform 0.3s ease, color 0.2s ease;
+}
+
+.forge-theme-dropdown .forge-theme-trigger[aria-expanded="true"] .forge-theme-chevron {
+  transform: rotate(180deg);
+  color: var(--forge-cyan);
+}
+
+.forge-theme-dropdown .forge-theme-menu {
+  --bs-dropdown-min-width: 11.75rem;
+  margin-top: 0.35rem !important;
+  padding: 0.3rem;
+  border-radius: 12px;
+  border: 1px solid var(--forge-border);
+  background: rgba(17, 24, 39, 0.92) !important;
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(6, 182, 212, 0.08),
+    0 0 40px rgba(6, 182, 212, 0.06);
+}
+
+.forge-theme-dropdown .forge-theme-option {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  border-radius: 8px;
+  padding: 0.38rem 0.5rem;
+  color: var(--forge-text-2);
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.forge-theme-dropdown .forge-theme-option .forge-theme-opt-ico {
+  flex-shrink: 0;
+  color: var(--forge-text-3);
+  transition: color 0.2s ease;
+}
+
+.forge-theme-dropdown .forge-theme-option .forge-theme-tick {
+  margin-left: auto;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.6);
+  color: var(--forge-cyan);
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.45, 0.64, 1);
+}
+
+.forge-theme-dropdown .forge-theme-option.active .forge-theme-tick {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.forge-theme-dropdown .forge-theme-option.active {
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--forge-text);
+  box-shadow: inset 0 0 0 1px rgba(6, 182, 212, 0.2);
+}
+
+.forge-theme-dropdown .forge-theme-option.active .forge-theme-opt-ico {
+  color: var(--forge-amber);
+}
+
+.forge-theme-dropdown .forge-theme-option:hover,
+.forge-theme-dropdown .forge-theme-option:focus {
+  background: var(--forge-cyan-dim);
+  color: var(--forge-cyan);
+}
+
+.forge-theme-dropdown .forge-theme-option:hover .forge-theme-opt-ico,
+.forge-theme-dropdown .forge-theme-option:focus .forge-theme-opt-ico {
+  color: var(--forge-cyan);
+}
+
+@media (max-width: 575.98px) {
+  .forge-theme-dropdown .forge-theme-eyebrow {
+    display: none;
+  }
+  .forge-theme-dropdown .forge-theme-trigger__inner {
+    padding: 0.26rem 0.42rem;
+    gap: 0.38rem;
+  }
+  .forge-theme-dropdown .forge-theme-current {
+    font-size: 0.78rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forge-theme-dropdown .forge-theme-trigger::before,
+  .forge-theme-dropdown .forge-theme-trigger__aurora,
+  .forge-theme-dropdown .forge-theme-current {
+    animation: none;
+  }
+  .forge-theme-dropdown .forge-theme-trigger,
+  .forge-theme-dropdown .forge-theme-ico,
+  .forge-theme-dropdown .forge-theme-option .forge-theme-tick {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* =================================================================
    13. CODE BLOCKS & TREES
    ================================================================= */
 .forge-code {
@@ -907,7 +1292,7 @@ code {
 .forge-diagram .nodeLabel {
   color: var(--forge-text) !important;
   fill: var(--forge-text) !important;
-  font-family: Inter, system-ui, sans-serif !important;
+  font-family: var(--bs-body-font-family) !important;
 }
 .forge-diagram .cluster rect {
   fill: rgba(6,182,212,0.04) !important;
@@ -920,7 +1305,8 @@ code {
 .forge-diagram .cluster .nodeLabel {
   color: var(--forge-text-3) !important;
   fill: var(--forge-text-3) !important;
-  font-family: "Space Mono", monospace !important;
+  font-family: var(--font-label) !important;
+  font-weight: 700 !important;
   font-size: 0.7rem !important;
   letter-spacing: 0.05em !important;
   text-transform: uppercase !important;
@@ -942,7 +1328,8 @@ code {
 .forge-diagram .edgeLabel .edgeLabel {
   color: var(--forge-amber) !important;
   fill: var(--forge-amber) !important;
-  font-family: "Space Mono", monospace !important;
+  font-family: var(--font-label) !important;
+  font-weight: 700 !important;
   font-size: 0.65rem !important;
   letter-spacing: 0.03em !important;
 }

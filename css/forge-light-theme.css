@@ -1,0 +1,99 @@
+/* Forge design system — light color mode (paired with forge-theme.css / docs-theme.css)
+ * Activated via html[data-bs-theme="light"] (set by forge-theme.js + inline head script).
+ */
+html[data-bs-theme="light"] {
+  --forge-bg:          #f4f7fb;
+  --forge-surface:     #ffffff;
+  --forge-surface-2:   #e8eef5;
+  --forge-border:      rgba(6, 82, 102, 0.14);
+  --forge-border-hover:rgba(6, 182, 212, 0.45);
+  --forge-amber:       #d97706;
+  --forge-amber-dim:   rgba(245, 158, 11, 0.18);
+  --forge-cyan:        #0891b2;
+  --forge-cyan-dim:    rgba(6, 182, 212, 0.14);
+  --forge-orange:      #ea580c;
+  --forge-emerald:     #059669;
+  --forge-text:        #0f172a;
+  --forge-text-2:      #475569;
+  --forge-text-3:      #64748b;
+  --forge-text-4:      #94a3b8;
+  --forge-glow-amber:  0 0 16px rgba(245, 158, 11, 0.2), 0 0 2px rgba(217, 119, 6, 0.15);
+  --forge-glow-cyan:   0 0 16px rgba(6, 182, 212, 0.2), 0 0 2px rgba(8, 145, 178, 0.12);
+
+  --bs-body-bg:        var(--forge-bg);
+  --bs-body-color:     var(--forge-text);
+  --bs-border-color:   var(--forge-border);
+
+  color-scheme: light;
+}
+
+html[data-bs-theme="light"] body::before {
+  background-image: radial-gradient(circle, rgba(6, 182, 212, 0.1) 1px, transparent 1px);
+}
+
+html[data-bs-theme="light"] .forge-aurora {
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(6, 182, 212, 0.12) 0deg,
+    rgba(245, 158, 11, 0.1) 120deg,
+    rgba(249, 115, 22, 0.06) 240deg,
+    rgba(6, 182, 212, 0.12) 360deg
+  );
+}
+
+html[data-bs-theme="light"] ::selection {
+  background: rgba(6, 182, 212, 0.28);
+  color: var(--forge-text);
+}
+
+html[data-bs-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--forge-border);
+}
+
+html[data-bs-theme="light"] .glass-amber {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(245, 158, 11, 0.22);
+}
+
+html[data-bs-theme="light"] .diagram-modal-backdrop {
+  background: rgba(15, 23, 42, 0.55);
+}
+
+html[data-bs-theme="light"] .btn-close-white {
+  filter: none;
+  opacity: 0.55;
+}
+
+html[data-bs-theme="light"] .btn-close-white:hover {
+  opacity: 0.85;
+}
+
+/* Theme capsule + menu — light surfaces */
+html[data-bs-theme="light"] .forge-theme-dropdown .forge-theme-trigger {
+  box-shadow: 0 3px 18px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(8, 145, 178, 0.18);
+}
+
+html[data-bs-theme="light"] .forge-theme-dropdown .forge-theme-trigger:hover {
+  box-shadow: 0 6px 26px rgba(15, 23, 42, 0.11), 0 0 0 1px rgba(8, 145, 178, 0.35),
+    var(--forge-glow-cyan);
+}
+
+html[data-bs-theme="light"] .forge-theme-dropdown .forge-theme-trigger__inner {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+html[data-bs-theme="light"] .forge-theme-dropdown .forge-theme-trigger__aurora {
+  opacity: 0.35;
+}
+
+html[data-bs-theme="light"] .forge-theme-dropdown .forge-theme-menu {
+  background: rgba(255, 255, 255, 0.94) !important;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(8, 145, 178, 0.12),
+    0 0 28px rgba(6, 182, 212, 0.06);
+}
+
+html[data-bs-theme="light"] .forge-theme-dropdown .forge-theme-option.active {
+  background: rgba(6, 182, 212, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(8, 145, 178, 0.25);
+}

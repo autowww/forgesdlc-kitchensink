@@ -108,4 +108,4 @@ Built on Bootstrap 5.3 dark mode. Primary palette:
 - Background: `#0A0E17` (deep space)
 - Amber accent: `#F59E0B`
 - Cyan accent: `#06B6D4`
-- Fonts: Inter (body), JetBrains Mono (code), Space Mono (labels)
+- Fonts: Proxima Nova Black (display), Open Sans (body / labels), Courier New (code); load Proxima via Adobe Fonts or `@font-face`

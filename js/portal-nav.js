@@ -43,7 +43,7 @@
     'border-radius:6px;transition:background .15s,color .15s;white-space:nowrap}',
     '#bp-portal-nav a:hover{color:#fff;background:rgba(255,255,255,.1)}',
     '#bp-portal-nav a.bp-active{color:#fff;background:rgba(245,158,11,.3);font-weight:600}',
-    '#bp-portal-nav .bp-brand{font-family:"Inter",system-ui,sans-serif;font-weight:800;font-size:14px;color:#fff;margin-right:12px;',
+    '#bp-portal-nav .bp-brand{font-family:"Proxima Nova Black","Proxima Nova","proxima-nova","Open Sans",system-ui,sans-serif;font-weight:900;font-size:14px;color:#fff;margin-right:12px;',
     'padding:6px 0;letter-spacing:-.03em}',
     '#bp-portal-nav .bp-links{display:flex;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}',
     '#bp-portal-nav .bp-sep{width:1px;height:20px;background:rgba(255,255,255,.15);margin:0 4px;flex-shrink:0}',

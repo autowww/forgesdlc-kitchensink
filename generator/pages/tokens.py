@@ -43,10 +43,10 @@ def render() -> str:
 
 <section id="sec-typography" class="ks-section">
   <h2 class="ks-section-title">Typography</h2>
-  <h1 class="font-display">Display heading (Inter 800)</h1>
+  <h1 class="font-display">Display heading (Proxima Nova Black / 900)</h1>
   <h2>Heading 2</h2>
   <h3>Heading 3</h3>
-  <p>Body text in Inter 400. Lorem ipsum dolor sit amet, <strong>bold text</strong>, <a href="#">cyan link</a>, and <code>inline code</code>.</p>
+  <p>Body text in Open Sans. Lorem ipsum dolor sit amet, <strong>bold text</strong>, <a href="#">cyan link</a>, and <code>inline code</code>.</p>
   <p class="forge-support">Support text — smaller, muted.</p>
   <p><span class="font-label">Label font</span> &nbsp; <span class="section-label">Section label</span></p>
   <p class="forge-gradient-text font-display" style="font-size:1.5rem">Gradient text (amber → cyan)</p>
@@ -59,7 +59,7 @@ def render() -> str:
   </p>
   <div class="forge-callout forge-callout-surface mt-3">
     <p class="callout-label">Font stacks</p>
-    <p class="mb-0"><code>--font-display</code> Inter 800 · <code>--font-body</code> Inter 400 · <code>--font-mono</code> JetBrains Mono · <code>--font-label</code> Space Mono</p>
+    <p class="mb-0"><code>--font-display</code> Proxima Nova Black 900 · body / <code>--font-label</code> Open Sans · <code>--font-mono</code> Courier New</p>
   </div>
 </section>
 

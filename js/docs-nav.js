@@ -146,7 +146,7 @@
             { href: 'methodologies-forge-ceremonies-prescriptive.html', label: 'Ceremonies' },
             { href: 'methodologies-forge-process-and-flows.html', label: 'Process & flows' },
             { href: 'methodologies-forge-forge-sdlc-pdlc-bridge.html', label: 'SDLC/PDLC bridge' },
-            { href: 'methodologies-forge-bellows.html', label: 'Bellows' },
+            { href: 'methodologies-forge-versona.html', label: 'Versonas' },
             { href: 'methodologies-forge-daily.html', label: 'Daily' },
             { href: 'methodologies-forge-planning.html', label: 'Planning' },
             { href: 'methodologies-forge-setup.html', label: 'Setup' },

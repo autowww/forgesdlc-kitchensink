@@ -135,6 +135,7 @@ def write_layout_preview_pages(out_dir: Path) -> None:
         ),
         nav_html=fs_nav,
         footer_html='<p class="forge-support small px-3">footer_html</p>',
-        theme_css_href="assets/forgesdlc-theme.css",
+        theme_css_href="assets/forge-theme.css",
+        extra_css='  <link rel="stylesheet" href="assets/forgesdlc-theme.css" />\n',
     )
     (out_dir / "preview-product.html").write_text(product_html, encoding="utf-8")
