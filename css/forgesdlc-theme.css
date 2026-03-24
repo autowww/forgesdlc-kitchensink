@@ -45,12 +45,14 @@ html.fs-embed .landing-header {
   display: none !important;
 }
 
-/* Markdown TOC in iframe preview (?fs-embed=1): stay in document flow — sticky + full width
-   pinned a tall outline over the article; cap height and scroll inside the box instead. */
+/* Markdown TOC in iframe preview (?fs-embed=1): in-flow, not full-bleed; cap height and scroll
+   inside the box; contain overscroll for nested browsing context. */
 html.fs-embed .fs-main .toc {
   margin-top: 0;
+  max-width: min(22rem, 100%);
   max-height: min(40vh, 18rem);
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 /* Topic preview trigger — distinct from pathway forge-cards (accent rail + compact) */
@@ -1070,6 +1072,57 @@ html.fs-embed .fs-main .toc {
   flex-shrink: 0;
   line-height: 1.25;
   margin-bottom: 0.25rem;
+}
+
+/*
+ * Pathway swimlanes: consecutive pathways-* card_grid blocks are wrapped in
+ * .fs-pathway-swimlanes (see Forge ks_compose). Wide viewports: columns with
+ * cards stacked per lane; below xl: lanes stack in one column.
+ */
+.fs-pathway-swimlanes {
+  display: grid;
+  gap: clamp(0.75rem, 2vw, 1.35rem);
+  align-items: start;
+  margin-bottom: 0.35rem;
+}
+
+.fs-pathway-swimlanes > .fs-landing-section {
+  min-width: 0;
+}
+
+.fs-pathway-swimlanes > .fs-landing-section > h2.landing-pathway-title {
+  margin-top: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.fs-pathway-swimlanes > .fs-landing-section:first-child > h2.landing-pathway-title {
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 1199.98px) {
+  .fs-pathway-swimlanes {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .fs-pathway-swimlanes {
+    grid-template-columns: repeat(auto-fit, minmax(12.75rem, 1fr));
+  }
+}
+
+.fs-pathway-swimlanes .landing-pathway-row--lane {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  justify-content: stretch;
+}
+
+.fs-pathway-swimlanes .landing-pathway-row--lane > [class*="col-"] {
+  width: 100%;
+  max-width: 100%;
+  flex: 0 0 auto;
 }
 
 /* --- Light mode (html[data-bs-theme] set by forge-theme.js) ---------- */
