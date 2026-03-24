@@ -45,12 +45,12 @@ html.fs-embed .landing-header {
   display: none !important;
 }
 
-/* In-page Markdown TOC: keep visible and pin under the (now removed) top bar */
+/* Markdown TOC in iframe preview (?fs-embed=1): stay in document flow — sticky + full width
+   pinned a tall outline over the article; cap height and scroll inside the box instead. */
 html.fs-embed .fs-main .toc {
-  position: sticky;
-  top: 0.75rem;
-  z-index: 6;
   margin-top: 0;
+  max-height: min(40vh, 18rem);
+  overflow-y: auto;
 }
 
 /* Topic preview trigger — distinct from pathway forge-cards (accent rail + compact) */

@@ -29,7 +29,7 @@ def render() -> str:
     topic_preview_demo = render_topic_preview_trigger(
         href="preview-product.html",
         title="Product layout (embed demo)",
-        description="Opens preview-product.html in a modal iframe with ?fs-embed=1 — top nav, mobile bar, and left sidebar hidden inside the iframe.",
+        description="Opens preview-product.html in a modal iframe with ?fs-embed=1 — top nav, mobile bar, and left sidebar hidden; Markdown .toc scrolls in-flow (not sticky) so it does not cover the article.",
         eyebrow="Product site",
     )
     return """\
@@ -110,7 +110,7 @@ def render() -> str:
     For product sites that load <code>forge-theme.js</code> + <code>forgesdlc-theme.css</code>, use
     <code>render_topic_preview_trigger()</code> (or an <code>&lt;a class="fs-topic-preview-card" href="…"&gt;</code>)
     to open a page in a same-tab modal. The iframe requests <code>?fs-embed=1</code>; <code>forge-theme.js</code> adds
-    <code>html.fs-embed</code> so global chrome is hidden while in-article content (e.g. a <code>.toc</code>) stays visible.
+    <code>html.fs-embed</code> so global chrome is hidden; in-article Markdown <code>.toc</code> remains in normal flow with a capped height so previews stay readable.
   </p>
   <p class="forge-support mb-3">This page loads product CSS only for this section — see <strong>For Agents</strong> if tokens clash on a handbook-themed page.</p>
   <div class="mb-3">
