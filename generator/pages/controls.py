@@ -1,6 +1,8 @@
 """Controls page — buttons, badges, callouts, code blocks."""
 from __future__ import annotations
 
+from components import render_topic_preview_trigger
+
 PAGE = {
     "slug": "controls",
     "title": "Controls",
@@ -13,11 +15,23 @@ PAGE = {
         ("sec-badges", "Badges"),
         ("sec-callouts", "Callouts"),
         ("sec-code", "Code blocks"),
+        ("sec-topic-preview", "Topic preview card"),
     ],
 }
 
 
+def extra_css() -> str:
+    """Product-site card + embed rules live in forgesdlc-theme (loaded after forge-theme)."""
+    return '  <link rel="stylesheet" href="assets/forgesdlc-theme.css" />\n'
+
+
 def render() -> str:
+    topic_preview_demo = render_topic_preview_trigger(
+        href="preview-product.html",
+        title="Product layout (embed demo)",
+        description="Opens preview-product.html in a modal iframe with ?fs-embed=1 — top nav, mobile bar, and left sidebar hidden inside the iframe.",
+        eyebrow="Product site",
+    )
     return """\
 <section id="sec-buttons" class="ks-section">
   <h2 class="ks-section-title">Buttons</h2>
@@ -88,4 +102,25 @@ def render() -> str:
     <p class="callout-label">Classes</p>
     <p class="mb-0"><code>.forge-code</code> · <code>.keyword</code> · <code>.highlight</code> · <code>.comment</code></p>
   </div>
-</section>"""
+</section>
+
+<section id="sec-topic-preview" class="ks-section">
+  <h2 class="ks-section-title">Topic preview card</h2>
+  <p class="forge-support mb-3">
+    For product sites that load <code>forge-theme.js</code> + <code>forgesdlc-theme.css</code>, use
+    <code>render_topic_preview_trigger()</code> (or an <code>&lt;a class="fs-topic-preview-card" href="…"&gt;</code>)
+    to open a page in a same-tab modal. The iframe requests <code>?fs-embed=1</code>; <code>forge-theme.js</code> adds
+    <code>html.fs-embed</code> so global chrome is hidden while in-article content (e.g. a <code>.toc</code>) stays visible.
+  </p>
+  <p class="forge-support mb-3">This page loads product CSS only for this section — see <strong>For Agents</strong> if tokens clash on a handbook-themed page.</p>
+  <div class="mb-3">
+    TOPIC_PREVIEW_CARD_PLACEHOLDER
+  </div>
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">Python / API</p>
+    <p class="mb-0"><code>render_topic_preview_trigger(href=…, title=…, description=…, eyebrow=…)</code> · JS: <code>openTopicPreviewModal</code> · query: <code>fs-embed=1</code></p>
+  </div>
+</section>""".replace(
+        "TOPIC_PREVIEW_CARD_PLACEHOLDER",
+        topic_preview_demo,
+    )
