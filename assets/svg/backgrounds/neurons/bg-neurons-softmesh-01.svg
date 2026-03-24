@@ -8,19 +8,19 @@
     <line x1="120" y1="300" x2="220" y2="340"/><line x1="220" y1="340" x2="320" y2="300"/>
   </g>
   <g fill="var(--forge-text-3, #708090)">
-    <circle cx="180" cy="100" r="10.5"><animate attributeName="opacity" values="0.45;0.75;0.45" dur="36s" repeatCount="indefinite"/></circle>
-    <circle cx="280" cy="160" r="8.75"><animate attributeName="opacity" values="0.4;0.7;0.4" dur="42s" repeatCount="indefinite"/></circle>
-    <circle cx="380" cy="120" r="9.8"><animate attributeName="opacity" values="0.42;0.72;0.42" dur="38s" repeatCount="indefinite"/></circle>
-    <circle cx="480" cy="200" r="8.4"><animate attributeName="opacity" values="0.4;0.68;0.4" dur="44s" repeatCount="indefinite"/></circle>
-    <circle cx="220" cy="220" r="7.7"><animate attributeName="opacity" values="0.43;0.7;0.43" dur="40s" repeatCount="indefinite"/></circle>
-    <circle cx="320" cy="280" r="10.5"><animate attributeName="opacity" values="0.45;0.78;0.45" dur="34s" repeatCount="indefinite"/></circle>
-    <circle cx="420" cy="240" r="8.05"><animate attributeName="opacity" values="0.41;0.69;0.41" dur="46s" repeatCount="indefinite"/></circle>
-    <circle cx="520" cy="300" r="9.1"><animate attributeName="opacity" values="0.44;0.74;0.44" dur="39s" repeatCount="indefinite"/></circle>
-    <circle cx="520" cy="140" r="7.35"><animate attributeName="opacity" values="0.4;0.66;0.4" dur="48s" repeatCount="indefinite"/></circle>
-    <circle cx="620" cy="200" r="9.45"><animate attributeName="opacity" values="0.46;0.76;0.46" dur="35s" repeatCount="indefinite"/></circle>
-    <circle cx="700" cy="160" r="7.7"><animate attributeName="opacity" values="0.38;0.65;0.38" dur="50s" repeatCount="indefinite"/></circle>
-    <circle cx="120" cy="300" r="7"><animate attributeName="opacity" values="0.42;0.68;0.42" dur="43s" repeatCount="indefinite"/></circle>
-    <circle cx="220" cy="340" r="8.4"><animate attributeName="opacity" values="0.4;0.7;0.4" dur="41s" repeatCount="indefinite"/></circle>
-    <circle cx="320" cy="300" r="8.05"><animate attributeName="opacity" values="0.43;0.71;0.43" dur="45s" repeatCount="indefinite"/></circle>
+    <circle cx="180" cy="100" r="10.5"><animate attributeName="opacity" values="0.45;0.75;0.45" dur="25.2s" repeatCount="indefinite"/></circle>
+    <circle cx="280" cy="160" r="8.75"><animate attributeName="opacity" values="0.4;0.7;0.4" dur="29.4s" repeatCount="indefinite"/></circle>
+    <circle cx="380" cy="120" r="9.8"><animate attributeName="opacity" values="0.42;0.72;0.42" dur="26.6s" repeatCount="indefinite"/></circle>
+    <circle cx="480" cy="200" r="8.4"><animate attributeName="opacity" values="0.4;0.68;0.4" dur="30.8s" repeatCount="indefinite"/></circle>
+    <circle cx="220" cy="220" r="7.7"><animate attributeName="opacity" values="0.43;0.7;0.43" dur="28s" repeatCount="indefinite"/></circle>
+    <circle cx="320" cy="280" r="10.5"><animate attributeName="opacity" values="0.45;0.78;0.45" dur="23.8s" repeatCount="indefinite"/></circle>
+    <circle cx="420" cy="240" r="8.05"><animate attributeName="opacity" values="0.41;0.69;0.41" dur="32.2s" repeatCount="indefinite"/></circle>
+    <circle cx="520" cy="300" r="9.1"><animate attributeName="opacity" values="0.44;0.74;0.44" dur="27.3s" repeatCount="indefinite"/></circle>
+    <circle cx="520" cy="140" r="7.35"><animate attributeName="opacity" values="0.4;0.66;0.4" dur="33.6s" repeatCount="indefinite"/></circle>
+    <circle cx="620" cy="200" r="9.45"><animate attributeName="opacity" values="0.46;0.76;0.46" dur="24.5s" repeatCount="indefinite"/></circle>
+    <circle cx="700" cy="160" r="7.7"><animate attributeName="opacity" values="0.38;0.65;0.38" dur="35s" repeatCount="indefinite"/></circle>
+    <circle cx="120" cy="300" r="7"><animate attributeName="opacity" values="0.42;0.68;0.42" dur="30.1s" repeatCount="indefinite"/></circle>
+    <circle cx="220" cy="340" r="8.4"><animate attributeName="opacity" values="0.4;0.7;0.4" dur="28.7s" repeatCount="indefinite"/></circle>
+    <circle cx="320" cy="300" r="8.05"><animate attributeName="opacity" values="0.43;0.71;0.43" dur="31.5s" repeatCount="indefinite"/></circle>
   </g>
 </svg>

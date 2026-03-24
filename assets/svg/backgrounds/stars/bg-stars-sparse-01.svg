@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <rect width="800" height="450" fill="none"/>
   <g fill="var(--forge-text-3, #708090)">
-    <circle cx="250" cy="140" r="11.2"><animate attributeName="opacity" values="0.35;0.58;0.35" dur="12s" repeatCount="indefinite"/></circle>
-    <circle cx="520" cy="200" r="9.8"><animate attributeName="opacity" values="0.4;0.62;0.4" dur="13s" repeatCount="indefinite"/></circle>
-    <circle cx="380" cy="320" r="10.5"><animate attributeName="opacity" values="0.38;0.6;0.38" dur="12s" repeatCount="indefinite"/></circle>
-    <circle cx="650" cy="120" r="8.75"><animate attributeName="opacity" values="0.42;0.65;0.42" dur="15s" repeatCount="indefinite"/></circle>
-    <circle cx="150" cy="300" r="8.4"><animate attributeName="opacity" values="0.36;0.56;0.36" dur="11s" repeatCount="indefinite"/></circle>
+    <circle cx="250" cy="140" r="11.2"><animate attributeName="opacity" values="0.35;0.58;0.35" dur="8.4s" repeatCount="indefinite"/></circle>
+    <circle cx="520" cy="200" r="9.8"><animate attributeName="opacity" values="0.4;0.62;0.4" dur="9.1s" repeatCount="indefinite"/></circle>
+    <circle cx="380" cy="320" r="10.5"><animate attributeName="opacity" values="0.38;0.6;0.38" dur="8.4s" repeatCount="indefinite"/></circle>
+    <circle cx="650" cy="120" r="8.75"><animate attributeName="opacity" values="0.42;0.65;0.42" dur="10.5s" repeatCount="indefinite"/></circle>
+    <circle cx="150" cy="300" r="8.4"><animate attributeName="opacity" values="0.36;0.56;0.36" dur="7.7s" repeatCount="indefinite"/></circle>
   </g>
   <circle cx="400" cy="225" r="48" fill="none" stroke="color-mix(in srgb, var(--forge-cyan, #06B6D4) 14%, transparent)" stroke-width="2.64" opacity="0.65"/>
 </svg>

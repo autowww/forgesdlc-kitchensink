@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <rect width="800" height="450" fill="none"/>
   <g fill="none" stroke="color-mix(in srgb, var(--forge-text-4, #4E5D6E) 50%, transparent)" stroke-width="1.32" stroke-linecap="round">
-    <ellipse cx="400" cy="230" rx="280" ry="120" opacity="0.7"><animate attributeName="rx" values="275;285;275" dur="48s" repeatCount="indefinite"/><animate attributeName="ry" values="118;122;118" dur="48s" repeatCount="indefinite"/></ellipse>
-    <ellipse cx="400" cy="230" rx="200" ry="85" stroke="color-mix(in srgb, var(--forge-cyan, #06B6D4) 18%, transparent)" opacity="0.8"><animate attributeName="rx" values="195;205;195" dur="56s" repeatCount="indefinite"/><animate attributeName="ry" values="82;88;82" dur="56s" repeatCount="indefinite"/></ellipse>
-    <ellipse cx="400" cy="230" rx="120" ry="50" stroke="color-mix(in srgb, var(--forge-text-3, #708090) 40%, transparent)" opacity="0.9"><animate attributeName="rx" values="118;125;118" dur="40s" repeatCount="indefinite"/><animate attributeName="ry" values="48;53;48" dur="40s" repeatCount="indefinite"/></ellipse>
+    <ellipse cx="400" cy="230" rx="280" ry="120" opacity="0.7"><animate attributeName="rx" values="275;285;275" dur="33.6s" repeatCount="indefinite"/><animate attributeName="ry" values="118;122;118" dur="33.6s" repeatCount="indefinite"/></ellipse>
+    <ellipse cx="400" cy="230" rx="200" ry="85" stroke="color-mix(in srgb, var(--forge-cyan, #06B6D4) 18%, transparent)" opacity="0.8"><animate attributeName="rx" values="195;205;195" dur="39.2s" repeatCount="indefinite"/><animate attributeName="ry" values="82;88;82" dur="39.2s" repeatCount="indefinite"/></ellipse>
+    <ellipse cx="400" cy="230" rx="120" ry="50" stroke="color-mix(in srgb, var(--forge-text-3, #708090) 40%, transparent)" opacity="0.9"><animate attributeName="rx" values="118;125;118" dur="28s" repeatCount="indefinite"/><animate attributeName="ry" values="48;53;48" dur="28s" repeatCount="indefinite"/></ellipse>
   </g>
 </svg>

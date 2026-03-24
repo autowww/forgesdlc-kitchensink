@@ -2,13 +2,13 @@
   <rect width="800" height="450" fill="none"/>
   <g fill="none" stroke-linecap="round" stroke-width="1.65">
     <path d="M 80 320 Q 200 200 360 260 T 620 220 T 780 280" stroke="color-mix(in srgb, var(--forge-text-3, #708090) 35%, transparent)">
-      <animateTransform attributeName="transform" type="translate" values="0,8; 0,-8; 0,8" dur="54s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/>
+      <animateTransform attributeName="transform" type="translate" values="0,8; 0,-8; 0,8" dur="37.8s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/>
     </path>
     <path d="M 60 360 Q 220 260 400 300 T 740 240" stroke="color-mix(in srgb, var(--forge-cyan, #06B6D4) 22%, transparent)" stroke-width="1.43">
-      <animateTransform attributeName="transform" type="translate" values="0,-6; 0,6; 0,-6" dur="66s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/>
+      <animateTransform attributeName="transform" type="translate" values="0,-6; 0,6; 0,-6" dur="46.2s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/>
     </path>
     <path d="M 120 180 Q 280 120 440 160 T 720 140" stroke="color-mix(in srgb, var(--forge-amber, #F59E0B) 14%, transparent)" stroke-width="1.32">
-      <animateTransform attributeName="transform" type="translate" values="0,5; 0,-5; 0,5" dur="72s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/>
+      <animateTransform attributeName="transform" type="translate" values="0,5; 0,-5; 0,5" dur="50.4s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1;0.45 0 0.55 1" keyTimes="0;0.5;1"/>
     </path>
   </g>
 </svg>

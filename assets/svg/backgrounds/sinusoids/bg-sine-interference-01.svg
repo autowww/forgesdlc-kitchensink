@@ -2,10 +2,10 @@
   <rect width="800" height="450" fill="none"/>
   <g fill="none" stroke-linecap="round" stroke-width="1.87">
     <path d="M0,200 Q133,160 266,200 T532,200 T800,200" stroke="color-mix(in srgb, var(--forge-cyan, #06B6D4) 22%, transparent)">
-      <animateTransform attributeName="transform" type="translate" values="0,0; -200,0; 0,0" dur="64s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0; -200,0; 0,0" dur="44.8s" repeatCount="indefinite" calcMode="linear"/>
     </path>
     <path d="M0,200 Q133,240 266,200 T532,200 T800,200" stroke="color-mix(in srgb, var(--forge-amber, #F59E0B) 16%, transparent)">
-      <animateTransform attributeName="transform" type="translate" values="0,0; 160,0; 0,0" dur="56s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0; 160,0; 0,0" dur="39.2s" repeatCount="indefinite" calcMode="linear"/>
     </path>
   </g>
 </svg>

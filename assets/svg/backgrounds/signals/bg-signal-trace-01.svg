@@ -4,6 +4,6 @@
     points="40,280 120,260 200,270 280,240 360,250 440,220 520,235 600,210 680,225 760,200"/>
   <polyline fill="none" stroke="var(--forge-cyan, #06B6D4)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"
     stroke-dasharray="14 240" points="40,280 120,260 200,270 280,240 360,250 440,220 520,235 600,210 680,225 760,200">
-    <animate attributeName="stroke-dashoffset" values="254;0;254" dur="36s" repeatCount="indefinite" calcMode="linear"/>
+    <animate attributeName="stroke-dashoffset" values="254;0;254" dur="25.2s" repeatCount="indefinite" calcMode="linear"/>
   </polyline>
 </svg>

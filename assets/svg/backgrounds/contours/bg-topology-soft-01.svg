@@ -2,16 +2,16 @@
   <defs>
     <linearGradient id="g_topo" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="var(--forge-cyan, #06B6D4)" stop-opacity="0.06">
-        <animate attributeName="stop-opacity" values="0.04;0.1;0.04" dur="42s" repeatCount="indefinite"/>
+        <animate attributeName="stop-opacity" values="0.04;0.1;0.04" dur="29.4s" repeatCount="indefinite"/>
       </stop>
       <stop offset="100%" stop-color="var(--forge-amber, #F59E0B)" stop-opacity="0.05">
-        <animate attributeName="stop-opacity" values="0.03;0.09;0.03" dur="48s" repeatCount="indefinite"/>
+        <animate attributeName="stop-opacity" values="0.03;0.09;0.03" dur="33.6s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
   </defs>
   <rect width="800" height="450" fill="url(#g_topo)"/>
   <g fill="none" stroke="color-mix(in srgb, var(--forge-text-3, #708090) 28%, transparent)" stroke-width="1.54">
-    <path d="M 150 120 C 250 80 350 160 450 130 S 650 90 700 150"><animateTransform attributeName="transform" type="translate" values="0,0; 15,-10; 0,0" dur="84s" repeatCount="indefinite" calcMode="linear"/></path>
-    <path d="M 100 280 C 220 240 380 320 520 280 S 720 250 780 300"><animateTransform attributeName="transform" type="translate" values="0,0; -12,8; 0,0" dur="96s" repeatCount="indefinite" calcMode="linear"/></path>
+    <path d="M 150 120 C 250 80 350 160 450 130 S 650 90 700 150"><animateTransform attributeName="transform" type="translate" values="0,0; 15,-10; 0,0" dur="58.8s" repeatCount="indefinite" calcMode="linear"/></path>
+    <path d="M 100 280 C 220 240 380 320 520 280 S 720 250 780 300"><animateTransform attributeName="transform" type="translate" values="0,0; -12,8; 0,0" dur="67.2s" repeatCount="indefinite" calcMode="linear"/></path>
   </g>
 </svg>

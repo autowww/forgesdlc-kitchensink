@@ -2,8 +2,8 @@
   <rect width="800" height="450" fill="none"/>
   <g transform="translate(400,225)">
     <g fill="none" stroke="color-mix(in srgb, var(--forge-cyan, #06B6D4) 30%, transparent)" stroke-width="1.98">
-      <circle r="55" opacity="0.6"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="120s" repeatCount="indefinite"/></circle>
+      <circle r="55" opacity="0.6"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="84s" repeatCount="indefinite"/></circle>
     </g>
-    <circle cx="55" cy="0" r="7.7" fill="var(--forge-text-3, #708090)" stroke="none" opacity="0.5"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="120s" repeatCount="indefinite"/></circle>
+    <circle cx="55" cy="0" r="7.7" fill="var(--forge-text-3, #708090)" stroke="none" opacity="0.5"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="84s" repeatCount="indefinite"/></circle>
   </g>
 </svg>
