@@ -8,42 +8,69 @@ from pages._diagram_gallery import _FAMILIES, family_section_id
 # Raw Mermaid source per gallery key. Omitted keys use the prose fallback in render().
 _MERMAID: dict[str, str] = {
     "linear": """flowchart LR
-  A[Backlog] --> B[In progress] --> C[Done]""",
+  subgraph Plan["Plan"]
+    A[Backlog] --> B[Refine]
+  end
+  subgraph Build["Build"]
+    B --> C[Implement]
+    C --> D[Test]
+  end
+  D --> E[Release]""",
     "loop": """flowchart LR
-  Plan --> Build --> Measure --> Plan""",
-    "gate": """flowchart LR
-  A[Draft] --> G1{Review?}
-  G1 -->|Pass| B[Ship]
-  G1 -->|Fail| A""",
+  subgraph Cycle["Improvement loop"]
+    Plan[Plan] --> Build[Build]
+    Build --> Measure[Measure]
+    Measure --> Learn[Learn]
+    Learn --> Plan
+  end""",
+    "gate": """flowchart TD
+  Draft[Draft artifact] --> G1{Peer review?}
+  G1 -->|Fail| Revise[Revise]
+  Revise --> Draft
+  G1 -->|Pass| G2{Policy check?}
+  G2 -->|Fail| Revise
+  G2 -->|Pass| Ship[Ship]""",
     "swimlane": """flowchart TB
   subgraph Design["Design"]
     D1[Spec] --> D2[Mockups]
+    D2 --> D3[Review]
   end
   subgraph Eng["Engineering"]
     E1[Build] --> E2[Test]
+    E2 --> E3[Deploy prep]
   end
-  D2 --> E1""",
+  D3 --> E1""",
     "decision": """flowchart TD
-  Start --> Q{On track?}
-  Q -->|Yes| Ship[Release]
-  Q -->|No| Rework[Iterate]
-  Rework --> Q""",
+  Start([Start]) --> Q1{On track?}
+  Q1 -->|Yes| Q2{Scope stable?}
+  Q2 -->|Yes| Ship[Release]
+  Q2 -->|No| Negotiate[Re-scope]
+  Negotiate --> Q1
+  Q1 -->|No| Rework[Iterate]
+  Rework --> Q1""",
     "funnel": """flowchart TD
   L[Leads] --> Q[Qualified]
   Q --> O[Opportunities]
-  O --> W[Wins]""",
+  O --> P[Proposals]
+  P --> W[Wins]
+  Q -.->|Nurture| L""",
     "tree": """flowchart TD
-  Root --> A[Branch A]
+  Root[Root capability] --> A[Branch A]
   Root --> B[Branch B]
+  Root --> C[Branch C]
   A --> A1[Leaf]
   A --> A2[Leaf]
-  B --> B1[Leaf]""",
+  B --> B1[Leaf]
+  C --> C1[Leaf]""",
     "orgchart": """flowchart TD
   CEO([CEO])
-  CEO --> VPE[VP Engineering]
-  CEO --> VPP[VP Product]
-  VPE --> ENG[Staff Engineer]
-  VPP --> DES[Senior Designer]""",
+  CEO --> CTO[Chief Technology Officer]
+  CEO --> CFO[Chief Financial Officer]
+  CTO --> VPE[VP Engineering]
+  CTO --> VPP[VP Product]
+  VPE --> TL1[Platform lead]
+  VPE --> TL2[App lead]
+  CFO --> CTL[Controller]""",
     "board": """flowchart LR
   subgraph Todo["Todo"]
     T[Ticket]
@@ -56,45 +83,61 @@ _MERMAID: dict[str, str] = {
   end
   T --> D --> X""",
     "checklist": """flowchart TD
-  C1[Define scope] --> C2[Build]
-  C2 --> C3[Verify]
-  C3 --> C4[Ship]""",
+  C1[Define scope] --> C2[Design]
+  C2 --> C3[Build]
+  C3 --> C4[Verify]
+  C4 --> C5[Ship]
+  C4 -->|Fail| C3""",
     "network": """flowchart LR
-  S1[Service A] --- S2[Service B]
-  S2 --- S3[Service C]
-  S1 --- S3""",
+  GW[Gateway] --> S1[Service A]
+  GW --> S2[Service B]
+  S1 --- S3[Service C]
+  S2 --- S3
+  S1 --- DB[(Data)]""",
     "gantt": """gantt
   title Roadmap slice
   dateFormat YYYY-MM-DD
-  section Track
-  Alpha :a1, 2024-01-01, 14d
-  Beta :a2, after a1, 10d""",
+  axisFormat %b %d
+  section Discovery
+  Research :done, a0, 2024-01-01, 7d
+  section Build
+  Alpha :a1, after a0, 14d
+  Beta :a2, after a1, 10d
+  section Release
+  GA :crit, a3, after a2, 5d""",
     "timeline": """timeline
   title Releases
+  section 2023
+    Alpha : milestone
+    Beta launch : milestone
   section 2024
-    Q1 GA : milestone
-    Q2 Patch : milestone""",
+    GA : milestone
+    Patch train : milestone""",
     "roadmap": """timeline
-  title Themes
+  title Product themes
   section Now
     Hardening : milestone
+    Reliability : milestone
   section Next
-    Scale-out : milestone""",
+    Scale-out : milestone
+  section Later
+    New markets : milestone""",
     "bar": """xychart-beta
-  title "Throughput"
-  x-axis [Jan, Feb, Mar]
+  title "Quarterly throughput"
+  x-axis [Q1, Q2, Q3, Q4]
   y-axis "Items" 0 --> 120
-  bar [40, 70, 95]""",
+  bar [40, 55, 70, 90]""",
     "line": """xychart-beta
   title "Latency trend"
   x-axis [w1, w2, w3, w4]
   y-axis "ms" 0 --> 200
   line [120, 100, 85, 72]""",
     "pie": """pie showData
-  title Mix
-  "Done" : 55
-  "Active" : 30
-  "Queued" : 15""",
+  title Work mix
+  "Build" : 45
+  "Review" : 25
+  "Plan" : 20
+  "Ops" : 10""",
     "stacked": """xychart-beta
   title "Two series (grouped, not stacked)"
   x-axis [A, B, C]
@@ -110,19 +153,25 @@ _MERMAID: dict[str, str] = {
   title Experiment results
   x-axis Low cost --> High cost
   y-axis Low yield --> High yield
+  quadrant-1 Scale
+  quadrant-2 Investigate
+  quadrant-3 Low priority
+  quadrant-4 Quick experiments
   Run A: [0.25, 0.8]
   Run B: [0.6, 0.35]
-  Run C: [0.45, 0.55]""",
+  Run C: [0.45, 0.55]
+  Run D: [0.15, 0.25]""",
     "quadrant": """quadrantChart
-  title Portfolio
+  title Prioritization
   x-axis Low effort --> High effort
   y-axis Low impact --> High impact
   quadrant-1 Quick wins
-  quadrant-2 Bets
+  quadrant-2 Major bets
   quadrant-3 Fill-ins
-  quadrant-4 Sinks
-  Item A: [0.2, 0.75]
-  Item B: [0.7, 0.4]""",
+  quadrant-4 Time sinks
+  Feature A: [0.2, 0.75]
+  Feature B: [0.65, 0.35]
+  Feature C: [0.4, 0.5]""",
 }
 
 _NO_MERMAID_KEYS = frozenset({"venn", "gauge", "kpi", "heatmap"})
