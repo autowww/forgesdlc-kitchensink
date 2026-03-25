@@ -136,7 +136,7 @@ MERMAID_SCRIPT = """\
             mainBkg: '#1a2235',
             nodeBorder: 'rgba(6,182,212,0.35)',
             clusterBkg: 'rgba(6,182,212,0.06)',
-            clusterBorder: 'rgba(6,182,212,0.2)',
+            clusterBorder: 'rgba(6,182,212,0.35)',
             titleColor: '#F1F5F9',
             edgeLabelBackground: '#111827',
             nodeTextColor: '#F1F5F9',
@@ -221,7 +221,7 @@ MERMAID_SCRIPT = """\
             mainBkg: '#e2e8f0',
             nodeBorder: 'rgba(8,145,178,0.45)',
             clusterBkg: 'rgba(6,182,212,0.08)',
-            clusterBorder: 'rgba(8,145,178,0.25)',
+            clusterBorder: 'rgba(8,145,178,0.45)',
             titleColor: '#0f172a',
             edgeLabelBackground: '#f1f5f9',
             nodeTextColor: '#0f172a',
@@ -309,75 +309,12 @@ MERMAID_SCRIPT = """\
     }
 
     /**
-     * Mermaid centers labels with translate(-w/2,-h/2) on g.label. If we grow foreignObject
-     * without shifting that transform, text stays anchored to the old corner and looks
-     * horizontally misaligned inside the rect.
+     * Post-layout resizing of foreignObject / label rects is intentionally not done: it breaks
+     * dagre node positions, subgraph bounds, edge anchors, and the SVG viewBox (overlap,
+     * clipped terminals, uneven subgraph chrome). Sizing must come from mermaid.initialize +
+     * themeVariables font parity with CSS.
      */
-    function forgeMermaidShiftLabelTransform(labelG, dw, dh) {
-      if (!labelG || (dw <= 0 && dh <= 0)) return;
-      var tr = labelG.getAttribute('transform');
-      if (!tr) return;
-      var replaced = tr.replace(
-        /translate\\(\\s*([+-]?[\\d.]+)\\s*,\\s*([+-]?[\\d.]+)\\s*\\)/,
-        function (match, x, y) {
-          var nx = parseFloat(x) - dw / 2;
-          var ny = parseFloat(y) - dh / 2;
-          return 'translate(' + nx + ',' + ny + ')';
-        }
-      );
-      if (replaced !== tr) {
-        labelG.setAttribute('transform', replaced);
-      }
-    }
-
-    /**
-     * Mermaid measures label boxes at init; Forge CSS (fonts, case, letter-spacing) can make
-     * the rendered HTML wider/taller than foreignObject + label rects. Re-measure after paint
-     * and grow foreignObject + node label rects (flowchart nodes only — not cluster frame rects).
-     */
-    function forgeMermaidExpandForeignLabels() {
-      document
-        .querySelectorAll('.forge-diagram svg foreignObject, #diagramModalCanvas svg foreignObject')
-        .forEach(function (fo) {
-          var inner = fo.querySelector('div');
-          if (!inner) return;
-          var sw = 0;
-          var sh = 0;
-          try {
-            sw = inner.scrollWidth;
-            sh = inner.scrollHeight;
-          } catch (e) {
-            return;
-          }
-          if (sw < 2 || sh < 2) return;
-          var padX = 24;
-          var padY = 16;
-          var needW = Math.ceil(sw + padX);
-          var needH = Math.ceil(sh + padY);
-          var cw = parseFloat(fo.getAttribute('width')) || 0;
-          var ch = parseFloat(fo.getAttribute('height')) || 0;
-          if (needW <= cw && needH <= ch) return;
-          var nw = Math.max(cw, needW);
-          var nh = Math.max(ch, needH);
-          var dw = nw - cw;
-          var dh = nh - ch;
-          fo.setAttribute('width', String(nw));
-          fo.setAttribute('height', String(nh));
-          var labelG = fo.closest('g.label') || fo.closest('g.cluster-label');
-          forgeMermaidShiftLabelTransform(labelG, dw, dh);
-          var nodeG = fo.closest('g.node');
-          if (!nodeG) return;
-          var lr =
-            nodeG.querySelector('rect.label-container') ||
-            nodeG.querySelector('rect.basic.label-container') ||
-            nodeG.querySelector('rect.basic');
-          if (!lr) return;
-          var rw = parseFloat(lr.getAttribute('width')) || 0;
-          var rh = parseFloat(lr.getAttribute('height')) || 0;
-          if (nw > rw) lr.setAttribute('width', String(nw));
-          if (nh > rh) lr.setAttribute('height', String(nh));
-        });
-    }
+    function forgeMermaidExpandForeignLabels() {}
 
     async function forgeMermaidRefresh() {
       var nodes = document.querySelectorAll('.mermaid');
@@ -395,7 +332,7 @@ MERMAID_SCRIPT = """\
           diagramPadding: 28,
           nodeSpacing: 88,
           rankSpacing: 96,
-          padding: 40,
+          padding: 52,
           wrappingWidth: 300,
           titleTopMargin: 42,
           subGraphTitleMargin: { top: 14, bottom: 20 },
@@ -411,11 +348,6 @@ MERMAID_SCRIPT = """\
         },
       });
       await mermaid.run({ querySelector: '.mermaid' });
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          forgeMermaidExpandForeignLabels();
-        });
-      });
     }
 
     window.forgeMermaidRefresh = forgeMermaidRefresh;

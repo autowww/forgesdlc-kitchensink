@@ -220,13 +220,6 @@
     }
     document.getElementById('diagramModal').classList.add('active');
     document.body.style.overflow = 'hidden';
-    if (typeof window.forgeMermaidExpandForeignLabels === 'function') {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          window.forgeMermaidExpandForeignLabels();
-        });
-      });
-    }
     wireDiagramHovers();
   };
 

@@ -1299,6 +1299,8 @@ code {
   border: 1px solid var(--forge-border);
   border-radius: 12px;
   padding: clamp(1.5rem, 3.2vw, 2.5rem);
+  overflow-x: auto;
+  overflow-y: visible;
 }
 .forge-diagram .mermaid svg {
   background: transparent !important;
@@ -1307,6 +1309,7 @@ code {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  overflow: visible;
 }
 .forge-diagram .mermaid {
   font-size: 14px;
@@ -1360,8 +1363,8 @@ code {
 }
 .forge-diagram .cluster rect {
   fill: rgba(6,182,212,0.04) !important;
-  stroke: rgba(6,182,212,0.15) !important;
-  stroke-width: 1px !important;
+  stroke: rgba(6,182,212,0.35) !important;
+  stroke-width: 1.5px !important;
   rx: 12 !important;
   ry: 12 !important;
 }
@@ -1755,6 +1758,7 @@ code {
   height: auto;
   max-height: none;
   pointer-events: auto;
+  overflow: visible;
 }
 .diagram-modal-canvas .svg-node-zone text,
 .diagram-modal-canvas .svg-node-zone tspan {
@@ -1789,6 +1793,10 @@ code {
 }
 .diagram-modal-canvas svg foreignObject {
   overflow: visible;
+}
+.diagram-modal-canvas .cluster rect {
+  stroke: rgba(6,182,212,0.35) !important;
+  stroke-width: 1.5px !important;
 }
 .diagram-modal-detail {
   border-left: 1px solid var(--forge-border);
