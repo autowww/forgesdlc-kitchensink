@@ -185,6 +185,7 @@ def render_mermaid_parallels_html() -> str:
         '  <p class="forge-support mb-3">Each block is <strong>diagram-as-code</strong> with the same '
         "<code>render_mermaid_block</code> wrapper as handbook and product pages. Use it when you want "
         "editable source; use the <strong>SVG cards above</strong> when you need exact Forge styling. "
+        "<strong>Click a rendered diagram</strong> to open it in the lightbox (same as expandable Mermaid on handbook pages). "
         'Some archetypes have no close Mermaid grammar — keep the static template or use BI/design tools.</p>',
         '  <p class="forge-support mb-4">For the full Mermaid 10 catalog (C4, ER, Sankey, Git graph, …), '
         'see <a href="mermaid-examples.html">Mermaid diagram examples</a>.</p>',
@@ -210,7 +211,7 @@ def render_mermaid_parallels_html() -> str:
                     "use the SVG template card or an external graphic.</p>\n"
                 )
             elif key in _MERMAID:
-                cap += f"    {render_mermaid_block(_MERMAID[key])}\n"
+                cap += f"    {render_mermaid_block(_MERMAID[key], expandable=True)}\n"
             else:
                 cap += (
                     "    <p class=\"forge-support small mb-0\">No sample wired for this key yet.</p>\n"
