@@ -141,7 +141,7 @@ MERMAID_SCRIPT = """\
             edgeLabelBackground: '#111827',
             nodeTextColor: '#F1F5F9',
             fontFamily: 'Inter, system-ui, sans-serif',
-            fontSize: '13px',
+            fontSize: '14px',
             sectionBkgColor: 'rgba(6,182,212,0.06)',
             altSectionBkgColor: 'rgba(15,23,42,0.45)',
             gridColor: 'rgba(148,163,184,0.22)',
@@ -226,7 +226,7 @@ MERMAID_SCRIPT = """\
             edgeLabelBackground: '#f1f5f9',
             nodeTextColor: '#0f172a',
             fontFamily: 'Inter, system-ui, sans-serif',
-            fontSize: '13px',
+            fontSize: '14px',
             sectionBkgColor: 'rgba(6,182,212,0.08)',
             altSectionBkgColor: '#f8fafc',
             gridColor: 'rgba(71,85,105,0.22)',
@@ -350,8 +350,8 @@ MERMAID_SCRIPT = """\
             return;
           }
           if (sw < 2 || sh < 2) return;
-          var padX = 14;
-          var padY = 10;
+          var padX = 24;
+          var padY = 16;
           var needW = Math.ceil(sw + padX);
           var needH = Math.ceil(sh + padY);
           var cw = parseFloat(fo.getAttribute('width')) || 0;
@@ -392,11 +392,22 @@ MERMAID_SCRIPT = """\
         flowchart: {
           htmlLabels: true,
           useMaxWidth: true,
-          diagramPadding: 12,
-          nodeSpacing: 56,
-          rankSpacing: 56,
-          padding: 20,
-          wrappingWidth: 240,
+          diagramPadding: 28,
+          nodeSpacing: 88,
+          rankSpacing: 96,
+          padding: 40,
+          wrappingWidth: 300,
+          titleTopMargin: 42,
+          subGraphTitleMargin: { top: 14, bottom: 20 },
+        },
+        sequence: {
+          diagramMarginX: 28,
+          diagramMarginY: 16,
+          boxMargin: 14,
+          boxTextMargin: 8,
+          noteMargin: 14,
+          messageMargin: 44,
+          actorMargin: 72,
         },
       });
       await mermaid.run({ querySelector: '.mermaid' });
