@@ -40,6 +40,9 @@ try:
 except ImportError:
     from components import e
 
+# ``diagram_modal_fragment`` lives next to ``layouts.py``; importers add ``…/components`` to ``sys.path``.
+from diagram_modal_fragment import render_diagram_expand_modal_html
+
 # ---------------------------------------------------------------------------
 # Shared fragments
 # ---------------------------------------------------------------------------
@@ -425,14 +428,22 @@ def handbook_page(
     has_mermaid: bool,
     theme_css_href: str = "templates/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
+    include_diagram_expand_modal: bool = False,
 ) -> str:
     """Complete HTML page for an auto-generated handbook entry.
 
     Every parameter is a pre-rendered HTML fragment; this function only
     assembles the skeleton.
+
+    When *include_diagram_expand_modal* is True, embed the diagram lightbox shell
+    so ``openDiagramModal`` in ``forge-theme.js`` can expand rendered Mermaid SVGs
+    (e.g. fences converted with the expandable variant in ``convert_mermaid_blocks``).
     """
     col_class = "col-lg-8 col-xl-9 order-2 order-lg-1" if toc_sidebar_html else "col-12"
     mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
+    diagram_modal = (
+        render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
+    )
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -480,6 +491,7 @@ def handbook_page(
   {CDN_BOOTSTRAP_JS}
 {_resolve_theme_js(theme_js_href)}
 {mermaid_script}
+{diagram_modal}
 </body>
 </html>
 """
@@ -505,6 +517,7 @@ def chapter_page(
     theme_css_href: str = "assets/docs-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
     nav_btn_class: str = "btn-forge",
+    include_diagram_expand_modal: bool = False,
 ) -> str:
     """Complete HTML page for a hand-crafted methodology chapter.
 
@@ -514,6 +527,9 @@ def chapter_page(
     mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
     extra = "\n".join(
         f'  <script src="{e(src)}"></script>' for src in (extra_scripts or [])
+    )
+    diagram_modal = (
+        render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
     )
 
     return f"""<!DOCTYPE html>
@@ -560,6 +576,7 @@ def chapter_page(
 {_resolve_theme_js(theme_js_href)}
 {extra}
 {mermaid_script}
+{diagram_modal}
 </body>
 </html>
 """
@@ -587,6 +604,7 @@ def product_page(
     primary_nav_html: str = "",
     head_extra: str = "",
     title_override: str | None = None,
+    include_diagram_expand_modal: bool = False,
 ) -> str:
     """Complete HTML page for a product / marketing site.
 
@@ -599,6 +617,9 @@ def product_page(
     lens_attr = f' data-lens="{e(lens)}"' if lens else ""
     offcanvas = offcanvas_nav_html or nav_html
     mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
+    diagram_modal = (
+        render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
+    )
     doc_title = (
         e(title_override)
         if title_override
@@ -660,6 +681,7 @@ def product_page(
   {CDN_BOOTSTRAP_JS}
 {_resolve_theme_js(theme_js_href)}
 {mermaid_script}
+{diagram_modal}
 </body>
 </html>
 """

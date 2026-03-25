@@ -18,6 +18,7 @@ if the catalog grows past ~30 entries, consider a single JSON/YAML manifest to g
 from __future__ import annotations
 
 from components import e, e_content
+from diagram_modal_fragment import render_diagram_expand_modal_html
 
 
 def _fam_section_id(name: str) -> str:
@@ -261,20 +262,8 @@ EXTRA_CSS = """\
 
 
 def render_diagram_modal_html() -> str:
-    """Lightbox shell used by showcase.js openDiagramWithDetail."""
-    return """\
-<div id="diagramModal" class="diagram-modal-backdrop">
-  <div class="diagram-modal">
-    <div class="diagram-modal-header">
-      <h3 id="diagramModalTitle" class="forge-gradient-text">Diagram</h3>
-      <button class="diagram-modal-close" onclick="closeDiagramModal()" aria-label="Close">&times;</button>
-    </div>
-    <div class="diagram-modal-body">
-      <div id="diagramModalCanvas" class="diagram-modal-canvas"></div>
-      <div id="diagramModalDetail" class="diagram-modal-detail"></div>
-    </div>
-  </div>
-</div>"""
+    """Lightbox shell used by showcase.js ``openDiagramWithDetail`` and forge-theme ``openDiagramModal``."""
+    return render_diagram_expand_modal_html()
 
 
 def render_family_sections_html(*, variant: str = "showcase") -> str:

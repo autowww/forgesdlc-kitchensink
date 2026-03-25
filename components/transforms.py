@@ -72,27 +72,50 @@ def enhance_code_blocks(html_text: str) -> str:
 
 
 def convert_mermaid_blocks(html_text: str) -> tuple[str, bool]:
-    """Convert ``<code class="language-mermaid">`` blocks to Forge diagram divs.
+    """Convert fenced Mermaid blocks to Forge diagram divs.
+
+    Supports:
+
+    - ``language-mermaid`` — inline diagram (optionally add modal + ``openDiagramModal`` via layout).
+    - ``language-mermaid-expand`` — same as above but adds ``forge-diagram-trigger`` and
+      ``onclick="openDiagramModal(this)"`` so ``forge-theme.js`` can open a lightbox after Mermaid
+      renders (requires ``include_diagram_expand_modal`` on ``handbook_page`` / ``product_page``).
+
+    Fence language in Markdown: `` ```mermaid `` or `` ```mermaid-expand ``.
 
     Returns ``(transformed_html, has_mermaid)``.
     """
-    pattern = r'<pre><code class="language-mermaid">(.*?)</code></pre>'
-    has_mermaid = bool(re.search(pattern, html_text, re.DOTALL))
+    pattern_expand = r'<pre><code class="language-mermaid-expand">(.*?)</code></pre>'
+    pattern_plain = r'<pre><code class="language-mermaid">(.*?)</code></pre>'
+    has_mermaid = bool(
+        re.search(pattern_expand, html_text, re.DOTALL)
+        or re.search(pattern_plain, html_text, re.DOTALL)
+    )
 
-    def _replace(m: re.Match) -> str:
+    def _escape_diagram(m: re.Match) -> str:
         diagram = html_mod.unescape(m.group(1)).strip()
-        esc = (
+        return (
             diagram.replace("&", "&amp;")
             .replace("<", "&lt;")
             .replace(">", "&gt;")
             .replace('"', "&quot;")
         )
+
+    def _wrap(esc: str, expandable: bool) -> str:
+        trigger = ' forge-diagram-trigger" onclick="openDiagramModal(this)"' if expandable else ""
         return (
-            '<div class="forge-diagram breathe-static">'
+            f'<div class="forge-diagram breathe-static{trigger}">'
             f'<div class="mermaid small">{esc}</div></div>'
         )
 
-    result = re.sub(pattern, _replace, html_text, flags=re.DOTALL)
+    def _replace_expand(m: re.Match) -> str:
+        return _wrap(_escape_diagram(m), True)
+
+    def _replace_plain(m: re.Match) -> str:
+        return _wrap(_escape_diagram(m), False)
+
+    result = re.sub(pattern_expand, _replace_expand, html_text, flags=re.DOTALL)
+    result = re.sub(pattern_plain, _replace_plain, result, flags=re.DOTALL)
     return result, has_mermaid
 
 

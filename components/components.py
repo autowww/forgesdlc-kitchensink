@@ -139,7 +139,7 @@ def render_mermaid_block(diagram: str, *, expandable: bool = False) -> str:
         .replace(">", "&gt;")
         .replace('"', "&quot;")
     )
-    trigger = ' forge-diagram-trigger" onclick="openDiagramModal(this)' if expandable else ''
+    trigger = ' forge-diagram-trigger" onclick="openDiagramModal(this)"' if expandable else ""
     return (
         f'<div class="forge-diagram breathe-static{trigger}">'
         f'<div class="mermaid small">{esc}</div></div>'

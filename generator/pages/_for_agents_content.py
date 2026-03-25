@@ -556,7 +556,7 @@ def render_body() -> str:
     ("enhance_tables", "Wraps bare <code>&lt;table&gt;</code> with <code>.forge-table-wrap</code> and adds <code>.table .table-sm .table-striped</code>."),
     ("enhance_blockquotes", "Maps <code>**Warning**</code> / <code>**Note**</code> / <code>**Template**</code> lead-ins to colored callouts; generic blockquotes become <code>.forge-callout-surface</code>."),
     ("enhance_code_blocks", "Adds <code>.forge-code</code> to <code>&lt;pre&gt;</code>."),
-    ("convert_mermaid_blocks", "Finds <code>&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;</code> and replaces with <code>.forge-diagram</code> + <code>.mermaid</code> div."),
+    ("convert_mermaid_blocks", "Finds <code>language-mermaid</code> and <code>language-mermaid-expand</code> fenced blocks (Markdown <code>```mermaid</code> / <code>```mermaid-expand</code>) and replaces with <code>.forge-diagram</code> + <code>.mermaid</code>. Expand variant adds <code>forge-diagram-trigger</code> + <code>openDiagramModal</code>; <code>handbook_page</code> / <code>product_page</code> set <code>include_diagram_expand_modal</code> when <code>has_mermaid</code> so the lightbox shell exists."),
     ("extract_toc", "Parses <code>&lt;h2 id&gt;</code> / <code>&lt;h3 id&gt;</code> for right-rail ToC tuples."),
   ])}
   <p class="section-label text-cyan mb-2">Complete API</p>
