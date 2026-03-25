@@ -1383,7 +1383,8 @@ code {
   min-height: 100% !important;
   box-sizing: border-box !important;
   text-align: center !important;
-  padding: 2px 6px !important;
+  /* Keep minimal — Mermaid measures label box without this padding; extra inset overflows past rect. */
+  padding: 1px 2px !important;
   overflow-wrap: break-word !important;
   word-break: break-word !important;
   hyphens: auto;

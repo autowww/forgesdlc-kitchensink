@@ -347,7 +347,9 @@ MERMAID_SCRIPT = """\
            flowchart.defaultRenderer if a page is flowchart-only. */
         flowchart: {
           htmlLabels: true,
-          useMaxWidth: true,
+          /* false: avoid scaling the SVG — html in foreignObject + transform often misaligns
+             rects, edges, and label chrome vs text (arrows through labels). Wrapper scrolls. */
+          useMaxWidth: false,
           defaultRenderer: 'dagre-wrapper',
           curve: 'basis',
           diagramPadding: 32,
