@@ -1301,6 +1301,16 @@ code {
   padding: 1.5rem;
 }
 .forge-diagram .mermaid svg { background: transparent !important; }
+.forge-diagram .mermaid {
+  font-size: 13px;
+  line-height: 1.35;
+}
+.forge-diagram .mermaid.small {
+  font-size: 13px;
+}
+.forge-diagram svg foreignObject {
+  overflow: visible;
+}
 .forge-diagram .node rect,
 .forge-diagram .node polygon {
   fill: var(--forge-surface-2) !important;
@@ -1324,7 +1334,10 @@ code {
 .forge-diagram .nodeLabel {
   color: var(--forge-text) !important;
   fill: var(--forge-text) !important;
-  font-family: var(--bs-body-font-family) !important;
+  font-family: Inter, system-ui, sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  font-weight: 500 !important;
 }
 .forge-diagram .cluster rect {
   fill: rgba(6,182,212,0.04) !important;
@@ -1337,11 +1350,12 @@ code {
 .forge-diagram .cluster .nodeLabel {
   color: var(--forge-text-3) !important;
   fill: var(--forge-text-3) !important;
-  font-family: var(--font-label) !important;
-  font-weight: 700 !important;
-  font-size: 0.7rem !important;
-  letter-spacing: 0.05em !important;
-  text-transform: uppercase !important;
+  font-family: Inter, system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
 }
 .forge-diagram .edgePath path.path {
   stroke: rgba(6,182,212,0.35) !important;
@@ -1360,10 +1374,11 @@ code {
 .forge-diagram .edgeLabel .edgeLabel {
   color: var(--forge-amber) !important;
   fill: var(--forge-amber) !important;
-  font-family: var(--font-label) !important;
-  font-weight: 700 !important;
-  font-size: 0.65rem !important;
-  letter-spacing: 0.03em !important;
+  font-family: Inter, system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  line-height: 1.3 !important;
+  letter-spacing: normal !important;
 }
 
 /* Gantt, pie, quadrant, timeline — match .forge-diagram shell + cyan/amber accents */
@@ -1726,22 +1741,32 @@ code {
 .diagram-modal-canvas .svg-node-zone tspan {
   pointer-events: auto;
 }
-/* Scale up text inside expanded diagram */
 .diagram-modal-canvas .node .label,
 .diagram-modal-canvas .nodeLabel {
-  font-size: 1rem !important;
-  font-weight: 600 !important;
+  font-family: Inter, system-ui, sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  font-weight: 500 !important;
 }
 .diagram-modal-canvas .cluster span,
 .diagram-modal-canvas .cluster .nodeLabel {
-  font-size: 0.85rem !important;
+  font-family: Inter, system-ui, sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
   font-weight: 600 !important;
-  letter-spacing: 0.08em !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
 }
 .diagram-modal-canvas .edgeLabel span,
 .diagram-modal-canvas .edgeLabel .edgeLabel {
-  font-size: 0.8rem !important;
-  font-weight: 500 !important;
+  font-family: Inter, system-ui, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  letter-spacing: normal !important;
+}
+.diagram-modal-canvas svg foreignObject {
+  overflow: visible;
 }
 .diagram-modal-detail {
   border-left: 1px solid var(--forge-border);

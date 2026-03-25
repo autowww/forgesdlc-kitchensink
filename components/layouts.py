@@ -308,6 +308,51 @@ MERMAID_SCRIPT = """\
       });
     }
 
+    /**
+     * Mermaid measures label boxes at init; Forge CSS (fonts, case, letter-spacing) can make
+     * the rendered HTML wider/taller than foreignObject + label rects. Re-measure after paint
+     * and grow foreignObject + node label rects (flowchart nodes only — not cluster frame rects).
+     */
+    function forgeMermaidExpandForeignLabels() {
+      document
+        .querySelectorAll('.forge-diagram svg foreignObject, #diagramModalCanvas svg foreignObject')
+        .forEach(function (fo) {
+          var inner = fo.querySelector('div');
+          if (!inner) return;
+          var sw = 0;
+          var sh = 0;
+          try {
+            sw = inner.scrollWidth;
+            sh = inner.scrollHeight;
+          } catch (e) {
+            return;
+          }
+          if (sw < 2 || sh < 2) return;
+          var padX = 14;
+          var padY = 10;
+          var needW = Math.ceil(sw + padX);
+          var needH = Math.ceil(sh + padY);
+          var cw = parseFloat(fo.getAttribute('width')) || 0;
+          var ch = parseFloat(fo.getAttribute('height')) || 0;
+          if (needW <= cw && needH <= ch) return;
+          var nw = Math.max(cw, needW);
+          var nh = Math.max(ch, needH);
+          fo.setAttribute('width', String(nw));
+          fo.setAttribute('height', String(nh));
+          var nodeG = fo.closest('g.node');
+          if (!nodeG) return;
+          var lr =
+            nodeG.querySelector('rect.label-container') ||
+            nodeG.querySelector('rect.basic.label-container') ||
+            nodeG.querySelector('rect.basic');
+          if (!lr) return;
+          var rw = parseFloat(lr.getAttribute('width')) || 0;
+          var rh = parseFloat(lr.getAttribute('height')) || 0;
+          if (nw > rw) lr.setAttribute('width', String(nw));
+          if (nh > rh) lr.setAttribute('height', String(nh));
+        });
+    }
+
     async function forgeMermaidRefresh() {
       var nodes = document.querySelectorAll('.mermaid');
       if (!nodes.length) return;
@@ -317,12 +362,27 @@ MERMAID_SCRIPT = """\
       mermaid.initialize({
         startOnLoad: false,
         theme: 'base',
-        themeVariables: forgeMermaidThemeVariables(dark)
+        themeVariables: forgeMermaidThemeVariables(dark),
+        flowchart: {
+          htmlLabels: true,
+          useMaxWidth: true,
+          diagramPadding: 12,
+          nodeSpacing: 56,
+          rankSpacing: 56,
+          padding: 20,
+          wrappingWidth: 240,
+        },
       });
       await mermaid.run({ querySelector: '.mermaid' });
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          forgeMermaidExpandForeignLabels();
+        });
+      });
     }
 
     window.forgeMermaidRefresh = forgeMermaidRefresh;
+    window.forgeMermaidExpandForeignLabels = forgeMermaidExpandForeignLabels;
     forgeMermaidRefresh().catch(function () {});
   </script>"""
 
