@@ -309,6 +309,28 @@ MERMAID_SCRIPT = """\
     }
 
     /**
+     * Mermaid centers labels with translate(-w/2,-h/2) on g.label. If we grow foreignObject
+     * without shifting that transform, text stays anchored to the old corner and looks
+     * horizontally misaligned inside the rect.
+     */
+    function forgeMermaidShiftLabelTransform(labelG, dw, dh) {
+      if (!labelG || (dw <= 0 && dh <= 0)) return;
+      var tr = labelG.getAttribute('transform');
+      if (!tr) return;
+      var replaced = tr.replace(
+        /translate\\(\\s*([+-]?[\\d.]+)\\s*,\\s*([+-]?[\\d.]+)\\s*\\)/,
+        function (match, x, y) {
+          var nx = parseFloat(x) - dw / 2;
+          var ny = parseFloat(y) - dh / 2;
+          return 'translate(' + nx + ',' + ny + ')';
+        }
+      );
+      if (replaced !== tr) {
+        labelG.setAttribute('transform', replaced);
+      }
+    }
+
+    /**
      * Mermaid measures label boxes at init; Forge CSS (fonts, case, letter-spacing) can make
      * the rendered HTML wider/taller than foreignObject + label rects. Re-measure after paint
      * and grow foreignObject + node label rects (flowchart nodes only — not cluster frame rects).
@@ -337,8 +359,12 @@ MERMAID_SCRIPT = """\
           if (needW <= cw && needH <= ch) return;
           var nw = Math.max(cw, needW);
           var nh = Math.max(ch, needH);
+          var dw = nw - cw;
+          var dh = nh - ch;
           fo.setAttribute('width', String(nw));
           fo.setAttribute('height', String(nh));
+          var labelG = fo.closest('g.label') || fo.closest('g.cluster-label');
+          forgeMermaidShiftLabelTransform(labelG, dw, dh);
           var nodeG = fo.closest('g.node');
           if (!nodeG) return;
           var lr =

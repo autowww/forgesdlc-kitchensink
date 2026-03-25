@@ -1358,6 +1358,17 @@ code {
 .forge-diagram svg foreignObject {
   overflow: visible;
 }
+/* Center label HTML inside foreignObject (pairs with post-render size fixes in layouts MERMAID_SCRIPT). */
+.forge-diagram svg foreignObject > div,
+#diagramModalCanvas svg foreignObject > div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
 .forge-diagram .node rect,
 .forge-diagram .node polygon {
   fill: var(--forge-surface-2) !important;
