@@ -159,13 +159,18 @@ def _transforms_inventory_table() -> str:
     rows: list[list[str]] = [
         [
             "<code>apply_all(html)</code>",
-            "tuple[str, bool]",
-            "Canonical pipeline end-to-end; returns <code>(html, has_mermaid)</code> for layout script injection.",
+            "tuple[str, bool, bool]",
+            "Canonical pipeline end-to-end; returns <code>(html, has_mermaid, has_ks_diagram)</code> for layout script injection (consumers may force <code>has_mermaid=False</code>).",
         ],
         [
             "<code>convert_mermaid_blocks(html)</code>",
             "tuple[str, bool]",
             "Replaces fenced Mermaid <code>&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;</code> with <code>.forge-diagram</code> + <code>.mermaid</code>.",
+        ],
+        [
+            "<code>convert_ks_diagram_blocks(html)</code>",
+            "tuple[str, bool]",
+            "Replaces <code>language-ks-diagram</code> / <code>language-ks-diagram-expand</code> with static SVG tiles; sets <code>has_ks_diagram</code> when any block present.",
         ],
         [
             "<code>enhance_tables(html)</code>",
@@ -535,7 +540,7 @@ def render_body() -> str:
     ("Headers / product", "<code>render_page_header</code>, <code>render_page_header_chapter</code>, <code>render_tier_nav</code>, <code>render_cross_refs</code>, <code>render_authorship_signal</code>, <code>render_product_landing_hero</code>, <code>wrap_product_site_article</code>, <code>render_product_footer</code>."),
   ])}
   <p class="section-label text-cyan mb-2">Example (output shape of <code>render_mermaid_block</code>)</p>
-  <p class="forge-support small mb-2"><code>showcase_page</code> injects the Mermaid module when the showcase page sets <code>has_mermaid</code> in its <code>PAGE</code> dict (see <a href="mermaid-examples.html"><code>mermaid-examples.html</code></a>); default is off. Handbook/chapter/product layouts use the same <code>has_mermaid</code> flag. Below is the static DOM shape for this page (diagram renders only when Mermaid JS is present).</p>
+  <p class="forge-support small mb-2"><code>showcase_page</code> injects the Mermaid module when the showcase page sets <code>has_mermaid</code> in its <code>PAGE</code> dict (see <a href="mermaid-examples.html"><code>mermaid-examples.html</code></a>); default is off. Forge and handbook builds pass <code>has_mermaid=False</code> and use <code>has_ks_diagram</code> + <code>ks-diagram-*.js</code> for static templates. Below is the static DOM shape for this page (diagram renders only when Mermaid JS is present).</p>
   <div class="forge-diagram breathe-static">
     <div class="mermaid small">graph LR
   A[Agent] --> B[HTML]</div>
@@ -552,11 +557,12 @@ def render_body() -> str:
   <h2 class="ks-section-title">Transforms · <code>components/transforms.py</code></h2>
   {_spec_dl([
     ("Purpose", "Post-process Markdown-generated HTML into Forge-themed markup."),
-    ("Order", "<code>apply_all</code> runs: <code>convert_mermaid_blocks</code> → <code>enhance_tables</code> → <code>enhance_blockquotes</code> → <code>enhance_code_blocks</code>. Returns <code>(html, has_mermaid)</code>."),
+    ("Order", "<code>apply_all</code> runs: <code>convert_mermaid_blocks</code> → <code>convert_ks_diagram_blocks</code> → <code>enhance_tables</code> → <code>enhance_blockquotes</code> → <code>enhance_code_blocks</code>. Returns <code>(html, has_mermaid, has_ks_diagram)</code>."),
     ("enhance_tables", "Wraps bare <code>&lt;table&gt;</code> with <code>.forge-table-wrap</code> and adds <code>.table .table-sm .table-striped</code>."),
     ("enhance_blockquotes", "Maps <code>**Warning**</code> / <code>**Note**</code> / <code>**Template**</code> lead-ins to colored callouts; generic blockquotes become <code>.forge-callout-surface</code>."),
     ("enhance_code_blocks", "Adds <code>.forge-code</code> to <code>&lt;pre&gt;</code>."),
-    ("convert_mermaid_blocks", "Finds <code>language-mermaid</code> and <code>language-mermaid-expand</code> fenced blocks (Markdown <code>```mermaid</code> / <code>```mermaid-expand</code>) and replaces with <code>.forge-diagram</code> + <code>.mermaid</code>. Expand variant adds <code>forge-diagram-trigger</code> + <code>openDiagramModal</code>; <code>handbook_page</code> / <code>product_page</code> set <code>include_diagram_expand_modal</code> when <code>has_mermaid</code> so the lightbox shell exists."),
+    ("convert_mermaid_blocks", "Finds <code>language-mermaid</code> and <code>language-mermaid-expand</code> fenced blocks (Markdown <code>```mermaid</code> / <code>```mermaid-expand</code>) and replaces with <code>.forge-diagram</code> + <code>.mermaid</code>. Expand variant adds <code>forge-diagram-trigger</code> + <code>openDiagramModal</code> (Mermaid path)."),
+    ("convert_ks_diagram_blocks", "KS-native fences → <code>.ks-diagram-tile</code> + SVG <code>&lt;img&gt;</code>; expand uses <code>openDiagramWithDetail</code>. Layouts set <code>include_diagram_expand_modal</code> when <code>has_ks_diagram</code> (or legacy <code>has_mermaid</code> on showcase)."),
     ("extract_toc", "Parses <code>&lt;h2 id&gt;</code> / <code>&lt;h3 id&gt;</code> for right-rail ToC tuples."),
   ])}
   <p class="section-label text-cyan mb-2">Complete API</p>

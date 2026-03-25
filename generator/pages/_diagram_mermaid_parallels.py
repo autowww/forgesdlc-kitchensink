@@ -172,6 +172,20 @@ _MERMAID: dict[str, str] = {
   Feature A: [0.2, 0.75]
   Feature B: [0.65, 0.35]
   Feature C: [0.4, 0.5]""",
+    "sequence": """sequenceDiagram
+  participant Client
+  participant Service
+  participant Store
+  Client->>Service: Call one
+  Service->>Store: Call two
+  Store-->>Service: Return data
+  Service-->>Client: Final reply""",
+    "state": """stateDiagram-v2
+  [*] --> Idle
+  Idle --> Active: Submit
+  Active --> Succeeded: Complete
+  Active --> Failed: Error
+  Failed --> Idle: Retry""",
 }
 
 _NO_MERMAID_KEYS = frozenset({"venn", "gauge", "kpi", "heatmap"})

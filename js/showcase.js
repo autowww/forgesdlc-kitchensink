@@ -238,6 +238,27 @@
         { node: 'Group B', color: 'amber', desc: 'Amber dots for a second group. Position on X/Y axes shows correlation.' }
       ]
     },
+    sequence: {
+      title: 'Sequence diagram',
+      items: [
+        { node: 'Client', color: 'cyan', desc: 'Calling actor at the left lifeline. Replace with your UI, gateway, or user system.' },
+        { node: 'Service', color: 'cyan', desc: 'Middle tier handling orchestration and business rules.' },
+        { node: 'Store', color: 'amber', desc: 'Downstream dependency (database, queue, or external API).' },
+        { node: 'Call one', color: 'cyan', desc: 'First synchronous or async message from Client to Service.' },
+        { node: 'Call two', color: 'amber', desc: 'Nested call from Service to Store.' },
+        { node: 'Return data', color: 'emerald', desc: 'Response from Store back to Service.' },
+        { node: 'Final reply', color: 'cyan', desc: 'Consolidated response to the original caller.' }
+      ]
+    },
+    state: {
+      title: 'State machine',
+      items: [
+        { node: 'Idle', color: 'cyan', desc: 'Initial / waiting state before work starts.' },
+        { node: 'Active', color: 'cyan', desc: 'Work in progress; substates can nest in content instances.' },
+        { node: 'Succeeded', color: 'emerald', desc: 'Terminal success state (rounded pill).' },
+        { node: 'Failed', color: 'amber', desc: 'Error or rejection path; often loops back via Retry to Idle or Active.' }
+      ]
+    },
     quadrant: {
       title: 'Quadrant Matrix',
       items: [

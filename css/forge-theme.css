@@ -725,6 +725,20 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   object-fit: contain;
 }
 
+/* Markdown ``ks-diagram`` / ``ks_blocks`` static templates in article body */
+.forge-diagram.ks-diagram-tile .ks-diagram-canvas {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: 10px;
+  padding: 0.45rem;
+}
+.forge-diagram.ks-diagram-tile .ks-diagram-canvas img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
 /* =================================================================
    9. TABLES
    ================================================================= */

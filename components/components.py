@@ -147,6 +147,33 @@ def render_mermaid_block(diagram: str, *, expandable: bool = False) -> str:
     )
 
 
+def render_ks_diagram_block(
+    *,
+    key: str = "",
+    src: str = "",
+    alt: str = "Diagram",
+    expandable: bool = False,
+) -> str:
+    """Static Kitchen Sink template (or custom ``src`` under ``assets/``) as a diagram tile."""
+    from diagram_catalog import resolve_diagram_src, valid_diagram_keys
+    from transforms import ks_diagram_tile_html
+
+    k = (key or "").strip()
+    s = (src or "").strip()
+    href, _ = resolve_diagram_src(key=k if k else None, src=s if s else None)
+    keys = valid_diagram_keys()
+    catalog_key = k if k in keys else ""
+    if expandable and not catalog_key and k:
+        raise ValueError(f"Unknown ks_diagram key: {k!r}")
+    al = (alt or "Diagram").strip() or "Diagram"
+    return ks_diagram_tile_html(
+        img_href=href,
+        alt=al,
+        diagram_key=catalog_key,
+        expandable=expandable,
+    )
+
+
 def render_diagrams_section(
     title: str,
     sid: str,

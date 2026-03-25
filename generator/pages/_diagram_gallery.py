@@ -12,8 +12,7 @@ Adding a template: new SVG under ``assets/svg/``, one ``items`` dict in ``_FAMIL
 ``DIAGRAM_DETAILS`` in ``js/showcase.js`` (``node`` strings ↔ optional ``data-node`` on SVG groups),
 optional ``_MERMAID`` entry in ``_diagram_mermaid_parallels.py``, run ``apply_diagram_svg_palette.py``.
 
-**Phase C/D (optional growth):** sequence lifeline strip, small state-machine, C4-style context SVGs;
-if the catalog grows past ~30 entries, consider a single JSON/YAML manifest to generate Python + JS metadata.
+**Optional growth:** C4-style context SVGs; if the catalog grows past ~35 entries, consider a single JSON/YAML manifest to generate Python + JS metadata.
 """
 from __future__ import annotations
 
@@ -213,6 +212,30 @@ _FAMILIES: list[dict] = [
             },
             {"key": "gauge", "svg": "template-gauge.svg", "label": "gauge", "mermaid": []},
             {"key": "kpi", "svg": "template-kpi-card.svg", "label": "kpi-card", "mermaid": []},
+        ],
+    },
+    {
+        "section_id": "fam-interaction-behavior",
+        "name": "Interaction & behavior",
+        "desc": "Message order across actors and finite-state lifecycles — pair with Mermaid sequence and state diagrams.",
+        "family_mermaid_html": (
+            '<p class="forge-support small mb-2">Native Mermaid: <strong>sequenceDiagram</strong> for lifelines and '
+            '<strong>stateDiagram-v2</strong> for states. Full syntax on '
+            '<a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a>.</p>'
+        ),
+        "items": [
+            {
+                "key": "sequence",
+                "svg": "template-sequence.svg",
+                "label": "sequence",
+                "mermaid": ["sequenceDiagram"],
+            },
+            {
+                "key": "state",
+                "svg": "template-state-machine.svg",
+                "label": "state-machine",
+                "mermaid": ["stateDiagram-v2"],
+            },
         ],
     },
     {

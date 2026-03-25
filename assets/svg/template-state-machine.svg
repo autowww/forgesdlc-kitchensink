@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260" width="520" height="260" role="img" aria-labelledby="title desc">
+  <title id="title">State machine template</title>
+  <desc id="desc">States and transitions  map to Mermaid stateDiagram-v2 in the parallels page</desc>
+  <rect width="100%" height="100%" fill="#111827"/>
+  <g font-family="system-ui, Segoe UI, sans-serif">
+    <text x="260" y="20" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  state model]</text>
+    <!-- Idle -->
+    <rect x="40" y="100" width="100" height="44" rx="22" fill="#1a2235" stroke="#06B6D4" stroke-width="1.5"/>
+    <text x="90" y="127" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Idle</text>
+    <!-- Active -->
+    <rect x="210" y="92" width="120" height="60" rx="8" fill="#1c3148" stroke="rgba(6,182,212,0.45)" stroke-width="2"/>
+    <text x="270" y="127" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Active</text>
+    <!-- Succeeded -->
+    <rect x="380" y="52" width="100" height="44" rx="22" fill="#10B981" stroke="#10B981" stroke-width="1.5"/>
+    <text x="430" y="79" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Succeeded</text>
+    <!-- Failed -->
+    <rect x="380" y="168" width="100" height="44" rx="8" fill="rgba(245,158,11,0.22)" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="430" y="195" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Failed</text>
+    <!-- Transitions -->
+    <g stroke="rgba(6,182,212,0.55)" stroke-width="1.5" fill="none">
+      <path d="M 140 122 L 210 122"/>
+      <path d="M 330 100 Q 360 74 380 74"/>
+      <path d="M 270 152 Q 270 190 380 190"/>
+      <path d="M 430 168 Q 430 130 330 110"/>
+      <path d="M 90 100 Q 90 40 380 52"/>
+    </g>
+    <g fill="#94a3b8">
+      <polygon points="210,122 204,118 204,126"/>
+      <polygon points="380,74 374,70 374,78"/>
+      <polygon points="380,190 374,186 374,194"/>
+    </g>
+    <text x="170" y="114" font-size="8" fill="#94A3B8">Submit</text>
+    <text x="340" y="68" font-size="8" fill="#06B6D4">Complete</text>
+    <text x="300" y="178" font-size="8" fill="#F59E0B">Error</text>
+    <text x="260" y="42" font-size="8" fill="#94A3B8">Retry</text>
+  </g>
+  <text x="260" y="248" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#94a3b8">[Footer note  guards and nested states]</text>
+</svg>

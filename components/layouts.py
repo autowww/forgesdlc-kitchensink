@@ -392,6 +392,22 @@ def _resolve_theme_js(theme_js_href: str) -> str:
     return f'  <script src="{e(theme_js_href)}"></script>'
 
 
+def _footer_diagram_scripts(
+    has_mermaid: bool,
+    has_ks_diagram: bool,
+    theme_js_href: str,
+) -> str:
+    """Mermaid module (optional) + KS static diagram catalog/modal (optional), after ``forge-theme.js``."""
+    parts: list[str] = []
+    base = theme_js_href.rsplit("/", 1)[0] if "/" in theme_js_href else "assets"
+    if has_ks_diagram:
+        parts.append(f'  <script src="{e(base + "/ks-diagram-catalog.js")}" defer></script>')
+        parts.append(f'  <script src="{e(base + "/ks-diagram-modal.js")}" defer></script>')
+    if has_mermaid:
+        parts.append(MERMAID_SCRIPT.rstrip())
+    return "\n".join(parts)
+
+
 # ---------------------------------------------------------------------------
 # Template: sidebar + offcanvas (Forge data-rail style)
 # ---------------------------------------------------------------------------
@@ -480,7 +496,8 @@ def handbook_page(
     canonical_note: str,
     nav_buttons: str,
     footer_html: str,
-    has_mermaid: bool,
+    has_mermaid: bool = False,
+    has_ks_diagram: bool = False,
     theme_css_href: str = "templates/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
     include_diagram_expand_modal: bool = False,
@@ -491,11 +508,10 @@ def handbook_page(
     assembles the skeleton.
 
     When *include_diagram_expand_modal* is True, embed the diagram lightbox shell
-    so ``openDiagramModal`` in ``forge-theme.js`` can expand rendered Mermaid SVGs
-    (e.g. fences converted with the expandable variant in ``convert_mermaid_blocks``).
+    so ``openDiagramModal`` / ``openDiagramWithDetail`` can expand diagrams.
     """
     col_class = "col-lg-8 col-xl-9 order-2 order-lg-1" if toc_sidebar_html else "col-12"
-    mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
+    diagram_scripts = _footer_diagram_scripts(has_mermaid, has_ks_diagram, theme_js_href)
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
     )
@@ -545,7 +561,7 @@ def handbook_page(
   </div>
   {CDN_BOOTSTRAP_JS}
 {_resolve_theme_js(theme_js_href)}
-{mermaid_script}
+{diagram_scripts}
 {diagram_modal}
 </body>
 </html>
@@ -567,7 +583,8 @@ def chapter_page(
     canonical_note: str,
     nav_buttons: str,
     footer_html: str,
-    has_mermaid: bool,
+    has_mermaid: bool = False,
+    has_ks_diagram: bool = False,
     extra_scripts: list[str] | None = None,
     theme_css_href: str = "assets/docs-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
@@ -579,7 +596,7 @@ def chapter_page(
     The sidebar is populated client-side by JS files listed in
     *extra_scripts* (typically ``docs-nav.js`` and ``docs-toc-scrollspy.js``).
     """
-    mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
+    diagram_scripts = _footer_diagram_scripts(has_mermaid, has_ks_diagram, theme_js_href)
     extra = "\n".join(
         f'  <script src="{e(src)}"></script>' for src in (extra_scripts or [])
     )
@@ -630,7 +647,7 @@ def chapter_page(
   {CDN_BOOTSTRAP_JS}
 {_resolve_theme_js(theme_js_href)}
 {extra}
-{mermaid_script}
+{diagram_scripts}
 {diagram_modal}
 </body>
 </html>
@@ -653,6 +670,7 @@ def product_page(
     footer_html: str,
     lens: str | None = None,
     has_mermaid: bool = False,
+    has_ks_diagram: bool = False,
     theme_css_href: str = "assets/forgesdlc-theme.css",
     extra_css: str = "",
     theme_js_href: str = "assets/forge-theme.js",
@@ -671,7 +689,7 @@ def product_page(
     """
     lens_attr = f' data-lens="{e(lens)}"' if lens else ""
     offcanvas = offcanvas_nav_html or nav_html
-    mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
+    diagram_scripts = _footer_diagram_scripts(has_mermaid, has_ks_diagram, theme_js_href)
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
     )
@@ -735,7 +753,7 @@ def product_page(
 
   {CDN_BOOTSTRAP_JS}
 {_resolve_theme_js(theme_js_href)}
-{mermaid_script}
+{diagram_scripts}
 {diagram_modal}
 </body>
 </html>
@@ -867,10 +885,11 @@ def showcase_page(
     theme_css_href: str = "assets/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
     has_mermaid: bool = False,
+    has_ks_diagram: bool = False,
 ) -> str:
     """Showcase documentation page: unified header + sticky sidebar + content + optional ToC."""
     offcanvas = offcanvas_html or sidebar_html
-    mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
+    diagram_scripts = _footer_diagram_scripts(has_mermaid, has_ks_diagram, theme_js_href)
     extra_scripts = "\n".join(
         f'<script src="{e(src)}"></script>' for src in (extra_js or [])
     )
@@ -942,7 +961,7 @@ def showcase_page(
 {_resolve_theme_js(theme_js_href)}
 {_SHOWCASE_SIDEBAR_SYNC_JS}
 {extra_scripts}
-{mermaid_script}
+{diagram_scripts}
 </body>
 </html>
 """
@@ -1047,6 +1066,7 @@ def gallery_page(
     theme_css_href: str = "assets/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
     has_mermaid: bool = False,
+    has_ks_diagram: bool = False,
 ) -> str:
     """Gallery page: sidebar + full-width card grid; optional right-rail ToC like showcase_page."""
     return showcase_page(
@@ -1065,6 +1085,7 @@ def gallery_page(
         theme_css_href=theme_css_href,
         theme_js_href=theme_js_href,
         has_mermaid=has_mermaid,
+        has_ks_diagram=has_ks_diagram,
     )
 
 
@@ -1089,6 +1110,7 @@ def split_page(
     theme_css_href: str = "assets/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
     has_mermaid: bool = False,
+    has_ks_diagram: bool = False,
 ) -> str:
     """Split page: sidebar + two-panel layout (example left, docs right)."""
     body = f"""
@@ -1116,4 +1138,5 @@ def split_page(
         theme_css_href=theme_css_href,
         theme_js_href=theme_js_href,
         has_mermaid=has_mermaid,
+        has_ks_diagram=has_ks_diagram,
     )

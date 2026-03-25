@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" role="img" aria-labelledby="title desc">
+  <title id="title">Sequence diagram template</title>
+  <desc id="desc">Lifelines with synchronous calls and a reply  replace actor and message labels in content instances</desc>
+  <rect width="100%" height="100%" fill="#111827"/>
+  <g font-family="system-ui, Segoe UI, sans-serif">
+    <text x="360" y="20" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  interaction flow]</text>
+    <!-- Actors -->
+    <rect x="48" y="36" width="120" height="36" rx="8" fill="#1a2235" stroke="#1e2d42" stroke-width="1.5"/>
+    <text x="108" y="59" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Client</text>
+    <rect x="300" y="36" width="120" height="36" rx="8" fill="#1c3148" stroke="#1c3148" stroke-width="1.5"/>
+    <text x="360" y="59" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Service</text>
+    <rect x="552" y="36" width="120" height="36" rx="8" fill="rgba(245,158,11,0.22)" stroke="rgba(245,158,11,0.38)" stroke-width="1.5"/>
+    <text x="612" y="59" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Store</text>
+    <!-- Lifelines -->
+    <line x1="108" y1="72" x2="108" y2="268" stroke="#475569" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="360" y1="72" x2="360" y2="268" stroke="#475569" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="612" y1="72" x2="612" y2="268" stroke="#475569" stroke-width="1" stroke-dasharray="4 4"/>
+    <!-- Activation bars -->
+    <rect x="102" y="108" width="12" height="44" rx="2" fill="rgba(6,182,212,0.25)"/>
+    <rect x="354" y="100" width="12" height="120" rx="2" fill="rgba(6,182,212,0.2)"/>
+    <rect x="606" y="128" width="12" height="36" rx="2" fill="rgba(245,158,11,0.25)"/>
+    <!-- Messages -->
+    <g stroke="rgba(6,182,212,0.55)" stroke-width="1.5" fill="none">
+      <line x1="120" y1="116" x2="348" y2="116"/>
+      <line x1="372" y1="140" x2="600" y2="140"/>
+      <line x1="600" y1="168" x2="372" y2="168"/>
+      <line x1="360" y1="200" x2="120" y2="200"/>
+    </g>
+    <g fill="#94a3b8">
+      <polygon points="348,116 342,112 342,120"/>
+      <polygon points="600,140 594,136 594,144"/>
+      <polygon points="372,168 378,164 378,172"/>
+      <polygon points="120,200 126,196 126,204"/>
+    </g>
+    <text x="234" y="110" text-anchor="middle" font-size="9" font-weight="600" fill="#06B6D4">Call one</text>
+    <text x="486" y="134" text-anchor="middle" font-size="9" font-weight="600" fill="#F59E0B">Call two</text>
+    <text x="486" y="162" text-anchor="middle" font-size="9" font-weight="600" fill="#94A3B8">Return data</text>
+    <text x="240" y="196" text-anchor="middle" font-size="9" font-weight="600" fill="#06B6D4">Final reply</text>
+  </g>
+  <text x="360" y="292" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#94a3b8">[Footer note  timeouts and async variants]</text>
+</svg>

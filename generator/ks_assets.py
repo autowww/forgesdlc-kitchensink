@@ -32,6 +32,10 @@ def copy_forge_theme_core(kitchensink_root: Path, dest_assets: Path) -> list[str
         shutil.copy2(js, dest_assets / "forge-theme.js")
     else:
         warnings.append("forge-theme.js missing — theme behavior may be incomplete")
+    for ks_js in ("ks-diagram-catalog.js", "ks-diagram-modal.js"):
+        p = kitchensink_root / "js" / ks_js
+        if p.is_file():
+            shutil.copy2(p, dest_assets / ks_js)
     return warnings
 
 
@@ -97,7 +101,13 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
         if src.is_file():
             shutil.copy2(src, dest_assets / css_name)
 
-    for js_name in ("forge-theme.js", "portal-nav.js", "docs-nav.js"):
+    for js_name in (
+        "forge-theme.js",
+        "portal-nav.js",
+        "docs-nav.js",
+        "ks-diagram-catalog.js",
+        "ks-diagram-modal.js",
+    ):
         src = ks_js / js_name
         if src.is_file():
             shutil.copy2(src, dest_assets / js_name)
