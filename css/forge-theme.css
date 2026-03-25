@@ -1733,10 +1733,10 @@ code {
   padding: 1rem 1.25rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
   overflow: auto;
-  max-height: min(62vh, 560px);
+  max-height: min(78vh, 860px);
   min-height: 0;
 }
 .diagram-modal-canvas > svg,
@@ -1744,6 +1744,7 @@ code {
   margin-left: auto;
   margin-right: auto;
   display: block;
+  flex-shrink: 0;
 }
 .diagram-modal-static-hint {
   flex-shrink: 0;
@@ -1765,7 +1766,7 @@ code {
   width: 100% !important;
   max-width: 100%;
   height: auto;
-  max-height: min(52vh, 480px);
+  max-height: none;
   pointer-events: auto;
 }
 /* Ensure glyph hit targets (some UAs skip unpainted text for pointer events). */
@@ -1796,9 +1797,22 @@ code {
   background: var(--forge-surface-2);
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: min(62vh, 560px);
+  max-height: min(78vh, 860px);
   min-height: 0;
 }
+.diagram-modal-detail .detail-mermaid-note {
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--forge-border);
+  background: var(--forge-surface-2);
+  line-height: 1.45;
+}
+
+.diagram-modal-detail .detail-mermaid-live {
+  border-left: 3px solid var(--forge-cyan);
+  padding-left: 0.65rem;
+}
+
 .diagram-modal-detail .detail-title {
   font-family: var(--font-display);
   font-weight: 700;

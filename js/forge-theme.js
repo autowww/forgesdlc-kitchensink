@@ -207,7 +207,8 @@
       modalSvg.removeAttribute('height');
       modalSvg.style.width = '100%';
       modalSvg.style.height = 'auto';
-      modalSvg.style.minHeight = '55vh';
+      modalSvg.style.maxHeight = '';
+      modalSvg.style.minHeight = '';
 
       var vb = modalSvg.getAttribute('viewBox');
       if (!vb) {
@@ -255,6 +256,29 @@
     var clusters = canvas.querySelectorAll('.cluster');
     var detailItems = detail.querySelectorAll('.detail-item[data-node]');
 
+    function hideMermaidLiveFocus() {
+      var live = document.getElementById('diagramModalMermaidLive');
+      var liveText = document.getElementById('diagramModalMermaidLiveText');
+      if (live) {
+        live.hidden = true;
+        live.classList.remove('highlight');
+      }
+      if (liveText) liveText.textContent = '';
+    }
+
+    function showMermaidLiveFocus(label) {
+      var live = document.getElementById('diagramModalMermaidLive');
+      var liveText = document.getElementById('diagramModalMermaidLiveText');
+      if (!live || !liveText) return;
+      liveText.textContent =
+        '"' +
+        label +
+        '" — Mermaid label; compare with the SVG template legend below when names differ.';
+      live.hidden = false;
+      live.classList.add('highlight');
+      live.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
     nodes.forEach(function (node) {
       var labelEl = node.querySelector('.nodeLabel') ||
                     node.querySelector('text') ||
@@ -268,17 +292,38 @@
         var parentClusters = findParentClusters(node);
         parentClusters.forEach(function (c) { c.classList.add('cluster-glow'); });
 
+        var matched = false;
         detailItems.forEach(function (item) {
           if (item.getAttribute('data-node') === label) {
+            matched = true;
             item.classList.add('highlight');
             item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
           }
         });
+        if (!matched && label.length >= 2) {
+          var lnorm = label.toLowerCase().replace(/\s+/g, ' ');
+          detailItems.forEach(function (item) {
+            var dn = (item.getAttribute('data-node') || '').trim();
+            if (dn.length < 2) return;
+            var dnLow = dn.toLowerCase();
+            if (lnorm.indexOf(dnLow) !== -1 || dnLow.indexOf(lnorm) !== -1) {
+              matched = true;
+              item.classList.add('highlight');
+              item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }
+          });
+        }
+        if (matched) {
+          hideMermaidLiveFocus();
+        } else if (label) {
+          showMermaidLiveFocus(label);
+        }
       });
       node.addEventListener('mouseleave', function () {
         node.classList.remove('node-glow');
         clusters.forEach(function (c) { c.classList.remove('cluster-glow'); });
         detailItems.forEach(function (item) { item.classList.remove('highlight'); });
+        hideMermaidLiveFocus();
       });
     });
 

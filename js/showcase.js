@@ -491,6 +491,21 @@
     return html;
   }
 
+  /** Legend + live focus slot for Mermaid expand when trigger sits under ``[data-diagram-key]`` (diagrams parallels). */
+  function renderMermaidParallelModalDetail(key) {
+    if (!getDetailData(key)) return '';
+    var intro =
+      '<p class="detail-mermaid-note forge-support small mb-3">' +
+      'Same <strong>legend</strong> as the SVG template card above. Mermaid uses its own labels as a diagram-as-code sample — ' +
+      'hover shapes to match the legend when names align, or read the focus line.</p>';
+    var live =
+      '<div id="diagramModalMermaidLive" class="detail-mermaid-live detail-item" hidden>' +
+      '<p class="detail-term text-cyan">Focused shape</p>' +
+      '<p class="detail-desc mb-0" id="diagramModalMermaidLiveText"></p>' +
+      '</div>';
+    return intro + live + renderDetailPanel(key);
+  }
+
   window.openDiagramWithDetail = function (trigger, key) {
     var img = trigger.querySelector('img');
     if (!img) return;
@@ -899,6 +914,25 @@
     for (zi = 0; zi < allZones.length; zi++) {
       bindZoneHover(allZones[zi]);
     }
+  }
+
+  var _forgeOpenDiagramModal = window.openDiagramModal;
+  if (typeof _forgeOpenDiagramModal === 'function') {
+    window.openDiagramModal = function (trigger) {
+      var host = trigger.closest ? trigger.closest('[data-diagram-key]') : null;
+      var key = host && host.getAttribute('data-diagram-key');
+      var detail = document.getElementById('diagramModalDetail');
+      var titleEl = document.getElementById('diagramModalTitle');
+      if (key && detail && getDetailData(key)) {
+        detail.innerHTML = renderMermaidParallelModalDetail(key);
+        if (titleEl) titleEl.textContent = getDetailData(key).title;
+        ensureDiagramModalDetailHover();
+      } else if (detail) {
+        detail.innerHTML = '';
+        if (titleEl) titleEl.textContent = 'Diagram';
+      }
+      _forgeOpenDiagramModal(trigger);
+    };
   }
 
   ensureDiagramModalDetailHover();
