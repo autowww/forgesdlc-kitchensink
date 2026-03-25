@@ -1325,12 +1325,15 @@ code {
 }
 .forge-diagram svg foreignObject > div,
 #diagramModalCanvas svg foreignObject > div {
-  display: block !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
   box-sizing: border-box !important;
   text-align: center !important;
-  max-width: 100% !important;
-  margin: 0 auto !important;
-  padding: 2px 4px !important;
+  padding: 2px 6px !important;
   overflow-wrap: break-word !important;
   word-break: break-word !important;
   hyphens: auto;
