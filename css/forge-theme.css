@@ -1372,16 +1372,15 @@ code {
 .forge-diagram svg foreignObject {
   overflow: visible;
 }
-/* Center label HTML inside foreignObject (pairs with post-render size fixes in layouts MERMAID_SCRIPT). */
+/* Label HTML: avoid width:100%/flex so off-DOM Mermaid measure ≈ final paint (see layouts MERMAID_SCRIPT). */
 .forge-diagram svg foreignObject > div,
 #diagramModalCanvas svg foreignObject > div {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-  min-height: 100% !important;
+  display: block !important;
   box-sizing: border-box !important;
   text-align: center !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 2px 4px !important;
   overflow-wrap: break-word !important;
   word-break: break-word !important;
   hyphens: auto;
@@ -1414,9 +1413,9 @@ code {
   line-height: 1.4 !important;
   font-weight: 500 !important;
 }
-.forge-diagram .cluster rect {
+.forge-diagram svg g.cluster > rect,
+.forge-diagram svg .cluster > rect {
   fill: rgba(6,182,212,0.04) !important;
-  /* Match node chrome so subgraph frames read as one system (theme inline strokes vary). */
   stroke: rgba(6,182,212,0.35) !important;
   stroke-width: 1.5px !important;
   rx: 12 !important;
@@ -1851,7 +1850,8 @@ code {
 .diagram-modal-canvas svg foreignObject {
   overflow: visible;
 }
-.diagram-modal-canvas .cluster rect {
+.diagram-modal-canvas svg g.cluster > rect,
+.diagram-modal-canvas svg .cluster > rect {
   stroke: rgba(6,182,212,0.35) !important;
   stroke-width: 1.5px !important;
 }

@@ -9,13 +9,13 @@ from pages._diagram_gallery import _FAMILIES, family_section_id
 _MERMAID: dict[str, str] = {
     "linear": """flowchart LR
   subgraph Plan["Plan"]
-    A[Backlog] --> B[Refine]
+    A["Backlog"] --> B["Refine"]
   end
   subgraph Build["Build"]
-    B --> C[Implement]
-    C --> D[Test]
+    B --> C["Implement"]
+    C --> D["Test"]
   end
-  D --> E[Release]""",
+  D --> E["Release"]""",
     "loop": """flowchart LR
   subgraph Cycle["Improvement loop"]
     Plan[Plan] --> Build[Build]

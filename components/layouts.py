@@ -115,7 +115,7 @@ THEME_TOGGLE_DROPDOWN = """\
 
 MERMAID_SCRIPT = """\
   <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.5/dist/mermaid.esm.min.mjs';
 
     function forgeMermaidThemeVariables(dark) {
       return dark
@@ -142,6 +142,7 @@ MERMAID_SCRIPT = """\
             nodeTextColor: '#F1F5F9',
             fontFamily: 'Inter, system-ui, sans-serif',
             fontSize: '14px',
+            fontWeight: '500',
             sectionBkgColor: 'rgba(6,182,212,0.06)',
             altSectionBkgColor: 'rgba(15,23,42,0.45)',
             gridColor: 'rgba(148,163,184,0.22)',
@@ -227,6 +228,7 @@ MERMAID_SCRIPT = """\
             nodeTextColor: '#0f172a',
             fontFamily: 'Inter, system-ui, sans-serif',
             fontSize: '14px',
+            fontWeight: '500',
             sectionBkgColor: 'rgba(6,182,212,0.08)',
             altSectionBkgColor: '#f8fafc',
             gridColor: 'rgba(71,85,105,0.22)',
@@ -316,24 +318,45 @@ MERMAID_SCRIPT = """\
      */
     function forgeMermaidExpandForeignLabels() {}
 
+    async function forgeMermaidAwaitFonts() {
+      try {
+        if (document.fonts && document.fonts.ready) {
+          await Promise.race([
+            document.fonts.ready,
+            new Promise(function (resolve) {
+              setTimeout(resolve, 2500);
+            }),
+          ]);
+        }
+      } catch (e) { /* ignore */ }
+    }
+
     async function forgeMermaidRefresh() {
       var nodes = document.querySelectorAll('.mermaid');
       if (!nodes.length) return;
       snapshotMermaidSources();
       var dark = document.documentElement.getAttribute('data-bs-theme') !== 'light';
       resetMermaidElements();
+      await forgeMermaidAwaitFonts();
       mermaid.initialize({
         startOnLoad: false,
         theme: 'base',
         themeVariables: forgeMermaidThemeVariables(dark),
+        /* Flowchart renderer: dagre-wrapper matches stock Mermaid and all diagram types on
+           mermaid-examples; elk can improve nested subgraphs but is heavier — switch via
+           flowchart.defaultRenderer if a page is flowchart-only. */
         flowchart: {
           htmlLabels: true,
           useMaxWidth: true,
-          diagramPadding: 28,
-          nodeSpacing: 88,
-          rankSpacing: 96,
-          padding: 52,
-          wrappingWidth: 300,
+          defaultRenderer: 'dagre-wrapper',
+          curve: 'basis',
+          diagramPadding: 32,
+          nodeSpacing: 80,
+          rankSpacing: 88,
+          /* Schema: primarily label/shape gap in experimental paths; subgraph breathing uses
+             diagramPadding / rankSpacing / nodeSpacing with dagre-wrapper. */
+          padding: 20,
+          wrappingWidth: 200,
           titleTopMargin: 42,
           subGraphTitleMargin: { top: 14, bottom: 20 },
         },

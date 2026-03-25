@@ -65,23 +65,23 @@ def render() -> str:
     intro = """\
 <section id="sec-mermaid-intro" class="ks-section">
   <h2 class="ks-section-title">Overview</h2>
-  <p class="forge-support mb-3">This page aims for <strong>broad coverage</strong> of diagram grammars shipped with the stock <code>mermaid@10</code> ESM build (same init as <code>layouts.py</code>). Each block uses <code>render_mermaid_block</code> — the same <code>.forge-diagram</code> + <code>.mermaid</code> pattern as Markdown <code>language-mermaid</code> fences after <code>convert_mermaid_blocks</code>.</p>
+  <p class="forge-support mb-3">This page aims for <strong>broad coverage</strong> of diagram grammars shipped with the pinned <code>mermaid@10.9.x</code> ESM build from jsDelivr (same init as <code>layouts.py</code>). Each block uses <code>render_mermaid_block</code> — the same <code>.forge-diagram</code> + <code>.mermaid</code> pattern as Markdown <code>language-mermaid</code> fences after <code>convert_mermaid_blocks</code>.</p>
   <p class="forge-support mb-3"><strong>Beta</strong> grammars (Sankey, Block, Treemap, Kanban, Packet, Architecture, XY chart) may render differently or break on Mermaid upgrades; treat them as previews.</p>
   <p class="forge-support mb-3">For <strong>static SVG archetypes</strong> (no runtime library) and <strong>per-template Mermaid parallels</strong>, see <a href="diagrams.html">Diagram templates</a>. Diagrams that need <strong>external registration</strong> (e.g. some ZenUML bundles) are not shown here.</p>
-  <p class="forge-support mb-3"><strong>Not in this build:</strong> Treemap, Kanban, Packet, and Architecture beta grammars are not registered in the default <code>mermaid@10</code> ESM bundle from jsDelivr (they do not resolve with the stock parser). Upgrade Mermaid or register external diagrams if you need those types.</p>
+  <p class="forge-support mb-3"><strong>Not in this build:</strong> Treemap, Kanban, Packet, and Architecture beta grammars are not registered in the default <code>mermaid@10.9.x</code> ESM bundle from jsDelivr (they do not resolve with the stock parser). Upgrade Mermaid or register external diagrams if you need those types.</p>
   <p class="forge-support mb-0">Mermaid loads when the page sets <code>has_mermaid</code> in its <code>PAGE</code> dict so the showcase build injects the shared script.</p>
 </section>"""
 
     flow = render_mermaid_block(
         """flowchart LR
   subgraph Plan["Plan"]
-    A[Backlog] --> B[Refine]
+    A["Backlog"] --> B["Refine"]
   end
   subgraph Build["Build"]
-    B --> C[Implement]
-    C --> D[Test]
+    B --> C["Implement"]
+    C --> D["Test"]
   end
-  D --> E[Release]"""
+  D --> E["Release"]"""
     )
 
     orgchart = render_mermaid_block(
