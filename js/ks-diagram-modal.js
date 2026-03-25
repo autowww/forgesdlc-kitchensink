@@ -143,6 +143,9 @@
         svg.style.maxHeight = '100%';
       }
       wireSvgHovers(canvas, detail, key);
+      if (typeof window.forgeMountDiagramModalZoom === 'function') {
+        window.forgeMountDiagramModalZoom(canvas);
+      }
     }
 
     function showStaticHint() {
@@ -170,6 +173,9 @@
       clone.style.maxHeight = 'min(52vh, 480px)';
       clone.style.objectFit = 'contain';
       canvas.appendChild(clone);
+      if (typeof window.forgeMountDiagramModalZoom === 'function') {
+        window.forgeMountDiagramModalZoom(canvas);
+      }
     }
 
     loadSvgText(img.src, inlineSvg, showImgFallback);
@@ -498,6 +504,8 @@
     for (zi = 0; zi < allZones.length; zi++) {
       bindZoneHover(allZones[zi]);
     }
+  }
+
   var _prevCloseDiagramModal = window.closeDiagramModal;
   window.closeDiagramModal = function () {
     if (window.forgeKsDiagramModalHover && window.forgeKsDiagramModalHover.clear) {

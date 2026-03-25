@@ -16,6 +16,7 @@ PAGE = {
     "family": "Patterns",
     "layout": "showcase",
     "order": 9,
+    "include_diagram_expand_modal": True,
     "toc": [
         ("ag-intro", "Intro · How to use this page"),
         ("ag-tokens-colors", "Tokens · Color palette"),

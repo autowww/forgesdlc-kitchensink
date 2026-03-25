@@ -221,6 +221,9 @@
     document.getElementById('diagramModal').classList.add('active');
     document.body.style.overflow = 'hidden';
     wireDiagramHovers();
+    if (typeof window.forgeMountDiagramModalZoom === 'function') {
+      window.forgeMountDiagramModalZoom(canvas);
+    }
   };
 
   window.closeDiagramModal = function () {

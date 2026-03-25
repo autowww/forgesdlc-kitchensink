@@ -208,6 +208,14 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
 
     body = mod.render()
 
+    has_m = bool(page.get("has_mermaid", False))
+    has_ks = bool(page.get("has_ks_diagram", False))
+    inc_modal = bool(
+        page.get(
+            "include_diagram_expand_modal",
+            has_m or has_ks,
+        )
+    )
     common = dict(
         browser_title=f'{page["title"]} — Forge Design System',
         brand_name="Kitchen Sink",
@@ -220,7 +228,9 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
         extra_js=extra_js,
         theme_css_href="assets/forge-theme.css",
         theme_js_href="assets/forge-theme.js",
-        has_mermaid=bool(page.get("has_mermaid", False)),
+        has_mermaid=has_m,
+        has_ks_diagram=has_ks,
+        include_diagram_expand_modal=inc_modal,
     )
 
     if layout == "gallery":

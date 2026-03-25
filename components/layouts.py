@@ -396,10 +396,16 @@ def _footer_diagram_scripts(
     has_mermaid: bool,
     has_ks_diagram: bool,
     theme_js_href: str,
+    *,
+    include_diagram_expand_modal: bool = False,
 ) -> str:
-    """Mermaid module (optional) + KS static diagram catalog/modal (optional), after ``forge-theme.js``."""
+    """Diagram modal zoom + Mermaid + KS catalog/modal (optional), after ``forge-theme.js``."""
     parts: list[str] = []
     base = theme_js_href.rsplit("/", 1)[0] if "/" in theme_js_href else "assets"
+    if include_diagram_expand_modal:
+        parts.append(
+            f'  <script src="{e(base + "/diagram-modal-zoom.js")}" defer></script>'
+        )
     if has_ks_diagram:
         parts.append(f'  <script src="{e(base + "/ks-diagram-catalog.js")}" defer></script>')
         parts.append(f'  <script src="{e(base + "/ks-diagram-modal.js")}" defer></script>')
@@ -511,7 +517,12 @@ def handbook_page(
     so ``openDiagramModal`` / ``openDiagramWithDetail`` can expand diagrams.
     """
     col_class = "col-lg-8 col-xl-9 order-2 order-lg-1" if toc_sidebar_html else "col-12"
-    diagram_scripts = _footer_diagram_scripts(has_mermaid, has_ks_diagram, theme_js_href)
+    diagram_scripts = _footer_diagram_scripts(
+        has_mermaid,
+        has_ks_diagram,
+        theme_js_href,
+        include_diagram_expand_modal=include_diagram_expand_modal,
+    )
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
     )
@@ -596,7 +607,12 @@ def chapter_page(
     The sidebar is populated client-side by JS files listed in
     *extra_scripts* (typically ``docs-nav.js`` and ``docs-toc-scrollspy.js``).
     """
-    diagram_scripts = _footer_diagram_scripts(has_mermaid, has_ks_diagram, theme_js_href)
+    diagram_scripts = _footer_diagram_scripts(
+        has_mermaid,
+        has_ks_diagram,
+        theme_js_href,
+        include_diagram_expand_modal=include_diagram_expand_modal,
+    )
     extra = "\n".join(
         f'  <script src="{e(src)}"></script>' for src in (extra_scripts or [])
     )
@@ -689,7 +705,12 @@ def product_page(
     """
     lens_attr = f' data-lens="{e(lens)}"' if lens else ""
     offcanvas = offcanvas_nav_html or nav_html
-    diagram_scripts = _footer_diagram_scripts(has_mermaid, has_ks_diagram, theme_js_href)
+    diagram_scripts = _footer_diagram_scripts(
+        has_mermaid,
+        has_ks_diagram,
+        theme_js_href,
+        include_diagram_expand_modal=include_diagram_expand_modal,
+    )
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
     )
@@ -886,10 +907,16 @@ def showcase_page(
     theme_js_href: str = "assets/forge-theme.js",
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    include_diagram_expand_modal: bool = False,
 ) -> str:
     """Showcase documentation page: unified header + sticky sidebar + content + optional ToC."""
     offcanvas = offcanvas_html or sidebar_html
-    diagram_scripts = _footer_diagram_scripts(has_mermaid, has_ks_diagram, theme_js_href)
+    diagram_scripts = _footer_diagram_scripts(
+        has_mermaid,
+        has_ks_diagram,
+        theme_js_href,
+        include_diagram_expand_modal=include_diagram_expand_modal,
+    )
     extra_scripts = "\n".join(
         f'<script src="{e(src)}"></script>' for src in (extra_js or [])
     )
@@ -1067,6 +1094,7 @@ def gallery_page(
     theme_js_href: str = "assets/forge-theme.js",
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    include_diagram_expand_modal: bool = False,
 ) -> str:
     """Gallery page: sidebar + full-width card grid; optional right-rail ToC like showcase_page."""
     return showcase_page(
@@ -1086,6 +1114,7 @@ def gallery_page(
         theme_js_href=theme_js_href,
         has_mermaid=has_mermaid,
         has_ks_diagram=has_ks_diagram,
+        include_diagram_expand_modal=include_diagram_expand_modal,
     )
 
 
@@ -1111,6 +1140,7 @@ def split_page(
     theme_js_href: str = "assets/forge-theme.js",
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    include_diagram_expand_modal: bool = False,
 ) -> str:
     """Split page: sidebar + two-panel layout (example left, docs right)."""
     body = f"""
@@ -1139,4 +1169,5 @@ def split_page(
         theme_js_href=theme_js_href,
         has_mermaid=has_mermaid,
         has_ks_diagram=has_ks_diagram,
+        include_diagram_expand_modal=include_diagram_expand_modal,
     )

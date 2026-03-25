@@ -1726,16 +1726,88 @@ code {
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  overflow: auto;
+  gap: 0.5rem;
+  overflow: hidden;
   max-height: min(78vh, 860px);
   min-height: 0;
 }
-.diagram-modal-canvas > svg,
-.diagram-modal-canvas > img {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+.diagram-modal-zoom-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
   flex-shrink: 0;
+}
+.diagram-modal-zoom-btn {
+  background: var(--forge-surface-2);
+  border: 1px solid var(--forge-border);
+  border-radius: 6px;
+  color: var(--forge-text-2);
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+  min-width: 2rem;
+  padding: 0.25rem 0.45rem;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.diagram-modal-zoom-btn:hover {
+  border-color: var(--forge-border-hover);
+  color: var(--forge-text);
+  background: var(--forge-surface);
+}
+.diagram-modal-zoom-btn--text {
+  font-family: var(--bs-body-font-family);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  min-width: auto;
+  padding: 0.3rem 0.55rem;
+}
+.diagram-modal-zoom-pct {
+  min-width: 3.1rem;
+  text-align: center;
+  font-size: 0.72rem;
+  font-family: var(--font-label, ui-monospace, monospace);
+  color: var(--forge-text-3);
+}
+.diagram-modal-zoom-viewport {
+  flex: 1 1 auto;
+  min-height: 180px;
+  overflow: hidden;
+  position: relative;
+  touch-action: none;
+  cursor: grab;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.14);
+}
+.diagram-modal-zoom-viewport--dragging {
+  cursor: grabbing;
+}
+.diagram-modal-zoom-content {
+  display: inline-block;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.diagram-modal-zoom-content svg {
+  width: auto !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
+  display: block;
+  margin: 0;
+  pointer-events: auto;
+  overflow: visible;
+}
+.diagram-modal-zoom-content img {
+  width: auto;
+  max-width: none;
+  height: auto;
+  display: block;
+  margin: 0;
+}
+.diagram-modal-zoom-content iframe.layout-preview-iframe {
+  display: block;
 }
 .diagram-modal-static-hint {
   flex-shrink: 0;
@@ -1753,7 +1825,7 @@ code {
   font-size: 0.68rem;
   word-break: break-word;
 }
-.diagram-modal-canvas svg {
+.diagram-modal-canvas > svg {
   width: 100% !important;
   max-width: 100%;
   height: auto;

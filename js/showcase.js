@@ -496,6 +496,9 @@
     diagramModalHover.clear();
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    if (typeof window.forgeMountDiagramModalZoom === 'function') {
+      window.forgeMountDiagramModalZoom(canvas);
+    }
   };
 
   function renderDetailPanel(key) {
@@ -556,6 +559,9 @@
         svg.style.maxHeight = '100%';
       }
       wireSvgHovers(canvas, detail, key);
+      if (typeof window.forgeMountDiagramModalZoom === 'function') {
+        window.forgeMountDiagramModalZoom(canvas);
+      }
     }
 
     function showStaticHint() {
@@ -583,6 +589,9 @@
       clone.style.maxHeight = 'min(52vh, 480px)';
       clone.style.objectFit = 'contain';
       canvas.appendChild(clone);
+      if (typeof window.forgeMountDiagramModalZoom === 'function') {
+        window.forgeMountDiagramModalZoom(canvas);
+      }
     }
 
     loadSvgText(img.src, inlineSvg, showImgFallback);

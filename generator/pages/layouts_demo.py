@@ -10,6 +10,7 @@ PAGE = {
     "family": "Patterns",
     "layout": "showcase",
     "order": 8,
+    "include_diagram_expand_modal": True,
     "toc": [
         ("sec-layout-intro", "Overview"),
         ("sec-showcase", "Showcase"),
