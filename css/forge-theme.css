@@ -702,6 +702,29 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   .bento-2, .bento-3 { grid-template-columns: 1fr; }
 }
 
+/* Diagram gallery thumbs (static SVG in bento grid) */
+.bento-grid .forge-diagram.ks-diagram-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.bento-grid .forge-diagram.ks-diagram-card .ks-diagram-canvas {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: clamp(140px, 22vw, 220px);
+}
+.bento-grid .forge-diagram.ks-diagram-card .ks-diagram-canvas img,
+.bento-grid .forge-diagram.ks-diagram-card .ks-diagram-canvas svg {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 /* =================================================================
    9. TABLES
    ================================================================= */
@@ -1332,6 +1355,17 @@ code {
   rx: 6 !important;
   ry: 6 !important;
 }
+.forge-diagram .node circle,
+.forge-diagram .node ellipse {
+  fill: var(--forge-surface-2) !important;
+  stroke: rgba(6,182,212,0.35) !important;
+  stroke-width: 1.5px !important;
+}
+.forge-diagram .node path {
+  fill: var(--forge-surface-2) !important;
+  stroke: rgba(6,182,212,0.35) !important;
+  stroke-width: 1.5px !important;
+}
 .forge-diagram .node .label,
 .forge-diagram .nodeLabel {
   color: var(--forge-text) !important;
@@ -1376,6 +1410,63 @@ code {
   font-weight: 700 !important;
   font-size: 0.65rem !important;
   letter-spacing: 0.03em !important;
+}
+
+/* Gantt, pie, quadrant, timeline — match .forge-diagram shell + cyan/amber accents */
+.forge-diagram .titleText,
+.forge-diagram .taskText,
+.forge-diagram .taskTextOutsideLeft,
+.forge-diagram .taskTextOutsideRight,
+.forge-diagram .sectionTitle {
+  fill: var(--forge-text) !important;
+  font-family: var(--bs-body-font-family) !important;
+}
+.forge-diagram .grid .tick line,
+.forge-diagram .grid path {
+  stroke: var(--forge-border) !important;
+}
+.forge-diagram .grid .tick text {
+  fill: var(--forge-text-3) !important;
+}
+.forge-diagram rect.section {
+  fill: rgba(6,182,212,0.06) !important;
+}
+.forge-diagram rect[class^="task"],
+.forge-diagram rect[class*=" task"] {
+  stroke-width: 1.5px !important;
+}
+.forge-diagram line.today {
+  stroke: var(--forge-amber) !important;
+  stroke-width: 2px !important;
+}
+.forge-diagram rect.exclude-range {
+  fill: rgba(148,163,184,0.08) !important;
+}
+
+.forge-diagram .pieOuterCircle {
+  fill: var(--forge-surface-2) !important;
+  stroke: rgba(6,182,212,0.35) !important;
+  stroke-width: 1.5px !important;
+}
+.forge-diagram .pieCircle {
+  stroke: rgba(6,182,212,0.4) !important;
+  stroke-width: 1.5px !important;
+  opacity: 0.92 !important;
+}
+.forge-diagram .pieTitleText,
+.forge-diagram .slice,
+.forge-diagram .legend text {
+  fill: var(--forge-text) !important;
+  font-family: var(--bs-body-font-family) !important;
+}
+
+.forge-diagram .lineWrapper line {
+  stroke: rgba(6,182,212,0.45) !important;
+}
+.forge-diagram .taskWrapper .nodeLabel,
+.forge-diagram .taskWrapper text,
+.forge-diagram .eventWrapper text {
+  fill: var(--forge-text) !important;
 }
 
 /* =================================================================

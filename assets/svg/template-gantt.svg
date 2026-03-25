@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 220" width="680" height="220" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" width="680" height="280" role="img" aria-labelledby="title desc">
   <title id="title">Gantt chart template</title>
   <desc id="desc">Horizontal bars on a time axis with milestones and dependencies</desc>
   <rect width="100%" height="100%" fill="#111827"/>
+  <g transform="translate(0, 30)">
   <g font-family="system-ui, Segoe UI, sans-serif">
     <text x="340" y="18" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  project schedule]</text>
 
@@ -31,11 +32,11 @@
     <text x="14" y="188" font-size="10" fill="#F1F5F9" font-weight="600">Task E</text>
 
     <!-- Bars -->
-    <rect x="100" y="58" width="200" height="20" rx="3" fill="#3d5a80"/>
-    <rect x="220" y="88" width="180" height="20" rx="3" fill="#2c5282"/>
-    <rect x="340" y="118" width="200" height="20" rx="3" fill="#285e61"/>
-    <rect x="460" y="148" width="140" height="20" rx="3" fill="#744210"/>
-    <rect x="580" y="174" width="80" height="20" rx="3" fill="#553c9a"/>
+    <rect x="100" y="58" width="200" height="20" rx="6" fill="#3d5a80"/>
+    <rect x="220" y="88" width="180" height="20" rx="6" fill="#2c5282"/>
+    <rect x="340" y="118" width="200" height="20" rx="6" fill="#285e61"/>
+    <rect x="460" y="148" width="140" height="20" rx="6" fill="#744210"/>
+    <rect x="580" y="174" width="80" height="20" rx="6" fill="#553c9a"/>
 
     <!-- Milestone diamond -->
     <polygon points="540,128 548,118 556,128 548,138" fill="#F59E0B"/>
@@ -46,4 +47,5 @@
     <polygon points="300,88 296,82 304,82" fill="#708090"/>
   </g>
   <text x="340" y="212" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  schedule constraints or critical path]</text>
+  </g>
 </svg>
