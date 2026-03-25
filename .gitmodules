@@ -1,0 +1,3 @@
+[submodule "forge-lenses"]
+	path = forge-lenses
+	url = https://github.com/autowww/forge-lenses.git

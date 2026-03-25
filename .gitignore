@@ -1,3 +1,6 @@
 __pycache__/
 showcase/
 dist/
+
+# lenses — machine-local state (forge-lenses)
+.lenses-local/
