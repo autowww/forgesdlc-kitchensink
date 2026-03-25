@@ -220,6 +220,7 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
         extra_js=extra_js,
         theme_css_href="assets/forge-theme.css",
         theme_js_href="assets/forge-theme.js",
+        has_mermaid=bool(page.get("has_mermaid", False)),
     )
 
     if layout == "gallery":

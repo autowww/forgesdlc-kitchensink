@@ -9,7 +9,7 @@ from components import (
     render_skip_link,
     render_table,
 )
-from pages.diagrams import _FAMILIES, _fam_section_id
+from pages._diagram_gallery import diagram_template_count, render_family_sections_html
 
 _CHEVRON = (
     '<svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" '
@@ -25,30 +25,8 @@ def _spec_dl(items: list[tuple[str, str]]) -> str:
 
 
 def _all_diagram_gallery_sections_html() -> str:
-    """One ks-section per family; every template as a clickable thumb (same as diagrams.html)."""
-    sections: list[str] = []
-    for fam in _FAMILIES:
-        cards: list[str] = []
-        for key, svg_file, label in fam["items"]:
-            cards.append(
-                '<div class="forge-diagram forge-diagram-trigger ks-diagram-card '
-                'p-2 text-center ks-thumb" '
-                f"onclick=\"openDiagramWithDetail(this, '{key}')\">"
-                f'<img src="assets/svg/{svg_file}" alt="{e(label)}">'
-                f'<p class="section-label mt-2 mb-0">{e_content(label)}</p></div>'
-            )
-        fam_anchor = f"ag-{_fam_section_id(fam['name'])}"
-        sections.append(
-            f'<section id="{fam_anchor}" class="ks-section">\n'
-            f'  <h3 class="font-display mt-2 mb-1" style="font-size:1.35rem;color:var(--forge-amber)">'
-            f"{e_content(fam['name'])}</h3>\n"
-            f'  <p class="forge-support mb-3" style="font-size:0.9rem">{e_content(fam["desc"])}</p>\n'
-            f'  <div class="bento-grid bento-3 mb-2">\n'
-            f'    {"".join(cards)}\n'
-            f"  </div>\n"
-            f"</section>"
-        )
-    return "\n\n".join(sections)
+    """One ks-section per family; every template as a clickable thumb (same catalog as diagrams.html)."""
+    return render_family_sections_html(variant="for_agents")
 
 
 def _python_function_inventory_table() -> str:
@@ -148,6 +126,26 @@ def _python_function_inventory_table() -> str:
             "<code>render_product_footer(…)</code>",
             "str",
             "<code>.fs-footer</code> block with brand line + handbook link.",
+        ],
+        [
+            "<code>render_stage_carousel(slides, …)</code>",
+            "str",
+            "<code>fs-stage-carousel</code> + track/slides; <code>data-fs-*</code> for autoplay, loop, arrows, dots; variants <code>hero</code>, <code>gallery</code>, <code>testimonial</code>.",
+        ],
+        [
+            "<code>render_rail(items, …)</code>",
+            "str",
+            "<code>fs-rail</code> scroll-snap scroller; variants <code>cards</code>, <code>logos</code>, <code>media</code>; optional wheel hijack via <code>rail_wheel</code>.",
+        ],
+        [
+            "<code>render_card_rail(items, …)</code>",
+            "str",
+            "Wrapper: <code>render_rail(..., variant=&quot;cards&quot;)</code>; topic preview tiles use <code>data-fs-rail-action=&quot;topic&quot;</code>.",
+        ],
+        [
+            "<code>render_hero_carousel / render_gallery_carousel / render_thumb_gallery / render_testimonial_slider / render_logo_strip</code>",
+            "str",
+            "Thin wrappers over stage carousel and rail with preset modifiers (<code>fs-hero-carousel</code>, logo grid/marquee, etc.).",
         ],
     ]
     return render_table(
@@ -258,6 +256,7 @@ def render_body() -> str:
         cell_escape=True,
     )
     diagram_gallery_sections = _all_diagram_gallery_sections_html()
+    nd = diagram_template_count()
     python_inventory = _python_function_inventory_table()
     transforms_inventory = _transforms_inventory_table()
     layouts_inventory = _layouts_inventory_table()
@@ -267,7 +266,7 @@ def render_body() -> str:
   <p class="forge-support mb-3">This file is the <strong>consolidated machine-readable reference</strong> for the Forge kitchensink showcase. Each section follows the same shape: <strong>Purpose</strong> (when to use it), <strong>Styling</strong> (CSS classes and tokens), <strong>Markup</strong> (DOM pattern or Python emitter), <strong>Behavior</strong> (client scripts, if any), then a <strong>live example</strong>. The canonical stylesheet for this shell is <code>css/forge-theme.css</code> (imported as <code>assets/forge-theme.css</code> in generated pages). Bootstrap 5.3 provides utilities (<code>.d-flex</code>, <code>.gap-*</code>, <code>.mb-*</code>) layered on top of Forge tokens (<code>--forge-*</code>).</p>
   <div class="forge-callout forge-callout-cyan mb-0">
     <p class="callout-label text-cyan">Scope</p>
-    <p class="forge-support mb-0">This page documents the <strong>handbook/showcase</strong> theme. Product marketing pages use <code>forgesdlc-theme.css</code> and <code>fs-*</code> classes — see the <a href="#ag-product-theme">Product theme</a> section. Full-page shells are Python functions in <code>components/layouts.py</code>.</p>
+    <p class="forge-support mb-0">This page documents the <strong>handbook/showcase</strong> theme. Product marketing pages use <code>forgesdlc-theme.css</code> and <code>fs-*</code> classes — see the <a href="#ag-product-theme">Product theme</a> and <a href="#ag-fs-overview">Presentation primitives</a> sections. Full-page shells are Python functions in <code>components/layouts.py</code>.</p>
   </div>
 </section>
 
@@ -536,7 +535,7 @@ def render_body() -> str:
     ("Headers / product", "<code>render_page_header</code>, <code>render_page_header_chapter</code>, <code>render_tier_nav</code>, <code>render_cross_refs</code>, <code>render_authorship_signal</code>, <code>render_product_landing_hero</code>, <code>wrap_product_site_article</code>, <code>render_product_footer</code>."),
   ])}
   <p class="section-label text-cyan mb-2">Example (output shape of <code>render_mermaid_block</code>)</p>
-  <p class="forge-support small mb-2"><code>showcase_page</code> does not inject the Mermaid module script; handbook/chapter layouts pass <code>has_mermaid=True</code> so <code>mermaid.run</code> executes. Below is the static DOM shape (diagram renders only when Mermaid JS is present).</p>
+  <p class="forge-support small mb-2"><code>showcase_page</code> injects the Mermaid module when the showcase page sets <code>has_mermaid</code> in its <code>PAGE</code> dict (see <a href="mermaid-examples.html"><code>mermaid-examples.html</code></a>); default is off. Handbook/chapter/product layouts use the same <code>has_mermaid</code> flag. Below is the static DOM shape for this page (diagram renders only when Mermaid JS is present).</p>
   <div class="forge-diagram breathe-static">
     <div class="mermaid small">graph LR
   A[Agent] --> B[HTML]</div>
@@ -572,12 +571,12 @@ def render_body() -> str:
     ("Markup", "Typical thumb: <code>&lt;div class=&quot;forge-diagram forge-diagram-trigger …&quot; onclick=&quot;openDiagramWithDetail(this, 'linear')&quot;&gt;&lt;img src=&quot;assets/svg/template-….svg&quot; alt=&quot;…&quot;&gt;</code>. The key (<code>linear</code>, <code>loop</code>, …) must exist in <code>DIAGRAM_DETAILS</code> inside <code>showcase.js</code>."),
     ("Behavior", "<code>openDiagramWithDetail</code> clones SVG into the modal and wires hover/legend from JS metadata."),
   ])}
-  <p class="forge-support mb-0">Live thumbnails for all 24 templates follow in the next sections — each card is clickable.</p>
+  <p class="forge-support mb-0">Live thumbnails for all {nd} templates follow in the next sections — each card is clickable.</p>
 </section>
 
 <section id="ag-diag-catalog" class="ks-section">
-  <h2 class="ks-section-title">Diagrams · All 24 SVG templates (visual)</h2>
-  <p class="forge-support mb-4">Below are the same archetypes as <a href="diagrams.html"><code>diagrams.html</code></a>: one <code>.bento-grid.bento-3</code> per family, each tile uses <code>onclick=&quot;openDiagramWithDetail(this, '&lt;key&gt;')&quot;</code> where <code>&lt;key&gt;</code> matches <code>DIAGRAM_DETAILS</code> in <code>js/showcase.js</code>. Scroll is long by design so models and humans can see every asset.</p>
+  <h2 class="ks-section-title">Diagrams · All {nd} SVG templates (visual)</h2>
+  <p class="forge-support mb-4">Below are the same archetypes as <a href="diagrams.html"><code>diagrams.html</code></a> (built from <code>pages._diagram_gallery</code>): one <code>.bento-grid.bento-3</code> per family, each tile uses <code>onclick=&quot;openDiagramWithDetail(this, '&lt;key&gt;')&quot;</code> where <code>&lt;key&gt;</code> matches <code>DIAGRAM_DETAILS</code> in <code>js/showcase.js</code>. Cards include a <strong>Mermaid:</strong> line listing the closest native grammars (flowchart, gantt, <code>xychart-beta</code>, etc.). Scroll is long by design so models and humans can see every asset.</p>
 </section>
 
 {diagram_gallery_sections}
@@ -649,7 +648,7 @@ def render_body() -> str:
   <h2 class="ks-section-title">Layouts · Overview</h2>
   {_spec_dl([
     ("Purpose", "Full HTML documents: <code>handbook_page</code>, <code>chapter_page</code>, <code>product_page</code>, <code>showcase_page</code>, <code>landing_page</code>, <code>gallery_page</code>, <code>split_page</code> in <code>components/layouts.py</code>."),
-    ("Canonical shell", "<code>showcase_page</code> is the reference documentation layout (header + sidebar + body + optional right ToC). Consumer generators should mirror <code>generator/build-showcase.py</code> <code>_render_page</code> kwargs."),
+    ("Canonical shell", "<code>showcase_page</code> is the reference documentation layout (header + sidebar + body + optional right ToC). Consumer generators should mirror <code>generator/build-showcase.py</code> <code>_render_page</code> kwargs (including <code>has_mermaid</code> from <code>PAGE</code> when needed)."),
     ("Live previews", 'Build writes <code>preview-handbook.html</code>, <code>preview-chapter.html</code>, <code>preview-product.html</code>, <code>preview-split.html</code> next to other showcase HTML via <code>layout_previews.py</code>. The <a href="layouts.html">Page Layouts</a> page opens them in a modal iframe.'),
   ])}
   <p class="section-label text-cyan mb-2">Layout functions (<code>layouts.py</code>)</p>
@@ -659,7 +658,7 @@ def render_body() -> str:
 <section id="ag-layout-showcase" class="ks-section">
   <h2 class="ks-section-title">Layouts · <code>showcase_page</code></h2>
   {_spec_dl([
-    ("Parameters", "<code>browser_title</code>, <code>page_title</code>, <code>sidebar_html</code>, <code>body_html</code>, <code>toc_html</code> (optional), <code>breadcrumb_html</code>, <code>footer_html</code>, <code>extra_css</code>, <code>extra_js</code> (list of src paths), <code>theme_css_href</code>, <code>theme_js_href</code>."),
+    ("Parameters", "<code>browser_title</code>, <code>page_title</code>, <code>sidebar_html</code>, <code>body_html</code>, <code>toc_html</code> (optional), <code>breadcrumb_html</code>, <code>footer_html</code>, <code>extra_css</code>, <code>extra_js</code> (list of src paths), <code>theme_css_href</code>, <code>theme_js_href</code>, <code>has_mermaid</code> (optional, default false — injects Mermaid init when true)."),
     ("Structure", "Sticky header (brand, breadcrumb, H1) + scrollable left sidebar + main column + optional right <code>.forge-toc</code>."),
     ("Used by", "Kitchensink showcase (this site) for most pages."),
   ])}
@@ -741,6 +740,76 @@ def render_body() -> str:
     ("Live preview", "After <code>python3 generator/build-showcase.py</code>, open <code>showcase/preview-product.html</code> (or use the Layouts page “Open live preview” for product) — do not load product CSS on this handbook-themed page or variables will clash."),
   ])}
   <p class="forge-support mb-0">Relative link from this file: <a href="preview-product.html"><code>preview-product.html</code></a> (same directory as <code>for-agents.html</code>).</p>
+</section>
+
+<section id="ag-fs-overview" class="ks-section">
+  <h2 class="ks-section-title">Presentation · Stage vs rail</h2>
+  {_spec_dl([
+    ("Purpose", "Marketing and storytelling patterns live in the <code>fs-*</code> product layer — not handbook <code>forge-*</code> primitives."),
+    ("When to use stage", "One slide in view: heroes, testimonials, large galleries. Supports autoplay (disabled when <code>prefers-reduced-motion</code>), swipe, keyboard, dots, arrows."),
+    ("When to use rail", "Multiple peers horizontally: case-study cards, logos, media strips. CSS scroll-snap first; optional arrow nudging; optional vertical-wheel → horizontal scroll."),
+    ("Live examples", "<a href=\"presentation.html\"><code>presentation.html</code></a> in the built showcase."),
+  ])}
+</section>
+
+<section id="ag-fs-stage" class="ks-section">
+  <h2 class="ks-section-title">Presentation · <code>fs-stage-carousel</code></h2>
+  {_spec_dl([
+    ("Purpose", "Single-focus carousel: translate track inside fixed aspect-ratio viewport to avoid CLS."),
+    ("Styling", "Block in <code>forgesdlc-theme.css</code> — <code>.fs-stage-carousel</code>, <code>__viewport</code>, <code>__track</code>, <code>__slide</code>, <code>__overlay</code>, <code>__toolbar</code>, modifiers <code>--hero</code>, <code>--gallery</code>, <code>--testimonial</code>."),
+    ("Markup", "Root <code>&lt;section data-fs-stage-carousel&gt;</code> with <code>data-fs-autoplay</code>, <code>data-fs-interval-ms</code>, <code>data-fs-loop</code>, <code>data-fs-show-arrows</code>, <code>data-fs-show-dots</code>; live region <code>.fs-stage-carousel__live</code> (<code>aria-live=&quot;polite&quot;</code>); slides are <code>.fs-stage-carousel__slide</code> with stable <code>id</code>s for <code>aria-controls</code> on dots."),
+    ("Slide actions", "<code>data-fs-slide-action=&quot;lightbox&quot;</code> + <code>data-fs-lightbox-src</code> / <code>data-fs-lightbox-alt</code>; <code>topic</code> + <code>data-fs-topic-href</code> / <code>data-fs-topic-title</code> calls <code>openTopicPreviewModal</code>; <code>link</code> uses a full-size <code>&lt;a class=&quot;fs-stage-carousel__media-hit&quot;&gt;</code>."),
+    ("Behavior", "<code>fs-presentation.js</code> wires navigation, touch swipe, autoplay pause on hover/focus/manual nav (resume after pointer/focus leaves root), visibility pause, and dot generation."),
+    ("Python API", "<code>render_stage_carousel</code> from <code>components/presentation.py</code> (also re-exported from <code>components</code> package)."),
+  ])}
+  <p class="section-label text-cyan mb-2">Live example</p>
+  <p class="forge-support mb-0">See <a href="presentation.html#sec-stage-primitive">Presentation controls · Primitive</a>.</p>
+</section>
+
+<section id="ag-fs-rail" class="ks-section">
+  <h2 class="ks-section-title">Presentation · <code>fs-rail</code></h2>
+  {_spec_dl([
+    ("Purpose", "Horizontal multi-card / logo / media scroller with snap points and optional peek of the next card."),
+    ("Styling", "<code>.fs-rail</code>, <code>__scroller</code>, <code>__track</code>, <code>__item</code>, modifiers <code>--cards</code>, <code>--logos</code>, <code>--media</code>, <code>--peek</code>."),
+    ("Markup", "Root <code>&lt;div data-fs-rail&gt;</code> with <code>data-fs-rail-arrows</code>, <code>data-fs-rail-wheel</code>; prev/next <code>.fs-rail__arrow</code> flank <code>.fs-rail__scroller</code>."),
+    ("Behavior", "Arrows call <code>scrollBy</code> (~0.72 viewport width); optional wheel listener maps vertical delta to horizontal when enabled."),
+    ("Python API", "<code>render_rail</code>, <code>render_card_rail</code>."),
+  ])}
+  <p class="section-label text-cyan mb-2">Live example</p>
+  <p class="forge-support mb-0">See <a href="presentation.html#sec-rail-primitive">Presentation controls · fs-rail</a>.</p>
+</section>
+
+<section id="ag-fs-derived" class="ks-section">
+  <h2 class="ks-section-title">Presentation · Derived Phase 1 components</h2>
+  {_spec_dl([
+    ("fs-hero-carousel", "Modifier <code>fs-stage-carousel--hero</code> + wide aspect; overlay copy and CTAs."),
+    ("fs-gallery-carousel", "<code>--gallery</code>; caption overlay on media; same-height viewport."),
+    ("fs-thumb-gallery", "Wraps stage + <code>.fs-thumb-gallery__strip</code> tab-style thumbs; JS syncs selection."),
+    ("fs-card-rail", "<code>fs-rail--cards</code> with <code>.forge-card</code> cells."),
+    ("fs-testimonial-slider", "<code>--testimonial</code> text-first slide layout."),
+    ("fs-logo-strip", "<code>mode=&quot;grid&quot;|&quot;rail&quot;|&quot;marquee&quot;</code>; marquee uses duplicated segment + CSS animation (disabled when reduced-motion)."),
+  ])}
+  <p class="section-label text-cyan mb-2">Live example</p>
+  <p class="forge-support mb-0"><a href="presentation.html"><code>presentation.html</code></a> — full section list in page ToC.</p>
+</section>
+
+<section id="ag-fs-python" class="ks-section">
+  <h2 class="ks-section-title">Presentation · <code>components/presentation.py</code></h2>
+  {_spec_dl([
+    ("Purpose", "Typed slide/item dataclasses (<code>StageSlide</code>, <code>RailItem</code>, <code>LogoItem</code>) and HTML emitters for product pages."),
+    ("Styling", "Escapes text via <code>e</code> / <code>e_content</code>; does not load CSS — consumer must include <code>forgesdlc-theme.css</code>."),
+    ("Imports", "Showcase page module imports top-level <code>presentation</code> (path lists <code>components/</code>); package consumers use <code>from components import render_stage_carousel</code>."),
+  ])}
+  <p class="forge-support mb-0">Inventory rows: <a href="#ag-python-inventory">Python · Function inventory</a>.</p>
+</section>
+
+<section id="ag-fs-js" class="ks-section">
+  <h2 class="ks-section-title">Presentation · <code>fs-presentation.js</code></h2>
+  {_spec_dl([
+    ("Purpose", "Stage carousel, thumb sync, rail arrows/wheel, dedicated image lightbox (<code>#fsMediaLightbox</code>) — avoids sharing the diagram modal."),
+    ("Load order", "After Bootstrap bundle and <code>forge-theme.js</code> so <code>openTopicPreviewModal</code> exists for topic slide actions."),
+    ("Lightbox", "Global <code>fsOpenMediaLightbox(src, alt)</code>; Escape and backdrop close; restores <code>body</code> overflow."),
+  ])}
 </section>
 
 <div id="diagramModal" class="diagram-modal-backdrop">

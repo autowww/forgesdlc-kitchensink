@@ -77,6 +77,12 @@ def sync_product_site_assets(
     else:
         warnings.append("forgesdlc-theme.css missing — product chrome incomplete")
 
+    pres_js = kitchensink_root / "js" / "fs-presentation.js"
+    if pres_js.is_file():
+        shutil.copy2(pres_js, dest_assets / "fs-presentation.js")
+    else:
+        warnings.append("fs-presentation.js missing — presentation carousels/rails will not run")
+
     return warnings
 
 

@@ -138,7 +138,68 @@ MERMAID_SCRIPT = """\
             edgeLabelBackground: '#111827',
             nodeTextColor: '#F1F5F9',
             fontFamily: 'Inter, system-ui, sans-serif',
-            fontSize: '13px'
+            fontSize: '13px',
+            sectionBkgColor: 'rgba(6,182,212,0.06)',
+            altSectionBkgColor: 'rgba(15,23,42,0.45)',
+            gridColor: 'rgba(148,163,184,0.22)',
+            taskBkgColor: '#1e293b',
+            taskBorderColor: 'rgba(6,182,212,0.45)',
+            activeTaskBkgColor: 'rgba(6,182,212,0.28)',
+            activeTaskBorderColor: '#22d3ee',
+            doneTaskBkgColor: 'rgba(6,182,212,0.14)',
+            doneTaskBorderColor: 'rgba(6,182,212,0.35)',
+            critBkgColor: 'rgba(245,158,11,0.25)',
+            critBorderColor: '#F59E0B',
+            todayLineColor: '#F59E0B',
+            taskTextOutsideColor: '#F1F5F9',
+            taskTextLightColor: '#CBD5E1',
+            taskTextDarkColor: '#E2E8F0',
+            pie1: 'rgba(6,182,212,0.9)',
+            pie2: 'rgba(245,158,11,0.88)',
+            pie3: 'rgba(34,211,238,0.75)',
+            pie4: 'rgba(148,163,184,0.55)',
+            pie5: 'rgba(14,165,233,0.85)',
+            pie6: 'rgba(251,191,36,0.8)',
+            pie7: 'rgba(56,189,248,0.65)',
+            pie8: 'rgba(94,234,212,0.5)',
+            pie9: 'rgba(6,182,212,0.45)',
+            pie10: 'rgba(245,158,11,0.45)',
+            pie11: 'rgba(125,211,252,0.55)',
+            pie12: 'rgba(203,213,225,0.45)',
+            pieStrokeColor: 'rgba(6,182,212,0.45)',
+            pieOuterStrokeColor: 'rgba(6,182,212,0.35)',
+            pieTitleTextColor: '#F1F5F9',
+            pieSectionTextColor: '#F1F5F9',
+            pieLegendTextColor: '#CBD5E1',
+            quadrant1Fill: 'rgba(6,182,212,0.14)',
+            quadrant2Fill: 'rgba(6,182,212,0.07)',
+            quadrant3Fill: 'rgba(245,158,11,0.1)',
+            quadrant4Fill: 'rgba(148,163,184,0.1)',
+            quadrant1TextFill: '#E2E8F0',
+            quadrant2TextFill: '#E2E8F0',
+            quadrant3TextFill: '#E2E8F0',
+            quadrant4TextFill: '#E2E8F0',
+            quadrantPointFill: '#F59E0B',
+            quadrantPointTextFill: '#F8FAFC',
+            quadrantXAxisTextFill: '#94A3B8',
+            quadrantYAxisTextFill: '#94A3B8',
+            quadrantTitleFill: '#F1F5F9',
+            quadrantInternalBorderStrokeFill: 'rgba(6,182,212,0.28)',
+            quadrantExternalBorderStrokeFill: 'rgba(6,182,212,0.45)',
+            xyChart: {
+              backgroundColor: 'transparent',
+              titleColor: '#F1F5F9',
+              dataLabelColor: '#E2E8F0',
+              xAxisTitleColor: '#94A3B8',
+              xAxisLabelColor: '#94A3B8',
+              xAxisTickColor: '#94A3B8',
+              xAxisLineColor: 'rgba(148,163,184,0.35)',
+              yAxisTitleColor: '#94A3B8',
+              yAxisLabelColor: '#94A3B8',
+              yAxisTickColor: '#94A3B8',
+              yAxisLineColor: 'rgba(148,163,184,0.35)',
+              plotColorPalette: '#06B6D4,#F59E0B,#22D3EE,#94A3B8,#0EA5E9,#FBBF24,#38BDF8,#CBD5E1',
+            },
           }
         : {
             darkMode: false,
@@ -162,7 +223,68 @@ MERMAID_SCRIPT = """\
             edgeLabelBackground: '#f1f5f9',
             nodeTextColor: '#0f172a',
             fontFamily: 'Inter, system-ui, sans-serif',
-            fontSize: '13px'
+            fontSize: '13px',
+            sectionBkgColor: 'rgba(6,182,212,0.08)',
+            altSectionBkgColor: '#f8fafc',
+            gridColor: 'rgba(71,85,105,0.22)',
+            taskBkgColor: '#e2e8f0',
+            taskBorderColor: 'rgba(8,145,178,0.45)',
+            activeTaskBkgColor: 'rgba(6,182,212,0.22)',
+            activeTaskBorderColor: '#0891b2',
+            doneTaskBkgColor: 'rgba(6,182,212,0.12)',
+            doneTaskBorderColor: 'rgba(8,145,178,0.35)',
+            critBkgColor: 'rgba(245,158,11,0.22)',
+            critBorderColor: '#d97706',
+            todayLineColor: '#d97706',
+            taskTextOutsideColor: '#0f172a',
+            taskTextLightColor: '#475569',
+            taskTextDarkColor: '#1e293b',
+            pie1: 'rgba(8,145,178,0.88)',
+            pie2: 'rgba(217,119,6,0.85)',
+            pie3: 'rgba(14,165,233,0.75)',
+            pie4: 'rgba(100,116,139,0.55)',
+            pie5: 'rgba(6,182,212,0.7)',
+            pie6: 'rgba(245,158,11,0.65)',
+            pie7: 'rgba(56,189,248,0.65)',
+            pie8: 'rgba(45,212,191,0.55)',
+            pie9: 'rgba(8,145,178,0.45)',
+            pie10: 'rgba(217,119,6,0.45)',
+            pie11: 'rgba(125,211,252,0.6)',
+            pie12: 'rgba(148,163,184,0.5)',
+            pieStrokeColor: 'rgba(8,145,178,0.4)',
+            pieOuterStrokeColor: 'rgba(8,145,178,0.35)',
+            pieTitleTextColor: '#0f172a',
+            pieSectionTextColor: '#0f172a',
+            pieLegendTextColor: '#475569',
+            quadrant1Fill: 'rgba(6,182,212,0.12)',
+            quadrant2Fill: 'rgba(6,182,212,0.06)',
+            quadrant3Fill: 'rgba(245,158,11,0.08)',
+            quadrant4Fill: 'rgba(148,163,184,0.1)',
+            quadrant1TextFill: '#1e293b',
+            quadrant2TextFill: '#1e293b',
+            quadrant3TextFill: '#1e293b',
+            quadrant4TextFill: '#1e293b',
+            quadrantPointFill: '#d97706',
+            quadrantPointTextFill: '#0f172a',
+            quadrantXAxisTextFill: '#475569',
+            quadrantYAxisTextFill: '#475569',
+            quadrantTitleFill: '#0f172a',
+            quadrantInternalBorderStrokeFill: 'rgba(8,145,178,0.3)',
+            quadrantExternalBorderStrokeFill: 'rgba(8,145,178,0.45)',
+            xyChart: {
+              backgroundColor: 'transparent',
+              titleColor: '#0f172a',
+              dataLabelColor: '#1e293b',
+              xAxisTitleColor: '#475569',
+              xAxisLabelColor: '#475569',
+              xAxisTickColor: '#64748b',
+              xAxisLineColor: 'rgba(71,85,105,0.28)',
+              yAxisTitleColor: '#475569',
+              yAxisLabelColor: '#475569',
+              yAxisTickColor: '#64748b',
+              yAxisLineColor: 'rgba(71,85,105,0.28)',
+              plotColorPalette: '#0891b2,#d97706,#06b6d4,#64748b,#0ea5e9,#f59e0b,#38bdf8,#94a3b8',
+            },
           };
     }
 
@@ -667,9 +789,11 @@ def showcase_page(
     extra_js: list[str] | None = None,
     theme_css_href: str = "assets/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
+    has_mermaid: bool = False,
 ) -> str:
     """Showcase documentation page: unified header + sticky sidebar + content + optional ToC."""
     offcanvas = offcanvas_html or sidebar_html
+    mermaid_script = MERMAID_SCRIPT if has_mermaid else ""
     extra_scripts = "\n".join(
         f'<script src="{e(src)}"></script>' for src in (extra_js or [])
     )
@@ -741,6 +865,7 @@ def showcase_page(
 {_resolve_theme_js(theme_js_href)}
 {_SHOWCASE_SIDEBAR_SYNC_JS}
 {extra_scripts}
+{mermaid_script}
 </body>
 </html>
 """
@@ -844,6 +969,7 @@ def gallery_page(
     extra_js: list[str] | None = None,
     theme_css_href: str = "assets/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
+    has_mermaid: bool = False,
 ) -> str:
     """Gallery page: sidebar + full-width card grid; optional right-rail ToC like showcase_page."""
     return showcase_page(
@@ -861,6 +987,7 @@ def gallery_page(
         extra_js=extra_js,
         theme_css_href=theme_css_href,
         theme_js_href=theme_js_href,
+        has_mermaid=has_mermaid,
     )
 
 
@@ -884,6 +1011,7 @@ def split_page(
     extra_js: list[str] | None = None,
     theme_css_href: str = "assets/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
+    has_mermaid: bool = False,
 ) -> str:
     """Split page: sidebar + two-panel layout (example left, docs right)."""
     body = f"""
@@ -910,4 +1038,5 @@ def split_page(
         extra_js=extra_js,
         theme_css_href=theme_css_href,
         theme_js_href=theme_js_href,
+        has_mermaid=has_mermaid,
     )

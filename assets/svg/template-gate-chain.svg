@@ -8,9 +8,9 @@
     <text x="350" y="16" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  -  gated process]</text>
 
     <g data-node="Stage 1" pointer-events="all">
-    <rect x="10" y="30" width="120" height="48" rx="8" fill="#2c5282"/>
-    <text x="70" y="52" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Stage 1</text>
-    <text x="70" y="66" text-anchor="middle" fill="#fff" font-size="9">[activity]</text>
+    <rect x="10" y="30" width="120" height="48" rx="8" fill="#1e2d42"/>
+    <text x="70" y="52" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Stage 1</text>
+    <text x="70" y="66" text-anchor="middle" fill="#F1F5F9" font-size="9">[activity]</text>
     </g>
 
     <g data-node="Gate 1" pointer-events="all">
@@ -19,9 +19,9 @@
     </g>
 
     <g data-node="Stage 2" pointer-events="all">
-    <rect x="240" y="30" width="120" height="48" rx="8" fill="#285e61"/>
-    <text x="300" y="52" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Stage 2</text>
-    <text x="300" y="66" text-anchor="middle" fill="#fff" font-size="9">[activity]</text>
+    <rect x="240" y="30" width="120" height="48" rx="8" fill="#1c3148"/>
+    <text x="300" y="52" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Stage 2</text>
+    <text x="300" y="66" text-anchor="middle" fill="#F1F5F9" font-size="9">[activity]</text>
     </g>
 
     <g data-node="Gate 2" pointer-events="all">
@@ -30,23 +30,23 @@
     </g>
 
     <g data-node="Stage 3" pointer-events="all">
-    <rect x="470" y="30" width="120" height="48" rx="8" fill="#744210"/>
-    <text x="530" y="52" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Stage 3</text>
-    <text x="530" y="66" text-anchor="middle" fill="#fff" font-size="9">[activity]</text>
+    <rect x="470" y="30" width="120" height="48" rx="8" fill="rgba(245,158,11,0.22)"/>
+    <text x="530" y="52" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Stage 3</text>
+    <text x="530" y="66" text-anchor="middle" fill="#F1F5F9" font-size="9">[activity]</text>
     </g>
 
-    <rect x="630" y="38" width="40" height="32" rx="16" fill="#553c9a"/>
-    <text x="650" y="58" text-anchor="middle" fill="#fff" font-weight="700" font-size="10">&#10003;</text>
+    <rect x="630" y="38" width="40" height="32" rx="16" fill="#232a3d"/>
+    <text x="650" y="58" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="10">&#10003;</text>
   </g>
 
-  <g stroke="#0e7490" stroke-width="1.5" fill="none">
+  <g stroke="rgba(6,182,212,0.55)" stroke-width="1.5" fill="none">
     <path d="M 130 54 L 180 54"/>
     <path d="M 212 54 L 240 54"/>
     <path d="M 360 54 L 410 54"/>
     <path d="M 442 54 L 470 54"/>
     <path d="M 590 54 L 630 54"/>
   </g>
-  <g fill="#708090">
+  <g fill="#94a3b8">
     <polygon points="180,54 174,50 174,58"/>
     <polygon points="240,54 234,50 234,58"/>
     <polygon points="410,54 404,50 404,58"/>
@@ -54,6 +54,6 @@
     <polygon points="630,54 624,50 624,58"/>
   </g>
 
-  <text x="350" y="92" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  -  gate criteria or escalation policy]</text>
+  <text x="350" y="92" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#94a3b8">[Footer note  -  gate criteria or escalation policy]</text>
   </g>
 </svg>

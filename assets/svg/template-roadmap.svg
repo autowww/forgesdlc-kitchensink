@@ -7,13 +7,13 @@
     <text x="340" y="18" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  multi-track roadmap]</text>
 
     <!-- Time axis labels -->
-    <text x="200" y="38" text-anchor="middle" font-size="9" fill="#708090">Q1</text>
-    <text x="340" y="38" text-anchor="middle" font-size="9" fill="#708090">Q2</text>
-    <text x="480" y="38" text-anchor="middle" font-size="9" fill="#708090">Q3</text>
-    <text x="600" y="38" text-anchor="middle" font-size="9" fill="#708090">Q4</text>
+    <text x="200" y="38" text-anchor="middle" font-size="9" fill="#94a3b8">Q1</text>
+    <text x="340" y="38" text-anchor="middle" font-size="9" fill="#94a3b8">Q2</text>
+    <text x="480" y="38" text-anchor="middle" font-size="9" fill="#94a3b8">Q3</text>
+    <text x="600" y="38" text-anchor="middle" font-size="9" fill="#94a3b8">Q4</text>
 
     <!-- Grid lines -->
-    <g stroke="#1f2937" stroke-width="1">
+    <g stroke="rgba(6,182,212,0.16)" stroke-width="1">
       <line x1="130" y1="44" x2="130" y2="210"/>
       <line x1="270" y1="44" x2="270" y2="210"/>
       <line x1="410" y1="44" x2="410" y2="210"/>
@@ -22,32 +22,32 @@
     </g>
 
     <!-- Track A -->
-    <text x="14" y="72" font-size="10" fill="#2c5282" font-weight="700">Track A</text>
-    <rect x="10" y="50" width="660" height="36" rx="2" fill="none" stroke="#1f2937" stroke-width="1"/>
-    <rect x="130" y="56" width="200" height="24" rx="3" fill="#3d5a80"/>
-    <text x="230" y="73" text-anchor="middle" fill="#fff" font-size="9" font-weight="600">Feature 1</text>
-    <rect x="410" y="56" width="180" height="24" rx="3" fill="#2c5282"/>
-    <text x="500" y="73" text-anchor="middle" fill="#fff" font-size="9" font-weight="600">Feature 2</text>
+    <text x="14" y="72" font-size="10" fill="#94A3B8" font-weight="700">Track A</text>
+    <rect x="10" y="50" width="660" height="36" rx="2" fill="none" stroke="rgba(6,182,212,0.16)" stroke-width="1"/>
+    <rect x="130" y="56" width="200" height="24" rx="3" fill="#1a2235"/>
+    <text x="230" y="73" text-anchor="middle" fill="#F1F5F9" font-size="9" font-weight="600">Feature 1</text>
+    <rect x="410" y="56" width="180" height="24" rx="3" fill="#1e2d42"/>
+    <text x="500" y="73" text-anchor="middle" fill="#F1F5F9" font-size="9" font-weight="600">Feature 2</text>
 
     <!-- Track B -->
-    <text x="14" y="122" font-size="10" fill="#285e61" font-weight="700">Track B</text>
-    <rect x="10" y="100" width="660" height="36" rx="2" fill="none" stroke="#1f2937" stroke-width="1"/>
-    <rect x="200" y="106" width="280" height="24" rx="3" fill="#285e61"/>
-    <text x="340" y="123" text-anchor="middle" fill="#fff" font-size="9" font-weight="600">Feature 3</text>
+    <text x="14" y="122" font-size="10" fill="#94A3B8" font-weight="700">Track B</text>
+    <rect x="10" y="100" width="660" height="36" rx="2" fill="none" stroke="rgba(6,182,212,0.16)" stroke-width="1"/>
+    <rect x="200" y="106" width="280" height="24" rx="3" fill="#1c3148"/>
+    <text x="340" y="123" text-anchor="middle" fill="#F1F5F9" font-size="9" font-weight="600">Feature 3</text>
 
     <!-- Track C -->
     <text x="14" y="172" font-size="10" fill="#F59E0B" font-weight="700">Track C</text>
-    <rect x="10" y="150" width="660" height="36" rx="2" fill="none" stroke="#1f2937" stroke-width="1"/>
-    <rect x="130" y="156" width="140" height="24" rx="3" fill="#744210"/>
-    <text x="200" y="173" text-anchor="middle" fill="#fff" font-size="9" font-weight="600">Feature 4</text>
-    <rect x="340" y="156" width="100" height="24" rx="3" fill="#744210"/>
-    <text x="390" y="173" text-anchor="middle" fill="#fff" font-size="9" font-weight="600">Feature 5</text>
-    <rect x="550" y="156" width="110" height="24" rx="3" fill="#553c9a"/>
-    <text x="605" y="173" text-anchor="middle" fill="#fff" font-size="9" font-weight="600">Feature 6</text>
+    <rect x="10" y="150" width="660" height="36" rx="2" fill="none" stroke="rgba(6,182,212,0.16)" stroke-width="1"/>
+    <rect x="130" y="156" width="140" height="24" rx="3" fill="rgba(245,158,11,0.22)"/>
+    <text x="200" y="173" text-anchor="middle" fill="#F1F5F9" font-size="9" font-weight="600">Feature 4</text>
+    <rect x="340" y="156" width="100" height="24" rx="3" fill="rgba(245,158,11,0.22)"/>
+    <text x="390" y="173" text-anchor="middle" fill="#F1F5F9" font-size="9" font-weight="600">Feature 5</text>
+    <rect x="550" y="156" width="110" height="24" rx="3" fill="#232a3d"/>
+    <text x="605" y="173" text-anchor="middle" fill="#F1F5F9" font-size="9" font-weight="600">Feature 6</text>
 
     <!-- Milestone -->
     <polygon points="410,198 418,190 426,198 418,206" fill="#F59E0B"/>
     <text x="418" y="218" text-anchor="middle" font-size="8" fill="#F59E0B" font-weight="600">M1</text>
   </g>
-  <text x="340" y="236" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  planning horizon or review cadence]</text>
+  <text x="340" y="236" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#94a3b8">[Footer note  planning horizon or review cadence]</text>
 </svg>

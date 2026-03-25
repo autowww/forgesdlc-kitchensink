@@ -1,6 +1,8 @@
 """Landing page — Forge Design System overview with hero + family cards."""
 from __future__ import annotations
 
+from pages._diagram_gallery import diagram_template_count
+
 PAGE = {
     "slug": "index",
     "title": "Forge Design System",
@@ -59,6 +61,7 @@ def body_html(pages: list[dict]) -> str:
             f'<p class="forge-support mb-0">{p.get("intro", "")}</p>'
             f'</a></div>'
         )
+    n_diagrams = diagram_template_count()
     return f"""\
 <h2 class="font-display text-center mb-4" style="font-size:1.5rem">Explore components</h2>
 <div class="row g-3 mb-5">
@@ -67,7 +70,7 @@ def body_html(pages: list[dict]) -> str:
 
 <div class="bento-grid bento-3 mb-4">
   <div class="glass p-4 forge-stat">
-    <div class="stat-value text-amber">24</div>
+    <div class="stat-value text-amber">{n_diagrams}</div>
     <div class="stat-label">Diagram templates</div>
   </div>
   <div class="glass p-4 forge-stat">

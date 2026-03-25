@@ -1,144 +1,41 @@
-"""Diagrams gallery page — all 24 SVG diagram templates."""
+"""Diagrams gallery page — SVG diagram template catalog plus Mermaid parallels."""
 from __future__ import annotations
 
+from pages._diagram_gallery import (
+    EXTRA_CSS,
+    _FAMILIES,
+    diagram_template_count,
+    family_section_id,
+    render_body,
+)
+from pages._diagram_mermaid_parallels import render_mermaid_parallels_html
 
-def _fam_section_id(name: str) -> str:
-    """Stable fragment id for each diagram family section."""
-    return "fam-" + (
-        name.lower()
-        .replace(" & ", "-")
-        .replace(" ", "-")
-        .replace(",", "")
-    )
-
-
-_FAMILIES = [
-    {
-        "name": "Process & Flow",
-        "desc": "How work moves through stages.",
-        "items": [
-            ("linear",   "template-linear-flow.svg", "linear-flow"),
-            ("loop",     "template-loop-cycle.svg",  "loop-cycle"),
-            ("gate",     "template-gate-chain.svg",  "gate-chain"),
-            ("swimlane", "template-swimlane.svg",    "swimlane"),
-            ("decision", "template-decision-flow.svg", "decision-flow"),
-            ("funnel",   "template-funnel.svg",      "funnel"),
-        ],
-    },
-    {
-        "name": "Structural & Relational",
-        "desc": "How things are organized or connected.",
-        "items": [
-            ("tree",      "template-tree.svg",          "tree"),
-            ("board",     "template-board-columns.svg",  "board-columns"),
-            ("checklist", "template-checklist.svg",      "checklist"),
-            ("network",   "template-network.svg",        "network"),
-            ("venn",      "template-venn.svg",           "venn"),
-        ],
-    },
-    {
-        "name": "Timeline & Scheduling",
-        "desc": "Events or work spread across time.",
-        "items": [
-            ("gantt",    "template-gantt.svg",    "gantt"),
-            ("timeline", "template-timeline.svg", "timeline"),
-            ("roadmap",  "template-roadmap.svg",  "roadmap"),
-        ],
-    },
-    {
-        "name": "Data Charts",
-        "desc": "Quantitative data visualization (Excel / Power BI territory).",
-        "items": [
-            ("bar",     "template-bar-chart.svg",   "bar-chart"),
-            ("line",    "template-line-chart.svg",   "line-chart"),
-            ("pie",     "template-pie-donut.svg",    "pie-donut"),
-            ("stacked", "template-stacked-bar.svg",  "stacked-bar"),
-            ("area",    "template-area-chart.svg",   "area-chart"),
-            ("scatter", "template-scatter.svg",      "scatter"),
-        ],
-    },
-    {
-        "name": "Comparison & Status",
-        "desc": "Current state, thresholds, or relative positioning.",
-        "items": [
-            ("quadrant", "template-quadrant.svg", "quadrant"),
-            ("gauge",    "template-gauge.svg",    "gauge"),
-            ("kpi",      "template-kpi-card.svg", "kpi-card"),
-        ],
-    },
-    {
-        "name": "Specialized",
-        "desc": "Domain-specific visualization patterns.",
-        "items": [
-            ("heatmap", "template-heatmap.svg", "heatmap"),
-        ],
-    },
-]
+_DIAGRAM_TEMPLATE_COUNT = diagram_template_count()
 
 PAGE = {
     "slug": "diagrams",
     "title": "Diagram Templates",
-    "intro": "24 SVG diagram archetypes across 6 families.",
+    "intro": (
+        f"{_DIAGRAM_TEMPLATE_COUNT} SVG diagram archetypes across {len(_FAMILIES)} families."
+    ),
     "family": "Patterns",
     "layout": "gallery",
     "order": 5,
+    "has_mermaid": True,
     "toc": [("sec-diagrams", "Overview")]
-    + [(_fam_section_id(f["name"]), f["name"]) for f in _FAMILIES],
+    + [(family_section_id(f), f["name"]) for f in _FAMILIES]
+    + [("sec-diagram-mermaid", "Mermaid parallels")],
 }
 
 
 def extra_css() -> str:
-    return """\
-  <style>
-    .ks-diagram-card { cursor: pointer; }
-    .ks-diagram-card svg { width: 100%; height: auto; }
-    .ks-thumb svg, .ks-thumb img { width: 100%; height: auto; }
-  </style>"""
+    return EXTRA_CSS
 
 
 def render() -> str:
-    sections = []
-    for fam in _FAMILIES:
-        cards = []
-        for key, svg_file, label in fam["items"]:
-            cards.append(
-                f'<div class="forge-diagram forge-diagram-trigger ks-diagram-card '
-                f'p-2 text-center ks-thumb" '
-                f'onclick="openDiagramWithDetail(this, \'{key}\')">'
-                f'<img src="assets/svg/{svg_file}" alt="{label}">'
-                f'<p class="section-label mt-2 mb-0">{label}</p></div>'
-            )
-        fam_id = _fam_section_id(fam["name"])
-        sections.append(
-            f'<section id="{fam_id}" class="ks-section">\n'
-            f'  <h4 class="mt-4 mb-1" style="color:var(--forge-amber)">'
-            f'{fam["name"]}</h4>\n'
-            f'  <p class="forge-support mb-3" style="font-size:0.85rem">'
-            f'{fam["desc"]}</p>\n'
-            f'  <div class="bento-grid bento-3 mb-4">\n'
-            f'    {"".join(cards)}\n'
-            f'  </div>\n'
-            f'</section>'
-        )
-
-    body = "\n\n".join(sections)
-    return f"""\
+    intro = f"""\
 <section id="sec-diagrams" class="ks-section">
   <h2 class="ks-section-title">SVG Diagram Type Templates</h2>
-  <p class="forge-support mb-4">Reusable diagram archetypes from the Forge design system (24 templates across 6 families). Content-specific diagrams live in each project; these templates define the visual language. Click any card to expand with interactive node descriptions.</p>
-</section>
-
-{body}
-
-<div id="diagramModal" class="diagram-modal-backdrop">
-  <div class="diagram-modal">
-    <div class="diagram-modal-header">
-      <h3 id="diagramModalTitle" class="forge-gradient-text">Diagram</h3>
-      <button class="diagram-modal-close" onclick="closeDiagramModal()" aria-label="Close">&times;</button>
-    </div>
-    <div class="diagram-modal-body">
-      <div id="diagramModalCanvas" class="diagram-modal-canvas"></div>
-      <div id="diagramModalDetail" class="diagram-modal-detail"></div>
-    </div>
-  </div>
-</div>"""
+  <p class="forge-support mb-4"><strong>{_DIAGRAM_TEMPLATE_COUNT} static SVG</strong> archetypes (Forge palette: cyan / amber / slate surfaces), extensible over time — aligned with how we use <strong>Mermaid</strong> in the same design system: each family explains the closest native Mermaid grammars, and each card lists matching types (e.g. flowchart, gantt, <code>xychart-beta</code>). Click a card for the modal legend. Scroll to <a href="#sec-diagram-mermaid">Mermaid parallels</a> for live diagram-as-code per template key, or <a href="mermaid-examples.html">Mermaid diagram examples</a> for the full <code>mermaid@10</code> catalog (sequence, state, class, ER, C4, Git graph, …).</p>
+</section>"""
+    return render_body(intro_section_html=intro, include_diagram_modal=True) + "\n\n" + render_mermaid_parallels_html()

@@ -5,9 +5,9 @@
   <rect width="100%" height="100%" fill="#111827"/>
   <g transform="translate(0, 60)">
   <g font-family="system-ui, Segoe UI, sans-serif">
-    <rect x="10" y="10" width="320" height="140" rx="8" fill="#111827" stroke="#1f2937" stroke-width="1.5"/>
+    <rect x="10" y="10" width="320" height="140" rx="8" fill="#111827" stroke="rgba(6,182,212,0.16)" stroke-width="1.5"/>
 
-    <text x="30" y="40" font-size="10" fill="#708090" font-weight="600" letter-spacing="0.08em">[METRIC LABEL]</text>
+    <text x="30" y="40" font-size="10" fill="#94a3b8" font-weight="600" letter-spacing="0.08em">[METRIC LABEL]</text>
 
     <g data-node="1,234" pointer-events="all">
     <text x="30" y="82" font-weight="700" font-size="32" fill="#06B6D4">1,234</text>
@@ -16,12 +16,12 @@
     </g>
 
     <g data-node="+12%" pointer-events="all">
-    <polygon points="170,58 178,46 186,58" fill="#065f46"/>
-    <text x="190" y="58" font-size="10" fill="#065f46" font-weight="700">+12%</text>
+    <polygon points="170,58 178,46 186,58" fill="#10B981"/>
+    <text x="190" y="58" font-size="10" fill="#10B981" font-weight="700">+12%</text>
     </g>
 
-    <text x="305" y="138" text-anchor="end" font-size="8" fill="#708090">[vs previous period]</text>
-    <text x="30" y="138" font-size="9" fill="#708090">Target: <tspan fill="#F59E0B" font-weight="600">1,500</tspan></text>
+    <text x="305" y="138" text-anchor="end" font-size="8" fill="#94a3b8">[vs previous period]</text>
+    <text x="30" y="138" font-size="9" fill="#94a3b8">Target: <tspan fill="#F59E0B" font-weight="600">1,500</tspan></text>
   </g>
   </g>
 </svg>

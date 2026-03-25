@@ -7,41 +7,41 @@
     <text x="200" y="20" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  positioning matrix]</text>
 
     <!-- Axes -->
-    <line x1="60" y1="180" x2="380" y2="180" stroke="#334155" stroke-width="2"/>
-    <line x1="220" y1="40" x2="220" y2="320" stroke="#334155" stroke-width="2"/>
+    <line x1="60" y1="180" x2="380" y2="180" stroke="#475569" stroke-width="2"/>
+    <line x1="220" y1="40" x2="220" y2="320" stroke="#475569" stroke-width="2"/>
 
     <!-- Axis labels -->
-    <text x="220" y="338" text-anchor="middle" font-size="10" fill="#708090">[X axis label] '</text>
-    <text x="36" y="180" text-anchor="middle" font-size="10" fill="#708090" transform="rotate(-90 36 180)">[Y axis label] '</text>
+    <text x="220" y="338" text-anchor="middle" font-size="10" fill="#94a3b8">[X axis label] '</text>
+    <text x="36" y="180" text-anchor="middle" font-size="10" fill="#94a3b8" transform="rotate(-90 36 180)">[Y axis label] '</text>
 
     <!-- Quadrant backgrounds -->
-    <rect x="62" y="42" width="156" height="136" rx="4" fill="rgba(44,82,130,0.12)"/>
+    <rect x="62" y="42" width="156" height="136" rx="4" fill="rgba(6,182,212,0.12)"/>
     <rect x="222" y="42" width="156" height="136" rx="4" fill="rgba(6,182,212,0.12)"/>
-    <rect x="62" y="182" width="156" height="136" rx="4" fill="rgba(116,66,16,0.12)"/>
-    <rect x="222" y="182" width="156" height="136" rx="4" fill="rgba(40,94,97,0.12)"/>
+    <rect x="62" y="182" width="156" height="136" rx="4" fill="rgba(245,158,11,0.15)"/>
+    <rect x="222" y="182" width="156" height="136" rx="4" fill="rgba(6,182,212,0.1)"/>
 
     <!-- Quadrant labels -->
-    <text x="140" y="80" text-anchor="middle" font-weight="700" font-size="11" fill="#2c5282">Quadrant A</text>
-    <text x="140" y="96" text-anchor="middle" font-size="9" fill="#708090">[description]</text>
+    <text x="140" y="80" text-anchor="middle" font-weight="700" font-size="11" fill="#E2E8F0">Quadrant A</text>
+    <text x="140" y="96" text-anchor="middle" font-size="9" fill="#94a3b8">[description]</text>
 
     <text x="300" y="80" text-anchor="middle" font-weight="700" font-size="11" fill="#06B6D4">Quadrant B</text>
-    <text x="300" y="96" text-anchor="middle" font-size="9" fill="#708090">[description]</text>
+    <text x="300" y="96" text-anchor="middle" font-size="9" fill="#94a3b8">[description]</text>
 
     <text x="140" y="240" text-anchor="middle" font-weight="700" font-size="11" fill="#F59E0B">Quadrant C</text>
-    <text x="140" y="256" text-anchor="middle" font-size="9" fill="#708090">[description]</text>
+    <text x="140" y="256" text-anchor="middle" font-size="9" fill="#94a3b8">[description]</text>
 
-    <text x="300" y="240" text-anchor="middle" font-weight="700" font-size="11" fill="#285e61">Quadrant D</text>
-    <text x="300" y="256" text-anchor="middle" font-size="9" fill="#708090">[description]</text>
+    <text x="300" y="240" text-anchor="middle" font-weight="700" font-size="11" fill="#E2E8F0">Quadrant D</text>
+    <text x="300" y="256" text-anchor="middle" font-size="9" fill="#94a3b8">[description]</text>
 
     <!-- Sample data points -->
-    <circle cx="120" cy="110" r="6" fill="rgba(44,82,130,0.6)" stroke="#2c5282" stroke-width="1.5"/>
-    <circle cx="160" cy="70" r="5" fill="rgba(44,82,130,0.6)" stroke="#2c5282" stroke-width="1.5"/>
+    <circle cx="120" cy="110" r="6" fill="rgba(6,182,212,0.45)" stroke="#1e2d42" stroke-width="1.5"/>
+    <circle cx="160" cy="70" r="5" fill="rgba(6,182,212,0.45)" stroke="#1e2d42" stroke-width="1.5"/>
     <circle cx="280" cy="100" r="7" fill="rgba(6,182,212,0.5)" stroke="#06B6D4" stroke-width="1.5"/>
     <circle cx="340" cy="60" r="5" fill="rgba(6,182,212,0.5)" stroke="#06B6D4" stroke-width="1.5"/>
     <circle cx="100" cy="220" r="5" fill="rgba(245,158,11,0.5)" stroke="#F59E0B" stroke-width="1.5"/>
     <circle cx="150" cy="270" r="6" fill="rgba(245,158,11,0.5)" stroke="#F59E0B" stroke-width="1.5"/>
-    <circle cx="300" cy="220" r="6" fill="rgba(40,94,97,0.5)" stroke="#285e61" stroke-width="1.5"/>
-    <circle cx="260" cy="280" r="5" fill="rgba(40,94,97,0.5)" stroke="#285e61" stroke-width="1.5"/>
+    <circle cx="300" cy="220" r="6" fill="rgba(6,182,212,0.38)" stroke="#1c3148" stroke-width="1.5"/>
+    <circle cx="260" cy="280" r="5" fill="rgba(6,182,212,0.38)" stroke="#1c3148" stroke-width="1.5"/>
   </g>
-  <text x="200" y="356" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  evaluation criteria or decision framework]</text>
+  <text x="200" y="356" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#94a3b8">[Footer note  evaluation criteria or decision framework]</text>
 </svg>

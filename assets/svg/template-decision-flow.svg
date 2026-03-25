@@ -7,34 +7,34 @@
     <text x="240" y="18" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  decision process]</text>
 
     <!-- Start terminal -->
-    <rect x="170" y="32" width="140" height="34" rx="17" fill="#065f46" stroke="#065f46" stroke-width="1.5"/>
-    <text x="240" y="54" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Start</text>
+    <rect x="170" y="32" width="140" height="34" rx="17" fill="#10B981" stroke="#10B981" stroke-width="1.5"/>
+    <text x="240" y="54" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Start</text>
 
     <!-- Process A -->
-    <rect x="170" y="90" width="140" height="40" rx="4" fill="#3d5a80"/>
-    <text x="240" y="115" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Process A</text>
+    <rect x="170" y="90" width="140" height="40" rx="4" fill="#1a2235"/>
+    <text x="240" y="115" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Process A</text>
 
     <!-- Decision -->
     <polygon points="240,150 310,185 240,220 170,185" fill="none" stroke="#F59E0B" stroke-width="2"/>
     <text x="240" y="189" text-anchor="middle" fill="#F59E0B" font-weight="700" font-size="10">Condition?</text>
 
     <!-- Yes path: Process B -->
-    <rect x="50" y="240" width="120" height="40" rx="4" fill="#2c5282"/>
-    <text x="110" y="265" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Process B</text>
+    <rect x="50" y="240" width="120" height="40" rx="4" fill="#1e2d42"/>
+    <text x="110" y="265" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Process B</text>
     <text x="140" y="196" font-size="9" fill="#06B6D4" font-weight="600">Yes</text>
 
     <!-- No path: Process C -->
-    <rect x="310" y="240" width="120" height="40" rx="4" fill="#285e61"/>
-    <text x="370" y="265" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Process C</text>
+    <rect x="310" y="240" width="120" height="40" rx="4" fill="#1c3148"/>
+    <text x="370" y="265" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">Process C</text>
     <text x="322" y="196" font-size="9" fill="#F59E0B" font-weight="600">No</text>
 
     <!-- End terminal -->
-    <rect x="170" y="296" width="140" height="34" rx="17" fill="#553c9a"/>
-    <text x="240" y="318" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">End</text>
+    <rect x="170" y="296" width="140" height="34" rx="17" fill="#232a3d"/>
+    <text x="240" y="318" text-anchor="middle" fill="#F1F5F9" font-weight="700" font-size="11">End</text>
   </g>
 
   <!-- Connectors -->
-  <g stroke="#0e7490" stroke-width="1.5" fill="none">
+  <g stroke="rgba(6,182,212,0.55)" stroke-width="1.5" fill="none">
     <line x1="240" y1="66" x2="240" y2="90"/>
     <line x1="240" y1="130" x2="240" y2="150"/>
     <line x1="170" y1="185" x2="110" y2="185"/>
@@ -46,7 +46,7 @@
     <line x1="370" y1="280" x2="370" y2="313"/>
     <line x1="370" y1="313" x2="310" y2="313"/>
   </g>
-  <g fill="#708090">
+  <g fill="#94a3b8">
     <polygon points="240,90 236,84 244,84"/>
     <polygon points="240,150 236,144 244,144"/>
     <polygon points="110,240 106,234 114,234"/>

@@ -2,17 +2,17 @@
 from __future__ import annotations
 
 from pages._for_agents_content import render_body
-from pages.diagrams import _FAMILIES, _fam_section_id
+from pages._diagram_gallery import _FAMILIES, family_section_id
 
 _DIAGRAM_FAMILY_TOC = [
-    (f"ag-{_fam_section_id(f['name'])}", f"Diagrams · {f['name']}")
+    (f"ag-{family_section_id(f)}", f"Diagrams · {f['name']}")
     for f in _FAMILIES
 ]
 
 PAGE = {
     "slug": "for-agents",
     "title": "Design system (for agents)",
-    "intro": "Single-page spec: tokens, surfaces, controls, nav, diagrams, motion, layouts, Python API, JS, product theme.",
+    "intro": "Single-page spec: tokens, surfaces, controls, nav, diagrams, motion, layouts, Python API, JS, product theme, presentation primitives.",
     "family": "Patterns",
     "layout": "showcase",
     "order": 9,
@@ -55,6 +55,12 @@ PAGE = {
         ("ag-js-theme", "JS · forge-theme.js"),
         ("ag-js-showcase", "JS · showcase.js"),
         ("ag-product-theme", "Product · forgesdlc-theme.css"),
+        ("ag-fs-overview", "Presentation · Stage vs rail"),
+        ("ag-fs-stage", "Presentation · fs-stage-carousel"),
+        ("ag-fs-rail", "Presentation · fs-rail"),
+        ("ag-fs-derived", "Presentation · Hero, gallery, thumb, logos, testimonial"),
+        ("ag-fs-python", "Presentation · components/presentation.py"),
+        ("ag-fs-js", "Presentation · fs-presentation.js"),
     ],
 }
 

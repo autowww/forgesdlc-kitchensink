@@ -109,6 +109,17 @@
         { node: '[Branch C]', color: 'amber', desc: 'Third branch. Single leaf child shown.' }
       ]
     },
+    orgchart: {
+      title: 'Org chart (people cards)',
+      items: [
+        { node: 'CEO card', color: 'cyan', desc: 'Executive card: avatar circle (photo or initials), full name, title, org/team line. Strong cyan border for top role.' },
+        { node: 'VP Engineering', color: 'cyan', desc: 'Manager card with same chrome; connects to individual contributors. Replace placeholders with real names and titles.' },
+        { node: 'VP Product', color: 'amber', desc: 'Peer manager card; amber accent can denote a different division or product line.' },
+        { node: 'Engineer', color: 'cyan', desc: 'IC card: smaller avatar, role title, squad or ladder (e.g. Platform). Extend for peers in the same subtree.' },
+        { node: 'Designer', color: 'amber', desc: 'IC card under product leadership; use for design, PM, or other disciplines with the same slot pattern.' },
+        { node: 'Reporting lines', color: 'emerald', desc: 'Solid connectors show direct reporting. Use dashed lines in content for dotted-line or matrix relationships (not shown in the template).' }
+      ]
+    },
     board: {
       title: 'Board / Columns',
       items: [
