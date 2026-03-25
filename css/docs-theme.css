@@ -1323,20 +1323,14 @@ code {
 .forge-diagram svg foreignObject {
   overflow: visible;
 }
+/* Same as forge-theme: avoid FO > div percentage/flex that breaks Mermaid’s label measurement. */
 .forge-diagram svg foreignObject > div,
 #diagramModalCanvas svg foreignObject > div {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 100% !important;
-  box-sizing: border-box !important;
-  text-align: center !important;
-  /* Keep minimal — Mermaid measures label box without this padding; extra inset overflows past rect. */
-  padding: 1px 2px !important;
-  overflow-wrap: break-word !important;
-  word-break: break-word !important;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 1px 2px;
+  overflow-wrap: break-word;
+  word-break: break-word;
   hyphens: auto;
 }
 .forge-diagram .node rect,

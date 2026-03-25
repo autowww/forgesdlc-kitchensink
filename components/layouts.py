@@ -313,8 +313,8 @@ MERMAID_SCRIPT = """\
     /**
      * Post-layout resizing of foreignObject / label rects is intentionally not done: it breaks
      * dagre node positions, subgraph bounds, edge anchors, and the SVG viewBox (overlap,
-     * clipped terminals, uneven subgraph chrome). Sizing must come from mermaid.initialize +
-     * themeVariables font parity with CSS.
+     * clipped terminals, uneven subgraph chrome). Flowcharts use htmlLabels:false (SVG text) so
+     * node geometry matches labels; other grammars that use foreignObject rely on theme + light FO CSS.
      */
     function forgeMermaidExpandForeignLabels() {}
 
@@ -346,7 +346,8 @@ MERMAID_SCRIPT = """\
            mermaid-examples; elk can improve nested subgraphs but is heavier — switch via
            flowchart.defaultRenderer if a page is flowchart-only. */
         flowchart: {
-          htmlLabels: true,
+          /* SVG text labels — avoids foreignObject measurement/CSS collapse (tiny rects vs full text). */
+          htmlLabels: false,
           /* false: avoid scaling the SVG — html in foreignObject + transform often misaligns
              rects, edges, and label chrome vs text (arrows through labels). Wrapper scrolls. */
           useMaxWidth: false,
