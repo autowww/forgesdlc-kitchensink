@@ -2378,3 +2378,113 @@ html[data-bs-theme="light"] .fs-topic-preview-card:hover {
     0 2px 8px rgba(15, 23, 42, 0.06),
     0 12px 36px rgba(8, 145, 178, 0.12);
 }
+
+/* -----------------------------------------------------------------
+   Bootstrap forms — product shell (.fs-layout, --fs-*)
+   Pairs with Bootstrap CDN; use when forge-theme.css is not loaded.
+   ----------------------------------------------------------------- */
+.fs-layout .forge-form-panel {
+  border: 1px solid var(--fs-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.35rem;
+  background: color-mix(in srgb, var(--fs-bg-elevated) 88%, var(--fs-bg));
+}
+
+.fs-layout .form-label,
+.fs-layout .col-form-label {
+  font-family: var(--fs-font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--fs-text-muted);
+}
+
+.fs-layout .form-control,
+.fs-layout .form-select {
+  color: var(--fs-text);
+  background-color: var(--fs-bg-elevated);
+  border: 1px solid var(--fs-border);
+  border-radius: 8px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.fs-layout .form-control::placeholder {
+  color: color-mix(in srgb, var(--fs-text-muted) 75%, var(--fs-bg));
+}
+
+.fs-layout .form-control:focus,
+.fs-layout .form-select:focus {
+  border-color: var(--fs-cyan);
+  box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.22);
+  background-color: var(--fs-bg-elevated);
+  color: var(--fs-text);
+}
+
+.fs-layout .form-check-input {
+  background-color: var(--fs-bg-elevated);
+  border-color: var(--fs-border);
+}
+
+.fs-layout .form-check-input:checked {
+  background-color: var(--fs-cyan);
+  border-color: var(--fs-cyan);
+}
+
+.fs-layout .form-switch .form-check-input:checked {
+  background-color: var(--fs-cyan);
+  border-color: var(--fs-cyan);
+}
+
+.fs-layout .input-group-text {
+  font-family: var(--fs-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--fs-text-muted);
+  background: color-mix(in srgb, var(--fs-bg-elevated) 85%, var(--fs-bg));
+  border-color: var(--fs-border);
+  border-radius: 8px;
+}
+
+.fs-layout .invalid-feedback {
+  color: #f87171;
+}
+
+.fs-layout .valid-feedback {
+  color: #34d399;
+}
+
+.fs-layout .forge-dropdown-menu.dropdown-menu {
+  padding: 0.35rem;
+  border-radius: 12px;
+  border: 1px solid var(--fs-border);
+  background: color-mix(in srgb, var(--fs-bg-elevated) 94%, #000) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+}
+
+.fs-layout .forge-dropdown-menu .dropdown-item {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--fs-text-muted);
+}
+
+.fs-layout .forge-dropdown-menu .dropdown-item:hover,
+.fs-layout .forge-dropdown-menu .dropdown-item:focus {
+  background: var(--fs-cyan-dim);
+  color: var(--fs-text);
+}
+
+.fs-layout .forge-widget-host {
+  border-radius: 12px;
+  border: 1px dashed color-mix(in srgb, var(--fs-border) 150%, transparent);
+  padding: 1rem;
+  background: color-mix(in srgb, var(--fs-bg-elevated) 72%, var(--fs-bg));
+  min-height: 4rem;
+}
+
+html[data-bs-theme="light"] .fs-layout .forge-dropdown-menu.dropdown-menu {
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
+}

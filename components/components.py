@@ -80,6 +80,227 @@ def render_io_table(
 
 
 # ---------------------------------------------------------------------------
+# Forms (Bootstrap 5.3 + Forge form CSS)
+# ---------------------------------------------------------------------------
+
+def render_form_group(
+    *,
+    label: str,
+    control_html: str,
+    control_id: str,
+    help_text: str = "",
+    invalid_feedback: str = "",
+    valid_feedback: str = "",
+    required: bool = False,
+) -> str:
+    """Label + control + optional help and validation messages (``mb-3`` row)."""
+    req = ' <span class="text-danger" aria-hidden="true">*</span>' if required else ""
+    hid = e(control_id)
+    help_el = (
+        f'<div class="form-text" id="{hid}-help">{e_content(help_text)}</div>'
+        if help_text else ""
+    )
+    inv = (
+        f'<div class="invalid-feedback" id="{hid}-invalid">{e_content(invalid_feedback)}</div>'
+        if invalid_feedback else ""
+    )
+    val = (
+        f'<div class="valid-feedback" id="{hid}-valid">{e_content(valid_feedback)}</div>'
+        if valid_feedback else ""
+    )
+    return (
+        f'<div class="mb-3">'
+        f'<label for="{hid}" class="form-label">{e_content(label)}{req}</label>'
+        f"{control_html}"
+        f"{help_el}{inv}{val}"
+        f"</div>"
+    )
+
+
+def render_form_input(
+    control_id: str,
+    name: str,
+    *,
+    label: str,
+    type: str = "text",
+    value: str = "",
+    placeholder: str = "",
+    help_text: str = "",
+    invalid_feedback: str = "",
+    valid_feedback: str = "",
+    required: bool = False,
+    invalid: bool = False,
+    valid: bool = False,
+    extra_class: str = "",
+    autocomplete: str | None = None,
+) -> str:
+    """Single text-like input with label inside a form row."""
+    classes = ["form-control"]
+    if invalid:
+        classes.append("is-invalid")
+    if valid:
+        classes.append("is-valid")
+    if extra_class.strip():
+        classes.append(extra_class.strip())
+    cls = " ".join(classes)
+    hid = e(control_id)
+    nm = e(name)
+    ph = f' placeholder="{e(placeholder)}"' if placeholder else ""
+    v = f' value="{e(value)}"' if value else ""
+    req = " required" if required else ""
+    ac = f' autocomplete="{e(autocomplete)}"' if autocomplete else ""
+    help_attr = f' aria-describedby="{hid}-help"' if help_text else ""
+    inv_attr = f' aria-describedby="{hid}-invalid"' if invalid_feedback else ""
+    val_attr = f' aria-describedby="{hid}-valid"' if valid_feedback else ""
+    described = help_attr or inv_attr or val_attr
+    ctrl = (
+        f'<input type="{e(type)}" class="{cls}" id="{hid}" name="{nm}"{v}{ph}{req}{ac}{described} />'
+    )
+    return render_form_group(
+        label=label,
+        control_html=ctrl,
+        control_id=control_id,
+        help_text=help_text,
+        invalid_feedback=invalid_feedback,
+        valid_feedback=valid_feedback,
+        required=required,
+    )
+
+
+def render_form_textarea(
+    control_id: str,
+    name: str,
+    *,
+    label: str,
+    text: str = "",
+    rows: int = 4,
+    placeholder: str = "",
+    help_text: str = "",
+    invalid_feedback: str = "",
+    required: bool = False,
+    invalid: bool = False,
+    valid: bool = False,
+) -> str:
+    """Multiline control with label."""
+    classes = ["form-control"]
+    if invalid:
+        classes.append("is-invalid")
+    if valid:
+        classes.append("is-valid")
+    cls = " ".join(classes)
+    hid = e(control_id)
+    nm = e(name)
+    ph = f' placeholder="{e(placeholder)}"' if placeholder else ""
+    req = " required" if required else ""
+    help_attr = f' aria-describedby="{hid}-help"' if help_text else ""
+    inv_attr = f' aria-describedby="{hid}-invalid"' if invalid_feedback else ""
+    described = help_attr or inv_attr
+    body = e_content(text)
+    ctrl = (
+        f'<textarea class="{cls}" id="{hid}" name="{nm}" rows="{rows}"{ph}{req}{described}>'
+        f"{body}</textarea>"
+    )
+    return render_form_group(
+        label=label,
+        control_html=ctrl,
+        control_id=control_id,
+        help_text=help_text,
+        invalid_feedback=invalid_feedback,
+        required=required,
+    )
+
+
+def render_form_select(
+    control_id: str,
+    name: str,
+    *,
+    label: str,
+    options: list[tuple[str, str]],
+    selected: str = "",
+    help_text: str = "",
+    required: bool = False,
+    invalid: bool = False,
+    valid: bool = False,
+) -> str:
+    """Native ``select`` with ``(value, label)`` options."""
+    classes = ["form-select"]
+    if invalid:
+        classes.append("is-invalid")
+    if valid:
+        classes.append("is-valid")
+    cls = " ".join(classes)
+    hid = e(control_id)
+    nm = e(name)
+    req = " required" if required else ""
+    help_attr = f' aria-describedby="{hid}-help"' if help_text else ""
+    opts_html = ""
+    for val, lab in options:
+        sel = ' selected="selected"' if val == selected else ""
+        opts_html += f'<option value="{e(val)}"{sel}>{e_content(lab)}</option>'
+    ctrl = (
+        f'<select class="{cls}" id="{hid}" name="{nm}"{req}{help_attr}>'
+        f"{opts_html}</select>"
+    )
+    return render_form_group(
+        label=label,
+        control_html=ctrl,
+        control_id=control_id,
+        help_text=help_text,
+        required=required,
+    )
+
+
+def render_form_check(
+    control_id: str,
+    name: str,
+    *,
+    label: str,
+    checked: bool = False,
+    disabled: bool = False,
+    value: str = "1",
+) -> str:
+    """Single checkbox (``form-check``)."""
+    hid = e(control_id)
+    nm = e(name)
+    ch = " checked" if checked else ""
+    dis = " disabled" if disabled else ""
+    val = e(value)
+    return (
+        f'<div class="form-check mb-2">'
+        f'<input class="form-check-input" type="checkbox" id="{hid}" name="{nm}" value="{val}"{ch}{dis} />'
+        f'<label class="form-check-label" for="{hid}">{e_content(label)}</label>'
+        f"</div>"
+    )
+
+
+def render_form_switch(
+    control_id: str,
+    name: str,
+    *,
+    label: str,
+    checked: bool = False,
+    disabled: bool = False,
+) -> str:
+    """Bootstrap form switch."""
+    hid = e(control_id)
+    nm = e(name)
+    ch = " checked" if checked else ""
+    dis = " disabled" if disabled else ""
+    return (
+        f'<div class="form-check form-switch mb-2">'
+        f'<input class="form-check-input" type="checkbox" role="switch" id="{hid}" name="{nm}"{ch}{dis} />'
+        f'<label class="form-check-label" for="{hid}">{e_content(label)}</label>'
+        f"</div>"
+    )
+
+
+def render_form_stack(*parts: str, panel_class: str = "forge-form-panel mt-2") -> str:
+    """Wrap composed field fragments in a Forge form panel (demos / settings blocks)."""
+    inner = "".join(parts)
+    return f'<div class="{e(panel_class)}">{inner}</div>'
+
+
+# ---------------------------------------------------------------------------
 # Sections
 # ---------------------------------------------------------------------------
 

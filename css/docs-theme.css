@@ -18,6 +18,7 @@
  *  7. Cards (chapter cards, area cards)
  *  8. Bento grid
  *  9. Tables
+ *  9b. Forms (Bootstrap primitives)
  * 10. Callouts / alerts
  * 11. Badges
  * 12. Buttons
@@ -64,6 +65,29 @@
   --bs-body-font-family: "Open Sans", system-ui, -apple-system, sans-serif;
   --bs-body-font-size: 0.9375rem;
   --bs-border-color:   var(--forge-border);
+
+  /* Bootstrap form alignment (5.3) */
+  --bs-secondary-bg: var(--forge-surface);
+  --bs-tertiary-bg: var(--forge-surface-2);
+  --bs-form-control-bg: var(--forge-surface);
+  --bs-form-control-color: var(--forge-text);
+  --bs-form-control-border-color: color-mix(in srgb, var(--forge-border) 180%, transparent);
+  --bs-form-control-focus-border-color: var(--forge-cyan);
+  --bs-form-control-focus-box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.22);
+  --bs-form-disabled-bg: var(--forge-surface-2);
+  --bs-form-disabled-color: var(--forge-text-3);
+  --bs-form-select-bg: var(--forge-surface);
+  --bs-form-select-color: var(--forge-text);
+  --bs-form-select-border-color: color-mix(in srgb, var(--forge-border) 180%, transparent);
+  --bs-form-select-focus-border-color: var(--forge-cyan);
+  --bs-form-select-focus-box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.22);
+  --bs-form-select-indicator-color: var(--forge-text-2);
+  --bs-form-invalid-color: #f87171;
+  --bs-form-valid-color: var(--forge-emerald);
+  --bs-form-invalid-border-color: rgba(248, 113, 113, 0.55);
+  --bs-form-valid-border-color: rgba(16, 185, 129, 0.45);
+  --bs-focus-ring-color: rgba(6, 182, 212, 0.45);
+  --bs-focus-ring-opacity: 1;
 
   --font-display: "Proxima Nova Black", "Proxima Nova", "proxima-nova", "Open Sans", system-ui, sans-serif;
   --font-mono:    "Courier New", Courier, monospace;
@@ -717,6 +741,220 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
 }
 .forge-table-wrap tbody tr:hover {
   background: var(--forge-cyan-dim) !important;
+}
+
+/* =================================================================
+   9b. FORMS — Bootstrap 5.3 primitives (Forge tokens)
+   ================================================================= */
+.forge-form-panel {
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.35rem;
+  background: color-mix(in srgb, var(--forge-surface) 88%, var(--forge-bg));
+}
+
+.form-label,
+.col-form-label {
+  font-family: var(--font-label);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--forge-text-2);
+  margin-bottom: 0.35rem;
+}
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.form-control::placeholder {
+  color: var(--forge-text-4);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--forge-cyan);
+  box-shadow: var(--bs-form-control-focus-box-shadow);
+}
+
+.form-control:hover:not(:disabled):not([readonly]),
+.form-select:hover:not(:disabled) {
+  border-color: var(--forge-border-hover);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.form-text,
+.form-check-label {
+  color: var(--forge-text-3);
+}
+
+.form-text {
+  font-size: 0.8125rem;
+}
+
+.form-check-input {
+  width: 1.05em;
+  height: 1.05em;
+  margin-top: 0.15em;
+  border-color: color-mix(in srgb, var(--forge-border) 200%, transparent);
+  background-color: var(--forge-surface);
+}
+
+.form-check-input:checked {
+  background-color: var(--forge-cyan);
+  border-color: var(--forge-cyan);
+}
+
+.form-check-input:focus {
+  border-color: var(--forge-cyan);
+  box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.2);
+}
+
+.form-check-input:focus:not(:checked) {
+  border-color: var(--forge-border-hover);
+}
+
+.form-switch .form-check-input {
+  width: 2.15em;
+  height: 1.1em;
+}
+
+.form-switch .form-check-input:focus {
+  --bs-form-switch-bg: var(--forge-surface-2);
+}
+
+.form-switch .form-check-input:checked {
+  background-color: var(--forge-cyan);
+  border-color: var(--forge-cyan);
+  --bs-form-switch-bg: var(--forge-cyan);
+}
+
+.form-range::-webkit-slider-thumb {
+  background: var(--forge-cyan);
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.35);
+}
+
+.form-range::-moz-range-thumb {
+  background: var(--forge-cyan);
+  border-color: var(--forge-cyan);
+}
+
+.form-range:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.25);
+}
+
+.form-range:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.25);
+}
+
+.input-group-text {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--forge-text-3);
+  background: var(--forge-surface-2);
+  border-color: color-mix(in srgb, var(--forge-border) 180%, transparent);
+  border-radius: 8px;
+}
+
+.input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input-group > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid,
+.was-validated .form-select:invalid,
+.form-select.is-invalid {
+  border-color: var(--bs-form-invalid-border-color);
+}
+
+.was-validated .form-control:valid,
+.form-control.is-valid,
+.was-validated .form-select:valid,
+.form-select.is-valid {
+  border-color: var(--bs-form-valid-border-color);
+}
+
+.invalid-feedback,
+.valid-feedback {
+  font-size: 0.8125rem;
+}
+
+.invalid-feedback {
+  color: var(--bs-form-invalid-color);
+}
+
+.valid-feedback {
+  color: var(--bs-form-valid-color);
+}
+
+.form-floating > label {
+  color: var(--forge-text-3);
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  color: var(--forge-cyan);
+}
+
+.forge-dropdown-menu.dropdown-menu {
+  --bs-dropdown-min-width: 10.5rem;
+  padding: 0.35rem;
+  margin-top: 0.3rem !important;
+  border-radius: 12px;
+  border: 1px solid var(--forge-border);
+  background: rgba(17, 24, 39, 0.94) !important;
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(6, 182, 212, 0.06);
+}
+
+.forge-dropdown-menu .dropdown-item {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--forge-text-2);
+  padding: 0.4rem 0.6rem;
+}
+
+.forge-dropdown-menu .dropdown-item:hover,
+.forge-dropdown-menu .dropdown-item:focus {
+  background: var(--forge-cyan-dim);
+  color: var(--forge-text);
+}
+
+.forge-dropdown-menu .dropdown-item.active,
+.forge-dropdown-menu .dropdown-item:active {
+  background: rgba(6, 182, 212, 0.22);
+  color: var(--forge-cyan);
+}
+
+.forge-dropdown-menu .dropdown-divider {
+  border-color: var(--forge-border);
+  opacity: 1;
+}
+
+.forge-widget-host {
+  border-radius: 12px;
+  border: 1px dashed color-mix(in srgb, var(--forge-border) 160%, transparent);
+  padding: 1rem;
+  background: color-mix(in srgb, var(--forge-surface) 70%, transparent);
+  min-height: 4rem;
 }
 
 /* =================================================================

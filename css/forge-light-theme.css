@@ -97,3 +97,19 @@ html[data-bs-theme="light"] .forge-theme-dropdown .forge-theme-option.active {
   background: rgba(6, 182, 212, 0.12);
   box-shadow: inset 0 0 0 1px rgba(8, 145, 178, 0.25);
 }
+
+/* Forms + generic dropdown — light surfaces */
+html[data-bs-theme="light"] .forge-form-panel {
+  background: color-mix(in srgb, var(--forge-surface) 96%, #fff);
+  border-color: color-mix(in srgb, var(--forge-border) 85%, #cbd5e1);
+}
+
+html[data-bs-theme="light"] .forge-dropdown-menu.dropdown-menu {
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(8, 145, 178, 0.1);
+}
+
+html[data-bs-theme="light"] .forge-widget-host {
+  border-color: color-mix(in srgb, var(--forge-border) 90%, #94a3b8);
+  background: color-mix(in srgb, var(--forge-surface) 92%, #fff);
+}
