@@ -91,6 +91,13 @@ def sync_product_site_assets(
     else:
         warnings.append("fs-presentation.js missing — presentation carousels/rails will not run")
 
+    for site_js in ("fs-nav-dropdown.js", "fs-home-expand-tiles.js"):
+        p = kitchensink_root / "js" / site_js
+        if p.is_file():
+            shutil.copy2(p, dest_assets / site_js)
+        else:
+            warnings.append(f"{site_js} missing — landing nav or home tiles may not work")
+
     return warnings
 
 

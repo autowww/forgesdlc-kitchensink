@@ -1178,7 +1178,7 @@ html[data-bs-theme="light"] .ks-sticky-panel {
   z-index: 30;
   background: var(--forge-bg);
   border-bottom: 1px solid var(--forge-border);
-  padding: 0.65rem 1.25rem;
+  padding: 0.65rem 0;
 }
 .landing-header-inner {
   display: flex;

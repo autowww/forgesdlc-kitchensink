@@ -15,6 +15,9 @@ REPO = Path(__file__).resolve().parent.parent.parent
 OUT_STATIC = REPO / "assets/svg/backgrounds/sinusoids/bg-fourier-forge-spectral-01.svg"
 OUT_ANIM = REPO / "assets/svg/backgrounds/sinusoids/bg-fourier-forge-spectral-animated-01.svg"
 
+# >1.0 speeds up SMIL loops on the animated asset (shorter dur / begin).
+ANIM_SPEED = 2.5
+
 W, H = 800, 450
 X0, X1 = 0, 800
 DX = 5
@@ -59,26 +62,33 @@ def collect_rows() -> list[tuple[str, str, int]]:
     return rows
 
 
-def backdrop_block(slow: bool = False) -> str:
+def backdrop_block(slow: bool = False, *, anim_speed: float = 1.0) -> str:
     """Shared interference backdrop; slightly longer periods when slow=True."""
     m = 1.15 if slow else 1.0
+    sp = anim_speed if slow else 1.0
     return f"""  <g fill="none" stroke-linecap="round" opacity="0.13">
     <path d="M0,120 Q200,80 400,120 T800,120" stroke="color-mix(in srgb, var(--forge-cyan, #06B6D4) 55%, transparent)" stroke-width="1.6">
-      <animateTransform attributeName="transform" type="translate" values="0,0; -140,0; 0,0" dur="{90 * m:.0f}s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0; -140,0; 0,0" dur="{90 * m / sp:.1f}s" repeatCount="indefinite" calcMode="linear"/>
     </path>
     <path d="M0,300 Q200,340 400,300 T800,300" stroke="color-mix(in srgb, var(--forge-amber, #F59E0B) 50%, transparent)" stroke-width="1.5">
-      <animateTransform attributeName="transform" type="translate" values="0,0; 120,0; 0,0" dur="{78 * m:.0f}s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0; 120,0; 0,0" dur="{78 * m / sp:.1f}s" repeatCount="indefinite" calcMode="linear"/>
     </path>
     <path d="M0,210 Q266,170 532,210 T800,210" stroke="color-mix(in srgb, var(--forge-emerald, #10B981) 45%, transparent)" stroke-width="1.35">
-      <animateTransform attributeName="transform" type="translate" values="0,0; 90,0; 0,0" dur="{105 * m:.0f}s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0; 90,0; 0,0" dur="{105 * m / sp:.1f}s" repeatCount="indefinite" calcMode="linear"/>
     </path>
     <path d="M0,360 Q266,320 532,360 T800,360" stroke="color-mix(in srgb, var(--forge-text-3, #708090) 40%, transparent)" stroke-width="1.2">
-      <animateTransform attributeName="transform" type="translate" values="0,0; -70,0; 0,0" dur="{112 * m:.0f}s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0; -70,0; 0,0" dur="{112 * m / sp:.1f}s" repeatCount="indefinite" calcMode="linear"/>
     </path>
   </g>"""
 
 
-def masked_block(rows: list[tuple[str, str, int]], *, mask_id: str, animated: bool) -> str:
+def masked_block(
+    rows: list[tuple[str, str, int]],
+    *,
+    mask_id: str,
+    animated: bool,
+    anim_speed: float = 1.0,
+) -> str:
     if not animated:
         paths = "\n    ".join(
             f'<path d="{d}" stroke="{s}" stroke-width="1.12"/>' for d, s, _ in rows
@@ -90,22 +100,25 @@ def masked_block(rows: list[tuple[str, str, int]], *, mask_id: str, animated: bo
     </g>
   </g>"""
 
+    sp = anim_speed
     pieces: list[str] = []
     for d, s, r in rows:
-        dur = 118 + (r % 9) * 7
-        begin = -(r * 4.15)
+        dur = (118 + (r % 9) * 7) / sp
+        begin = -(r * 4.15) / sp
         amp = 26 + (r % 5) * 4
         pieces.append(
             f"""    <g>
-      <animateTransform attributeName="transform" type="translate" values="0,0; {amp},0; 0,0" dur="{dur}s" begin="{begin}s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0; {amp},0; 0,0" dur="{dur:.2f}s" begin="{begin:.3f}s" repeatCount="indefinite" calcMode="linear"/>
       <path d="{d}" stroke="{s}" stroke-width="1.12"/>
     </g>"""
         )
     inner = "\n".join(pieces)
+    gdur = 118.0 / sp
+    bdur = 186.0 / sp
     return f"""  <g mask="url(#{mask_id})" fill="none" stroke-linecap="round">
     <g>
-      <animateTransform attributeName="transform" type="translate" values="0,0; -48,0; 0,0" dur="118s" repeatCount="indefinite" calcMode="linear"/>
-      <animateTransform attributeName="transform" type="translate" additive="sum" values="0,0; 0,-8; 0,0" dur="186s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0; -48,0; 0,0" dur="{gdur:.2f}s" repeatCount="indefinite" calcMode="linear"/>
+      <animateTransform attributeName="transform" type="translate" additive="sum" values="0,0; 0,-8; 0,0" dur="{bdur:.2f}s" repeatCount="indefinite" calcMode="linear"/>
 {inner}
     </g>
   </g>"""
@@ -114,15 +127,17 @@ def masked_block(rows: list[tuple[str, str, int]], *, mask_id: str, animated: bo
 def build_svg(*, animated: bool) -> str:
     rows = collect_rows()
     if animated:
-        title = "Fourier spectral FORGE (slow motion)"
+        title = "Fourier spectral FORGE (animated)"
         desc = (
             "Same harmonic sums as the static asset; each row drifts horizontally on a "
-            "staggered SMIL loop so the masked lettering slowly shimmers. Global shear and "
+            "staggered SMIL loop so the masked lettering shimmers. Global shear and "
             "vertical breathe reinforce the interference metaphor."
         )
         mask_id = "fourier-forge-mask-anim"
-        bd = backdrop_block(slow=True)
-        masked = masked_block(rows, mask_id=mask_id, animated=True)
+        bd = backdrop_block(slow=True, anim_speed=ANIM_SPEED)
+        masked = masked_block(
+            rows, mask_id=mask_id, animated=True, anim_speed=ANIM_SPEED
+        )
     else:
         title = "Fourier spectral FORGE"
         desc = (

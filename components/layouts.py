@@ -694,6 +694,7 @@ def product_page(
     head_extra: str = "",
     title_override: str | None = None,
     include_diagram_expand_modal: bool = False,
+    extra_scripts: str = "",
 ) -> str:
     """Complete HTML page for a product / marketing site.
 
@@ -776,6 +777,7 @@ def product_page(
 {_resolve_theme_js(theme_js_href)}
 {diagram_scripts}
 {diagram_modal}
+{extra_scripts}
 </body>
 </html>
 """
@@ -908,6 +910,7 @@ def showcase_page(
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
     include_diagram_expand_modal: bool = False,
+    body_extra_class: str = "",
 ) -> str:
     """Showcase documentation page: unified header + sticky sidebar + content + optional ToC."""
     offcanvas = offcanvas_html or sidebar_html
@@ -945,7 +948,7 @@ def showcase_page(
 {_SHOWCASE_EXTRA_CSS}
 {extra_css}
 </head>
-<body>
+<body{f' class="{e(body_extra_class.strip())}"' if body_extra_class.strip() else ""}>
 <div class="forge-aurora"></div>
 <a href="#main" class="skip-link">Skip to content</a>
 {THEME_TOGGLE_DROPDOWN}
@@ -1019,7 +1022,7 @@ def landing_page(
 ) -> str:
     """Full-width hero landing page with no sidebar."""
     extra_scripts = "\n".join(
-        f'<script src="{e(src)}"></script>' for src in (extra_js or [])
+        f'<script defer src="{e(src)}"></script>' for src in (extra_js or [])
     )
     accent_html = (
         f'<span class="fs-accent">{e(brand_accent)}</span>' if brand_accent else ""
@@ -1046,7 +1049,7 @@ def landing_page(
 {THEME_TOGGLE_DROPDOWN}
 
 <header class="landing-header">
-  <div class="landing-header-inner">
+  <div class="landing-header-inner px-3 px-xxl-5">
     <a class="fs-brand text-decoration-none" href="{e(brand_href)}">{e(brand_name)}{accent_html}</a>
     <nav class="landing-nav" aria-label="Site navigation">
       {nav_links_html}

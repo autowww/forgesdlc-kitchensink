@@ -749,12 +749,14 @@ def render_tier_nav(
 
     *grouped* is a list of ``(tier_heading, [(href, title), ...])``.
     *current_href* is the active page's href for highlighting.
+    Each tier is a ``<details>`` open when it contains the current page.
     """
     parts: list[str] = []
     for heading, items in grouped:
-        parts.append(
-            f'<div class="fs-nav-tier text-muted">{e(heading)}</div>'
-        )
+        is_open = any(h == current_href for h, _t in items)
+        open_attr = " open" if is_open else ""
+        parts.append(f'<details class="fs-nav-tier-wrap"{open_attr}>')
+        parts.append(f'<summary class="fs-nav-tier text-muted">{e(heading)}</summary>')
         parts.append('<ul class="nav flex-column px-1 mb-2">')
         for href, title in items:
             active = " active" if href == current_href else ""
@@ -767,7 +769,7 @@ def render_tier_nav(
                 f'<li class="nav-item"><a class="nav-link{active}" '
                 f'href="{e(href)}"{ext}>{e(title)}</a></li>'
             )
-        parts.append("</ul>")
+        parts.append("</ul></details>")
     return "\n        ".join(parts)
 
 
@@ -837,16 +839,38 @@ LANDING_FORGE_SPECTRAL_SVG = (
 )
 
 
-def render_landing_signal_field() -> str:
+def landing_forge_spectral_img_href(*, ks_mount_prefix: str | None = None) -> str:
+    """URL for the hero spectral SVG.
+
+    Default (``ks_mount_prefix`` omitted): site-relative path for static product
+    builds where ``assets/`` is copied next to HTML.
+
+    When kitchensink is mounted at a URL prefix (e.g. forge-lenses serves files
+    under ``/__ks/``), pass ``ks_mount_prefix='/__ks/'`` so the image resolves.
+    """
+    rel = LANDING_FORGE_SPECTRAL_SVG.replace("\\", "/")
+    if not ks_mount_prefix:
+        return rel
+    base = ks_mount_prefix.strip().rstrip("/") + "/"
+    return base + rel
+
+
+def render_landing_signal_field(*, img_src: str | None = None) -> str:
     """Wide landing hero visual: animated FORGE spectral SVG (kitchensink asset).
 
     Replaces the older inline route/wave diagram. Motion is slow SMIL inside the
     SVG; ``prefers-reduced-motion`` cannot disable external SMIL when loaded via
     ``img`` — keep animation subtle in the asset itself.
+
+    *img_src* — optional ``src`` for the ``img``; default is
+    ``LANDING_FORGE_SPECTRAL_SVG`` (static-site-relative). Use
+    ``landing_forge_spectral_img_href(ks_mount_prefix='/__ks/')`` when assets are
+    proxied under ``/__ks/``.
     """
+    src = img_src if img_src is not None else LANDING_FORGE_SPECTRAL_SVG
     return (
         '<div class="landing-forge-visual" role="presentation" aria-hidden="true">'
-        f'<img src="{e(LANDING_FORGE_SPECTRAL_SVG)}" alt="" width="800" height="450" '
+        f'<img src="{e(src)}" alt="" width="800" height="450" '
         'class="landing-forge-visual__img" decoding="async" fetchpriority="low" />'
         "</div>"
     )
@@ -867,6 +891,7 @@ def render_product_landing_hero(
     secondary_cta_label: str | None = None,
     secondary_links: list[tuple[str, str]] | None = None,
     support_points: list[str] | None = None,
+    landing_visual_img_src: str | None = None,
 ) -> str:
     """Landing hero fragment for forgesdlc.com (kicker, title, tagline, optional CTA stack).
 
@@ -877,6 +902,8 @@ def render_product_landing_hero(
     ``secondary_cta_*`` renders ``btn-cyan-outline`` beside the primary when set.
     ``secondary_links`` are muted text links below the button row.
     ``support_points`` renders a compact list under the CTA stack.
+    ``landing_visual_img_src`` overrides the default spectral SVG ``src`` (e.g.
+    ``landing_forge_spectral_img_href(ks_mount_prefix='/__ks/')`` for forge-lenses).
     Sizing: ``forgesdlc-theme.css`` (``.landing-hero-*``).
     """
     sec = secondary_links or []
@@ -979,7 +1006,7 @@ def render_product_landing_hero(
             f"{items}</ul>"
         )
     copy_html = "".join(parts)
-    visual = render_landing_signal_field()
+    visual = render_landing_signal_field(img_src=landing_visual_img_src)
     return (
         '<div class="container-fluid landing-hero-wide px-3 px-xxl-5">'
         '<div class="row align-items-center g-4 g-xl-5 landing-hero-grid '
