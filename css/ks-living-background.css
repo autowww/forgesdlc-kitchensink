@@ -1,0 +1,109 @@
+/**
+ * Living background system — global scene + section overlays.
+ * Depends on Forge / product tokens (--fs-* when forgesdlc-theme loads; --forge-* fallback in showcase).
+ * Pair with ks-animated-backgrounds.css and KsAmbientBg for inlined SVG.
+ */
+
+:root {
+  --ks-living-scroll: 0;
+  --ks-living-parallax-x: 0;
+  --ks-living-parallax-y: 0;
+}
+
+/* Global fixed field: below sticky header (z-index 30), above aurora */
+body.ks-living-enabled .ks-living-scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 100dvh;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate3d(
+    calc(var(--ks-living-parallax-x, 0) * 10px),
+    calc(var(--ks-living-parallax-y, 0) * 8px),
+    0
+  );
+  will-change: transform;
+}
+
+body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+}
+
+body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Opacity tied to scroll narrative (subtle): mid-page slightly more structure */
+body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg {
+  opacity: calc(0.42 + var(--ks-living-scroll, 0) * 0.18);
+}
+
+/* Slow drift on layers that opt in via class inside SVG */
+@media (prefers-reduced-motion: no-preference) {
+  body.ks-living-enabled .ks-living-drift-layer {
+    animation: ks-living-drift 52s ease-in-out infinite alternate;
+    transform-origin: 50% 40%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.ks-living-enabled .ks-living-drift-layer {
+    animation: none !important;
+  }
+}
+
+@keyframes ks-living-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(0.8%, -1.1%) scale(1.02);
+  }
+}
+
+/* Section-local ambient: sits under prose, above section ::before wash */
+.ks-living-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.ks-living-section > .ks-section-bg.ks-ambient-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: var(--ks-living-section-opacity, 0.5);
+}
+
+.ks-living-section > .ks-section-bg.ks-ambient-bg > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ks-living-section > .container-fluid,
+.ks-living-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Reduce double-fill when global field + section gradients both active */
+body.ks-living-enabled .fs-home-section::before {
+  opacity: 0.28;
+}
+
+/* Showcase / handbook: hero band archetype hint */
+body.ks-living-enabled .landing-hero.fs-landing-hero-band {
+  position: relative;
+}
+
+html[data-bs-theme="light"] body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg {
+  opacity: calc(0.28 + var(--ks-living-scroll, 0) * 0.12);
+}

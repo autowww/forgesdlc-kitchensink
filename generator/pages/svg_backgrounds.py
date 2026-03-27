@@ -39,7 +39,7 @@ PAGE = {
     "toc": [
         ("sec-overview", "Overview"),
         ("fam-dots", "Dots"),
-        ("fam-neurons", "Neurons"),
+        ("fam-field-mesh", "Field & mesh"),
         ("fam-sinusoids", "Sinusoids & signals"),
         ("asset-fourier-forge-spectral-01", "Fourier FORGE spectral"),
         ("asset-fourier-forge-spectral-animated-01", "Fourier FORGE animated"),
@@ -76,11 +76,11 @@ _ASSETS: list[dict] = [
     {"id": "dots-cluster-01", "file": "backgrounds/dots/bg-dots-cluster-01.svg", "title": "Dots cluster", "fam": "Dots", "best": "Card · Glass", "note": "Soft clusters; glass panels."},
     {"id": "dots-field-01", "file": "backgrounds/dots/bg-dots-field-01.svg", "title": "Dots field", "fam": "Dots", "best": "Section · Wide", "note": "Irregular sparse field."},
     {"id": "dots-pulse-01", "file": "backgrounds/dots/bg-dots-pulse-01.svg", "title": "Dots pulse", "fam": "Dots", "best": "Card · Compact", "note": "Gentle opacity breathing."},
-    # Neurons
-    {"id": "neurons-softmesh-01", "file": "backgrounds/neurons/bg-neurons-softmesh-01.svg", "title": "Neurons softmesh", "fam": "Neurons", "best": "Hero · Wide", "note": "Delicate mesh; hero and headers."},
-    {"id": "neurons-pulsegraph-01", "file": "backgrounds/neurons/bg-neurons-pulsegraph-01.svg", "title": "Neurons pulsegraph", "fam": "Neurons", "best": "Section · Flow", "note": "Slow edge pulse along links."},
-    {"id": "neurons-synapse-01", "file": "backgrounds/neurons/bg-neurons-synapse-01.svg", "title": "Neurons synapse", "fam": "Neurons", "best": "Glass · Card", "note": "Sparse asymmetric graph."},
-    {"id": "neurons-cluster-01", "file": "backgrounds/neurons/bg-neurons-cluster-01.svg", "title": "Neurons cluster", "fam": "Neurons", "best": "Card", "note": "Tight node group; small crops."},
+    # Field & mesh (abstract networks — on-disk path still backgrounds/neurons/)
+    {"id": "neurons-softmesh-01", "file": "backgrounds/neurons/bg-neurons-softmesh-01.svg", "title": "Soft mesh field", "fam": "Field & mesh", "best": "Hero · Wide", "note": "Delicate mesh; hero and headers."},
+    {"id": "neurons-pulsegraph-01", "file": "backgrounds/neurons/bg-neurons-pulsegraph-01.svg", "title": "Linked pulse field", "fam": "Field & mesh", "best": "Section · Flow", "note": "Slow edge pulse along links."},
+    {"id": "neurons-synapse-01", "file": "backgrounds/neurons/bg-neurons-synapse-01.svg", "title": "Sparse link graph", "fam": "Field & mesh", "best": "Glass · Card", "note": "Sparse asymmetric graph."},
+    {"id": "neurons-cluster-01", "file": "backgrounds/neurons/bg-neurons-cluster-01.svg", "title": "Node cluster field", "fam": "Field & mesh", "best": "Card", "note": "Tight node group; small crops."},
     # Sinusoids & signal
     {"id": "sine-layered-01", "file": "backgrounds/sinusoids/bg-sine-layered-01.svg", "title": "Sine layered", "fam": "Sinusoids", "best": "Section · Typography", "note": "Layered waves; headings."},
     {"id": "sine-ribbon-01", "file": "backgrounds/sinusoids/bg-sine-ribbon-01.svg", "title": "Sine ribbon", "fam": "Sinusoids", "best": "Wide · Section", "note": "Single soft ribbon drift."},
@@ -152,14 +152,14 @@ def render() -> str:
     sections: list[str] = []
     fam_slugs = {
         "Dots": "fam-dots",
-        "Neurons": "fam-neurons",
+        "Field & mesh": "fam-field-mesh",
         "Sinusoids": "fam-sinusoids",
         "Stars": "fam-stars",
         "Grids": "fam-grids",
         "Contours": "fam-contours",
         "Accents": "fam-accents",
     }
-    for fam_name in ("Dots", "Neurons", "Sinusoids", "Stars", "Grids", "Contours", "Accents"):
+    for fam_name in ("Dots", "Field & mesh", "Sinusoids", "Stars", "Grids", "Contours", "Accents"):
         items = by_fam.get(fam_name, [])
         if not items:
             continue

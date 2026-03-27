@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="ksLivingRail" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--fs-cyan, #06b6d4)" stop-opacity="0"/>
+      <stop offset="50%" stop-color="var(--fs-cyan, #06b6d4)" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="var(--fs-cyan, #06b6d4)" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ksLivingAmber" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--fs-amber, #f59e0b)" stop-opacity="0"/>
+      <stop offset="45%" stop-color="var(--fs-amber, #f59e0b)" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="var(--fs-amber, #f59e0b)" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g class="ks-living-drift-layer">
+    <rect width="1200" height="800" fill="url(#ksLivingAmber)" opacity="0.85"/>
+    <path fill="none" stroke="url(#ksLivingRail)" stroke-width="1.2" d="M-40 180 Q300 140 600 200 T1240 160"/>
+    <path fill="none" stroke="url(#ksLivingRail)" stroke-width="0.9" opacity="0.7" d="M0 320 Q400 280 800 340 T1200 300"/>
+    <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.11" stroke-width="0.8" d="M100 520 C350 480 550 580 1100 500"/>
+    <path fill="none" stroke="var(--fs-amber, #f59e0b)" stroke-opacity="0.08" stroke-width="0.7" d="M80 640 Q500 600 1120 680"/>
+    <circle cx="920" cy="220" r="3" fill="var(--fs-amber, #f59e0b)" fill-opacity="0.35"/>
+    <circle cx="280" cy="380" r="2.5" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.4"/>
+    <circle cx="640" cy="560" r="2" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.3"/>
+  </g>
+</svg>

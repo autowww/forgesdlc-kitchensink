@@ -1019,17 +1019,44 @@ def landing_page(
     body_extra_class: str = "",
     head_extra: str = "",
     title_override: str | None = None,
+    living_background: bool = False,
+    living_background_global_href: str = "assets/svg/living/global/field-rails-01.svg",
 ) -> str:
     """Full-width hero landing page with no sidebar."""
-    extra_scripts = "\n".join(
-        f'<script defer src="{e(src)}"></script>' for src in (extra_js or [])
-    )
+    js_list = list(extra_js or [])
+    if living_background:
+        for _path in ("assets/ks-animated-backgrounds.js", "assets/ks-living-motion.js"):
+            if _path not in js_list:
+                js_list.append(_path)
+    extra_scripts = "\n".join(f'<script defer src="{e(src)}"></script>' for src in js_list)
     accent_html = (
         f'<span class="fs-accent">{e(brand_accent)}</span>' if brand_accent else ""
     )
     doc_title = e(title_override) if title_override else e(browser_title)
     head_x = head_extra.strip()
     head_block = (head_x + "\n  ") if head_x else ""
+    living_head = ""
+    living_body_open = ""
+    if living_background:
+        living_head = (
+            '  <link rel="stylesheet" href="assets/ks-animated-backgrounds.css" />\n'
+            '  <link rel="stylesheet" href="assets/ks-living-background.css" />\n'
+        )
+        living_body_open = (
+            f'<div class="ks-living-scene" id="ks-living-scene" aria-hidden="true" data-ks-living-root>\n'
+            f'  <div class="ks-living-scene__global ks-ambient-bg ks-bg-density--low" '
+            f'data-ks-bg-src="{e(living_background_global_href)}"></div>\n'
+            f"</div>\n"
+        )
+    body_classes: list[str] = []
+    if body_extra_class.strip():
+        body_classes.append(body_extra_class.strip())
+    if living_background:
+        body_classes.append("ks-living-enabled")
+    body_class_attr = f' class="{e(" ".join(body_classes))}"' if body_classes else ""
+    hero_attrs = 'data-fs-section="hero"'
+    if living_background:
+        hero_attrs += ' data-ks-living-archetype="hero" data-ks-living-intensity="3"'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -1041,11 +1068,11 @@ def landing_page(
   {head_block}{CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
-{extra_css}
+{living_head}{extra_css}
 </head>
-<body{f' class="{e(body_extra_class.strip())}"' if body_extra_class.strip() else ""}>
+<body{body_class_attr}>
 <div class="forge-aurora"></div>
-<a href="#main" class="skip-link">Skip to content</a>
+{living_body_open}<a href="#main" class="skip-link">Skip to content</a>
 {THEME_TOGGLE_DROPDOWN}
 
 <header class="landing-header">
@@ -1058,7 +1085,7 @@ def landing_page(
 </header>
 
 <main id="main" class="fs-landing-main">
-  <div class="landing-hero fs-landing-hero-band" data-fs-section="hero">
+  <div class="landing-hero fs-landing-hero-band" {hero_attrs}>
     {hero_html}
   </div>
   <div class="fs-landing-body-shell">

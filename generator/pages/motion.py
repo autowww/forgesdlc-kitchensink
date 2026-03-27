@@ -22,7 +22,8 @@ def render() -> str:
   <p class="callout-label mb-1">See also</p>
   <p class="mb-0 forge-support">Slow looping <strong>SVG ambient backgrounds</strong> for sections and cards —
   <a href="svg-backgrounds.html">SVG ambient backgrounds gallery</a>
-  (<a href="svg-backgrounds.html#asset-fourier-forge-spectral-01">Fourier FORGE spectral</a>).</p>
+  (<a href="svg-backgrounds.html#asset-fourier-forge-spectral-01">Fourier FORGE spectral</a>).
+  Product-style <strong>living background</strong> (global field + archetypes): <a href="living-background.html">Living background system</a>.</p>
 </div>
 
 <section id="sec-pulse" class="ks-section">

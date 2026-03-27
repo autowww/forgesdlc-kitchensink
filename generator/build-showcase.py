@@ -186,15 +186,25 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
     layout = page.get("layout", "showcase")
 
     if layout == "landing":
-        from pages.index import hero_html, body_html, nav_links
+        from pages.index import body_html as index_body_html
+        from pages.index import hero_html as index_hero_html
+        from pages.index import nav_links
+
+        if page["slug"] == "index":
+            hero_h = index_hero_html()
+            body_h = index_body_html(all_pages)
+        else:
+            hero_h = mod.hero_html()
+            body_h = mod.body_html(all_pages)
         return landing_page(
             browser_title=f'{page["title"]} — Forge Design System',
-            hero_html=hero_html(),
-            body_html=body_html(all_pages),
+            hero_html=hero_h,
+            body_html=body_h,
             nav_links_html=nav_links(all_pages),
             footer_html=_footer(),
             theme_css_href="assets/forge-theme.css",
             theme_js_href="assets/forge-theme.js",
+            living_background=bool(page.get("living_background")),
         )
 
     sidebar_html = _build_sidebar(all_pages, page["slug"])
@@ -284,6 +294,13 @@ def _copy_assets():
         if svg_out.exists():
             shutil.rmtree(svg_out)
         shutil.copytree(svg_src, svg_out)
+
+    mp_src = REPO_ROOT / "assets" / "motion-presets"
+    if mp_src.is_dir():
+        mp_out = assets_out / "motion-presets"
+        if mp_out.exists():
+            shutil.rmtree(mp_out)
+        shutil.copytree(mp_src, mp_out)
 
 
 # ---------------------------------------------------------------------------

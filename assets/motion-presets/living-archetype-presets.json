@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "description": "Archetype → default intensity and optional motif SVG (path under assets/svg/living/). Used by generators and documented in the showcase.",
+  "global_field": "global/field-rails-01.svg",
+  "archetypes": {
+    "navigation": {
+      "label": "Navigation / header",
+      "intensity_default": 0,
+      "motif_file": null,
+      "notes": "Minimal motion; no sparks behind links."
+    },
+    "hero": {
+      "label": "Hero / impact",
+      "intensity_default": 3,
+      "motif_file": null,
+      "notes": "Relies on global field + aurora; optional local motif later."
+    },
+    "narrative": {
+      "label": "Explanatory / narrative",
+      "intensity_default": 1,
+      "motif_file": "motifs/narrative-guides-01.svg",
+      "notes": "Guide lines; breathing motion."
+    },
+    "process": {
+      "label": "Process / timeline / flow",
+      "intensity_default": 2,
+      "motif_file": "motifs/trace-flow-01.svg",
+      "notes": "Routed path + nodes; sparse sparks in asset."
+    },
+    "card_grid": {
+      "label": "Feature / card grid",
+      "intensity_default": 1,
+      "motif_file": "motifs/frame-card-grid-01.svg",
+      "notes": "Perimeter frame; calm interior."
+    },
+    "comparison": {
+      "label": "Comparison / contrast",
+      "intensity_default": 1,
+      "motif_file": "motifs/dual-rail-01.svg",
+      "notes": "Bilateral symmetry."
+    },
+    "audience": {
+      "label": "Role / audience",
+      "intensity_default": 1,
+      "motif_file": "motifs/branch-rail-01.svg",
+      "notes": "Fan-out from a single rail."
+    },
+    "principles": {
+      "label": "Principles / manifesto / sparse",
+      "intensity_default": 0,
+      "motif_file": "motifs/sparse-frame-01.svg",
+      "notes": "Almost static; no sparks in asset."
+    },
+    "cta": {
+      "label": "CTA / convergence",
+      "intensity_default": 2,
+      "motif_file": "motifs/converge-trace-01.svg",
+      "notes": "Inbound traces; short loops."
+    }
+  }
+}

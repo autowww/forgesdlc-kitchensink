@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.12" stroke-width="1.2" d="M60 210 H200 Q260 210 280 160 T360 120 H620 Q700 120 740 210"/>
+  <circle cx="60" cy="210" r="4" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.35"/>
+  <circle cx="360" cy="120" r="3.5" fill="var(--fs-amber, #f59e0b)" fill-opacity="0.4"/>
+  <circle cx="740" cy="210" r="4" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.35"/>
+  <circle r="3" fill="var(--fs-amber, #f59e0b)" fill-opacity="0.55">
+    <animateMotion dur="28s" repeatCount="indefinite" rotate="auto" path="M60,210 H200 Q260,210 280,160 T360,120 H620 Q700,120 740,210"/>
+  </circle>
+</svg>

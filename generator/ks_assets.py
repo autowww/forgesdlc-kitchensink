@@ -98,6 +98,27 @@ def sync_product_site_assets(
         else:
             warnings.append(f"{site_js} missing — landing nav or home tiles may not work")
 
+    for lb in ("ks-animated-backgrounds.js", "ks-living-motion.js"):
+        p = kitchensink_root / "js" / lb
+        if p.is_file():
+            shutil.copy2(p, dest_assets / lb)
+        else:
+            warnings.append(f"{lb} missing — living background motion may not run")
+
+    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css"):
+        p = kitchensink_root / "css" / lb_css
+        if p.is_file():
+            shutil.copy2(p, dest_assets / lb_css)
+        else:
+            warnings.append(f"{lb_css} missing — living background styles incomplete")
+
+    mp = kitchensink_root / "assets" / "motion-presets"
+    if mp.is_dir():
+        mp_out = dest_assets / "motion-presets"
+        if mp_out.exists():
+            shutil.rmtree(mp_out)
+        shutil.copytree(mp, mp_out)
+
     return warnings
 
 

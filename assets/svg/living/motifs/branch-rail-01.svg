@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <g class="ks-living-drift-layer">
+    <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.11" stroke-width="1" d="M80 220 H400"/>
+    <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.08" stroke-width="0.75" d="M400 220 Q520 180 680 120"/>
+    <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.08" stroke-width="0.75" d="M400 220 Q520 260 680 320"/>
+    <circle cx="400" cy="220" r="3.5" fill="var(--fs-amber, #f59e0b)" fill-opacity="0.35"/>
+  </g>
+</svg>
