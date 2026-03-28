@@ -1,5 +1,6 @@
 /**
  * Living background system — global scene + section overlays.
+ * Multi-plane scroll parallax on .ks-living-layer--back|mid|front inside the global SVG.
  * Depends on Forge / product tokens (--fs-* when forgesdlc-theme loads; --forge-* fallback in showcase).
  * Pair with ks-animated-backgrounds.css and KsAmbientBg for inlined SVG.
  */
@@ -8,6 +9,31 @@
   --ks-living-scroll: 0;
   --ks-living-parallax-x: 0;
   --ks-living-parallax-y: 0;
+}
+
+/* Parallax distances (px-equivalent); reduced mode halves via [data-ks-living-parallax-depth] */
+#ks-living-scene {
+  --ks-parallax-back: -16px;
+  --ks-parallax-mid: -36px;
+  --ks-parallax-front: -58px;
+}
+
+#ks-living-scene[data-ks-living-parallax-depth="reduced"] {
+  --ks-parallax-back: -8px;
+  --ks-parallax-mid: -18px;
+  --ks-parallax-front: -28px;
+}
+
+html[data-bs-theme="light"] #ks-living-scene {
+  --ks-parallax-back: -12px;
+  --ks-parallax-mid: -28px;
+  --ks-parallax-front: -44px;
+}
+
+html[data-bs-theme="light"] #ks-living-scene[data-ks-living-parallax-depth="reduced"] {
+  --ks-parallax-back: -6px;
+  --ks-parallax-mid: -14px;
+  --ks-parallax-front: -22px;
 }
 
 /* Global fixed field: below sticky header (z-index 30), above aurora */
@@ -24,7 +50,6 @@ body.ks-living-enabled .ks-living-scene {
     calc(var(--ks-living-parallax-y, 0) * 8px),
     0
   );
-  will-change: transform;
 }
 
 body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg {
@@ -43,10 +68,48 @@ body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg > svg {
 
 /* Opacity tied to scroll narrative (subtle): mid-page slightly more structure */
 body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg {
-  opacity: calc(0.42 + var(--ks-living-scroll, 0) * 0.18);
+  opacity: calc(0.4 + var(--ks-living-scroll, 0) * 0.2);
 }
 
-/* Slow drift on layers that opt in via class inside SVG */
+/* Multi-plane scroll parallax (GPU: transform on SVG groups) */
+@media (prefers-reduced-motion: no-preference) {
+  body.ks-living-enabled .ks-living-scene__global svg .ks-living-layer--back {
+    transform: translate3d(
+        0,
+        calc(var(--ks-living-scroll, 0) * var(--ks-parallax-back)),
+        0
+      )
+      scale(calc(1 + var(--ks-living-scroll, 0) * 0.022));
+    transform-box: fill-box;
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  body.ks-living-enabled .ks-living-scene__global svg .ks-living-layer--mid {
+    transform: translate3d(0, calc(var(--ks-living-scroll, 0) * var(--ks-parallax-mid)), 0);
+    transform-box: fill-box;
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  body.ks-living-enabled .ks-living-scene__global svg .ks-living-layer--front {
+    transform: translate3d(0, calc(var(--ks-living-scroll, 0) * var(--ks-parallax-front)), 0);
+    transform-box: fill-box;
+    transform-origin: center center;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.ks-living-enabled .ks-living-scene__global svg .ks-living-layer--back,
+  body.ks-living-enabled .ks-living-scene__global svg .ks-living-layer--mid,
+  body.ks-living-enabled .ks-living-scene__global svg .ks-living-layer--front {
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+/* Slow drift on inner groups (nested so parallax transform stays on parent layer) */
 @media (prefers-reduced-motion: no-preference) {
   body.ks-living-enabled .ks-living-drift-layer {
     animation: ks-living-drift 52s ease-in-out infinite alternate;
@@ -105,5 +168,5 @@ body.ks-living-enabled .landing-hero.fs-landing-hero-band {
 }
 
 html[data-bs-theme="light"] body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg {
-  opacity: calc(0.28 + var(--ks-living-scroll, 0) * 0.12);
+  opacity: calc(0.26 + var(--ks-living-scroll, 0) * 0.14);
 }

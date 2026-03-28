@@ -10,15 +10,53 @@
       <stop offset="45%" stop-color="var(--fs-amber, #f59e0b)" stop-opacity="0.09"/>
       <stop offset="100%" stop-color="var(--fs-amber, #f59e0b)" stop-opacity="0"/>
     </linearGradient>
+    <linearGradient id="ksLivingDeepField" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="var(--fs-cyan, #06b6d4)" stop-opacity="0.04"/>
+      <stop offset="55%" stop-color="var(--fs-cyan, #06b6d4)" stop-opacity="0"/>
+      <stop offset="100%" stop-color="var(--fs-amber, #f59e0b)" stop-opacity="0.03"/>
+    </linearGradient>
   </defs>
-  <g class="ks-living-drift-layer">
-    <rect width="1200" height="800" fill="url(#ksLivingAmber)" opacity="0.85"/>
-    <path fill="none" stroke="url(#ksLivingRail)" stroke-width="1.2" d="M-40 180 Q300 140 600 200 T1240 160"/>
-    <path fill="none" stroke="url(#ksLivingRail)" stroke-width="0.9" opacity="0.7" d="M0 320 Q400 280 800 340 T1200 300"/>
-    <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.11" stroke-width="0.8" d="M100 520 C350 480 550 580 1100 500"/>
-    <path fill="none" stroke="var(--fs-amber, #f59e0b)" stroke-opacity="0.08" stroke-width="0.7" d="M80 640 Q500 600 1120 680"/>
-    <circle cx="920" cy="220" r="3" fill="var(--fs-amber, #f59e0b)" fill-opacity="0.35"/>
-    <circle cx="280" cy="380" r="2.5" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.4"/>
-    <circle cx="640" cy="560" r="2" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.3"/>
+  <!-- Back: atmospheric field + faint structure (scrolls slowest via CSS parallax) -->
+  <g class="ks-living-layer ks-living-layer--back">
+    <g class="ks-living-drift-layer">
+      <rect width="1200" height="800" fill="url(#ksLivingAmber)" opacity="0.82"/>
+      <rect width="1200" height="800" fill="url(#ksLivingDeepField)" opacity="0.9"/>
+      <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.045" stroke-width="0.55"
+        d="M0 120 H1200 M0 240 H1200 M0 360 H1200 M0 480 H1200 M0 600 H1200 M0 720 H1200"/>
+      <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.035" stroke-width="0.45"
+        d="M100 0 V800 M250 0 V800 M400 0 V800 M550 0 V800 M700 0 V800 M850 0 V800 M1000 0 V800"/>
+      <circle cx="180" cy="200" r="1.2" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.2"/>
+      <circle cx="520" cy="440" r="1" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.18"/>
+      <circle cx="900" cy="320" r="1.1" fill="var(--fs-amber, #f59e0b)" fill-opacity="0.15"/>
+      <circle cx="340" cy="620" r="0.9" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.16"/>
+    </g>
+  </g>
+  <!-- Mid: governance rails -->
+  <g class="ks-living-layer ks-living-layer--mid">
+    <g class="ks-living-drift-layer">
+      <path fill="none" stroke="url(#ksLivingRail)" stroke-width="1.15" d="M-40 160 Q280 120 600 185 T1240 145"/>
+      <path fill="none" stroke="url(#ksLivingRail)" stroke-width="0.95" opacity="0.75" d="M0 300 Q420 255 820 320 T1200 285"/>
+      <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.1" stroke-width="0.75"
+        d="M60 420 Q400 390 750 455 T1180 410"/>
+      <path fill="none" stroke="var(--fs-amber, #f59e0b)" stroke-opacity="0.07" stroke-width="0.65"
+        d="M120 540 Q480 500 880 580 T1160 520"/>
+      <path fill="none" stroke="url(#ksLivingRail)" stroke-width="0.7" opacity="0.55" d="M-20 680 Q500 640 1220 700"/>
+    </g>
+  </g>
+  <!-- Front: nodes + accent traces (scrolls fastest via CSS parallax) -->
+  <g class="ks-living-layer ks-living-layer--front">
+    <g class="ks-living-drift-layer">
+      <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.14" stroke-width="1"
+        d="M80 200 Q360 160 620 220 T1120 180"/>
+      <path fill="none" stroke="var(--fs-amber, #f59e0b)" stroke-opacity="0.1" stroke-width="0.85"
+        d="M200 360 Q520 320 720 400 T980 380"/>
+      <path fill="none" stroke="var(--fs-cyan, #06b6d4)" stroke-opacity="0.11" stroke-width="0.8" stroke-dasharray="4 7"
+        d="M140 480 C400 450 650 540 1060 500"/>
+      <circle cx="920" cy="200" r="3.2" fill="var(--fs-amber, #f59e0b)" fill-opacity="0.38"/>
+      <circle cx="280" cy="360" r="2.6" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.42"/>
+      <circle cx="640" cy="520" r="2.2" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.35"/>
+      <circle cx="420" cy="240" r="2" fill="var(--fs-cyan, #06b6d4)" fill-opacity="0.32"/>
+      <circle cx="780" cy="420" r="2.4" fill="var(--fs-amber, #f59e0b)" fill-opacity="0.28"/>
+    </g>
   </g>
 </svg>

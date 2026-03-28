@@ -1,6 +1,6 @@
 /**
  * Living background — scroll + pointer → CSS vars on #ks-living-scene; SMIL via KsAmbientBg.
- * Desktop-only subtle parallax; throttled; respects prefers-reduced-motion.
+ * Scroll ratio is eased for parallax; desktop pointer nudge; reduced depth on mobile/coarse.
  */
 (function (global) {
   'use strict';
@@ -34,16 +34,23 @@
   }
 
   function scrollRatio() {
-    var el = document.documentElement;
+    var el = global.document.documentElement;
     var sh = el.scrollHeight - global.innerHeight;
     if (sh <= 0) return 0;
     return clamp(global.scrollY / sh, 0, 1);
   }
 
+  /** Ease scroll so parallax accelerates gently (less linear). */
+  function easeScrollRatio(r) {
+    if (r <= 0) return 0;
+    if (r >= 1) return 1;
+    return Math.pow(r, 0.88);
+  }
+
   function applyScroll() {
     if (!scene) return;
-    lastScrollRatio = scrollRatio();
-    scene.style.setProperty('--ks-living-scroll', String(lastScrollRatio.toFixed(4)));
+    lastScrollRatio = easeScrollRatio(scrollRatio());
+    scene.style.setProperty('--ks-living-scroll', String(lastScrollRatio.toFixed(5)));
     rafScheduled = false;
   }
 
@@ -90,16 +97,29 @@
     }
   }
 
+  function setParallaxDepth() {
+    if (!scene) return;
+    if (isCoarseOrNarrow()) {
+      scene.setAttribute('data-ks-living-parallax-depth', 'reduced');
+    } else {
+      scene.removeAttribute('data-ks-living-parallax-depth');
+    }
+  }
+
   function boot() {
     scene = document.getElementById('ks-living-scene');
     if (!scene) return;
 
     initAmbient();
+    setParallaxDepth();
 
     if (!prefersReducedMotion()) {
       applyScroll();
       global.addEventListener('scroll', onScroll, { passive: true });
-      global.addEventListener('resize', onScroll, { passive: true });
+      global.addEventListener('resize', function () {
+        setParallaxDepth();
+        onScroll();
+      }, { passive: true });
     } else {
       scene.style.setProperty('--ks-living-scroll', '0');
       scene.style.setProperty('--ks-living-parallax-x', '0');
