@@ -145,4 +145,21 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
         if src.is_file():
             shutil.copy2(src, dest_assets / js_name)
 
+    for lb in ("ks-animated-backgrounds.js", "ks-living-motion.js"):
+        p = ks_js / lb
+        if p.is_file():
+            shutil.copy2(p, dest_assets / lb)
+
+    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css"):
+        p = kitchensink_root / "css" / lb_css
+        if p.is_file():
+            shutil.copy2(p, dest_assets / lb_css)
+
+    mp = kitchensink_root / "assets" / "motion-presets"
+    if mp.is_dir():
+        mp_out = dest_assets / "motion-presets"
+        if mp_out.exists():
+            shutil.rmtree(mp_out)
+        shutil.copytree(mp, mp_out)
+
     copy_diagram_svgs(kitchensink_root, dest_assets)

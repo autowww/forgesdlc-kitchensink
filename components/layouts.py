@@ -507,6 +507,8 @@ def handbook_page(
     theme_css_href: str = "templates/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
     include_diagram_expand_modal: bool = False,
+    living_background: bool = False,
+    living_background_global_href: str = "assets/svg/living/global/field-rails-01.svg",
 ) -> str:
     """Complete HTML page for an auto-generated handbook entry.
 
@@ -515,6 +517,10 @@ def handbook_page(
 
     When *include_diagram_expand_modal* is True, embed the diagram lightbox shell
     so ``openDiagramModal`` / ``openDiagramWithDetail`` can expand diagrams.
+
+    When *living_background* is True, inject the global living scene (same bundle as
+    ``landing_page``): ``ks-animated-backgrounds`` + ``ks-living-motion`` and
+    ``#ks-living-scene`` behind content.
     """
     col_class = "col-lg-8 col-xl-9 order-2 order-lg-1" if toc_sidebar_html else "col-12"
     diagram_scripts = _footer_diagram_scripts(
@@ -526,6 +532,28 @@ def handbook_page(
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
     )
+    living_head = ""
+    living_body_open = ""
+    living_scripts = ""
+    body_class = ""
+    shell_attrs = 'class="container-fluid px-0"'
+    if living_background:
+        living_head = (
+            '  <link rel="stylesheet" href="assets/ks-animated-backgrounds.css" />\n'
+            '  <link rel="stylesheet" href="assets/ks-living-background.css" />\n'
+        )
+        living_body_open = (
+            f'<div class="ks-living-scene" id="ks-living-scene" aria-hidden="true" data-ks-living-root>\n'
+            f'  <div class="ks-living-scene__global ks-ambient-bg ks-bg-density--low" '
+            f'data-ks-bg-src="{e(living_background_global_href)}"></div>\n'
+            f"</div>\n"
+        )
+        living_scripts = (
+            '  <script defer src="assets/ks-animated-backgrounds.js"></script>\n'
+            '  <script defer src="assets/ks-living-motion.js"></script>\n'
+        )
+        body_class = ' class="ks-living-enabled"'
+        shell_attrs = 'class="container-fluid px-0" style="position:relative;z-index:1"'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -537,15 +565,15 @@ def handbook_page(
   {CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
-</head>
-<body>
+{living_head}</head>
+<body{body_class}>
   <div class="forge-aurora"></div>
-  <a href="#main" class="skip-link">Skip to content</a>
+{living_body_open}  <a href="#main" class="skip-link">Skip to content</a>
 {THEME_TOGGLE_DROPDOWN}
   <button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="Open navigation">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
   </button>
-  <div class="container-fluid px-0">
+  <div {shell_attrs}>
     <div class="row g-0 flex-lg-nowrap min-vh-100">
 {_render_sidebar(handbook_name, sidebar_html)}
 {_render_offcanvas(handbook_name, offcanvas_html)}
@@ -572,7 +600,7 @@ def handbook_page(
   </div>
   {CDN_BOOTSTRAP_JS}
 {_resolve_theme_js(theme_js_href)}
-{diagram_scripts}
+{living_scripts}{diagram_scripts}
 {diagram_modal}
 </body>
 </html>
@@ -737,7 +765,7 @@ def product_page(
 </head>
 <body{lens_attr}>
 {THEME_TOGGLE_DROPDOWN}
-  <div class="d-lg-none fs-mobile-bar sticky-top py-2 px-3 d-flex align-items-center justify-content-between">
+  <div class="d-lg-none fs-mobile-bar sticky-top py-2 px-3 px-xxl-5 d-flex align-items-center justify-content-between">
     <a class="fs-brand text-decoration-none" href="index.html">{e(brand_name)}<span class="fs-accent">{e(brand_accent)}</span></a>
     <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#fsNav" aria-controls="fsNav">Menu</button>
   </div>
@@ -759,7 +787,7 @@ def product_page(
 
   <div class="container-fluid fs-layout">
     <div class="row g-0">
-      <aside class="col-lg-3 col-xl-2 d-none d-lg-block fs-sidebar p-3">
+      <aside class="col-lg-3 col-xl-2 d-none d-lg-block fs-sidebar py-3 px-3 px-xxl-5">
         <a class="fs-brand d-block text-decoration-none mb-3" href="index.html">{e(brand_name)}<span class="fs-accent">{e(brand_accent)}</span></a>
         {nav_html}
       </aside>
