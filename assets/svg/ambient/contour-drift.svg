@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="1200" height="640" fill="none"/>
+  <g fill="none" stroke="var(--forge-ambient-line-soft, rgba(100,116,139,0.38))" stroke-width="0.85" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <path d="M 400,480 C 320,400 280,280 360,200 C 440,120 580,100 700,160 C 820,220 880,360 820,460 C 760,560 600,580 480,520 C 440,500 420,490 400,480 Z">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 8,-6; 0,0" dur="100s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" keyTimes="0;0.5;1"/>
+    </path>
+    <path d="M 450,440 C 380,360 360,260 430,190 C 500,120 620,110 720,170 C 820,230 860,340 800,430 C 740,520 600,540 500,480 C 475,465 460,450 450,440 Z" stroke="var(--forge-ambient-line, rgba(6,182,212,0.14))" stroke-width="0.75" opacity="0.85">
+      <animateTransform attributeName="transform" type="translate" values="0,0; -6,10; 0,0" dur="88s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" keyTimes="0;0.5;1"/>
+    </path>
+    <path d="M 500,400 C 440,330 430,250 490,190 C 550,130 650,125 735,175 C 820,225 850,315 795,395 C 740,475 620,495 530,445 C 515,435 505,415 500,400 Z" stroke="var(--forge-ambient-accent, #0891b2)" stroke-opacity="0.16" stroke-width="0.7">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 5,8; 0,0" dur="76s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" keyTimes="0;0.5;1"/>
+    </path>
+  </g>
+</svg>

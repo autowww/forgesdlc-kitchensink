@@ -1125,18 +1125,22 @@ html[data-bs-theme="light"] .ks-sticky-panel {
    ================================================================= */
 .btn-forge {
   background: linear-gradient(135deg, var(--forge-amber), var(--forge-orange));
-  color: #000;
+  color: #0f172a;
   font-weight: 700;
   border: none;
   border-radius: 8px;
   padding: 0.5rem 1.25rem;
   font-size: 0.875rem;
   transition: all 0.2s;
+  /* Bootstrap sets `--bs-btn-color` on `.btn`; keep label readable on amber */
+  --bs-btn-color: #0f172a;
+  --bs-btn-hover-color: #020617;
+  --bs-btn-active-color: #020617;
 }
 .btn-forge:hover {
   box-shadow: var(--forge-glow-amber);
   transform: translateY(-1px);
-  color: #000;
+  color: #020617;
 }
 .btn-forge-outline {
   background: transparent;
@@ -1186,9 +1190,13 @@ html[data-bs-theme="light"] .ks-sticky-panel {
   align-items: center;
   justify-content: flex-start;
   gap: 0.5rem 1.75rem;
-  max-width: min(118rem, calc(100vw - 1.5rem));
-  margin-left: auto;
-  margin-right: auto;
+  /* Full-bleed row: match product `.fs-sidebar` horizontal inset (px-3 / px-xxl-5) so the
+     lockup does not shift when switching landing_page ↔ product_page. */
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* Lockup: matches product_page sidebar / mobile (.fs-brand in forgesdlc-theme when both load). */

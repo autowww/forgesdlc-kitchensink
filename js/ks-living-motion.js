@@ -71,8 +71,8 @@
     var h = global.innerHeight || 1;
     var nx = (lastPtrX / w - 0.5) * 2;
     var ny = (lastPtrY / h - 0.5) * 2;
-    scene.style.setProperty('--ks-living-parallax-x', (nx * 0.35).toFixed(4));
-    scene.style.setProperty('--ks-living-parallax-y', (ny * 0.35).toFixed(4));
+    scene.style.setProperty('--ks-living-parallax-x', (nx * 0.5).toFixed(4));
+    scene.style.setProperty('--ks-living-parallax-y', (ny * 0.5).toFixed(4));
     ptrRaf = 0;
   }
 

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="1200" height="640" fill="none"/>
+  <path class="fa-river-back" fill="none" stroke="var(--forge-ambient-line-soft, rgba(112,128,144,0.26))" stroke-width="1.35" stroke-linecap="round"
+    d="M -100,220 C 200,180 400,260 600,220 S 1000,160 1300,220">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 180,0; 0,0" dur="78s" repeatCount="indefinite" calcMode="linear"/>
+  </path>
+  <path fill="none" stroke="var(--forge-ambient-line, rgba(6,182,212,0.16))" stroke-width="1.5" stroke-linecap="round" opacity="0.9"
+    d="M -100,320 C 220,280 420,360 620,320 S 1020,260 1300,320">
+    <animateTransform attributeName="transform" type="translate" values="0,0; -140,0; 0,0" dur="90s" repeatCount="indefinite" calcMode="linear"/>
+  </path>
+  <path fill="none" stroke="var(--forge-ambient-accent, #06B6D4)" stroke-width="1" stroke-linecap="round" stroke-opacity="0.2"
+    d="M -100,400 C 240,360 440,440 640,400 S 1040,340 1300,400">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 100,0; 0,0" dur="66s" repeatCount="indefinite" calcMode="linear"/>
+  </path>
+  <circle cx="120" cy="318" r="2.4" fill="var(--forge-ambient-accent, #06B6D4)" fill-opacity="0.45">
+    <animate attributeName="cx" values="120;1080;120" dur="44s" repeatCount="indefinite" calcMode="linear"/>
+    <animate attributeName="cy" values="318;302;318" dur="44s" repeatCount="indefinite" calcMode="linear"/>
+  </circle>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="1200" height="640" fill="none"/>
+  <ellipse cx="640" cy="300" rx="280" ry="160" fill="var(--forge-ambient-glow, rgba(6,182,212,0.06))" opacity="0.7"/>
+  <g stroke="var(--forge-ambient-line, rgba(6,182,212,0.18))" stroke-width="0.95" fill="none" stroke-linecap="round">
+    <line x1="420" y1="260" x2="520" y2="220"/>
+    <line x1="520" y1="220" x2="640" y2="240"/>
+    <line x1="640" y1="240" x2="760" y2="200"/>
+    <line x1="640" y1="240" x2="620" y2="360"/>
+    <line x1="520" y1="220" x2="480" y2="340"/>
+    <line x1="760" y1="200" x2="820" y2="300"/>
+    <line x1="620" y1="360" x2="720" y2="400"/>
+    <line x1="480" y1="340" x2="560" y2="420"/>
+  </g>
+  <g class="fa-mesh-node">
+    <circle cx="420" cy="260" r="3.5" fill="var(--forge-ambient-accent, #06B6D4)" fill-opacity="0.35">
+      <animate attributeName="fill-opacity" values="0.22;0.48;0.22" dur="18s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" keyTimes="0;0.5;1"/>
+    </circle>
+    <circle cx="520" cy="220" r="3" fill="var(--forge-ambient-accent, #06B6D4)" fill-opacity="0.32">
+      <animate attributeName="fill-opacity" values="0.28;0.52;0.28" dur="22s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" keyTimes="0;0.5;1"/>
+    </circle>
+    <circle cx="640" cy="240" r="4" fill="var(--forge-ambient-accent-2, #F59E0B)" fill-opacity="0.28">
+      <animate attributeName="fill-opacity" values="0.35;0.6;0.35" dur="16s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" keyTimes="0;0.5;1"/>
+    </circle>
+    <circle cx="760" cy="200" r="2.8" fill="var(--forge-ambient-accent, #06B6D4)" fill-opacity="0.3"/>
+    <circle cx="620" cy="360" r="3.2" fill="var(--forge-ambient-accent, #06B6D4)" fill-opacity="0.26">
+      <animate attributeName="fill-opacity" values="0.2;0.45;0.2" dur="20s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" keyTimes="0;0.5;1"/>
+    </circle>
+    <circle cx="480" cy="340" r="2.6" fill="var(--forge-ambient-line-soft, #708090)" fill-opacity="0.35"/>
+    <circle cx="820" cy="300" r="2.6" fill="var(--forge-ambient-line-soft, #708090)" fill-opacity="0.32"/>
+    <circle cx="720" cy="400" r="2.5" fill="var(--forge-ambient-line-soft, #708090)" fill-opacity="0.3"/>
+    <circle cx="560" cy="420" r="2.5" fill="var(--forge-ambient-line-soft, #708090)" fill-opacity="0.28"/>
+  </g>
+  <line class="fa-mesh-spark" x1="520" y1="220" x2="640" y2="240" stroke="var(--forge-ambient-accent, #06B6D4)" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.35">
+    <animate attributeName="stroke-opacity" values="0.12;0.42;0.12" dur="14s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1; 0.45 0 0.55 1" keyTimes="0;0.5;1"/>
+  </line>
+</svg>

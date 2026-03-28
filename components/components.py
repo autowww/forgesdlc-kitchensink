@@ -1009,6 +1009,7 @@ def render_product_landing_hero(
     visual = render_landing_signal_field(img_src=landing_visual_img_src)
     return (
         '<div class="container-fluid landing-hero-wide px-3 px-xxl-5">'
+        '<div class="landing-hero-grid-wrap">'
         '<div class="row align-items-center g-4 g-xl-5 landing-hero-grid '
         'justify-content-center justify-content-xl-between">'
         '<div class="col-12 col-xl-7 col-lg-10 landing-hero-copy '
@@ -1016,7 +1017,7 @@ def render_product_landing_hero(
         f"{copy_html}</div>"
         '<div class="col-12 col-xl-5 col-lg-10 landing-hero-visual">'
         f"{visual}</div>"
-        "</div></div>"
+        "</div></div></div>"
     )
 
 

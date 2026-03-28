@@ -1,6 +1,6 @@
 /**
  * Living background system — global scene + section overlays.
- * Multi-plane scroll parallax on .ks-living-layer--back|mid|front inside the global SVG.
+ * Multi-plane scroll parallax + per-layer cursor parallax on .ks-living-layer--back|mid|front.
  * Depends on Forge / product tokens (--fs-* when forgesdlc-theme loads; --forge-* fallback in showcase).
  * Pair with ks-animated-backgrounds.css and KsAmbientBg for inlined SVG.
  */
@@ -36,6 +36,31 @@ html[data-bs-theme="light"] #ks-living-scene[data-ks-living-parallax-depth="redu
   --ks-parallax-front: -22px;
 }
 
+/* Cursor-driven parallax on each SVG plane (front moves more than back) */
+#ks-living-scene {
+  --ks-cursor-shift-back: 6px;
+  --ks-cursor-shift-mid: 11px;
+  --ks-cursor-shift-front: 18px;
+}
+
+#ks-living-scene[data-ks-living-parallax-depth="reduced"] {
+  --ks-cursor-shift-back: 3px;
+  --ks-cursor-shift-mid: 5px;
+  --ks-cursor-shift-front: 9px;
+}
+
+html[data-bs-theme="light"] #ks-living-scene {
+  --ks-cursor-shift-back: 5px;
+  --ks-cursor-shift-mid: 9px;
+  --ks-cursor-shift-front: 14px;
+}
+
+html[data-bs-theme="light"] #ks-living-scene[data-ks-living-parallax-depth="reduced"] {
+  --ks-cursor-shift-back: 2px;
+  --ks-cursor-shift-mid: 4px;
+  --ks-cursor-shift-front: 7px;
+}
+
 /* Global fixed field: below sticky header (z-index 30), above aurora */
 body.ks-living-enabled .ks-living-scene {
   position: fixed;
@@ -45,11 +70,6 @@ body.ks-living-enabled .ks-living-scene {
   max-height: 100dvh;
   pointer-events: none;
   z-index: 0;
-  transform: translate3d(
-    calc(var(--ks-living-parallax-x, 0) * 10px),
-    calc(var(--ks-living-parallax-y, 0) * 8px),
-    0
-  );
 }
 
 body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg {
@@ -71,12 +91,15 @@ body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg {
   opacity: calc(0.4 + var(--ks-living-scroll, 0) * 0.2);
 }
 
-/* Multi-plane scroll parallax (GPU: transform on SVG groups) */
+/* Multi-plane scroll + cursor parallax (GPU: transform on SVG groups) */
 @media (prefers-reduced-motion: no-preference) {
   body.ks-living-enabled .ks-living-scene__global svg .ks-living-layer--back {
     transform: translate3d(
-        0,
-        calc(var(--ks-living-scroll, 0) * var(--ks-parallax-back)),
+        calc(var(--ks-living-parallax-x, 0) * var(--ks-cursor-shift-back)),
+        calc(
+          var(--ks-living-scroll, 0) * var(--ks-parallax-back) +
+            var(--ks-living-parallax-y, 0) * var(--ks-cursor-shift-back)
+        ),
         0
       )
       scale(calc(1 + var(--ks-living-scroll, 0) * 0.022));
@@ -86,14 +109,28 @@ body.ks-living-enabled .ks-living-scene__global.ks-ambient-bg {
   }
 
   body.ks-living-enabled .ks-living-scene__global svg .ks-living-layer--mid {
-    transform: translate3d(0, calc(var(--ks-living-scroll, 0) * var(--ks-parallax-mid)), 0);
+    transform: translate3d(
+      calc(var(--ks-living-parallax-x, 0) * var(--ks-cursor-shift-mid)),
+      calc(
+        var(--ks-living-scroll, 0) * var(--ks-parallax-mid) +
+          var(--ks-living-parallax-y, 0) * var(--ks-cursor-shift-mid)
+      ),
+      0
+    );
     transform-box: fill-box;
     transform-origin: center center;
     will-change: transform;
   }
 
   body.ks-living-enabled .ks-living-scene__global svg .ks-living-layer--front {
-    transform: translate3d(0, calc(var(--ks-living-scroll, 0) * var(--ks-parallax-front)), 0);
+    transform: translate3d(
+      calc(var(--ks-living-parallax-x, 0) * var(--ks-cursor-shift-front)),
+      calc(
+        var(--ks-living-scroll, 0) * var(--ks-parallax-front) +
+          var(--ks-living-parallax-y, 0) * var(--ks-cursor-shift-front)
+      ),
+      0
+    );
     transform-box: fill-box;
     transform-origin: center center;
     will-change: transform;

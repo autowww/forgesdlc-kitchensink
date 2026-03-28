@@ -112,6 +112,14 @@ def sync_product_site_assets(
         else:
             warnings.append(f"{lb_css} missing — living background styles incomplete")
 
+    for fa_css in ("forge-ambient.css", "forge-ambient-themes.css"):
+        p = kitchensink_root / "css" / fa_css
+        if p.is_file():
+            shutil.copy2(p, dest_assets / fa_css)
+    fa_js = kitchensink_root / "js" / "forge-ambient.js"
+    if fa_js.is_file():
+        shutil.copy2(fa_js, dest_assets / "forge-ambient.js")
+
     mp = kitchensink_root / "assets" / "motion-presets"
     if mp.is_dir():
         mp_out = dest_assets / "motion-presets"
@@ -154,6 +162,14 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
         p = kitchensink_root / "css" / lb_css
         if p.is_file():
             shutil.copy2(p, dest_assets / lb_css)
+
+    for fa_css in ("forge-ambient.css", "forge-ambient-themes.css"):
+        p = kitchensink_root / "css" / fa_css
+        if p.is_file():
+            shutil.copy2(p, dest_assets / fa_css)
+    fa_js = kitchensink_root / "js" / "forge-ambient.js"
+    if fa_js.is_file():
+        shutil.copy2(fa_js, dest_assets / "forge-ambient.js")
 
     mp = kitchensink_root / "assets" / "motion-presets"
     if mp.is_dir():

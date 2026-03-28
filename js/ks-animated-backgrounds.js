@@ -1,5 +1,5 @@
 /**
- * Inline fetched SVG into .ks-ambient-bg so document CSS variables apply.
+ * Inline fetched SVG into .ks-ambient-bg / .forge-ambient-bg so document CSS variables apply.
  */
 (function (global) {
   'use strict';
@@ -57,7 +57,9 @@
 
   function initAmbientBackgrounds(root) {
     var scope = root || document;
-    var nodes = scope.querySelectorAll('.ks-ambient-bg[data-ks-bg-src]');
+    var nodes = scope.querySelectorAll(
+      '.ks-ambient-bg[data-ks-bg-src], .forge-ambient-bg[data-ks-bg-src]'
+    );
     var tasks = [];
     nodes.forEach(function (el) {
       var src = el.getAttribute('data-ks-bg-src');
@@ -73,7 +75,14 @@
             var svg = injectSvg(el, text);
             if (svg && prefersReducedMotion()) {
               svg.pauseAnimations && svg.pauseAnimations();
+            } else if (svg && el.closest && el.closest('.forge-ambient--still')) {
+              svg.pauseAnimations && svg.pauseAnimations();
             }
+            try {
+              el.dispatchEvent(
+                new CustomEvent('ks-ambient-bg-injected', { bubbles: true, detail: { element: el } })
+              );
+            } catch (_e) {}
           })
           .catch(function () {
             el.setAttribute('data-ks-bg-error', '1');
@@ -85,7 +94,7 @@
 
   function forEachAmbientSvg(root, fn) {
     var scope = root || document;
-    scope.querySelectorAll('.ks-ambient-bg > svg').forEach(fn);
+    scope.querySelectorAll('.ks-ambient-bg > svg, .forge-ambient-bg > svg').forEach(fn);
   }
 
   function pauseAllIn(root, paused) {
@@ -112,7 +121,7 @@
     vpKickQueue.length = 0;
     vpKickDrainScheduled = false;
     if (!root) return;
-    root.querySelectorAll('.ks-ambient-bg > svg').forEach(function (svg) {
+    root.querySelectorAll('.ks-ambient-bg > svg, .forge-ambient-bg > svg').forEach(function (svg) {
       delete svg.dataset.ksSmilKicked;
     });
   }
@@ -151,7 +160,7 @@
     var vw = typeof window.innerWidth === 'number' ? window.innerWidth : 0;
     var my = vh * 0.5;
     var mx = vw * 0.5;
-    root.querySelectorAll('.ks-ambient-bg').forEach(function (wrap) {
+    root.querySelectorAll('.ks-ambient-bg, .forge-ambient-bg').forEach(function (wrap) {
       var r = wrap.getBoundingClientRect();
       if (r.bottom < -my || r.top > vh + my || r.right < -mx || r.left > vw + mx) return;
       var svg = wrap.querySelector(':scope > svg');
@@ -194,7 +203,7 @@
       },
       { root: null, rootMargin: '50%', threshold: 0.01 }
     );
-    root.querySelectorAll('.ks-ambient-bg').forEach(function (w) {
+    root.querySelectorAll('.ks-ambient-bg, .forge-ambient-bg').forEach(function (w) {
       galleryIo.observe(w);
     });
   }

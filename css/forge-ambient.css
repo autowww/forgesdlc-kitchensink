@@ -1,0 +1,140 @@
+/**
+ * Forge ambient — section background atmosphere (narrative SVG layer).
+ * Separate from component motion (.pulse, .breathe) and ks-living-*.
+ * Compose: .forge-ambient-bg.ks-ambient-bg[data-ks-bg-src="..."] + ks-animated-backgrounds.js
+ */
+.forge-ambient {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.forge-ambient-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--forge-ambient-opacity, 0.52);
+}
+
+.forge-ambient-bg > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform: scale(var(--forge-ambient-scale, 1));
+  transform-origin: center center;
+  filter: blur(var(--forge-ambient-blur, 0px));
+}
+
+.forge-ambient-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--forge-ambient-scrim, transparent);
+}
+
+.forge-ambient-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Intensity */
+.forge-ambient--subtle {
+  --forge-ambient-opacity: 0.34;
+  --forge-ambient-node-opacity: 0.28;
+  --forge-ambient-spark-opacity: 0.55;
+  --forge-ambient-scrim: color-mix(in srgb, var(--forge-bg) 38%, transparent);
+}
+
+.forge-ambient--medium {
+  --forge-ambient-opacity: 0.52;
+  --forge-ambient-node-opacity: 0.42;
+  --forge-ambient-spark-opacity: 0.82;
+}
+
+.forge-ambient--hero {
+  --forge-ambient-opacity: 0.62;
+  --forge-ambient-node-opacity: 0.52;
+  --forge-ambient-spark-opacity: 0.95;
+  --forge-ambient-scrim: color-mix(in srgb, var(--forge-bg) 24%, transparent);
+}
+
+/* Motion speed (CSS-driven parts; SMIL uses long fixed durs — still modifier handled in JS) */
+.forge-ambient--slow {
+  --forge-ambient-speed: 1.35;
+}
+
+.forge-ambient--expressive {
+  --forge-ambient-speed: 0.72;
+}
+
+.forge-ambient--still {
+  --forge-ambient-speed: 0;
+}
+
+/* Theme context helpers */
+.forge-ambient--on-dark {
+  --forge-ambient-line: color-mix(in srgb, var(--forge-cyan) 16%, transparent);
+  --forge-ambient-line-soft: color-mix(in srgb, var(--forge-text-3) 26%, transparent);
+}
+
+.forge-ambient--on-light {
+  --forge-ambient-line: color-mix(in srgb, var(--forge-cyan) 24%, transparent);
+  --forge-ambient-line-soft: color-mix(in srgb, var(--forge-text-3) 48%, transparent);
+}
+
+/* Per-style SVG hooks (opacity / accents; keep SVGs token-driven) */
+.forge-ambient--aurora-flow .forge-ambient-bg svg .fa-aurora-glow {
+  opacity: 0.55;
+}
+
+.forge-ambient--signal-river .forge-ambient-bg svg .fa-river-back {
+  opacity: 0.65;
+}
+
+.forge-ambient--mesh-bloom .forge-ambient-bg svg .fa-mesh-node {
+  opacity: var(--forge-ambient-node-opacity, 0.42);
+}
+
+.forge-ambient--mesh-bloom .forge-ambient-bg svg .fa-mesh-spark {
+  opacity: var(--forge-ambient-spark-opacity, 0.82);
+}
+
+.forge-ambient--contour-drift .forge-ambient-bg svg path {
+  vector-effect: non-scaling-stroke;
+}
+
+.forge-ambient--orbit-field .forge-ambient-bg svg .fa-orbit-hub {
+  opacity: var(--forge-ambient-node-opacity, 0.5);
+}
+
+.forge-ambient--constellation-sweep .forge-ambient-bg svg .fa-const-edge {
+  opacity: 0.4;
+}
+
+@keyframes fa-shimmer-x {
+  0% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
+
+.forge-ambient:not(.forge-ambient--still) .forge-ambient-bg svg .fa-css-shimmer {
+  animation: fa-shimmer-x calc(14s * var(--forge-ambient-speed, 1)) ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forge-ambient-bg svg .fa-css-shimmer {
+    animation: none !important;
+  }
+
+  .forge-ambient {
+    --forge-ambient-blur: 0px;
+  }
+}

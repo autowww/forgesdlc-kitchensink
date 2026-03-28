@@ -1,0 +1,52 @@
+/**
+ * Forge ambient — CSS variable defaults mapped to Forge tokens.
+ * Load after forge-theme.css (or docs-theme.css). Pairs with forge-ambient.css.
+ */
+.forge-ambient {
+  --forge-ambient-line: color-mix(in srgb, var(--forge-cyan) 18%, transparent);
+  --forge-ambient-line-soft: color-mix(in srgb, var(--forge-text-3) 28%, transparent);
+  --forge-ambient-accent: var(--forge-cyan);
+  --forge-ambient-accent-2: var(--forge-amber);
+  --forge-ambient-glow: color-mix(in srgb, var(--forge-cyan) 10%, transparent);
+  --forge-ambient-opacity: 0.52;
+  --forge-ambient-speed: 1;
+  --forge-ambient-scale: 1;
+  --forge-ambient-blur: 0px;
+  --forge-ambient-node-opacity: 0.42;
+  --forge-ambient-spark-opacity: 0.9;
+  --forge-ambient-scrim: color-mix(in srgb, var(--forge-bg) 30%, transparent);
+}
+
+.forge-ambient.forge-ambient--on-light {
+  --forge-ambient-line: color-mix(in srgb, var(--forge-cyan) 22%, transparent);
+  --forge-ambient-line-soft: color-mix(in srgb, var(--forge-text-3) 45%, transparent);
+  --forge-ambient-glow: color-mix(in srgb, var(--forge-cyan) 8%, transparent);
+  --forge-ambient-scrim: color-mix(in srgb, var(--forge-surface) 18%, transparent);
+}
+
+html[data-bs-theme="light"] .forge-ambient:not(.forge-ambient--on-dark) {
+  --forge-ambient-line: color-mix(in srgb, var(--forge-cyan) 20%, transparent);
+  --forge-ambient-line-soft: color-mix(in srgb, var(--forge-text-3) 40%, transparent);
+  --forge-ambient-glow: color-mix(in srgb, var(--forge-cyan) 7%, transparent);
+  --forge-ambient-scrim: color-mix(in srgb, var(--forge-bg) 22%, transparent);
+}
+
+.forge-ambient.forge-ambient--cool {
+  --forge-ambient-accent: var(--forge-cyan);
+  --forge-ambient-accent-2: color-mix(in srgb, var(--forge-cyan) 70%, var(--forge-emerald));
+  --forge-ambient-glow: color-mix(in srgb, var(--forge-cyan) 11%, transparent);
+}
+
+.forge-ambient.forge-ambient--warm {
+  --forge-ambient-accent: var(--forge-amber);
+  --forge-ambient-accent-2: var(--forge-orange);
+  --forge-ambient-line: color-mix(in srgb, var(--forge-amber) 16%, transparent);
+  --forge-ambient-glow: color-mix(in srgb, var(--forge-amber) 9%, transparent);
+}
+
+.forge-ambient.forge-ambient--neutral {
+  --forge-ambient-accent: var(--forge-text-2);
+  --forge-ambient-accent-2: var(--forge-cyan);
+  --forge-ambient-line: color-mix(in srgb, var(--forge-text-3) 35%, transparent);
+  --forge-ambient-glow: color-mix(in srgb, var(--forge-text-3) 8%, transparent);
+}

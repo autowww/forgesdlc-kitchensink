@@ -20,7 +20,8 @@ def render() -> str:
     return """\
 <div class="forge-callout forge-callout-surface mb-4">
   <p class="callout-label mb-1">See also</p>
-  <p class="mb-0 forge-support">Slow looping <strong>SVG ambient backgrounds</strong> for sections and cards —
+  <p class="mb-0 forge-support">Narrative section atmospheres (<code>forge-ambient-*</code>): <a href="forge-ambient.html">Forge ambient backgrounds</a>.
+  Slow looping <strong>SVG ambient backgrounds</strong> for sections and cards —
   <a href="svg-backgrounds.html">SVG ambient backgrounds gallery</a>
   (<a href="svg-backgrounds.html#asset-fourier-forge-spectral-01">Fourier FORGE spectral</a>).
   Product-style <strong>living background</strong> (global field + archetypes): <a href="living-background.html">Living background system</a>.</p>

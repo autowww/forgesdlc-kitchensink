@@ -202,6 +202,7 @@ def render() -> str:
   &lt;div class="ks-ambient-bg-overlay" aria-hidden="true"&gt;&lt;/div&gt;
   &lt;div class="ks-content"&gt;…&lt;/div&gt;
 &lt;/section&gt;</code></pre>
+  <p class="forge-support mb-2">For a small set of <strong>narrative</strong> section styles (aurora, signal river, mesh, etc.) with shared modifiers, see <a href="forge-ambient.html">Forge ambient backgrounds</a> — parallel to this asset gallery.</p>
   <p class="forge-support mb-0">This gallery <strong>inlines</strong> each SVG at build time so previews work on any static host. Elsewhere, use <code>data-ks-bg-src</code> with <code>KsAmbientBg.init()</code> as needed. Full catalog: <code>docs/svg-background-catalog.md</code>.</p>
 </section>"""
 

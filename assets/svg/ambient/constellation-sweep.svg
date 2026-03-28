@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="1200" height="640" fill="none"/>
+  <g stroke="var(--forge-ambient-line, rgba(6,182,212,0.15))" stroke-width="0.85" stroke-linecap="round" fill="none">
+    <line class="fa-const-edge" x1="280" y1="200" x2="420" y2="260"/>
+    <line class="fa-const-edge" x1="420" y1="260" x2="580" y2="220"/>
+    <line class="fa-const-edge fa-css-shimmer" x1="580" y1="220" x2="740" y2="300"/>
+    <line class="fa-const-edge" x1="740" y1="300" x2="900" y2="240"/>
+    <line class="fa-const-edge" x1="420" y1="260" x2="480" y2="400"/>
+    <line class="fa-const-edge" x1="580" y1="220" x2="640" y2="380"/>
+    <line class="fa-const-edge fa-css-shimmer" x1="740" y1="300" x2="820" y2="420"/>
+  </g>
+  <g fill="var(--forge-ambient-accent, #06B6D4)">
+    <circle cx="280" cy="200" r="2.2" fill-opacity="0.35">
+      <animate attributeName="fill-opacity" values="0.22;0.45;0.22" dur="20s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" keyTimes="0;0.5;1"/>
+    </circle>
+    <circle cx="420" cy="260" r="2.5" fill-opacity="0.32"/>
+    <circle cx="580" cy="220" r="2.3" fill-opacity="0.38">
+      <animate attributeName="fill-opacity" values="0.28;0.5;0.28" dur="17s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" keyTimes="0;0.5;1"/>
+    </circle>
+    <circle cx="740" cy="300" r="2.4" fill-opacity="0.3"/>
+    <circle cx="900" cy="240" r="2.1" fill-opacity="0.28"/>
+    <circle cx="480" cy="400" r="2" fill-opacity="0.26"/>
+    <circle cx="640" cy="380" r="2" fill-opacity="0.24"/>
+    <circle cx="820" cy="420" r="1.9" fill-opacity="0.22"/>
+  </g>
+</svg>
