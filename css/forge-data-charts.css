@@ -1,0 +1,22 @@
+/* Client-side Forge data charts (forge-data-charts.js) — complements forge-theme.css */
+.ks-chart-loading {
+  opacity: 0.85;
+}
+
+[data-ks-chart][data-ks-chart-state="loading"] {
+  min-height: 2.5rem;
+}
+
+.lenses-ext-bar {
+  height: 0.5rem;
+  border-radius: 4px;
+  background: rgba(6, 182, 212, 0.35);
+}
+
+.lenses-overview-donut-swatch {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 2px;
+  flex-shrink: 0;
+}

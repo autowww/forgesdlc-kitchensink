@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "scope": "sample",
+  "charts": {
+    "commit_weekly": {
+      "series": [
+        {"week": "2025-W09", "count": 4},
+        {"week": "2025-W10", "count": 7},
+        {"week": "2025-W11", "count": 3}
+      ]
+    },
+    "commit_daily": {
+      "series": [
+        {"day": "2025-03-24", "count": 1},
+        {"day": "2025-03-25", "count": 0},
+        {"day": "2025-03-26", "count": 2},
+        {"day": "2025-03-27", "count": 1},
+        {"day": "2025-03-28", "count": 3},
+        {"day": "2025-03-29", "count": 1},
+        {"day": "2025-03-30", "count": 2}
+      ]
+    },
+    "loc_added_horizontal": {
+      "rows": [
+        {"name": "alpha", "value": 120},
+        {"name": "beta", "value": 45}
+      ]
+    },
+    "loc_total_bars": {
+      "rows": [
+        {"name": "alpha", "value": 42000},
+        {"name": "beta", "value": 12000}
+      ]
+    },
+    "loc_share_donut": {
+      "rows": [
+        {"name": "alpha", "value": 42000},
+        {"name": "beta", "value": 12000},
+        {"name": "gamma", "value": 8000}
+      ],
+      "top_n": 8
+    },
+    "compliance_bars": {
+      "rows": [["alpha", 88], ["beta", 62], ["gamma", 40]]
+    },
+    "extension_heatmap": {
+      "extensions": [[".py", 40], [".ts", 22], [".md", 15]],
+      "tracked_files": 120
+    },
+    "contributors": {
+      "rows": [["42", "Ada"], ["12", "Bob"]]
+    },
+    "submodule_layout": {
+      "svg_fragment": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 520 120\" role=\"img\" style=\"width:100%;max-width:520px;height:auto\"><rect width=\"100%\" height=\"100%\" fill=\"transparent\"/><text x=\"260\" y=\"60\" text-anchor=\"middle\" fill=\"var(--forge-muted,#94a3b8)\" font-size=\"12\">Sample submodule SVG</text></svg>"
+    }
+  }
+}

@@ -10,6 +10,7 @@ Naming convention:
 from __future__ import annotations
 
 import html as html_mod
+import json
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -1074,3 +1075,29 @@ def render_topic_preview_trigger(
         '<span class="fs-topic-preview-card__hint">Preview on this page</span>'
         "</a>"
     )
+
+
+def render_ks_chart_mount(
+    *,
+    chart_id: str,
+    kind: str,
+    data: dict[str, object] | None = None,
+    data_url: str | None = None,
+    title: str = "",
+) -> str:
+    """Mount point for ``forge-data-charts.js`` (inline *data* or fetch *data_url*)."""
+    tid = e(chart_id)
+    k = e(kind)
+    attrs = [
+        f'id="{tid}"',
+        'class="ks-chart-mount mb-3"',
+        'data-ks-chart',
+        f'data-ks-chart-kind="{k}"',
+    ]
+    if data is not None:
+        raw = json.dumps(data, separators=(",", ":"))
+        attrs.append(f'data-ks-chart-json="{e(raw)}"')
+    if data_url is not None:
+        attrs.append(f'data-ks-chart-url="{e(data_url)}"')
+    cap = f'<p class="forge-support small mb-1"><strong>{e(title)}</strong> · <code>{k}</code></p>' if title else ""
+    return f'{cap}<div {" ".join(attrs)}></div>'

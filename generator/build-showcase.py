@@ -288,6 +288,11 @@ def _copy_assets():
     for js in (REPO_ROOT / "js").glob("*.js"):
         shutil.copy2(js, assets_out / js.name)
 
+    assets_misc = REPO_ROOT / "assets"
+    if assets_misc.is_dir():
+        for aj in assets_misc.glob("*.json"):
+            shutil.copy2(aj, assets_out / aj.name)
+
     svg_out = assets_out / "svg"
     svg_src = REPO_ROOT / "assets" / "svg"
     if svg_src.is_dir():
