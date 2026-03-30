@@ -1,0 +1,11 @@
+# Example forge-autodoc config. Paths are relative to this file's directory.
+content_root: ../docs
+output_dir: ../dist/handbook
+kitchensink: ../kitchensink
+handbook_name: Engineering handbook
+# Optional: restrict skipped directory names (default matches blueprint handbook)
+# skip_dir_names:
+#   - node_modules
+#   - .git
+# Optional: prefix for "canonical source" links in the page footer
+# canonical_url_prefix: https://github.com/org/repo/blob/main/docs

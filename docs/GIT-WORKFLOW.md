@@ -21,6 +21,13 @@ This repository uses **Forge SDLC Team** tier (5–12): protected `main`, short-
   python3 generator/build-showcase.py
   ```
 
+- After changing `forge-autodoc/`, run:
+
+  ```bash
+  pip install -e './forge-autodoc[dev]'   # once per venv
+  pytest forge-autodoc/tests -q
+  ```
+
 ## Commits
 
 Use **`type(scope): imperative summary`**. Common **scopes**:
@@ -31,6 +38,7 @@ Use **`type(scope): imperative summary`**. Common **scopes**:
 | `css` | `css/` themes |
 | `js` | `js/` client scripts |
 | `generator` | `generator/build-showcase.py` and related |
+| `forge_autodoc` | `forge-autodoc/forge_autodoc/` — Markdown handbook builder (tests under `forge-autodoc/tests/`) |
 | `assets` | `assets/svg/` and shared static assets |
 
 ## Consumers

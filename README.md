@@ -73,6 +73,7 @@ Converging **existing** generators to this shell is **separate work** (not requi
 | `components/` | Python UI component library — atomic HTML renderers, page layouts, HTML transforms |
 | `assets/svg/` | Diagram **type templates** only (Forge palette); content diagrams live in each project |
 | `generator/` | `build-showcase.py` — Kitchen Sink **showcase** mini-site into `showcase/` (gitignored); `ks_assets.py` — copy theme/JS/SVG into consumer `website/assets/` (forgesdlc.com, blueprints handbook) |
+| `forge-autodoc/` | Markdown → static handbook HTML (`python3 -m forge_autodoc`); consumed by **blueprints-website** and **forgesdlc** via `kitchensink/forge-autodoc` (no separate submodule) |
 
 ## Kitchen Sink showcase
 

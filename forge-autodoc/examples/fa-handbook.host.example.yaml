@@ -1,0 +1,8 @@
+# Copy to your host repo root as fa-handbook.yaml and adjust paths.
+# Paths are relative to this file's directory.
+content_root: ./fa-tutorial-md
+output_dir: ./tutorials
+# Host's kitchensink submodule root (same revision as the site build)
+kitchensink: ./kitchensink
+handbook_name: Project tutorials
+# canonical_url_prefix: https://github.com/org/repo/blob/main/fa-tutorial-md
