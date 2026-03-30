@@ -939,8 +939,13 @@ def showcase_page(
     has_ks_diagram: bool = False,
     include_diagram_expand_modal: bool = False,
     body_extra_class: str = "",
+    content_max_width: str | None = "56rem",
 ) -> str:
-    """Showcase documentation page: unified header + sticky sidebar + content + optional ToC."""
+    """Showcase documentation page: unified header + sticky sidebar + content + optional ToC.
+
+    *content_max_width* — CSS length for the inner ``.doc-content`` wrapper (default readable column).
+    Pass ``None`` for a full-width content column (horizontal padding comes from ``main.doc-main``).
+    """
     offcanvas = offcanvas_html or sidebar_html
     diagram_scripts = _footer_diagram_scripts(
         has_mermaid,
@@ -962,6 +967,11 @@ def showcase_page(
         {toc_html}
       </nav>
     </div>"""
+
+    if content_max_width is None:
+        doc_content_open = '<div class="doc-content w-100" style="max-width:none">'
+    else:
+        doc_content_open = f'<div class="mx-auto doc-content" style="max-width:{e(content_max_width)}">'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -1002,7 +1012,7 @@ def showcase_page(
   </div>
 
   <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main">
-  <div class="mx-auto doc-content" style="max-width:56rem">
+  {doc_content_open}
     <div class="row g-3 g-lg-4">
     <div class="{col_class}">
 {body_html}
