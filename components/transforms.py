@@ -128,13 +128,13 @@ def _parse_ks_diagram_body(raw: str) -> dict[str, object]:
     """Parse fenced body: YAML-ish ``key:`` / ``alt:`` / ``expand:`` / ``src:`` or a single-line key."""
     text = html_mod.unescape(raw).strip()
     if not text:
-        raise ValueError("ks-diagram fence is empty")
+        raise ValueError("diagram fence is empty")
     out: dict[str, object] = {}
     first_line = text.split("\n", 1)[0].strip()
     if ":" not in first_line:
         tok = first_line.split()[0].strip()
         if not tok:
-            raise ValueError("ks-diagram: missing template key")
+            raise ValueError("diagram fence: missing template key")
         return {"key": tok, "alt": "", "expand": False}
     for line in text.splitlines():
         line = line.strip()
@@ -181,38 +181,29 @@ def ks_diagram_tile_html(
 
 
 def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool]:
-    """Replace ``language-ks-diagram`` / ``language-ks-diagram-expand`` fenced blocks with static SVG tiles.
+    """Replace diagram fenced blocks (Markdown ``language-*`` classes) with static SVG tiles.
 
-    Fence examples::
-
-        ```ks-diagram
-        key: linear
-        alt: Delivery pipeline
-        ```
-
-        ```ks-diagram-expand
-        key: sequence
-        alt: Request flow
-        ```
-
-        ```ks-diagram
-        src: svg/custom/foo.svg
-        alt: One-off diagram
-        expand: true
-        ```
+    Supports public fence names ``blueprint-diagram`` / ``blueprint-diagram-expand`` and
+    legacy ``ks-diagram`` / ``ks-diagram-expand`` for backward compatibility.
 
     Returns ``(transformed_html, has_ks_diagram)``.
     """
-    pattern_expand = r'<pre><code class="language-ks-diagram-expand">(.*?)</code></pre>'
-    pattern_plain = r'<pre><code class="language-ks-diagram">(.*?)</code></pre>'
-    has_ks = bool(
-        re.search(pattern_expand, html_text, re.DOTALL)
-        or re.search(pattern_plain, html_text, re.DOTALL)
+    pattern_expand = (
+        r'<pre><code class="language-blueprint-diagram-expand">(.*?)</code></pre>'
+        r'|<pre><code class="language-ks-diagram-expand">(.*?)</code></pre>'
+    )
+    pattern_plain = (
+        r'<pre><code class="language-blueprint-diagram">(.*?)</code></pre>'
+        r'|<pre><code class="language-ks-diagram">(.*?)</code></pre>'
+    )
+
+    has_ks = bool(re.search(pattern_expand, html_text, re.DOTALL)) or bool(
+        re.search(pattern_plain, html_text, re.DOTALL)
     )
     keys = valid_diagram_keys()
 
     def _replace(m: re.Match, fence_expandable: bool) -> str:
-        raw = m.group(1)
+        raw = m.group(1) or m.group(2) or ""
         parsed = _parse_ks_diagram_body(raw)
         key_val = parsed.get("key")
         src_val = parsed.get("src")
@@ -228,7 +219,7 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool]:
         if expand_flag and not catalog_key and src_str:
             catalog_key = ""
         elif expand_flag and not catalog_key and key_str:
-            raise ValueError(f"ks-diagram: unknown key {key_str!r}")
+            raise ValueError(f"diagram fence: unknown key {key_str!r}")
         return ks_diagram_tile_html(
             img_href=href,
             alt=alt,

@@ -101,6 +101,50 @@ from transforms import enhance_tables
 
 CSS is copied to your `website/assets/` during build.
 
+## Blueprint diagram fences (Markdown → HTML)
+
+Handbook and product-site generators run Markdown through HTML transforms that replace fenced blocks with static SVG tiles (Forge palette) and optional click-to-expand legend modals.
+
+**Public fence names (use in blueprint / product Markdown):**
+
+- ` ```blueprint-diagram ` — inline tile (no lightbox)
+- ` ```blueprint-diagram-expand ` — tile opens modal with catalog legend when `key:` matches a known template
+
+**Legacy aliases** (still accepted by transforms): ` ```ks-diagram ` / ` ```ks-diagram-expand `.
+
+**Inline example:**
+
+```markdown
+```blueprint-diagram
+key: swimlane
+alt: Cross-team handoffs
+```
+```
+
+**Expand example:**
+
+```markdown
+```blueprint-diagram-expand
+key: linear
+alt: End-to-end flow
+```
+```
+
+**Custom SVG under `assets/`:**
+
+```markdown
+```blueprint-diagram-expand
+src: svg/my-flow.svg
+alt: Program-specific figure
+expand: true
+```
+```
+
+- **Catalog keys** (`linear`, `swimlane`, `sequence`, …) and SVG filenames are defined in [`generator/pages/_diagram_gallery.py`](generator/pages/_diagram_gallery.py) (`_FAMILIES`).
+- **Legend text** for the modal is shipped to sites as `ks-diagram-catalog.js` (metadata extracted from the showcase `DIAGRAM_DETAILS` object); keep catalog and templates in sync when you add types.
+- **Mermaid** is loaded on **showcase** pages only (`mermaid-examples.html`, diagram parallels)—not on consumer handbook/product builds by default.
+- GitHub does not render diagram fences; use the published HTML site or build [`generator/build-showcase.py`](generator/build-showcase.py) locally for live previews.
+
 ## Design tokens
 
 Built on Bootstrap 5.3 dark mode. Primary palette:
