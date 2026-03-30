@@ -215,6 +215,26 @@
         { node: 'Slice D', color: 'amber',   desc: 'Smallest segment (18%). Percentages sum to 100%.' }
       ]
     },
+    radar: {
+      title: 'Radar / spider',
+      items: [
+        { node: 'Series A (current)', color: 'cyan',  desc: 'Filled polygon (solid stroke) — one profile across axes (e.g. current state).' },
+        { node: 'Series B (target)', color: 'amber', desc: 'Second polygon (dashed) — compare targets, benchmarks, or peers.' },
+        { node: '[A]–[F]', color: 'emerald', desc: 'Axis labels around the grid; replace with criteria or dimensions.' }
+      ]
+    },
+    'nested-donut': {
+      title: 'Nested donut',
+      items: [
+        { node: 'Outer W', color: 'cyan',    desc: 'Outer ring segment — first level of the breakdown (e.g. region).' },
+        { node: 'Outer X', color: 'cyan',    desc: 'Adjacent outer segment; legend maps ring color to category.' },
+        { node: 'Outer Y', color: 'emerald', desc: 'Third outer segment; proportions sum to the outer ring.' },
+        { node: 'Outer Z', color: 'amber',   desc: 'Fourth outer segment; often the smallest share.' },
+        { node: 'Inner P', color: 'cyan',    desc: 'Inner ring — second-level split (e.g. product within region).' },
+        { node: 'Inner Q', color: 'cyan',    desc: 'Second inner segment.' },
+        { node: 'Inner R', color: 'amber',   desc: 'Third inner segment; center label shows total or headline %.' }
+      ]
+    },
     stacked: {
       title: 'Stacked Bar',
       items: [
@@ -236,6 +256,16 @@
       items: [
         { node: 'Group A', color: 'cyan',  desc: 'Cyan dots showing one group. Dot size can encode a third dimension.' },
         { node: 'Group B', color: 'amber', desc: 'Amber dots for a second group. Position on X/Y axes shows correlation.' }
+      ]
+    },
+    waterfall: {
+      title: 'Waterfall / bridge',
+      items: [
+        { node: 'Start', color: 'cyan',    desc: 'Baseline column (e.g. opening balance). Height anchors the bridge.' },
+        { node: 'Chg Revenue', color: 'emerald', desc: 'Positive floating bar — increases the running total.' },
+        { node: 'Chg Cost', color: 'amber',   desc: 'Negative floating bar — decreases the running total.' },
+        { node: 'Chg Risk', color: 'emerald', desc: 'Another step; connector lines show where each bar lands.' },
+        { node: 'Total', color: 'cyan',    desc: 'End column — sum or closing position after all steps.' }
       ]
     },
     sequence: {
@@ -280,6 +310,15 @@
       items: [
         { node: '1,234', color: 'cyan',    desc: 'Big number — the primary metric. Designed for dashboard tiles.' },
         { node: '+12%',  color: 'emerald', desc: 'Trend indicator with direction arrow. Green = positive, red = negative.' }
+      ]
+    },
+    bullet: {
+      title: 'Bullet chart',
+      items: [
+        { node: 'Range bands', color: 'cyan',    desc: 'Background zones (poor / fair / good) — qualitative thresholds along the scale.' },
+        { node: 'Comparative', color: 'emerald', desc: 'Thin bar (e.g. prior period) behind the actual for quick comparison.' },
+        { node: 'Actual', color: 'cyan',        desc: 'Thick bar — current performance against the scale.' },
+        { node: 'Target', color: 'amber',       desc: 'Vertical marker — goal or commitment to hit.' }
       ]
     },
     heatmap: {

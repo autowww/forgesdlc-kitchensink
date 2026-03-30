@@ -2,6 +2,8 @@
 
 Shared design system for ForgeSDLC documentation sites.
 
+**Git / branching (Forge Team tier):** [`docs/GIT-WORKFLOW.md`](docs/GIT-WORKFLOW.md).
+
 ## Canonical documentation shell
 
 **For generated static documentation pages, treat the Kitchen Sink showcase as the single source of truth for HTML structure.**

@@ -164,18 +164,17 @@ _FAMILIES: list[dict] = [
         ],
     },
     {
-        "section_id": "fam-data-charts",
-        "name": "Data charts",
-        "desc": "Quantitative views — Mermaid covers pie and xychart-beta; area/stack/scatter use XY or quadrant patterns.",
+        "section_id": "fam-xy-charts",
+        "name": "Cartesian charts",
+        "desc": "Category and time-series on X/Y axes — bar, line, area, stacked bars, scatter, and waterfall bridges. Mermaid covers most via xychart-beta and quadrantChart; waterfall is SVG-first.",
         "family_mermaid_html": (
-            '<p class="forge-support small mb-2">Mermaid: <strong>pie</strong>, <strong>xychart-beta</strong> (bar/line), '
-            'and <strong>quadrantChart</strong> for scatter-like placement. See '
+            '<p class="forge-support small mb-2"><strong>xychart-beta</strong> for bar, line, and multi-series; '
+            '<strong>quadrantChart</strong> for scatter-like placement. <strong>Waterfall</strong> has no stock Mermaid grammar in our pinned build — use the SVG template or BI tools. See '
             '<a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a>.</p>'
         ),
         "items": [
             {"key": "bar", "svg": "template-bar-chart.svg", "label": "bar-chart", "mermaid": ["xychart-beta"]},
             {"key": "line", "svg": "template-line-chart.svg", "label": "line-chart", "mermaid": ["xychart-beta"]},
-            {"key": "pie", "svg": "template-pie-donut.svg", "label": "pie-donut", "mermaid": ["pie"]},
             {
                 "key": "stacked",
                 "svg": "template-stacked-bar.svg",
@@ -194,14 +193,40 @@ _FAMILIES: list[dict] = [
                 "label": "scatter",
                 "mermaid": ["quadrantChart"],
             },
+            {
+                "key": "waterfall",
+                "svg": "template-waterfall.svg",
+                "label": "waterfall",
+                "mermaid": [],
+            },
+        ],
+    },
+    {
+        "section_id": "fam-polar-composition",
+        "name": "Polar & composition",
+        "desc": "Parts-of-whole, multi-axis profiles, and nested rings — pie/donut, radar, and sunburst-style breakdowns. Only pie maps cleanly to Mermaid; the rest are SVG-first.",
+        "family_mermaid_html": (
+            '<p class="forge-support small mb-2"><strong>pie</strong> is native. <strong>Radar</strong> and <strong>nested donut</strong> '
+            "archetypes are Forge-styled SVG — use these cards or external charting. See "
+            '<a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a> for pie syntax.</p>'
+        ),
+        "items": [
+            {"key": "pie", "svg": "template-pie-donut.svg", "label": "pie-donut", "mermaid": ["pie"]},
+            {"key": "radar", "svg": "template-radar.svg", "label": "radar", "mermaid": []},
+            {
+                "key": "nested-donut",
+                "svg": "template-nested-donut.svg",
+                "label": "nested-donut",
+                "mermaid": [],
+            },
         ],
     },
     {
         "section_id": "fam-comparison-status",
         "name": "Comparison & status",
-        "desc": "Quadrants, gauges, KPI tiles — quadrant charts in Mermaid; gauges/KPIs are usually custom SVG or BI exports.",
+        "desc": "Quadrants, gauges, KPI tiles, and bullet charts — quadrant in Mermaid; gauges, bullets, and KPI cards are usually custom SVG or BI exports.",
         "family_mermaid_html": (
-            '<p class="forge-support small mb-2"><strong>quadrantChart</strong> is native; gauges and KPI cards have no stock Mermaid type — keep these templates or embed from analytics tools.</p>'
+            '<p class="forge-support small mb-2"><strong>quadrantChart</strong> is native; gauges, KPI cards, and bullet charts have no stock Mermaid type in our pinned build — keep these templates or embed from analytics tools.</p>'
         ),
         "items": [
             {
@@ -212,6 +237,12 @@ _FAMILIES: list[dict] = [
             },
             {"key": "gauge", "svg": "template-gauge.svg", "label": "gauge", "mermaid": []},
             {"key": "kpi", "svg": "template-kpi-card.svg", "label": "kpi-card", "mermaid": []},
+            {
+                "key": "bullet",
+                "svg": "template-bullet-chart.svg",
+                "label": "bullet-chart",
+                "mermaid": [],
+            },
         ],
     },
     {

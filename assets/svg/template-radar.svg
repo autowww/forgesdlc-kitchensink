@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" width="360" height="300" role="img" aria-labelledby="title desc">
+  <title id="title">Radar / spider chart template</title>
+  <desc id="desc">Multi-axis grid with two overlaid series for profile comparison</desc>
+  <rect width="100%" height="100%" fill="#111827"/>
+  <g font-family="system-ui, Segoe UI, sans-serif">
+    <text x="180" y="18" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  capability profile]</text>
+
+    <!-- Concentric hex grid -->
+    <g stroke="rgba(6,182,212,0.14)" stroke-width="1" fill="none">
+      <polygon points="180,75 256.5,119 256.5,207 180,251 103.5,207 103.5,119"/>
+      <polygon points="180,98 241,132 241,194 180,228 119,194 119,132"/>
+      <polygon points="180,121 225.5,145 225.5,181 180,205 134.5,181 134.5,145"/>
+      <polygon points="180,144 210,158 210,168 180,182 150,168 150,158"/>
+    </g>
+    <!-- Axis lines -->
+    <g stroke="rgba(6,182,212,0.22)" stroke-width="1">
+      <line x1="180" y1="145" x2="180" y2="60"/>
+      <line x1="180" y1="145" x2="256.5" y2="119"/>
+      <line x1="180" y1="145" x2="256.5" y2="207"/>
+      <line x1="180" y1="145" x2="180" y2="230"/>
+      <line x1="180" y1="145" x2="103.5" y2="207"/>
+      <line x1="180" y1="145" x2="103.5" y2="119"/>
+    </g>
+
+    <g data-node="Series A (current)" pointer-events="all">
+      <polygon points="180,88 248,118 235,198 180,218 125,198 112,118"
+               fill="rgba(6,182,212,0.28)" stroke="rgba(6,182,212,0.75)" stroke-width="1.5"/>
+      <circle cx="180" cy="88" r="3.5" fill="#06B6D4"/>
+      <circle cx="248" cy="118" r="3.5" fill="#06B6D4"/>
+      <circle cx="235" cy="198" r="3.5" fill="#06B6D4"/>
+    </g>
+    <g data-node="Series B (target)" pointer-events="all">
+      <polygon points="180,72 262,112 252,212 180,238 108,212 98,112"
+               fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.65)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <circle cx="180" cy="72" r="3" fill="#F59E0B"/>
+      <circle cx="262" cy="112" r="3" fill="#F59E0B"/>
+      <circle cx="252" cy="212" r="3" fill="#F59E0B"/>
+    </g>
+
+    <!-- Axis labels -->
+    <text x="180" y="52" text-anchor="middle" font-size="8" fill="#94a3b8">[A]</text>
+    <text x="268" y="118" text-anchor="start" font-size="8" fill="#94a3b8">[B]</text>
+    <text x="268" y="212" text-anchor="start" font-size="8" fill="#94a3b8">[C]</text>
+    <text x="180" y="268" text-anchor="middle" font-size="8" fill="#94a3b8">[D]</text>
+    <text x="92" y="212" text-anchor="end" font-size="8" fill="#94a3b8">[E]</text>
+    <text x="92" y="118" text-anchor="end" font-size="8" fill="#94a3b8">[F]</text>
+
+    <text x="180" y="286" text-anchor="middle" font-size="8" fill="#94a3b8">Solid = current, dashed = target</text>
+  </g>
+  <text x="180" y="298" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#94a3b8">[Footer note  scale 0-100 or normalized]</text>
+</svg>

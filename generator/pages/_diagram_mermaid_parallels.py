@@ -188,7 +188,16 @@ _MERMAID: dict[str, str] = {
   Failed --> Idle: Retry""",
 }
 
-_NO_MERMAID_KEYS = frozenset({"venn", "gauge", "kpi", "heatmap"})
+_NO_MERMAID_KEYS = frozenset({
+    "venn",
+    "gauge",
+    "kpi",
+    "heatmap",
+    "waterfall",
+    "radar",
+    "nested-donut",
+    "bullet",
+})
 
 
 def render_mermaid_parallels_html() -> str:
