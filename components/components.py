@@ -466,7 +466,7 @@ def render_template_banner() -> str:
 def render_canonical_note(
     canonical_md: str,
     *,
-    generator: str = "docs/build-handbook.py",
+    generator: str = "python3 generator/build-handbook.py --all (blueprints-website repo)",
 ) -> str:
     """Surface-colored callout linking to the canonical Markdown source."""
     return (
@@ -474,8 +474,9 @@ def render_canonical_note(
         '<p class="callout-label text-dim-2">Canonical source</p>'
         f'<p class="forge-support mb-0">Edit '
         f'<a href="{e(canonical_md)}">'
-        f"<code>{e(canonical_md)}</code></a> first; regenerate with "
-        f"<code>{e(generator)}</code>.</p></div>"
+        f"<code>{e(canonical_md)}</code></a> first; rebuild the handbook from the "
+        f"<strong>blueprints-website</strong> checkout with "
+        f"<code>{e(generator)}</code> (then <code>python3 generator/inject-portal-nav.py</code>).</p></div>"
     )
 
 
