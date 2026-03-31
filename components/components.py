@@ -1055,19 +1055,31 @@ def render_topic_preview_trigger(
     title: str,
     description: str = "",
     eyebrow: str = "Topic",
+    fs_pack: str | None = None,
+    link_extra_class: str = "",
 ) -> str:
     """Card-style control that opens *href* in an on-page preview (iframe with ``?fs-embed=1``).
 
     Requires ``forge-theme.js`` (modal + click wiring) and ``forgesdlc-theme.css``
     (embed trims sidebar/theme control; sticky primary nav remains; card styles). Without JS, the link navigates normally.
+
+    *fs_pack* may add BEM modifiers (e.g. enterprise) for ``forgesdlc-pack-*.css``.
+    *link_extra_class* — optional extra classes on the anchor (e.g. ``ks-parallax-inner`` for tile tilt).
     """
     desc_html = (
         f'<p class="fs-topic-preview-card__desc">{e(description)}</p>'
         if description.strip()
         else ""
     )
+    mod = ""
+    if fs_pack and str(fs_pack).strip().lower() == "enterprise":
+        mod = " fs-topic-preview-card--pack"
+    extra = link_extra_class.strip()
+    anchor_cls = f"fs-topic-preview-card{mod}"
+    if extra:
+        anchor_cls = f"{anchor_cls} {extra}"
     return (
-        '<a class="fs-topic-preview-card" '
+        f'<a class="{anchor_cls}" '
         f'href="{e(href)}" '
         'role="button" aria-haspopup="dialog">'
         f'<span class="fs-topic-preview-card__eyebrow">{e(eyebrow)}</span>'

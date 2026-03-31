@@ -768,6 +768,30 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   color: var(--forge-text);
 }
 
+/* Cursor-driven perspective tilt / parallax — pair with js/ks-tilt-tiles.js */
+.ks-tilt-wrap,
+.ks-parallax-wrap {
+  perspective: 1100px;
+  perspective-origin: center center;
+}
+.ks-tilt-inner,
+.ks-parallax-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.2, 0.85, 0.25, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.ks-tilt-wrap--tracking .ks-tilt-inner,
+.ks-parallax-wrap--tracking .ks-parallax-inner {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ks-tilt-inner,
+  .ks-parallax-inner {
+    transition: none !important;
+  }
+}
+
 /* =================================================================
    8. BENTO GRID
    ================================================================= */

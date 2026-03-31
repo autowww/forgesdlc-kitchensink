@@ -85,18 +85,23 @@ def sync_product_site_assets(
     else:
         warnings.append("forgesdlc-theme.css missing — product chrome incomplete")
 
+    css_dir = kitchensink_root / "css"
+    if css_dir.is_dir():
+        for pack_css in sorted(css_dir.glob("forgesdlc-pack-*.css")):
+            shutil.copy2(pack_css, dest_assets / pack_css.name)
+
     pres_js = kitchensink_root / "js" / "fs-presentation.js"
     if pres_js.is_file():
         shutil.copy2(pres_js, dest_assets / "fs-presentation.js")
     else:
         warnings.append("fs-presentation.js missing — presentation carousels/rails will not run")
 
-    for site_js in ("fs-nav-dropdown.js", "fs-home-expand-tiles.js"):
+    for site_js in ("fs-nav-dropdown.js", "fs-home-expand-tiles.js", "ks-tilt-tiles.js"):
         p = kitchensink_root / "js" / site_js
         if p.is_file():
             shutil.copy2(p, dest_assets / site_js)
         else:
-            warnings.append(f"{site_js} missing — landing nav or home tiles may not work")
+            warnings.append(f"{site_js} missing — landing nav, home tiles, or tilt tiles may not work")
 
     for lb in ("ks-animated-backgrounds.js", "ks-living-motion.js"):
         p = kitchensink_root / "js" / lb
