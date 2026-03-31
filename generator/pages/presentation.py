@@ -10,6 +10,7 @@ from presentation import (
     render_hero_carousel,
     render_logo_strip,
     render_rail,
+    render_stage_carousel,
     render_testimonial_slider,
     render_thumb_gallery,
 )
@@ -130,12 +131,12 @@ def render() -> str:
         ),
     ]
 
-    primitive_stage = render_hero_carousel(
+    primitive_stage = render_stage_carousel(
         [
             StageSlide(
                 eyebrow="Primitive",
                 title="fs-stage-carousel",
-                body="One slide in view; dots and arrows wired by fs-presentation.js.",
+                body="Emitted by render_stage_carousel (hero variant) — thin wrappers call the same helper.",
                 image_src=_img("template-quadrant.svg"),
                 image_alt="Quadrant",
                 preview_mode="none",
@@ -150,6 +151,7 @@ def render() -> str:
             ),
         ],
         carousel_id="demo-primitive-stage",
+        variant="hero",
         autoplay=False,
         aspect_ratio="16/9",
     )

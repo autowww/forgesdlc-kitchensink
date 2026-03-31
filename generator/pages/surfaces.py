@@ -4,18 +4,23 @@ from __future__ import annotations
 PAGE = {
     "slug": "surfaces",
     "title": "Surfaces & Layout",
-    "intro": "Glass panels, cards, bento grid, tables, dividers.",
+    "intro": "Glass panels, cards, cursor tilt tiles, bento grid, tables, dividers.",
     "family": "Foundation",
     "layout": "showcase",
     "order": 2,
     "toc": [
         ("sec-glass", "Glass panels"),
         ("sec-cards", "Cards"),
+        ("sec-tilt-tiles", "Tilt tiles"),
         ("sec-bento", "Bento grid"),
         ("sec-tables", "Tables"),
         ("sec-dividers", "Dividers"),
     ],
 }
+
+
+def extra_js_paths() -> list[str]:
+    return ["assets/ks-tilt-tiles.js"]
 
 
 def render() -> str:
@@ -63,6 +68,44 @@ def render() -> str:
   <div class="forge-callout forge-callout-surface mt-3">
     <p class="callout-label">Classes</p>
     <p class="mb-0"><code>.forge-card</code> · <code>.card-amber</code> · <code>.breathe-link</code> · <code>.breathe-static</code></p>
+  </div>
+</section>
+
+<section id="sec-tilt-tiles" class="ks-section">
+  <h2 class="ks-section-title">Tilt tiles</h2>
+  <p class="forge-support mb-3">Perspective tilt follows the pointer over each tile. Load <code>ks-tilt-tiles.js</code> and wrap a card in <code>.ks-tilt-wrap[data-ks-tilt]</code> with a single <code>.ks-tilt-inner</code> child. Optional <code>data-ks-tilt-max="12"</code> sets max tilt in degrees (default 10). Disabled when <code>prefers-reduced-motion</code> is set or the primary pointer is coarse.</p>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="ks-tilt-wrap" data-ks-tilt data-ks-tilt-max="11">
+        <a class="ks-tilt-inner forge-card breathe-link" href="#sec-tilt-tiles">
+          <p class="card-label">Tilt link</p>
+          <h5 class="mt-2 mb-1">Pointer parallax</h5>
+          <p class="forge-support mb-0">Move the cursor across this card.</p>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="ks-tilt-wrap" data-ks-tilt>
+        <a class="ks-tilt-inner forge-card card-amber breathe-link" href="#sec-tilt-tiles">
+          <p class="card-label">Amber tilt</p>
+          <h5 class="mt-2 mb-1">Same behavior</h5>
+          <p class="forge-support mb-0">Uses default max degrees.</p>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="ks-tilt-wrap" data-ks-tilt data-ks-tilt-max="8">
+        <div class="ks-tilt-inner forge-card breathe-static">
+          <p class="card-label">Static tilt</p>
+          <h5 class="mt-2 mb-1">Non-link tile</h5>
+          <p class="forge-support mb-0">Inner can be a div, not only anchors.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">Markup</p>
+    <p class="mb-0"><code>.ks-tilt-wrap[data-ks-tilt]</code> · <code>.ks-tilt-inner</code> · script <code>ks-tilt-tiles.js</code></p>
   </div>
 </section>
 

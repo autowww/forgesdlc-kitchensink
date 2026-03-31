@@ -1,0 +1,66 @@
+/*
+ * Forge SDLC — enterprise theme pack (additive).
+ * Scope: html[data-fs-pack="enterprise"] — default / other packs unchanged.
+ */
+html[data-fs-pack="enterprise"] .fs-pack-stat-cell {
+  background: var(--fs-bg-elevated, #111827);
+  border: 1px solid var(--fs-border, rgba(148, 163, 184, 0.12));
+  border-radius: 0.5rem;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+html[data-fs-pack="enterprise"] .fs-pack-stat-cell .stat-value {
+  font-weight: 700;
+}
+
+html[data-fs-pack="enterprise"] .fs-main article .row.g-3.mb-4 a.fs-pack-card {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  text-decoration: none;
+}
+
+/* Remove breathe pseudo from pathway cards in enterprise pack */
+html[data-fs-pack="enterprise"] .fs-main article .row.g-3.mb-4 a.fs-pack-card.breathe-link::before {
+  display: none !important;
+}
+
+html[data-fs-pack="enterprise"] .fs-main article .row.g-3.mb-4 a.fs-pack-card:hover,
+html[data-fs-pack="enterprise"] .fs-main article .row.g-3.mb-4 a.fs-pack-card:focus-visible {
+  border-color: rgba(148, 163, 184, 0.35);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  transform: translateY(-1px);
+}
+
+html[data-fs-pack="enterprise"] .fs-topic-preview-card.fs-topic-preview-card--pack {
+  animation: none;
+  background: var(--fs-bg-elevated, #111827);
+  border: 1px solid var(--fs-border, rgba(148, 163, 184, 0.18));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+html[data-fs-pack="enterprise"] .fs-topic-preview-card.fs-topic-preview-card--pack:hover {
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+html[data-fs-pack="enterprise"] .fs-sidebar {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+@media (min-width: 1400px) {
+  html[data-fs-pack="enterprise"] .fs-sidebar.px-xxl-5 {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+}
+
+html[data-fs-pack="enterprise"] .fs-main h2.landing-pathway-title {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-weight: 650;
+}

@@ -1,0 +1,9 @@
+/* Focus / reader pack — calmer content column (additive, scoped). */
+html[data-fs-pack="focus"] .fs-landing-body-shell .fs-main article,
+html[data-fs-pack="focus"] .fs-main .doc-content {
+  max-width: 48rem;
+}
+
+html[data-fs-pack="focus"] .landing-hero-tagline {
+  line-height: 1.55;
+}

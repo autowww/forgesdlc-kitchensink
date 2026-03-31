@@ -1,0 +1,12 @@
+/* Showcase pack — amplify glass/glow energy (additive, scoped). */
+html[data-fs-pack="showcase"] .fs-main article .row.g-3.mb-4 a.forge-card {
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.2s ease;
+}
+
+html[data-fs-pack="showcase"] .fs-main article .row.g-3.mb-4 a.forge-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(6, 182, 212, 0.2),
+    0 12px 48px rgba(6, 182, 212, 0.12);
+}

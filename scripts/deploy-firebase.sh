@@ -44,20 +44,8 @@ if ! command -v python3 >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "[deploy-firebase] Building showcase"
-python3 generator/build-showcase.py
-
-echo "[deploy-firebase] Staging static files into dist/ (public path: /cases/…)"
-rm -rf dist
-mkdir -p dist/cases
-cp "$REPO_ROOT/index.html" dist/cases/
-cp -R "$REPO_ROOT/showcase" dist/cases/showcase
-# Root URL redirects into /cases/showcase/ (Firebase Hosting has no path-based routing without files).
-cp "$REPO_ROOT/scripts/hosting-dist-root-index.html" dist/index.html
-if [[ -d "$REPO_ROOT/hosting-static/.well-known" ]]; then
-  echo "[deploy-firebase] Copying hosting-static/.well-known (ACME / domain verify)"
-  cp -R "$REPO_ROOT/hosting-static/.well-known" dist/
-fi
+echo "[deploy-firebase] Building showcase + staging dist/"
+"$REPO_ROOT/scripts/stage-dist.sh"
 
 FB_ARGS=(deploy --only hosting)
 if [[ -n "${FIREBASE_PROJECT:-}" ]]; then

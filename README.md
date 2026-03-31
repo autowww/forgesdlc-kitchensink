@@ -74,6 +74,8 @@ Converging **existing** generators to this shell is **separate work** (not requi
 | `assets/svg/` | Diagram **type templates** only (Forge palette); content diagrams live in each project |
 | `generator/` | `build-showcase.py` — Kitchen Sink **showcase** mini-site into `showcase/` (gitignored); `ks_assets.py` — copy theme/JS/SVG into consumer `website/assets/` (forgesdlc.com, blueprints handbook) |
 | `forge-autodoc/` | Markdown → static handbook HTML (`python3 -m forge_autodoc`); consumed by **blueprints-website** and **forgesdlc** via `kitchensink/forge-autodoc` (no separate submodule) |
+| `react/` | Optional React primitives — e.g. **`WorkspaceLensControl`**; consumed by **Lenses Studio** via `npm run sync-kitchensink-react` in `forge-lenses/lenses-enterprise` (see `react/README.md`) |
+| `docs/design/` | **Forge Enterprise UI** ([`forge-enterprise-ui.md`](docs/design/forge-enterprise-ui.md)) — theme packs (`fs_pack`) and static sites; **Lenses Studio shell** ([`lenses-studio-shell.md`](docs/design/lenses-studio-shell.md)) — Electron window, `/studio/` SPA, `/__ks/` reuse |
 
 ## Kitchen Sink showcase
 
@@ -86,6 +88,19 @@ python3 generator/build-showcase.py
 Open `index.html` in a browser (it redirects to `showcase/index.html`). For reliable diagram previews and modals, serve over HTTP, e.g. `python3 -m http.server` then visit `http://localhost:8000/showcase/index.html`.
 
 The legacy `test.html` is a redirect to the same entry point.
+
+### Showcase layouts (`generator/build-showcase.py`)
+
+Each page module under `generator/pages/` sets `PAGE["layout"]`, which `_render_page` maps to a layout function in `components/layouts.py`:
+
+| `layout` | Function | Typical use |
+|----------|----------|-------------|
+| `"showcase"` (default) | `showcase_page` | **Canonical doc shell** — sidebar, main body, optional right-rail ToC. Use for almost all component and token documentation. |
+| `"gallery"` | `gallery_page` | Full-width main column (no right ToC). Used by **`diagrams.html`** for the bento diagram catalog. |
+| `"landing"` | `landing_page` | Top nav + hero + body, no sidebar. **`index.html`** (home) and **`living-background.html`**. |
+| `"split"` | `split_page` | Two-column main (demo left, notes right). **`split-layout.html`** exercises this in the built site; `layout_previews.py` also emits `preview-split.html`. |
+
+New pages should default to **`showcase`** unless they intentionally need gallery width, a marketing landing shell, or a split main.
 
 ## Usage as submodule
 

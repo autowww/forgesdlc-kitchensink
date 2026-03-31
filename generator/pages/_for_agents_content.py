@@ -2,12 +2,30 @@
 from __future__ import annotations
 
 from components import (
+    bold,
     e,
     e_content,
     render_alert,
+    render_authorship_signal,
     render_breadcrumbs,
+    render_canonical_note,
+    render_cross_refs,
+    render_diagrams_section,
+    render_external_sources_section,
+    render_flow_details_section,
+    render_footer,
+    render_io_table,
+    render_ks_diagram_block,
+    render_nav_buttons,
+    render_page_header,
+    render_page_header_chapter,
     render_skip_link,
     render_table,
+    render_template_banner,
+    render_tier_nav,
+    render_toc_sidebar,
+    render_toc_sidebar_simple,
+    wrap_product_site_article,
 )
 from pages._diagram_gallery import diagram_template_count, render_family_sections_html
 
@@ -265,6 +283,88 @@ def render_body() -> str:
         [["Alpha", "One"], ["Beta", "Two"]],
         cell_escape=True,
     )
+    io_demo = render_io_table(
+        [
+            ("Ship slice", "Repo + CI", "Static site", "Team", "Weekly"),
+        ],
+    )
+    tmpl_demo = render_template_banner()
+    canon_demo = render_canonical_note(
+        "docs/example.md",
+        generator="python3 generator/build-handbook.py --all",
+    )
+    nav_btn_demo = render_nav_buttons(
+        prev_link=("tokens.html", "Tokens"),
+        next_link=("controls.html", "Controls"),
+    )
+    ext_demo = render_external_sources_section(
+        "ag-demo-ext",
+        [
+            (
+                "https://example.com",
+                "Example spec",
+                "Short summary of why it matters.",
+            ),
+        ],
+        reference_link="#ag-nav-more",
+    )
+    flow_demo = render_flow_details_section(
+        "ag-demo-flow",
+        [
+            ("Step one", "Narrative paragraph for the walkthrough."),
+            ("Step two", "Another beat in the flow."),
+        ],
+    )
+    footer_demo = render_footer("2026-03-31", label="Showcase demo footer")
+    toc_simple_demo = render_toc_sidebar_simple(
+        [("ag-demo-h2", "Sample H2"), ("ag-demo-h3", "Sample H3")],
+    )
+    ph_demo = render_page_header(
+        "Page title",
+        "One-line intro for handbook-style headers.",
+        label="Handbook",
+    )
+    cross_demo = render_cross_refs(
+        [("index.html", "Home"), ("tokens.html", "Tokens")],
+    )
+    auth_demo = render_authorship_signal(
+        "Direction and review: human.",
+        "Draft assistance from tools where noted.",
+    )
+    tier_demo = render_tier_nav(
+        [
+            ("Product", [("/overview", "Overview"), ("/pricing", "Pricing")]),
+            ("Docs", [("/guide", "Guide")]),
+        ],
+        current_href="/overview",
+    )
+    bold_demo = bold("sample")
+    ph_chapter_demo = render_page_header_chapter(
+        "Chapter title",
+        "Chapter intro for methodology pages (breadcrumb nav + H1).",
+        '<ol class="breadcrumb mb-1"><li class="breadcrumb-item"><a href="index.html">Home</a></li>'
+        '<li class="breadcrumb-item active" aria-current="page">Chapter</li></ol>',
+    )
+    toc_leveled_demo = render_toc_sidebar(
+        [
+            ("ag-demo-h2", "Section (level 2)", 2),
+            ("ag-demo-h3", "Subsection (level 3)", 3),
+        ],
+    )
+    wrap_product_demo = wrap_product_site_article(
+        '<p class="forge-support mb-0">Inner column wrapped for <code>landing_page</code> — '
+        "<code>product_page</code> already wraps <code>body_html</code> in an article (see preview-product).</p>",
+    )
+    diagrams_section_demo = render_diagrams_section(
+        "Diagrams section helper",
+        "ag-for-agents-diagrams-section",
+        ["graph LR\n  A[Reachable] --> B[Showcase]"],
+    )
+    ks_tile_demo = render_ks_diagram_block(
+        key="linear",
+        alt="Linear flow template (catalog)",
+        expandable=False,
+    )
     diagram_gallery_sections = _all_diagram_gallery_sections_html()
     nd = diagram_template_count()
     python_inventory = _python_function_inventory_table()
@@ -314,6 +414,7 @@ def render_body() -> str:
   <p class="forge-support">Support line — smaller, lower contrast.</p>
   <p class="forge-gradient-text font-display" style="font-size:1.25rem">Gradient display text</p>
   <p><span class="text-amber">amber</span> · <span class="text-cyan">cyan</span> · <span class="text-dim">dim</span></p>
+  <p class="forge-support mb-0"><code>bold("…")</code> → {bold_demo}</p>
 </section>
 
 <section id="ag-tokens-spacing" class="ks-section">
@@ -530,6 +631,43 @@ def render_body() -> str:
   <div class="forge-callout forge-callout-surface py-2">{skip_demo}<span class="forge-support ms-2">Tab to focus the skip link.</span></div>
 </section>
 
+<section id="ag-nav-more" class="ks-section">
+  <h2 class="ks-section-title">Navigation · More <code>components.py</code> emitters (live)</h2>
+  <p class="forge-support mb-3">These helpers are listed in the <a href="#ag-python-inventory">function inventory</a>; below is runnable output for coverage. <code>render_mobile_nav_button()</code> is omitted here (fixed-position hamburger for the offcanvas shell — see handbook previews).</p>
+  <p class="section-label text-cyan mb-2"><code>render_io_table</code></p>
+  {io_demo}
+  <p class="section-label text-cyan mb-2"><code>render_template_banner</code> · <code>render_canonical_note</code></p>
+  <div class="row g-3">
+    <div class="col-md-6">{tmpl_demo}</div>
+    <div class="col-md-6">{canon_demo}</div>
+  </div>
+  <p class="section-label text-cyan mb-2"><code>render_nav_buttons</code></p>
+  {nav_btn_demo}
+  <p class="section-label text-cyan mb-2"><code>render_external_sources_section</code></p>
+  {ext_demo}
+  <p class="section-label text-cyan mb-2"><code>render_flow_details_section</code></p>
+  {flow_demo}
+  <p class="section-label text-cyan mb-2"><code>render_footer</code></p>
+  {footer_demo}
+  <p class="section-label text-cyan mb-2"><code>render_toc_sidebar_simple</code> (inner nav only)</p>
+  <div class="forge-callout forge-callout-surface p-3" style="max-width:28rem">{toc_simple_demo}</div>
+  <p class="section-label text-cyan mb-2"><code>render_page_header</code></p>
+  {ph_demo}
+  <p class="section-label text-cyan mb-2"><code>render_page_header_chapter</code></p>
+  {ph_chapter_demo}
+  <p class="section-label text-cyan mb-2"><code>render_toc_sidebar</code> (levels 2 vs 3 — extra indent on H3 links)</p>
+  <div class="forge-callout forge-callout-surface p-3" style="max-width:22rem">{toc_leveled_demo}</div>
+  <p class="section-label text-cyan mb-2"><code>render_cross_refs</code> · <code>render_authorship_signal</code></p>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6">{cross_demo}</div>
+    <div class="col-md-6">{auth_demo}</div>
+  </div>
+  <p class="section-label text-cyan mb-2"><code>render_tier_nav</code> (product theme — needs <code>forgesdlc-theme.css</code> for full polish)</p>
+  <div class="p-3 rounded border" style="border-color:var(--forge-border)!important;max-width:22rem">{tier_demo}</div>
+  <p class="section-label text-cyan mb-2"><code>render_ks_diagram_block</code> (static SVG tile)</p>
+  <div class="forge-table-wrap" style="max-width:24rem">{ks_tile_demo}</div>
+</section>
+
 <section id="ag-python-api" class="ks-section">
   <h2 class="ks-section-title">Python · <code>components/components.py</code> API</h2>
   {_spec_dl([
@@ -545,11 +683,13 @@ def render_body() -> str:
     ("Headers / product", "<code>render_page_header</code>, <code>render_page_header_chapter</code>, <code>render_tier_nav</code>, <code>render_cross_refs</code>, <code>render_authorship_signal</code>, <code>render_product_landing_hero</code>, <code>wrap_product_site_article</code>, <code>render_product_footer</code>."),
   ])}
   <p class="section-label text-cyan mb-2">Example (output shape of <code>render_mermaid_block</code>)</p>
-  <p class="forge-support small mb-2"><code>showcase_page</code> injects the diagram runtime when the showcase page sets <code>has_mermaid</code> in its <code>PAGE</code> dict (see <a href="diagram-code-examples.html"><code>diagram-code-examples.html</code></a>); default is off. Forge and handbook builds pass <code>has_mermaid=False</code> and use <code>has_ks_diagram</code> + <code>ks-diagram-*.js</code> for static templates. Below is the static DOM shape for this page (diagram renders only when the runtime script is present).</p>
+  <p class="forge-support small mb-2"><code>showcase_page</code> injects the diagram runtime when the showcase page sets <code>has_mermaid</code> in its <code>PAGE</code> dict (see <a href="diagram-code-examples.html"><code>diagram-code-examples.html</code></a>). This page sets <code>has_mermaid</code> so the examples below initialize. Forge and handbook builds often pass <code>has_mermaid=False</code> and use <code>has_ks_diagram</code> + static templates instead.</p>
   <div class="forge-diagram breathe-static">
     <div class="mermaid small">graph LR
   A[Agent] --> B[HTML]</div>
   </div>
+  <p class="section-label text-cyan mb-2"><code>render_diagrams_section</code> (uses <code>render_section</code> + multiple Mermaid blocks)</p>
+  {diagrams_section_demo}
 </section>
 
 <section id="ag-python-inventory" class="ks-section">
@@ -751,7 +891,9 @@ def render_body() -> str:
     ("Python", "<code>render_product_landing_hero</code>, <code>render_cross_refs</code>, <code>render_product_footer</code>, <code>wrap_product_site_article</code> emit product markup."),
     ("Live preview", "After <code>python3 generator/build-showcase.py</code>, open <code>showcase/preview-product.html</code> (or use the Layouts page “Open live preview” for product) — do not load product CSS on this handbook-themed page or variables will clash."),
   ])}
-  <p class="forge-support mb-0">Relative link from this file: <a href="preview-product.html"><code>preview-product.html</code></a> (same directory as <code>for-agents.html</code>).</p>
+  <p class="forge-support mb-0">Relative link from this file: <a href="preview-product.html"><code>preview-product.html</code></a> (same directory as <code>for-agents.html</code>) — includes <code>render_product_landing_hero</code>, <code>render_product_footer</code>, and notes on <code>wrap_product_site_article</code>.</p>
+  <p class="section-label text-cyan mb-2 mt-3"><code>wrap_product_site_article</code> (landing bodies only)</p>
+  <div class="forge-callout forge-callout-surface p-3">{wrap_product_demo}</div>
 </section>
 
 <section id="ag-fs-overview" class="ks-section">

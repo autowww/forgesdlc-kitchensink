@@ -1,0 +1,343 @@
+/**
+ * Workspace Lens — Flow / Artifacts navigation chrome
+ * ====================================================
+ * Shared primitive for Lenses Studio and design-system showcase.
+ * Uses Forge tokens (--forge-*) when forge-theme.css is loaded; falls back otherwise.
+ */
+
+:root {
+  --ks-lens-bg: var(--forge-surface, #111827);
+  --ks-lens-border: var(--forge-border, rgba(148, 163, 184, 0.14));
+  --ks-lens-text: var(--forge-text, #e5e7eb);
+  --ks-lens-muted: var(--forge-text-2, #94a3b8);
+  --ks-lens-accent: var(--forge-amber, #f59e0b);
+  --ks-lens-cyan: var(--forge-cyan, #06b6d4);
+  --ks-lens-radius: 0.5rem;
+  --ks-lens-focus: 0 0 0 2px var(--forge-bg, #0a0e17), 0 0 0 4px var(--forge-cyan, #06b6d4);
+}
+
+/* ------------------------------------------------------------------ root */
+.ks-workspace-lens {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  font-family: var(--bs-body-font-family, "Open Sans", system-ui, sans-serif);
+}
+
+.ks-workspace-lens__eyebrow {
+  margin: 0;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ks-lens-muted);
+}
+
+/* ------------------------------------------------------------------ trigger (popover or details summary) */
+.ks-workspace-lens__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ks-lens-text);
+  background: var(--ks-lens-bg);
+  border: 1px solid var(--ks-lens-border);
+  border-radius: var(--ks-lens-radius);
+  cursor: pointer;
+  list-style: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ks-workspace-lens__trigger::-webkit-details-marker {
+  display: none;
+}
+
+.ks-workspace-lens__trigger::after {
+  content: "";
+  width: 0.35rem;
+  height: 0.35rem;
+  margin-left: 0.15rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  opacity: 0.65;
+}
+
+details[open] > .ks-workspace-lens__trigger::after {
+  transform: rotate(-135deg) translateY(1px);
+}
+
+.ks-workspace-lens__trigger:hover {
+  border-color: color-mix(in srgb, var(--ks-lens-cyan) 45%, var(--ks-lens-border));
+}
+
+.ks-workspace-lens__trigger:focus {
+  outline: none;
+}
+
+.ks-workspace-lens__trigger:focus-visible {
+  box-shadow: var(--ks-lens-focus);
+}
+
+.ks-workspace-lens__trigger-label {
+  color: var(--ks-lens-accent);
+}
+
+/* ------------------------------------------------------------------ panel */
+.ks-workspace-lens__panel {
+  position: absolute;
+  z-index: 1080;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  min-width: 17rem;
+  padding: 0.75rem 0.85rem;
+  background: var(--ks-lens-bg);
+  border: 1px solid var(--ks-lens-border);
+  border-radius: calc(var(--ks-lens-radius) + 0.1rem);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.ks-workspace-lens__panel[hidden] {
+  display: none !important;
+}
+
+/* React popover: not using <details> */
+.ks-workspace-lens--open .ks-workspace-lens__panel {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ segments (Flow | Artifacts) */
+.ks-workspace-lens__segments {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.2rem;
+  border-radius: var(--ks-lens-radius);
+  background: color-mix(in srgb, var(--ks-lens-border) 35%, transparent);
+}
+
+.ks-workspace-lens__segment {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.45rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
+  color: var(--ks-lens-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: calc(var(--ks-lens-radius) - 0.1rem);
+  cursor: pointer;
+  transition:
+    color 0.12s ease,
+    background 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.ks-workspace-lens__segment:hover {
+  color: var(--ks-lens-text);
+}
+
+.ks-workspace-lens__segment:focus {
+  outline: none;
+}
+
+.ks-workspace-lens__segment:focus-visible {
+  box-shadow: var(--ks-lens-focus);
+}
+
+.ks-workspace-lens__segment--active {
+  color: var(--ks-lens-text);
+  background: color-mix(in srgb, var(--ks-lens-accent) 14%, transparent);
+  border-color: color-mix(in srgb, var(--ks-lens-accent) 35%, transparent);
+}
+
+.ks-workspace-lens__segment-title {
+  display: block;
+}
+
+.ks-workspace-lens__segment-desc {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--ks-lens-muted);
+  line-height: 1.3;
+}
+
+.ks-workspace-lens__segment--active .ks-workspace-lens__segment-desc {
+  color: color-mix(in srgb, var(--ks-lens-muted) 90%, var(--ks-lens-text));
+}
+
+/* ------------------------------------------------------------------ helper line under control */
+.ks-workspace-lens__helper {
+  margin: 0;
+  max-width: 20rem;
+  font-size: 0.65rem;
+  line-height: 1.35;
+  color: var(--ks-lens-muted);
+}
+
+/* ------------------------------------------------------------------ optional non-pushy hint */
+.ks-workspace-lens__suggestion {
+  margin: 0.35rem 0 0;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.65rem;
+  line-height: 1.35;
+  color: var(--ks-lens-muted);
+  background: color-mix(in srgb, var(--ks-lens-cyan) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ks-lens-cyan) 18%, transparent);
+  border-radius: calc(var(--ks-lens-radius) - 0.05rem);
+}
+
+.ks-workspace-lens__suggestion-dismiss {
+  margin-left: 0.35rem;
+  padding: 0;
+  font: inherit;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ks-lens-cyan);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ks-workspace-lens__suggestion-dismiss:hover {
+  text-decoration: underline;
+}
+
+.ks-workspace-lens__suggestion-dismiss:focus-visible {
+  outline: 2px solid var(--ks-lens-cyan);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ remember note */
+.ks-workspace-lens__remember {
+  margin: 0.65rem 0 0;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--ks-lens-border);
+  font-size: 0.62rem;
+  line-height: 1.35;
+  color: var(--ks-lens-muted);
+}
+
+/* ------------------------------------------------------------------ le-lens refinements (React popover; Lenses Studio) */
+.le-lens {
+  position: relative;
+  max-width: min(22rem, 100%);
+}
+
+.le-lens__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+}
+
+.le-lens__eyebrow {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.le-lens .ks-workspace-lens__trigger::after {
+  display: none;
+}
+
+.le-lens__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.le-lens__trigger-value {
+  min-width: 4.25rem;
+}
+
+.le-lens__trigger-chevron {
+  display: inline-block;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  opacity: 0.65;
+  transition: transform 0.15s ease;
+}
+
+.ks-workspace-lens--open .le-lens__trigger-chevron {
+  transform: rotate(-135deg) translateY(1px);
+}
+
+.le-lens__helper {
+  margin-top: 0.15rem !important;
+}
+
+.le-lens__hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  max-width: 22rem;
+}
+
+.le-lens__hint-text {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.le-lens__panel {
+  right: 0;
+  left: auto;
+}
+
+.le-lens__panel-intro {
+  margin: 0 0 0.65rem;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--le-muted, var(--ks-lens-muted));
+}
+
+.le-lens__segments {
+  gap: 0.35rem !important;
+}
+
+.le-lens__segment {
+  text-align: left !important;
+}
+
+.le-lens__remember {
+  font-size: 0.6rem !important;
+}
+
+@media (max-width: 720px) {
+  .le-lens .ks-workspace-lens__helper.le-lens__helper {
+    display: none;
+  }
+
+  .le-lens .ks-workspace-lens__panel.le-lens__panel {
+    left: auto;
+    right: 0;
+    min-width: min(18rem, calc(100vw - 2rem));
+  }
+
+  .le-lens__eyebrow {
+    font-size: 0.55rem;
+  }
+}
+
+.le-lens .ks-workspace-lens__trigger:focus-visible,
+.le-lens .ks-workspace-lens__segment:focus-visible,
+.le-lens .le-lens__hint-dismiss:focus-visible {
+  outline: 2px solid var(--le-cyan, var(--ks-lens-cyan));
+  outline-offset: 2px;
+}

@@ -1,0 +1,8 @@
+/* Minimal / dev-docs pack — flatter rhythm (additive, scoped). */
+html[data-fs-pack="minimal"] .fs-landing-section::before {
+  opacity: 0.2;
+}
+
+html[data-fs-pack="minimal"] .forge-stat-band .forge-stat {
+  box-shadow: none;
+}

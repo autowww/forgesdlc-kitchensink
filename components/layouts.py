@@ -43,6 +43,17 @@ except ImportError:
 # ``diagram_modal_fragment`` lives next to ``layouts.py``; importers add ``…/components`` to ``sys.path``.
 from diagram_modal_fragment import render_diagram_expand_modal_html
 
+
+def _fs_pack_html_attr(fs_pack: str | None) -> str:
+    """Emit ``data-fs-pack`` on ``<html>`` when a non-default theme pack is active."""
+    if not fs_pack:
+        return ""
+    pid = str(fs_pack).strip().lower()
+    if not pid or pid == "default":
+        return ""
+    return f' data-fs-pack="{e(pid)}"'
+
+
 # ---------------------------------------------------------------------------
 # Shared fragments
 # ---------------------------------------------------------------------------
@@ -723,6 +734,7 @@ def product_page(
     title_override: str | None = None,
     include_diagram_expand_modal: bool = False,
     extra_scripts: str = "",
+    fs_pack: str | None = None,
 ) -> str:
     """Complete HTML page for a product / marketing site.
 
@@ -731,8 +743,12 @@ def product_page(
 
     For full handbook typography and prose (markdown), load ``forge-theme.css``
     first via ``theme_css_href`` and append ``forgesdlc-theme.css`` in ``extra_css``.
+
+    When *fs_pack* is set (non-default), ``data-fs-pack`` is set on ``<html>`` for
+    additive ``forgesdlc-pack-<id>.css`` rules.
     """
     lens_attr = f' data-lens="{e(lens)}"' if lens else ""
+    fs_attr = _fs_pack_html_attr(fs_pack)
     offcanvas = offcanvas_nav_html or nav_html
     diagram_scripts = _footer_diagram_scripts(
         has_mermaid,
@@ -752,7 +768,7 @@ def product_page(
     head_block = (head_x + "\n  ") if head_x else ""
 
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="en"{fs_attr}>
 <head>
   <meta charset="utf-8" />
 {FORGE_COLOR_SCHEME_INIT}
@@ -1059,8 +1075,10 @@ def landing_page(
     title_override: str | None = None,
     living_background: bool = False,
     living_background_global_href: str = "assets/svg/living/global/field-rails-01.svg",
+    fs_pack: str | None = None,
 ) -> str:
     """Full-width hero landing page with no sidebar."""
+    fs_attr = _fs_pack_html_attr(fs_pack)
     js_list = list(extra_js or [])
     if living_background:
         for _path in ("assets/ks-animated-backgrounds.js", "assets/ks-living-motion.js"):
@@ -1097,7 +1115,7 @@ def landing_page(
         hero_attrs += ' data-ks-living-archetype="hero" data-ks-living-intensity="3"'
 
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="en"{fs_attr}>
 <head>
   <meta charset="utf-8" />
 {FORGE_COLOR_SCHEME_INIT}

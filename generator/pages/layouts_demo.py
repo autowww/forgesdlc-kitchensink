@@ -112,7 +112,7 @@ def render() -> str:
     <ul class="forge-support mb-0 small" style="line-height:1.55">
       <li><strong>Wireframe diagrams</strong> (below each section) are static SVGs — they only illustrate region names.</li>
       <li><strong>Open live preview</strong> loads a real built page inside an <strong>iframe</strong> in the modal, with a short region legend on the right.</li>
-      <li>Showcase, landing, and gallery reuse existing pages (<code>tokens.html</code>, <code>index.html</code>, <code>diagrams.html</code>); split, handbook, chapter, and product use generated <code>preview-*.html</code> files from the build.</li>
+      <li>Showcase, landing, and gallery reuse existing pages (<code>tokens.html</code>, <code>index.html</code>, <code>diagrams.html</code>). <strong>Split</strong> has a first-class page <a href="split-layout.html"><code>split-layout.html</code></a> plus <code>preview-split.html</code>; handbook, chapter, and product use generated <code>preview-handbook.html</code> / <code>preview-chapter.html</code> / <code>preview-product.html</code>.</li>
     </ul>
   </div>
 </section>"""

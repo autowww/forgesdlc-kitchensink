@@ -1,0 +1,12 @@
+/* Contrast / a11y-first pack — stronger edges (additive, scoped). */
+html[data-fs-pack="contrast"] .fs-main article .row.g-3.mb-4 a.forge-card {
+  border-width: 2px;
+}
+
+html[data-fs-pack="contrast"] .fs-topic-preview-card {
+  outline-offset: 2px;
+}
+
+html[data-fs-pack="contrast"] .fs-sidebar .nav-link.active {
+  box-shadow: inset 3px 0 0 var(--fs-amber, #f59e0b);
+}

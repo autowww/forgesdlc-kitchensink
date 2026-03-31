@@ -16,6 +16,7 @@ PAGE = {
     "family": "Patterns",
     "layout": "showcase",
     "order": 9,
+    "has_mermaid": True,
     "include_diagram_expand_modal": True,
     "toc": [
         ("ag-intro", "Intro · How to use this page"),
@@ -34,6 +35,7 @@ PAGE = {
         ("ag-nav-sidebar", "Nav · Sidebar patterns"),
         ("ag-nav-flow", "Nav · Flow diagram"),
         ("ag-nav-chrome", "Nav · Breadcrumbs & chrome"),
+        ("ag-nav-more", "Nav · More component emitters"),
         ("ag-python-api", "Python · components.py API"),
         ("ag-python-inventory", "Python · Function inventory"),
         ("ag-transforms", "Transforms · Markdown HTML"),

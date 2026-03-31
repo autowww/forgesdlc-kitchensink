@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from components import render_product_footer, render_product_landing_hero
 from layouts import chapter_page, handbook_page, product_page, split_page
 
 
@@ -125,16 +126,28 @@ def write_layout_preview_pages(out_dir: Path) -> None:
 </nav>
 """
 
+    product_hero = render_product_landing_hero(
+        title="Product layout preview",
+        tagline="Live fragments: render_product_landing_hero (includes render_landing_signal_field), "
+        "then main copy. product_page wraps body_html in .fs-main > article — use wrap_product_site_article "
+        "for landing_page bodies (see for-agents · Product theme).",
+        kicker="Kitchen Sink",
+        primary_cta_href="#main",
+        primary_cta_label="Primary CTA",
+        secondary_cta_href="tokens.html",
+        secondary_cta_label="Secondary",
+    )
     product_html = product_page(
         browser_title="Product layout preview",
         brand_name="Forge",
         brand_accent="Preview",
         body_html=(
-            "<article class=\"p-3 p-lg-4\"><p class=\"forge-support\">This is <code>body_html</code> inside "
-            "<code>.fs-main</code> — marketing / product copy.</p></article>"
+            product_hero
+            + '<p class="forge-support p-3 p-lg-4 mb-0">Body column: plain HTML after the hero. '
+            "<code>render_product_footer()</code> is passed as <code>footer_html</code> below the article.</p>"
         ),
         nav_html=fs_nav,
-        footer_html='<p class="forge-support small px-3">footer_html</p>',
+        footer_html=render_product_footer(),
         theme_css_href="assets/forge-theme.css",
         extra_css='  <link rel="stylesheet" href="assets/forgesdlc-theme.css" />\n',
     )

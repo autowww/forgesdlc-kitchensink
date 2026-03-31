@@ -10,9 +10,14 @@ PAGE = {
     "order": 4,
     "toc": [
         ("sec-sidebar", "Sidebar nav"),
+        ("sec-workspace-lens", "Workspace Lens"),
         ("sec-flow", "Flow diagram"),
     ],
 }
+
+
+def extra_css() -> str:
+    return '  <link rel="stylesheet" href="assets/workspace-lens.css" />\n'
 
 _CHEVRON = (
     '<svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" '
@@ -71,6 +76,67 @@ def render() -> str:
   <div class="forge-callout forge-callout-surface mt-3">
     <p class="callout-label">Classes</p>
     <p class="mb-0"><code>.nav-rail</code> · <code>.nav-link</code> · <code>.doc-sidebar-group</code> · <code>.doc-sidebar-toggle</code> · <code>.doc-sidebar-children</code></p>
+  </div>
+</section>
+
+<section id="sec-workspace-lens" class="ks-section">
+  <h2 class="ks-section-title">Workspace Lens</h2>
+  <p class="forge-support mb-3">
+    Primary chrome for switching cognitive mode (<strong>Flow</strong> vs <strong>Artifacts</strong>) in Lenses Studio.
+    Classes: <code>.ks-workspace-lens</code> and children. Popover can use <code>&lt;details&gt;</code> (showcase) or React state (app).
+  </p>
+  <div class="row g-4 align-items-start">
+    <div class="col-lg-6">
+      <p class="nav-section-label mb-2">Closed trigger (open the panel to choose)</p>
+      <details class="ks-workspace-lens">
+        <summary class="ks-workspace-lens__trigger" aria-label="Workspace navigation mode">
+          <span class="ks-workspace-lens__eyebrow" style="display:inline;margin-right:0.35rem">Workspace Lens</span>
+          <span class="ks-workspace-lens__trigger-label">Flow</span>
+        </summary>
+        <div class="ks-workspace-lens__panel">
+          <p class="ks-workspace-lens__eyebrow">Workspace Lens</p>
+          <div class="ks-workspace-lens__segments" role="group" aria-label="Lens mode">
+            <button type="button" class="ks-workspace-lens__segment ks-workspace-lens__segment--active">
+              <span class="ks-workspace-lens__segment-title">Flow</span>
+              <span class="ks-workspace-lens__segment-desc">Follow work from idea to release</span>
+            </button>
+            <button type="button" class="ks-workspace-lens__segment">
+              <span class="ks-workspace-lens__segment-title">Artifacts</span>
+              <span class="ks-workspace-lens__segment-desc">Browse plans, projects, docs, and sites directly</span>
+            </button>
+          </div>
+          <p class="ks-workspace-lens__remember">Your choice is saved in this browser for next visit.</p>
+        </div>
+      </details>
+      <p class="ks-workspace-lens__helper mt-2">Follow the path from idea to release</p>
+    </div>
+    <div class="col-lg-6">
+      <p class="nav-section-label mb-2">Panel expanded (static)</p>
+      <div class="ks-workspace-lens">
+        <button type="button" class="ks-workspace-lens__trigger" aria-expanded="true" aria-haspopup="dialog" disabled>
+          <span class="ks-workspace-lens__eyebrow" style="display:inline;margin-right:0.35rem">Workspace Lens</span>
+          <span class="ks-workspace-lens__trigger-label">Artifacts</span>
+        </button>
+        <div class="ks-workspace-lens__panel" style="position:relative;top:0;margin-top:0.5rem">
+          <div class="ks-workspace-lens__segments" role="group" aria-label="Lens mode">
+            <button type="button" class="ks-workspace-lens__segment">
+              <span class="ks-workspace-lens__segment-title">Flow</span>
+              <span class="ks-workspace-lens__segment-desc">Follow work from idea to release</span>
+            </button>
+            <button type="button" class="ks-workspace-lens__segment ks-workspace-lens__segment--active">
+              <span class="ks-workspace-lens__segment-title">Artifacts</span>
+              <span class="ks-workspace-lens__segment-desc">Browse plans, projects, docs, and sites directly</span>
+            </button>
+          </div>
+          <p class="ks-workspace-lens__remember">Your choice is saved in this browser for next visit.</p>
+        </div>
+        <p class="ks-workspace-lens__helper mt-2">Browse the workspace by asset type</p>
+      </div>
+    </div>
+  </div>
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">Stylesheet</p>
+    <p class="mb-0"><code>css/workspace-lens.css</code> (loaded as <code>assets/workspace-lens.css</code> in the showcase)</p>
   </div>
 </section>
 
