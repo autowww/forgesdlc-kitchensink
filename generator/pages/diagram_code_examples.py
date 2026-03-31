@@ -1,38 +1,38 @@
-"""Mermaid diagram examples — live diagram-as-code in the showcase shell."""
+"""Diagram-as-code examples — live grammar samples in the showcase shell."""
 from __future__ import annotations
 
 from components import render_mermaid_block
 from pages._diagram_gallery import render_diagram_modal_html
 
 PAGE = {
-    "slug": "mermaid-examples",
-    "title": "Mermaid diagram examples",
-    "intro": "Broad Mermaid 10 catalog (stable + beta) with Forge wrappers.",
-    "family": "Patterns",
+    "slug": "diagram-code-examples",
+    "title": "Diagram-as-code examples",
+    "intro": "Broad grammar catalog (stable + beta) with Forge wrappers.",
+    "family": "Diagrams & charts",
     "layout": "showcase",
-    "order": 5.5,
+    "order": 11,
     "has_mermaid": True,
     "toc": [
-        ("sec-mermaid-intro", "Overview"),
-        ("sec-mermaid-flowchart", "Flowchart"),
-        ("sec-mermaid-orgchart", "Org chart"),
-        ("sec-mermaid-sequence", "Sequence"),
-        ("sec-mermaid-state", "State"),
-        ("sec-mermaid-class", "Class"),
-        ("sec-mermaid-er", "Entity–relationship"),
-        ("sec-mermaid-pie", "Pie"),
-        ("sec-mermaid-mindmap", "Mindmap"),
-        ("sec-mermaid-gantt", "Gantt"),
-        ("sec-mermaid-timeline", "Timeline"),
-        ("sec-mermaid-requirement", "Requirement"),
-        ("sec-mermaid-quadrant", "Quadrant chart"),
-        ("sec-mermaid-xychart", "XY chart"),
-        ("sec-mermaid-git", "Git graph"),
-        ("sec-mermaid-journey", "User journey"),
-        ("sec-mermaid-sankey", "Sankey"),
-        ("sec-mermaid-block", "Block"),
-        ("sec-mermaid-c4", "C4 context"),
-        ("sec-mermaid-expandable", "Expandable"),
+        ("sec-diagcode-intro", "Overview"),
+        ("sec-diagcode-flowchart", "Flowchart"),
+        ("sec-diagcode-orgchart", "Org chart"),
+        ("sec-diagcode-sequence", "Sequence"),
+        ("sec-diagcode-state", "State"),
+        ("sec-diagcode-class", "Class"),
+        ("sec-diagcode-er", "Entity–relationship"),
+        ("sec-diagcode-pie", "Pie"),
+        ("sec-diagcode-mindmap", "Mindmap"),
+        ("sec-diagcode-gantt", "Gantt"),
+        ("sec-diagcode-timeline", "Timeline"),
+        ("sec-diagcode-requirement", "Requirement"),
+        ("sec-diagcode-quadrant", "Quadrant chart"),
+        ("sec-diagcode-xychart", "XY chart"),
+        ("sec-diagcode-git", "Git graph"),
+        ("sec-diagcode-journey", "User journey"),
+        ("sec-diagcode-sankey", "Sankey"),
+        ("sec-diagcode-block", "Block"),
+        ("sec-diagcode-c4", "C4 context"),
+        ("sec-diagcode-expandable", "Expandable"),
     ],
 }
 
@@ -55,7 +55,7 @@ def _beta_block(sid: str, title: str, inner: str) -> str:
     return f"""\
 <section id="{sid}" class="ks-section">
   <h2 class="ks-section-title">{title}</h2>
-  <p class="forge-support mb-2"><span class="section-label text-amber">Beta</span> This Mermaid grammar is beta and may change between minor releases.</p>
+  <p class="forge-support mb-2"><span class="section-label text-amber">Beta</span> This grammar is beta and may change between minor releases.</p>
   {_STABLE_FOOTER}
   {inner}
 </section>"""
@@ -63,13 +63,13 @@ def _beta_block(sid: str, title: str, inner: str) -> str:
 
 def render() -> str:
     intro = """\
-<section id="sec-mermaid-intro" class="ks-section">
+<section id="sec-diagcode-intro" class="ks-section">
   <h2 class="ks-section-title">Overview</h2>
   <p class="forge-support mb-3">This page aims for <strong>broad coverage</strong> of diagram grammars shipped with the pinned <code>mermaid@10.9.x</code> ESM build from jsDelivr (same init as <code>layouts.py</code>). Each block uses <code>render_mermaid_block</code> — the same <code>.forge-diagram</code> + <code>.mermaid</code> pattern as Markdown <code>language-mermaid</code> fences after <code>convert_mermaid_blocks</code>.</p>
-  <p class="forge-support mb-3"><strong>Beta</strong> grammars (Sankey, Block, Treemap, Kanban, Packet, Architecture, XY chart) may render differently or break on Mermaid upgrades; treat them as previews.</p>
-  <p class="forge-support mb-3">For <strong>static SVG archetypes</strong> (no runtime library) and <strong>per-template Mermaid parallels</strong>, see <a href="diagrams.html">Diagram templates</a>. Diagrams that need <strong>external registration</strong> (e.g. some ZenUML bundles) are not shown here.</p>
-  <p class="forge-support mb-3"><strong>Not in this build:</strong> Treemap, Kanban, Packet, and Architecture beta grammars are not registered in the default <code>mermaid@10.9.x</code> ESM bundle from jsDelivr (they do not resolve with the stock parser). Upgrade Mermaid or register external diagrams if you need those types.</p>
-  <p class="forge-support mb-0">Mermaid loads when the page sets <code>has_mermaid</code> in its <code>PAGE</code> dict so the showcase build injects the shared script.</p>
+  <p class="forge-support mb-3"><strong>Beta</strong> grammars (Sankey, Block, Treemap, Kanban, Packet, Architecture, XY chart) may render differently or break on runtime upgrades; treat them as previews.</p>
+  <p class="forge-support mb-3">For <strong>static SVG archetypes</strong> (no runtime library) and <strong>per-template diagram-as-code parallels</strong>, see <a href="diagrams.html">Diagram templates</a>. Diagrams that need <strong>external registration</strong> (e.g. some ZenUML bundles) are not shown here.</p>
+  <p class="forge-support mb-3"><strong>Not in this build:</strong> Treemap, Kanban, Packet, and Architecture beta grammars are not registered in the default <code>mermaid@10.9.x</code> ESM bundle from jsDelivr (they do not resolve with the stock parser). Upgrade the runtime or register external diagram types if you need those.</p>
+  <p class="forge-support mb-0">The diagram runtime loads when the page sets <code>has_mermaid</code> in its <code>PAGE</code> dict so the showcase build injects the shared script.</p>
 </section>"""
 
     flow = render_mermaid_block(
@@ -286,7 +286,7 @@ columns 1
     )
 
     flowchart_section = f"""\
-<section id="sec-mermaid-flowchart" class="ks-section">
+<section id="sec-diagcode-flowchart" class="ks-section">
   <h2 class="ks-section-title">Flowchart</h2>
   {_STABLE_FOOTER}
   <p class="forge-support small mb-2"><code>graph TD</code> / <code>graph LR</code> are aliases of <code>flowchart</code>; prefer <code>flowchart</code> in new content.</p>
@@ -294,10 +294,10 @@ columns 1
 </section>"""
 
     orgchart_section = f"""\
-<section id="sec-mermaid-orgchart" class="ks-section">
+<section id="sec-diagcode-orgchart" class="ks-section">
   <h2 class="ks-section-title">Org chart</h2>
   {_STABLE_FOOTER}
-  <p class="forge-support small mb-2">Stock <code>mermaid@10</code> does not ship a separate <code>orgChart</code> diagram type; model reporting lines with <code>flowchart TD</code> (or <code>LR</code>). Shape styles such as <code>([ ])</code> round the top role.</p>
+  <p class="forge-support small mb-2">Stock <code>mermaid@10</code> does not ship a separate <code>orgChart</code> type; model reporting lines with <code>flowchart TD</code> (or <code>LR</code>). Shape styles such as <code>([ ])</code> round the top role.</p>
   {orgchart}
 </section>"""
 
@@ -305,26 +305,26 @@ columns 1
         intro,
         flowchart_section,
         orgchart_section,
-        _block("sec-mermaid-sequence", "Sequence", seq),
-        _block("sec-mermaid-state", "State diagram", state),
-        _block("sec-mermaid-class", "Class diagram", klass),
-        _block("sec-mermaid-er", "Entity–relationship", er),
-        _block("sec-mermaid-pie", "Pie chart", pie),
-        _block("sec-mermaid-mindmap", "Mindmap", mind),
-        _block("sec-mermaid-gantt", "Gantt", gantt),
-        _block("sec-mermaid-timeline", "Timeline", timeline),
-        _block("sec-mermaid-requirement", "Requirement", requirement),
-        _block("sec-mermaid-quadrant", "Quadrant chart", quadrant),
-        _beta_block("sec-mermaid-xychart", "XY chart", xychart),
-        _block("sec-mermaid-git", "Git graph", git),
-        _block("sec-mermaid-journey", "User journey", journey),
-        _beta_block("sec-mermaid-sankey", "Sankey", sankey),
-        _beta_block("sec-mermaid-block", "Block", block_beta),
-        _block("sec-mermaid-c4", "C4 context", c4),
+        _block("sec-diagcode-sequence", "Sequence", seq),
+        _block("sec-diagcode-state", "State diagram", state),
+        _block("sec-diagcode-class", "Class diagram", klass),
+        _block("sec-diagcode-er", "Entity–relationship", er),
+        _block("sec-diagcode-pie", "Pie chart", pie),
+        _block("sec-diagcode-mindmap", "Mindmap", mind),
+        _block("sec-diagcode-gantt", "Gantt", gantt),
+        _block("sec-diagcode-timeline", "Timeline", timeline),
+        _block("sec-diagcode-requirement", "Requirement", requirement),
+        _block("sec-diagcode-quadrant", "Quadrant chart", quadrant),
+        _beta_block("sec-diagcode-xychart", "XY chart", xychart),
+        _block("sec-diagcode-git", "Git graph", git),
+        _block("sec-diagcode-journey", "User journey", journey),
+        _beta_block("sec-diagcode-sankey", "Sankey", sankey),
+        _beta_block("sec-diagcode-block", "Block", block_beta),
+        _block("sec-diagcode-c4", "C4 context", c4),
         f"""\
-<section id="sec-mermaid-expandable" class="ks-section">
+<section id="sec-diagcode-expandable" class="ks-section">
   <h2 class="ks-section-title">Expandable diagram</h2>
-  <p class="forge-support mb-3"><code>render_mermaid_block(..., expandable=True)</code> adds <code>forge-diagram-trigger</code> and <code>openDiagramModal</code> (from <code>forge-theme.js</code>) after Mermaid draws SVG into the container.</p>
+  <p class="forge-support mb-3"><code>render_mermaid_block(..., expandable=True)</code> adds <code>forge-diagram-trigger</code> and <code>openDiagramModal</code> (from <code>forge-theme.js</code>) after the runtime draws SVG into the container.</p>
   {expandable}
 </section>""",
         render_diagram_modal_html(),

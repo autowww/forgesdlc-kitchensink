@@ -7,9 +7,9 @@ PAGE = {
     "slug": "data-charts-static",
     "title": "Data charts (static JSON)",
     "intro": "Forge data charts rendered client-side from inline JSON (no fetch).",
-    "family": "Patterns",
+    "family": "Diagrams & charts",
     "layout": "showcase",
-    "order": 48,
+    "order": 12,
     "toc": [
         ("sec-dc-static", "Overview"),
         ("sec-dc-kinds", "Chart kinds"),
@@ -31,7 +31,9 @@ def render() -> str:
   <h2 class="ks-section-title">Static JSON payloads</h2>
   <p class="forge-support mb-4">Each block uses <code>data-ks-chart-json</code> with the same shapes as
   <code>GET /api/project/&lt;name&gt;/chart-data</code> and <code>GET /api/chart-data/overview</code> in forge-lenses.
-  Compare with <a href="data-charts-api.html">Data charts (API fetch)</a>.</p>
+  Compare with <a href="data-charts-api.html">Data charts (API fetch)</a>.
+  Static SVG diagram <em>archetypes</em> for handbooks live on <a href="diagrams.html">Diagram templates</a>;
+  full diagram-as-code coverage is on <a href="diagram-code-examples.html">Diagram-as-code examples</a>.</p>
 </section>""",
         '<section id="sec-dc-kinds" class="ks-section">',
         '<h2 class="ks-section-title">Chart kinds</h2>',

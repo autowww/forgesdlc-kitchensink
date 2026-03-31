@@ -23,7 +23,7 @@
  * 11. Badges
  * 12. Buttons
  * 13. Code blocks & trees
- * 14. Diagram wrapper (Mermaid)
+ * 14. Diagram wrapper (diagram-as-code)
  * 15. Dividers
  * 16. Idle pulse animations
  * 17. Hover breathing (expanding outline)
@@ -268,18 +268,90 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   font-weight: 900;
   margin-right: 8px;
 }
+/* Section titles: align to the rail edge (do not indent past links — that read as “nested”). */
 .forge-sidebar .nav-section-label {
   font-family: var(--font-label);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--forge-text-3);
-  padding-left: 1.35rem;
-  margin-bottom: 0.15rem;
+  color: var(--forge-text-2);
+  font-weight: 600;
+  padding-left: 0;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+}
+.forge-sidebar .nav-scroll > .nav-section-label:first-child {
+  margin-top: 0;
 }
 .forge-sidebar .nav-rail {
   position: relative;
   padding-left: 0;
+}
+
+/* Collapsible tier groups (e.g. lenses sidebar): <details name> = exclusive accordion in supporting browsers. */
+.forge-sidebar .nav-tier-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.forge-sidebar .nav-tier-wrap {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+}
+.forge-sidebar .nav-tier-wrap:last-child {
+  border-bottom: none;
+}
+.forge-sidebar .nav-tier-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Match Bootstrap form-select-sm text inset so tier rows line up with the workspace dropdown. */
+  padding: 0.5rem 0.25rem 0.5rem 0.75rem;
+  margin: 0;
+  list-style: none;
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--forge-text-2);
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+.forge-sidebar .nav-tier-summary::-webkit-details-marker {
+  display: none;
+}
+/* Single right-pointing triangle; open state = same shape rotated 90° (consistent weight vs chevron corners). */
+.forge-sidebar .nav-tier-summary::before {
+  content: "";
+  display: block;
+  width: 0.45rem;
+  height: 0.45rem;
+  flex: 0 0 0.45rem;
+  background-color: var(--forge-text-2);
+  opacity: 0.88;
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+  transform: rotate(0deg);
+  transform-origin: 50% 50%;
+  transition: transform 0.2s ease, opacity 0.15s ease;
+}
+.forge-sidebar .nav-tier-wrap[open] > .nav-tier-summary::before {
+  transform: rotate(90deg);
+}
+.forge-sidebar .nav-tier-summary:hover,
+.forge-sidebar .nav-tier-wrap[open] > .nav-tier-summary {
+  color: var(--forge-text);
+}
+.forge-sidebar .nav-rail--tier {
+  /* Keep nested links under the tier title after summary left padding matches the switcher. */
+  margin: 0 0 0.5rem 0.75rem;
+  padding-left: 0.55rem;
+  border-left: 2px solid rgba(6, 182, 212, 0.2);
+}
+.forge-sidebar .nav-rail--tier .doc-sidebar-link {
+  padding-left: 0.65rem;
 }
 .forge-sidebar .nav-rail:not(:has(.doc-sidebar-link))::before {
   content: "";
@@ -761,6 +833,38 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   height: auto;
   display: block;
   border-radius: 6px;
+}
+
+/* Markdown ``blueprint-diagram-ascii`` — box-drawing in the diagram shell */
+.forge-diagram.forge-diagram-ascii {
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+}
+.forge-diagram.forge-diagram-ascii .forge-diagram-ascii-canvas {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+.forge-diagram.forge-diagram-ascii .forge-diagram-ascii-pre {
+  margin-bottom: 0;
+  line-height: 1.22;
+  font-size: 0.78rem;
+  font-variant-ligatures: none;
+  letter-spacing: 0;
+  tab-size: 4;
+  white-space: pre;
+  background: transparent;
+  border: none;
+  padding: 0.35rem 0;
+}
+.forge-diagram.forge-diagram-ascii .forge-diagram-ascii-pre code {
+  color: var(--forge-text-2);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+.forge-diagram.forge-diagram-ascii .forge-diagram-ascii-caption {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 /* =================================================================
@@ -1635,7 +1739,7 @@ code {
   overflow: visible;
 }
 /* Flowchart node labels use SVG text when htmlLabels:false. Other grammars may still use foreignObject.
-   Do NOT force width/height:100% + flex here — Mermaid measures labels before the FO has final size;
+   Do NOT force width/height:100% + flex here — the runtime measures labels before the FO has final size;
    percentage sizing collapses and dagre records tiny nodes (full-size text, arrows through labels). */
 .forge-diagram svg foreignObject > div,
 #diagramModalCanvas svg foreignObject > div {
@@ -2153,7 +2257,7 @@ code {
 .diagram-modal-canvas .svg-node-zone tspan {
   pointer-events: auto;
 }
-/* Keep modal Mermaid text same nominal size as inline (avoids re-clipping after layout). */
+/* Keep modal diagram text same nominal size as inline (avoids re-clipping after layout). */
 .diagram-modal-canvas .node .label,
 .diagram-modal-canvas .nodeLabel {
   font-family: Inter, system-ui, sans-serif !important;

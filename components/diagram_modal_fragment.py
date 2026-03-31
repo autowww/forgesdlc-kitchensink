@@ -1,6 +1,6 @@
 """Shared diagram lightbox shell for ``forge-theme.js`` (`openDiagramModal` / `closeDiagramModal`).
 
-Used by ``handbook_page``, ``product_page``, and ``chapter_page`` when Mermaid (or other SVG
+Used by ``handbook_page``, ``product_page``, and ``chapter_page`` when diagram-as-code (or other SVG
 inside ``.forge-diagram``) should expand. Same markup as the KS showcase diagram modal;
 ``showcase.js`` adds ``openDiagramWithDetail`` + legend wiring on top of this shell.
 """

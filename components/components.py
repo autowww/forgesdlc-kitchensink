@@ -346,13 +346,13 @@ def render_section(
 
 
 # ---------------------------------------------------------------------------
-# Mermaid diagrams
+# Diagram-as-code blocks (render_mermaid_block)
 # ---------------------------------------------------------------------------
 
 def render_mermaid_block(diagram: str, *, expandable: bool = False) -> str:
-    """Single Mermaid diagram wrapped in a Forge-styled container.
+    """Single diagram-as-code block wrapped in a Forge-styled container.
 
-    *diagram* is raw Mermaid source (no HTML).
+    *diagram* is raw source text for the runtime (no HTML).
     If *expandable* is True, adds click-to-expand trigger class.
     """
     esc = (
@@ -401,7 +401,7 @@ def render_diagrams_section(
     sid: str,
     diagrams: list[str],
 ) -> str:
-    """Section containing one or more Mermaid diagrams."""
+    """Section containing one or more diagram-as-code blocks."""
     inner = "".join(render_mermaid_block(d) for d in diagrams)
     inner = (
         '<p class="forge-support mb-2">'

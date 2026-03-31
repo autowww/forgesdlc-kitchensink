@@ -73,7 +73,7 @@ Typography-heavy bands: **sine-layered**, **signal-trace**, **contour-flow**. Ta
 | **Usage** | Section bands, wide areas |
 | **Motion** | Subset drift |
 | **Density** | Low |
-| **Performance** | ~24 static + 5 animated — **light** |
+| **Performance** | 25 static dots + 5 animated — **light** |
 
 ### bg-dots-pulse-01
 

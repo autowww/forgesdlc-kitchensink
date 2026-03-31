@@ -276,7 +276,7 @@
       liveText.textContent =
         '"' +
         label +
-        '" — Mermaid label; compare with the SVG template legend below when names differ.';
+        '" — runtime label; compare with the SVG template legend below when names differ.';
       live.hidden = false;
       live.classList.add('highlight');
       live.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
@@ -528,4 +528,20 @@
       if (e.target === this) window.closeDiagramModal();
     });
   }
+
+  /* Sidebar: exclusive accordion for <details name="lenses-sidebar-tier"> (fallback where name grouping is unsupported). */
+  document.addEventListener('DOMContentLoaded', function () {
+    var tierDetails = document.querySelectorAll(
+      '.nav-tier-accordion details[name="lenses-sidebar-tier"]'
+    );
+    if (!tierDetails.length) return;
+    tierDetails.forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (!d.open) return;
+        tierDetails.forEach(function (other) {
+          if (other !== d) other.open = false;
+        });
+      });
+    });
+  });
 })();

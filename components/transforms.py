@@ -4,10 +4,13 @@ Each function takes an HTML string and returns a transformed copy.
 They are designed to be chained::
 
     html, has_mermaid = convert_mermaid_blocks(html)
+    html, _, ascii_modal = convert_ascii_diagram_blocks(html)
     html, has_ks_diagram = convert_ks_diagram_blocks(html)
     html = enhance_tables(html)
     html = enhance_blockquotes(html)
     html = enhance_code_blocks(html)
+
+``apply_all`` merges SVG-template and ASCII-expand modal needs into ``has_ks_diagram``.
 
 All transforms emit Forge-themed markup (dark AI-native palette).
 """
@@ -76,14 +79,14 @@ def enhance_code_blocks(html_text: str) -> str:
 
 
 def convert_mermaid_blocks(html_text: str) -> tuple[str, bool]:
-    """Convert fenced Mermaid blocks to Forge diagram divs.
+    """Convert fenced diagram-as-code blocks to Forge diagram divs.
 
     Supports:
 
     - ``language-mermaid`` — inline diagram (optionally add modal + ``openDiagramModal`` via layout).
     - ``language-mermaid-expand`` — same as above but adds ``forge-diagram-trigger`` and
-      ``onclick="openDiagramModal(this)"`` so ``forge-theme.js`` can open a lightbox after Mermaid
-      renders (requires ``include_diagram_expand_modal`` on ``handbook_page`` / ``product_page``).
+      ``onclick="openDiagramModal(this)"`` so ``forge-theme.js`` can open a lightbox after the
+      diagram runtime renders (requires ``include_diagram_expand_modal`` on ``handbook_page`` / ``product_page``).
 
     Fence language in Markdown: `` ```mermaid `` or `` ```mermaid-expand ``.
 
@@ -154,6 +157,113 @@ def _parse_ks_diagram_body(raw: str) -> dict[str, object]:
     return out
 
 
+_META_LINE_ASCII = re.compile(
+    r"^(key|alt|caption|expand)\s*:\s*(.*)$",
+    re.IGNORECASE,
+)
+
+
+def _parse_ascii_diagram_body(raw: str) -> tuple[dict[str, object], str]:
+    """Split metadata prefix from ASCII body.
+
+    Only lines matching ``key:`` / ``alt:`` / ``caption:`` / ``expand:`` at the
+    start of the fence are metadata; the first non-matching line begins the art.
+    """
+    text = html_mod.unescape(raw)
+    lines = text.split("\n")
+    meta: dict[str, object] = {}
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        m = _META_LINE_ASCII.match(line.strip() if line else "")
+        if not m:
+            break
+        name, val = m.group(1).lower(), m.group(2).strip().strip('"').strip("'")
+        if name == "expand":
+            meta["expand"] = val.lower() in ("1", "true", "yes", "on")
+        else:
+            meta[name] = val
+        i += 1
+    ascii_body = "\n".join(lines[i:])
+    return meta, ascii_body
+
+
+def ascii_diagram_figure_html(meta: dict[str, object], ascii_body: str) -> str:
+    """Build ``<figure class="forge-diagram forge-diagram-ascii">`` for catalog-linked ASCII."""
+    keys = valid_diagram_keys()
+    key_str = str(meta.get("key") or "").strip()
+    alt = str(meta.get("alt") or meta.get("caption") or "ASCII diagram").strip() or "ASCII diagram"
+    caption = str(meta.get("caption") or "").strip()
+    expand = bool(meta.get("expand"))
+    catalog_key = key_str if key_str in keys else ""
+    if expand and key_str and not catalog_key:
+        raise ValueError(f"ascii diagram fence: unknown key {key_str!r}")
+    esc_content = html_mod.escape(ascii_body)
+    aria = html_mod.escape(alt, quote=True)
+    extra = ""
+    onclick = ""
+    if expand and catalog_key:
+        extra = " forge-diagram-trigger ks-diagram-trigger"
+        onclick = f" onclick='openDiagramWithDetail(this, {json.dumps(catalog_key)})'"
+    dk_attr = ""
+    if catalog_key:
+        dk_attr = f' data-diagram-key="{html_mod.escape(catalog_key, quote=True)}"'
+    figcaption = ""
+    if caption:
+        figcaption = (
+            f'<figcaption class="forge-diagram-ascii-caption forge-support small">'
+            f"{html_mod.escape(caption)}</figcaption>"
+        )
+    inner = (
+        f'<pre class="forge-code forge-diagram-ascii-pre">'
+        f'<code class="language-text">{esc_content}</code></pre>'
+    )
+    return (
+        f'<figure class="forge-diagram forge-diagram-ascii breathe-static{extra}"{dk_attr}'
+        f' role="figure" aria-label="{aria}"{onclick}>'
+        f'<div class="forge-diagram-ascii-canvas">{inner}</div>'
+        f"{figcaption}</figure>"
+    )
+
+
+def render_ascii_diagram_fence(raw: str) -> str:
+    """Public helper: same output as the ``blueprint-diagram-ascii`` Markdown transform."""
+    meta, body = _parse_ascii_diagram_body(raw)
+    return ascii_diagram_figure_html(meta, body)
+
+
+def convert_ascii_diagram_blocks(html_text: str) -> tuple[str, bool, bool]:
+    """Replace ``blueprint-diagram-ascii`` / ``ks-diagram-ascii`` fences with ASCII figures.
+
+    Metadata lines (``key:``, ``alt:``, ``caption:``, ``expand:``) must appear as a
+    consecutive prefix; the first line that does not match begins the ASCII art.
+
+    Returns ``(transformed_html, has_ascii_diagram, needs_diagram_catalog_modal)``.
+    The third flag is True when any block uses ``expand:`` with a valid catalog ``key:``
+    (same modal behavior as SVG tiles).
+    """
+    pattern = (
+        r'<pre><code class="language-blueprint-diagram-ascii">(.*?)</code></pre>'
+        r'|<pre><code class="language-ks-diagram-ascii">(.*?)</code></pre>'
+    )
+    has_any = bool(re.search(pattern, html_text, re.DOTALL))
+    needs_modal = False
+    keys = valid_diagram_keys()
+
+    def _replace(m: re.Match) -> str:
+        nonlocal needs_modal
+        raw = m.group(1) or m.group(2) or ""
+        meta, body = _parse_ascii_diagram_body(raw)
+        key_str = str(meta.get("key") or "").strip()
+        expand = bool(meta.get("expand"))
+        if expand and key_str and key_str in keys:
+            needs_modal = True
+        return ascii_diagram_figure_html(meta, body)
+
+    result = re.sub(pattern, _replace, html_text, flags=re.DOTALL)
+    return result, has_any, needs_modal
+
+
 def ks_diagram_tile_html(
     *,
     img_href: str,
@@ -162,12 +272,12 @@ def ks_diagram_tile_html(
     expandable: bool,
 ) -> str:
     esc_alt = html_mod.escape(alt, quote=True)
-    key_js = json.dumps(diagram_key) if diagram_key else '""'
     extra = ""
     onclick = ""
     if expandable:
         extra = " forge-diagram-trigger ks-diagram-trigger"
-        onclick = f' onclick="openDiagramWithDetail(this, {key_js})"'
+        # Single-quoted onclick value so JSON string quotes are valid in HTML.
+        onclick = f" onclick='openDiagramWithDetail(this, {json.dumps(diagram_key)})'"
     dk_attr = ""
     if diagram_key:
         dk_attr = f' data-diagram-key="{html_mod.escape(diagram_key, quote=True)}"'
@@ -261,10 +371,14 @@ def apply_all(html_text: str) -> tuple[str, bool, bool]:
     """Apply all standard transforms in canonical order.
 
     Returns ``(html, has_mermaid, has_ks_diagram)``.
+    ``has_ks_diagram`` is true when SVG template fences and/or ASCII fences with
+    ``expand:`` and a valid catalog ``key:`` are present (diagram legend modal).
     """
     html_text, has_mermaid = convert_mermaid_blocks(html_text)
-    html_text, has_ks_diagram = convert_ks_diagram_blocks(html_text)
+    html_text, _, ascii_modal = convert_ascii_diagram_blocks(html_text)
+    html_text, has_ks_svg = convert_ks_diagram_blocks(html_text)
     html_text = enhance_tables(html_text)
     html_text = enhance_blockquotes(html_text)
     html_text = enhance_code_blocks(html_text)
+    has_ks_diagram = has_ks_svg or ascii_modal
     return html_text, has_mermaid, has_ks_diagram

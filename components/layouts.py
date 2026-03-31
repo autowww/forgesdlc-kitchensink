@@ -16,7 +16,7 @@ Seven layout variants:
 
 Handbook and chapter layouts share the Forge structural skeleton (aurora, data-rail
 sidebar, offcanvas, ToC column).  Product layout uses ``fs-*`` classes for a
-distinct visual identity while reusing shared CDN links and Mermaid init.
+distinct visual identity while reusing shared CDN links and diagram runtime init.
 
 ``showcase_page``
     Component documentation with unified sticky header, sidebar, optional ToC.
@@ -342,8 +342,8 @@ MERMAID_SCRIPT = """\
         startOnLoad: false,
         theme: 'base',
         themeVariables: forgeMermaidThemeVariables(dark),
-        /* Flowchart renderer: dagre-wrapper matches stock Mermaid and all diagram types on
-           mermaid-examples; elk can improve nested subgraphs but is heavier — switch via
+        /* Flowchart renderer: dagre-wrapper matches stock runtime and all diagram types on
+           diagram-code-examples; elk can improve nested subgraphs but is heavier — switch via
            flowchart.defaultRenderer if a page is flowchart-only. */
         flowchart: {
           /* SVG text labels — avoids foreignObject measurement/CSS collapse (tiny rects vs full text). */
@@ -399,7 +399,7 @@ def _footer_diagram_scripts(
     *,
     include_diagram_expand_modal: bool = False,
 ) -> str:
-    """Diagram modal zoom + Mermaid + KS catalog/modal (optional), after ``forge-theme.js``."""
+    """Diagram modal zoom + diagram runtime + KS catalog/modal (optional), after ``forge-theme.js``."""
     parts: list[str] = []
     base = theme_js_href.rsplit("/", 1)[0] if "/" in theme_js_href else "assets"
     if include_diagram_expand_modal:

@@ -24,7 +24,7 @@ def render() -> str:
 <section id="sec-poc-intro" class="ks-section">
   <h2 class="ks-section-title">About this PoC</h2>
   <p class="forge-support mb-3">This page is a <strong>proof of concept</strong>: one place in the showcase to visualize how <strong>iterative prompts</strong> (goals, constraints, “make it match the handbook”) and <strong>planning threads</strong> (layout inventory, submodule workflow, build scripts) converged into the Kitchen Sink repo. The tree is <strong>reconstructed</strong> from typical themes, not an exported chat log.</p>
-  <p class="forge-support mb-0">Diagrams use Mermaid <code>mindmap</code> via <code>render_mermaid_block</code>, same as <a href="mermaid-examples.html#sec-mermaid-mindmap">Mermaid diagram examples</a>. Use the expand control on a block to open the modal viewer.</p>
+  <p class="forge-support mb-0">Diagrams use <code>mindmap</code> via <code>render_mermaid_block</code>, same as <a href="diagram-code-examples.html#sec-diagcode-mindmap">Diagram-as-code examples</a>. Use the expand control on a block to open the modal viewer.</p>
 </section>"""
 
     prompts_plans = render_mermaid_block(

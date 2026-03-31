@@ -8,7 +8,7 @@ from forge_autodoc.ks_path import ensure_kitchensink_importable
 
 
 def apply_handbook_body_transforms(kitchensink_root: Path, html: str) -> tuple[str, bool, bool]:
-    """Run KS ``apply_all`` (Mermaid, ks-diagram, tables, code, etc.)."""
+    """Run KS ``apply_all`` (diagram-as-code, ASCII diagram, ks-diagram SVG, tables, code, etc.)."""
     ensure_kitchensink_importable(kitchensink_root)
     from transforms import apply_all
 

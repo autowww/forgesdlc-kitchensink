@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260" width="520" height="260" role="img" aria-labelledby="title desc">
   <title id="title">State machine template</title>
-  <desc id="desc">States and transitions  map to Mermaid stateDiagram-v2 in the parallels page</desc>
+  <desc id="desc">States and transitions  map to stateDiagram-v2 in the parallels page</desc>
   <rect width="100%" height="100%" fill="#111827"/>
   <g font-family="system-ui, Segoe UI, sans-serif">
     <text x="260" y="20" text-anchor="middle" font-weight="700" font-size="12" fill="#06B6D4">[Title  state model]</text>

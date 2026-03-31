@@ -112,8 +112,11 @@ Handbook and product-site generators run Markdown through HTML transforms that r
 
 - ` ```blueprint-diagram ` — inline tile (no lightbox)
 - ` ```blueprint-diagram-expand ` — tile opens modal with catalog legend when `key:` matches a known template
+- ` ```blueprint-diagram-ascii ` — monospace ASCII / box-drawing in the diagram shell; optional `key:` / `alt:` / `caption:` / `expand:` prefix (same modal behavior as SVG when `expand:` is true and `key:` is valid)
 
-**Legacy aliases** (still accepted by transforms): ` ```ks-diagram ` / ` ```ks-diagram-expand `.
+**Legacy aliases** (still accepted by transforms): ` ```ks-diagram ` / ` ```ks-diagram-expand `; ASCII: ` ```ks-diagram-ascii `.
+
+Heuristics for picking a `key:` from ASCII intent are documented in [`docs/ascii-to-ks-diagrams.md`](docs/ascii-to-ks-diagrams.md).
 
 **Inline example:**
 
@@ -133,6 +136,19 @@ alt: End-to-end flow
 ```
 ```
 
+**ASCII example:**
+
+```markdown
+```blueprint-diagram-ascii
+key: linear
+alt: Sketch of a linear flow
+caption: Optional caption below the figure
++------+     +------+
+|  A   | --> |  B   |
++------+     +------+
+```
+```
+
 **Custom SVG under `assets/`:**
 
 ```markdown
@@ -145,7 +161,7 @@ expand: true
 
 - **Catalog keys** (`linear`, `swimlane`, `sequence`, …) and SVG filenames are defined in [`generator/pages/_diagram_gallery.py`](generator/pages/_diagram_gallery.py) (`_FAMILIES`).
 - **Legend text** for the modal is shipped to sites as `ks-diagram-catalog.js` (metadata extracted from the showcase `DIAGRAM_DETAILS` object); keep catalog and templates in sync when you add types.
-- **Mermaid** is loaded on **showcase** pages only (`mermaid-examples.html`, diagram parallels)—not on consumer handbook/product builds by default.
+- The **diagram runtime** is loaded on **showcase** pages only (`diagram-code-examples.html`, diagram parallels)—not on consumer handbook/product builds by default.
 - GitHub does not render diagram fences; use the published HTML site or build [`generator/build-showcase.py`](generator/build-showcase.py) locally for live previews.
 
 ## Design tokens

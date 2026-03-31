@@ -7,9 +7,9 @@ PAGE = {
     "slug": "data-charts-api",
     "title": "Data charts (API fetch)",
     "intro": "Same chart kinds as static page; data loaded with fetch from assets/data-charts-api-sample.json.",
-    "family": "Patterns",
+    "family": "Diagrams & charts",
     "layout": "showcase",
-    "order": 49,
+    "order": 13,
     "toc": [("sec-dc-api", "Overview"), ("sec-dc-api-kinds", "Fetched charts")],
 }
 
@@ -41,7 +41,9 @@ def render() -> str:
   <p class="forge-support mb-4">Each mount uses <code>data-ks-chart-url</code> pointing at a static JSON file
   with a <code>charts</code> object (same envelope as forge-lenses). In lenses, the URL is
   <code>/api/project/&lt;name&gt;/chart-data</code> or <code>/api/chart-data/overview</code>.
-  See also <a href="data-charts-static.html">Data charts (static JSON)</a>.</p>
+  See also <a href="data-charts-static.html">Data charts (static JSON)</a>.
+  For static SVG diagram tiles and diagram-as-code samples, see <a href="diagrams.html">Diagram templates</a> and
+  <a href="diagram-code-examples.html">Diagram-as-code examples</a>.</p>
 </section>""",
         '<section id="sec-dc-api-kinds" class="ks-section">',
         '<h2 class="ks-section-title">Charts</h2>',

@@ -1,11 +1,11 @@
-"""Mermaid diagram-as-code approximations for each SVG template key in _diagram_gallery."""
+"""Diagram-as-code samples for each SVG template key in _diagram_gallery."""
 from __future__ import annotations
 
 from components import e_content, render_mermaid_block
 
 from pages._diagram_gallery import _FAMILIES, family_section_id
 
-# Raw Mermaid source per gallery key. Omitted keys use the prose fallback in render().
+# Raw diagram source per gallery key. Omitted keys use the prose fallback in render().
 _MERMAID: dict[str, str] = {
     "linear": """flowchart LR
   subgraph Plan["Plan"]
@@ -201,17 +201,17 @@ _NO_MERMAID_KEYS = frozenset({
 
 
 def render_mermaid_parallels_html() -> str:
-    """Section: one live Mermaid block (or note) per SVG template key, grouped by family."""
+    """Section: one live diagram-as-code block (or note) per SVG template key, grouped by family."""
     blocks: list[str] = [
-        '<section id="sec-diagram-mermaid" class="ks-section">',
-        '  <h2 class="ks-section-title">Mermaid parallels</h2>',
+        '<section id="sec-diagram-parallels" class="ks-section">',
+        '  <h2 class="ks-section-title">Diagram-as-code parallels</h2>',
         '  <p class="forge-support mb-3">Each block is <strong>diagram-as-code</strong> with the same '
         "<code>render_mermaid_block</code> wrapper as handbook and product pages. Use it when you want "
         "editable source; use the <strong>SVG cards above</strong> when you need exact Forge styling. "
-        "<strong>Click a rendered diagram</strong> to open it in the lightbox (same as expandable Mermaid on handbook pages). "
-        'Some archetypes have no close Mermaid grammar — keep the static template or use BI/design tools.</p>',
-        '  <p class="forge-support mb-4">For the full Mermaid 10 catalog (C4, ER, Sankey, Git graph, …), '
-        'see <a href="mermaid-examples.html">Mermaid diagram examples</a>.</p>',
+        "<strong>Click a rendered diagram</strong> to open it in the lightbox (same as expandable blocks on handbook pages). "
+        'Some archetypes have no close native grammar — keep the static template or use BI/design tools.</p>',
+        '  <p class="forge-support mb-4">For the full catalog (C4, ER, Sankey, Git graph, …), '
+        'see <a href="diagram-code-examples.html">Diagram-as-code examples</a>.</p>',
     ]
 
     for fam in _FAMILIES:
@@ -230,7 +230,7 @@ def render_mermaid_parallels_html() -> str:
             )
             if key in _NO_MERMAID_KEYS:
                 cap += (
-                    "    <p class=\"forge-support small mb-0\">No stock Mermaid type matches this archetype; "
+                    "    <p class=\"forge-support small mb-0\">No stock grammar matches this archetype; "
                     "use the SVG template card or an external graphic.</p>\n"
                 )
             elif key in _MERMAID:

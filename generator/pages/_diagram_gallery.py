@@ -1,12 +1,12 @@
 """Shared SVG diagram template catalog and HTML for showcase + for-agents pages.
 
-Taxonomy (how this catalog relates to Mermaid and content):
+Taxonomy (how this catalog relates to diagram-as-code and content):
 
 - **Pattern** — What the diagram means (flow, hierarchy, time, chart, status). Families group patterns.
 - **Presentation** — How much metadata each node carries (e.g. generic ``tree`` vs people **orgchart** cards with avatar, name, title).
 - **Tier 1 (here)** — Static ``template-*.svg`` archetypes for slides, handbooks, and modal thumbs.
 - **Tier 2** — ``_diagram_mermaid_parallels.py``: diagram-as-code samples keyed to each template.
-- **Tier 3** — ``mermaid-examples.html``: full ``mermaid@10`` grammar catalog; not every grammar needs an SVG twin.
+- **Tier 3** — ``diagram-code-examples.html``: full ``mermaid@10`` grammar catalog; not every grammar needs an SVG twin.
 
 Adding a template: new SVG under ``assets/svg/``, one ``items`` dict in ``_FAMILIES``, matching
 ``DIAGRAM_DETAILS`` in ``js/showcase.js`` (``node`` strings ↔ optional ``data-node`` on SVG groups),
@@ -40,21 +40,21 @@ def family_section_id(fam: dict) -> str:
 
 def _mermaid_tags_line(types: list[str]) -> str:
     if not types:
-        return "Mermaid: <span class='text-dim'>(no direct grammar — use SVG or other tools)</span>"
+        return "Diagram-as-code: <span class='text-dim'>(no direct grammar — use SVG or other tools)</span>"
     joined = " · ".join(e(t) for t in types)
-    return f"Mermaid: <span class='text-cyan'>{joined}</span>"
+    return f"Diagram-as-code: <span class='text-cyan'>{joined}</span>"
 
 
 _FAMILIES: list[dict] = [
     {
         "section_id": "fam-process-flow",
         "name": "Process & flow",
-        "desc": "How work moves through stages — same visual language as Mermaid flowcharts and journey-style narratives.",
+        "desc": "How work moves through stages — same visual language as flowchart and journey-style narratives.",
         "family_mermaid_html": (
-            '<p class="forge-support small mb-2">Primary Mermaid parallels: '
+            '<p class="forge-support small mb-2">Primary diagram-as-code parallels: '
             '<strong>flowchart</strong> (<code>LR</code>/<code>TD</code>, decisions, subgraph swimlanes) and '
             '<strong>journey</strong>. Volume narrowing is approximated with <strong>sankey-beta</strong> on the '
-            '<a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a> page.</p>'
+            '<a class="text-cyan" href="diagram-code-examples.html" style="text-decoration:none">Diagram-as-code examples</a> page.</p>'
         ),
         "items": [
             {
@@ -98,12 +98,12 @@ _FAMILIES: list[dict] = [
     {
         "section_id": "fam-structural-relational",
         "name": "Structural & relational",
-        "desc": "Hierarchy, boards, and relationships — align with Mermaid flowchart, mindmap, and (for networks) graph edges. Tree = generic node boxes; org chart = people cards (avatar, name, title, team line).",
+        "desc": "Hierarchy, boards, and relationships — align with flowchart, mindmap, and (for networks) graph edges. Tree = generic node boxes; org chart = people cards (avatar, name, title, team line).",
         "family_mermaid_html": (
             '<p class="forge-support small mb-2">Maps to <strong>flowchart</strong> trees and org-style TD layouts, '
             '<strong>mindmap</strong>, and dense links similar to flowchart <code>---</code> / <code>--></code> edges. '
             '<strong>classDiagram</strong> / <strong>erDiagram</strong> cover typed relations on '
-            '<a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a>.</p>'
+            '<a class="text-cyan" href="diagram-code-examples.html" style="text-decoration:none">Diagram-as-code examples</a>.</p>'
         ),
         "items": [
             {
@@ -147,10 +147,10 @@ _FAMILIES: list[dict] = [
     {
         "section_id": "fam-timeline-scheduling",
         "name": "Timeline & scheduling",
-        "desc": "Time-based views — pair with Mermaid gantt and timeline grammars.",
+        "desc": "Time-based views — pair with gantt and timeline grammars.",
         "family_mermaid_html": (
-            '<p class="forge-support small mb-2">Direct Mermaid: <strong>gantt</strong> and <strong>timeline</strong>. '
-            'Roadmaps often combine both; see <a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a>.</p>'
+            '<p class="forge-support small mb-2">Direct grammars: <strong>gantt</strong> and <strong>timeline</strong>. '
+            'Roadmaps often combine both; see <a class="text-cyan" href="diagram-code-examples.html" style="text-decoration:none">Diagram-as-code examples</a>.</p>'
         ),
         "items": [
             {"key": "gantt", "svg": "template-gantt.svg", "label": "gantt", "mermaid": ["gantt"]},
@@ -166,11 +166,11 @@ _FAMILIES: list[dict] = [
     {
         "section_id": "fam-xy-charts",
         "name": "Cartesian charts",
-        "desc": "Category and time-series on X/Y axes — bar, line, area, stacked bars, scatter, and waterfall bridges. Mermaid covers most via xychart-beta and quadrantChart; waterfall is SVG-first.",
+        "desc": "Category and time-series on X/Y axes — bar, line, area, stacked bars, scatter, and waterfall bridges. Native grammars cover most via xychart-beta and quadrantChart; waterfall is SVG-first.",
         "family_mermaid_html": (
             '<p class="forge-support small mb-2"><strong>xychart-beta</strong> for bar, line, and multi-series; '
-            '<strong>quadrantChart</strong> for scatter-like placement. <strong>Waterfall</strong> has no stock Mermaid grammar in our pinned build — use the SVG template or BI tools. See '
-            '<a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a>.</p>'
+            '<strong>quadrantChart</strong> for scatter-like placement. <strong>Waterfall</strong> has no stock grammar in our pinned build — use the SVG template or BI tools. See '
+            '<a class="text-cyan" href="diagram-code-examples.html" style="text-decoration:none">Diagram-as-code examples</a>.</p>'
         ),
         "items": [
             {"key": "bar", "svg": "template-bar-chart.svg", "label": "bar-chart", "mermaid": ["xychart-beta"]},
@@ -204,11 +204,11 @@ _FAMILIES: list[dict] = [
     {
         "section_id": "fam-polar-composition",
         "name": "Polar & composition",
-        "desc": "Parts-of-whole, multi-axis profiles, and nested rings — pie/donut, radar, and sunburst-style breakdowns. Only pie maps cleanly to Mermaid; the rest are SVG-first.",
+        "desc": "Parts-of-whole, multi-axis profiles, and nested rings — pie/donut, radar, and sunburst-style breakdowns. Only pie maps cleanly to native pie syntax; the rest are SVG-first.",
         "family_mermaid_html": (
             '<p class="forge-support small mb-2"><strong>pie</strong> is native. <strong>Radar</strong> and <strong>nested donut</strong> '
             "archetypes are Forge-styled SVG — use these cards or external charting. See "
-            '<a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a> for pie syntax.</p>'
+            '<a class="text-cyan" href="diagram-code-examples.html" style="text-decoration:none">Diagram-as-code examples</a> for pie syntax.</p>'
         ),
         "items": [
             {"key": "pie", "svg": "template-pie-donut.svg", "label": "pie-donut", "mermaid": ["pie"]},
@@ -224,9 +224,9 @@ _FAMILIES: list[dict] = [
     {
         "section_id": "fam-comparison-status",
         "name": "Comparison & status",
-        "desc": "Quadrants, gauges, KPI tiles, and bullet charts — quadrant in Mermaid; gauges, bullets, and KPI cards are usually custom SVG or BI exports.",
+        "desc": "Quadrants, gauges, KPI tiles, and bullet charts — quadrant via quadrantChart; gauges, bullets, and KPI cards are usually custom SVG or BI exports.",
         "family_mermaid_html": (
-            '<p class="forge-support small mb-2"><strong>quadrantChart</strong> is native; gauges, KPI cards, and bullet charts have no stock Mermaid type in our pinned build — keep these templates or embed from analytics tools.</p>'
+            '<p class="forge-support small mb-2"><strong>quadrantChart</strong> is native; gauges, KPI cards, and bullet charts have no stock type in our pinned build — keep these templates or embed from analytics tools.</p>'
         ),
         "items": [
             {
@@ -248,11 +248,11 @@ _FAMILIES: list[dict] = [
     {
         "section_id": "fam-interaction-behavior",
         "name": "Interaction & behavior",
-        "desc": "Message order across actors and finite-state lifecycles — pair with Mermaid sequence and state diagrams.",
+        "desc": "Message order across actors and finite-state lifecycles — pair with sequence and state diagrams.",
         "family_mermaid_html": (
-            '<p class="forge-support small mb-2">Native Mermaid: <strong>sequenceDiagram</strong> for lifelines and '
+            '<p class="forge-support small mb-2">Native: <strong>sequenceDiagram</strong> for lifelines and '
             '<strong>stateDiagram-v2</strong> for states. Full syntax on '
-            '<a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a>.</p>'
+            '<a class="text-cyan" href="diagram-code-examples.html" style="text-decoration:none">Diagram-as-code examples</a>.</p>'
         ),
         "items": [
             {
@@ -272,10 +272,10 @@ _FAMILIES: list[dict] = [
     {
         "section_id": "fam-specialized",
         "name": "Specialized",
-        "desc": "Heatmaps and other dense matrices — not in default Mermaid 10 bundle as first-class grammars.",
+        "desc": "Heatmaps and other dense matrices — not in default bundle as first-class grammars.",
         "family_mermaid_html": (
             '<p class="forge-support small mb-2">No default <code>mermaid@10</code> heatmap grammar; use this SVG archetype or external charting. Other specialized diagrams (e.g. <strong>requirementDiagram</strong>, <strong>gitGraph</strong>, <strong>C4</strong>) live on '
-            '<a class="text-cyan" href="mermaid-examples.html" style="text-decoration:none">Mermaid examples</a>.</p>'
+            '<a class="text-cyan" href="diagram-code-examples.html" style="text-decoration:none">Diagram-as-code examples</a>.</p>'
         ),
         "items": [
             {"key": "heatmap", "svg": "template-heatmap.svg", "label": "heatmap", "mermaid": []},

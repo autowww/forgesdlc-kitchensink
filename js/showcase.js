@@ -554,12 +554,12 @@
     return html;
   }
 
-  /** Legend + live focus slot for Mermaid expand when trigger sits under ``[data-diagram-key]`` (diagrams parallels). */
+  /** Legend + live focus slot for diagram-as-code expand when trigger sits under ``[data-diagram-key]`` (diagrams parallels). */
   function renderMermaidParallelModalDetail(key) {
     if (!getDetailData(key)) return '';
     var intro =
       '<p class="detail-mermaid-note forge-support small mb-3">' +
-      'Same <strong>legend</strong> as the SVG template card above. Mermaid uses its own labels as a diagram-as-code sample — ' +
+      'Same <strong>legend</strong> as the SVG template card above. The runtime uses its own labels as a diagram-as-code sample — ' +
       'hover shapes to match the legend when names align, or read the focus line.</p>';
     var live =
       '<div id="diagramModalMermaidLive" class="detail-mermaid-live detail-item" hidden>' +

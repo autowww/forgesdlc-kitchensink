@@ -165,12 +165,17 @@ def _transforms_inventory_table() -> str:
         [
             "<code>convert_mermaid_blocks(html)</code>",
             "tuple[str, bool]",
-            "Replaces fenced Mermaid <code>&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;</code> with <code>.forge-diagram</code> + <code>.mermaid</code>.",
+            "Replaces fenced diagram blocks <code>&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;</code> with <code>.forge-diagram</code> + <code>.mermaid</code>.",
+        ],
+        [
+            "<code>convert_ascii_diagram_blocks(html)</code>",
+            "tuple[str, bool, bool]",
+            "Replaces <code>language-blueprint-diagram-ascii</code> / <code>language-ks-diagram-ascii</code> with <code>.forge-diagram-ascii</code>; third value is true when any block uses <code>expand:</code> with a valid catalog <code>key:</code> (legend modal).",
         ],
         [
             "<code>convert_ks_diagram_blocks(html)</code>",
             "tuple[str, bool]",
-            "Replaces <code>language-ks-diagram</code> / <code>language-ks-diagram-expand</code> with static SVG tiles; sets <code>has_ks_diagram</code> when any block present.",
+            "Replaces <code>language-ks-diagram</code> / <code>language-ks-diagram-expand</code> with static SVG tiles (<code>.ks-diagram-tile</code>).",
         ],
         [
             "<code>enhance_tables(html)</code>",
@@ -532,7 +537,7 @@ def render_body() -> str:
     ("Escaping", "<code>e(s)</code> — full escape for attributes; <code>e_content(s)</code> — for text nodes; <code>bold(s)</code>."),
     ("Tables", "<code>render_table</code>, <code>render_io_table</code>."),
     ("Sections", "<code>render_section</code> — titled block with optional label."),
-    ("Diagrams (Mermaid)", "<code>render_mermaid_block</code>, <code>render_diagrams_section</code>."),
+    ("Diagrams (diagram-as-code)", "<code>render_mermaid_block</code>, <code>render_diagrams_section</code>."),
     ("Callouts / banners", "<code>render_alert</code>, <code>render_template_banner</code>, <code>render_canonical_note</code>."),
     ("Nav &amp; content", "<code>render_breadcrumbs</code>, <code>render_nav_buttons</code>, <code>render_external_sources_section</code>, <code>render_flow_details_section</code>."),
     ("ToC", "<code>render_toc_sidebar</code>, <code>render_toc_sidebar_simple</code> — expect heading ids in body."),
@@ -540,7 +545,7 @@ def render_body() -> str:
     ("Headers / product", "<code>render_page_header</code>, <code>render_page_header_chapter</code>, <code>render_tier_nav</code>, <code>render_cross_refs</code>, <code>render_authorship_signal</code>, <code>render_product_landing_hero</code>, <code>wrap_product_site_article</code>, <code>render_product_footer</code>."),
   ])}
   <p class="section-label text-cyan mb-2">Example (output shape of <code>render_mermaid_block</code>)</p>
-  <p class="forge-support small mb-2"><code>showcase_page</code> injects the Mermaid module when the showcase page sets <code>has_mermaid</code> in its <code>PAGE</code> dict (see <a href="mermaid-examples.html"><code>mermaid-examples.html</code></a>); default is off. Forge and handbook builds pass <code>has_mermaid=False</code> and use <code>has_ks_diagram</code> + <code>ks-diagram-*.js</code> for static templates. Below is the static DOM shape for this page (diagram renders only when Mermaid JS is present).</p>
+  <p class="forge-support small mb-2"><code>showcase_page</code> injects the diagram runtime when the showcase page sets <code>has_mermaid</code> in its <code>PAGE</code> dict (see <a href="diagram-code-examples.html"><code>diagram-code-examples.html</code></a>); default is off. Forge and handbook builds pass <code>has_mermaid=False</code> and use <code>has_ks_diagram</code> + <code>ks-diagram-*.js</code> for static templates. Below is the static DOM shape for this page (diagram renders only when the runtime script is present).</p>
   <div class="forge-diagram breathe-static">
     <div class="mermaid small">graph LR
   A[Agent] --> B[HTML]</div>
@@ -557,11 +562,12 @@ def render_body() -> str:
   <h2 class="ks-section-title">Transforms · <code>components/transforms.py</code></h2>
   {_spec_dl([
     ("Purpose", "Post-process Markdown-generated HTML into Forge-themed markup."),
-    ("Order", "<code>apply_all</code> runs: <code>convert_mermaid_blocks</code> → <code>convert_ks_diagram_blocks</code> → <code>enhance_tables</code> → <code>enhance_blockquotes</code> → <code>enhance_code_blocks</code>. Returns <code>(html, has_mermaid, has_ks_diagram)</code>."),
+    ("Order", "<code>apply_all</code> runs: <code>convert_mermaid_blocks</code> → <code>convert_ascii_diagram_blocks</code> → <code>convert_ks_diagram_blocks</code> → <code>enhance_tables</code> → <code>enhance_blockquotes</code> → <code>enhance_code_blocks</code>. Returns <code>(html, has_mermaid, has_ks_diagram)</code>; <code>has_ks_diagram</code> is true for SVG template fences or ASCII fences with <code>expand:</code> and a valid catalog <code>key:</code>."),
     ("enhance_tables", "Wraps bare <code>&lt;table&gt;</code> with <code>.forge-table-wrap</code> and adds <code>.table .table-sm .table-striped</code>."),
     ("enhance_blockquotes", "Maps <code>**Warning**</code> / <code>**Note**</code> / <code>**Template**</code> lead-ins to colored callouts; generic blockquotes become <code>.forge-callout-surface</code>."),
     ("enhance_code_blocks", "Adds <code>.forge-code</code> to <code>&lt;pre&gt;</code>."),
-    ("convert_mermaid_blocks", "Finds <code>language-mermaid</code> and <code>language-mermaid-expand</code> fenced blocks (Markdown <code>```mermaid</code> / <code>```mermaid-expand</code>) and replaces with <code>.forge-diagram</code> + <code>.mermaid</code>. Expand variant adds <code>forge-diagram-trigger</code> + <code>openDiagramModal</code> (Mermaid path)."),
+    ("convert_mermaid_blocks", "Finds <code>language-mermaid</code> and <code>language-mermaid-expand</code> fenced blocks (Markdown <code>```mermaid</code> / <code>```mermaid-expand</code>) and replaces with <code>.forge-diagram</code> + <code>.mermaid</code>. Expand variant adds <code>forge-diagram-trigger</code> + <code>openDiagramModal</code> (runtime path)."),
+    ("convert_ascii_diagram_blocks", "<code>language-blueprint-diagram-ascii</code> / <code>language-ks-diagram-ascii</code> → <code>.forge-diagram-ascii</code> + monospace <code>&lt;pre&gt;</code>; optional <code>key:</code> / <code>expand:</code> uses <code>openDiagramWithDetail</code> like SVG tiles."),
     ("convert_ks_diagram_blocks", "KS-native fences → <code>.ks-diagram-tile</code> + SVG <code>&lt;img&gt;</code>; expand uses <code>openDiagramWithDetail</code>. Layouts set <code>include_diagram_expand_modal</code> when <code>has_ks_diagram</code> (or legacy <code>has_mermaid</code> on showcase)."),
     ("extract_toc", "Parses <code>&lt;h2 id&gt;</code> / <code>&lt;h3 id&gt;</code> for right-rail ToC tuples."),
   ])}
@@ -582,15 +588,15 @@ def render_body() -> str:
 
 <section id="ag-diag-catalog" class="ks-section">
   <h2 class="ks-section-title">Diagrams · All {nd} SVG templates (visual)</h2>
-  <p class="forge-support mb-4">Below are the same archetypes as <a href="diagrams.html"><code>diagrams.html</code></a> (built from <code>pages._diagram_gallery</code>): one <code>.bento-grid.bento-3</code> per family, each tile uses <code>onclick=&quot;openDiagramWithDetail(this, '&lt;key&gt;')&quot;</code> where <code>&lt;key&gt;</code> matches <code>DIAGRAM_DETAILS</code> in <code>js/showcase.js</code>. Cards include a <strong>Mermaid:</strong> line listing the closest native grammars (flowchart, gantt, <code>xychart-beta</code>, etc.). Scroll is long by design so models and humans can see every asset.</p>
+  <p class="forge-support mb-4">Below are the same archetypes as <a href="diagrams.html"><code>diagrams.html</code></a> (built from <code>pages._diagram_gallery</code>): one <code>.bento-grid.bento-3</code> per family, each tile uses <code>onclick=&quot;openDiagramWithDetail(this, '&lt;key&gt;')&quot;</code> where <code>&lt;key&gt;</code> matches <code>DIAGRAM_DETAILS</code> in <code>js/showcase.js</code>. Cards include a <strong>Diagram-as-code:</strong> line listing the closest native grammars (flowchart, gantt, <code>xychart-beta</code>, etc.). Scroll is long by design so models and humans can see every asset.</p>
 </section>
 
 {diagram_gallery_sections}
 
-<section id="ag-diag-mermaid" class="ks-section">
-  <h2 class="ks-section-title">Diagrams · Mermaid</h2>
+<section id="ag-diag-code" class="ks-section">
+  <h2 class="ks-section-title">Diagrams · diagram-as-code</h2>
   {_spec_dl([
-    ("Purpose", "Diagram-as-code blocks rendered by Mermaid at runtime."),
+    ("Purpose", "Diagram-as-code blocks rendered at runtime."),
     ("Styling", "Wrapper <code>&lt;div class=&quot;forge-diagram breathe-static&quot;&gt;</code> (optional <code>forge-diagram-trigger</code> + <code>onclick</code> for expand). Inner <code>&lt;div class=&quot;mermaid small&quot;&gt;</code> holds escaped source text."),
     ("Python", "<code>render_mermaid_block(diagram, expandable=False)</code> — when expandable, adds trigger and <code>openDiagramModal(this)</code>."),
   ])}
@@ -664,7 +670,7 @@ def render_body() -> str:
 <section id="ag-layout-showcase" class="ks-section">
   <h2 class="ks-section-title">Layouts · <code>showcase_page</code></h2>
   {_spec_dl([
-    ("Parameters", "<code>browser_title</code>, <code>page_title</code>, <code>sidebar_html</code>, <code>body_html</code>, <code>toc_html</code> (optional), <code>breadcrumb_html</code>, <code>footer_html</code>, <code>extra_css</code>, <code>extra_js</code> (list of src paths), <code>theme_css_href</code>, <code>theme_js_href</code>, <code>has_mermaid</code> (optional, default false — injects Mermaid init when true)."),
+    ("Parameters", "<code>browser_title</code>, <code>page_title</code>, <code>sidebar_html</code>, <code>body_html</code>, <code>toc_html</code> (optional), <code>breadcrumb_html</code>, <code>footer_html</code>, <code>extra_css</code>, <code>extra_js</code> (list of src paths), <code>theme_css_href</code>, <code>theme_js_href</code>, <code>has_mermaid</code> (optional, default false — injects diagram runtime init when true)."),
     ("Structure", "Sticky header (brand, breadcrumb, H1) + scrollable left sidebar + main column + optional right <code>.forge-toc</code>."),
     ("Used by", "Kitchensink showcase (this site) for most pages."),
   ])}
@@ -725,7 +731,7 @@ def render_body() -> str:
     ("Cookie", "<code>forge_color_scheme</code> values: <code>light</code>, <code>dark</code>, <code>auto</code> (follow system)."),
     ("DOM", "Dropdown roots <code>.forge-theme-dropdown</code>; items with <code>data-forge-color-scheme</code>; label <code>.forge-theme-current</code>."),
     ("Events", "Dispatches <code>forge-theme-applied</code> on <code>window</code> with effective theme."),
-    ("Mermaid / SVG", "File header documents diagram scaling and cluster animation hooks used on content pages."),
+    ("Diagram runtime / SVG", "File header documents diagram scaling and cluster animation hooks used on content pages."),
   ])}
 </section>
 

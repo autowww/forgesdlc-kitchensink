@@ -43,6 +43,7 @@ def body_html(pages: list[dict]) -> str:
     family_colors = {
         "Foundation": "cyan",
         "Components": "amber",
+        "Diagrams & charts": "emerald",
         "Patterns": "emerald",
     }
     for p in pages:

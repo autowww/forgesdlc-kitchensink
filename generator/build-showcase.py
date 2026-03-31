@@ -97,7 +97,7 @@ def _build_sidebar(pages: list[dict], current_slug: str) -> str:
             f'{e(p["title"])}</a>'
         )
 
-    family_order = ["Foundation", "Components", "Patterns"]
+    family_order = ["Foundation", "Components", "Diagrams & charts", "Patterns"]
     for fam in family_order:
         fam_pages = families.get(fam)
         if not fam_pages:

@@ -40,7 +40,7 @@ PAGE = {
         ("ag-diag-svg", "Diagrams · SVG templates"),
         ("ag-diag-catalog", "Diagrams · All templates (intro)"),
         *_DIAGRAM_FAMILY_TOC,
-        ("ag-diag-mermaid", "Diagrams · Mermaid"),
+        ("ag-diag-code", "Diagrams · diagram-as-code"),
         ("ag-diag-js", "Diagrams · Modal & JS"),
         ("ag-motion-pulse", "Motion · Pulse"),
         ("ag-motion-breathe", "Motion · Breathe"),
