@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "project": "forgesdlc-kitchensink",
+  "role": "maintainer",
+  "session_login": null,
+  "access_policy_enforced": false,
+  "can_read_project": true,
+  "can_write_project": true,
+  "effective_readonly": false,
+  "is_workspace_super_admin": true,
+  "git_user_name": "Museum",
+  "git_user_email": "museum@example.invalid"
+}

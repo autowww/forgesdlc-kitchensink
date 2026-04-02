@@ -1,0 +1,15 @@
+{
+  "root_ids": ["n1"],
+  "nodes": {
+    "n1": {
+      "id": "n1",
+      "title": "Root work item",
+      "children": ["n2"]
+    },
+    "n2": {
+      "id": "n2",
+      "title": "Child item",
+      "parent": "n1"
+    }
+  }
+}

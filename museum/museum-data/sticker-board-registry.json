@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "projects": {
+    "_unassigned": [
+      {
+        "id": "museum-demo",
+        "label": "Museum board",
+        "storage": "local"
+      }
+    ]
+  },
+  "validation_issues": []
+}

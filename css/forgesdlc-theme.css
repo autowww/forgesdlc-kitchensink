@@ -319,6 +319,85 @@ html.fs-embed .fs-main .toc {
   color: transparent;
 }
 
+/* --- Product blog posts (forgesdlc.com/blog) --- */
+.fs-blog-post {
+  max-width: 48rem;
+}
+
+.fs-blog-post__header {
+  margin-bottom: 0.25rem;
+}
+
+.fs-blog-post__date {
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fs-text-muted, rgba(148, 163, 184, 0.95));
+  margin-bottom: 0.35rem;
+}
+
+.fs-blog-post__date time {
+  font-weight: 600;
+  color: var(--fs-cyan);
+}
+
+.fs-blog-post__body > p:first-of-type,
+.fs-blog-post__body > p:nth-of-type(2) {
+  font-size: 0.98rem;
+  color: var(--fs-text-muted, #94a3b8);
+}
+
+.fs-blog-post__body > p strong:first-child {
+  color: var(--fs-amber);
+}
+
+.fs-blog-recent {
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--fs-border);
+  background: linear-gradient(
+    145deg,
+    rgba(6, 182, 212, 0.06),
+    rgba(15, 23, 42, 0.5)
+  );
+}
+
+.fs-blog-recent__heading {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--fs-border);
+  color: var(--fs-amber);
+}
+
+.fs-blog-recent__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.fs-blog-recent__item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.fs-blog-recent__link {
+  font-weight: 500;
+  flex: 1 1 12rem;
+}
+
+.fs-blog-recent__date {
+  font-size: 0.8rem;
+  color: var(--fs-text-muted, #94a3b8);
+  white-space: nowrap;
+}
+
 .fs-main h2 {
   font-size: 1.35rem;
   margin-top: 2rem;

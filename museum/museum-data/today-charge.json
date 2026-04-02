@@ -1,0 +1,15 @@
+{
+  "charge": {
+    "view_href": "/plan?tab=today",
+    "hat": "Today",
+    "date": "2026-04-01"
+  },
+  "sections": {
+    "active": [],
+    "blocked": [],
+    "banked": [],
+    "recently_resolved": [],
+    "pending_versona": []
+  },
+  "spark_rows": []
+}

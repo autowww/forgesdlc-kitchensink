@@ -73,6 +73,8 @@ Converging **existing** generators to this shell is **separate work** (not requi
 | `components/` | Python UI component library — atomic HTML renderers, page layouts, HTML transforms |
 | `assets/svg/` | Diagram **type templates** only (Forge palette); content diagrams live in each project |
 | `generator/` | `build-showcase.py` — Kitchen Sink **showcase** mini-site into `showcase/` (gitignored); `ks_assets.py` — copy theme/JS/SVG into consumer `website/assets/` (forgesdlc.com, blueprints handbook) |
+| `museum/studio/` | **Lenses Studio (static museum)** — prebuilt SPA from [forge-lenses](https://github.com/autowww/forge-lenses) `lenses-enterprise/` (`npm run build:museum`); not produced by `build-showcase.py`. |
+| `museum/museum-data/` | **Read-only JSON** served as `/studio/museum-data/*.json` to satisfy Studio `GET /api/…` in museum mode. Edit to change demo content; see [`museum/README.md`](museum/README.md). |
 | `forge-autodoc/` | Markdown → static handbook HTML (`python3 -m forge_autodoc`); consumed by **blueprints-website** and **forgesdlc** via `kitchensink/forge-autodoc` (no separate submodule) |
 | `react/` | Optional React primitives — e.g. **`WorkspaceLensControl`**; consumed by **Lenses Studio** via `npm run sync-kitchensink-react` in `forge-lenses/lenses-enterprise` (see `react/README.md`) |
 | `docs/design/` | **Forge Enterprise UI** ([`forge-enterprise-ui.md`](docs/design/forge-enterprise-ui.md)) — theme packs (`fs_pack`) and static sites; **Lenses Studio shell** ([`lenses-studio-shell.md`](docs/design/lenses-studio-shell.md)) — Electron window, `/studio/` SPA, `/__ks/` reuse |
@@ -88,6 +90,21 @@ python3 generator/build-showcase.py
 Open `index.html` in a browser (it redirects to `showcase/index.html`). For reliable diagram previews and modals, serve over HTTP, e.g. `python3 -m http.server` then visit `http://localhost:8000/showcase/index.html`.
 
 The legacy `test.html` is a redirect to the same entry point.
+
+### Lenses Studio static museum (`/studio/`)
+
+The hosted Kitchen Sink site also serves a **read-only** build of **Lenses Studio** at **`/studio/`**. The SPA lives under **`museum/studio/`**; **`GET /api/…`** is satisfied by static JSON in **`museum/museum-data/`** (no Python server on Firebase).
+
+- **Not** part of `python3 generator/build-showcase.py` — refresh only when you want to update the museum UI or demo data.
+- From this repo root, with a sibling **forge-lenses** checkout:
+
+  ```bash
+  ./scripts/rebuild-static-studio-museum.sh
+  ```
+
+  Then commit **`museum/studio/`** (and **`museum/museum-data/`** if you changed fixtures). Override the forge-lenses path with **`FORGE_LENSES_ROOT`** if needed.
+
+- **`./scripts/deploy-firebase.sh`** (and **`scripts/stage-dist.sh`**) copy `museum/studio/` → `dist/studio/`, `museum/museum-data/` → `dist/studio/museum-data/`, and mirror `css/`, `js/`, `assets/svg/` into `dist/__ks/`. Details: [`museum/README.md`](museum/README.md).
 
 ### Showcase layouts (`generator/build-showcase.py`)
 

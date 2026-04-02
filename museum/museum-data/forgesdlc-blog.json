@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "synced_at": "2026-04-01T12:00:00Z",
+  "posts": [
+    {
+      "url": "https://forgesdlc.com/blog/index.html",
+      "slug": "index.html",
+      "lastmod": "2026-04-01",
+      "title": "Forge SDLC blog",
+      "cached_at": "2026-04-01T12:00:00Z",
+      "is_hub": true,
+      "cached": true
+    },
+    {
+      "url": "https://forgesdlc.com/blog/verification-not-coding.html",
+      "slug": "verification-not-coding.html",
+      "lastmod": "2026-03-18",
+      "title": "The New Bottleneck Is Verification, Not Coding",
+      "cached_at": "2026-04-01T12:00:00Z",
+      "is_hub": false,
+      "cached": true
+    }
+  ]
+}

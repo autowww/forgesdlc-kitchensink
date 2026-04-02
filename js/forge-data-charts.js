@@ -92,13 +92,15 @@
     if (!series.length) {
       return '<p class="forge-support mb-0">No commits in the window.</p>';
     }
-    var w = (opts && opts.width) || 520;
+    var w0 = (opts && opts.width) || 520;
     var h = (opts && opts.height) || 200;
     var values = series.map(function (r) { return +r.count; });
     var labels = series.map(function (r) { return String(r.day || ''); });
     var vmax = Math.max.apply(null, values.concat([1]));
     var n = values.length;
     var marginL = 40, marginR = 12, marginT = 26, marginB = 36;
+    /* Long windows (month/quarter): widen past default 520px so ~8px bars + gaps fit. */
+    var w = Math.min(1600, Math.max(w0, marginL + marginR + n * 10 + 24));
     var innerW = w - marginL - marginR;
     var innerH = h - marginT - marginB;
     var bw = Math.max(8, (innerW / n) * 0.65);

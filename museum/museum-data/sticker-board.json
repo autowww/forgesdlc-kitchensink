@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "board_id": "museum-demo",
+  "template": "default",
+  "board_storage": "local",
+  "columns": [
+    { "id": "c1", "title": "Open" },
+    { "id": "c2", "title": "Done" }
+  ],
+  "stickers": []
+}

@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "files": [
+    {
+      "rel_path": "demo/museum.wbs.yml",
+      "repo_hint": "forgesdlc-kitchensink",
+      "label": "Museum WBS"
+    }
+  ]
+}

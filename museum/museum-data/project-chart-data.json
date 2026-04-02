@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "charts": {
+    "commit_weekly": { "series": [] },
+    "commit_daily": {
+      "series": [
+        { "day": "2026-03-28", "count": 1 },
+        { "day": "2026-03-29", "count": 2 },
+        { "day": "2026-03-30", "count": 3 }
+      ]
+    },
+    "contributors": { "rows": [{ "name": "Demo", "commits": 12 }] },
+    "extension_heatmap": { "cells": [] },
+    "compliance_bars": {
+      "rows": [["forgesdlc-kitchensink", 88]]
+    },
+    "submodule_layout": { "html": "<p class=\"forge-support\">Submodule layout (museum).</p>" }
+  }
+}

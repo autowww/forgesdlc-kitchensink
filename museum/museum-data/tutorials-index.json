@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "rows": [
+    {
+      "child_name": "forge-lenses",
+      "kind": "handbook",
+      "label": "Lenses docs (local server)",
+      "preview_url": "/docs/"
+    }
+  ]
+}

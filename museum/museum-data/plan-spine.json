@@ -1,0 +1,15 @@
+{
+  "plan": {
+    "milestones": [
+      {
+        "epic_key": "M1",
+        "title": "Museum milestone",
+        "theme": "Demo",
+        "stories": [
+          { "id": "ST-101", "title": "Static Studio shell", "task_count": 3 },
+          { "id": "ST-102", "title": "Read-only JSON fixtures", "task_count": 2 }
+        ]
+      }
+    ]
+  }
+}

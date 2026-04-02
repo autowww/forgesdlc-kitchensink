@@ -1,0 +1,81 @@
+{
+  "workspace_root": "/museum/demo-workspace",
+  "resolved_at": "2026-04-01T12:00:00.000Z",
+  "children": [
+    {
+      "name": "forgesdlc-kitchensink",
+      "path": "forgesdlc-kitchensink",
+      "is_git": true,
+      "git": {
+        "head_short": "a1b2c3d",
+        "head_full": "a1b2c3d4e5f6789012345678901234567890abcd",
+        "dirty": false,
+        "commit_subject": "Static museum snapshot",
+        "commit_date": "2026-04-01"
+      },
+      "standards_compliance": { "score": 88, "tier": "standard" }
+    },
+    {
+      "name": "forge-lenses",
+      "path": "forge-lenses",
+      "is_git": true,
+      "git": {
+        "head_short": "b2c3d4e",
+        "dirty": false,
+        "commit_subject": "Studio SPA",
+        "commit_date": "2026-03-28"
+      },
+      "standards_compliance": { "score": 84, "tier": "standard" }
+    },
+    {
+      "name": "forgesdlc",
+      "path": "forgesdlc",
+      "is_git": true,
+      "git": { "head_short": "c3d4e5f6", "dirty": true },
+      "standards_compliance": { "score": 62, "tier": "minimal" }
+    }
+  ],
+  "forge_hints": [
+    {
+      "repo_hint": "forgesdlc-kitchensink",
+      "has_charge": true,
+      "has_ember_logs": false,
+      "has_versona": true,
+      "has_journal": true
+    },
+    {
+      "repo_hint": "forge-lenses",
+      "has_charge": false,
+      "has_ember_logs": true,
+      "has_versona": true,
+      "has_journal": false
+    }
+  ],
+  "websites": [
+    {
+      "name": "Kitchen Sink (demo)",
+      "firebase_site_id": "forge-kitchen-sink",
+      "preview_base": "https://ks.forgesdlc.com",
+      "html_total": 42,
+      "html_indexed": 40
+    }
+  ],
+  "wbs": [
+    {
+      "rel_path": "demo/museum.wbs.yml",
+      "repo_hint": "forgesdlc-kitchensink"
+    }
+  ],
+  "roadmaps": [
+    {
+      "rel_path": "demo/roadmap.md",
+      "repo_hint": "forgesdlc-kitchensink"
+    }
+  ],
+  "toolset": {
+    "root_scripts": ["scripts/rebuild-static-studio-museum.sh"],
+    "script_cards": [
+      { "name": "rebuild-static-studio-museum", "blurb": "Refresh the Studio bundle from forge-lenses." }
+    ]
+  }
+}

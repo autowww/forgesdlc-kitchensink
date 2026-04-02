@@ -1032,6 +1032,62 @@ def wrap_product_site_article(inner_html: str) -> str:
     return f'<div class="fs-main"><article>{inner_html}</article></div>'
 
 
+def render_blog_post_wrapper(inner_html: str, *, published_iso: str | None = None) -> str:
+    """Forge product blog: dated article shell with typography hooks (``forgesdlc-theme.css``)."""
+    date_html = ""
+    if published_iso:
+        iso = published_iso.strip()[:10]
+        try:
+            from datetime import date as date_cls
+
+            y, m, d = map(int, iso.split("-"))
+            dt = date_cls(y, m, d)
+            human = f"{dt.strftime('%B')} {dt.day}, {dt.year}"
+        except (ValueError, TypeError):
+            human = iso
+        date_html = (
+            f'<p class="fs-blog-post__date">'
+            f'<time datetime="{e(iso)}">{e_content(human)}</time></p>'
+        )
+    return (
+        '<div class="fs-blog-post">'
+        f'<header class="fs-blog-post__header">{date_html}</header>'
+        f'<div class="fs-blog-post__body">{inner_html}</div>'
+        "</div>"
+    )
+
+
+def render_blog_recent_section(
+    items: list[tuple[str, str, str | None]],
+    *,
+    heading: str = "Recent posts",
+    id_attr: str | None = "blog-recent-posts",
+) -> str:
+    """Index block: reverse-chronological list. Each item is ``(href, title, date_label or None)``."""
+    id_html = f' id="{e(id_attr)}"' if id_attr else ""
+    rows: list[str] = []
+    for href, title, date_label in items:
+        esc_h = e(href)
+        esc_t = e_content(title)
+        date_part = ""
+        if date_label:
+            date_part = (
+                f'<span class="fs-blog-recent__date">{e_content(date_label)}</span>'
+            )
+        rows.append(
+            f'<li class="fs-blog-recent__item">'
+            f'<a class="fs-blog-recent__link" href="{esc_h}">{esc_t}</a>'
+            f"{date_part}</li>"
+        )
+    body = "\n".join(rows)
+    return (
+        f'<section class="fs-blog-recent"{id_html}>'
+        f'<h2 class="fs-blog-recent__heading">{e_content(heading)}</h2>'
+        f'<ul class="fs-blog-recent__list list-unstyled mb-0">{body}</ul>'
+        "</section>"
+    )
+
+
 def render_product_footer(
     brand_name: str = "ForgeSDLC",
     tagline: str = "Methodology for AI-assisted-by-human software delivery",

@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "selected": { "repo": "forgesdlc-kitchensink", "wbs_p": "demo/museum.wbs.yml", "roadmap_p": "" },
+  "gantt_html": "<p class=\"forge-support\">Static museum — Gantt preview placeholder.</p>",
+  "metrics_html": "<p class=\"forge-support\">Metrics row placeholder.</p>",
+  "editor_html": "",
+  "roadmap_source_href": null,
+  "repo_hints": ["forgesdlc-kitchensink", "forge-lenses"],
+  "wbs_options": [
+    { "rel_path": "demo/museum.wbs.yml", "repo_hint": "forgesdlc-kitchensink" }
+  ],
+  "roadmap_options": [
+    { "rel_path": "demo/roadmap.md", "repo_hint": "forgesdlc-kitchensink" }
+  ]
+}

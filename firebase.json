@@ -6,6 +6,12 @@
       "firebase.json",
       "**/.DS_Store",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/studio/**",
+        "destination": "/studio/index.html"
+      }
     ]
   }
 }

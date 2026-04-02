@@ -1,0 +1,14 @@
+{
+  "commits_total": 128,
+  "tracked_files": 420,
+  "tracked_lines_approx": 95000,
+  "contributors": [
+    { "commits": 80, "name": "Demo Author" },
+    { "commits": 48, "name": "Contributor" }
+  ],
+  "extensions": [
+    { "extension": ".py", "count": 120 },
+    { "extension": ".tsx", "count": 45 },
+    { "extension": ".md", "count": 90 }
+  ]
+}

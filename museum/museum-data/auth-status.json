@@ -1,0 +1,10 @@
+{
+  "expected_login": "",
+  "expected_configured": false,
+  "session_login": null,
+  "session_ok": false,
+  "access_policy_enforced": false,
+  "workspace_super_admin": true,
+  "sites_with_allowlisted_actions": [],
+  "action_keys_by_site": {}
+}

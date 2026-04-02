@@ -1,0 +1,14 @@
+{
+  "hits": [
+    {
+      "title": "Kitchen Sink showcase",
+      "url": "/cases/showcase/index.html",
+      "snippet": "Forge design system — static museum demo hit.",
+      "path_key": "showcase/index"
+    }
+  ],
+  "total": 1,
+  "query": "museum",
+  "limit": 25,
+  "offset": 0
+}
