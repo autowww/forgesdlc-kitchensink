@@ -1032,8 +1032,19 @@ def wrap_product_site_article(inner_html: str) -> str:
     return f'<div class="fs-main"><article>{inner_html}</article></div>'
 
 
-def render_blog_post_wrapper(inner_html: str, *, published_iso: str | None = None) -> str:
-    """Forge product blog: dated article shell with typography hooks (``forgesdlc-theme.css``)."""
+def render_blog_post_wrapper(
+    inner_html: str,
+    *,
+    published_iso: str | None = None,
+    hero_image_href: str | None = None,
+    hero_image_alt: str | None = None,
+) -> str:
+    """Forge product blog: dated article shell with typography hooks (``forgesdlc-theme.css``).
+
+    When *hero_image_href* is set (typically root-relative, e.g. ``/assets/blog/foo.png``),
+    a figure is rendered above the body for an in-article hero; reuse the same asset as
+    ``og:image`` on forgesdlc.com.
+    """
     date_html = ""
     if published_iso:
         iso = published_iso.strip()[:10]
@@ -1049,9 +1060,20 @@ def render_blog_post_wrapper(inner_html: str, *, published_iso: str | None = Non
             f'<p class="fs-blog-post__date">'
             f'<time datetime="{e(iso)}">{e_content(human)}</time></p>'
         )
+    hero_html = ""
+    href = (hero_image_href or "").strip()
+    if href:
+        alt = (hero_image_alt or "").strip() or "Article illustration"
+        hero_html = (
+            '<figure class="fs-blog-post__hero">'
+            f'<img src="{e(href)}" alt="{e(alt)}" width="1200" height="630" '
+            'loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 48rem" />'
+            "</figure>"
+        )
     return (
         '<div class="fs-blog-post">'
         f'<header class="fs-blog-post__header">{date_html}</header>'
+        f"{hero_html}"
         f'<div class="fs-blog-post__body">{inner_html}</div>'
         "</div>"
     )
