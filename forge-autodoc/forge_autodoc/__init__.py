@@ -12,6 +12,7 @@ from forge_autodoc.files import (
     title_from_md_content,
 )
 from forge_autodoc.markdown_conv import markdown_to_handbook_html
+from forge_autodoc.chrome_bundle import load_chrome_bundle
 from forge_autodoc.page import assemble_handbook_page
 from forge_autodoc.sidebar import FLAT_SIDEBAR_THRESHOLD, PageItem, build_sidebar_links
 from forge_autodoc.text import plain_text_from_first_paragraph
@@ -25,6 +26,7 @@ __all__ = [
     "assemble_handbook_page",
     "build_sidebar_links",
     "collect_markdown_files",
+    "load_chrome_bundle",
     "extract_toc_from_html",
     "handbook_title_from_readme",
     "markdown_to_handbook_html",

@@ -513,6 +513,8 @@ def render_breadcrumbs(
 def render_nav_buttons(
     prev_link: tuple[str, str] | None = None,
     next_link: tuple[str, str] | None = None,
+    *,
+    aria_label: str = "Chapter navigation",
 ) -> str:
     """Previous / Next chapter buttons using Forge button styles."""
     prev_btn = ""
@@ -532,7 +534,7 @@ def render_nav_buttons(
     return (
         '<nav class="d-flex flex-wrap justify-content-between gap-2 mt-4 pt-3" '
         'style="border-top:1px solid var(--forge-border)" '
-        'aria-label="Chapter navigation">'
+        f'aria-label="{e(aria_label)}">'
         f"{prev_btn}{next_btn}</nav>"
     )
 
@@ -601,7 +603,12 @@ def render_flow_details_section(
 # ToC sidebar
 # ---------------------------------------------------------------------------
 
-def render_toc_sidebar(toc: list[tuple[str, str, int]]) -> str:
+def render_toc_sidebar(
+    toc: list[tuple[str, str, int]],
+    *,
+    nav_title: str = "On this page",
+    nav_aria_label: str = "On this page",
+) -> str:
     """Right-column "On this page" sticky navigation (Forge-themed).
 
     *toc* entries are ``(id, text, heading_level)``.
@@ -619,8 +626,8 @@ def render_toc_sidebar(toc: list[tuple[str, str, int]]) -> str:
         )
     return f"""
             <div class="col-lg-4 col-xl-3 order-1 order-lg-2">
-              <nav class="forge-toc" aria-label="On this page">
-                <p class="toc-title mb-2">On this page</p>
+              <nav class="forge-toc" aria-label="{e(nav_aria_label)}">
+                <p class="toc-title mb-2">{e(nav_title)}</p>
 {links}
               </nav>
             </div>"""
@@ -681,6 +688,10 @@ def render_footer(
     date: str,
     *,
     label: str = "Generated from blueprint Markdown",
+    stack_note: str = (
+        "Bootstrap 5.3 dark mode + Forge design tokens. "
+        "Fonts: Proxima Nova Black, Open Sans, Courier New."
+    ),
 ) -> str:
     """Forge-themed page footer."""
     return (
@@ -689,8 +700,7 @@ def render_footer(
         f'<p class="mb-1">{label}: '
         f'<strong>{e(date)}</strong>.</p>'
         f'<p class="mb-0" style="font-size:.75rem;color:var(--forge-text-4)">'
-        'Bootstrap 5.3 dark mode + Forge design tokens. '
-        'Fonts: Proxima Nova Black, Open Sans, Courier New.</p>'
+        f"{e(stack_note)}</p>"
         "</footer>"
     )
 

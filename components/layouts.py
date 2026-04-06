@@ -520,6 +520,11 @@ def handbook_page(
     include_diagram_expand_modal: bool = False,
     living_background: bool = False,
     living_background_global_href: str = "assets/svg/living/global/field-rails-01.svg",
+    asset_href_prefix: str = "",
+    html_lang: str = "en",
+    handbook_section_label: str = "Handbook",
+    skip_link_label: str = "Skip to content",
+    open_nav_aria_label: str = "Open navigation",
 ) -> str:
     """Complete HTML page for an auto-generated handbook entry.
 
@@ -532,7 +537,11 @@ def handbook_page(
     When *living_background* is True, inject the global living scene (same bundle as
     ``landing_page``): ``ks-animated-backgrounds`` + ``ks-living-motion`` and
     ``#ks-living-scene`` behind content.
+
+    *asset_href_prefix* — use ``../`` (or deeper) when HTML lives under ``website/<locale>/``
+    while assets remain in ``website/assets/``.
     """
+    ap = asset_href_prefix
     col_class = "col-lg-8 col-xl-9 order-2 order-lg-1" if toc_sidebar_html else "col-12"
     diagram_scripts = _footer_diagram_scripts(
         has_mermaid,
@@ -550,8 +559,8 @@ def handbook_page(
     shell_attrs = 'class="container-fluid px-0"'
     if living_background:
         living_head = (
-            '  <link rel="stylesheet" href="assets/ks-animated-backgrounds.css" />\n'
-            '  <link rel="stylesheet" href="assets/ks-living-background.css" />\n'
+            f'  <link rel="stylesheet" href="{e(ap)}assets/ks-animated-backgrounds.css" />\n'
+            f'  <link rel="stylesheet" href="{e(ap)}assets/ks-living-background.css" />\n'
         )
         living_body_open = (
             f'<div class="ks-living-scene" id="ks-living-scene" aria-hidden="true" data-ks-living-root>\n'
@@ -560,14 +569,14 @@ def handbook_page(
             f"</div>\n"
         )
         living_scripts = (
-            '  <script defer src="assets/ks-animated-backgrounds.js"></script>\n'
-            '  <script defer src="assets/ks-living-motion.js"></script>\n'
+            f'  <script defer src="{e(ap)}assets/ks-animated-backgrounds.js"></script>\n'
+            f'  <script defer src="{e(ap)}assets/ks-living-motion.js"></script>\n'
         )
         body_class = ' class="ks-living-enabled"'
         shell_attrs = 'class="container-fluid px-0" style="position:relative;z-index:1"'
 
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="{e(html_lang)}">
 <head>
   <meta charset="utf-8" />
 {FORGE_COLOR_SCHEME_INIT}
@@ -579,9 +588,9 @@ def handbook_page(
 {living_head}</head>
 <body{body_class}>
   <div class="forge-aurora"></div>
-{living_body_open}  <a href="#main" class="skip-link">Skip to content</a>
+{living_body_open}  <a href="#main" class="skip-link">{e(skip_link_label)}</a>
 {THEME_TOGGLE_DROPDOWN}
-  <button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="Open navigation">
+  <button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="{e(open_nav_aria_label)}">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
   </button>
   <div {shell_attrs}>
@@ -591,7 +600,7 @@ def handbook_page(
       <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5" style="position:relative">
         <div class="mx-auto doc-content" style="max-width:56rem">
           <header class="mb-4 pb-3" style="border-bottom:1px solid var(--forge-border)">
-            <p class="section-label text-cyan mb-2">Handbook</p>
+            <p class="section-label text-cyan mb-2">{e(handbook_section_label)}</p>
             <h1 class="font-display" style="font-size:clamp(1.75rem,4vw,2.5rem)">{e(page_title)}</h1>
             <p class="forge-support mt-2 mb-0" style="font-size:1rem">{intro}</p>
           </header>

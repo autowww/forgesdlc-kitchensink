@@ -1,0 +1,73 @@
+/**
+ * Blueprints Wizard flow — Lenses Studio + static sites.
+ * Horizontal step indicators, session list density, optional form grid.
+ */
+
+.ks-wizard-flow {
+  --ks-wf-gap: 0.75rem;
+  --ks-wf-border: 1px solid color-mix(in srgb, var(--forge-border, #3d4a5c) 70%, transparent);
+  border-radius: 0.35rem;
+}
+
+.ks-wizard-flow__panel {
+  border: var(--ks-wf-border);
+  border-radius: 0.35rem;
+  padding: 1rem 1.1rem;
+  margin-bottom: var(--ks-wf-gap);
+  background: color-mix(in srgb, var(--forge-surface-elevated, #1a2332) 92%, transparent);
+}
+
+.ks-wizard-flow__panel h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 0.65rem;
+}
+
+.ks-wizard-flow__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.65rem 1rem;
+}
+
+.ks-wizard-flow__session-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ks-wizard-flow__session-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0.65rem;
+  border: var(--ks-wf-border);
+  border-radius: 0.3rem;
+  margin-bottom: 0.45rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.ks-wizard-flow__session-item:hover {
+  background: color-mix(in srgb, var(--forge-accent, #f59e0b) 12%, transparent);
+}
+
+.ks-wizard-flow__session-item:focus-visible {
+  outline: 2px solid var(--forge-accent, #f59e0b);
+  outline-offset: 2px;
+}
+
+.ks-wizard-flow__session-meta {
+  font-size: 0.82rem;
+  opacity: 0.88;
+}
+
+.ks-wizard-flow__muted {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}

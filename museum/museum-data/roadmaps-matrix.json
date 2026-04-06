@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "repo_filter": "all",
+  "repo_options": [],
+  "column_order": ["unscheduled"],
+  "roadmaps": [],
+  "limits": {
+    "max_roadmaps": 25,
+    "max_spine_pairs": 96,
+    "max_stories_per_wbs_cell": 48
+  },
+  "warnings": []
+}

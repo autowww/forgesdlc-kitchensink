@@ -22,6 +22,8 @@ class HandbookBuildConfig:
     skip_dir_names: frozenset[str] = field(default_factory=lambda: DEFAULT_SKIP_DIR_NAMES)
     canonical_url_prefix: str | None = None
     """If set, canonical note links to ``{prefix}/{md_rel}`` (no scheme = relative path shown)."""
+    show_canonical_note: bool = True
+    """If False, omit the contributor \"Canonical source\" / rebuild callout (e.g. public product handbook)."""
 
 
 def _resolve_path(base: Path, value: str | Path) -> Path:
@@ -52,6 +54,7 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
         handbook_name=str(raw.get("handbook_name", "Handbook")),
         skip_dir_names=skip_set,
         canonical_url_prefix=(str(raw["canonical_url_prefix"]) if raw.get("canonical_url_prefix") else None),
+        show_canonical_note=bool(raw.get("show_canonical_note", True)),
     )
 
 
@@ -72,4 +75,5 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
         canonical_url_prefix=(
             str(raw["canonical_url_prefix"]) if raw.get("canonical_url_prefix") else None
         ),
+        show_canonical_note=bool(raw.get("show_canonical_note", True)),
     )
