@@ -557,10 +557,13 @@ def handbook_page(
     living_scripts = ""
     body_class = ""
     shell_attrs = 'class="container-fluid px-0"'
+    # *asset_href_prefix* points at the shared assets directory (e.g. ``assets/`` or
+    # ``../assets/``); living CSS/JS files sit next to forge-theme.css under that dir.
+    asset_base = ap if ap else "assets/"
     if living_background:
         living_head = (
-            f'  <link rel="stylesheet" href="{e(ap)}assets/ks-animated-backgrounds.css" />\n'
-            f'  <link rel="stylesheet" href="{e(ap)}assets/ks-living-background.css" />\n'
+            f'  <link rel="stylesheet" href="{e(asset_base)}ks-animated-backgrounds.css" />\n'
+            f'  <link rel="stylesheet" href="{e(asset_base)}ks-living-background.css" />\n'
         )
         living_body_open = (
             f'<div class="ks-living-scene" id="ks-living-scene" aria-hidden="true" data-ks-living-root>\n'
@@ -569,8 +572,8 @@ def handbook_page(
             f"</div>\n"
         )
         living_scripts = (
-            f'  <script defer src="{e(ap)}assets/ks-animated-backgrounds.js"></script>\n'
-            f'  <script defer src="{e(ap)}assets/ks-living-motion.js"></script>\n'
+            f'  <script defer src="{e(asset_base)}ks-animated-backgrounds.js"></script>\n'
+            f'  <script defer src="{e(asset_base)}ks-living-motion.js"></script>\n'
         )
         body_class = ' class="ks-living-enabled"'
         shell_attrs = 'class="container-fluid px-0" style="position:relative;z-index:1"'

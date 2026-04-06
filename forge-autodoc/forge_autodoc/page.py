@@ -79,9 +79,15 @@ def assemble_handbook_page(
         ),
     )
 
-    theme_css = f"{ap}assets/forge-theme.css"
-    theme_js = f"{ap}assets/forge-theme.js"
-    living_href = f"{ap}{living_background_global_href}"
+    # *asset_href_prefix* is the relpath from the HTML file to *website/assets/* (see
+    # href_prefix_to_assets). Theme and KS bundles live directly under that folder.
+    asset_base = ap if ap else "assets/"
+    theme_css = f"{asset_base}forge-theme.css"
+    theme_js = f"{asset_base}forge-theme.js"
+    liv = living_background_global_href
+    if ap and liv.startswith("assets/"):
+        liv = liv[len("assets/") :]
+    living_href = f"{ap}{liv}" if ap else living_background_global_href
 
     hp_kwargs = dict(
         browser_title=browser_title,
