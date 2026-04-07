@@ -78,9 +78,26 @@ def title_from_filename(name: str) -> str:
     return " ".join(result)
 
 
+def strip_leading_yaml_frontmatter(text: str) -> str:
+    """Remove a leading ``---`` … ``---`` YAML block if present (common in handbook Markdown)."""
+    if not text.startswith("---"):
+        return text
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return text
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            return "\n".join(lines[i + 1 :]).lstrip("\n")
+    return text
+
+
 def title_from_md_content(text: str, fallback: str) -> str:
-    """First H1 from markdown, or *fallback*."""
-    m = re.match(r"^#\s+(.+)", text, re.MULTILINE)
+    """First H1 from markdown, or *fallback*.
+
+    YAML frontmatter at the top is skipped so the H1 after ``---`` is recognized.
+    """
+    body = strip_leading_yaml_frontmatter(text)
+    m = re.search(r"^#\s+(.+)$", body, re.MULTILINE)
     if m:
         return m.group(1).strip()
     return fallback
