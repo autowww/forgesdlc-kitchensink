@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 import yaml
 
@@ -24,6 +24,8 @@ class HandbookBuildConfig:
     """If set, canonical note links to ``{prefix}/{md_rel}`` (no scheme = relative path shown)."""
     show_canonical_note: bool = True
     """If False, omit the contributor \"Canonical source\" / rebuild callout (e.g. public product handbook)."""
+    chrome_overrides: Mapping[str, str] | None = None
+    """Optional merge into locale chrome JSON (e.g. neutral public handbook footers)."""
 
 
 def _resolve_path(base: Path, value: str | Path) -> Path:

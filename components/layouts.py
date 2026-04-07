@@ -429,7 +429,12 @@ def _footer_diagram_scripts(
 # Template: sidebar + offcanvas (Forge data-rail style)
 # ---------------------------------------------------------------------------
 
-def _render_sidebar(handbook_name: str, sidebar_html: str) -> str:
+def _render_sidebar(
+    handbook_name: str,
+    sidebar_html: str,
+    *,
+    chapters_label: str = "Chapters",
+) -> str:
     return f"""\
       <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" style="min-height:100vh;position:sticky;top:0;overflow-y:auto">
         <div class="px-3 py-3" style="border-bottom:1px solid var(--forge-border)">
@@ -440,7 +445,7 @@ def _render_sidebar(handbook_name: str, sidebar_html: str) -> str:
           <p class="mt-2 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">Handbook &middot; Product-agnostic</p>
         </div>
         <nav class="nav-scroll flex-grow-1 px-2 py-3" aria-label="Handbook chapters">
-          <p class="nav-section-label">Chapters</p>
+          <p class="nav-section-label">{e(chapters_label)}</p>
           <div class="nav-rail">
             {sidebar_html}
           </div>
@@ -525,6 +530,7 @@ def handbook_page(
     handbook_section_label: str = "Handbook",
     skip_link_label: str = "Skip to content",
     open_nav_aria_label: str = "Open navigation",
+    sidebar_chapters_label: str = "Chapters",
 ) -> str:
     """Complete HTML page for an auto-generated handbook entry.
 
@@ -598,7 +604,7 @@ def handbook_page(
   </button>
   <div {shell_attrs}>
     <div class="row g-0 flex-lg-nowrap min-vh-100">
-{_render_sidebar(handbook_name, sidebar_html)}
+{_render_sidebar(handbook_name, sidebar_html, chapters_label=sidebar_chapters_label)}
 {_render_offcanvas(handbook_name, offcanvas_html)}
       <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5" style="position:relative">
         <div class="mx-auto doc-content" style="max-width:56rem">

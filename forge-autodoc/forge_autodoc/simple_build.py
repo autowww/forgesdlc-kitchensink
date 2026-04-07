@@ -129,6 +129,7 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             is_template=is_template,
             has_ks_diagram=has_ks,
             show_canonical_note=cfg.show_canonical_note,
+            chrome_overrides=cfg.chrome_overrides,
         )
         out_path = cfg.output_dir / fslug
         out_path.parent.mkdir(parents=True, exist_ok=True)
