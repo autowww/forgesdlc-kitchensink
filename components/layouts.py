@@ -1,6 +1,6 @@
 """Full-page layout templates — Forge theme.
 
-Seven layout variants:
+Eight layout variants:
 
 ``handbook_page``
     Auto-generated handbook pages (``build-handbook.py``).  Server-rendered
@@ -23,6 +23,12 @@ distinct visual identity while reusing shared CDN links and diagram runtime init
 
 ``landing_page``
     Full-width hero page with no sidebar (homepages, overviews).
+
+``marketing_page``
+    Marketing / product site interior pages: same top brand + nav rhythm as
+    ``landing_page``, single main column (no handbook sidebar, no duplicate
+    primary bar). Optional appearance toggle (off by default). Collapsible
+    nav on small viewports only.
 
 ``gallery_page``
     Sidebar + card grid content, no right-rail ToC (catalogs, browsers).
@@ -1094,8 +1100,13 @@ def landing_page(
     living_background: bool = False,
     living_background_global_href: str = "assets/svg/living/global/field-rails-01.svg",
     fs_pack: str | None = None,
+    include_theme_toggle: bool = True,
 ) -> str:
-    """Full-width hero landing page with no sidebar."""
+    """Full-width hero landing page with no sidebar.
+
+    When *include_theme_toggle* is False, the Forge appearance dropdown is omitted
+    (e.g. public marketing sites that should not show docs-style chrome).
+    """
     fs_attr = _fs_pack_html_attr(fs_pack)
     js_list = list(extra_js or [])
     if living_background:
@@ -1132,6 +1143,8 @@ def landing_page(
     if living_background:
         hero_attrs += ' data-ks-living-archetype="hero" data-ks-living-intensity="3"'
 
+    theme_toggle_html = THEME_TOGGLE_DROPDOWN if include_theme_toggle else ""
+
     return f"""<!DOCTYPE html>
 <html lang="en"{fs_attr}>
 <head>
@@ -1147,7 +1160,7 @@ def landing_page(
 <body{body_class_attr}>
 <div class="forge-aurora"></div>
 {living_body_open}<a href="#main" class="skip-link">Skip to content</a>
-{THEME_TOGGLE_DROPDOWN}
+{theme_toggle_html}
 
 <header class="landing-header">
   <div class="landing-header-inner px-3 px-xxl-5">
@@ -1170,6 +1183,117 @@ def landing_page(
 
 {CDN_BOOTSTRAP_JS}
 {_resolve_theme_js(theme_js_href)}
+{extra_scripts}
+</body>
+</html>
+"""
+
+
+# ---------------------------------------------------------------------------
+# Layout 5b: marketing_page  (product marketing interior — no sidebar, no handbook chrome)
+# ---------------------------------------------------------------------------
+
+def marketing_page(
+    *,
+    browser_title: str,
+    brand_name: str = "Kitchen Sink",
+    brand_accent: str = "",
+    brand_href: str = "index.html",
+    nav_links_html: str = "",
+    body_html: str,
+    footer_html: str = "",
+    extra_css: str = "",
+    theme_css_href: str = "assets/forge-theme.css",
+    theme_js_href: str = "assets/forge-theme.js",
+    head_extra: str = "",
+    title_override: str | None = None,
+    fs_pack: str | None = None,
+    body_extra_class: str = "",
+    include_theme_toggle: bool = False,
+    has_mermaid: bool = False,
+    has_ks_diagram: bool = False,
+    include_diagram_expand_modal: bool = False,
+    extra_scripts: str = "",
+) -> str:
+    """Single-column marketing page: landing-style header, no hero band, no sidebar.
+
+    Use for public product sites that must not reuse ``product_page`` (handbook
+    sidebar, duplicate \"Navigate\" offcanvas, global primary bar).
+
+    * *include_theme_toggle* — default ``False`` so marketing pages do not show
+      the Forge \"Appearance\" control unless opted in.
+
+    * *has_ks_diagram* / *include_diagram_expand_modal* — pass through when body
+      content includes KS diagram shortcodes (same as ``product_page``).
+    """
+    fs_attr = _fs_pack_html_attr(fs_pack)
+    accent_html = (
+        f'<span class="fs-accent">{e(brand_accent)}</span>' if brand_accent else ""
+    )
+    doc_title = e(title_override) if title_override else e(browser_title)
+    head_x = head_extra.strip()
+    head_block = (head_x + "\n  ") if head_x else ""
+    body_classes: list[str] = ["fs-marketing-site"]
+    if body_extra_class.strip():
+        body_classes.append(body_extra_class.strip())
+    body_class_attr = f' class="{e(" ".join(body_classes))}"'
+    theme_toggle_html = THEME_TOGGLE_DROPDOWN if include_theme_toggle else ""
+    diagram_scripts = _footer_diagram_scripts(
+        has_mermaid,
+        has_ks_diagram,
+        theme_js_href,
+        include_diagram_expand_modal=include_diagram_expand_modal,
+    )
+    diagram_modal = (
+        render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="en"{fs_attr}>
+<head>
+  <meta charset="utf-8" />
+{FORGE_COLOR_SCHEME_INIT}
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{doc_title}</title>
+  {head_block}{CDN_BOOTSTRAP_CSS}
+  {FONT_LINKS}
+{_resolve_theme_css(theme_css_href)}
+{extra_css}
+</head>
+<body{body_class_attr}>
+<div class="forge-aurora"></div>
+<a href="#main" class="skip-link">Skip to content</a>
+{theme_toggle_html}
+
+<header class="landing-header">
+  <nav class="navbar navbar-expand-lg landing-header-navbar py-0">
+    <div class="container-fluid landing-header-inner px-3 px-xxl-5">
+      <a class="navbar-brand fs-brand text-decoration-none mb-0" href="{e(brand_href)}">{e(brand_name)}{accent_html}</a>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#fsMarketingNav" aria-controls="fsMarketingNav" aria-expanded="false" aria-label="Open site menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-lg-end" id="fsMarketingNav">
+        <nav class="landing-nav ms-lg-auto pt-2 pt-lg-0" aria-label="Site navigation">
+          {nav_links_html}
+        </nav>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="fs-landing-main fs-marketing-interior">
+  <div class="fs-marketing-body-shell">
+    <article class="fs-marketing-article">
+      {body_html}
+    </article>
+    {footer_html}
+  </div>
+</main>
+
+{CDN_BOOTSTRAP_JS}
+{_resolve_theme_js(theme_js_href)}
+{diagram_scripts}
+{diagram_modal}
 {extra_scripts}
 </body>
 </html>
