@@ -25,7 +25,7 @@ class HandbookBuildConfig:
     show_canonical_note: bool = True
     """If False, omit the contributor \"Canonical source\" / rebuild callout (e.g. public product handbook)."""
     chrome_overrides: Mapping[str, str] | None = None
-    """Optional merge into locale chrome JSON (e.g. neutral public handbook footers)."""
+    """Optional merge into locale chrome JSON (e.g. footer labels on consumer sites or neutral public handbook footers)."""
 
 
 def _resolve_path(base: Path, value: str | Path) -> Path:
@@ -49,6 +49,10 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
         if not isinstance(skip, list):
             raise ValueError("skip_dir_names must be a list of strings")
         skip_set = frozenset(str(x) for x in skip)
+    co = raw.get("chrome_overrides")
+    chrome_overrides: dict[str, str] | None = None
+    if isinstance(co, dict):
+        chrome_overrides = {str(k): str(v) for k, v in co.items()}
     return HandbookBuildConfig(
         content_root=_resolve_path(base, raw["content_root"]),
         output_dir=_resolve_path(base, raw["output_dir"]),
@@ -57,6 +61,7 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
         skip_dir_names=skip_set,
         canonical_url_prefix=(str(raw["canonical_url_prefix"]) if raw.get("canonical_url_prefix") else None),
         show_canonical_note=bool(raw.get("show_canonical_note", True)),
+        chrome_overrides=chrome_overrides,
     )
 
 
@@ -68,6 +73,10 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
         if skip is None
         else frozenset(str(x) for x in skip)
     )
+    co = raw.get("chrome_overrides")
+    chrome_overrides: dict[str, str] | None = None
+    if isinstance(co, dict):
+        chrome_overrides = {str(k): str(v) for k, v in co.items()}
     return HandbookBuildConfig(
         content_root=_resolve_path(base_dir, raw["content_root"]),
         output_dir=_resolve_path(base_dir, raw["output_dir"]),
@@ -78,4 +87,5 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
             str(raw["canonical_url_prefix"]) if raw.get("canonical_url_prefix") else None
         ),
         show_canonical_note=bool(raw.get("show_canonical_note", True)),
+        chrome_overrides=chrome_overrides,
     )
