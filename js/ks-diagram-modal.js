@@ -129,7 +129,11 @@
     /* Bind once; must run after diagrams page has #diagramModalDetail in DOM. */
     ensureDiagramModalDetailHover();
 
-    document.getElementById('diagramModal').classList.add('active');
+    var dmOpen = document.getElementById('diagramModal');
+    if (dmOpen) {
+      dmOpen.classList.add('active');
+      dmOpen.setAttribute('aria-hidden', 'false');
+    }
     document.body.style.overflow = 'hidden';
 
     function inlineSvg(svgText) {

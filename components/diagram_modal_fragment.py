@@ -10,7 +10,7 @@ from __future__ import annotations
 def render_diagram_expand_modal_html() -> str:
     """Backdrop + dialog with canvas (cloned SVG) and optional detail panel."""
     return """\
-<div id="diagramModal" class="diagram-modal-backdrop">
+<div id="diagramModal" class="diagram-modal-backdrop" aria-hidden="true">
   <div class="diagram-modal">
     <div class="diagram-modal-header">
       <h3 id="diagramModalTitle" class="forge-gradient-text">Diagram</h3>

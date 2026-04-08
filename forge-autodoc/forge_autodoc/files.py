@@ -91,6 +91,40 @@ def strip_leading_yaml_frontmatter(text: str) -> str:
     return text
 
 
+def split_yaml_frontmatter(text: str) -> tuple[dict[str, str], str]:
+    """Parse leading ``---`` YAML block into a flat ``key: value`` map; return ``(meta, body)``.
+
+    Values are stripped; supports simple unquoted scalars only (sufficient for handbook frontmatter).
+    """
+    if not text.startswith("---"):
+        return {}, text
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return {}, text
+    end: int | None = None
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            end = i
+            break
+    if end is None:
+        return {}, text
+    meta: dict[str, str] = {}
+    for line in lines[1:end]:
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if ":" not in line:
+            continue
+        key, _, val = line.partition(":")
+        k = key.strip()
+        v = val.strip()
+        if (v.startswith('"') and v.endswith('"')) or (v.startswith("'") and v.endswith("'")):
+            v = v[1:-1]
+        meta[k] = v
+    body = "\n".join(lines[end + 1 :]).lstrip("\n")
+    return meta, body
+
+
 def title_from_md_content(text: str, fallback: str) -> str:
     """First H1 from markdown, or *fallback*.
 

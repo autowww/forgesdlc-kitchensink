@@ -38,6 +38,10 @@ def assemble_handbook_page(
     chrome_overrides: Mapping[str, str] | None = None,
     show_canonical_note: bool = True,
     sidebar_chapters_label: str = "Chapters",
+    meta_description: str = "",
+    canonical_href: str = "",
+    og_image_href: str = "",
+    json_ld_script: str = "",
 ) -> str:
     """Render fragments into a complete document using KS ``handbook_page``."""
     ensure_kitchensink_importable(kitchensink_root)
@@ -116,6 +120,10 @@ def assemble_handbook_page(
         skip_link_label=chrome.get("a11y.skip_to_content", "Skip to content"),
         open_nav_aria_label=chrome.get("a11y.open_navigation", "Open navigation"),
         sidebar_chapters_label=sidebar_chapters_label,
+        meta_description=meta_description,
+        canonical_href=canonical_href,
+        og_image_href=og_image_href,
+        json_ld_script=json_ld_script,
     )
     filtered_hp = {k: v for k, v in hp_kwargs.items() if k in _hp_sig.parameters}
     return handbook_page(**filtered_hp)

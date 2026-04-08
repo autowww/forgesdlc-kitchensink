@@ -12,9 +12,11 @@ from forge_autodoc.files import (
     collect_markdown_files,
     handbook_title_from_readme,
     slug_from_md_path,
+    split_yaml_frontmatter,
     title_from_filename,
     title_from_md_content,
 )
+from forge_autodoc.seo_meta import handbook_json_ld, truncate_meta_description
 from forge_autodoc.markdown_conv import markdown_to_handbook_html
 from forge_autodoc.page import assemble_handbook_page
 from forge_autodoc.sidebar import build_sidebar_links
@@ -90,12 +92,16 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
 
     hb_name = handbook_title_from_readme(root) if (root / "README.md").exists() else cfg.handbook_name
 
+    origin = (cfg.seo_public_origin or "").rstrip("/")
+    prefix = (cfg.seo_url_prefix or "").rstrip("/")
+    default_og = (cfg.seo_default_og_image or "").strip()
+
     for idx, (fslug, _nav_title, md_rel) in enumerate(pages):
         md_path = root / md_rel
         text = md_path.read_text(encoding="utf-8")
         page_title = title_from_md_content(text, title_from_filename(md_path.name))
-
-        body_html = markdown_to_handbook_html(text)
+        _fm, body_md = split_yaml_frontmatter(text)
+        body_html = markdown_to_handbook_html(body_md)
         body_html = _rewrite_relative_md_links(body_html, md_path, root, href_by_md)
         body_html, _hm, has_ks = apply_handbook_body_transforms(cfg.kitchensink, body_html)
         intro = plain_text_from_first_paragraph(body_html)
@@ -112,6 +118,31 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             canon = f"{cfg.canonical_url_prefix.rstrip('/')}/{md_rel}"
         else:
             canon = md_rel
+
+        meta_description = ""
+        canonical_href = ""
+        og_image_href = ""
+        json_ld_script = ""
+        if origin and prefix:
+            canonical_href = f"{origin}{prefix}/{fslug}"
+            raw_desc = (_fm.get("description") or intro or page_title).strip()
+            meta_description = truncate_meta_description(raw_desc)
+            og_image_href = default_og or f"{origin}/assets/layout-schematic-handbook.svg"
+            if "/lenses/guides" in prefix:
+                crumb = [("Lenses guides", f"{origin}/lenses/index.html")]
+            elif prefix == "/ks" or prefix.endswith("/ks"):
+                crumb = [("Kitchensink", f"{origin}/ks/index.html")]
+            else:
+                crumb = [(hb_name, f"{origin}/index.html")]
+            crumb.append((page_title, canonical_href))
+            json_ld_script = handbook_json_ld(
+                page_name=page_title,
+                description=meta_description,
+                page_url=canonical_href,
+                site_name="Blueprints handbook",
+                site_url=origin,
+                breadcrumb=crumb,
+            )
 
         html_out = assemble_handbook_page(
             kitchensink_root=cfg.kitchensink,
@@ -130,6 +161,10 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             has_ks_diagram=has_ks,
             show_canonical_note=cfg.show_canonical_note,
             chrome_overrides=cfg.chrome_overrides,
+            meta_description=meta_description,
+            canonical_href=canonical_href,
+            og_image_href=og_image_href,
+            json_ld_script=json_ld_script,
         )
         out_path = cfg.output_dir / fslug
         out_path.parent.mkdir(parents=True, exist_ok=True)

@@ -218,7 +218,11 @@
         }
       }
     }
-    document.getElementById('diagramModal').classList.add('active');
+    var dm = document.getElementById('diagramModal');
+    if (dm) {
+      dm.classList.add('active');
+      dm.setAttribute('aria-hidden', 'false');
+    }
     document.body.style.overflow = 'hidden';
     wireDiagramHovers();
     if (typeof window.forgeMountDiagramModalZoom === 'function') {
@@ -228,7 +232,10 @@
 
   window.closeDiagramModal = function () {
     var modal = document.getElementById('diagramModal');
-    if (modal) modal.classList.remove('active');
+    if (modal) {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    }
     document.body.style.overflow = '';
   };
 

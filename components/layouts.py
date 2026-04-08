@@ -22,13 +22,18 @@ distinct visual identity while reusing shared CDN links and diagram runtime init
     Component documentation with unified sticky header, sidebar, optional ToC.
 
 ``landing_page``
-    Full-width hero page with no sidebar (homepages, overviews).
+    Full-width hero page with no sidebar (homepages, overviews). Optional
+    ``announcement_html`` slot above the header (promo / event strip).
+    Optional ``hero_after_html`` between the hero band and main body. Optional
+    ``use_collapsible_nav`` for the same Bootstrap navbar pattern as
+    ``marketing_page`` (mobile collapse).
 
 ``marketing_page``
     Marketing / product site interior pages: same top brand + nav rhythm as
     ``landing_page``, single main column (no handbook sidebar, no duplicate
-    primary bar). Optional appearance toggle (off by default). Collapsible
-    nav on small viewports only.
+    primary bar). Optional ``announcement_html`` (same as ``landing_page``).
+    Optional appearance toggle (off by default). Collapsible nav on small
+    viewports only.
 
 ``gallery_page``
     Sidebar + card grid content, no right-rail ToC (catalogs, browsers).
@@ -491,6 +496,45 @@ def _render_offcanvas(handbook_name: str, offcanvas_html: str) -> str:
       </div>"""
 
 
+def _handbook_seo_head_fragment(
+    *,
+    handbook_name: str,
+    browser_title: str,
+    meta_description: str,
+    canonical_href: str,
+    og_image_href: str,
+    json_ld_script: str,
+    html_lang: str,
+) -> str:
+    """Optional ``<head>`` tags: description, canonical, Open Graph, Twitter, JSON-LD."""
+    parts: list[str] = []
+    og_title = f"{handbook_name} — {browser_title}"
+    desc = meta_description.strip()
+    if desc:
+        parts.append(f'  <meta name="description" content="{e(desc)}" />')
+    ch = canonical_href.strip()
+    if ch:
+        parts.append(f'  <link rel="canonical" href="{e(ch)}" />')
+        parts.append(f'  <meta property="og:url" content="{e(ch)}" />')
+    parts.append(f'  <meta property="og:title" content="{e(og_title)}" />')
+    if desc:
+        parts.append(f'  <meta property="og:description" content="{e(desc)}" />')
+    parts.append('  <meta property="og:type" content="website" />')
+    loc = "en_US" if (html_lang or "en").lower().startswith("en") else (html_lang or "en").replace("-", "_")
+    parts.append(f'  <meta property="og:locale" content="{e(loc)}" />')
+    ogi = og_image_href.strip()
+    if ogi:
+        parts.append(f'  <meta property="og:image" content="{e(ogi)}" />')
+    parts.append('  <meta name="twitter:card" content="summary_large_image" />')
+    parts.append(f'  <meta name="twitter:title" content="{e(og_title)}" />')
+    if desc:
+        parts.append(f'  <meta name="twitter:description" content="{e(desc)}" />')
+    j = json_ld_script.strip()
+    if j:
+        parts.append(f"  <script type=\"application/ld+json\">\n{j}\n  </script>")
+    return "\n".join(parts) + ("\n" if parts else "")
+
+
 def _render_offcanvas_js_driven(handbook_name: str) -> str:
     return f"""\
       <div class="offcanvas offcanvas-start" tabindex="-1" id="docNavOffcanvas" aria-labelledby="docNavLabel" style="background:var(--forge-bg);color:var(--forge-text);border-right:1px solid var(--forge-border)">
@@ -537,6 +581,10 @@ def handbook_page(
     skip_link_label: str = "Skip to content",
     open_nav_aria_label: str = "Open navigation",
     sidebar_chapters_label: str = "Chapters",
+    meta_description: str = "",
+    canonical_href: str = "",
+    og_image_href: str = "",
+    json_ld_script: str = "",
 ) -> str:
     """Complete HTML page for an auto-generated handbook entry.
 
@@ -552,6 +600,9 @@ def handbook_page(
 
     *asset_href_prefix* — use ``../`` (or deeper) when HTML lives under ``website/<locale>/``
     while assets remain in ``website/assets/``.
+
+    Optional *meta_description*, *canonical_href*, *og_image_href* (absolute URL),
+    and *json_ld_script* (raw JSON, no ``<script>`` wrapper) add SEO / social tags.
     """
     ap = asset_href_prefix
     col_class = "col-lg-8 col-xl-9 order-2 order-lg-1" if toc_sidebar_html else "col-12"
@@ -590,6 +641,16 @@ def handbook_page(
         body_class = ' class="ks-living-enabled"'
         shell_attrs = 'class="container-fluid px-0" style="position:relative;z-index:1"'
 
+    seo_extra = _handbook_seo_head_fragment(
+        handbook_name=handbook_name,
+        browser_title=browser_title,
+        meta_description=meta_description,
+        canonical_href=canonical_href,
+        og_image_href=og_image_href,
+        json_ld_script=json_ld_script,
+        html_lang=html_lang,
+    )
+
     return f"""<!DOCTYPE html>
 <html lang="{e(html_lang)}">
 <head>
@@ -597,7 +658,7 @@ def handbook_page(
 {FORGE_COLOR_SCHEME_INIT}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{e(handbook_name)} &mdash; {e(browser_title)}</title>
-  {CDN_BOOTSTRAP_CSS}
+{seo_extra}{CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
 {living_head}</head>
@@ -1088,6 +1149,7 @@ def landing_page(
     brand_subtitle: str = "Design system",
     nav_links_html: str = "",
     hero_html: str,
+    hero_after_html: str = "",
     body_html: str,
     footer_html: str = "",
     extra_css: str = "",
@@ -1101,11 +1163,23 @@ def landing_page(
     living_background_global_href: str = "assets/svg/living/global/field-rails-01.svg",
     fs_pack: str | None = None,
     include_theme_toggle: bool = True,
+    announcement_html: str = "",
+    use_collapsible_nav: bool = False,
 ) -> str:
     """Full-width hero landing page with no sidebar.
 
     When *include_theme_toggle* is False, the Forge appearance dropdown is omitted
     (e.g. public marketing sites that should not show docs-style chrome).
+
+    When *announcement_html* is non-empty, it is rendered in ``.fs-site-announcement``
+    after the skip link and before the header (full-width promo strip).
+
+    * *hero_after_html* — optional HTML between the hero band and ``body_html``
+      (e.g. in-hero strips).
+
+    * *use_collapsible_nav* — when True, use Bootstrap ``navbar``/``collapse`` for
+      ``nav_links_html`` (same chrome rhythm as ``marketing_page``); collapse id
+      ``#fsLandingNav``.
     """
     fs_attr = _fs_pack_html_attr(fs_pack)
     js_list = list(extra_js or [])
@@ -1144,6 +1218,41 @@ def landing_page(
         hero_attrs += ' data-ks-living-archetype="hero" data-ks-living-intensity="3"'
 
     theme_toggle_html = THEME_TOGGLE_DROPDOWN if include_theme_toggle else ""
+    ann = announcement_html.strip()
+    announcement_block = ""
+    if ann:
+        announcement_block = (
+            f'<div class="fs-site-announcement" role="region" aria-label="Site announcement">'
+            f"{ann}</div>\n"
+        )
+
+    if use_collapsible_nav:
+        header_block = f"""<header class="landing-header">
+  <nav class="navbar navbar-expand-lg landing-header-navbar py-0">
+    <div class="container-fluid landing-header-inner px-3 px-xxl-5">
+      <a class="navbar-brand fs-brand text-decoration-none mb-0" href="{e(brand_href)}">{e(brand_name)}{accent_html}</a>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#fsLandingNav" aria-controls="fsLandingNav" aria-expanded="false" aria-label="Open site menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-lg-end" id="fsLandingNav">
+        <nav class="landing-nav ms-lg-auto pt-2 pt-lg-0 w-100" aria-label="Site navigation">
+          {nav_links_html}
+        </nav>
+      </div>
+    </div>
+  </nav>
+</header>
+"""
+    else:
+        header_block = f"""<header class="landing-header">
+  <div class="landing-header-inner px-3 px-xxl-5">
+    <a class="fs-brand text-decoration-none" href="{e(brand_href)}">{e(brand_name)}{accent_html}</a>
+    <nav class="landing-nav" aria-label="Site navigation">
+      {nav_links_html}
+    </nav>
+  </div>
+</header>
+"""
 
     return f"""<!DOCTYPE html>
 <html lang="en"{fs_attr}>
@@ -1160,21 +1269,14 @@ def landing_page(
 <body{body_class_attr}>
 <div class="forge-aurora"></div>
 {living_body_open}<a href="#main" class="skip-link">Skip to content</a>
-{theme_toggle_html}
-
-<header class="landing-header">
-  <div class="landing-header-inner px-3 px-xxl-5">
-    <a class="fs-brand text-decoration-none" href="{e(brand_href)}">{e(brand_name)}{accent_html}</a>
-    <nav class="landing-nav" aria-label="Site navigation">
-      {nav_links_html}
-    </nav>
-  </div>
-</header>
+{announcement_block}{theme_toggle_html}
+{header_block}
 
 <main id="main" class="fs-landing-main">
   <div class="landing-hero fs-landing-hero-band" {hero_attrs}>
     {hero_html}
   </div>
+{hero_after_html}
   <div class="fs-landing-body-shell">
     {body_html}
   </div>
@@ -1214,6 +1316,7 @@ def marketing_page(
     has_ks_diagram: bool = False,
     include_diagram_expand_modal: bool = False,
     extra_scripts: str = "",
+    announcement_html: str = "",
 ) -> str:
     """Single-column marketing page: landing-style header, no hero band, no sidebar.
 
@@ -1225,6 +1328,9 @@ def marketing_page(
 
     * *has_ks_diagram* / *include_diagram_expand_modal* — pass through when body
       content includes KS diagram shortcodes (same as ``product_page``).
+
+    * *announcement_html* — optional full-width strip above the header (same
+      as ``landing_page``).
     """
     fs_attr = _fs_pack_html_attr(fs_pack)
     accent_html = (
@@ -1247,6 +1353,13 @@ def marketing_page(
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
     )
+    ann = announcement_html.strip()
+    announcement_block = ""
+    if ann:
+        announcement_block = (
+            f'<div class="fs-site-announcement" role="region" aria-label="Site announcement">'
+            f"{ann}</div>\n"
+        )
 
     return f"""<!DOCTYPE html>
 <html lang="en"{fs_attr}>
@@ -1263,7 +1376,7 @@ def marketing_page(
 <body{body_class_attr}>
 <div class="forge-aurora"></div>
 <a href="#main" class="skip-link">Skip to content</a>
-{theme_toggle_html}
+{announcement_block}{theme_toggle_html}
 
 <header class="landing-header">
   <nav class="navbar navbar-expand-lg landing-header-navbar py-0">

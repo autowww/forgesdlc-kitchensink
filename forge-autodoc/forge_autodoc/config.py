@@ -26,6 +26,12 @@ class HandbookBuildConfig:
     """If False, omit the contributor \"Canonical source\" / rebuild callout (e.g. public product handbook)."""
     chrome_overrides: Mapping[str, str] | None = None
     """Optional merge into locale chrome JSON (e.g. footer labels on consumer sites or neutral public handbook footers)."""
+    seo_public_origin: str | None = None
+    """If set with *seo_url_prefix*, emit canonical / Open Graph URLs (e.g. ``https://blueprints.forgesdlc.com``)."""
+    seo_url_prefix: str | None = None
+    """URL path prefix for published HTML (e.g. ``/lenses/guides``), no trailing slash."""
+    seo_default_og_image: str | None = None
+    """Absolute image URL for ``og:image`` when not overridden per page."""
 
 
 def _resolve_path(base: Path, value: str | Path) -> Path:
@@ -88,4 +94,11 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
         ),
         show_canonical_note=bool(raw.get("show_canonical_note", True)),
         chrome_overrides=chrome_overrides,
+        seo_public_origin=(
+            str(raw["seo_public_origin"]) if raw.get("seo_public_origin") else None
+        ),
+        seo_url_prefix=str(raw["seo_url_prefix"]) if raw.get("seo_url_prefix") else None,
+        seo_default_og_image=(
+            str(raw["seo_default_og_image"]) if raw.get("seo_default_og_image") else None
+        ),
     )
