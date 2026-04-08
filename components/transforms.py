@@ -20,7 +20,69 @@ import html as html_mod
 import json
 import re
 
-from diagram_catalog import resolve_diagram_src, valid_diagram_keys
+from diagram_catalog import (
+    accessibility_label_for_src,
+    diagram_key_accessibility_label,
+    resolve_diagram_src,
+    valid_diagram_keys,
+)
+
+_GENERIC_ALT_PHRASES = frozenset(
+    {
+        "",
+        "diagram",
+        "diagram illustration",
+        "ascii diagram",
+        "illustration",
+        "image",
+        "picture",
+        "photo",
+    }
+)
+_GENERIC_ALT_CF = frozenset(s.casefold() for s in _GENERIC_ALT_PHRASES)
+
+
+def _is_generic_alt(text: str) -> bool:
+    return text.strip().casefold() in _GENERIC_ALT_CF
+
+
+def _resolve_ks_diagram_display_alt_caption(
+    parsed: dict[str, object],
+    *,
+    key_str: str,
+    src_str: str,
+) -> tuple[str, bool]:
+    """Return ``(img_alt, decorative)`` for SVG template tiles."""
+    if bool(parsed.get("decorative")):
+        return "", True
+    caption = str(parsed.get("caption") or "").strip()
+    raw_alt = str(parsed.get("alt") or "").strip()
+    if raw_alt and not _is_generic_alt(raw_alt):
+        return raw_alt, False
+    if caption:
+        return caption, False
+    k = key_str.strip()
+    if k:
+        return diagram_key_accessibility_label(k), False
+    if src_str.strip():
+        return accessibility_label_for_src(src_str), False
+    return "Forge diagram template", False
+
+
+def resolve_ks_diagram_tile_alt(
+    *,
+    key: str = "",
+    src: str = "",
+    alt: str = "",
+    caption: str = "",
+    decorative: bool = False,
+) -> tuple[str, bool]:
+    """Public helper for programmatic tiles (same resolution as Markdown fences)."""
+    return _resolve_ks_diagram_display_alt_caption(
+        {"alt": alt, "caption": caption, "decorative": decorative},
+        key_str=(key or "").strip(),
+        src_str=(src or "").strip(),
+    )
 
 
 def enhance_tables(html_text: str) -> str:
@@ -138,7 +200,13 @@ def _parse_ks_diagram_body(raw: str) -> dict[str, object]:
         tok = first_line.split()[0].strip()
         if not tok:
             raise ValueError("diagram fence: missing template key")
-        return {"key": tok, "alt": "", "expand": False}
+        return {
+            "key": tok,
+            "alt": "",
+            "caption": "",
+            "expand": False,
+            "decorative": False,
+        }
     for line in text.splitlines():
         line = line.strip()
         if not line or line.startswith("#"):
@@ -150,15 +218,21 @@ def _parse_ks_diagram_body(raw: str) -> dict[str, object]:
         val = val.strip().strip('"').strip("'")
         if name in ("expand", "trigger"):
             out["expand"] = val.lower() in ("1", "true", "yes", "on")
-        elif name in ("key", "alt", "src", "title"):
+        elif name == "decorative":
+            out["decorative"] = val.lower() in ("1", "true", "yes", "on")
+        elif name in ("key", "alt", "src", "title", "caption"):
             out[name if name != "title" else "alt"] = val
     if "expand" not in out:
         out["expand"] = False
+    if "decorative" not in out:
+        out["decorative"] = False
+    if "caption" not in out:
+        out["caption"] = ""
     return out
 
 
 _META_LINE_ASCII = re.compile(
-    r"^(key|alt|caption|expand)\s*:\s*(.*)$",
+    r"^(key|alt|caption|expand|decorative)\s*:\s*(.*)$",
     re.IGNORECASE,
 )
 
@@ -181,6 +255,8 @@ def _parse_ascii_diagram_body(raw: str) -> tuple[dict[str, object], str]:
         name, val = m.group(1).lower(), m.group(2).strip().strip('"').strip("'")
         if name == "expand":
             meta["expand"] = val.lower() in ("1", "true", "yes", "on")
+        elif name == "decorative":
+            meta["decorative"] = val.lower() in ("1", "true", "yes", "on")
         else:
             meta[name] = val
         i += 1
@@ -192,14 +268,14 @@ def ascii_diagram_figure_html(meta: dict[str, object], ascii_body: str) -> str:
     """Build ``<figure class="forge-diagram forge-diagram-ascii">`` for catalog-linked ASCII."""
     keys = valid_diagram_keys()
     key_str = str(meta.get("key") or "").strip()
-    alt = str(meta.get("alt") or meta.get("caption") or "ASCII diagram").strip() or "ASCII diagram"
     caption = str(meta.get("caption") or "").strip()
+    raw_alt = str(meta.get("alt") or "").strip()
+    decorative = bool(meta.get("decorative"))
     expand = bool(meta.get("expand"))
     catalog_key = key_str if key_str in keys else ""
     if expand and key_str and not catalog_key:
         raise ValueError(f"ascii diagram fence: unknown key {key_str!r}")
     esc_content = html_mod.escape(ascii_body)
-    aria = html_mod.escape(alt, quote=True)
     extra = ""
     onclick = ""
     if expand and catalog_key:
@@ -218,9 +294,23 @@ def ascii_diagram_figure_html(meta: dict[str, object], ascii_body: str) -> str:
         f'<pre class="forge-code forge-diagram-ascii-pre">'
         f'<code class="language-text">{esc_content}</code></pre>'
     )
+    if decorative:
+        role_attr = ' role="presentation"'
+        aria_attr = ""
+    else:
+        role_attr = ' role="figure"'
+        if raw_alt and not _is_generic_alt(raw_alt):
+            aria_text = raw_alt
+        elif caption:
+            aria_text = caption
+        elif key_str in keys:
+            aria_text = diagram_key_accessibility_label(key_str)
+        else:
+            aria_text = "ASCII process sketch"
+        aria_attr = f' aria-label="{html_mod.escape(aria_text, quote=True)}"'
     return (
         f'<figure class="forge-diagram forge-diagram-ascii breathe-static{extra}"{dk_attr}'
-        f' role="figure" aria-label="{aria}"{onclick}>'
+        f"{role_attr}{aria_attr}{onclick}>"
         f'<div class="forge-diagram-ascii-canvas">{inner}</div>'
         f"{figcaption}</figure>"
     )
@@ -270,8 +360,8 @@ def ks_diagram_tile_html(
     alt: str,
     diagram_key: str,
     expandable: bool,
+    decorative: bool = False,
 ) -> str:
-    esc_alt = html_mod.escape(alt, quote=True)
     extra = ""
     onclick = ""
     if expandable:
@@ -281,11 +371,23 @@ def ks_diagram_tile_html(
     dk_attr = ""
     if diagram_key:
         dk_attr = f' data-diagram-key="{html_mod.escape(diagram_key, quote=True)}"'
+    if decorative:
+        role_attr = ' role="presentation"'
+        img_tag = (
+            f'<img src="{html_mod.escape(img_href, quote=True)}" alt=""'
+            f' aria-hidden="true" loading="lazy" />'
+        )
+    else:
+        role_attr = ' role="figure"'
+        esc_alt = html_mod.escape(alt, quote=True)
+        img_tag = (
+            f'<img src="{html_mod.escape(img_href, quote=True)}" alt="{esc_alt}" loading="lazy" />'
+        )
     return (
         f'<div class="forge-diagram breathe-static ks-diagram-tile{extra}"{dk_attr}'
-        f' role="figure"{onclick}>'
+        f'{role_attr}{onclick}>'
         f'<div class="ks-diagram-canvas">'
-        f'<img src="{html_mod.escape(img_href, quote=True)}" alt="{esc_alt}" loading="lazy" />'
+        f"{img_tag}"
         f"</div></div>"
     )
 
@@ -319,7 +421,6 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool]:
         src_val = parsed.get("src")
         key_str = str(key_val).strip() if key_val else ""
         src_str = str(src_val).strip() if src_val else ""
-        alt = str(parsed.get("alt") or "Diagram illustration").strip() or "Diagram"
         expand_flag = bool(parsed.get("expand")) or fence_expandable
         href, _ = resolve_diagram_src(
             key=key_str if key_str else None,
@@ -330,11 +431,15 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool]:
             catalog_key = ""
         elif expand_flag and not catalog_key and key_str:
             raise ValueError(f"diagram fence: unknown key {key_str!r}")
+        alt, decorative = _resolve_ks_diagram_display_alt_caption(
+            parsed, key_str=key_str, src_str=src_str
+        )
         return ks_diagram_tile_html(
             img_href=href,
             alt=alt,
             diagram_key=catalog_key,
             expandable=expand_flag,
+            decorative=decorative,
         )
 
     result = re.sub(

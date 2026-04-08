@@ -373,12 +373,14 @@ def render_ks_diagram_block(
     *,
     key: str = "",
     src: str = "",
-    alt: str = "Diagram",
+    alt: str = "",
+    caption: str = "",
+    decorative: bool = False,
     expandable: bool = False,
 ) -> str:
     """Static Kitchen Sink template (or custom ``src`` under ``assets/``) as a diagram tile."""
     from diagram_catalog import resolve_diagram_src, valid_diagram_keys
-    from transforms import ks_diagram_tile_html
+    from transforms import ks_diagram_tile_html, resolve_ks_diagram_tile_alt
 
     k = (key or "").strip()
     s = (src or "").strip()
@@ -387,12 +389,15 @@ def render_ks_diagram_block(
     catalog_key = k if k in keys else ""
     if expandable and not catalog_key and k:
         raise ValueError(f"Unknown ks_diagram key: {k!r}")
-    al = (alt or "Diagram").strip() or "Diagram"
+    al, dec = resolve_ks_diagram_tile_alt(
+        key=k, src=s, alt=alt, caption=caption, decorative=decorative
+    )
     return ks_diagram_tile_html(
         img_href=href,
         alt=al,
         diagram_key=catalog_key,
         expandable=expandable,
+        decorative=dec,
     )
 
 
