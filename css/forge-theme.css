@@ -2653,3 +2653,22 @@ code {
   color: var(--forge-text-3);
   margin: 0 0 0.35rem;
 }
+
+/* Handbook: compact contextual rail (leaf pages) + related links */
+.forge-sidebar .handbook-compact-rail-breadcrumb {
+  --bs-breadcrumb-divider: "›";
+  font-size: 0.72rem;
+  line-height: 1.35;
+  flex-wrap: wrap;
+}
+.forge-sidebar .handbook-compact-rail-breadcrumb .breadcrumb-item + .breadcrumb-item {
+  padding-left: 0.35rem;
+}
+.forge-sidebar .handbook-compact-rail__prevnext .btn {
+  font-size: 0.75rem;
+  white-space: normal;
+  text-align: start;
+}
+.doc-content .handbook-related ul li {
+  margin-bottom: 0.25rem;
+}

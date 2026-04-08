@@ -32,6 +32,8 @@ class HandbookBuildConfig:
     """URL path prefix for published HTML (e.g. ``/lenses/guides``), no trailing slash."""
     seo_default_og_image: str | None = None
     """Absolute image URL for ``og:image`` when not overridden per page."""
+    contextual_leaf_sidebar: bool = True
+    """If True, leaf pages use a compact sidebar rail (Lenses/KS simple builds)."""
 
 
 def _resolve_path(base: Path, value: str | Path) -> Path:
@@ -59,6 +61,9 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
     chrome_overrides: dict[str, str] | None = None
     if isinstance(co, dict):
         chrome_overrides = {str(k): str(v) for k, v in co.items()}
+    seo_po = str(raw["seo_public_origin"]) if raw.get("seo_public_origin") else None
+    seo_pfx = str(raw["seo_url_prefix"]) if raw.get("seo_url_prefix") else None
+    seo_ogi = str(raw["seo_default_og_image"]) if raw.get("seo_default_og_image") else None
     return HandbookBuildConfig(
         content_root=_resolve_path(base, raw["content_root"]),
         output_dir=_resolve_path(base, raw["output_dir"]),
@@ -68,6 +73,10 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
         canonical_url_prefix=(str(raw["canonical_url_prefix"]) if raw.get("canonical_url_prefix") else None),
         show_canonical_note=bool(raw.get("show_canonical_note", True)),
         chrome_overrides=chrome_overrides,
+        seo_public_origin=seo_po,
+        seo_url_prefix=seo_pfx,
+        seo_default_og_image=seo_ogi,
+        contextual_leaf_sidebar=bool(raw.get("contextual_leaf_sidebar", True)),
     )
 
 
@@ -101,4 +110,5 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
         seo_default_og_image=(
             str(raw["seo_default_og_image"]) if raw.get("seo_default_og_image") else None
         ),
+        contextual_leaf_sidebar=bool(raw.get("contextual_leaf_sidebar", True)),
     )

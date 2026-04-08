@@ -16,6 +16,12 @@ from forge_autodoc.files import (
     title_from_filename,
     title_from_md_content,
 )
+from forge_autodoc.contextual_nav import (
+    build_compact_handbook_rail_inner_html,
+    lenses_split_family_pages,
+    related_pages_section_html,
+    split_topic_parent_basename,
+)
 from forge_autodoc.seo_meta import handbook_json_ld, truncate_meta_description
 from forge_autodoc.markdown_conv import markdown_to_handbook_html
 from forge_autodoc.page import assemble_handbook_page
@@ -108,11 +114,49 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
         toc = extract_toc_from_html(cfg.kitchensink, body_html)
         is_template = md_path.name.endswith(".template.md")
 
-        sidebar_html = build_sidebar_links(pages, fslug, id_prefix="nav")
-        offcanvas_html = build_sidebar_links(pages, fslug, id_prefix="mob")
-
         prev_link = (pages[idx - 1][0], pages[idx - 1][1]) if idx > 0 else None
         next_link = (pages[idx + 1][0], pages[idx + 1][1]) if idx < len(pages) - 1 else None
+
+        rel_by_md = {p[2]: p for p in pages}
+        family = lenses_split_family_pages(md_rel, pages)
+        use_split_rail = cfg.contextual_leaf_sidebar and len(family) > 1
+        split_child_bn = split_topic_parent_basename(md_path.name)
+        sidebar_chapters_label = "Chapters"
+        sidebar_html: str
+        offcanvas_html: str
+
+        if use_split_rail and split_child_bn and split_child_bn in rel_by_md:
+            parent_row = rel_by_md[split_child_bn]
+            crumbs: list[tuple[str | None, str]] = [
+                ("../../index.html", "Handbook"),
+                ("../index.html", "Lenses guides"),
+                (parent_row[0], parent_row[1]),
+                (None, page_title),
+            ]
+            rail = build_compact_handbook_rail_inner_html(
+                breadcrumb_items=crumbs,
+                parent_href=parent_row[0],
+                parent_label=parent_row[1],
+                prev_link=prev_link,
+                next_link=next_link,
+                browse_href="../index.html",
+                browse_label="All Lenses guides",
+            )
+            sidebar_html = rail
+            offcanvas_html = rail
+            sidebar_chapters_label = "This page"
+            others = [p for p in family if p[2] != md_rel]
+            rel_items = [(p[0], p[1]) for p in others[:5]]
+            if rel_items:
+                body_html = body_html + related_pages_section_html(rel_items)
+        elif use_split_rail:
+            nav_pages = family
+            sidebar_html = build_sidebar_links(nav_pages, fslug, id_prefix="nav")
+            offcanvas_html = build_sidebar_links(nav_pages, fslug, id_prefix="mob")
+            sidebar_chapters_label = "This section"
+        else:
+            sidebar_html = build_sidebar_links(pages, fslug, id_prefix="nav")
+            offcanvas_html = build_sidebar_links(pages, fslug, id_prefix="mob")
 
         if cfg.canonical_url_prefix:
             canon = f"{cfg.canonical_url_prefix.rstrip('/')}/{md_rel}"
@@ -128,20 +172,30 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             raw_desc = (_fm.get("description") or intro or page_title).strip()
             meta_description = truncate_meta_description(raw_desc)
             og_image_href = default_og or f"{origin}/assets/layout-schematic-handbook.svg"
+            crumb_ld: list[tuple[str, str]] = [
+                ("Blueprints handbook", f"{origin}/index.html"),
+            ]
             if "/lenses/guides" in prefix:
-                crumb = [("Lenses guides", f"{origin}/lenses/index.html")]
+                crumb_ld.append(("Lenses guides", f"{origin}/lenses/index.html"))
+                if (
+                    use_split_rail
+                    and split_child_bn
+                    and split_child_bn in rel_by_md
+                ):
+                    pr = rel_by_md[split_child_bn]
+                    crumb_ld.append((pr[1], f"{origin}{prefix}/{pr[0]}"))
             elif prefix == "/ks" or prefix.endswith("/ks"):
-                crumb = [("Kitchensink", f"{origin}/ks/index.html")]
+                crumb_ld.append(("Kitchensink", f"{origin}/ks/index.html"))
             else:
-                crumb = [(hb_name, f"{origin}/index.html")]
-            crumb.append((page_title, canonical_href))
+                crumb_ld.append((hb_name, f"{origin}/index.html"))
+            crumb_ld.append((page_title, canonical_href))
             json_ld_script = handbook_json_ld(
                 page_name=page_title,
                 description=meta_description,
                 page_url=canonical_href,
                 site_name="Blueprints handbook",
                 site_url=origin,
-                breadcrumb=crumb,
+                breadcrumb=crumb_ld,
             )
 
         html_out = assemble_handbook_page(
@@ -165,6 +219,7 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             canonical_href=canonical_href,
             og_image_href=og_image_href,
             json_ld_script=json_ld_script,
+            sidebar_chapters_label=sidebar_chapters_label,
         )
         out_path = cfg.output_dir / fslug
         out_path.parent.mkdir(parents=True, exist_ok=True)
