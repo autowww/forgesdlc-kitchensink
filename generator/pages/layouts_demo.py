@@ -15,6 +15,7 @@ PAGE = {
         ("sec-layout-intro", "Overview"),
         ("sec-showcase", "Showcase"),
         ("sec-landing", "Landing"),
+        ("sec-marketing", "Marketing interior"),
         ("sec-gallery", "Gallery"),
         ("sec-split", "Split"),
         ("sec-handbook", "Handbook"),
@@ -152,6 +153,7 @@ def render() -> str:
                 ("body_html", "str", "Body content below hero"),
                 ("nav_links_html", "str", "Top navigation bar links"),
                 ("footer_html", "str", "Footer HTML (optional)"),
+                ("announcement_html", "str", "Optional promo strip above header (.fs-site-announcement)"),
             ],
             "Kitchen Sink landing page",
             "layout-landing",
@@ -159,6 +161,27 @@ def render() -> str:
             [
                 "Vertical stack: no left sidebar; content uses full width.",
                 "Nav is a single top bar; hero and body are separate slots.",
+            ],
+        ),
+        _layout_section(
+            "sec-marketing",
+            "marketing_page",
+            "Single-column marketing interior: collapsible top nav like landing, but no hero band. "
+            "Optional announcement_html above the header.",
+            [
+                ("browser_title", "str", "HTML <title> value"),
+                ("body_html", "str", "Main article content"),
+                ("nav_links_html", "str", "Navbar links (collapse on small screens)"),
+                ("footer_html", "str", "Footer HTML (optional)"),
+                ("announcement_html", "str", "Optional promo strip above header"),
+                ("include_theme_toggle", "bool", "Forge appearance dropdown (default false)"),
+            ],
+            "Public product pages without product_page sidebar chrome",
+            "layout-marketing",
+            "layout-schematic-landing.svg",
+            [
+                "Optional announcement strip, then Bootstrap navbar (brand + links).",
+                "Main: single article column — no left sidebar, no hero band.",
             ],
         ),
         _layout_section(

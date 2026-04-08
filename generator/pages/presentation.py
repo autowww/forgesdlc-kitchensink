@@ -1,6 +1,13 @@
 """Presentation controls — stage carousel, rails, logo strips (product / marketing layer)."""
 from __future__ import annotations
 
+from marketing_sections import (
+    MarketingStatCell,
+    PeopleShowcasePerson,
+    render_case_study_spotlight,
+    render_marketing_stat_band,
+    render_people_showcase,
+)
 from presentation import (
     LogoItem,
     RailItem,
@@ -33,6 +40,7 @@ PAGE = {
         ("sec-logo-strip", "fs-logo-strip"),
         ("sec-testimonial", "fs-testimonial-slider"),
         ("sec-actions", "Slide actions · link, preview, lightbox"),
+        ("sec-marketing-sections", "Marketing sections · stat band, case study, people"),
     ],
 }
 
@@ -293,6 +301,79 @@ def render() -> str:
         loop=False,
     )
 
+    stat_band_demo = render_marketing_stat_band(
+        [
+            MarketingStatCell(
+                title="Boost productivity",
+                value="+41%",
+                hint="lift in teams rated top-tier.*",
+                accent="amber",
+            ),
+            MarketingStatCell(
+                title="Manager effectiveness",
+                value="+86%",
+                hint="lift in managers rated top-tier.*",
+                accent="cyan",
+            ),
+            MarketingStatCell(
+                title="Leadership development",
+                value="+14%",
+                hint="average quota and NPS lift.*",
+                accent="emerald",
+            ),
+            MarketingStatCell(
+                title="Turnover and burnout",
+                value="−50%",
+                hint="reduction in voluntary turnover.*",
+                accent="amber",
+            ),
+        ],
+        section_title="Turn workforce potential into business value",
+        section_id="demo-stat-band",
+        footnote_html="* Illustrative KPI band — replace with your study footnote.",
+    )
+
+    case_study_demo = render_case_study_spotlight(
+        eyebrow="CASE STUDY",
+        title="How a focused team shipped calmer releases",
+        quote="We stopped thrashing on scope because the methodology gave us a shared language for risk and evidence.",
+        attribution_name="Engineering director",
+        attribution_role="VP Engineering",
+        attribution_company="Example Org",
+        image_src=_img("template-roadmap.svg"),
+        image_alt="Roadmap illustration",
+        cta_href="layouts.html",
+        cta_label="Read full story",
+        section_id="demo-case-study",
+    )
+
+    people_demo = render_people_showcase(
+        [
+            PeopleShowcasePerson(
+                name="Alex River",
+                role="Organizational psychologist",
+                image_src=_img("template-quadrant.svg"),
+                image_alt="Advisor A",
+                href="tokens.html",
+            ),
+            PeopleShowcasePerson(
+                name="Jordan Lee",
+                role="Research professor",
+                image_src=_img("template-venn.svg"),
+                image_alt="Advisor B",
+            ),
+            PeopleShowcasePerson(
+                name="Sam Ortiz",
+                role="People analytics lead",
+                image_src="",
+                image_alt="",
+            ),
+        ],
+        section_title="Science and advisors",
+        section_id="demo-people-showcase",
+        intro_html='<p class="forge-support text-center mb-0">Headshots optional — placeholder initials when <code>image_src</code> is empty.</p>',
+    )
+
     return f"""\
 <section id="sec-stage-vs-rail" class="ks-section">
   <h2 class="ks-section-title">Stage vs rail</h2>
@@ -365,5 +446,19 @@ def render() -> str:
   {action_topic}
   <p class="section-label text-cyan mb-2 mt-4">Image lightbox</p>
   {action_lightbox}
+</section>
+
+<section id="sec-marketing-sections" class="ks-section">
+  <h2 class="ks-section-title">Marketing sections · <code>marketing_sections.py</code></h2>
+  <p class="forge-support mb-3">
+    Composable blocks for enterprise-style homepages (KPI row, case study feature, advisor grid).
+    Requires <code>forgesdlc-theme.css</code> for stat glass and section spacing — this page already loads it via <code>extra_css()</code>.
+  </p>
+  <p class="section-label text-cyan mb-2"><code>render_marketing_stat_band</code></p>
+  {stat_band_demo}
+  <p class="section-label text-cyan mb-2 mt-4"><code>render_case_study_spotlight</code></p>
+  {case_study_demo}
+  <p class="section-label text-cyan mb-2 mt-4"><code>render_people_showcase</code></p>
+  {people_demo}
 </section>
 """

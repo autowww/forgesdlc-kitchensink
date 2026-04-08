@@ -346,10 +346,20 @@
     'layout-landing': {
       title: 'landing_page — structure',
       items: [
+        { node: 'Announcement', color: 'emerald', desc: 'Optional .fs-site-announcement when announcement_html is set (after skip link, before nav).' },
         { node: 'Top nav', color: 'cyan', desc: 'Full-width sticky bar: brand + nav_links_html. No sidebar column.' },
         { node: 'Hero', color: 'amber', desc: 'Centered hero region (hero_html) — headline, CTAs, illustration.' },
         { node: 'Body', color: 'emerald', desc: 'Main prose / cards below the hero (body_html).' },
         { node: 'Footer', color: 'cyan', desc: 'Optional footer_html after main content.' }
+      ]
+    },
+    'layout-marketing': {
+      title: 'marketing_page — structure',
+      items: [
+        { node: 'Announcement', color: 'emerald', desc: 'Same optional announcement_html strip as landing_page (.fs-site-announcement).' },
+        { node: 'Navbar', color: 'cyan', desc: 'Bootstrap navbar-collapse: brand + nav_links_html; no hero band.' },
+        { node: 'Article', color: 'amber', desc: 'body_html inside .fs-marketing-article (single column).' },
+        { node: 'Footer', color: 'cyan', desc: 'footer_html after the article.' }
       ]
     },
     'layout-gallery': {
@@ -407,7 +417,8 @@
     'layout-split': 'preview-split.html',
     'layout-handbook': 'preview-handbook.html',
     'layout-chapter': 'preview-chapter.html',
-    'layout-product': 'preview-product.html'
+    'layout-product': 'preview-product.html',
+    'layout-marketing': 'preview-marketing.html'
   };
 
   var colorMap = {

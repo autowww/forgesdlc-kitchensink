@@ -247,8 +247,13 @@ def _layouts_inventory_table() -> str:
         ],
         [
             "<code>landing_page</code>",
-            "Top nav + hero + body; no sidebar.",
+            "Top nav + hero + body; no sidebar. Optional <code>announcement_html</code> above header.",
             "Showcase <code>index.html</code>",
+        ],
+        [
+            "<code>marketing_page</code>",
+            "Collapsible top nav + single article column; no hero band. Optional <code>announcement_html</code>.",
+            "Public marketing interiors; preview <code>preview-marketing.html</code>",
         ],
         [
             "<code>gallery_page</code>",
@@ -799,7 +804,7 @@ def render_body() -> str:
 <section id="ag-layout-overview" class="ks-section">
   <h2 class="ks-section-title">Layouts · Overview</h2>
   {_spec_dl([
-    ("Purpose", "Full HTML documents: <code>handbook_page</code>, <code>chapter_page</code>, <code>product_page</code>, <code>showcase_page</code>, <code>landing_page</code>, <code>gallery_page</code>, <code>split_page</code> in <code>components/layouts.py</code>."),
+    ("Purpose", "Full HTML documents: <code>handbook_page</code>, <code>chapter_page</code>, <code>product_page</code>, <code>showcase_page</code>, <code>landing_page</code>, <code>marketing_page</code>, <code>gallery_page</code>, <code>split_page</code> in <code>components/layouts.py</code>."),
     ("Canonical shell", "<code>showcase_page</code> is the reference documentation layout (header + sidebar + body + optional right ToC). Consumer generators should mirror <code>generator/build-showcase.py</code> <code>_render_page</code> kwargs (including <code>has_mermaid</code> from <code>PAGE</code> when needed)."),
     ("Live previews", 'Build writes <code>preview-handbook.html</code>, <code>preview-chapter.html</code>, <code>preview-product.html</code>, <code>preview-split.html</code> next to other showcase HTML via <code>layout_previews.py</code>. The <a href="layouts.html">Page Layouts</a> page opens them in a modal iframe.'),
   ])}
@@ -819,8 +824,16 @@ def render_body() -> str:
 <section id="ag-layout-landing" class="ks-section">
   <h2 class="ks-section-title">Layouts · <code>landing_page</code></h2>
   {_spec_dl([
-    ("Parameters", "<code>hero_html</code>, <code>body_html</code>, <code>nav_links_html</code>, <code>footer_html</code> — no sidebar."),
+    ("Parameters", "<code>hero_html</code>, <code>body_html</code>, <code>nav_links_html</code>, <code>footer_html</code>, <code>announcement_html</code> (optional full-width strip, <code>.fs-site-announcement</code>) — no sidebar."),
     ("Used by", "Showcase index (<code>index.html</code>)."),
+  ])}
+</section>
+
+<section id="ag-layout-marketing" class="ks-section">
+  <h2 class="ks-section-title">Layouts · <code>marketing_page</code></h2>
+  {_spec_dl([
+    ("Parameters", "<code>body_html</code>, <code>nav_links_html</code>, <code>footer_html</code>, <code>announcement_html</code> (optional). No hero band; Bootstrap navbar collapse on small screens."),
+    ("Used by", "Marketing interiors without <code>product_page</code> sidebar chrome. Live: <a href=\"preview-marketing.html\"><code>preview-marketing.html</code></a>."),
   ])}
 </section>
 
@@ -889,11 +902,22 @@ def render_body() -> str:
     ("Purpose", "Marketing/product site look separate from handbook dark docs."),
     ("Tokens", "CSS variables use <code>--fs-*</code> prefix (see stylesheet). Classes include <code>.fs-layout</code>, <code>.fs-sidebar</code>, <code>.fs-brand</code>, <code>.landing-hero-*</code>, <code>.fs-cross-refs</code>."),
     ("Python", "<code>render_product_landing_hero</code>, <code>render_cross_refs</code>, <code>render_product_footer</code>, <code>wrap_product_site_article</code> emit product markup."),
+    ("Marketing sections", "<code>components/marketing_sections.py</code> — <code>render_marketing_stat_band</code>, <code>render_case_study_spotlight</code>, <code>render_people_showcase</code> (see <a href=\"#ag-marketing-sections\">Marketing sections</a>)."),
     ("Live preview", "After <code>python3 generator/build-showcase.py</code>, open <code>showcase/preview-product.html</code> (or use the Layouts page “Open live preview” for product) — do not load product CSS on this handbook-themed page or variables will clash."),
   ])}
   <p class="forge-support mb-0">Relative link from this file: <a href="preview-product.html"><code>preview-product.html</code></a> (same directory as <code>for-agents.html</code>) — includes <code>render_product_landing_hero</code>, <code>render_product_footer</code>, and notes on <code>wrap_product_site_article</code>.</p>
   <p class="section-label text-cyan mb-2 mt-3"><code>wrap_product_site_article</code> (landing bodies only)</p>
   <div class="forge-callout forge-callout-surface p-3">{wrap_product_demo}</div>
+</section>
+
+<section id="ag-marketing-sections" class="ks-section">
+  <h2 class="ks-section-title">Marketing · <code>components/marketing_sections.py</code></h2>
+  {_spec_dl([
+    ("Purpose", "Composable KPI row, case study spotlight, and people grid for enterprise-style static marketing pages."),
+    ("Styling", "Uses <code>.forge-stat-band</code> / <code>.forge-stat</code>, <code>.fs-case-study-spotlight</code>, <code>.fs-people-showcase</code> in <code>forgesdlc-theme.css</code>; compose inside <code>landing_page</code> body or <code>wrap_product_site_article</code>."),
+    ("Imports", "<code>from components import render_marketing_stat_band, MarketingStatCell, …</code> — symbols are exported from the <code>components</code> package after core emitters load."),
+    ("Live", "<a href=\"presentation.html#sec-marketing-sections\"><code>presentation.html</code> · Marketing sections</a>."),
+  ])}
 </section>
 
 <section id="ag-fs-overview" class="ks-section">
@@ -952,7 +976,7 @@ def render_body() -> str:
   {_spec_dl([
     ("Purpose", "Typed slide/item dataclasses (<code>StageSlide</code>, <code>RailItem</code>, <code>LogoItem</code>) and HTML emitters for product pages."),
     ("Styling", "Escapes text via <code>e</code> / <code>e_content</code>; does not load CSS — consumer must include <code>forgesdlc-theme.css</code>."),
-    ("Imports", "Showcase page module imports top-level <code>presentation</code> (path lists <code>components/</code>); package consumers use <code>from components import render_stage_carousel</code>."),
+    ("Imports", "Showcase <code>pages/presentation.py</code> imports <code>presentation</code> and <code>marketing_sections</code> (path lists <code>components/</code>); package consumers use <code>from components import render_stage_carousel</code> or <code>render_marketing_stat_band</code>."),
   ])}
   <p class="forge-support mb-0">Inventory rows: <a href="#ag-python-inventory">Python · Function inventory</a>.</p>
 </section>
