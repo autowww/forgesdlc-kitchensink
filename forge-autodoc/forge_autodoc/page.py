@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING, Mapping
 
 from forge_autodoc.chrome_bundle import load_chrome_bundle
 from forge_autodoc.ks_path import ensure_kitchensink_importable
+from forge_autodoc.text import strip_duplicate_handbook_hero_from_body
 
 if TYPE_CHECKING:
     pass
@@ -45,6 +46,8 @@ def assemble_handbook_page(
 ) -> str:
     """Render fragments into a complete document using KS ``handbook_page``."""
     ensure_kitchensink_importable(kitchensink_root)
+
+    body_html = strip_duplicate_handbook_hero_from_body(body_html, page_title, intro)
 
     from components import (
         render_canonical_note,

@@ -279,11 +279,11 @@ def render() -> str:
     ]
 
     modal = """\
-<div id="diagramModal" class="diagram-modal-backdrop">
+<div id="diagramModal" class="diagram-modal-backdrop" hidden aria-hidden="true">
   <div class="diagram-modal">
     <div class="diagram-modal-header">
-      <h3 id="diagramModalTitle" class="forge-gradient-text">Layout</h3>
-      <button type="button" class="diagram-modal-close" onclick="closeDiagramModal()" aria-label="Close">&times;</button>
+      <div id="diagramModalTitle" class="diagram-modal__title forge-gradient-text" role="heading" aria-level="2"></div>
+      <button type="button" class="diagram-modal-close" onclick="closeDiagramModal()" aria-label="Close"><span class="diagram-modal-close-icon" aria-hidden="true"></span></button>
     </div>
     <div class="diagram-modal-body">
       <div id="diagramModalCanvas" class="diagram-modal-canvas"></div>

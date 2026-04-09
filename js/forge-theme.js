@@ -195,6 +195,38 @@
   /* ------------------------------------------------------------------
    * Diagram expand modal
    * ---------------------------------------------------------------- */
+  window.forgeApplyDiagramModalOpen = function () {
+    var dm = document.getElementById('diagramModal');
+    if (!dm) return;
+    dm.classList.add('active');
+    dm.removeAttribute('hidden');
+    dm.setAttribute('aria-hidden', 'false');
+    dm.setAttribute('role', 'dialog');
+    dm.setAttribute('aria-modal', 'true');
+    var t = document.getElementById('diagramModalTitle');
+    if (t && (t.textContent || '').trim()) {
+      dm.setAttribute('aria-labelledby', 'diagramModalTitle');
+      dm.removeAttribute('aria-label');
+    } else {
+      dm.removeAttribute('aria-labelledby');
+      dm.setAttribute('aria-label', 'Diagram viewer');
+    }
+  };
+
+  window.forgeApplyDiagramModalClose = function () {
+    var modal = document.getElementById('diagramModal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    modal.setAttribute('hidden', '');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.removeAttribute('role');
+    modal.removeAttribute('aria-modal');
+    modal.removeAttribute('aria-labelledby');
+    modal.removeAttribute('aria-label');
+    var title = document.getElementById('diagramModalTitle');
+    if (title) title.textContent = '';
+  };
+
   window.openDiagramModal = function (trigger) {
     var svg = trigger.querySelector('svg');
     if (!svg) return;
@@ -218,11 +250,16 @@
         }
       }
     }
-    var dm = document.getElementById('diagramModal');
-    if (dm) {
-      dm.classList.add('active');
-      dm.setAttribute('aria-hidden', 'false');
+    var titleEl = document.getElementById('diagramModalTitle');
+    if (titleEl && !(titleEl.textContent || '').trim()) {
+      var lbl = trigger.getAttribute('aria-label');
+      var fig = trigger.closest && trigger.closest('figure');
+      var cap = fig && fig.querySelector('figcaption');
+      var capText = cap && (cap.textContent || '').trim();
+      titleEl.textContent =
+        (lbl && lbl.trim()) || capText || 'Expanded diagram';
     }
+    window.forgeApplyDiagramModalOpen();
     document.body.style.overflow = 'hidden';
     wireDiagramHovers();
     if (typeof window.forgeMountDiagramModalZoom === 'function') {
@@ -231,10 +268,15 @@
   };
 
   window.closeDiagramModal = function () {
-    var modal = document.getElementById('diagramModal');
-    if (modal) {
-      modal.classList.remove('active');
-      modal.setAttribute('aria-hidden', 'true');
+    if (typeof window.forgeApplyDiagramModalClose === 'function') {
+      window.forgeApplyDiagramModalClose();
+    } else {
+      var modal = document.getElementById('diagramModal');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('hidden', '');
+        modal.setAttribute('aria-hidden', 'true');
+      }
     }
     document.body.style.overflow = '';
   };

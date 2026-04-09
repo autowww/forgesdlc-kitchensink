@@ -124,15 +124,27 @@
     if (!canvas) return;
 
     if (detail) detail.innerHTML = renderDetailPanel(key);
-    if (title && getKsDetailData(key)) title.textContent = getKsDetailData(key).title;
+    if (title) {
+      var ksData = getKsDetailData(key);
+      if (ksData) title.textContent = ksData.title;
+      else if (img) {
+        var alt = (img.getAttribute('alt') || '').trim();
+        title.textContent = alt || 'Expanded diagram';
+      }
+    }
 
     /* Bind once; must run after diagrams page has #diagramModalDetail in DOM. */
     ensureDiagramModalDetailHover();
 
-    var dmOpen = document.getElementById('diagramModal');
-    if (dmOpen) {
-      dmOpen.classList.add('active');
-      dmOpen.setAttribute('aria-hidden', 'false');
+    if (typeof window.forgeApplyDiagramModalOpen === 'function') {
+      window.forgeApplyDiagramModalOpen();
+    } else {
+      var dmOpen = document.getElementById('diagramModal');
+      if (dmOpen) {
+        dmOpen.classList.add('active');
+        dmOpen.removeAttribute('hidden');
+        dmOpen.setAttribute('aria-hidden', 'false');
+      }
     }
     document.body.style.overflow = 'hidden';
 
@@ -530,7 +542,13 @@
       _prevCloseDiagramModal();
     } else {
       var modal = document.getElementById('diagramModal');
-      if (modal) modal.classList.remove('active');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('hidden', '');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+      var t = document.getElementById('diagramModalTitle');
+      if (t) t.textContent = '';
       document.body.style.overflow = '';
     }
   };
