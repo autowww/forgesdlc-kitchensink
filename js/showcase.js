@@ -412,7 +412,7 @@
   /** Relative URLs for layouts.html modal — live HTML pages (iframe), not SVG. */
   var LAYOUT_PREVIEW_URLS = {
     'layout-showcase': 'tokens.html',
-    'layout-landing': 'index.html',
+    'layout-landing': 'preview-landing.html',
     'layout-gallery': 'diagrams.html',
     'layout-split': 'preview-split.html',
     'layout-handbook': 'preview-handbook.html',
@@ -544,7 +544,13 @@
       canvas.appendChild(iframe);
     }
     diagramModalHover.clear();
-    modal.classList.add('active');
+    if (typeof window.forgeApplyDiagramModalOpen === 'function') {
+      window.forgeApplyDiagramModalOpen();
+    } else {
+      modal.classList.add('active');
+      modal.removeAttribute('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+    }
     document.body.style.overflow = 'hidden';
     if (typeof window.forgeMountDiagramModalZoom === 'function') {
       window.forgeMountDiagramModalZoom(canvas);
@@ -590,12 +596,28 @@
     if (!canvas) return;
 
     if (detail) detail.innerHTML = renderDetailPanel(key);
-    if (title && getDetailData(key)) title.textContent = getDetailData(key).title;
+    if (title) {
+      var d = getDetailData(key);
+      if (d) title.textContent = d.title;
+      else if (img) {
+        var alt = (img.getAttribute('alt') || '').trim();
+        title.textContent = alt || 'Expanded diagram';
+      }
+    }
 
     /* Bind once; must run after diagrams page has #diagramModalDetail in DOM. */
     ensureDiagramModalDetailHover();
 
-    document.getElementById('diagramModal').classList.add('active');
+    if (typeof window.forgeApplyDiagramModalOpen === 'function') {
+      window.forgeApplyDiagramModalOpen();
+    } else {
+      var dm = document.getElementById('diagramModal');
+      if (dm) {
+        dm.classList.add('active');
+        dm.removeAttribute('hidden');
+        dm.setAttribute('aria-hidden', 'false');
+      }
+    }
     document.body.style.overflow = 'hidden';
 
     function inlineSvg(svgText) {
@@ -648,9 +670,6 @@
   };
 
   window.closeDiagramModal = function () {
-    var modal = document.getElementById('diagramModal');
-    if (modal) modal.classList.remove('active');
-    document.body.style.overflow = '';
     diagramModalHover.clear();
     var canvas = document.getElementById('diagramModalCanvas');
     if (canvas) {
@@ -658,6 +677,17 @@
       if (iframe) iframe.src = 'about:blank';
       canvas.innerHTML = '';
     }
+    if (typeof window.forgeApplyDiagramModalClose === 'function') {
+      window.forgeApplyDiagramModalClose();
+    } else {
+      var modal = document.getElementById('diagramModal');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('hidden', '');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    }
+    document.body.style.overflow = '';
   };
 
   // Close on backdrop click
@@ -1009,7 +1039,7 @@
         ensureDiagramModalDetailHover();
       } else if (detail) {
         detail.innerHTML = '';
-        if (titleEl) titleEl.textContent = 'Diagram';
+        if (titleEl) titleEl.textContent = '';
       }
       _forgeOpenDiagramModal(trigger);
     };

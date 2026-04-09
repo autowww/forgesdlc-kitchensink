@@ -909,6 +909,7 @@ def render_product_landing_hero(
     secondary_links: list[tuple[str, str]] | None = None,
     support_points: list[str] | None = None,
     landing_visual_img_src: str | None = None,
+    visual_column_extra_class: str = "",
 ) -> str:
     """Landing hero fragment for forgesdlc.com (kicker, title, tagline, optional CTA stack).
 
@@ -921,6 +922,8 @@ def render_product_landing_hero(
     ``support_points`` renders a compact list under the CTA stack.
     ``landing_visual_img_src`` overrides the default spectral SVG ``src`` (e.g.
     ``landing_forge_spectral_img_href(ks_mount_prefix='/__ks/')`` for forge-lenses).
+    ``visual_column_extra_class`` — optional classes on the visual column (e.g.
+    ``landing-hero-visual--cover`` from ``forgesdlc-theme.css`` for raster art).
     Sizing: ``forgesdlc-theme.css`` (``.landing-hero-*``).
     """
     sec = secondary_links or []
@@ -1024,6 +1027,12 @@ def render_product_landing_hero(
         )
     copy_html = "".join(parts)
     visual = render_landing_signal_field(img_src=landing_visual_img_src)
+    vcex = visual_column_extra_class.strip()
+    visual_col_class = (
+        f'col-12 col-xl-5 col-lg-10 landing-hero-visual {e(vcex)}'
+        if vcex
+        else "col-12 col-xl-5 col-lg-10 landing-hero-visual"
+    )
     return (
         '<div class="container-fluid landing-hero-wide px-3 px-xxl-5">'
         '<div class="landing-hero-grid-wrap">'
@@ -1032,7 +1041,7 @@ def render_product_landing_hero(
         '<div class="col-12 col-xl-7 col-lg-10 landing-hero-copy '
         'text-center text-xl-start">'
         f"{copy_html}</div>"
-        '<div class="col-12 col-xl-5 col-lg-10 landing-hero-visual">'
+        f'<div class="{visual_col_class}">'
         f"{visual}</div>"
         "</div></div></div>"
     )

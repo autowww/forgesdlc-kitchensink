@@ -3,6 +3,13 @@
 
 Shared by forgesdlc.com (product site) and blueprints.forgesdlc.com (handbook)
 so copy lists stay aligned with the submodule layout.
+
+**Product marketing pages** (``landing_page`` + ``render_product_landing_hero``): after
+``sync_product_site_assets``, link CSS in this order in ``<head>``:
+
+1. ``forge-theme.css`` (``theme_css_href`` on the layout)
+2. ``forgesdlc-theme.css`` (``product_chrome_css_href`` on the layout — do not omit)
+3. Site / brand overrides (``extra_css``, e.g. ``situ8-theme.css``)
 """
 from __future__ import annotations
 
@@ -68,6 +75,9 @@ def sync_product_site_assets(
 
     Copies ``forgesdlc-theme.css`` from *forgesdlc_theme_src* if it exists,
     otherwise from *forgesdlc_theme_fallback*, plus forge core + SVGs.
+
+    Callers that use ``landing_page`` / ``render_product_landing_hero`` must still
+    emit a ``<link>`` for the copied ``forgesdlc-theme.css`` (see module docstring).
 
     Returns human-readable warnings (print or log by caller).
     """

@@ -1282,7 +1282,8 @@ html[data-bs-theme="light"] .ks-sticky-panel {
   box-shadow: 0 0 12px rgba(6, 182, 212, 0.12);
 }
 
-.landing-hero {
+/* Same as forge-theme: product landing band must stay full-width when combined with .fs-landing-hero-band. */
+.landing-hero:not(.fs-landing-hero-band) {
   text-align: center;
   padding: 4rem 1.5rem 3rem;
   max-width: 56rem;
@@ -1993,7 +1994,7 @@ code {
   box-sizing: border-box;
 }
 .diagram-modal-backdrop.active {
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
 }
@@ -2018,11 +2019,12 @@ code {
   padding: 0.85rem 1.5rem;
   border-bottom: 1px solid var(--forge-border);
 }
-.diagram-modal-header h3 {
+.diagram-modal-header .diagram-modal__title {
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.1rem;
   margin: 0;
+  min-height: 1.2em;
 }
 .diagram-modal-close {
   background: none;
@@ -2037,6 +2039,20 @@ code {
   justify-content: center;
   font-size: 1.1rem;
   transition: all 0.15s;
+  padding: 0;
+}
+.diagram-modal-close-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.diagram-modal-close-icon::before {
+  content: "\00d7";
+  font-size: 1.35rem;
+  line-height: 1;
 }
 .diagram-modal-close:hover {
   color: var(--forge-text);

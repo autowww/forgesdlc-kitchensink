@@ -4,7 +4,14 @@ from __future__ import annotations
 from pathlib import Path
 
 from components import render_product_footer, render_product_landing_hero
-from layouts import chapter_page, handbook_page, marketing_page, product_page, split_page
+from layouts import (
+    chapter_page,
+    handbook_page,
+    landing_page,
+    marketing_page,
+    product_page,
+    split_page,
+)
 
 
 def write_layout_preview_pages(out_dir: Path) -> None:
@@ -173,6 +180,41 @@ def write_layout_preview_pages(out_dir: Path) -> None:
         ),
         footer_html='<p class="forge-support small text-center py-3 mb-0">footer_html</p>',
         theme_css_href="assets/forge-theme.css",
-        extra_css='  <link rel="stylesheet" href="assets/forgesdlc-theme.css" />\n',
+        product_chrome_css_href="assets/forgesdlc-theme.css",
     )
     (out_dir / "preview-marketing.html").write_text(marketing_html, encoding="utf-8")
+
+    landing_hero = render_product_landing_hero(
+        title="Landing layout preview",
+        tagline="Hero band from render_product_landing_hero; body in fs-landing-body-shell.",
+        kicker="Kitchen Sink",
+        primary_cta_href="#main",
+        primary_cta_label="Primary CTA",
+        visual_column_extra_class="landing-hero-visual--cover",
+    )
+    landing_html = landing_page(
+        browser_title="Landing layout preview",
+        brand_name="Kitchen Sink",
+        brand_accent="Preview",
+        brand_href="index.html",
+        nav_links_html=(
+            '<a class="landing-nav-link" href="index.html">Home</a>'
+            '<a class="landing-nav-link" href="layouts.html">Layouts</a>'
+        ),
+        hero_html=landing_hero,
+        body_html=(
+            '<div class="p-4 p-lg-5">'
+            "<p class=\"section-label text-cyan mb-2\">landing_page</p>"
+            "<p class=\"forge-support mb-0\">Full-width band + product chrome CSS stack "
+            "(<code>product_chrome_css_href</code>). Optional <code>hero_band_extra_class</code> "
+            "e.g. <code>fs-hero-band--scrim</code>.</p>"
+            "</div>"
+        ),
+        footer_html='<p class="forge-support small py-3 mb-0">footer_html</p>',
+        theme_css_href="assets/forge-theme.css",
+        product_chrome_css_href="assets/forgesdlc-theme.css",
+        hero_band_extra_class="fs-hero-band--scrim",
+        include_theme_toggle=False,
+        use_collapsible_nav=True,
+    )
+    (out_dir / "preview-landing.html").write_text(landing_html, encoding="utf-8")

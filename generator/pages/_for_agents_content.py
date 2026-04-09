@@ -133,7 +133,7 @@ def _python_function_inventory_table() -> str:
         [
             "<code>render_product_landing_hero(…)</code>",
             "str",
-            "Hero stack: kicker, gradient H1, tagline, CTAs — classes <code>.landing-hero-*</code> in product CSS.",
+            "Hero stack: kicker, gradient H1, tagline, CTAs — classes <code>.landing-hero-*</code> in <code>forgesdlc-theme.css</code>. Requires that sheet in <code>&lt;head&gt;</code> via <code>landing_page(product_chrome_css_href=&quot;assets/forgesdlc-theme.css&quot;)</code> after <code>forge-theme.css</code>. Optional <code>visual_column_extra_class</code> (e.g. <code>landing-hero-visual--cover</code>).",
         ],
         [
             "<code>wrap_product_site_article(inner_html)</code>",
@@ -247,8 +247,8 @@ def _layouts_inventory_table() -> str:
         ],
         [
             "<code>landing_page</code>",
-            "Top nav + hero + body; no sidebar. Optional <code>announcement_html</code> above header.",
-            "Showcase <code>index.html</code>",
+            "Top nav + hero band + body; no sidebar. Use <code>product_chrome_css_href</code> for <code>forgesdlc-theme.css</code>; optional <code>hero_band_extra_class</code> (e.g. <code>fs-hero-band--scrim</code>).",
+            "Live <a href=\"preview-landing.html\"><code>preview-landing.html</code></a>; showcase <code>index.html</code>",
         ],
         [
             "<code>marketing_page</code>",
@@ -381,7 +381,7 @@ def render_body() -> str:
   <p class="forge-support mb-3">This file is the <strong>consolidated machine-readable reference</strong> for the Forge kitchensink showcase. Each section follows the same shape: <strong>Purpose</strong> (when to use it), <strong>Styling</strong> (CSS classes and tokens), <strong>Markup</strong> (DOM pattern or Python emitter), <strong>Behavior</strong> (client scripts, if any), then a <strong>live example</strong>. The canonical stylesheet for this shell is <code>css/forge-theme.css</code> (imported as <code>assets/forge-theme.css</code> in generated pages). Bootstrap 5.3 provides utilities (<code>.d-flex</code>, <code>.gap-*</code>, <code>.mb-*</code>) layered on top of Forge tokens (<code>--forge-*</code>).</p>
   <div class="forge-callout forge-callout-cyan mb-0">
     <p class="callout-label text-cyan">Scope</p>
-    <p class="forge-support mb-0">This page documents the <strong>handbook/showcase</strong> theme. Product marketing pages use <code>forgesdlc-theme.css</code> and <code>fs-*</code> classes — see the <a href="#ag-product-theme">Product theme</a> and <a href="#ag-fs-overview">Presentation primitives</a> sections. Full-page shells are Python functions in <code>components/layouts.py</code>.</p>
+    <p class="forge-support mb-0">This page documents the <strong>handbook/showcase</strong> theme. Product marketing pages use <code>forgesdlc-theme.css</code> and <code>fs-*</code> classes — see the <a href="#ag-product-theme">Product theme</a> and <a href="#ag-fs-overview">Presentation primitives</a> sections. Full-page shells are Python functions in <code>components/layouts.py</code>. <strong>CSS order:</strong> <code>forge-theme.css</code> → <code>forgesdlc-theme.css</code> (<code>product_chrome_css_href</code>) → site overrides (<code>extra_css</code>) — see <code>generator/ks_assets.py</code>.</p>
   </div>
 </section>
 
@@ -824,8 +824,8 @@ def render_body() -> str:
 <section id="ag-layout-landing" class="ks-section">
   <h2 class="ks-section-title">Layouts · <code>landing_page</code></h2>
   {_spec_dl([
-    ("Parameters", "<code>hero_html</code>, <code>body_html</code>, <code>nav_links_html</code>, <code>footer_html</code>, <code>announcement_html</code> (optional full-width strip, <code>.fs-site-announcement</code>) — no sidebar."),
-    ("Used by", "Showcase index (<code>index.html</code>)."),
+    ("Parameters", "<code>hero_html</code>, <code>body_html</code>, <code>nav_links_html</code>, <code>footer_html</code>, <code>announcement_html</code> (optional full-width strip, <code>.fs-site-announcement</code>) — no sidebar. <code>product_chrome_css_href</code> (e.g. <code>assets/forgesdlc-theme.css</code>) after <code>theme_css_href</code>; <code>hero_band_extra_class</code> for opt-in hero modifiers."),
+    ("Used by", "Product homepages (e.g. forgesdlc.com, situ8.app). Live: <a href=\"preview-landing.html\"><code>preview-landing.html</code></a>. Showcase entry still uses <code>index.html</code>."),
   ])}
 </section>
 
@@ -990,11 +990,11 @@ def render_body() -> str:
   ])}
 </section>
 
-<div id="diagramModal" class="diagram-modal-backdrop">
+<div id="diagramModal" class="diagram-modal-backdrop" hidden aria-hidden="true">
   <div class="diagram-modal">
     <div class="diagram-modal-header">
-      <h3 id="diagramModalTitle" class="forge-gradient-text">Diagram</h3>
-      <button type="button" class="diagram-modal-close" onclick="closeDiagramModal()" aria-label="Close">&times;</button>
+      <div id="diagramModalTitle" class="diagram-modal__title forge-gradient-text" role="heading" aria-level="2"></div>
+      <button type="button" class="diagram-modal-close" onclick="closeDiagramModal()" aria-label="Close"><span class="diagram-modal-close-icon" aria-hidden="true"></span></button>
     </div>
     <div class="diagram-modal-body">
       <div id="diagramModalCanvas" class="diagram-modal-canvas"></div>

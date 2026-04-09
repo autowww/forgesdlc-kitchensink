@@ -409,6 +409,14 @@ def _resolve_theme_css(theme_css_href: str) -> str:
     return f'  <link rel="stylesheet" href="{e(theme_css_href)}" />'
 
 
+def _product_chrome_css_link(product_chrome_css_href: str | None) -> str:
+    """Second stylesheet after *theme_css_href* for product marketing (e.g. forgesdlc-theme.css)."""
+    h = (product_chrome_css_href or "").strip()
+    if not h:
+        return ""
+    return f'  <link rel="stylesheet" href="{e(h)}" />\n'
+
+
 def _resolve_theme_js(theme_js_href: str) -> str:
     """Return the ``<script>`` tag for the Forge theme JS."""
     return f'  <script src="{e(theme_js_href)}"></script>'
@@ -1165,6 +1173,8 @@ def landing_page(
     include_theme_toggle: bool = True,
     announcement_html: str = "",
     use_collapsible_nav: bool = False,
+    product_chrome_css_href: str | None = None,
+    hero_band_extra_class: str = "",
 ) -> str:
     """Full-width hero landing page with no sidebar.
 
@@ -1180,6 +1190,13 @@ def landing_page(
     * *use_collapsible_nav* — when True, use Bootstrap ``navbar``/``collapse`` for
       ``nav_links_html`` (same chrome rhythm as ``marketing_page``); collapse id
       ``#fsLandingNav``.
+
+    * *product_chrome_css_href* — optional second stylesheet after *theme_css_href*
+      (e.g. ``assets/forgesdlc-theme.css``). Use with ``render_product_landing_hero``;
+      site brand CSS usually follows in *extra_css*.
+
+    * *hero_band_extra_class* — extra classes on the hero band (e.g.
+      ``fs-hero-band--scrim`` from ``forgesdlc-theme.css``).
     """
     fs_attr = _fs_pack_html_attr(fs_pack)
     js_list = list(extra_js or [])
@@ -1216,6 +1233,12 @@ def landing_page(
     hero_attrs = 'data-fs-section="hero"'
     if living_background:
         hero_attrs += ' data-ks-living-archetype="hero" data-ks-living-intensity="3"'
+
+    hbe = hero_band_extra_class.strip()
+    hero_band_classes = (
+        f'landing-hero fs-landing-hero-band {e(hbe)}' if hbe else "landing-hero fs-landing-hero-band"
+    )
+    product_chrome_link = _product_chrome_css_link(product_chrome_css_href)
 
     theme_toggle_html = THEME_TOGGLE_DROPDOWN if include_theme_toggle else ""
     ann = announcement_html.strip()
@@ -1264,7 +1287,7 @@ def landing_page(
   {head_block}{CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
-{living_head}{extra_css}
+{product_chrome_link}{living_head}{extra_css}
 </head>
 <body{body_class_attr}>
 <div class="forge-aurora"></div>
@@ -1273,7 +1296,7 @@ def landing_page(
 {header_block}
 
 <main id="main" class="fs-landing-main">
-  <div class="landing-hero fs-landing-hero-band" {hero_attrs}>
+  <div class="{hero_band_classes}" {hero_attrs}>
     {hero_html}
   </div>
 {hero_after_html}
@@ -1317,6 +1340,7 @@ def marketing_page(
     include_diagram_expand_modal: bool = False,
     extra_scripts: str = "",
     announcement_html: str = "",
+    product_chrome_css_href: str | None = None,
 ) -> str:
     """Single-column marketing page: landing-style header, no hero band, no sidebar.
 
@@ -1331,6 +1355,10 @@ def marketing_page(
 
     * *announcement_html* — optional full-width strip above the header (same
       as ``landing_page``).
+
+    * *product_chrome_css_href* — optional second stylesheet after *theme_css_href*
+      (e.g. ``assets/forgesdlc-theme.css``) for product typography; site overrides
+      in *extra_css* after that.
     """
     fs_attr = _fs_pack_html_attr(fs_pack)
     accent_html = (
@@ -1361,6 +1389,8 @@ def marketing_page(
             f"{ann}</div>\n"
         )
 
+    product_chrome_link = _product_chrome_css_link(product_chrome_css_href)
+
     return f"""<!DOCTYPE html>
 <html lang="en"{fs_attr}>
 <head>
@@ -1371,7 +1401,7 @@ def marketing_page(
   {head_block}{CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
-{extra_css}
+{product_chrome_link}{extra_css}
 </head>
 <body{body_class_attr}>
 <div class="forge-aurora"></div>
