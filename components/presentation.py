@@ -29,6 +29,7 @@ class StageSlide:
     body: str = ""
     image_src: str = ""
     image_alt: str = ""
+    image_srcset: str = ""
     href: str = ""
     cta_label: str = ""
     preview_mode: PreviewMode = "none"
@@ -110,9 +111,10 @@ def _hero_slide_html(slide: StageSlide, idx: int, cid: str, loading: str) -> str
     label = slide.title or f"Slide {idx + 1}"
     img = ""
     if slide.image_src:
+        srcset = f' srcset="{e(slide.image_srcset)}"' if slide.image_srcset.strip() else ""
         img = (
             f'<img class="fs-stage-carousel__media" src="{e(slide.image_src)}" '
-            f'alt="{e(slide.image_alt)}" loading="{loading}" decoding="async" />'
+            f'alt="{e(slide.image_alt)}" loading="{loading}" decoding="async"{srcset} />'
         )
     hit = _slide_hit_markup(slide, label=label)
     badge = f'<div class="fs-stage-carousel__badge">{e_content(slide.badge)}</div>' if slide.badge else ""
@@ -145,9 +147,10 @@ def _gallery_slide_html(slide: StageSlide, idx: int, cid: str, loading: str) -> 
     label = slide.title or slide.image_alt or f"Slide {idx + 1}"
     img = ""
     if slide.image_src:
+        srcset = f' srcset="{e(slide.image_srcset)}"' if slide.image_srcset.strip() else ""
         img = (
             f'<img class="fs-stage-carousel__media" src="{e(slide.image_src)}" '
-            f'alt="{e(slide.image_alt)}" loading="{loading}" decoding="async" />'
+            f'alt="{e(slide.image_alt)}" loading="{loading}" decoding="async"{srcset} />'
         )
     hit = _slide_hit_markup(slide, label=label)
     overlay = ""
@@ -204,6 +207,7 @@ def render_stage_carousel(
     aspect_ratio: str = "16/9",
     theme_variant: str = "",
     content_alignment: Align = "start",
+    aria_label: str = "Featured content",
 ) -> str:
     """Build ``fs-stage-carousel`` with slides (hero, gallery, or testimonial layout)."""
     if not slides:
@@ -235,7 +239,7 @@ def render_stage_carousel(
         f'data-fs-show-dots="{"true" if show_dots else "false"}" '
         f'data-fs-show-arrows="{"true" if show_arrows else "false"}" '
         'aria-roledescription="carousel" '
-        f'aria-label="{e("Featured content")}" tabindex="0">'
+        f'aria-label="{e(aria_label)}" tabindex="0">'
         '<div class="fs-stage-carousel__live" aria-live="polite" aria-atomic="true"></div>'
         f'<div class="fs-stage-carousel__viewport" style="--fs-stage-aspect: {e(ar)}">'
         f'<div class="fs-stage-carousel__track">{slides_html}</div></div>'
@@ -426,6 +430,7 @@ def render_hero_carousel(
     show_arrows: bool = True,
     aspect_ratio: str = "21/9",
     content_alignment: Align = "start",
+    aria_label: str = "Featured content",
 ) -> str:
     return render_stage_carousel(
         slides,
@@ -438,6 +443,7 @@ def render_hero_carousel(
         show_arrows=show_arrows,
         aspect_ratio=aspect_ratio,
         content_alignment=content_alignment,
+        aria_label=aria_label,
     )
 
 
@@ -451,6 +457,7 @@ def render_gallery_carousel(
     show_dots: bool = True,
     show_arrows: bool = True,
     aspect_ratio: str = "16/9",
+    aria_label: str = "Featured content",
 ) -> str:
     return render_stage_carousel(
         slides,
@@ -462,6 +469,7 @@ def render_gallery_carousel(
         show_dots=show_dots,
         show_arrows=show_arrows,
         aspect_ratio=aspect_ratio,
+        aria_label=aria_label,
     )
 
 
@@ -475,6 +483,7 @@ def render_testimonial_slider(
     show_dots: bool = True,
     show_arrows: bool = True,
     aspect_ratio: str = "21/9",
+    aria_label: str = "Featured content",
 ) -> str:
     return render_stage_carousel(
         items,
@@ -486,4 +495,5 @@ def render_testimonial_slider(
         show_dots=show_dots,
         show_arrows=show_arrows,
         aspect_ratio=aspect_ratio,
+        aria_label=aria_label,
     )
