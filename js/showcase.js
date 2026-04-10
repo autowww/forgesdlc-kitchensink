@@ -362,6 +362,16 @@
         { node: 'Footer', color: 'cyan', desc: 'footer_html after the article.' }
       ]
     },
+    'layout-listing': {
+      title: 'listing_page — structure',
+      items: [
+        { node: 'Announcement', color: 'emerald', desc: 'Same optional announcement_html as marketing_page.' },
+        { node: 'Navbar', color: 'cyan', desc: 'Same Bootstrap navbar as marketing_page (collapse id fsListingNav).' },
+        { node: 'Filter column', color: 'cyan', desc: 'Optional filter_sidebar_html; stacks above the listing on small viewports.' },
+        { node: 'Listing column', color: 'amber', desc: 'body_html in the primary column (cards, article list).' },
+        { node: 'Footer', color: 'cyan', desc: 'footer_html after the article (e.g. render_mega_footer).' }
+      ]
+    },
     'layout-gallery': {
       title: 'gallery_page — structure',
       items: [
@@ -418,7 +428,8 @@
     'layout-handbook': 'preview-handbook.html',
     'layout-chapter': 'preview-chapter.html',
     'layout-product': 'preview-product.html',
-    'layout-marketing': 'preview-marketing.html'
+    'layout-marketing': 'preview-marketing.html',
+    'layout-listing': 'preview-listing.html'
   };
 
   var colorMap = {

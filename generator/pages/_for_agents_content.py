@@ -133,7 +133,7 @@ def _python_function_inventory_table() -> str:
         [
             "<code>render_product_landing_hero(…)</code>",
             "str",
-            "Hero stack: kicker, gradient H1, tagline, CTAs — classes <code>.landing-hero-*</code> in <code>forgesdlc-theme.css</code>. Requires that sheet in <code>&lt;head&gt;</code> via <code>landing_page(product_chrome_css_href=&quot;assets/forgesdlc-theme.css&quot;)</code> after <code>forge-theme.css</code>. Optional <code>visual_column_extra_class</code> (e.g. <code>landing-hero-visual--cover</code>).",
+            "Hero stack: kicker, gradient H1, tagline, CTAs — classes <code>.landing-hero-*</code> in <code>forgesdlc-theme.css</code>. Requires that sheet in <code>&lt;head&gt;</code> via <code>landing_page(product_chrome_css_href=&quot;assets/forgesdlc-theme.css&quot;)</code> after <code>forge-theme.css</code>. Optional <code>visual_column_extra_class</code>, <code>landing_visual_img_src_2x</code> (raster <code>srcset</code>).",
         ],
         [
             "<code>wrap_product_site_article(inner_html)</code>",
@@ -254,6 +254,11 @@ def _layouts_inventory_table() -> str:
             "<code>marketing_page</code>",
             "Collapsible top nav + single article column; no hero band. Optional <code>announcement_html</code>.",
             "Public marketing interiors; preview <code>preview-marketing.html</code>",
+        ],
+        [
+            "<code>listing_page</code>",
+            "Same chrome as <code>marketing_page</code> plus optional <code>filter_sidebar_html</code> and primary listing column (<code>body_html</code>).",
+            "Showcase <code>enterprise-marketing.html</code>; preview <code>preview-listing.html</code>",
         ],
         [
             "<code>gallery_page</code>",
@@ -804,7 +809,7 @@ def render_body() -> str:
 <section id="ag-layout-overview" class="ks-section">
   <h2 class="ks-section-title">Layouts · Overview</h2>
   {_spec_dl([
-    ("Purpose", "Full HTML documents: <code>handbook_page</code>, <code>chapter_page</code>, <code>product_page</code>, <code>showcase_page</code>, <code>landing_page</code>, <code>marketing_page</code>, <code>gallery_page</code>, <code>split_page</code> in <code>components/layouts.py</code>."),
+    ("Purpose", "Full HTML documents: <code>handbook_page</code>, <code>chapter_page</code>, <code>product_page</code>, <code>showcase_page</code>, <code>landing_page</code>, <code>marketing_page</code>, <code>listing_page</code>, <code>gallery_page</code>, <code>split_page</code> in <code>components/layouts.py</code>."),
     ("Canonical shell", "<code>showcase_page</code> is the reference documentation layout (header + sidebar + body + optional right ToC). Consumer generators should mirror <code>generator/build-showcase.py</code> <code>_render_page</code> kwargs (including <code>has_mermaid</code> from <code>PAGE</code> when needed)."),
     ("Live previews", 'Build writes <code>preview-handbook.html</code>, <code>preview-chapter.html</code>, <code>preview-product.html</code>, <code>preview-split.html</code> next to other showcase HTML via <code>layout_previews.py</code>. The <a href="layouts.html">Page Layouts</a> page opens them in a modal iframe.'),
   ])}

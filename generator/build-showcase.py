@@ -36,6 +36,7 @@ from layout_previews import write_layout_preview_pages  # noqa: E402
 from layouts import (  # noqa: E402
     gallery_page,
     landing_page,
+    listing_page,
     showcase_page,
     split_page,
 )
@@ -205,6 +206,43 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
             theme_css_href="assets/forge-theme.css",
             theme_js_href="assets/forge-theme.js",
             living_background=bool(page.get("living_background")),
+        )
+
+    if layout == "listing":
+        from pages.index import nav_links
+
+        listing_sidebar = mod.filter_sidebar_html() if hasattr(mod, "filter_sidebar_html") else ""
+        listing_body = mod.render()
+        listing_foot = (
+            mod.listing_footer_html()
+            if hasattr(mod, "listing_footer_html")
+            else '<p class="forge-support small text-center py-3 mb-0">footer_html</p>'
+        )
+        extra_css_listing = ""
+        if hasattr(mod, "extra_css"):
+            extra_css_listing = mod.extra_css()
+        has_m = bool(page.get("has_mermaid", False))
+        has_ks = bool(page.get("has_ks_diagram", False))
+        inc_modal = bool(
+            page.get(
+                "include_diagram_expand_modal",
+                has_m or has_ks,
+            )
+        )
+        return listing_page(
+            browser_title=f'{page["title"]} — Forge Design System',
+            brand_name="Kitchen Sink",
+            brand_accent="Preview",
+            nav_links_html=nav_links(all_pages),
+            filter_sidebar_html=listing_sidebar,
+            body_html=listing_body,
+            footer_html=listing_foot,
+            theme_css_href="assets/forge-theme.css",
+            product_chrome_css_href="assets/forgesdlc-theme.css",
+            extra_css=extra_css_listing,
+            has_mermaid=has_m,
+            has_ks_diagram=has_ks,
+            include_diagram_expand_modal=inc_modal,
         )
 
     sidebar_html = _build_sidebar(all_pages, page["slug"])

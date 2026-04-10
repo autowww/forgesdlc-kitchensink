@@ -1,6 +1,6 @@
 """Full-page layout templates — Forge theme.
 
-Eight layout variants:
+Nine layout variants:
 
 ``handbook_page``
     Auto-generated handbook pages (``build-handbook.py``).  Server-rendered
@@ -40,6 +40,11 @@ distinct visual identity while reusing shared CDN links and diagram runtime init
 
 ``split_page``
     Sidebar + two-panel content: example left, docs right.
+
+``listing_page``
+    Same chrome as ``marketing_page`` but main content is a two-column listing
+    region: optional filter sidebar + primary listing column (insights, events,
+    resources). Empty sidebar HTML yields a single full-width column.
 
 Color mode: ``FORGE_COLOR_SCHEME_INIT`` (inline head), ``forge-theme.js``, cookie
 ``forge_color_scheme`` (``light`` | ``dark`` | ``auto``), and ``html[data-bs-theme]``.
@@ -1430,6 +1435,143 @@ def marketing_page(
       {body_html}
     </article>
     {footer_html}
+  </div>
+</main>
+
+{CDN_BOOTSTRAP_JS}
+{_resolve_theme_js(theme_js_href)}
+{diagram_scripts}
+{diagram_modal}
+{extra_scripts}
+</body>
+</html>
+"""
+
+
+# ---------------------------------------------------------------------------
+# Layout 5c: listing_page  (marketing chrome + optional filter sidebar + listing)
+# ---------------------------------------------------------------------------
+
+
+def listing_page(
+    *,
+    browser_title: str,
+    brand_name: str = "Kitchen Sink",
+    brand_accent: str = "",
+    brand_href: str = "index.html",
+    nav_links_html: str = "",
+    body_html: str,
+    filter_sidebar_html: str = "",
+    footer_html: str = "",
+    extra_css: str = "",
+    theme_css_href: str = "assets/forge-theme.css",
+    theme_js_href: str = "assets/forge-theme.js",
+    head_extra: str = "",
+    title_override: str | None = None,
+    fs_pack: str | None = None,
+    body_extra_class: str = "",
+    include_theme_toggle: bool = False,
+    has_mermaid: bool = False,
+    has_ks_diagram: bool = False,
+    include_diagram_expand_modal: bool = False,
+    extra_scripts: str = "",
+    announcement_html: str = "",
+    product_chrome_css_href: str | None = None,
+) -> str:
+    """Marketing interior with optional left filter column and listing main column.
+
+    Matches ``marketing_page`` header, theme, and diagram options. Pass
+    ``filter_sidebar_html`` for facets or category links; leave empty for a
+    single full-width column (``body_html`` only). Use
+    ``enterprise_marketing.render_listing_shell`` inside ``body_html`` when you
+    want an explicit sidebar + main grid wrapper.
+    """
+    fs_attr = _fs_pack_html_attr(fs_pack)
+    accent_html = (
+        f'<span class="fs-accent">{e(brand_accent)}</span>' if brand_accent else ""
+    )
+    doc_title = e(title_override) if title_override else e(browser_title)
+    head_x = head_extra.strip()
+    head_block = (head_x + "\n  ") if head_x else ""
+    body_classes: list[str] = ["fs-marketing-site", "fs-listing-site"]
+    if body_extra_class.strip():
+        body_classes.append(body_extra_class.strip())
+    body_class_attr = f' class="{e(" ".join(body_classes))}"'
+    theme_toggle_html = THEME_TOGGLE_DROPDOWN if include_theme_toggle else ""
+    diagram_scripts = _footer_diagram_scripts(
+        has_mermaid,
+        has_ks_diagram,
+        theme_js_href,
+        include_diagram_expand_modal=include_diagram_expand_modal,
+    )
+    diagram_modal = (
+        render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
+    )
+    ann = announcement_html.strip()
+    announcement_block = ""
+    if ann:
+        announcement_block = (
+            f'<div class="fs-site-announcement" role="region" aria-label="Site announcement">'
+            f"{ann}</div>\n"
+        )
+
+    product_chrome_link = _product_chrome_css_link(product_chrome_css_href)
+
+    fs = filter_sidebar_html.strip()
+    if fs:
+        inner_main = (
+            '<div class="row g-4 align-items-start fs-listing-page__row">'
+            '<aside class="col-12 col-lg-3 fs-listing-page__sidebar" '
+            'role="complementary" aria-label="Filters">'
+            f'<div class="fs-listing-page__sidebar-inner">{fs}</div></aside>'
+            '<div class="col-12 col-lg-9 fs-listing-page__primary">'
+            f'<div class="fs-listing-page__primary-inner">{body_html}</div></div>'
+            "</div>"
+        )
+    else:
+        inner_main = f'<div class="fs-listing-page__primary fs-listing-page__primary--full">{body_html}</div>'
+
+    return f"""<!DOCTYPE html>
+<html lang="en"{fs_attr}>
+<head>
+  <meta charset="utf-8" />
+{FORGE_COLOR_SCHEME_INIT}
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{doc_title}</title>
+  {head_block}{CDN_BOOTSTRAP_CSS}
+  {FONT_LINKS}
+{_resolve_theme_css(theme_css_href)}
+{product_chrome_link}{extra_css}
+</head>
+<body{body_class_attr}>
+<div class="forge-aurora"></div>
+<a href="#main" class="skip-link">Skip to content</a>
+{announcement_block}{theme_toggle_html}
+
+<header class="landing-header">
+  <nav class="navbar navbar-expand-lg landing-header-navbar py-0">
+    <div class="container-fluid landing-header-inner px-3 px-xxl-5">
+      <a class="navbar-brand fs-brand text-decoration-none mb-0" href="{e(brand_href)}">{e(brand_name)}{accent_html}</a>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#fsListingNav" aria-controls="fsListingNav" aria-expanded="false" aria-label="Open site menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-lg-end" id="fsListingNav">
+        <nav class="landing-nav ms-lg-auto pt-2 pt-lg-0" aria-label="Site navigation">
+          {nav_links_html}
+        </nav>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="fs-landing-main fs-marketing-interior fs-listing-layout">
+  <div class="fs-marketing-body-shell fs-listing-body-shell">
+    <div class="container-fluid px-3 px-xxl-5 fs-listing-container">
+      <article class="fs-marketing-article fs-listing-article">
+        {inner_main}
+      </article>
+      {footer_html}
+    </div>
   </div>
 </main>
 

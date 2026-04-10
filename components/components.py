@@ -872,7 +872,9 @@ def landing_forge_spectral_img_href(*, ks_mount_prefix: str | None = None) -> st
     return base + rel
 
 
-def render_landing_signal_field(*, img_src: str | None = None) -> str:
+def render_landing_signal_field(
+    *, img_src: str | None = None, img_src_2x: str | None = None
+) -> str:
     """Wide landing hero visual: animated FORGE spectral SVG (kitchensink asset).
 
     Replaces the older inline route/wave diagram. Motion is slow SMIL inside the
@@ -883,11 +885,18 @@ def render_landing_signal_field(*, img_src: str | None = None) -> str:
     ``LANDING_FORGE_SPECTRAL_SVG`` (static-site-relative). Use
     ``landing_forge_spectral_img_href(ks_mount_prefix='/__ks/')`` when assets are
     proxied under ``/__ks/``.
+
+    *img_src_2x* — optional second URL for ``srcset`` (e.g. raster @2x); only
+    applied when *img_src* overrides the default spectral asset.
     """
     src = img_src if img_src is not None else LANDING_FORGE_SPECTRAL_SVG
+    s2 = (img_src_2x or "").strip()
+    srcset = ""
+    if img_src is not None and s2:
+        srcset = f' srcset="{e(src)} 1x, {e(s2)} 2x"'
     return (
         '<div class="landing-forge-visual" role="presentation" aria-hidden="true">'
-        f'<img src="{e(src)}" alt="" width="800" height="450" '
+        f'<img src="{e(src)}" alt="" width="800" height="450"{srcset} '
         'class="landing-forge-visual__img" decoding="async" fetchpriority="low" />'
         "</div>"
     )
@@ -909,6 +918,7 @@ def render_product_landing_hero(
     secondary_links: list[tuple[str, str]] | None = None,
     support_points: list[str] | None = None,
     landing_visual_img_src: str | None = None,
+    landing_visual_img_src_2x: str | None = None,
     visual_column_extra_class: str = "",
 ) -> str:
     """Landing hero fragment for forgesdlc.com (kicker, title, tagline, optional CTA stack).
@@ -922,6 +932,8 @@ def render_product_landing_hero(
     ``support_points`` renders a compact list under the CTA stack.
     ``landing_visual_img_src`` overrides the default spectral SVG ``src`` (e.g.
     ``landing_forge_spectral_img_href(ks_mount_prefix='/__ks/')`` for forge-lenses).
+    ``landing_visual_img_src_2x`` — optional hi-DPI URL for ``srcset`` with the
+    override (ignored when the default spectral image is used).
     ``visual_column_extra_class`` — optional classes on the visual column (e.g.
     ``landing-hero-visual--cover`` from ``forgesdlc-theme.css`` for raster art).
     Sizing: ``forgesdlc-theme.css`` (``.landing-hero-*``).
@@ -1026,7 +1038,11 @@ def render_product_landing_hero(
             f"{items}</ul>"
         )
     copy_html = "".join(parts)
-    visual = render_landing_signal_field(img_src=landing_visual_img_src)
+    lv2 = (landing_visual_img_src_2x or "").strip() if landing_visual_img_src else ""
+    visual = render_landing_signal_field(
+        img_src=landing_visual_img_src,
+        img_src_2x=lv2 or None,
+    )
     vcex = visual_column_extra_class.strip()
     visual_col_class = (
         f'col-12 col-xl-5 col-lg-10 landing-hero-visual {e(vcex)}'

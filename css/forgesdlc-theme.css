@@ -3126,3 +3126,183 @@ html[data-bs-theme="light"] .fs-layout .forge-dropdown-menu.dropdown-menu {
   background: rgba(255, 255, 255, 0.96) !important;
   box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
 }
+
+/* --------------------------------------------------------------------------
+ * Enterprise marketing — mega footer, tabs, FAQ, listing (components/enterprise_marketing.py, listing_page)
+ * -------------------------------------------------------------------------- */
+
+.fs-mega-footer {
+  border-top: 1px solid var(--fs-border);
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  background: color-mix(in srgb, var(--fs-bg-sidebar) 55%, transparent);
+}
+
+.fs-mega-footer__inner {
+  max-width: var(--fs-shell-max, 90rem);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(0.65rem, 1.5vw, 1.25rem);
+  padding-right: clamp(0.65rem, 1.5vw, 1.25rem);
+}
+
+.fs-mega-footer__col-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fs-text-muted);
+  margin-bottom: 0.85rem;
+}
+
+.fs-mega-footer__list {
+  font-size: 0.875rem;
+}
+
+.fs-mega-footer__item {
+  margin-bottom: 0.4rem;
+}
+
+.fs-mega-footer__link {
+  color: var(--fs-text-muted);
+  text-decoration: none;
+}
+
+.fs-mega-footer__link:hover,
+.fs-mega-footer__link:focus-visible {
+  color: var(--fs-amber);
+  text-decoration: underline;
+}
+
+.fs-mega-footer__legal {
+  border-top: 1px solid var(--fs-border);
+  font-size: 0.78rem;
+  color: var(--fs-text-muted);
+}
+
+.fs-mega-footer__bottom {
+  font-size: 0.8rem;
+  color: var(--fs-text-muted);
+}
+
+.fs-tab-panel__tabs .nav-link {
+  color: var(--fs-text-muted);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.fs-tab-panel__tabs .nav-link:hover {
+  color: var(--fs-text);
+  border-color: var(--fs-border);
+}
+
+.fs-tab-panel__tabs .nav-link.active {
+  color: var(--fs-cyan);
+  background: color-mix(in srgb, var(--fs-bg-elevated) 80%, var(--fs-bg));
+  border-color: var(--fs-border);
+  border-bottom-color: transparent;
+}
+
+.fs-tab-panel__body {
+  color: var(--fs-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.fs-faq-section__title {
+  color: var(--fs-text);
+  font-family: var(--fs-font-display, var(--fs-font-sans));
+}
+
+.fs-faq-accordion .accordion-item {
+  background: transparent;
+  border-color: var(--fs-border);
+}
+
+.fs-faq-accordion .accordion-button {
+  background: color-mix(in srgb, var(--fs-bg-elevated) 70%, var(--fs-bg));
+  color: var(--fs-text);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.fs-faq-accordion .accordion-button:not(.collapsed) {
+  color: var(--fs-cyan);
+  box-shadow: none;
+}
+
+.fs-faq-item__body {
+  color: var(--fs-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.fs-listing-shell__sidebar-title {
+  color: var(--fs-text-muted);
+  letter-spacing: 0.06em;
+}
+
+.fs-listing-shell__sidebar {
+  padding: 1rem 1.1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--fs-border);
+  background: color-mix(in srgb, var(--fs-bg-elevated) 65%, var(--fs-bg));
+}
+
+.fs-listing-page__sidebar-inner {
+  padding: 1rem 1.1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--fs-border);
+  background: color-mix(in srgb, var(--fs-bg-elevated) 65%, var(--fs-bg));
+}
+
+.fs-listing-container {
+  max-width: var(--fs-shell-max, 90rem);
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 1.25rem;
+  padding-bottom: 2rem;
+}
+
+.fs-listing-article {
+  padding-bottom: 0.5rem;
+}
+
+.fs-listing-page__link {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--fs-cyan);
+  text-decoration: none;
+}
+
+.fs-listing-page__link:hover,
+.fs-listing-page__link:focus-visible {
+  text-decoration: underline;
+  color: var(--fs-amber);
+}
+
+.fs-listing-page__link--disabled {
+  color: var(--fs-text-muted);
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.fs-listing-empty {
+  border: 1px dashed var(--fs-border);
+  background: color-mix(in srgb, var(--fs-bg-elevated) 50%, var(--fs-bg));
+}
+
+.fs-listing-empty__title {
+  color: var(--fs-text);
+}
+
+html[data-bs-theme="light"] .fs-mega-footer {
+  background: color-mix(in srgb, #f8fafc 92%, #fff);
+}
+
+html[data-bs-theme="light"] .fs-listing-shell__sidebar,
+html[data-bs-theme="light"] .fs-listing-page__sidebar-inner {
+  background: rgba(248, 250, 252, 0.95);
+}

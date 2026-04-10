@@ -16,6 +16,7 @@ PAGE = {
         ("sec-showcase", "Showcase"),
         ("sec-landing", "Landing"),
         ("sec-marketing", "Marketing interior"),
+        ("sec-listing", "Listing"),
         ("sec-gallery", "Gallery"),
         ("sec-split", "Split"),
         ("sec-handbook", "Handbook"),
@@ -113,7 +114,7 @@ def render() -> str:
     <ul class="forge-support mb-0 small" style="line-height:1.55">
       <li><strong>Wireframe diagrams</strong> (below each section) are static SVGs — they only illustrate region names.</li>
       <li><strong>Open live preview</strong> loads a real built page inside an <strong>iframe</strong> in the modal, with a short region legend on the right.</li>
-      <li>Showcase, landing, and gallery reuse existing pages (<code>tokens.html</code>, <code>index.html</code>, <code>diagrams.html</code>). <strong>Split</strong> has a first-class page <a href="split-layout.html"><code>split-layout.html</code></a> plus <code>preview-split.html</code>; handbook, chapter, and product use generated <code>preview-handbook.html</code> / <code>preview-chapter.html</code> / <code>preview-product.html</code>.</li>
+      <li>Showcase, landing, and gallery reuse existing pages (<code>tokens.html</code>, <code>index.html</code>, <code>diagrams.html</code>). <strong>Split</strong> has a first-class page <a href="split-layout.html"><code>split-layout.html</code></a> plus <code>preview-split.html</code>; <strong>listing</strong> uses <a href="enterprise-marketing.html"><code>enterprise-marketing.html</code></a> and <code>preview-listing.html</code>. Handbook, chapter, and product use generated <code>preview-handbook.html</code> / <code>preview-chapter.html</code> / <code>preview-product.html</code>.</li>
     </ul>
   </div>
 </section>"""
@@ -182,6 +183,26 @@ def render() -> str:
             [
                 "Optional announcement strip, then Bootstrap navbar (brand + links).",
                 "Main: single article column — no left sidebar, no hero band.",
+            ],
+        ),
+        _layout_section(
+            "sec-listing",
+            "listing_page",
+            "Marketing interior with optional filter sidebar and primary listing column — insights, events, or resource hubs.",
+            [
+                ("browser_title", "str", "HTML <title> value"),
+                ("body_html", "str", "Primary column: cards or list markup"),
+                ("filter_sidebar_html", "str", "Optional left column (facets, categories); empty for full-width body"),
+                ("nav_links_html", "str", "Navbar links"),
+                ("footer_html", "str", "Footer after article (optional)"),
+            ],
+            "Showcase enterprise-marketing.html; preview-listing.html",
+            "layout-listing",
+            "layout-schematic-gallery.svg",
+            [
+                "Same navbar rhythm as marketing_page.",
+                "Optional filter column + primary column inside .fs-listing-article.",
+                "footer_html below the article row.",
             ],
         ),
         _layout_section(

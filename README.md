@@ -116,8 +116,9 @@ Each page module under `generator/pages/` sets `PAGE["layout"]`, which `_render_
 | `"gallery"` | `gallery_page` | Full-width main column (no right ToC). Used by **`diagrams.html`** for the bento diagram catalog. |
 | `"landing"` | `landing_page` | Top nav + hero + body, no sidebar. **`index.html`** (home) and **`living-background.html`**. |
 | `"split"` | `split_page` | Two-column main (demo left, notes right). **`split-layout.html`** exercises this in the built site; `layout_previews.py` also emits `preview-split.html`. |
+| `"listing"` | `listing_page` | Marketing chrome + optional filter sidebar + listing column. **`enterprise-marketing.html`**; `layout_previews.py` emits **`preview-listing.html`**. |
 
-New pages should default to **`showcase`** unless they intentionally need gallery width, a marketing landing shell, or a split main.
+New pages should default to **`showcase`** unless they intentionally need gallery width, a marketing landing shell, a listing hub, or a split main.
 
 ## Usage as submodule
 
