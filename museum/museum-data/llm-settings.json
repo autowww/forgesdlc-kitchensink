@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "settings": {
+    "version": 1,
+    "provider": "openai",
+    "advanced_ui": false,
+    "auto_model": false,
+    "adaptive_autoselection": false,
+    "tier": "MED",
+    "refine_cheaper_steps": 2,
+    "keys": {
+      "anthropic": { "set": false, "preview": "" },
+      "openai": { "set": false, "preview": "" },
+      "gemini": { "set": false, "preview": "" },
+      "openai_compatible": { "set": false, "preview": "" }
+    },
+    "main_models": {},
+    "pools": {},
+    "classifier_models": {
+      "openai": "",
+      "gemini": ""
+    }
+  }
+}

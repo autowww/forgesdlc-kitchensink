@@ -47,4 +47,14 @@ mkdir -p "$DEST"
 echo "[rebuild-static-studio-museum] Syncing $OUT/ -> museum/studio/"
 rsync -a --delete "$OUT/" "$DEST/"
 
-echo "[rebuild-static-studio-museum] Done. Commit museum/studio/ when you want this snapshot deployed."
+# stage-dist.sh merges museum/museum-data/ on top of studio/museum-data/; keep this copy in sync
+# so Plan portfolio / orchestration fixtures are not missing after a studio-only rsync.
+MD_SRC="$OUT/museum-data"
+MD_DEST="$REPO_ROOT/museum/museum-data"
+if [[ -d "$MD_SRC" ]]; then
+  mkdir -p "$MD_DEST"
+  echo "[rebuild-static-studio-museum] Syncing $MD_SRC/ -> museum/museum-data/"
+  rsync -a "$MD_SRC/" "$MD_DEST/"
+fi
+
+echo "[rebuild-static-studio-museum] Done. Commit museum/studio/ and museum/museum-data/ when you want this snapshot deployed."

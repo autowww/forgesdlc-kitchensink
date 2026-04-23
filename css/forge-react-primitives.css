@@ -1,0 +1,407 @@
+/**
+ * Forge enterprise React primitives (KS). Loaded by Lenses Studio `index.html` as `/__ks/css/forge-react-primitives.css`.
+ * Tokens: align with `enterprise-shell.css` / `--le-*` where available.
+ */
+
+/* —— Key value grid —— */
+.ks-fe-kvgrid {
+  display: grid;
+  grid-template-columns: minmax(6rem, 10rem) 1fr;
+  gap: 0.35rem 1rem;
+  margin: 0;
+  padding: 0;
+  font-size: 0.82rem;
+}
+
+.ks-fe-kvgrid--dense {
+  font-size: 0.8rem;
+}
+
+.ks-fe-kvgrid__row {
+  display: contents;
+}
+
+.ks-fe-kvgrid__label {
+  margin: 0;
+  font-weight: 600;
+  opacity: 0.88;
+  color: var(--le-muted, #94a3b8);
+}
+
+.ks-fe-kvgrid__value {
+  margin: 0;
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* —— Status banner —— */
+.ks-fe-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--le-border, rgba(148, 163, 184, 0.28));
+  background: var(--le-bg-elevated, rgba(17, 24, 39, 0.85));
+}
+
+.ks-fe-banner__title {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.ks-fe-banner__desc {
+  font-size: 0.88rem;
+  color: var(--le-text, #e2e8f0);
+  opacity: 0.95;
+}
+
+.ks-fe-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.ks-fe-banner--cancelled {
+  border-color: rgba(148, 163, 184, 0.45);
+}
+
+.ks-fe-banner--failed {
+  border-color: rgba(239, 68, 68, 0.45);
+  background: rgba(127, 29, 29, 0.2);
+}
+
+.ks-fe-banner--await {
+  border-color: rgba(245, 158, 11, 0.45);
+  background: rgba(120, 53, 15, 0.18);
+}
+
+.ks-fe-banner--verified,
+.ks-fe-banner--success {
+  border-color: rgba(34, 197, 94, 0.4);
+  background: rgba(20, 83, 45, 0.18);
+}
+
+.ks-fe-banner--info {
+  border-color: rgba(6, 182, 212, 0.35);
+}
+
+.ks-fe-banner--warning {
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+/* —— Run header —— */
+.ks-fe-run-header {
+  margin-bottom: 0.25rem;
+}
+
+.ks-fe-run-header__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.ks-fe-run-header__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+.ks-fe-run-header__subtitle {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  color: var(--le-muted, #94a3b8);
+}
+
+.ks-fe-run-header__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.ks-fe-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ks-fe-badge--neutral {
+  border: 1px solid var(--le-border, rgba(148, 163, 184, 0.35));
+  color: var(--le-muted, #cbd5e1);
+}
+
+.ks-fe-badge--success {
+  border: 1px solid rgba(34, 197, 94, 0.45);
+  color: #86efac;
+}
+
+.ks-fe-badge--warning {
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  color: #fcd34d;
+}
+
+.ks-fe-badge--danger {
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+}
+
+.ks-fe-badge--info {
+  border: 1px solid rgba(6, 182, 212, 0.45);
+  color: #67e8f9;
+}
+
+.ks-fe-run-header__meta {
+  margin-top: 0.65rem;
+}
+
+/* —— Stage bar —— */
+.ks-fe-stagebar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.25rem 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ks-fe-stagebar--executive {
+  gap: 0.35rem 0;
+}
+
+.ks-fe-stagebar--executive .ks-fe-stagebar__node {
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  padding: 0.38rem 0.65rem;
+  max-width: 11rem;
+  border-radius: 0.4rem;
+}
+
+.ks-fe-stagebar--nav .ks-fe-stagebar__node {
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  background: var(--le-bg-elevated, rgba(15, 23, 42, 0.55));
+}
+
+.ks-fe-stagebar--nav .ks-fe-stagebar__node:focus-visible {
+  outline: 2px solid rgba(6, 182, 212, 0.65);
+  outline-offset: 2px;
+}
+
+.ks-fe-stagebar__node--current {
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.35);
+}
+
+.ks-fe-stagebar__step {
+  display: flex;
+  align-items: center;
+  flex: 0 1 auto;
+}
+
+.ks-fe-stagebar__connector {
+  width: 0.75rem;
+  height: 2px;
+  background: var(--le-border, rgba(148, 163, 184, 0.35));
+  margin: 0 0.15rem;
+  align-self: center;
+}
+
+.ks-fe-stagebar__node {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.55rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--le-border, rgba(148, 163, 184, 0.35));
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ks-fe-stagebar__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ks-fe-stagebar__node--pending {
+  opacity: 0.65;
+}
+
+.ks-fe-stagebar__node--active {
+  border-color: rgba(6, 182, 212, 0.55);
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.15);
+}
+
+.ks-fe-stagebar__node--waiting {
+  border-color: rgba(245, 158, 11, 0.55);
+}
+
+.ks-fe-stagebar__node--blocked {
+  border-color: rgba(148, 163, 184, 0.55);
+  border-style: dashed;
+}
+
+.ks-fe-stagebar__node--completed {
+  border-color: rgba(34, 197, 94, 0.45);
+}
+
+.ks-fe-stagebar__node--failed {
+  border-color: rgba(239, 68, 68, 0.55);
+}
+
+.ks-fe-stagebar__node--skipped {
+  opacity: 0.55;
+  font-style: italic;
+}
+
+.ks-fe-stagebar__node--cancelled {
+  opacity: 0.7;
+  text-decoration: line-through;
+}
+
+/* —— Decision action bar —— */
+.ks-fe-actionbar {
+  margin-top: 1rem;
+  padding: 0.65rem 0;
+  border-top: 1px solid var(--le-border, rgba(148, 163, 184, 0.22));
+  background: var(--le-bg, #0a0e17);
+}
+
+.ks-fe-actionbar--sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  padding-left: var(--le-panel-inset-x, 1rem);
+  padding-right: var(--le-panel-inset-x, 1rem);
+  margin-left: calc(-1 * var(--le-panel-inset-x, 1rem));
+  margin-right: calc(-1 * var(--le-panel-inset-x, 1rem));
+}
+
+.ks-fe-actionbar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* —— Timeline —— */
+.ks-fe-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ks-fe-timeline--empty {
+  margin: 0.5rem 0 0;
+  font-size: 0.88rem;
+}
+
+.ks-fe-timeline__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.5rem 1fr;
+  gap: 0.5rem 0.75rem;
+  padding-bottom: 0.85rem;
+}
+
+.ks-fe-timeline__rail {
+  width: 2px;
+  margin: 0 auto;
+  background: var(--le-border, rgba(148, 163, 184, 0.35));
+  border-radius: 1px;
+  min-height: 100%;
+}
+
+.ks-fe-timeline__card {
+  border: 1px solid var(--le-border, rgba(148, 163, 184, 0.22));
+  border-radius: 0.4rem;
+  padding: 0.5rem 0.65rem;
+  background: var(--le-bg-elevated, rgba(17, 24, 39, 0.65));
+}
+
+.ks-fe-timeline__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.65rem;
+  font-size: 0.72rem;
+  color: var(--le-muted, #94a3b8);
+  margin-bottom: 0.25rem;
+}
+
+.ks-fe-timeline__ts {
+  font-variant-numeric: tabular-nums;
+}
+
+.ks-fe-timeline__state {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 650;
+}
+
+.ks-fe-timeline__summary {
+  font-size: 0.86rem;
+}
+
+.ks-fe-timeline__details {
+  margin-top: 0.45rem;
+  font-size: 0.82rem;
+}
+
+.ks-fe-timeline__toggle {
+  margin-top: 0.25rem;
+}
+
+/* —— Diagnostic panel —— */
+.ks-fe-diag__title {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.ks-fe-diag__summary {
+  font-size: 0.88rem;
+  margin-bottom: 0.5rem;
+}
+
+.ks-fe-diag__raw-toggle {
+  margin-bottom: 0.35rem;
+}
+
+.ks-fe-diag__pre {
+  max-height: 18rem;
+  overflow: auto;
+}
+
+/* —— Review panel —— */
+.ks-fe-review__kicker {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--le-muted, #94a3b8);
+  margin-bottom: 0.25rem;
+}
+
+.ks-fe-review__title {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.ks-fe-review__body {
+  font-size: 0.88rem;
+}

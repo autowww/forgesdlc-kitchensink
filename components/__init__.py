@@ -10,6 +10,11 @@ try:
     )
     from .presentation import *  # noqa: F401,F403
     from .transforms import *  # noqa: F401,F403
+    from .nested_roadmap import (  # noqa: F401
+        get_nested_roadmap_demo_config,
+        render_nested_roadmap,
+        render_nested_roadmap_modal_shell,
+    )
     from .roadmap_date_editor import (  # noqa: F401
         render_roadmap_date_editor,
         roadmap_date_editor_script_url,
@@ -34,6 +39,14 @@ except ImportError:
     )
     from presentation import *  # noqa: F401,F403
     from transforms import *  # noqa: F401,F403
+    try:
+        from nested_roadmap import (  # noqa: F401
+            get_nested_roadmap_demo_config,
+            render_nested_roadmap,
+            render_nested_roadmap_modal_shell,
+        )
+    except ImportError:
+        pass
     try:
         from roadmap_date_editor import (  # noqa: F401
             render_roadmap_date_editor,

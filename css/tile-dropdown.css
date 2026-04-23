@@ -1,0 +1,241 @@
+/**
+ * Tile dropdown — rich listbox options (Kitchen Sink)
+ * =====================================================
+ * Load after forge-theme / Bootstrap where --forge-* tokens exist.
+ */
+
+:root {
+  --ks-tile-bg: var(--forge-surface, #111827);
+  --ks-tile-border: var(--forge-border, rgba(148, 163, 184, 0.18));
+  --ks-tile-text: var(--forge-text, #e5e7eb);
+  --ks-tile-muted: var(--forge-text-2, #94a3b8);
+  --ks-tile-cyan: var(--forge-cyan, #06b6d4);
+  --ks-tile-radius: 0.5rem;
+  --ks-tile-panel-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.ks-tile-dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  min-width: 12rem;
+  max-width: 100%;
+  font-family: var(--bs-body-font-family, "Inter", system-ui, sans-serif);
+}
+
+.ks-tile-dropdown__label {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ks-tile-muted);
+}
+
+.ks-tile-dropdown__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ks-tile-text);
+  text-align: left;
+  background: var(--ks-tile-bg);
+  border: 1px solid var(--ks-tile-border);
+  border-radius: var(--ks-tile-radius);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ks-tile-dropdown__trigger:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--ks-tile-cyan) 40%, var(--ks-tile-border));
+}
+
+.ks-tile-dropdown__trigger:focus {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--forge-bg, #0a0e17),
+    0 0 0 4px var(--ks-tile-cyan);
+}
+
+.ks-tile-dropdown__trigger:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ks-tile-dropdown__trigger-main {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ks-tile-dropdown__trigger-chevron {
+  flex-shrink: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-left: 0.1rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  opacity: 0.7;
+}
+
+.ks-tile-dropdown--open .ks-tile-dropdown__trigger-chevron {
+  transform: rotate(-135deg) translateY(1px);
+}
+
+.ks-tile-dropdown__panel {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.45rem;
+  overflow-y: auto;
+  background: var(--ks-tile-bg);
+  border: 1px solid var(--ks-tile-border);
+  border-radius: var(--ks-tile-radius);
+  box-shadow: var(--ks-tile-panel-shadow);
+}
+
+.ks-tile-dropdown__panel[hidden] {
+  display: none !important;
+}
+
+.ks-tile-dropdown__empty {
+  margin: 0;
+  padding: 0.5rem 0.35rem;
+  font-size: 0.8rem;
+  color: var(--ks-tile-muted);
+}
+
+.ks-tile-dropdown__tile {
+  padding: 0.55rem 0.6rem;
+  border-radius: calc(var(--ks-tile-radius) - 2px);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.ks-tile-dropdown__tile:hover:not(.ks-tile-dropdown__tile--disabled) {
+  background: color-mix(in srgb, var(--ks-tile-cyan) 8%, transparent);
+}
+
+.ks-tile-dropdown__tile--highlighted:not(.ks-tile-dropdown__tile--disabled) {
+  border-color: color-mix(in srgb, var(--ks-tile-cyan) 55%, var(--ks-tile-border));
+  background: color-mix(in srgb, var(--ks-tile-cyan) 10%, transparent);
+}
+
+.ks-tile-dropdown__tile--selected {
+  border-color: color-mix(in srgb, var(--ks-tile-cyan) 35%, var(--ks-tile-border));
+}
+
+.ks-tile-dropdown__tile--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ks-tile-dropdown__tile:focus {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--forge-bg, #0a0e17),
+    0 0 0 3px var(--ks-tile-cyan);
+}
+
+.ks-tile-dropdown__tile-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.ks-tile-dropdown__tile-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ks-tile-text);
+  line-height: 1.25;
+}
+
+.ks-tile-dropdown__tile-subtitle {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.76rem;
+  color: var(--ks-tile-muted);
+  line-height: 1.35;
+}
+
+.ks-tile-dropdown__tile-desc {
+  margin: 0.35rem 0 0 0;
+  font-size: 0.74rem;
+  color: var(--ks-tile-muted);
+  line-height: 1.45;
+}
+
+.ks-tile-dropdown__status {
+  flex-shrink: 0;
+  padding: 0.12rem 0.4rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid var(--ks-tile-border);
+  color: var(--ks-tile-muted);
+}
+
+.ks-tile-dropdown__status--default {
+  color: var(--ks-tile-muted);
+}
+
+.ks-tile-dropdown__status--good {
+  color: #34d399;
+  border-color: color-mix(in srgb, #34d399 45%, var(--ks-tile-border));
+}
+
+.ks-tile-dropdown__status--warn {
+  color: #fbbf24;
+  border-color: color-mix(in srgb, #fbbf24 45%, var(--ks-tile-border));
+}
+
+.ks-tile-dropdown__status--bad {
+  color: #f87171;
+  border-color: color-mix(in srgb, #f87171 45%, var(--ks-tile-border));
+}
+
+.ks-tile-dropdown__meta {
+  margin: 0.4rem 0 0 0;
+  display: grid;
+  gap: 0.2rem 0.65rem;
+  grid-template-columns: auto 1fr;
+  font-size: 0.68rem;
+  color: var(--ks-tile-muted);
+}
+
+.ks-tile-dropdown__meta-row {
+  display: contents;
+}
+
+.ks-tile-dropdown__meta-row dt {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ks-tile-muted);
+}
+
+.ks-tile-dropdown__meta-row dd {
+  margin: 0;
+  font-weight: 500;
+  color: var(--ks-tile-text);
+  text-align: right;
+  word-break: break-word;
+}

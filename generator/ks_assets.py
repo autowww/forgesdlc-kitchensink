@@ -113,6 +113,12 @@ def sync_product_site_assets(
         else:
             warnings.append(f"{site_js} missing — landing nav, home tiles, or tilt tiles may not work")
 
+    nrm_js = kitchensink_root / "js" / "nested-roadmap.js"
+    if nrm_js.is_file():
+        shutil.copy2(nrm_js, dest_assets / "nested-roadmap.js")
+    else:
+        warnings.append("nested-roadmap.js missing — nested roadmap drill-down will not run")
+
     for lb in ("ks-animated-backgrounds.js", "ks-living-motion.js"):
         p = kitchensink_root / "js" / lb
         if p.is_file():
@@ -126,6 +132,12 @@ def sync_product_site_assets(
             shutil.copy2(p, dest_assets / lb_css)
         else:
             warnings.append(f"{lb_css} missing — living background styles incomplete")
+
+    nrm_css = kitchensink_root / "css" / "nested-roadmap.css"
+    if nrm_css.is_file():
+        shutil.copy2(nrm_css, dest_assets / "nested-roadmap.css")
+    else:
+        warnings.append("nested-roadmap.css missing — nested roadmap layout incomplete")
 
     for fa_css in ("forge-ambient.css", "forge-ambient-themes.css"):
         p = kitchensink_root / "css" / fa_css
@@ -151,7 +163,7 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
     ks_css = kitchensink_root / "css"
     ks_js = kitchensink_root / "js"
 
-    for css_name in ("forge-theme.css", "forge-light-theme.css", "docs-theme.css"):
+    for css_name in ("forge-theme.css", "forge-light-theme.css", "docs-theme.css", "nested-roadmap.css"):
         src = ks_css / css_name
         if src.is_file():
             shutil.copy2(src, dest_assets / css_name)
@@ -163,6 +175,7 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
         "diagram-modal-zoom.js",
         "ks-diagram-catalog.js",
         "ks-diagram-modal.js",
+        "nested-roadmap.js",
     ):
         src = ks_js / js_name
         if src.is_file():

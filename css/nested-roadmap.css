@@ -1,0 +1,314 @@
+/* Nested drill-down roadmap — used with nested-roadmap.js */
+
+.ks-nested-roadmap {
+  --ks-nrm-bar-h: 2.25rem;
+  --ks-nrm-track-label-w: minmax(7.5rem, 12%);
+  --ks-nrm-gap: 0.35rem;
+  border: 1px solid var(--forge-border, rgba(255, 255, 255, 0.12));
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  background: color-mix(in srgb, var(--forge-surface, #111827) 92%, transparent);
+}
+
+.ks-nested-roadmap__chrome {
+  margin-bottom: 0.75rem;
+}
+
+.ks-nested-roadmap__breadcrumb {
+  display: inline;
+  font-weight: 600;
+}
+
+.ks-nested-roadmap__bc-sep {
+  opacity: 0.45;
+  margin: 0 0.35rem;
+  font-weight: 400;
+}
+
+.ks-nested-roadmap__bc-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--forge-cyan, #06b6d4);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.ks-nested-roadmap__bc-btn:hover {
+  color: var(--forge-text, #e5e7eb);
+}
+
+.ks-nested-roadmap__bc-current {
+  font-weight: 700;
+  color: var(--forge-text, #f9fafb);
+}
+
+.ks-nested-roadmap__viewport {
+  overflow-x: auto;
+}
+
+.ks-nrm-grid {
+  display: grid;
+  grid-template-columns: var(--ks-nrm-track-label-w) repeat(var(--ks-nrm-cols, 4), minmax(2.5rem, 1fr));
+  gap: var(--ks-nrm-gap);
+  align-items: stretch;
+  min-width: min(100%, 36rem);
+}
+
+.ks-nrm-grid--mini {
+  --ks-nrm-bar-h: 1.5rem;
+  min-width: 0;
+  font-size: 0.78rem;
+}
+
+.ks-nrm-corner {
+  border-radius: 6px;
+  min-height: 1.75rem;
+}
+
+.ks-nrm-col-head {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--forge-text-3, #9ca3af);
+  padding: 0.35rem 0.2rem;
+  border-bottom: 1px solid var(--forge-border, rgba(255, 255, 255, 0.1));
+}
+
+.ks-nrm-track-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--forge-text-2, #d1d5db);
+  padding: 0.5rem 0.35rem 0.5rem 0;
+  align-self: center;
+}
+
+.ks-nrm-lane {
+  display: grid;
+  grid-template-columns: repeat(var(--ks-nrm-cols, 4), minmax(2.5rem, 1fr));
+  grid-column: 2 / -1;
+  position: relative;
+  min-height: var(--ks-nrm-bar-h);
+  align-items: center;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--forge-surface-2, #1f2937) 55%, transparent);
+  padding: 0.25rem 0;
+}
+
+.ks-nrm-bar {
+  box-sizing: border-box;
+  min-height: var(--ks-nrm-bar-h);
+  border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #0c1220;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ks-nrm-bar--leaf {
+  cursor: default;
+}
+
+.ks-nrm-bar--drill {
+  cursor: pointer;
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(6, 182, 212, 0.12);
+}
+
+.ks-nrm-bar--drill:hover {
+  border-color: rgba(6, 182, 212, 0.75);
+  filter: brightness(1.05);
+}
+
+.ks-nrm-bar__label {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ks-nrm-bar__nest-icon {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  opacity: 0.9;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  position: relative;
+}
+
+.ks-nrm-bar__nest-icon::before,
+.ks-nrm-bar__nest-icon::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+.ks-nrm-bar__nest-icon::before {
+  top: 3px;
+}
+
+.ks-nrm-bar__nest-icon::after {
+  bottom: 3px;
+  width: 70%;
+}
+
+.ks-nrm-bar--cyan {
+  background: linear-gradient(135deg, #22d3ee, #06b6d4);
+}
+
+.ks-nrm-bar--emerald {
+  background: linear-gradient(135deg, #34d399, #059669);
+}
+
+.ks-nrm-bar--amber {
+  background: linear-gradient(135deg, #fcd34d, #f59e0b);
+  color: #1a1204;
+}
+
+.ks-nrm-bar--violet {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  color: #f5f3ff;
+}
+
+/* Modal */
+.ks-nrm-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  background: rgba(5, 7, 12, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: clamp(1rem, 3vmin, 2rem);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.ks-nrm-backdrop.ks-nrm-backdrop--open {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.ks-nrm-dialog {
+  background: var(--forge-surface, #111827);
+  border: 1px solid var(--forge-border, rgba(255, 255, 255, 0.12));
+  border-radius: 16px;
+  width: min(640px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  margin: auto;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(6, 182, 212, 0.08), 0 0 2px rgba(6, 182, 212, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.ks-nrm-dialog__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--forge-border, rgba(255, 255, 255, 0.1));
+}
+
+.ks-nrm-dialog__title {
+  font-family: var(--font-display, inherit);
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin: 0;
+  padding-right: 0.75rem;
+}
+
+.ks-nrm-dialog__close {
+  background: none;
+  border: 1px solid var(--forge-border, rgba(255, 255, 255, 0.12));
+  border-radius: 8px;
+  color: var(--forge-text-3, #9ca3af);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.ks-nrm-dialog__close:hover {
+  color: var(--forge-text, #f3f4f6);
+  border-color: var(--forge-border-hover, rgba(255, 255, 255, 0.2));
+  background: var(--forge-surface-2, #1f2937);
+}
+
+.ks-nrm-dialog__close-icon::before {
+  content: "\00d7";
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.ks-nrm-dialog__body {
+  padding: 1rem 1.25rem 1.25rem;
+  overflow-y: auto;
+}
+
+.ks-nrm-dialog__preview {
+  border: 1px solid var(--forge-border, rgba(255, 255, 255, 0.1));
+  border-radius: 10px;
+  padding: 0.5rem;
+  background: color-mix(in srgb, var(--forge-surface-2, #1f2937) 80%, transparent);
+  max-height: 14rem;
+  overflow: auto;
+}
+
+/* Tooltip */
+.ks-nrm-tooltip {
+  position: fixed;
+  z-index: 10060;
+  max-width: min(22rem, calc(100vw - 1rem));
+  padding: 0.55rem 0.7rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--forge-text, #f3f4f6);
+  background: var(--forge-surface-2, #1f2937);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+
+.ks-nrm-tooltip__title {
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  color: var(--forge-cyan, #06b6d4);
+}
+
+.ks-nrm-tooltip ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.ks-nrm-tooltip li {
+  margin: 0.15rem 0;
+}

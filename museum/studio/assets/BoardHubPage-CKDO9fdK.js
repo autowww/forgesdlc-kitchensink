@@ -1,0 +1,1 @@
+import{x as e}from"./studioVisibleCopy-XG6KIFpY.js";import{F as t}from"./index-BmGHD6a3.js";import{t as n}from"./boards-KUTjXUXI.js";var r=e();function i(){let{mode:e}=t();return(0,r.jsx)(n,{variant:e===`artifacts`?`artifacts`:`flow`})}export{i as BoardHubPage};

@@ -9,7 +9,7 @@ Shared design system for ForgeSDLC documentation sites.
 **For generated static documentation pages, treat the Kitchen Sink showcase as the single source of truth for HTML structure.**
 
 - **Layout:** [`showcase_page`](components/layouts.py) — sticky site header, `forge-sidebar` left rail, main `doc-content`, optional right-rail `forge-toc`.
-- **Assets:** [`forge-theme.css`](css/forge-theme.css) + [`forge-theme.js`](js/forge-theme.js) (paths are typically copied into your site’s `assets/` during build).
+- **Assets:** [`forge-theme.css`](css/forge-theme.css) + [`forge-theme.js`](js/forge-theme.js) (paths are typically copied into your site’s `assets/` during build). Forge Fleet’s `/admin/` also loads [`forge-fleet-admin.css`](css/forge-fleet-admin.css) (overview tiles, charts, trend UI) from the same `kitchensink/css/` tree when served via `/admin/ks/css/…`.
 - **Composition reference:** [`generator/build-showcase.py`](generator/build-showcase.py) — `_render_page()` builds the `common` kwargs and calls `showcase_page(body_html=..., toc_html=..., **common)` for the default `layout` path. **Copy that call shape** in other generators rather than inventing parallel page shells.
 
 Other layouts in `layouts.py` (`handbook_page`, `product_page`, `chapter_page`, `landing_page`, `gallery_page`, `split_page`, …) remain for **existing sites and special cases** (home/hero, card grids, split demos, legacy handbooks). **New** cross-project doc output should target **`showcase_page`** unless you have a hard requirement for a different shell.

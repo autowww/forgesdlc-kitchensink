@@ -66,11 +66,13 @@ Chrome layout is **implemented in the SPA** (`lenses-enterprise`), not in KS Pyt
 | Asset | Canonical location | Consumed by Studio as |
 |-------|--------------------|-------------------------|
 | Theme CSS (`forge-theme.css`, `forgesdlc-theme.css`, charts, `workspace-lens.css`) | `forgesdlc-kitchensink/css/` | **`GET /__ks/css/…`** from Python server |
+| **`forge-react-primitives.css`** (Forge run surfaces) | `forgesdlc-kitchensink/css/` | **`GET /__ks/css/forge-react-primitives.css`** — linked from Lenses Studio `index.html` |
 | Charts JS | `forgesdlc-kitchensink/js/forge-data-charts.js` | **`/__ks/js/forge-data-charts.js`** |
 | **`WorkspaceLensControl` (React)** | `forgesdlc-kitchensink/react/WorkspaceLensControl.tsx` | **Synced** into `lenses-enterprise/src/forgesdlc-kitchensink/` via **`npm run sync-kitchensink-react`** (see `scripts/sync-kitchensink-react.sh`) |
+| **Forge run primitives (React)** — `ForgeRunHeader`, `ForgeStatusBanner`, `ForgeWorkflowStageBar`, `ForgeDecisionActionBar`, `ForgeKeyValueGrid`, `ForgeEventTimeline`, `ForgeDiagnosticPanel`, `ForgeReviewPanel` | `forgesdlc-kitchensink/react/` (`index.ts` re-exports) | Same **sync** path as `WorkspaceLensControl`; **static grammar** on KS showcase **`forge-react-primitives.html`** (from `generator/pages/forge_react_primitives.py`) |
 | Studio-only chrome CSS | `lenses-enterprise/src/index.css`, `enterprise-shell.css` | Build output only — **not** duplicated in KS |
 
-**Rule:** Shared **behavior and presentation** for the workspace lens (Flow / Artifacts) belongs in **`forgesdlc-kitchensink/react`** + **`css/workspace-lens.css`**. **Forge Studio** header chrome and Electron-specific CSS stay in **`lenses-enterprise`**.
+**Rule:** Shared **behavior and presentation** for the workspace lens (Flow / Artifacts) belongs in **`forgesdlc-kitchensink/react`** + **`css/workspace-lens.css`**. **Forge run / governed-case** widgets belong in **`forgesdlc-kitchensink/react`** + **`css/forge-react-primitives.css`**, with a **showcase** page for static HTML parity. **Forge Studio** header chrome and Electron-specific CSS stay in **`lenses-enterprise`**.
 
 ---
 
