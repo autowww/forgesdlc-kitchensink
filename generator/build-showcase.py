@@ -280,6 +280,8 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
         has_ks_diagram=has_ks,
         include_diagram_expand_modal=inc_modal,
     )
+    if "content_max_width" in page:
+        common["content_max_width"] = page["content_max_width"]
 
     if layout == "gallery":
         toc = _build_toc(page)
@@ -314,6 +316,36 @@ def _footer() -> str:
 # ---------------------------------------------------------------------------
 # Asset copy
 # ---------------------------------------------------------------------------
+
+def _copy_react_primitives_built() -> None:
+    """Copy Vite IIFE + public/ JSON from ``showcase-react-app/dist`` into the showcase output."""
+    dist = REPO_ROOT / "showcase-react-app" / "dist"
+    if not dist.is_dir():
+        print(
+            "[showcase] skip react-primitives bundle — no showcase-react-app/dist. "
+            "Build with: (cd showcase-react-app && npm ci && npm run build)"
+        )
+        return
+    js = dist / "react-primitives-demo.js"
+    if not js.is_file():
+        # Older Vite lib naming
+        alt = list(dist.glob("react-primitives-demo*.js"))
+        if alt:
+            js = alt[0]
+    if not js.is_file():
+        print("[showcase] skip react-primitives — dist has no react-primitives-demo.js")
+        return
+    out_assets = OUTPUT_DIR / "assets"
+    out_assets.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(js, out_assets / "react-primitives-demo.js")
+    data_in = dist / "data"
+    if data_in.is_dir():
+        out_data = OUTPUT_DIR / "data"
+        if out_data.exists():
+            shutil.rmtree(out_data)
+        shutil.copytree(data_in, out_data)
+    print("[showcase] Copied live React bundle + data/ from showcase-react-app/dist/")
+
 
 def _copy_assets():
     """Copy CSS, JS, and SVG assets into showcase/assets/."""
@@ -360,6 +392,7 @@ def main():
 
     _copy_assets()
     print("[showcase] Assets copied")
+    _copy_react_primitives_built()
 
     for page in pages:
         slug = page["slug"]

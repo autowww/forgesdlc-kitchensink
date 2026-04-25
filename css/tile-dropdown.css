@@ -12,6 +12,10 @@
   --ks-tile-cyan: var(--forge-cyan, #06b6d4);
   --ks-tile-radius: 0.5rem;
   --ks-tile-panel-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --ks-tile-hero-padding: 0.75rem 0.85rem;
+  --ks-tile-hero-gap: 0.5rem;
+  --ks-tile-hero-media-photo: 3.25rem;
+  --ks-tile-hero-media-icon: 2.25rem;
 }
 
 .ks-tile-dropdown {
@@ -152,6 +156,97 @@
   box-shadow:
     0 0 0 2px var(--forge-bg, #0a0e17),
     0 0 0 3px var(--ks-tile-cyan);
+}
+
+/* Hero tiles: card-like density, optional media column */
+.ks-tile-dropdown__tile--hero {
+  padding: var(--ks-tile-hero-padding);
+}
+
+.ks-tile-dropdown__tile-hero-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--ks-tile-hero-gap);
+  min-width: 0;
+}
+
+.ks-tile-dropdown__tile-media {
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.ks-tile-dropdown__tile-media-img {
+  display: block;
+  object-fit: cover;
+  border-radius: calc(var(--ks-tile-radius) - 4px);
+  border: 1px solid var(--ks-tile-border);
+  background: color-mix(in srgb, var(--ks-tile-bg) 85%, var(--ks-tile-border));
+}
+
+.ks-tile-dropdown__tile-media-img--photo {
+  width: var(--ks-tile-hero-media-photo);
+  height: var(--ks-tile-hero-media-photo);
+}
+
+.ks-tile-dropdown__tile-media-img--icon {
+  width: var(--ks-tile-hero-media-icon);
+  height: var(--ks-tile-hero-media-icon);
+  object-fit: contain;
+  padding: 0.2rem;
+}
+
+.ks-tile-dropdown__tile-hero-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ks-tile-dropdown__tile-kicker {
+  margin: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ks-tile-muted);
+  line-height: 1.3;
+}
+
+.ks-tile-dropdown__tile--hero .ks-tile-dropdown__tile-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ks-tile-dropdown__tile-lead {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ks-tile-text);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.ks-tile-dropdown__tile-body {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--ks-tile-muted);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.ks-tile-dropdown__meta--hero {
+  margin-top: 0.55rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid color-mix(in srgb, var(--ks-tile-border) 70%, transparent);
+  font-size: 0.72rem;
+}
+
+.ks-tile-dropdown--hero-root .ks-tile-dropdown__panel {
+  min-width: min(100vw - 2rem, 22rem);
 }
 
 .ks-tile-dropdown__tile-head {

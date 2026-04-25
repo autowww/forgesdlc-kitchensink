@@ -1,0 +1,26 @@
+[
+  {
+    "value": "a",
+    "title": "Compact alpha",
+    "subtitle": "Plan · snapshot",
+    "description": "Loaded from static JSON. Edit showcase-react-app/public/data/react-primitives/tile-dropdown-options.json to change options.",
+    "status": { "text": "OK", "variant": "good" },
+    "meta": [{ "label": "Source", "value": "GET" }]
+  },
+  {
+    "value": "b",
+    "title": "Option beta",
+    "subtitle": "Wider panel",
+    "description": "Second item demonstrates keyboard nav and listbox roving focus.",
+    "status": { "text": "Draft", "variant": "default" }
+  },
+  {
+    "value": "c",
+    "title": "Gamma (hero layout)",
+    "subtitle": "Uses hero density in JSON",
+    "description": "Per-option `density: \"hero\"` can mix with compact default.",
+    "density": "hero",
+    "kicker": "Sample",
+    "body": "Hero tiles support optional `media` with image URLs when served over HTTP."
+  }
+]

@@ -89,6 +89,12 @@ python3 generator/build-showcase.py
 
 Open `index.html` in a browser (it redirects to `showcase/index.html`). For reliable diagram previews and modals, serve over HTTP, e.g. `python3 -m http.server` then visit `http://localhost:8000/showcase/index.html`.
 
+**Interactive `react-primitives-live.html`:** this page loads sample JSON with normal `GET` requests. Build the Vite bundle, then the showcase (so `showcase/data/react-primitives/` and `showcase/assets/react-primitives-demo.js` exist). Details: `showcase-react-app/README.md`.
+
+```bash
+(cd showcase-react-app && npm ci && npm run build) && python3 generator/build-showcase.py
+```
+
 The legacy `test.html` is a redirect to the same entry point.
 
 ### Lenses Studio static museum (`/studio/`)

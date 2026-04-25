@@ -1,0 +1,8 @@
+{
+  "aria-label": "Run metadata (from static JSON)",
+  "items": [
+    { "label": "Data URL", "value": "data/react-primitives/tile-dropdown-options.json" },
+    { "label": "Payload", "value": "Array<TileDropdownOption> (typical fields)" },
+    { "label": "Fetch", "value": "GET, Promise.all" }
+  ]
+}
