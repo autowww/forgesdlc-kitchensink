@@ -599,3 +599,16 @@
       font-size: 0.72rem;
       margin-top: 0.35rem;
     }
+
+    /* Fleet /admin/ — tab strip (horizontal scroll on narrow viewports) */
+    .fleet-admin-tablist {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .fleet-admin-tablist .nav-item {
+      flex-shrink: 0;
+    }
+    .fleet-admin-tablist .nav-link {
+      white-space: nowrap;
+    }
