@@ -190,13 +190,16 @@
     }
     .fleet-chart-box {
       width: 100%; height: 5.25rem; border-radius: 0.5rem;
+      /* Fallback when color-mix() is unsupported or vars resolve oddly (chart looked “empty”). */
+      background: var(--bs-tertiary-bg, var(--bs-secondary-bg));
       background: color-mix(in srgb, var(--forge-surface-2, var(--bs-secondary-bg)) 88%, transparent);
       border: 1px solid var(--forge-border, var(--bs-border-color));
+      color: var(--bs-body-color, inherit);
     }
     [data-bs-theme="light"] .fleet-chart-box { background: #f1f5f9; }
     .fleet-chart-time-hint {
       font-size: 0.7rem;
-      opacity: 0.62;
+      opacity: 0.78;
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
