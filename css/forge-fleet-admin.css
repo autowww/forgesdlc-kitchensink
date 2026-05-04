@@ -26,9 +26,13 @@
       padding-bottom: 0.15rem;
       scroll-snap-type: x mandatory;
     }
+    /* #fleet-tiles: highest-priority row — when this collapses to column, Overview looks “broken” (narrow stack, empty right). */
     #fleet-tiles.fleet-tile-row {
-      flex-direction: row;
-      align-items: stretch;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: stretch !important;
+      align-content: flex-start !important;
     }
     .fleet-tile {
       flex: 1 1 0; min-width: 7.5rem; max-width: 16rem; scroll-snap-align: start;
