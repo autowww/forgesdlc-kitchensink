@@ -12,7 +12,24 @@
     .st-completed { background: #059669; color: #fff; }
     .st-failed { background: #b91c1c; color: #fff; }
     .st-cancelled { background: #a16207; color: #fff; }
-    .fleet-tile-row { display: flex; flex-wrap: nowrap; gap: 0.75rem; overflow-x: auto; padding-bottom: 0.15rem; scroll-snap-type: x mandatory; }
+    /* Explicit row + stretch: survives stray flex-column / align-items:flex-start on ancestors (tiles stacked narrow-left otherwise). */
+    .fleet-tile-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      align-content: flex-start;
+      gap: 0.75rem;
+      width: 100%;
+      min-width: 0;
+      overflow-x: auto;
+      padding-bottom: 0.15rem;
+      scroll-snap-type: x mandatory;
+    }
+    #fleet-tiles.fleet-tile-row {
+      flex-direction: row;
+      align-items: stretch;
+    }
     .fleet-tile {
       flex: 1 1 0; min-width: 7.5rem; max-width: 16rem; scroll-snap-align: start;
       border-radius: 0.7rem; padding: 0.85rem 0.95rem; position: relative; overflow: hidden;
@@ -206,6 +223,7 @@
 
     /* Overview: single horizontal row (CPU, RAM, load, disk, power, GPU) + zone colors (<25 green … 75+ dark red) */
     .fleet-one-row.fleet-tile-row {
+      flex-direction: row;
       flex-wrap: nowrap;
       width: 100%;
       align-items: stretch;
