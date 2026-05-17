@@ -472,7 +472,7 @@ def _render_sidebar(
           </p>
           <p class="mt-2 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{tag_html}</p>
         </div>
-        <nav class="nav-scroll flex-grow-1 px-2 py-3" aria-label="Handbook chapters">
+        <nav class="nav-scroll flex-grow-1 px-2 py-3" aria-label="Primary navigation">
           <p class="nav-section-label">{e(chapters_label)}</p>
           <div class="nav-rail">
             {sidebar_html}
@@ -492,7 +492,7 @@ def _render_sidebar_js_driven(handbook_name: str, subtitle: str) -> str:
           </p>
           <p class="mt-2 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{e(subtitle)}</p>
         </div>
-        <nav class="nav-scroll flex-grow-1 px-2 py-3" id="doc-sidebar-nav" aria-label="Handbook chapters"></nav>
+        <nav class="nav-scroll flex-grow-1 px-2 py-3" id="doc-sidebar-nav" aria-label="Primary navigation"></nav>
       </aside>"""
 
 
@@ -506,7 +506,7 @@ def _render_offcanvas(handbook_name: str, offcanvas_html: str) -> str:
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body forge-sidebar p-0">
-          <nav class="nav flex-column px-2 py-2 nav-rail" aria-label="Chapters mobile">
+          <nav class="nav flex-column px-2 py-2 nav-rail" aria-label="Mobile navigation">
             {offcanvas_html}
           </nav>
         </div>
@@ -562,7 +562,7 @@ def _render_offcanvas_js_driven(handbook_name: str) -> str:
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body forge-sidebar p-0">
-          <nav class="nav flex-column px-2 py-2 nav-scroll nav-rail" id="doc-offcanvas-nav" aria-label="Handbook chapters mobile"></nav>
+          <nav class="nav flex-column px-2 py-2 nav-scroll nav-rail" id="doc-offcanvas-nav" aria-label="Mobile navigation"></nav>
         </div>
       </div>"""
 

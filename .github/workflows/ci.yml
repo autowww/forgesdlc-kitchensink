@@ -18,3 +18,19 @@ jobs:
         run: pip install -e "./forge-autodoc[dev]"
       - name: Test forge-autodoc
         run: pytest forge-autodoc/tests -q
+
+  website-ux-auditor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tools/website-ux-auditor/package-lock.json
+      - name: npm ci (Forge Website UX Auditor)
+        working-directory: tools/website-ux-auditor
+        run: npm ci
+      - name: Test Forge Website UX Auditor
+        working-directory: tools/website-ux-auditor
+        run: npm test

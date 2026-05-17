@@ -77,7 +77,10 @@ Converging **existing** generators to this shell is **separate work** (not requi
 | `museum/museum-data/` | **Read-only JSON** served as `/studio/museum-data/*.json` to satisfy Studio `GET /api/…` in museum mode. Edit to change demo content; see [`museum/README.md`](museum/README.md). |
 | `forge-autodoc/` | Markdown → static handbook HTML (`python3 -m forge_autodoc`); consumed by **blueprints-website** and **forgesdlc** via `kitchensink/forge-autodoc` (no separate submodule) |
 | `react/` | Optional React primitives — e.g. **`WorkspaceLensControl`**; consumed by **Lenses Studio** via `npm run sync-kitchensink-react` in `forge-lenses/lenses-enterprise` (see `react/README.md`) |
-| `docs/design/` | **Forge Enterprise UI** ([`forge-enterprise-ui.md`](docs/design/forge-enterprise-ui.md)) — theme packs (`fs_pack`) and static sites; **Lenses Studio shell** ([`lenses-studio-shell.md`](docs/design/lenses-studio-shell.md)) — Electron window, `/studio/` SPA, `/__ks/` reuse |
+| `docs/tools/` | Cursor workflow for the UX auditor — [`forge-website-ux-auditor-cursor.md`](docs/tools/forge-website-ux-auditor-cursor.md) |
+| `docs/prompt-packs/` | **Site UX prompt packs** — per-product narrative and hero guidance; see [`docs/prompt-packs/README.md`](docs/prompt-packs/README.md) |
+| `docs/design/` | **Forge Enterprise UI** ([`forge-enterprise-ui.md`](docs/design/forge-enterprise-ui.md)) — theme packs (`fs_pack`) and static sites; **Lenses Studio shell** ([`lenses-studio-shell.md`](docs/design/lenses-studio-shell.md)) — Electron window, `/studio/` SPA, `/__ks/` reuse; **Forge enterprise AI website standard** ([`forge-enterprise-ai-website-standard.md`](docs/design/forge-enterprise-ai-website-standard.md); **[v2 addendum — homepage shell](docs/design/forge-enterprise-ai-website-standard-v2-addendum.md)**) — public-site copy, IA, trust model, handbook-vs-landing rules |
+| `tools/website-ux-auditor/` | **Forge Website UX Auditor** — Node + Playwright heuristic audit → `.cursor/plans/forge-ux-remediation/`; see [`README.md`](tools/website-ux-auditor/README.md), [`FORGE_SITE_COMMANDS.md`](tools/website-ux-auditor/FORGE_SITE_COMMANDS.md) |
 
 ## Kitchen Sink showcase
 

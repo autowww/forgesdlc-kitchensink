@@ -46,7 +46,11 @@ from forge_autodoc.seo_meta import handbook_json_ld, truncate_meta_description
 from forge_autodoc.markdown_conv import markdown_to_handbook_html
 from forge_autodoc.nav_manifest import LensNavManifest, load_lens_nav_manifest, manifest_section_labels
 from forge_autodoc.page import assemble_handbook_page
-from forge_autodoc.sidebar import build_grouped_manifest_sidebar, build_sidebar_links
+from forge_autodoc.sidebar import (
+    FLAT_SIDEBAR_THRESHOLD,
+    build_grouped_manifest_sidebar,
+    build_sidebar_links,
+)
 from forge_autodoc.text import plain_text_from_first_paragraph
 from forge_autodoc.transforms_api import apply_handbook_body_transforms, extract_toc_from_html
 
@@ -567,6 +571,12 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
 
     broken_md_links = 0
 
+    sidebar_flat_threshold = (
+        cfg.handbook_sidebar_flat_threshold
+        if cfg.handbook_sidebar_flat_threshold is not None
+        else FLAT_SIDEBAR_THRESHOLD
+    )
+
     for idx, (fslug, _nav_title, md_rel) in enumerate(pages):
         md_path = root / md_rel
         text = md_path.read_text(encoding="utf-8")
@@ -636,12 +646,14 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
                 split_family_nav,
                 fslug,
                 id_prefix="nav",
+                flat_threshold=sidebar_flat_threshold,
                 preferred_group_order=cfg.handbook_sidebar_group_order,
             )
             offcanvas_html = build_sidebar_links(
                 split_family_nav,
                 fslug,
                 id_prefix="mob",
+                flat_threshold=sidebar_flat_threshold,
                 preferred_group_order=cfg.handbook_sidebar_group_order,
             )
             sidebar_chapters_label = "This section"
@@ -702,12 +714,14 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
                 rail_pages,
                 fslug,
                 id_prefix="nav",
+                flat_threshold=sidebar_flat_threshold,
                 preferred_group_order=cfg.handbook_sidebar_group_order,
             )
             offcanvas_html = build_sidebar_links(
                 rail_pages,
                 fslug,
                 id_prefix="mob",
+                flat_threshold=sidebar_flat_threshold,
                 preferred_group_order=cfg.handbook_sidebar_group_order,
             )
 
@@ -820,6 +834,9 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
                 site_url=origin,
                 breadcrumb=crumb_ld,
             )
+
+        if cfg.handbook_sidebar_rail_heading is not None:
+            sidebar_chapters_label = cfg.handbook_sidebar_rail_heading
 
         html_out = assemble_handbook_page(
             kitchensink_root=cfg.kitchensink,

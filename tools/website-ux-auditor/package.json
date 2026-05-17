@@ -1,0 +1,19 @@
+{
+  "name": "forge-website-ux-auditor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Inspect a Forge website against the Forge enterprise AI website standard and generate Cursor remediation plans.",
+  "scripts": {
+    "audit": "node analyze-website-ux.mjs",
+    "score": "node score-website-ux.mjs",
+    "test": "node --test auditor-tests/*.test.js",
+    "install-browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

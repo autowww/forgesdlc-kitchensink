@@ -26,6 +26,8 @@ class HandbookBuildConfig:
     """When set (POSIX path under *content_root*, e.g. ``docs/index.md``), that page emits as ``index.html`` and root ``README.md`` is omitted from the build."""
     handbook_sidebar_group_order: tuple[str, ...] | None = None
     """When set, top-level sidebar folder names matching these stems sort in this order before remaining keys (case-insensitive)."""
+    handbook_sidebar_flat_threshold: int | None = None
+    """When set, overrides ``FLAT_SIDEBAR_THRESHOLD`` for ``build_sidebar_links`` (use ``0`` for hierarchical grouping whenever pages exist)."""
     link_check: bool = False
     """If True, ``run_simple_build`` scans each page's body for internal ``.md`` links and counts unresolved targets (stderr summary)."""
     canonical_url_prefix: str | None = None
@@ -64,7 +66,8 @@ class HandbookBuildConfig:
     """Optional ``filter(md_rel_posix, rail_pages) -> rail_pages`` after Fleet sidebar filtering."""
     handbook_sidebar_brand_tagline: str | None = None
     """Optional subtitle under the handbook name in the desktop sidebar."""
-
+    handbook_sidebar_rail_heading: str | None = None
+    """When set, replaces the visible sidebar rail heading (shown above nav links); default remains \"Chapters\" in layouts."""
 
 def _resolve_path(base: Path, value: str | Path) -> Path:
     p = Path(value)
@@ -128,6 +131,11 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
         nav_exclude_path_prefixes=nav_exclude_prefixes,
         handbook_homepage_md_rel=hp_rel,
         handbook_sidebar_group_order=sidebar_order,
+        handbook_sidebar_flat_threshold=(
+            int(raw["handbook_sidebar_flat_threshold"])
+            if raw.get("handbook_sidebar_flat_threshold") is not None
+            else None
+        ),
         link_check=bool(raw.get("link_check", False)),
         derive_handbook_title_from_readme=bool(raw.get("derive_handbook_title_from_readme", True)),
         build_profile=str(raw.get("build_profile", "full")),
@@ -144,6 +152,11 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
         handbook_sidebar_brand_tagline=(
             str(raw["handbook_sidebar_brand_tagline"]).strip()
             if raw.get("handbook_sidebar_brand_tagline")
+            else None
+        ),
+        handbook_sidebar_rail_heading=(
+            str(raw["handbook_sidebar_rail_heading"]).strip()
+            if raw.get("handbook_sidebar_rail_heading")
             else None
         ),
     )
@@ -205,6 +218,11 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
         nav_exclude_path_prefixes=nav_exclude_prefixes,
         handbook_homepage_md_rel=hp_rel,
         handbook_sidebar_group_order=sidebar_order,
+        handbook_sidebar_flat_threshold=(
+            int(raw["handbook_sidebar_flat_threshold"])
+            if raw.get("handbook_sidebar_flat_threshold") is not None
+            else None
+        ),
         link_check=bool(raw.get("link_check", False)),
         derive_handbook_title_from_readme=bool(raw.get("derive_handbook_title_from_readme", True)),
         build_profile=str(raw.get("build_profile", "full")),
@@ -221,6 +239,11 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
         handbook_sidebar_brand_tagline=(
             str(raw["handbook_sidebar_brand_tagline"]).strip()
             if raw.get("handbook_sidebar_brand_tagline")
+            else None
+        ),
+        handbook_sidebar_rail_heading=(
+            str(raw["handbook_sidebar_rail_heading"]).strip()
+            if raw.get("handbook_sidebar_rail_heading")
             else None
         ),
     )

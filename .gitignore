@@ -7,3 +7,9 @@ showcase-react-app/dist/
 
 # lenses — machine-local state (forge-lenses)
 .lenses-local/
+
+# Website UX auditor (Node)
+tools/website-ux-auditor/node_modules/
+
+# Forge Website UX auditor/scorer dimension history (local analysis)
+ux-scoring.csv

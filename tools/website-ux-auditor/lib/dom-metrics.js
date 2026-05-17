@@ -1,0 +1,263 @@
+import {
+  TECHNICAL_TRANSLATIONS,
+  TRUST_TERMS,
+  ECOSYSTEM_TERMS,
+  OUTCOME_TERMS,
+  CTA_TERMS,
+  HANDBOOK_CHROME_PHRASES,
+} from './constants.js';
+
+/**
+ * Evaluate DOM heuristic metrics inside the Playwright browser context for one URL.
+ */
+export async function collectDomMetrics(page, href) {
+  return page.evaluate(
+    ({ TECHNICAL_TRANSLATIONS, TRUST_TERMS, ECOSYSTEM_TERMS, OUTCOME_TERMS, CTA_TERMS, HANDBOOK_CHROME_PHRASES }) => {
+      const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+      const words = (s) => norm(s).split(/\s+/).filter(Boolean);
+      const visible = (el) => {
+        const rect = el.getBoundingClientRect();
+        const style = window.getComputedStyle(el);
+        return rect.width > 1 && rect.height > 1 && style.visibility !== 'hidden'
+          && style.display !== 'none' && Number(style.opacity || 1) > 0.05;
+      };
+      const textOf = (el) => norm(el.innerText || el.textContent || el.getAttribute('aria-label') || el.getAttribute('title') || '');
+      const root = document.querySelector('main#main') || document.querySelector('main') || document.body;
+      const qsRoot = (sel) => Array.from(root.querySelectorAll(sel));
+      const qsDoc = (sel) => Array.from(document.querySelectorAll(sel));
+      const allText = norm(root.innerText || '');
+      const bodyWords = words(allText);
+      const headings = qsRoot('h1,h2,h3').filter(visible).map((el) => ({
+        tag: el.tagName.toLowerCase(),
+        text: textOf(el).slice(0, 240),
+        top: Math.round(el.getBoundingClientRect().top),
+        words: words(textOf(el)).length,
+        fontSize: Number.parseFloat(window.getComputedStyle(el).fontSize || '0'),
+      }));
+      const links = qsRoot('a[href]').filter(visible).map((el) => ({
+        text: textOf(el).slice(0, 160),
+        href: el.getAttribute('href'),
+        top: Math.round(el.getBoundingClientRect().top),
+      }));
+      const navLinks = qsDoc('header a[href]').filter(visible).map((el) => textOf(el).slice(0, 120)).filter(Boolean);
+      const buttons = qsRoot('button, [role="button"], a[href]').filter(visible).map((el) => ({
+        text: textOf(el).slice(0, 140),
+        top: Math.round(el.getBoundingClientRect().top),
+        tag: el.tagName.toLowerCase(),
+      })).filter((x) => x.text);
+      const paragraphs = qsRoot('p').filter(visible).map((el) => ({ text: textOf(el).slice(0, 260), words: words(textOf(el)).length, top: Math.round(el.getBoundingClientRect().top) }));
+      const sections = qsRoot('section, article').filter(visible).map((el) => ({
+        words: words(textOf(el)).length,
+        top: Math.round(el.getBoundingClientRect().top),
+        textStart: textOf(el).slice(0, 180),
+      }));
+      const images = qsRoot('img').filter(visible).map((el) => ({ alt: el.getAttribute('alt') || '', top: Math.round(el.getBoundingClientRect().top) }));
+      const aboveFoldText = norm(
+        qsRoot('*')
+          .filter((el) => visible(el) && el.getBoundingClientRect().top < 900 && el.getBoundingClientRect().bottom > 0)
+          .map(textOf)
+          .filter(Boolean)
+          .join(' '),
+      ).slice(0, 2500);
+      const aboveFoldWords = words(aboveFoldText);
+      const codeAboveFold = qsRoot('pre, code, table').filter((el) => visible(el) && el.getBoundingClientRect().top < 900).length;
+      const tables = qsRoot('table').filter(visible).length;
+      const preBlocks = qsRoot('pre').filter(visible).length;
+      const codeBlocks = qsRoot('code').filter(visible).length;
+      const cards = qsRoot('[class*="card"], [class*="tile"], [class*="feature"], [class*="panel"], [data-card]').filter(visible).length;
+      const firstH1 = headings.find((h) => h.tag === 'h1') || null;
+      const h1Count = headings.filter((h) => h.tag === 'h1').length;
+      const title = norm(document.title);
+      const metaDescription = norm(document.querySelector('meta[name="description"]')?.getAttribute('content') || '');
+      const lang = document.documentElement.getAttribute('lang') || '';
+      const topCtas = buttons.filter((b) => b.top < 900 && CTA_TERMS.some((term) => b.text.toLowerCase().includes(term))).slice(0, 8);
+      const allLower = allText.toLowerCase();
+      const aboveLower = aboveFoldText.toLowerCase();
+      const countTerms = (terms, text) => terms.reduce((acc, t) => acc + (text.toLowerCase().includes(String(t).toLowerCase()) ? 1 : 0), 0);
+      const technicalHits = TECHNICAL_TRANSLATIONS.map(([term, plain]) => ({ term, plain, aboveFold: aboveLower.includes(term.toLowerCase()), anywhere: allLower.includes(term.toLowerCase()) })).filter((x) => x.aboveFold || x.anywhere);
+      const genericAiHits = ['ai-powered', 'powered by ai', 'agentic', 'ai enabled', 'ai-enabled'].filter((t) => allLower.includes(t));
+
+      const parseRgb = (value) => {
+        const m = String(value || '').match(/rgba?\(([^)]+)\)/i);
+        if (!m) return null;
+        const parts = m[1].split(',').map((p) => Number.parseFloat(p.trim()));
+        if (parts.length < 3 || parts.some((p, idx) => idx < 3 && !Number.isFinite(p))) return null;
+        if (parts.length >= 4 && parts[3] === 0) return null;
+        return parts.slice(0, 3);
+      };
+      const luminance = (rgb) => {
+        const srgb = rgb.map((v) => v / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+        return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+      };
+      const contrastRatio = (a, b) => {
+        const l1 = luminance(a);
+        const l2 = luminance(b);
+        return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+      };
+      const backgroundOf = (el) => {
+        let node = el;
+        while (node && node.nodeType === 1) {
+          const bg = parseRgb(window.getComputedStyle(node).backgroundColor);
+          if (bg) return bg;
+          node = node.parentElement;
+        }
+        return [255, 255, 255];
+      };
+      const contrastSamples = qsRoot('p, a, button, h1, h2, h3, li').filter(visible).slice(0, 160).map((el) => {
+        const style = window.getComputedStyle(el);
+        const fg = parseRgb(style.color);
+        const bg = backgroundOf(el);
+        const size = Number.parseFloat(style.fontSize || '16');
+        const ratio = fg && bg ? contrastRatio(fg, bg) : null;
+        return {
+          text: textOf(el).slice(0, 80),
+          tag: el.tagName.toLowerCase(),
+          ratio: ratio ? Number(ratio.toFixed(2)) : null,
+          size,
+          top: Math.round(el.getBoundingClientRect().top),
+        };
+      }).filter((s) => s.ratio !== null);
+      const lowContrast = contrastSamples.filter((s) => (s.size >= 24 ? s.ratio < 3 : s.ratio < 4.5)).slice(0, 12);
+
+      const auxiliaryLink = (anchor) => {
+        const raw = String(anchor.getAttribute('href') || '').trim();
+        const hLower = raw.toLowerCase();
+        const cls = String(anchor.getAttribute('class') || '').toLowerCase();
+        const al = String(anchor.getAttribute('aria-label') || '').toLowerCase();
+        const idNearest = String(anchor.closest('[id]')?.getAttribute('id') || '').toLowerCase();
+        if (!raw || hLower.startsWith('javascript:')) return true;
+        if (/^#(main|content|skip|top|skipnav|navbarNav|page|root)\b/i.test(raw)) return true;
+        if (/\bskip\b/.test(al) || al.includes('skip to')) return true;
+        if (idNearest.includes('cookie') || /\bcookie-banner\b|\bcookieConsent\b|\bcc-banner\b/i.test(cls)) return true;
+        if (/\btheme\b|\bpalette\b|\bappearance\b|\bcolor-mode\b|\bdark\b.*\bmode\b/.test(al) || /\btheme-switch\b|\btheme-toggle\b/i.test(cls)) return true;
+        return false;
+      };
+
+      const mainElRaw = document.querySelector('main#main') || document.querySelector('main');
+      const mainH1Candidates = mainElRaw ? Array.from(mainElRaw.querySelectorAll('h1')).filter(visible) : [];
+      const mainFirstH1 = mainH1Candidates[0];
+      const firstMainH1Top = mainFirstH1 ? Math.round(mainFirstH1.getBoundingClientRect().top) : null;
+
+      let firstMainContentEl = null;
+      if (mainElRaw) {
+        firstMainContentEl = [...mainElRaw.querySelectorAll('p, h1, h2, article, section')].find(visible)
+          || (mainFirstH1 && visible(mainFirstH1) ? mainFirstH1 : null);
+      }
+      const firstMainContentTop = firstMainContentEl ? Math.round(firstMainContentEl.getBoundingClientRect().top) : null;
+
+      const mainElForChrome = document.querySelector('main#main') || document.querySelector('main');
+      const isOutsideMain = (el) => {
+        if (!mainElForChrome) return true;
+        return !mainElForChrome.contains(el);
+      };
+
+      const docLinksAll = qsDoc('a[href]').filter((a) => visible(a) && !auxiliaryLink(a));
+      const docVisibleLinkCount = docLinksAll.length;
+      const sidebarOffcanvasAnchors = qsDoc('aside a[href], [class*="sidebar"] a[href], [class*="offcanvas"] a[href]').filter((a) => visible(a) && !auxiliaryLink(a));
+      const sidebarOffcanvasLinkCount = sidebarOffcanvasAnchors.length;
+
+      const navChromeEls = qsDoc('header, nav, aside, [class*="sidebar"], [class*="offcanvas"]').filter(isOutsideMain);
+      const navChromeContainerCount = navChromeEls.filter(visible).length;
+
+      const preMainFirstH1LinkCount = firstMainH1Top == null ? 0
+        : docLinksAll.filter((a) => {
+          const rt = Math.round(a.getBoundingClientRect().top);
+          return rt >= -2 && rt < firstMainH1Top - 1;
+        }).length;
+
+      const handbookPieces = [];
+      for (const el of navChromeEls) {
+        if (!visible(el)) continue;
+        handbookPieces.push(norm(textOf(el)).slice(0, 4200));
+        if (handbookPieces.length > 40) break;
+      }
+      const handbookChromeHayRaw = handbookPieces.join('\n').toLowerCase();
+
+      let handbookChromeTermHits = 0;
+      for (const ph of HANDBOOK_CHROME_PHRASES || []) {
+        const p = String(ph || '').toLowerCase().trim();
+        if (!p) continue;
+        let idx = 0;
+        while (idx < handbookChromeHayRaw.length) {
+          const j = handbookChromeHayRaw.indexOf(p, idx);
+          if (j === -1) break;
+          handbookChromeTermHits++;
+          idx = j + Math.max(p.length, 1);
+        }
+      }
+      const adrMatches = handbookChromeHayRaw.match(/\badrs?\b/g);
+      handbookChromeTermHits += adrMatches ? adrMatches.length : 0;
+      /** Heuristic chrome score for homepage-shell messages (hits ≥2 often matches sidebar tree labels). */
+      const hasHandbookChromeOnHome = handbookChromeTermHits >= 2;
+
+      const dupRegionAnchors = qsDoc('header a[href], nav a[href], aside a[href], [class*="sidebar"] a[href], [class*="offcanvas"] a[href]')
+        .filter((a) => visible(a) && !auxiliaryLink(a))
+        .filter(isOutsideMain);
+      const dupByText = new Map();
+      for (const anchor of dupRegionAnchors) {
+        const kt = norm(textOf(anchor)).toLowerCase();
+        if (!kt || kt.length < 2) continue;
+        dupByText.set(kt, (dupByText.get(kt) || 0) + 1);
+      }
+      let duplicateNavLinkTextCount = 0;
+      for (const c of dupByText.values()) {
+        if (c > 1) duplicateNavLinkTextCount += (c - 1);
+      }
+
+      return {
+        title,
+        metaDescription,
+        lang,
+        url: window.location.href,
+        allTextStart: allText.slice(0, 3000),
+        aboveFoldText,
+        wordCount: bodyWords.length,
+        aboveFoldWordCount: aboveFoldWords.length,
+        scrollHeight: document.documentElement.scrollHeight,
+        viewportHeight: window.innerHeight,
+        headings,
+        h1Count,
+        firstH1,
+        links,
+        navLinks,
+        buttons,
+        topCtas,
+        paragraphs,
+        sections,
+        images,
+        codeAboveFold,
+        tables,
+        preBlocks,
+        codeBlocks,
+        cards,
+        technicalHits,
+        genericAiHits,
+        trustTermCount: countTerms(TRUST_TERMS, allText),
+        trustTermsAboveFold: countTerms(TRUST_TERMS, aboveFoldText),
+        ecosystemTermCount: countTerms(ECOSYSTEM_TERMS, allText),
+        ecosystemTermsAboveFold: countTerms(ECOSYSTEM_TERMS, aboveFoldText),
+        outcomeTermCount: countTerms(OUTCOME_TERMS, allText),
+        imagesMissingAlt: images.filter((img) => !img.alt).length,
+        lowContrast,
+        homepageShellMetricsPresent: true,
+        docVisibleLinkCount,
+        sidebarOffcanvasLinkCount,
+        navChromeContainerCount,
+        preMainFirstH1LinkCount,
+        handbookChromeTermHits,
+        hasHandbookChromeOnHome,
+        duplicateNavLinkTextCount,
+        firstMainH1Top,
+        firstMainContentTop,
+      };
+    },
+    {
+      TECHNICAL_TRANSLATIONS,
+      TRUST_TERMS,
+      ECOSYSTEM_TERMS,
+      OUTCOME_TERMS,
+      CTA_TERMS,
+      HANDBOOK_CHROME_PHRASES,
+    },
+  );
+}
