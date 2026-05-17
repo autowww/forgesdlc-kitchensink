@@ -676,7 +676,7 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
                     build_profile=cfg.build_profile,
                 )
             rail_cap = (
-                12 if fleet_site_manifest is not None and lens_manifest is not None else None
+                10 if fleet_site_manifest is not None and lens_manifest is not None else None
             )
             sidebar_html = build_grouped_manifest_sidebar(
                 grouped,

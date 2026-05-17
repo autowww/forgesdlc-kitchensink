@@ -2,6 +2,8 @@
 
 This document describes **selectable Forge SDLC product theme packs** (`fs_pack`), the **enterprise** visual direction, how packs are chosen at build time, and how **Lenses Enterprise** (Electron) relates to the same tokens.
 
+**Related:** **[Forge enterprise AI website standard](forge-enterprise-ai-website-standard.md)** — copy, information architecture, landing anatomy, and trust messaging for public Forge product sites (complements this tokens and visual guide).
+
 ## Principles
 
 1. **Trust over spectacle** — Operational, calm surfaces; accents are deliberate.

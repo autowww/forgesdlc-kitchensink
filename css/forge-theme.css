@@ -2694,12 +2694,21 @@ code {
   position: sticky;
   top: 0;
   z-index: 1035;
+  border-bottom: 1px solid var(--forge-border, rgba(148, 163, 184, 0.22));
   background: linear-gradient(180deg, rgba(10, 15, 28, 0.97), rgba(7, 11, 22, 0.92));
   backdrop-filter: blur(10px);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.18);
 }
+
 [data-bs-theme="light"] .fleet-handbook-topnav {
   background: rgba(248, 250, 252, 0.96);
 }
+
+.fleet-handbook-topnav__bar .navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 .fleet-handbook-topnav__bar .nav-link {
   font-size: 0.88rem;
   font-weight: 600;
@@ -2722,4 +2731,14 @@ code {
 }
 [data-bs-theme="light"] .fleet-handbook-breadcrumb {
   background: rgba(241, 245, 249, 0.9);
+}
+
+@media (min-width: 992px) {
+  .forge-sidebar .doc-sidebar-group--manifest .doc-sidebar-link {
+    font-size: 0.84rem;
+  }
+
+  .forge-sidebar .doc-sidebar-group--manifest .doc-sidebar-more summary {
+    font-size: 0.8rem;
+  }
 }
