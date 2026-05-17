@@ -2689,7 +2689,7 @@ code {
   margin-bottom: 0.25rem;
 }
 
-/* Fleet handbook: product-style sticky top nav + breadcrumb (forge-autodoc site-nav.yaml) */
+/* Fleet handbook: sticky product top nav + breadcrumb (forge-autodoc site-nav.yaml) */
 .fleet-handbook-topnav {
   position: sticky;
   top: 0;
