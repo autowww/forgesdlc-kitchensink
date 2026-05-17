@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import html as html_mod
+from collections.abc import Sequence
 from pathlib import Path
 
 FLAT_SIDEBAR_THRESHOLD = 15
@@ -50,6 +51,22 @@ def _count_items(tree: dict) -> int:
     return count
 
 
+def _sidebar_child_sort_key(
+    name: str,
+    *,
+    preferred_group_order: Sequence[str] | None,
+) -> tuple[int, int, str]:
+    preferred_group_order = preferred_group_order or ()
+    lower = name.lower()
+    order_idx = 999
+    for i, stem in enumerate(preferred_group_order):
+        if lower == stem.lower():
+            order_idx = i
+            break
+    readme_bias = 0 if lower == "readme.md" else 1
+    return (readme_bias, order_idx, lower)
+
+
 def _render_sidebar_tree(
     tree: dict,
     current_slug: str,
@@ -57,6 +74,7 @@ def _render_sidebar_tree(
     depth: int = 0,
     path_prefix: str = "",
     id_prefix: str = "nav",
+    preferred_group_order: Sequence[str] | None = None,
 ) -> str:
     parts: list[str] = []
     link_cls = "doc-sidebar-link" if depth == 0 else "doc-sidebar-sublink"
@@ -69,7 +87,9 @@ def _render_sidebar_tree(
         )
 
     sub_keys = [k for k in tree if k not in ("__items__", "__index__")]
-    sub_keys.sort(key=lambda k: (0 if k.lower() == "readme.md" else 1, k.lower()))
+    sub_keys.sort(
+        key=lambda k: _sidebar_child_sort_key(k, preferred_group_order=preferred_group_order)
+    )
 
     for sub_name in sub_keys:
         sub_tree = tree[sub_name]
@@ -157,11 +177,69 @@ def _render_sidebar_tree(
             depth=depth + 1,
             path_prefix=f"{path_prefix}{sub_name}-",
             id_prefix=id_prefix,
+            preferred_group_order=(
+                preferred_group_order if sub_name.lower() == "docs" else None
+            ),
         )
         parts.append(child_html)
         parts.append("</div></div></div>")
 
     return "\n".join(parts)
+
+
+def build_grouped_manifest_sidebar(
+    sections: list[tuple[str, list[tuple[str, str]]]],
+    current_slug: str,
+    *,
+    id_prefix: str = "nav",
+    collapse_extra_after: int | None = None,
+) -> str:
+    """Sidebar with explicit section headings (Forge Lenses ``docs/nav.yml`` model).
+
+    Each section is ``(heading, [(slug_html, link_title), ...])``.
+    When *collapse_extra_after* is set, only that many links stay visible per section;
+    additional links sit behind a ``<details>`` disclosure (narrow rails).
+    """
+    blocks: list[str] = []
+    for gi, (heading, items) in enumerate(sections):
+        if not items:
+            continue
+        cap = collapse_extra_after
+        primaries = items if cap is None else items[:cap]
+        overflow = [] if cap is None else items[cap:]
+        detail_id = (
+            f"{id_prefix}-manifest-more-{gi}-{heading.lower().replace(' ', '-')}"
+            .replace("/", "-")[:80]
+        )
+        blocks.append(
+            f'<div class="doc-sidebar-group doc-sidebar-group--manifest mb-3">'
+            f'<div class="doc-sidebar-heading doc-sidebar-heading--label small text-uppercase '
+            f'text-muted fw-semibold mb-2">{_esc(heading)}</div>'
+            f'<div class="d-flex flex-column gap-1">'
+        )
+        for fslug, title in primaries:
+            active = " active" if fslug == current_slug else ""
+            aria = ' aria-current="page"' if active else ""
+            blocks.append(
+                f'<a href="{_esc(fslug)}" class="doc-sidebar-link{active}"{aria}>'
+                f"{_esc(title)}</a>"
+            )
+        if overflow:
+            blocks.append(
+                f'<details class="doc-sidebar-more border border-secondary rounded px-2 py-1 small">'
+                f'<summary class="text-muted user-select-none" style="cursor:pointer">More in this section</summary>'
+                f'<div id="{_esc(detail_id)}" class="d-flex flex-column gap-1 mt-2">'
+            )
+            for fslug, title in overflow:
+                active = " active" if fslug == current_slug else ""
+                aria = ' aria-current="page"' if active else ""
+                blocks.append(
+                    f'<a href="{_esc(fslug)}" class="doc-sidebar-link doc-sidebar-sublink{active}"{aria}>'
+                    f"{_esc(title)}</a>"
+                )
+            blocks.append("</div></details>")
+        blocks.append("</div></div>")
+    return "\n".join(blocks)
 
 
 def build_sidebar_links(
@@ -170,6 +248,7 @@ def build_sidebar_links(
     *,
     id_prefix: str = "nav",
     flat_threshold: int = FLAT_SIDEBAR_THRESHOLD,
+    preferred_group_order: Sequence[str] | None = None,
 ) -> str:
     """Sidebar navigation: flat links or collapsible tree from *pages*."""
     if len(pages) <= flat_threshold:
@@ -184,4 +263,9 @@ def build_sidebar_links(
         return "\n          ".join(links)
 
     tree = _build_tree(pages)
-    return _render_sidebar_tree(tree, current_slug, id_prefix=id_prefix)
+    return _render_sidebar_tree(
+        tree,
+        current_slug,
+        id_prefix=id_prefix,
+        preferred_group_order=preferred_group_order,
+    )

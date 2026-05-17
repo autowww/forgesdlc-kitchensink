@@ -35,6 +35,90 @@ def collect_markdown_files(
     return files
 
 
+def collect_lens_handbook_markdown_files(
+    area_root: Path,
+    *,
+    skip_dir_names: frozenset[str],
+    include_maintainer: bool = False,
+) -> list[Path]:
+    """Collect Markdown for ``forge-lenses``-shaped repos where generic ``website`` / ``blueprints``
+
+    skips are too broad:
+
+    - Root ``blueprints/`` submodule is excluded while ``docs/blueprints/**/*.md`` is kept.
+    - ``lenses/website/**/*.md`` and ``docs/website/**/*.md`` are kept; other directories
+      named ``website`` under *area_root* are still excluded when ``website`` appears in
+      *skip_dir_names*.
+    """
+
+    skip = skip_dir_names
+    files: list[Path] = []
+    for p in sorted(area_root.rglob("*.md")):
+        rel = p.relative_to(area_root)
+        if rel.parts == ("README.md",):
+            # Product repo README is not a handbook page for static site builds.
+            continue
+        if "maintainer" in rel.parts and not include_maintainer:
+            continue
+        dir_parts = rel.parts[:-1]
+        excluded = False
+        for i, part in enumerate(dir_parts):
+            prev = dir_parts[i - 1] if i > 0 else None
+            if part == "website":
+                if prev not in ("docs", "lenses"):
+                    excluded = True
+                    break
+                continue
+            if part == "blueprints":
+                if prev != "docs":
+                    excluded = True
+                    break
+                continue
+            if part in skip:
+                excluded = True
+                break
+        if excluded:
+            continue
+        files.append(p)
+    return files
+
+
+def slug_from_lens_repo_handbook_md(md_path: Path, content_root: Path) -> str:
+    """Slug rules aligned with ``forge-lenses/generator/build-lenses-docs.py`` area roots.
+
+    - ``lenses/website/*.md`` → relative to ``lenses/website`` (``http-api-and-routes.html``).
+    - ``docs/website/*.md`` → relative to ``docs/website`` (matches ``generator/build-lenses-docs.py``).
+    - Else → relative to *content_root* (repo ``README.md`` → ``index.html``).
+    """
+    root = content_root.resolve()
+    resolved = md_path.resolve()
+    lw = (root / "lenses" / "website").resolve()
+    hp = (root / "docs" / "handbook-public").resolve()
+    dw = (root / "docs" / "website").resolve()
+    dr = (root / "docs").resolve()
+    try:
+        resolved.relative_to(lw)
+        return slug_from_md_path(md_path, lw)
+    except ValueError:
+        pass
+    try:
+        resolved.relative_to(hp)
+        return slug_from_md_path(md_path, hp)
+    except ValueError:
+        pass
+    try:
+        resolved.relative_to(dw)
+        return slug_from_md_path(md_path, dw)
+    except ValueError:
+        pass
+    try:
+        resolved.relative_to(dr)
+        return slug_from_md_path(md_path, dr)
+    except ValueError:
+        pass
+    return slug_from_md_path(md_path, root)
+
+
 def slug_from_md_path(md_path: Path, area_root: Path) -> str:
     """Page-level slug (filename) from markdown path relative to *area_root*.
 

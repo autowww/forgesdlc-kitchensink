@@ -88,14 +88,17 @@ def lenses_split_family_pages(
     pages: list[tuple[str, str, str]],
 ) -> list[tuple[str, str, str]]:
     """Pages in the same split-topic family (``NN-topic.md`` plus ``NN-topic_01-….md``)."""
-    basename = Path(md_rel).name
+    md_path = Path(md_rel)
+    basename = md_path.name
     parent_bn = split_topic_parent_basename(basename)
     key = parent_bn if parent_bn else basename
     stem = Path(key).stem
+    parent_dir = md_path.parent
     out = [
         p
         for p in pages
-        if p[2] == key or Path(p[2]).name.startswith(f"{stem}_")
+        if Path(p[2]).parent == parent_dir
+        and (Path(p[2]).name == key or Path(p[2]).name.startswith(f"{stem}_"))
     ]
     return sorted(out, key=lambda x: x[2])
 

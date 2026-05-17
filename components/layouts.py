@@ -458,15 +458,19 @@ def _render_sidebar(
     sidebar_html: str,
     *,
     chapters_label: str = "Chapters",
+    brand_tagline: str | None = None,
+    sticky_top: str = "0",
 ) -> str:
+    tag = brand_tagline if brand_tagline is not None else "Handbook · Product-agnostic"
+    tag_html = e(tag).replace(" · ", " &middot; ")
     return f"""\
-      <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" style="min-height:100vh;position:sticky;top:0;overflow-y:auto">
+      <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" style="min-height:100vh;position:sticky;top:{e(sticky_top)};overflow-y:auto;align-self:flex-start;max-height:100vh">
         <div class="px-3 py-3" style="border-bottom:1px solid var(--forge-border)">
           <p class="forge-brand mb-0">
             <span class="brand-icon">F</span>
             <span class="text-amber">{e(handbook_name)}</span>
           </p>
-          <p class="mt-2 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">Handbook &middot; Product-agnostic</p>
+          <p class="mt-2 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{tag_html}</p>
         </div>
         <nav class="nav-scroll flex-grow-1 px-2 py-3" aria-label="Handbook chapters">
           <p class="nav-section-label">{e(chapters_label)}</p>
@@ -594,10 +598,13 @@ def handbook_page(
     skip_link_label: str = "Skip to content",
     open_nav_aria_label: str = "Open navigation",
     sidebar_chapters_label: str = "Chapters",
+    top_shell_html: str = "",
+    handbook_sidebar_brand_tagline: str | None = None,
     meta_description: str = "",
     canonical_href: str = "",
     og_image_href: str = "",
     json_ld_script: str = "",
+    extra_head_metas_html: str = "",
 ) -> str:
     """Complete HTML page for an auto-generated handbook entry.
 
@@ -663,6 +670,11 @@ def handbook_page(
         json_ld_script=json_ld_script,
         html_lang=html_lang,
     )
+    head_extras = (extra_head_metas_html.rstrip() + "\n") if extra_head_metas_html.strip() else ""
+
+    has_top_shell = bool(top_shell_html.strip())
+    sidebar_sticky_top = "3.75rem" if has_top_shell else "0"
+    mobile_nav_style = "z-index:1040;top:3.75rem" if has_top_shell else "z-index:1040"
 
     return f"""<!DOCTYPE html>
 <html lang="{e(html_lang)}">
@@ -671,20 +683,20 @@ def handbook_page(
 {FORGE_COLOR_SCHEME_INIT}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{e(handbook_name)} &mdash; {e(browser_title)}</title>
-{seo_extra}{CDN_BOOTSTRAP_CSS}
+{seo_extra}{head_extras}{CDN_BOOTSTRAP_CSS}
   {FONT_LINKS}
 {_resolve_theme_css(theme_css_href)}
 {living_head}</head>
 <body{body_class}>
   <div class="forge-aurora"></div>
 {living_body_open}  <a href="#main" class="skip-link">{e(skip_link_label)}</a>
-{THEME_TOGGLE_DROPDOWN}
+{top_shell_html}{THEME_TOGGLE_DROPDOWN}
   <button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="{e(open_nav_aria_label)}">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
   </button>
   <div {shell_attrs}>
     <div class="row g-0 flex-lg-nowrap min-vh-100">
-{_render_sidebar(handbook_name, sidebar_html, chapters_label=sidebar_chapters_label)}
+{_render_sidebar(handbook_name, sidebar_html, chapters_label=sidebar_chapters_label, brand_tagline=handbook_sidebar_brand_tagline, sticky_top=sidebar_sticky_top)}
 {_render_offcanvas(handbook_name, offcanvas_html)}
       <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5" style="position:relative">
         <div class="mx-auto doc-content" style="max-width:56rem">

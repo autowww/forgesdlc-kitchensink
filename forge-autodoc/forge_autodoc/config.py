@@ -20,6 +20,14 @@ class HandbookBuildConfig:
     kitchensink: Path
     handbook_name: str = "Handbook"
     skip_dir_names: frozenset[str] = field(default_factory=lambda: DEFAULT_SKIP_DIR_NAMES)
+    nav_exclude_path_prefixes: frozenset[str] = field(default_factory=frozenset)
+    """Relative POSIX path prefixes (with ``/``). Pages whose Markdown path starts with any prefix are still emitted but omitted from the handbook sidebar."""
+    handbook_homepage_md_rel: str | None = None
+    """When set (POSIX path under *content_root*, e.g. ``docs/index.md``), that page emits as ``index.html`` and root ``README.md`` is omitted from the build."""
+    handbook_sidebar_group_order: tuple[str, ...] | None = None
+    """When set, top-level sidebar folder names matching these stems sort in this order before remaining keys (case-insensitive)."""
+    link_check: bool = False
+    """If True, ``run_simple_build`` scans each page's body for internal ``.md`` links and counts unresolved targets (stderr summary)."""
     canonical_url_prefix: str | None = None
     """If set, canonical note links to ``{prefix}/{md_rel}`` (no scheme = relative path shown)."""
     show_canonical_note: bool = True
@@ -34,6 +42,28 @@ class HandbookBuildConfig:
     """Absolute image URL for ``og:image`` when not overridden per page."""
     contextual_leaf_sidebar: bool = True
     """If True, leaf pages use a compact sidebar rail (Lenses/KS simple builds)."""
+    markdown_collect_preset: str = "default"
+    """Use ``forge_lens_repo`` for ``forge-lenses``: include ``docs/blueprints``, ``docs/website``, ``lenses/website``."""
+    derive_handbook_title_from_readme: bool = True
+    """If True (default), the handbook name in chrome comes from repo ``README.md`` when present."""
+    build_profile: str = "full"
+    """``public`` = only Markdown paths declared in the nav manifest when *nav_manifest_path* is set."""
+    nav_manifest_path: str | None = None
+    """Relative path under *content_root* to ``nav.yml`` (Forge Lenses product docs)."""
+    seo_site_name: str | None = None
+    """Published site name for JSON-LD and the root breadcrumb (e.g. ``Forge Lenses``). When unset, legacy Blueprints defaults apply."""
+    lenses_public_manifest_site: str | None = None
+    """When set (Forge Lenses public builds), emit ``public-manifest.json`` and docs provenance ``<meta>`` tags."""
+    site_nav_yaml: str | None = None
+    """Optional relative path under *content_root* to a Fleet-style ``site-nav.yaml`` (horizontal IA + section sidebars)."""
+    handbook_top_nav_html_builder: Any | None = None
+    """Optional ``builder(md_rel_posix) -> str`` merged ahead of Fleet top shell HTML."""
+    handbook_offcanvas_prepend_html_builder: Any | None = None
+    """Optional HTML prepended inside the mobile offcanvas before the section sidebar."""
+    handbook_sidebar_nav_pages_filter: Any | None = None
+    """Optional ``filter(md_rel_posix, rail_pages) -> rail_pages`` after Fleet sidebar filtering."""
+    handbook_sidebar_brand_tagline: str | None = None
+    """Optional subtitle under the handbook name in the desktop sidebar."""
 
 
 def _resolve_path(base: Path, value: str | Path) -> Path:
@@ -64,6 +94,23 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
     seo_po = str(raw["seo_public_origin"]) if raw.get("seo_public_origin") else None
     seo_pfx = str(raw["seo_url_prefix"]) if raw.get("seo_url_prefix") else None
     seo_ogi = str(raw["seo_default_og_image"]) if raw.get("seo_default_og_image") else None
+    nav_ex = raw.get("nav_exclude_path_prefixes")
+    nav_exclude_prefixes: frozenset[str]
+    if nav_ex is None:
+        nav_exclude_prefixes = frozenset()
+    elif isinstance(nav_ex, list):
+        nav_exclude_prefixes = frozenset(str(x).replace("\\", "/").strip() for x in nav_ex if str(x).strip())
+    else:
+        raise ValueError("nav_exclude_path_prefixes must be a list of strings or omitted")
+    hp_rel = str(raw["handbook_homepage_md_rel"]).strip() if raw.get("handbook_homepage_md_rel") else None
+    hsg = raw.get("handbook_sidebar_group_order")
+    sidebar_order: tuple[str, ...] | None
+    if hsg is None:
+        sidebar_order = None
+    elif isinstance(hsg, list):
+        sidebar_order = tuple(str(x).strip() for x in hsg if str(x).strip())
+    else:
+        raise ValueError("handbook_sidebar_group_order must be a list of strings or omitted")
     return HandbookBuildConfig(
         content_root=_resolve_path(base, raw["content_root"]),
         output_dir=_resolve_path(base, raw["output_dir"]),
@@ -77,6 +124,28 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
         seo_url_prefix=seo_pfx,
         seo_default_og_image=seo_ogi,
         contextual_leaf_sidebar=bool(raw.get("contextual_leaf_sidebar", True)),
+        markdown_collect_preset=str(raw.get("markdown_collect_preset", "default")),
+        nav_exclude_path_prefixes=nav_exclude_prefixes,
+        handbook_homepage_md_rel=hp_rel,
+        handbook_sidebar_group_order=sidebar_order,
+        link_check=bool(raw.get("link_check", False)),
+        derive_handbook_title_from_readme=bool(raw.get("derive_handbook_title_from_readme", True)),
+        build_profile=str(raw.get("build_profile", "full")),
+        nav_manifest_path=(
+            str(raw["nav_manifest_path"]) if raw.get("nav_manifest_path") else None
+        ),
+        seo_site_name=str(raw["seo_site_name"]) if raw.get("seo_site_name") else None,
+        lenses_public_manifest_site=(
+            str(raw["lenses_public_manifest_site"]).strip()
+            if raw.get("lenses_public_manifest_site")
+            else None
+        ),
+        site_nav_yaml=str(raw["site_nav_yaml"]) if raw.get("site_nav_yaml") else None,
+        handbook_sidebar_brand_tagline=(
+            str(raw["handbook_sidebar_brand_tagline"]).strip()
+            if raw.get("handbook_sidebar_brand_tagline")
+            else None
+        ),
     )
 
 
@@ -92,6 +161,27 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
     chrome_overrides: dict[str, str] | None = None
     if isinstance(co, dict):
         chrome_overrides = {str(k): str(v) for k, v in co.items()}
+    nav_ex = raw.get("nav_exclude_path_prefixes")
+    nav_exclude_prefixes: frozenset[str]
+    if nav_ex is None:
+        nav_exclude_prefixes = frozenset()
+    elif isinstance(nav_ex, list):
+        nav_exclude_prefixes = frozenset(str(x).replace("\\", "/").strip() for x in nav_ex if str(x).strip())
+    else:
+        raise ValueError("nav_exclude_path_prefixes must be a list of strings or omitted")
+    hp_rel = (
+        str(raw["handbook_homepage_md_rel"]).strip()
+        if raw.get("handbook_homepage_md_rel")
+        else None
+    )
+    hsg = raw.get("handbook_sidebar_group_order")
+    sidebar_order: tuple[str, ...] | None
+    if hsg is None:
+        sidebar_order = None
+    elif isinstance(hsg, list):
+        sidebar_order = tuple(str(x).strip() for x in hsg if str(x).strip())
+    else:
+        raise ValueError("handbook_sidebar_group_order must be a list of strings or omitted")
     return HandbookBuildConfig(
         content_root=_resolve_path(base_dir, raw["content_root"]),
         output_dir=_resolve_path(base_dir, raw["output_dir"]),
@@ -111,4 +201,26 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
             str(raw["seo_default_og_image"]) if raw.get("seo_default_og_image") else None
         ),
         contextual_leaf_sidebar=bool(raw.get("contextual_leaf_sidebar", True)),
+        markdown_collect_preset=str(raw.get("markdown_collect_preset", "default")),
+        nav_exclude_path_prefixes=nav_exclude_prefixes,
+        handbook_homepage_md_rel=hp_rel,
+        handbook_sidebar_group_order=sidebar_order,
+        link_check=bool(raw.get("link_check", False)),
+        derive_handbook_title_from_readme=bool(raw.get("derive_handbook_title_from_readme", True)),
+        build_profile=str(raw.get("build_profile", "full")),
+        nav_manifest_path=(
+            str(raw["nav_manifest_path"]) if raw.get("nav_manifest_path") else None
+        ),
+        seo_site_name=str(raw["seo_site_name"]) if raw.get("seo_site_name") else None,
+        lenses_public_manifest_site=(
+            str(raw["lenses_public_manifest_site"]).strip()
+            if raw.get("lenses_public_manifest_site")
+            else None
+        ),
+        site_nav_yaml=str(raw["site_nav_yaml"]) if raw.get("site_nav_yaml") else None,
+        handbook_sidebar_brand_tagline=(
+            str(raw["handbook_sidebar_brand_tagline"]).strip()
+            if raw.get("handbook_sidebar_brand_tagline")
+            else None
+        ),
     )

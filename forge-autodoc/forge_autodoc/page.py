@@ -43,6 +43,9 @@ def assemble_handbook_page(
     canonical_href: str = "",
     og_image_href: str = "",
     json_ld_script: str = "",
+    top_shell_html: str = "",
+    handbook_sidebar_brand_tagline: str | None = None,
+    extra_head_metas_html: str = "",
 ) -> str:
     """Render fragments into a complete document using KS ``handbook_page``."""
     ensure_kitchensink_importable(kitchensink_root)
@@ -127,6 +130,9 @@ def assemble_handbook_page(
         canonical_href=canonical_href,
         og_image_href=og_image_href,
         json_ld_script=json_ld_script,
+        top_shell_html=top_shell_html,
+        handbook_sidebar_brand_tagline=handbook_sidebar_brand_tagline,
+        extra_head_metas_html=extra_head_metas_html,
     )
     filtered_hp = {k: v for k, v in hp_kwargs.items() if k in _hp_sig.parameters}
     return handbook_page(**filtered_hp)

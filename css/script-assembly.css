@@ -1,0 +1,1236 @@
+/**
+ * Script assembly diagram — visual primitives for LLM ingest drafting.
+ * Class contract: documented in forge-composer/assets/script-assembly/CLASS-CONTRACT.md
+ * Tokens: --ks-script-assembly-* (fall back when certificator :root vars absent)
+ */
+:root {
+  --ks-script-assembly-bg: var(--panel, #1a2332);
+  --ks-script-assembly-border: var(--border, #30363d);
+  --ks-script-assembly-text: var(--text, #e6edf3);
+  --ks-script-assembly-muted: var(--muted, #8b9cb3);
+  --ks-script-assembly-accent: var(--accent, #58a6ff);
+  --ks-script-assembly-ok: var(--ok, #3fb950);
+  --ks-script-assembly-warn: var(--warn, #d29922);
+  --ks-script-assembly-input-fill: rgba(22, 27, 34, 0.92);
+  --ks-script-assembly-llm-glow: rgba(88, 166, 255, 0.45);
+  --ks-script-assembly-flow: rgba(88, 166, 255, 0.85);
+  /* Stage ribbon — Assessment → Script test (no LLM) → Test ingestion (docs/SCRIPT_ASSEMBLY_UI_ANCHOR.md) */
+  --ks-script-assembly-stage-assessment: rgba(45, 212, 191, 0.28);
+  --ks-script-assembly-stage-extraction: rgba(99, 102, 241, 0.32);
+  --ks-script-assembly-stage-review: rgba(167, 139, 250, 0.32);
+  --ks-script-assembly-stage-script: rgba(245, 158, 11, 0.38);
+  --ks-script-assembly-stage-script-test: rgba(34, 211, 238, 0.32);
+  --ks-script-assembly-stage-testing: rgba(129, 140, 248, 0.34);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-sa-root *,
+  .ks-sa-root *::before,
+  .ks-sa-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.ks-sa-root--reduced-motion .ks-sa-fly-chip,
+.ks-sa-root--reduced-motion .ks-sa-edge--pulse {
+  animation: none !important;
+}
+
+.ks-sa-root {
+  width: 100%;
+  margin: 0 0 0.55rem 0;
+  padding: 0.45rem 0.5rem 0.35rem;
+  border-radius: 10px;
+  border: 1px solid var(--ks-script-assembly-border);
+  background: rgba(13, 17, 23, 0.55);
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ks-sa-root__label {
+  margin: 0 0 0.35rem 0;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--ks-script-assembly-muted);
+}
+
+/* Post-complete next steps (Forge Fleet–framed) */
+.ks-sa-next-steps {
+  display: none;
+  margin: 0.45rem 0 0 0;
+  gap: 0.4rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ks-sa-next-steps--visible {
+  display: grid;
+}
+
+/* Optional Fleet job status from parent (setState.fleetJobLine) */
+.ks-sa-fleet-job-line {
+  display: none;
+  margin: 0.35rem 0 0 0;
+  padding: 0 0.05rem;
+  font-size: 0.58rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ks-script-assembly-muted);
+}
+
+.ks-sa-fleet-job-line--visible {
+  display: block;
+}
+
+.ks-sa-next-step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  text-align: left;
+  padding: 0.4rem 0.45rem;
+  border-radius: 8px;
+  border: 1px solid var(--ks-script-assembly-border);
+  background: rgba(22, 27, 34, 0.92);
+  color: var(--ks-script-assembly-text);
+  font: inherit;
+  cursor: pointer;
+  line-height: 1.35;
+  pointer-events: auto;
+}
+
+.ks-sa-next-step:hover:not(:disabled) {
+  border-color: rgba(88, 166, 255, 0.45);
+}
+
+.ks-sa-next-step:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ks-sa-next-step__title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.ks-sa-next-step__detail {
+  font-size: 0.58rem;
+  font-weight: 500;
+  color: var(--ks-script-assembly-muted);
+}
+
+@media (max-width: 520px) {
+  .ks-sa-next-steps--visible {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ks-sa-ribbon-wrap {
+  display: none;
+  margin: 0 0 0.38rem 0;
+}
+
+.ks-sa-ribbon-wrap--visible {
+  display: block;
+}
+
+.ks-sa-ribbon {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.ks-sa-stage-cell {
+  font-size: 0.58rem;
+  font-weight: 650;
+  text-align: center;
+  padding: 0.32rem 0.2rem;
+  border-radius: 7px;
+  border: 1px solid var(--ks-script-assembly-border);
+  color: var(--ks-script-assembly-text);
+  line-height: 1.2;
+}
+
+.ks-sa-stage-cell--assessment {
+  background: var(--ks-script-assembly-stage-assessment);
+}
+
+.ks-sa-stage-cell--extraction {
+  background: var(--ks-script-assembly-stage-extraction);
+}
+
+.ks-sa-stage-cell--review {
+  background: var(--ks-script-assembly-stage-review);
+}
+
+.ks-sa-stage-cell--scriptGen {
+  background: var(--ks-script-assembly-stage-script);
+}
+
+.ks-sa-stage-cell--scriptTest {
+  background: var(--ks-script-assembly-stage-script-test);
+}
+
+.ks-sa-stage-cell--testing {
+  background: var(--ks-script-assembly-stage-testing);
+}
+
+.ks-sa-stage-cell--done {
+  opacity: 0.72;
+}
+
+.ks-sa-stage-cell--active {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.35);
+}
+
+.ks-sa-root--post-script .ks-sa-stage-cell--testing.ks-sa-stage-cell--active {
+  box-shadow: 0 0 14px rgba(129, 140, 248, 0.45);
+}
+
+.ks-sa-root--post-script .ks-sa-stage-cell--scriptTest.ks-sa-stage-cell--active {
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.42);
+}
+
+.ks-sa-root--reduced-motion .ks-sa-stage-cell--active {
+  animation: none !important;
+}
+
+.ks-sa-status-row {
+  display: none;
+  margin: 0 0 0.35rem 0;
+}
+
+.ks-sa-status-row--visible {
+  display: block;
+}
+
+.ks-sa-status-chip {
+  font-size: 0.68rem;
+  line-height: 1.35;
+  color: var(--ks-script-assembly-muted);
+  padding: 0.22rem 0.5rem;
+  border-radius: 7px;
+  background: rgba(22, 27, 34, 0.88);
+  border: 1px solid var(--ks-script-assembly-border);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ks-sa-svg-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  /* Stable “viewport” for the diagram + anim layer (viewBox 720×166). */
+  min-height: 9rem;
+  background: rgba(10, 14, 18, 0.65);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.ks-sa-svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 7rem;
+  aspect-ratio: 720 / 166;
+  max-height: min(260px, 42vh);
+  vertical-align: top;
+  overflow: visible;
+}
+
+.ks-sa-tel-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.ks-sa-tel-wrap--visible {
+  opacity: 1;
+}
+
+.ks-sa-tel {
+  position: absolute;
+  bottom: 4px;
+  font-size: 0.78rem;
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--ks-script-assembly-text);
+  opacity: 0.92;
+  max-width: 48%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.ks-sa-tel--llm {
+  left: 36%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.ks-sa-tel--script {
+  left: 82%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.ks-sa-anim-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Output overlay: box geometry set by JS from SVG .ks-sa-node--output rect (viewBox-safe). */
+.ks-sa-output-blocks {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden auto;
+  pointer-events: none;
+  z-index: 3;
+  min-width: 0;
+}
+
+.ks-sa-output-blocks--focus-output {
+  justify-content: flex-end;
+}
+
+.ks-sa-output-blocks--focus-mid {
+  justify-content: flex-end;
+}
+
+.ks-sa-output-blocks__context {
+  flex-shrink: 0;
+  margin: 0 0 2px 0;
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  color: var(--ks-script-assembly-muted);
+  line-height: 1.25;
+}
+
+.ks-sa-output-blocks .ks-sa-logic-chip {
+  border-width: 1.5px;
+  border-radius: 6px;
+  font-weight: 650;
+}
+
+.ks-sa-output-blocks--visible {
+  display: flex;
+}
+
+.ks-sa-logic-chip {
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.38;
+  padding: 0.38rem 0.55rem;
+  min-height: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  background: rgba(22, 27, 34, 0.96);
+  border: 1px solid rgba(63, 185, 80, 0.55);
+  color: var(--ks-script-assembly-text);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.ks-sa-logic-chip--preview {
+  opacity: 0.95;
+  border-style: solid;
+  border-color: rgba(63, 185, 80, 0.42);
+  background: rgba(13, 17, 23, 0.92);
+  font-weight: 600;
+  animation: none !important;
+}
+
+.ks-sa-logic-chip--fallback {
+  opacity: 0.95;
+  border-style: solid;
+  border-color: rgba(63, 185, 80, 0.48);
+  background: rgba(13, 17, 23, 0.9);
+}
+
+.ks-sa-logic-chip--qa-preview {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.22rem;
+  border-color: rgba(34, 211, 238, 0.5);
+  font-size: 0.62rem;
+  line-height: 1.32;
+  text-align: left;
+}
+
+.ks-sa-logic-chip__qa-line1 {
+  font-weight: 700;
+  color: var(--ks-script-assembly-text);
+}
+
+.ks-sa-logic-chip__qa-line2 {
+  font-size: 0.58rem;
+  font-weight: 500;
+  color: var(--ks-script-assembly-muted);
+}
+
+.ks-sa-logic-chip--qa-preview--placeholder {
+  opacity: 0.68;
+  border-style: dashed;
+  border-color: rgba(139, 156, 179, 0.45);
+}
+
+.ks-sa-logic-chip--qa-preview--empty {
+  font-style: italic;
+  color: var(--ks-script-assembly-muted);
+}
+
+.ks-sa-logic-chip--seq-0 {
+  animation: ks-sa-seq-in 0.42s ease-out 0s both;
+}
+
+.ks-sa-logic-chip--seq-1 {
+  animation: ks-sa-seq-in 0.42s ease-out 0.11s both;
+}
+
+.ks-sa-logic-chip--seq-2 {
+  animation: ks-sa-seq-in 0.42s ease-out 0.22s both;
+}
+
+.ks-sa-logic-chip--seq-static {
+  animation: none !important;
+}
+
+@keyframes ks-sa-seq-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 0.95;
+    transform: translateY(0);
+  }
+}
+
+.ks-sa-root--reduced-motion .ks-sa-logic-chip--preview {
+  animation: none !important;
+  opacity: 0.95;
+}
+
+.ks-sa-logic-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ks-sa-logic-row--skeleton {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ks-sa-logic-square {
+  flex-shrink: 0;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  align-self: center;
+}
+
+.ks-sa-root--running .ks-sa-logic-square {
+  box-shadow: 0 0 14px rgba(63, 185, 80, 0.28);
+}
+
+.ks-sa-logic-square .ks-sa-logic-chip--skeleton-inner {
+  flex: 1;
+  min-height: 100%;
+  width: 100%;
+  border-radius: 0;
+}
+
+.ks-sa-logic-row__label {
+  font-size: 0.68rem;
+  font-weight: 650;
+  color: var(--ks-script-assembly-muted);
+  flex: 1;
+  min-width: 0;
+}
+
+.ks-sa-logic-chip--more {
+  border-style: dashed;
+  color: var(--ks-script-assembly-muted);
+  font-weight: 500;
+}
+
+.ks-sa-logic-chip--skeleton-inner {
+  min-height: 1rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-color: rgba(63, 185, 80, 0.42);
+  background: rgba(63, 185, 80, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(63, 185, 80, 0.22);
+  animation: none;
+}
+
+.ks-sa-root--reduced-motion .ks-sa-logic-chip--skeleton-inner {
+  animation: none !important;
+  background: rgba(63, 185, 80, 0.18);
+}
+
+.ks-sa-fly-mount {
+  position: absolute;
+  inset: 0;
+}
+
+.ks-sa-fly-chip {
+  position: absolute;
+  font-size: 0.58rem;
+  font-weight: 600;
+  padding: 0.12rem 0.38rem;
+  border-radius: 999px;
+  background: rgba(88, 166, 255, 0.14);
+  border: 1px solid rgba(88, 166, 255, 0.55);
+  color: var(--ks-script-assembly-text);
+  white-space: nowrap;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.22);
+}
+
+.ks-sa-fly-chip--in-1 {
+  left: 6%;
+  top: 20%;
+  animation: ks-sa-fly-in-1 2.1s ease-out forwards;
+}
+
+.ks-sa-fly-chip--in-2 {
+  left: 6%;
+  top: 46%;
+  animation: ks-sa-fly-in-2 2.1s ease-out 0.08s forwards;
+}
+
+.ks-sa-fly-chip--in-3 {
+  left: 6%;
+  top: 72%;
+  animation: ks-sa-fly-in-3 2.1s ease-out 0.16s forwards;
+}
+
+@keyframes ks-sa-fly-in-1 {
+  to {
+    left: 24%;
+    top: 38%;
+    opacity: 0.35;
+  }
+}
+
+@keyframes ks-sa-fly-in-2 {
+  to {
+    left: 26%;
+    top: 50%;
+    opacity: 0.35;
+  }
+}
+
+@keyframes ks-sa-fly-in-3 {
+  to {
+    left: 24%;
+    top: 62%;
+    opacity: 0.35;
+  }
+}
+
+.ks-sa-fly-chip--delivery {
+  left: 38%;
+  top: 48%;
+  animation: ks-sa-fly-delivery 2.6s ease-in-out forwards;
+}
+
+@keyframes ks-sa-fly-delivery {
+  to {
+    left: 62%;
+    top: 48%;
+    opacity: 0.35;
+  }
+}
+
+.ks-sa-edge--out.ks-sa-edge--pulse {
+  stroke-dasharray: 14 120;
+  stroke-dashoffset: 0;
+  animation: ks-sa-out-dash 1.15s linear infinite;
+}
+
+@keyframes ks-sa-out-dash {
+  to {
+    stroke-dashoffset: -134;
+  }
+}
+
+.ks-sa-node rect {
+  fill: var(--ks-script-assembly-input-fill);
+  stroke: var(--ks-script-assembly-border);
+  stroke-width: 1.5;
+  rx: 6;
+  transition: stroke 0.25s ease, filter 0.25s ease;
+}
+
+.ks-sa-node--input rect {
+  stroke-dasharray: 4 3;
+}
+
+.ks-sa-svg--input-warmup .ks-sa-node--input rect {
+  animation: ks-sa-input-warm 1.85s ease-in-out infinite;
+}
+
+@keyframes ks-sa-input-warm {
+  0%,
+  100% {
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-opacity: 0.55;
+  }
+}
+
+.ks-sa-root--reduced-motion .ks-sa-svg--input-warmup .ks-sa-node--input rect {
+  animation: none !important;
+}
+
+.ks-sa-node--input.ks-sa-node--locked rect {
+  opacity: 0.95;
+}
+
+.ks-sa-node text {
+  fill: var(--ks-script-assembly-text);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.ks-sa-node .ks-sa-node__sub,
+text.ks-sa-node__sub {
+  fill: var(--ks-script-assembly-muted);
+  font-size: 8px;
+  font-weight: 500;
+}
+
+/* layoutDensity: sidebar — dedicated wide column (e.g. certificator Plan split). */
+.ks-sa-root--sidebar .ks-sa-fly-chip {
+  font-size: 0.62rem;
+}
+
+.ks-sa-root--sidebar .ks-sa-logic-chip {
+  font-size: 0.8rem;
+}
+
+.ks-sa-root--sidebar .ks-sa-logic-row__label {
+  font-size: 0.74rem;
+}
+
+.ks-sa-svg.ks-sa-svg--sidebar .ks-sa-node text {
+  font-size: 11px;
+}
+
+.ks-sa-svg.ks-sa-svg--sidebar text.ks-sa-node__sub {
+  font-size: 9px;
+}
+
+.ks-sa-svg.ks-sa-svg--sidebar .ks-sa-zone-caption {
+  font-size: 9px;
+}
+
+.ks-sa-svg.ks-sa-svg--sidebar .ks-sa-node--substage text {
+  font-size: 10px;
+}
+
+.ks-sa-zone-caption {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 650;
+  fill: var(--ks-script-assembly-muted);
+  letter-spacing: 0.04em;
+  opacity: 0.92;
+}
+
+.ks-sa-node--substage rect {
+  stroke-width: 1.35;
+}
+
+.ks-sa-node--substage text {
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.ks-sa-node--substage.ks-sa-node--active rect {
+  stroke: var(--ks-script-assembly-accent);
+  filter: drop-shadow(0 0 5px var(--ks-script-assembly-llm-glow));
+}
+
+.ks-sa-node--substage.ks-sa-node--past rect {
+  stroke: var(--ks-script-assembly-ok);
+  stroke-opacity: 0.95;
+}
+
+.ks-sa-node--llm rect {
+  stroke: var(--ks-script-assembly-accent);
+  stroke-width: 2;
+  fill: rgba(88, 166, 255, 0.12);
+}
+
+.ks-sa-node--llm.ks-sa-node--active rect {
+  filter: drop-shadow(0 0 8px var(--ks-script-assembly-llm-glow));
+  animation: ks-sa-llm-pulse 1.6s ease-in-out infinite;
+}
+
+.ks-sa-node--llm.ks-sa-node--phase-json rect {
+  animation: ks-sa-llm-pulse-slow 2.4s ease-in-out infinite;
+}
+
+@keyframes ks-sa-llm-pulse {
+  0%,
+  100% {
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-opacity: 0.55;
+  }
+}
+
+@keyframes ks-sa-llm-pulse-slow {
+  0%,
+  100% {
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-opacity: 0.65;
+  }
+}
+
+.ks-sa-node--output rect {
+  fill: rgba(46, 160, 67, 0.08);
+  stroke: var(--ks-script-assembly-ok);
+}
+
+.ks-sa-node--output.ks-sa-node--complete rect {
+  stroke: var(--ks-script-assembly-ok);
+  filter: drop-shadow(0 0 6px rgba(63, 185, 80, 0.35));
+}
+
+.ks-sa-edge {
+  fill: none;
+  stroke: var(--ks-script-assembly-muted);
+  stroke-width: 1.25;
+  stroke-opacity: 0.55;
+  transition: stroke-opacity 0.2s ease;
+}
+
+.ks-sa-edge--feed {
+  stroke-dasharray: 5 4;
+}
+
+.ks-sa-edge--active {
+  stroke: var(--ks-script-assembly-flow);
+  stroke-opacity: 0.95;
+  animation: ks-sa-dash 1.1s linear infinite;
+}
+
+.ks-sa-edge--active.ks-sa-edge--feed {
+  animation: ks-sa-dash 1.4s linear infinite;
+}
+
+@keyframes ks-sa-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.ks-sa-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+/* —— Vertical live build (bank-health Plan column) —— */
+.ks-sa-live-build-header {
+  margin: 0 0 0.4rem 0;
+}
+.ks-sa-live-build-header__title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ks-script-assembly-text);
+  letter-spacing: 0.02em;
+}
+.ks-sa-live-build-header__sub {
+  font-size: 0.65rem;
+  color: var(--ks-script-assembly-muted);
+  margin-top: 0.12rem;
+  line-height: 1.35;
+}
+
+.ks-sa-vbuild-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 10rem;
+  border-radius: 8px;
+  background: rgba(10, 14, 18, 0.65);
+  border: 1px solid rgba(48, 54, 61, 0.85);
+  padding: 0.45rem 0.5rem 0.55rem;
+  box-sizing: border-box;
+}
+
+.ks-sa-vertical-build {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ks-sa-vbuild-section {
+  border-radius: 8px;
+  border: 1px solid rgba(48, 54, 61, 0.75);
+  background: rgba(22, 27, 34, 0.72);
+  padding: 0.38rem 0.45rem;
+  margin: 0;
+}
+
+.ks-sa-vbuild-section__label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ks-script-assembly-text);
+  margin-bottom: 0.28rem;
+}
+
+.ks-sa-vbuild-section__sub {
+  font-size: 0.62rem;
+  color: var(--ks-script-assembly-muted);
+  line-height: 1.35;
+  margin-bottom: 0.22rem;
+}
+
+.ks-sa-vbuild-section--llm.ks-sa-vbuild-section--active {
+  border-color: rgba(88, 166, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.2), 0 0 14px rgba(88, 166, 255, 0.18);
+}
+
+.ks-sa-vbuild-section--job.ks-sa-vbuild-section--active {
+  border-color: rgba(210, 153, 34, 0.55);
+  box-shadow: 0 0 0 1px rgba(210, 153, 34, 0.18), 0 0 12px rgba(210, 153, 34, 0.12);
+}
+
+.ks-sa-vbuild-section--job.ks-sa-vbuild-section--pulse-job.ks-sa-vbuild-section--active {
+  animation: ks-sa-vbuild-job-glow 1.8s ease-in-out infinite;
+}
+
+@keyframes ks-sa-vbuild-job-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.2), 0 0 10px rgba(88, 166, 255, 0.12);
+    border-color: rgba(88, 166, 255, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(210, 153, 34, 0.35), 0 0 14px rgba(210, 153, 34, 0.2);
+    border-color: rgba(210, 153, 34, 0.5);
+  }
+}
+
+.ks-sa-vbuild-llm__metrics,
+.ks-sa-vbuild-job__metrics {
+  font-size: 0.58rem;
+  color: var(--ks-script-assembly-muted);
+  font-variant-numeric: tabular-nums;
+  min-height: 0.85rem;
+}
+
+.ks-sa-vbuild-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+}
+
+.ks-sa-vbuild-chip {
+  font-size: 0.58rem;
+  padding: 0.14rem 0.32rem;
+  border-radius: 6px;
+  border: 1px solid rgba(110, 118, 129, 0.45);
+  color: var(--ks-script-assembly-muted);
+  background: rgba(13, 17, 23, 0.65);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.ks-sa-vbuild-chip--on {
+  color: var(--ks-script-assembly-text);
+  border-color: rgba(88, 166, 255, 0.45);
+  background: rgba(88, 166, 255, 0.1);
+}
+
+.ks-sa-vbuild-chip--locked.ks-sa-vbuild-chip--on {
+  border-color: rgba(63, 185, 80, 0.35);
+}
+
+.ks-sa-vbuild-chip--artifact.ks-sa-vbuild-chip--on {
+  box-shadow: 0 0 8px rgba(88, 166, 255, 0.15);
+}
+
+.ks-sa-vbuild-job__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 0.2rem;
+}
+
+.ks-sa-vbuild-badge {
+  font-size: 0.52rem;
+  font-weight: 650;
+  padding: 0.1rem 0.28rem;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(110, 118, 129, 0.5);
+  color: var(--ks-script-assembly-muted);
+}
+
+.ks-sa-vbuild-badge--nollm {
+  border-color: rgba(210, 153, 34, 0.55);
+  color: rgba(251, 191, 36, 0.95);
+  background: rgba(210, 153, 34, 0.08);
+}
+
+.ks-sa-vbuild-badge--fleet {
+  border-color: rgba(129, 140, 248, 0.45);
+  color: rgba(165, 180, 252, 0.95);
+}
+
+.ks-sa-vbuild-badge--container {
+  border-color: rgba(34, 211, 238, 0.4);
+  color: rgba(103, 232, 249, 0.92);
+}
+
+.ks-sa-vbuild-connector {
+  display: flex;
+  justify-content: center;
+  padding: 0.08rem 0;
+  min-height: 0.55rem;
+}
+
+.ks-sa-vbuild-connector__rail {
+  width: 2px;
+  flex: 0 0 2px;
+  min-height: 0.5rem;
+  border-radius: 2px;
+  background: rgba(48, 54, 61, 0.85);
+  position: relative;
+  overflow: hidden;
+}
+
+.ks-sa-vbuild-connector--active .ks-sa-vbuild-connector__rail {
+  background: linear-gradient(
+    180deg,
+    rgba(88, 166, 255, 0.15),
+    rgba(88, 166, 255, 0.85),
+    rgba(88, 166, 255, 0.15)
+  );
+  animation: ks-sa-vbuild-rail-flow 1.2s linear infinite;
+}
+
+@keyframes ks-sa-vbuild-rail-flow {
+  0% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.55;
+  }
+}
+
+.ks-sa-vbuild-section--table {
+  margin-top: 0.05rem;
+}
+
+.ks-sa-vbuild-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  margin-top: 0.15rem;
+}
+
+.ks-sa-vbuild-table__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-rows: auto auto;
+  gap: 0.08rem 0.35rem;
+  align-items: center;
+  padding: 0.22rem 0.32rem;
+  border-radius: 6px;
+  border: 1px solid rgba(48, 54, 61, 0.65);
+  background: rgba(13, 17, 23, 0.55);
+  font-size: 0.62rem;
+}
+
+.ks-sa-vbuild-table__label {
+  color: var(--ks-script-assembly-text);
+  font-weight: 600;
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ks-sa-vbuild-table__badge {
+  grid-column: 2;
+  grid-row: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.52rem;
+  padding: 0.06rem 0.22rem;
+  border-radius: 4px;
+  border: 1px solid rgba(110, 118, 129, 0.45);
+  color: var(--ks-script-assembly-muted);
+}
+
+.ks-sa-vbuild-table__status {
+  grid-column: 3;
+  grid-row: 1;
+  font-size: 0.55rem;
+  color: var(--ks-script-assembly-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ks-sa-vbuild-table__fill {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(48, 54, 61, 0.55);
+  overflow: hidden;
+}
+
+.ks-sa-vbuild-table__fill--busy {
+  background: linear-gradient(90deg, rgba(88, 166, 255, 0.2), rgba(88, 166, 255, 0.75), rgba(88, 166, 255, 0.2));
+  background-size: 200% 100%;
+  animation: ks-sa-vbuild-fill-scan 1.1s linear infinite;
+}
+
+@keyframes ks-sa-vbuild-fill-scan {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+.ks-sa-vbuild-table__row--streaming .ks-sa-vbuild-table__status,
+.ks-sa-vbuild-table__row--assembling .ks-sa-vbuild-table__status {
+  color: rgba(125, 211, 252, 0.95);
+}
+
+.ks-sa-vbuild-table__row--generated .ks-sa-vbuild-table__status {
+  color: rgba(165, 180, 252, 0.95);
+}
+
+.ks-sa-vbuild-table__row--validated .ks-sa-vbuild-table__status {
+  color: rgba(125, 211, 252, 0.88);
+}
+
+.ks-sa-vbuild-table__row--tested .ks-sa-vbuild-table__status,
+.ks-sa-vbuild-table__row--done .ks-sa-vbuild-table__status {
+  color: rgba(74, 222, 128, 0.95);
+}
+
+.ks-sa-vbuild-table__row--done .ks-sa-vbuild-table__status::before,
+.ks-sa-vbuild-table__row--tested .ks-sa-vbuild-table__status::before {
+  content: "✓ ";
+  color: var(--ks-script-assembly-ok);
+}
+
+.ks-sa-vbuild-table__row--error .ks-sa-vbuild-table__status {
+  color: rgba(248, 81, 73, 0.95);
+}
+
+.ks-sa-vbuild-table__row--done .ks-sa-vbuild-table__fill,
+.ks-sa-vbuild-table__row--tested .ks-sa-vbuild-table__fill {
+  background: rgba(63, 185, 80, 0.35);
+}
+
+.ks-sa-vbuild-table--dryrun-pulse .ks-sa-vbuild-table__row {
+  animation: ks-sa-vbuild-row-pulse 1.4s ease-in-out infinite;
+}
+
+.ks-sa-vbuild-table--dryrun-pulse .ks-sa-vbuild-table__row:nth-child(1) {
+  animation-delay: 0s;
+}
+.ks-sa-vbuild-table--dryrun-pulse .ks-sa-vbuild-table__row:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.ks-sa-vbuild-table--dryrun-pulse .ks-sa-vbuild-table__row:nth-child(3) {
+  animation-delay: 0.16s;
+}
+.ks-sa-vbuild-table--dryrun-pulse .ks-sa-vbuild-table__row:nth-child(4) {
+  animation-delay: 0.24s;
+}
+.ks-sa-vbuild-table--dryrun-pulse .ks-sa-vbuild-table__row:nth-child(5) {
+  animation-delay: 0.32s;
+}
+.ks-sa-vbuild-table--dryrun-pulse .ks-sa-vbuild-table__row:nth-child(6) {
+  animation-delay: 0.4s;
+}
+.ks-sa-vbuild-table--dryrun-pulse .ks-sa-vbuild-table__row:nth-child(7) {
+  animation-delay: 0.48s;
+}
+
+@keyframes ks-sa-vbuild-row-pulse {
+  0%,
+  100% {
+    border-color: rgba(48, 54, 61, 0.65);
+    box-shadow: none;
+  }
+  50% {
+    border-color: rgba(210, 153, 34, 0.45);
+    box-shadow: 0 0 0 1px rgba(210, 153, 34, 0.12);
+  }
+}
+
+.ks-sa-vbuild-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ks-sa-vbuild-particle {
+  position: absolute;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: rgba(125, 211, 252, 0.85);
+  box-shadow: 0 0 6px rgba(88, 166, 255, 0.6);
+  opacity: 0;
+}
+
+.ks-sa-vbuild-wrap--particles .ks-sa-vbuild-particle--0 {
+  animation: ks-sa-vbuild-drop-a 2.4s ease-in-out infinite;
+  top: 8%;
+}
+.ks-sa-vbuild-wrap--particles .ks-sa-vbuild-particle--1 {
+  animation: ks-sa-vbuild-drop-b 2.4s ease-in-out 0.35s infinite;
+  top: 12%;
+  margin-left: 8px;
+}
+.ks-sa-vbuild-wrap--particles .ks-sa-vbuild-particle--2 {
+  animation: ks-sa-vbuild-drop-a 2.6s ease-in-out 0.7s infinite;
+  top: 10%;
+  margin-left: -12px;
+}
+.ks-sa-vbuild-wrap--particles .ks-sa-vbuild-particle--3 {
+  animation: ks-sa-vbuild-drop-b 2.5s ease-in-out 1s infinite;
+  top: 15%;
+}
+
+@keyframes ks-sa-vbuild-drop-a {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.95;
+  }
+  88% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(220px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes ks-sa-vbuild-drop-b {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(260px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.ks-sa-vbuild-ingest-chip {
+  margin-top: 0.35rem;
+  font-size: 0.52rem;
+  color: var(--ks-script-assembly-muted);
+  text-align: center;
+  opacity: 0.55;
+}
+
+.ks-sa-vbuild-ingest-chip--pulse {
+  animation: ks-sa-vbuild-ingest-fade 2s ease-in-out infinite;
+}
+
+@keyframes ks-sa-vbuild-ingest-fade {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.ks-sa-root--reduced-motion .ks-sa-vbuild-particle,
+.ks-sa-root--reduced-motion .ks-sa-vbuild-table--dryrun-pulse .ks-sa-vbuild-table__row,
+.ks-sa-root--reduced-motion .ks-sa-vbuild-wrap--particles .ks-sa-vbuild-connector--active .ks-sa-vbuild-connector__rail,
+.ks-sa-root--reduced-motion .ks-sa-vbuild-table__fill--busy,
+.ks-sa-root--reduced-motion .ks-sa-vbuild-section--job.ks-sa-vbuild-section--pulse-job {
+  animation: none !important;
+}
+
+.ks-sa-root--reduced-motion .ks-sa-vbuild-particle {
+  display: none !important;
+}
+
+.ks-sa-root--script-test .ks-sa-vbuild-section--llm {
+  opacity: 0.55;
+}
