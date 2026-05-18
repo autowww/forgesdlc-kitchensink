@@ -21,6 +21,11 @@
 #                                           skip auto --incremental (full crawl baseline).
 #   UX_AUDIT_VERBOSE=1|2                     Pass --verbose or --verbose=2 (stderr breadcrumbs).
 #
+# Progress streams:
+#   Phase lines (`[ux-audit] phase=…`), inventory sampling, shell handoffs (`_out_echo`), sitewide scorer
+#   diagnostics, and crawl rows (`[ux-score]` / `[ux-audit]` columns) go to stderr so they stay visible in the
+#   same channel when stdout is piped or block-buffered (auditor summaries still print to stdout at the end).
+#
 # Env:
 #   SKIP_CURSOR_AGENT=1      Audit + plans only (no agent). Skips Cursor CLI auth at start.
 #   SKIP_CURSOR_LOGIN=1      After auth banner: do not run `agent login` when unauthenticated.

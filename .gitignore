@@ -19,3 +19,7 @@ ux-scoring.csv
 
 # UX remediation loop outputs (ephemeral audit runs from tools/website-ux-auditor)
 workbench/
+
+# Ember / Versona session exports (local-only)
+ember-logs/
+forge-logs/

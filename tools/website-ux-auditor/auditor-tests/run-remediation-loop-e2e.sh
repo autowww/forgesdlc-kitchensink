@@ -15,7 +15,7 @@ if [[ ! -f "${STANDARD}" ]]; then
   exit 2
 fi
 
-campaign="$(mktemp -d)"
+campaign="$(mktemp -d "${AUDITOR_ROOT}/.ux-loop-e2e-XXXXXXXXXX")"
 cleanup() { rm -rf "${campaign}"; }
 trap cleanup EXIT
 
