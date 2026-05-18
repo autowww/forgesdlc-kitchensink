@@ -3,7 +3,7 @@ id: forge.website-ux-auditor
 kind: ks-tool
 status: published
 owner: Forge UX
-updated: 2026-05-18
+updated: 2026-05-17
 ---
 
 # Forge Website UX Auditor
@@ -12,7 +12,7 @@ This KS utility inspects a website repo and a running website against the shared
 
 It is deterministic. It does not call an LLM or make edits. It produces a report and plan files that Cursor Agent or Cursor Plan Mode can execute after human review.
 
-**Repeatable remediation loop:** see **[UX-AUDIT-REMEDIATION-CYCLE.md](UX-AUDIT-REMEDIATION-CYCLE.md)** for a plain-language operator script plus generic defaults. Command examples remain in **[FORGE_SITE_COMMANDS.md](FORGE_SITE_COMMANDS.md)**.
+**Repeatable remediation loop:** see **[UX-AUDIT-REMEDIATION-CYCLE.md](UX-AUDIT-REMEDIATION-CYCLE.md)** — every verification pass expects **`--site`** (Playwright/Chromium); **`--static-only`** is out of scope for loop sign-off. Command examples remain in **[FORGE_SITE_COMMANDS.md](FORGE_SITE_COMMANDS.md)**.
 
 ## What it checks
 
@@ -61,6 +61,21 @@ Optional **tracking on the auditor** (live runs):
 
 By default the Playwright crawler **stops enqueueing further URLs once the cumulative backlog of blocker + critical + major findings reaches `--stop-after-major-plus`** (**10** by default). **`audit-report.md`** still carries **every** finding returned for pages that were analyzed (there is **no output cap tied to ten** beyond a readability “priority sample” heading). **`audit-data.json`** `crawlSummary.crawlMode` distinguishes **`major_plus_early_stop`** (threshold hit), **`major_plus_governed_complete`** (queue/budget exhausted first), or **`full_budget_within_max_pages`** (**`--breadth-crawl`** / **`--stop-disable`**). Plans include crawl outcome prose. Use **`--breadth-crawl`** (`--stop-disable`) on the **auditor** only when you need full breadth inside **`--max-pages`**. The **scorer** never applies Major+ stopping.
 
+## Incremental campaigns (`--incremental`)
+
+Reuse one **`--out`** directory across verification passes so **`forge-ux-remediation.plan.md`** YAML **`status:`** merges stay coherent (**`--refresh-plan-status`** remains default).
+
+**Remediation loop shell (`run-website-ux-remediation-loop.sh`):** runs **`score-website-ux.mjs`** first (sitewide scorer under the same **`--out`**), then **`analyze-website-ux.mjs`**. The auditor **does not** spawn the scorer; it reads **`ux-quality-score-loop-delta.json`** when present and mirrors sitewide-vs-prior deltas into **`audit-report.md`** / **`audit-data.json`**. The scorer archives **`ux-quality-score.json` → `ux-quality-score.previous.json`**, prints **`[ux-scorer-loop]`** verbal deltas on stderr, and appends the same summary to **`ux-quality-score.md`**. Skip with **`UX_AUDIT_SKIP_SCORER=1`**; tune breadth via **`UX_AUDIT_SCORER_MAX_PAGES`**.
+1. Each live run copies **`audit-data.json` → `audit-data.previous.json`** when **`audit-data.json`** already exists (baseline for the **next** invocation’s regression wave).
+2. **`--incremental`** reads **`audit-data.previous.json`** and **`crawl-session.json`** when present:
+   - **Regression wave:** revisit URLs that previously had Major+ findings (cap **`--incremental-regression-max-pages`**, default **40**); summaries land in **`audit-data.json`** **`regressionWave`** and **`audit-report.md`** (**Previously Major+ URLs re-checked**).
+   - **Resume wave:** restore **`visitedUrls`** / **`queuedUrls`** after a **`major_plus_threshold`** halt so BFS continues instead of restarting only from **`/`**.
+3. **`crawl-session.json`** is rewritten each live run: **`completed: false`** while the crawl halted early with queued URLs remaining; **`completed: true`** when the crawl completes normally within **`--max-pages`**.
+
+Kitchen Sink **`tools/website-ux-auditor/run-website-ux-remediation-loop.sh`** accepts **`UX_AUDIT_OUT_DIR`** for a stable campaign folder and auto-adds **`--incremental`** when that folder already contains **`audit-data.json`**, unless **`UX_AUDIT_FORCE_FULL=1`**.
+
+Diagnostics: **`--verbose`** / **`UX_AUDIT_VERBOSE`** emit **`[incremental]`**, **`[crawl]`**, **`[archive]`**, **`[session]`**, **`[plans]`** markers on stderr only (stdout stays pipe-safe).
+
 ## Design-standard UX scores (dimensions + logarithmic curve)
 
 Runs compute **six pillar scores** (mapped from finding **`area`** to design-standard themes) plus an **overall 1–100**:
@@ -93,7 +108,7 @@ From **`tools/website-ux-auditor/`**:
 npm test
 ```
 
-This uses Node’s built-in test runner (`node --test auditor-tests/*.test.js`). It exercises severity/scoring helpers, design UX dimension scoring, check aggregation, design-standard parsing, crawl URL rules, the RCA prompt writer, and one **static-only** end-to-end invocation of `analyze-website-ux.mjs` against `auditor-tests/fixtures/minimal-repo/` (no Playwright; no network).
+This uses Node’s built-in test runner (`node --test auditor-tests/*.test.js`). It exercises severity/scoring helpers, design UX dimension scoring, check aggregation, design-standard parsing, crawl URL rules, incremental baseline helpers, the RCA prompt writer, and one **static-only** end-to-end invocation of `analyze-website-ux.mjs` against `auditor-tests/fixtures/minimal-repo/` (no Playwright; no network).
 
 After changing **`lib/crawl.js`**, **`lib/dom-metrics.js`**, **`checks/`**, shared CLI libs, or either entry script, run **`npm test`** before committing.
 
@@ -232,17 +247,18 @@ rca-prompts/*.md
 forge-ux-remediation.plan.md
 00-master-remediation-sequence.md
 01-site-inventory-and-content-map.md
-02-homepage-storyline-and-hero.md
-03-information-architecture-and-navigation.md
-04-page-depth-and-technical-content-pruning.md
-05-trust-model-and-ecosystem-fit.md
-06-visual-system-and-spacious-enterprise-polish.md
-07-accessibility-responsive-link-and-build-qa.md
-08-screenshot-and-homepage-shell-review.md
+02-homepage-shell-and-product-landing-mode.md
+03-homepage-storyline-and-hero.md
+04-information-architecture-and-navigation.md
+05-page-depth-and-technical-content-pruning.md
+06-trust-model-and-ecosystem-fit.md
+07-visual-system-and-spacious-enterprise-polish.md
+08-accessibility-responsive-link-and-build-qa.md
+09-screenshot-and-homepage-shell-review.md
 screenshots/*.png
 ```
 
-**Run identity:** `audit-report.md`, `forge-ux-remediation.plan.md`, `00`–`08`, and `audit-data.json` from the **same** invocation share **`audit_run_id`** and **`generated_at`** (ISO UTC). The CLI prints `Audit run id:` and `Generated at (UTC):` after each run.
+**Run identity:** `audit-report.md`, `forge-ux-remediation.plan.md`, `00`–`09`, and `audit-data.json` from the **same** invocation share **`audit_run_id`** and **`generated_at`** (ISO UTC). The CLI prints `Audit run id:` and `Generated at (UTC):` after each run.
 
 With `--install-rule`, it also writes (under **`--repo`**):
 
@@ -284,14 +300,14 @@ In Cursor, **Build** on a plan is wired to **Plan Mode sessions**: the agent and
 
    The analyzer does **not** call **`agent`** by default (explicit operator step).
 
-4. **In the IDE** — Open **Agent** (not Ask), **\@**‑attach `forge-ux-remediation.plan.md` or the repo-level orchestrator, and ask to run todos **ux-00** … **ux-08**.
+4. **In the IDE** — Open **Agent** (not Ask), **\@**‑attach `forge-ux-remediation.plan.md` or the repo-level orchestrator, and ask to run todos **ux-00** … **ux-09**.
 
 ### Controlled mode (manual)
 
 1. Open `00-master-remediation-sequence.md`.
-2. Ask Cursor Plan Mode to execute `01-site-inventory-and-content-map.md`.
-3. Review the plan, implement, test, and commit.
-4. Continue with each child plan in order.
+2. Ask Cursor Plan Mode to execute child plans **01–09** in numeric order (**02** shell/layout before **03** storyline when audits showed shell/visual/storyline gates).
+3. Review each plan, implement, test, and commit before continuing.
+4. Prefer one child plan at a time for large public-site changes.
 
 This is the safest workflow for public website changes.
 

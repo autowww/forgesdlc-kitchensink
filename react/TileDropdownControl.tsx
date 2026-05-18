@@ -20,6 +20,7 @@ import type {
   TileDropdownRenderTile,
   TileRenderContext,
 } from './tileDropdownTypes'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type TileDropdownControlProps = {
   /** Selected option `value`. */
@@ -342,7 +343,7 @@ export function TileDropdownControl({
     ((opt, ctx) => defaultRenderTile(opt, ctx, resolveTileDensity(opt, tileDensity)))
 
   return (
-    <div ref={rootRef} className={rootClass}>
+    <div ref={rootRef} className={rootClass} {...ksReactPrimitiveAttrs('TileDropdownControl')}>
       {label ? (
         <label id={labelId} htmlFor={triggerId} className="ks-tile-dropdown__label">
           {label}

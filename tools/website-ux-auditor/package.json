@@ -8,6 +8,7 @@
     "audit": "node analyze-website-ux.mjs",
     "score": "node score-website-ux.mjs",
     "test": "node --test auditor-tests/*.test.js",
+    "test:e2e-loop": "bash auditor-tests/run-remediation-loop-e2e.sh",
     "install-browsers": "playwright install chromium"
   },
   "devDependencies": {

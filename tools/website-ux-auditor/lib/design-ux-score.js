@@ -1,4 +1,8 @@
 import {
+  collectHomepageReadinessGates,
+  minCapFromGates,
+} from './homepage-readiness-gates.js';
+import {
   AREA_TO_DESIGN_DIMENSION,
   ANCILLARY_FINDING_AREAS,
   DESIGN_DIMENSION_IDS,
@@ -6,10 +10,24 @@ import {
 } from './design-dimensions.js';
 import { SCORE_WEIGHTS } from './severity.js';
 
-export const DESIGN_UX_SCORE_VERSION = 1;
+export const DESIGN_UX_SCORE_VERSION = 2;
 
 /** Penalty curvature on ln(1 + damage). */
 export const DESIGN_UX_LOG_K = 15;
+
+/** Two fractional digits for UX score columns in scorer Markdown / console (dot separator). */
+export function formatUxScoreDisplay(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n.toFixed(2) : '—';
+}
+
+/** Signed delta with two fractional digits (e.g. +1.00, -2.50). */
+export function formatUxScoreSignedDelta(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return '—';
+  const s = n.toFixed(2);
+  return n >= 0 ? `+${s}` : s;
+}
 
 const HARM_EPS = 1e-6;
 
@@ -85,10 +103,12 @@ export function extractUxScoresFromSavedJson(parsed) {
  *   pagesPlannedBudget?: number,
  *   queuedRemainingAtStop?: number,
  * }} [opts.crawlSummary]
+ * @param {string} [opts.siteKind] resolved profile key for homepage gates on `/`
  */
 export function computeUxScores(opts) {
   const pages = opts?.pages || [];
   const crawl = opts?.crawlSummary || {};
+  const siteKind = opts?.siteKind && String(opts.siteKind) ? String(opts.siteKind) : 'generic';
   const flat = pages.flatMap((p) => (p.findings || []).map((f) => ({ ...f, url: p.url || p.pageUrl })));
 
   const staticOnly = Boolean(opts?.staticOnly ?? (crawl.stopReason === 'static_only'));
@@ -129,11 +149,24 @@ export function computeUxScores(opts) {
     }
   }
 
+  const overallBeforeHomepageCap = overall;
+  const homepageReadinessGates = collectHomepageReadinessGates(pages, siteKind);
+  const homepageOverallCap = minCapFromGates(homepageReadinessGates);
+  if (homepageOverallCap !== null && overall > homepageOverallCap) {
+    overall = homepageOverallCap;
+  }
+
   return {
     version: DESIGN_UX_SCORE_VERSION,
     formula:
-      `per_dimension: clamp 1–99 · round(100 - ${DESIGN_UX_LOG_K}*ln(1+rawDamage)); overall: harmonic mean of dimension scores capped 1–99 if effective findings remain; overall 100 if perfectScoreEligible.`,
+      `per_dimension: clamp 1–99 · round(100 - ${DESIGN_UX_LOG_K}*ln(1+rawDamage)); overall: harmonic mean of dimension scores capped 1–99 if effective findings remain; overall 100 if perfectScoreEligible; then overall may be further capped by homepage readiness gates on root \`/\`.`,
     overall,
+    overallBeforeHomepageCap: homepageOverallCap !== null ? overallBeforeHomepageCap : null,
+    homepageReadiness: {
+      siteKind,
+      gatesFailed: homepageReadinessGates,
+      appliedCap: homepageOverallCap,
+    },
     dimensions,
     dimensionsMeta: DESIGN_DIMENSION_META,
     coverage: {
@@ -188,6 +221,95 @@ export function compareUxScores(previous, next) {
 }
 
 /**
+ * Narration for stderr / JSON sidecar — bounded pillar call-outs (positive Δ = improvement).
+ * @param {ReturnType<typeof compareUxScores>} delta
+ */
+export function formatUxScoreLoopDeltaVerbalParagraph(delta) {
+  if (!delta?.overall || delta.overall.delta === null || delta.overall.delta === undefined) return '';
+  const odStr = formatUxScoreSignedDelta(delta.overall.delta);
+  const pe = delta.priorEffectiveFindingCount;
+  const ce = delta.currentEffectiveFindingCount;
+  const efPart =
+    pe !== null && pe !== undefined && ce !== null && ce !== undefined
+      ? ` Effective findings ${pe} → ${ce}${ce < pe ? ' (fewer)' : ce > pe ? ' (more)' : ''}.`
+      : '';
+  const pillarRows = DESIGN_DIMENSION_IDS.map((id) => {
+    const row = delta.dimensions[id];
+    if (!row) return null;
+    return { id, ...row };
+  }).filter(Boolean);
+  pillarRows.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
+  const top = pillarRows.slice(0, 4).filter((r) => r.delta !== 0);
+  const pillarPart = top.length
+    ? ` Notable pillar Δ: ${top.map((r) => `${r.id} ${formatUxScoreSignedDelta(r.delta)}`).join(', ')}.`
+    : '';
+  return `Sitewide UX score ${formatUxScoreDisplay(delta.overall.prior)} → ${formatUxScoreDisplay(delta.overall.current)} (Δ ${odStr}).${efPart}${pillarPart}`;
+}
+
+/**
+ * Markdown tables for ux-quality-score.md appendix vs audit-report snippet body.
+ * @param {ReturnType<typeof compareUxScores>} delta
+ * @param {string} [baselineLabel]
+ */
+export function formatUxScoreLoopDeltaMarkdownTables(delta, baselineLabel = '`ux-quality-score.previous.json`') {
+  if (!delta?.overall || delta.overall.delta === null || delta.overall.delta === undefined) return '';
+  const d = delta.overall.delta;
+  const deltaStr = formatUxScoreSignedDelta(d);
+  const lines = [];
+  lines.push(`Baseline: ${baselineLabel}`);
+  lines.push('');
+  lines.push('| | Prior sitewide scorer | Current sitewide scorer | Δ overall |');
+  lines.push('|--:|----------------------:|------------------------:|-----------:|');
+  lines.push(
+    `| Overall | ${formatUxScoreDisplay(delta.overall.prior)} | **${formatUxScoreDisplay(delta.overall.current)}** | **${deltaStr}** |`,
+  );
+  lines.push(
+    `| _Effective findings_ | \`${String(delta.priorEffectiveFindingCount ?? '—')}\` | **\`${String(delta.currentEffectiveFindingCount ?? '—')}\`** | — |`,
+  );
+  lines.push('');
+  lines.push('| Pillar id | Prior | Current | Δ |');
+  lines.push('|-----------|------:|--------:|--:|');
+  for (const id of DESIGN_DIMENSION_IDS) {
+    const row = delta.dimensions[id];
+    if (!row) continue;
+    const dd = formatUxScoreSignedDelta(row.delta);
+    lines.push(`| \`${id}\` | ${formatUxScoreDisplay(row.prior)} | ${formatUxScoreDisplay(row.current)} | ${dd} |`);
+  }
+  lines.push('');
+  lines.push('_Positive Δ means improvement (higher pillar/overall scores are better). Same **`--max-pages`** budget yields comparable breadth._');
+  lines.push('');
+  return lines.join('\n');
+}
+
+/**
+ * Compact subsection for audit-report (reads scorer-written sidecar shape).
+ * @param {{
+ *   baselinePath?: string | null,
+ *   verbalSummary?: string | null,
+ *   delta?: ReturnType<typeof compareUxScores> | null,
+ * }} sidecar
+ */
+export function buildUxScoreLoopDeltaAuditreportSection(sidecar) {
+  const delta = sidecar?.delta;
+  if (!delta?.overall || delta.overall.delta === null || delta.overall.delta === undefined) return '';
+  const baseline =
+    sidecar?.baselinePath ? `\`${String(sidecar.baselinePath)}\`` : '`ux-quality-score.previous.json`';
+  const lines = [];
+  lines.push('### Sitewide scorer vs prior loop snapshot');
+  lines.push('');
+  lines.push(
+    `_Sitewide scorer (\`score-website-ux.mjs\`, invoked by the remediation shell before this audit). Prior snapshot: ${baseline}._`,
+  );
+  lines.push('');
+  if (sidecar.verbalSummary) {
+    lines.push(`> ${String(sidecar.verbalSummary).replace(/\n/g, '\n> ')}`);
+    lines.push('');
+  }
+  lines.push(formatUxScoreLoopDeltaMarkdownTables(delta, baseline));
+  return lines.join('\n');
+}
+
+/**
  * Markdown UX quality scorecard + JSON fence for human review.
  */
 export function buildUxQualityScoreMarkdown(opts) {
@@ -213,7 +335,13 @@ export function buildUxQualityScoreMarkdown(opts) {
   lines.push('');
   lines.push('# Forge UX quality score');
   lines.push('');
-  lines.push(`**Overall:** **${uxScores.overall}** / 100 (log-penalty + harmonic rollup; schema v${uxScores.version})`);
+  lines.push(
+    `**Overall:** **${formatUxScoreDisplay(uxScores.overall)}** / ${formatUxScoreDisplay(100)} (log-penalty + harmonic rollup + homepage gate caps; schema v${uxScores.version})`,
+  );
+  if (typeof uxScores.overallBeforeHomepageCap === 'number') {
+    lines.push('');
+    lines.push(`_Overall before homepage readiness cap:_ **${formatUxScoreDisplay(uxScores.overallBeforeHomepageCap)}**`);
+  }
   lines.push('');
   lines.push('| Coverage signal | Value |');
   lines.push('|-----------------|-------|');
@@ -240,7 +368,7 @@ export function buildUxQualityScoreMarkdown(opts) {
     const d = uxScores.dimensions[id];
     const meta = DESIGN_DIMENSION_META[id];
     const sec = meta?.standardSections?.join('; ') ?? '—';
-    lines.push(`| **${meta?.label ?? id}** | ${d.score} | ${Math.round(d.rawDamage * 100) / 100} | ${d.findingCount} | ${sec} |`);
+    lines.push(`| **${meta?.label ?? id}** | ${formatUxScoreDisplay(d.score)} | ${formatUxScoreDisplay(Math.round(d.rawDamage * 100) / 100)} | ${d.findingCount} | ${sec} |`);
   }
   lines.push('');
   lines.push('## Interpretation');
@@ -248,7 +376,23 @@ export function buildUxQualityScoreMarkdown(opts) {
   lines.push('- **Overall 100**: only when the run is a **live** crawl that did **not** stop early **and** there are **no** effective findings mapped to pillars (severity v2 heuristic checks only). Ancillary artifacts such as `site-inspection` / `inventory` do not satisfy that bar.');
   lines.push('- **Below 100 with zero effective findings**: can happen after **static-only** analysis or a **paused** crawl (`major_plus_threshold`); numeric score is indicative only.');
   lines.push('- **Dimensional damage** uses summed `SCORE_WEIGHTS` penalties (blocker→cosmetic ladder) grouped by heuristic `area` → design pillar.');
+  lines.push('- **Homepage readiness gates** further cap overall when root `/` triggers shell, first-screen, product-visual, storyline, or technical-disclosure signals (see table below).');
   lines.push('');
+  const hr = uxScores.homepageReadiness;
+  if (hr?.gatesFailed?.length) {
+    lines.push('## Homepage readiness gates');
+    lines.push('');
+    lines.push('| Gate | Status | Cap | Detail |');
+    lines.push('|------|--------|----:|--------|');
+    for (const g of hr.gatesFailed) {
+      lines.push(`| \`${g.id}\` | failed | ${formatUxScoreDisplay(g.cap)} | ${g.detail} |`);
+    }
+    if (typeof hr.appliedCap === 'number') {
+      lines.push('');
+      lines.push(`**Strongest cap applied:** ${formatUxScoreDisplay(hr.appliedCap)} (site kind \`${hr.siteKind}\`).`);
+    }
+    lines.push('');
+  }
   lines.push('## Machine-readable blob');
   lines.push('');
   lines.push('```json');
@@ -267,6 +411,11 @@ export function buildUxQualityScoreMarkdown(opts) {
  *   precrawlCrawlSummary?: object | null,
  *   uxScoreDeltaVsPrior?: ReturnType<typeof compareUxScores> | null,
  *   priorUxScoresSourceDisplay?: string | null,
+ *   scorerLoopUxDelta?: {
+ *     baselinePath?: string | null,
+ *     verbalSummary?: string | null,
+ *     delta?: ReturnType<typeof compareUxScores> | null,
+ *   } | null,
  * }} [extras]
  */
 export function buildUxScoresAuditSnippet(rollupUxScores, extras = {}) {
@@ -274,8 +423,12 @@ export function buildUxScoresAuditSnippet(rollupUxScores, extras = {}) {
   const lines = [];
   lines.push('## Design-standard UX rollup (heuristic)');
   lines.push('');
-  lines.push('- **Interpretation:** this block combines optional **prior-run deltas** (--prior-ux-scores), an optional **precrawl sitewide** rollup (--scores-first), and the rollup for **URLs analyzed in this audit output**.');
+  lines.push('- **Interpretation:** this block combines optional **prior-run deltas** (--prior-ux-scores), an optional **precrawl sitewide** rollup (--scores-first), optional **sitewide scorer loop deltas** (`ux-quality-score-loop-delta.json` from `score-website-ux.mjs`), and the rollup for **URLs analyzed in this audit output**.');
   lines.push('');
+  const loopSection = buildUxScoreLoopDeltaAuditreportSection(extras.scorerLoopUxDelta ?? {});
+  if (loopSection) {
+    lines.push(loopSection);
+  }
   const priorPath = extras.priorUxScoresSourceDisplay ?? null;
   const delta = extras.uxScoreDeltaVsPrior ?? null;
   const precrawl = extras.precrawlUxScores ?? null;

@@ -1,0 +1,30 @@
+---
+description: Keep KS visual hash catalog, design contracts, and visual implementation synchronized.
+globs:
+  - "components/**/*.py"
+  - "generator/**/*.py"
+  - "react/**/*.tsx"
+  - "css/**/*.css"
+  - "js/**/*.js"
+  - "assets/svg/**/*.svg"
+  - "museum/studio/**/*"
+  - "showcase-react-app/src/**/*"
+  - "docs/design/catalog/**/*"
+alwaysApply: false
+---
+
+# Forge KS visual catalog governance
+
+When changing any visual page, layout, section, component, primitive, style, diagram, interaction, or desktop/app interface:
+
+1. Identify the affected visual hash or explain why no visual hash applies.
+2. Check `docs/design/catalog/visual-registry.yaml`.
+3. Check the matching design contract under `docs/design/catalog/**/{HASH}-*.md` or family contract for `contract_status: family-covered`.
+4. Preserve the existing hash for compatible copy, accessibility, bug-fix, and token refinements.
+5. Allocate a new hash for a breaking visual role/anatomy change or a new reusable visual object (`node tools/design-catalog/allocate-visual-hash.mjs`).
+6. Ensure visual roots emit both `hash="XYZ"` and `data-ks-hash="XYZ"` (Python `ks_hash_attrs`, React `ksVisualAttrs` / `ksReactPrimitiveAttrs`).
+7. Update screenshot status or expected screenshot references when the expected look changes.
+8. Run `python3 generator/build-showcase.py` and `node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase`.
+9. After adding sources, run `node tools/design-catalog/inventory-ks-visuals.mjs`; add new `docs/design/*.md` paths (outside `docs/design/catalog/`) to **Kdt** `source_paths` when `check-visual-catalog` warns.
+
+Do not treat design catalog updates as optional when visual behavior or expected appearance changes.

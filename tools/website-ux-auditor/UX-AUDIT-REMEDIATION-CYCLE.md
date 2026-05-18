@@ -3,7 +3,7 @@ id: forge.website-ux-auditor.remediation-cycle
 kind: ks-runbook
 status: published
 owner: Forge UX
-updated: 2026-05-18
+updated: 2026-06-06
 ---
 
 # UX audit → fix → re-audit cycle (generic)
@@ -14,11 +14,11 @@ Use this runbook on **any** website repo that runs the Forge Website UX auditor 
 
 1. **Build** the site the way that repository documents (generator, framework build, or approved CI artifact).
 2. **Serve** the built static output locally so the auditor can open real URLs in a browser.
-3. **Run** the UX auditor against that origin with a **page budget large enough** for the whole published tree, and **without** stopping the crawl early just because majors appeared—you want breadth so every issue surfaces.
+3. **Run** the UX auditor in **live mode** (**`--site` …**, optional **`--start`**): each pass uses **Playwright (Chromium)**. Do **not** use **`--static-only`** here—that path skips browser inspection and is unsuitable as the loop verifier. Budget the crawl (**`--max-pages`**) for the whole published tree, and **without** stopping early just because majors appeared (**`--breadth-crawl`** / **`--stop-disable`**) unless you only want a smoke slice.
 4. **Read** the generated report and structured data under the remediation output folder; treat **blocker, critical, and major** findings as mandatory work unless you explicitly waive them.
 5. **Fix root causes**: content (copy, headings, meta), navigation or layout shells, generator output, broken links that point at files not served by the static site—or, rarely, unjustified heuristic checks in **this** tooling (only after evidence and tests).
-6. **Rebuild**, **serve again**, and **audit again** using the **same** mode and budget shape.
-7. **Repeat** until a full crawl records **zero** blocker, critical, or major findings **and** the crawl queue is empty at your chosen budget (or you accept orphaned pages with a tracked exception list).
+6. **Rebuild**, **serve again**, and **audit again** with the **same live** invocation (**`--site`**, never **`--static-only`**) and the **same** budget shape.
+7. **Repeat** until a full **live** crawl records **zero** blocker, critical, or major findings **and** the crawl queue is empty at your chosen budget (or you accept orphaned pages with a tracked exception list).
 8. **Shut down** the temporary local server used for auditing.
 
 Pass the finalized path to **`audit-report.md`**, **`audit-data.json`**, and any RCA prompts downstream to reviewers or to Cursor remediation plans already emitted beside them.
@@ -32,6 +32,11 @@ Pass the finalized path to **`audit-report.md`**, **`audit-data.json`**, and any
 - **Analyzer entry:** `tools/website-ux-auditor/analyze-website-ux.mjs` from a **kitchensink checkout**, or `kitchensink/tools/website-ux-auditor/analyze-website-ux.mjs` when the website embeds KS and ships that subtree.
 - **Design standard:** If `<repo>/docs/design/forge-enterprise-ai-website-standard.md` exists, the analyzer picks it up automatically; otherwise pass **`--standard`** to a Markdown file that mirrors the Forge enterprise AI website standard. See **`FORGE_SITE_COMMANDS.md`**.
 
+### Loop requirement: Playwright on every verifier pass
+
+- **Remediation/sign-off loops** must re-run **`analyze-website-ux.mjs`** with **`--site`** (and **`npm install`** + **`npx playwright install chromium`** once per machine, per **`FORGE_SITE_COMMANDS.md`** prerequisites).
+- **`--static-only`** / **`--no-browser`** is for CI fixtures, offline plan stubs, or triage—not for declaring a handbook “clean.” Static runs lack DOM, homepage-shell, and screenshot-backed checks present in live mode.
+
 ### Live crawl knobs (usual pattern)
 
 | Intent | Typical flags |
@@ -44,6 +49,8 @@ Pass the finalized path to **`audit-report.md`**, **`audit-data.json`**, and any
 **`--site-kind`** should match the product profile (`forgesdlc`, `lcdl`, `fleet`, `lenses`, `platform`, `generic`, or `auto`). Wrong kind skews homepage-shell and product checks.
 
 ### What “done” means
+
+Treat these checks as **binding only after** a **`--site`** (Playwright) crawl at your chosen **`--max-pages`** budget—not after **`--static-only`**.
 
 1. Open **`audit-data.json`** (schema v2).
 2. For **every** object in **`pages`**, ensure **no** entry in **`findings`** has **`severity`** in **`blocker`**, **`critical`**, or **`major`**.

@@ -46,6 +46,7 @@ from forge_autodoc.seo_meta import handbook_json_ld, truncate_meta_description
 from forge_autodoc.markdown_conv import markdown_to_handbook_html
 from forge_autodoc.nav_manifest import LensNavManifest, load_lens_nav_manifest, manifest_section_labels
 from forge_autodoc.page import assemble_handbook_page
+from forge_autodoc.repo_link_html import neutralize_repo_artifact_links
 from forge_autodoc.sidebar import (
     FLAT_SIDEBAR_THRESHOLD,
     build_grouped_manifest_sidebar,
@@ -579,6 +580,11 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
 
     for idx, (fslug, _nav_title, md_rel) in enumerate(pages):
         md_path = root / md_rel
+        minimal_home = bool(
+            homepage_rel
+            and md_rel == homepage_rel
+            and cfg.handbook_homepage_minimal_shell
+        )
         text = md_path.read_text(encoding="utf-8")
         page_title = title_from_md_content(text, title_from_filename(md_path.name))
         _fm, body_md = split_yaml_frontmatter(text)
@@ -593,6 +599,7 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             broken_md_links += _broken_internal_md_links(md_path, body_md, href_by_md)
         body_html = markdown_to_handbook_html(maintainer_banner + body_md)
         body_html = _rewrite_relative_md_links(body_html, md_path, root, href_by_md)
+        body_html = neutralize_repo_artifact_links(body_html)
         body_html, _hm, has_ks = apply_handbook_body_transforms(cfg.kitchensink, body_html)
         intro = plain_text_from_first_paragraph(body_html)
         toc = extract_toc_from_html(cfg.kitchensink, body_html)
@@ -725,7 +732,7 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
                 preferred_group_order=cfg.handbook_sidebar_group_order,
             )
 
-        if cfg.handbook_offcanvas_prepend_html_builder is not None:
+        if cfg.handbook_offcanvas_prepend_html_builder is not None and not minimal_home:
             pre = cfg.handbook_offcanvas_prepend_html_builder(md_rel)
             if pre.strip():
                 offcanvas_html = (
@@ -838,6 +845,11 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
         if cfg.handbook_sidebar_rail_heading is not None:
             sidebar_chapters_label = cfg.handbook_sidebar_rail_heading
 
+        if minimal_home:
+            sidebar_html = ""
+            offcanvas_html = ""
+            toc = []
+
         html_out = assemble_handbook_page(
             kitchensink_root=cfg.kitchensink,
             browser_title=page_title,
@@ -863,6 +875,8 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             top_shell_html=top_shell_html,
             handbook_sidebar_brand_tagline=cfg.handbook_sidebar_brand_tagline,
             extra_head_metas_html=provenance_head_html,
+            handbook_section_label_override="" if minimal_home else None,
+            minimal_shell=minimal_home,
         )
         out_path = cfg.output_dir / fslug
         out_path.parent.mkdir(parents=True, exist_ok=True)

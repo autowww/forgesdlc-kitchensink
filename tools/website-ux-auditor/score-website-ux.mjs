@@ -6,21 +6,40 @@
  */
 
 import crypto from 'node:crypto';
+import fsp from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
+import { createCrawlProgressReporter } from './lib/crawl-progress-line.js';
 import { crawlAndAnalyze } from './lib/crawl.js';
 import { loadDesignStandard } from './lib/design-standard.js';
-import { buildUxQualityScoreMarkdown, computeUxScores } from './lib/design-ux-score.js';
-import { ensureDir, writeFile } from './lib/files.js';
+import {
+  buildUxQualityScoreMarkdown,
+  compareUxScores,
+  computeUxScores,
+  extractUxScoresFromSavedJson,
+  formatUxScoreDisplay,
+  formatUxScoreLoopDeltaMarkdownTables,
+  formatUxScoreLoopDeltaVerbalParagraph,
+} from './lib/design-ux-score.js';
+import { mergeDashboardStateIfWatching } from './lib/ux-loop-dashboard-state.js';
+import { ensureDir, writeFile, fileExists } from './lib/files.js';
 import { appendUxScoringCsv, UX_SCORING_CSV_FILENAME } from './lib/ux-scoring-csv.js';
+import { ensureBlockingStdio } from './lib/piped-stdio-flush.js';
 import { applyDefaultForgeStandard, inferSiteKind, PRODUCT_PROFILES } from './lib/product-profiles.js';
 import { importPlaywright } from './lib/playwright-import.js';
 import { inventoryRepo } from './lib/repo-inventory.js';
 import { startServer, waitForReady } from './lib/site-bootstrap.js';
 
+ensureBlockingStdio();
+
 /** Default breadth for same-origin BFS; always bounded — there is no unbounded crawl. */
 const SCORER_DEFAULT_MAX_PAGES = 120;
+
+/** Default link-hop depth from `--site` (start URL = 0; **+2** ⇒ depths 0–2 inclusive). */
+const SCORER_DEFAULT_MAX_LINK_DEPTH = 2;
+
+const LOOP_DELTA_FILENAME = 'ux-quality-score-loop-delta.json';
 
 function newRunMeta() {
   return {
@@ -48,10 +67,22 @@ Optional:
   --ready-url URL          Probe URL when --start is used (default: --site)
   --site-kind KIND         lenses | lcdl | fleet | platform | forgesdlc | generic | auto
   --max-pages N            Default ${SCORER_DEFAULT_MAX_PAGES}; hard cap prevents runaway crawl
+  --max-link-depth N       Link hops from \`--site\` (start = 0). Default ${SCORER_DEFAULT_MAX_LINK_DEPTH}
+                           (**root + 2 hops**). Use a large N for practical “no depth limit”.
   --timeout-ms MS          Navigation timeout (default 45000)
   --screenshots           Capture screenshots (default: off — faster scorer runs)
   --no-ux-csv             Skip appending repo-root ux-scoring.csv (default: append)
   --out DIR                Relative to repo; default \`.cursor/reports/forge-ux-quality\`
+
+Progress (stderr, one line per update during crawl): enabled when stderr is a TTY.
+  Rows are always appended to \`<out>/scorer-crawl-progress.log\` (ISO timestamps) for tails / IDE logs.
+  FORGE_UX_PROGRESS_RUN_NO   Shown as [run …] (override). Remediation shell auto-sets 1, 2, … when unset.
+  FORGE_UX_CRAWL_PROGRESS=1  Force progress without a TTY; =0 disables.
+  FORGE_UX_CRAWL_PROGRESS_HEARTBEAT_SEC  While idle, append the same row every N sec (default 15; 0=off).
+
+Remediation loop: copies existing ux-quality-score.json → ux-quality-score.previous.json before crawl,
+then compares the new sitewide rollup to that snapshot (stderr + ux-quality-score.md appendix +
+${LOOP_DELTA_FILENAME} for the auditor).
 `;
 }
 
@@ -69,6 +100,7 @@ function parseScoreArgs(argv) {
     screenshots: false,
     url: null,
     uxCsv: true,
+    maxLinkDepth: SCORER_DEFAULT_MAX_LINK_DEPTH,
   };
 
   for (let i = 2; i < argv.length; i += 1) {
@@ -88,7 +120,7 @@ function parseScoreArgs(argv) {
     if (!raw.startsWith('--')) throw new Error(`Unexpected positional argument: ${raw}`);
     const [flag, inlineValue] = raw.includes('=') ? raw.split(/=(.*)/s, 2) : [raw, null];
     const key = flag.slice(2).replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-    const needsValue = ['repo', 'site', 'url', 'standard', 'siteKind', 'out', 'start', 'readyUrl', 'maxPages', 'timeoutMs'];
+    const needsValue = ['repo', 'site', 'url', 'standard', 'siteKind', 'out', 'start', 'readyUrl', 'maxPages', 'maxLinkDepth', 'timeoutMs'];
     if (!needsValue.includes(key)) throw new Error(`Unknown flag: ${flag}`);
     const value = inlineValue ?? argv[++i];
     if (value === undefined) throw new Error(`Missing value for ${flag}`);
@@ -100,8 +132,12 @@ function parseScoreArgs(argv) {
   if (args.standard) args.standard = path.resolve(args.repo, args.standard);
   args.maxPages = Number(args.maxPages);
   args.timeoutMs = Number(args.timeoutMs);
+  args.maxLinkDepth = Number(args.maxLinkDepth);
   if (!Number.isFinite(args.maxPages) || args.maxPages < 1) args.maxPages = SCORER_DEFAULT_MAX_PAGES;
   if (!Number.isFinite(args.timeoutMs) || args.timeoutMs < 5000) args.timeoutMs = 45000;
+  if (!Number.isFinite(args.maxLinkDepth) || args.maxLinkDepth < 0) {
+    args.maxLinkDepth = SCORER_DEFAULT_MAX_LINK_DEPTH;
+  }
   return args;
 }
 
@@ -117,10 +153,20 @@ async function main() {
   const siteKind = inferSiteKind(args, inventory);
   const profile = PRODUCT_PROFILES[siteKind] || PRODUCT_PROFILES.generic;
 
+  const jsonPath = path.join(args.out, 'ux-quality-score.json');
+  const prevPath = path.join(args.out, 'ux-quality-score.previous.json');
+
   let server = null;
   let serverExited = false;
   try {
     await ensureDir(args.out);
+    const scorerCrawlProgressLog = path.resolve(args.out, 'scorer-crawl-progress.log');
+    console.error(`[ux-score] diag · scorerCrawlProgressLog=${scorerCrawlProgressLog}`);
+    mergeDashboardStateIfWatching(args.out, { phase: 'scorer_crawl' });
+    if (await fileExists(jsonPath)) {
+      await fsp.copyFile(jsonPath, prevPath);
+    }
+
     if (args.start) {
       if (!args.site) throw new Error('When using --start, also pass --site to the resolved entry URL.');
       server = startServer(args.start, args.repo);
@@ -130,23 +176,41 @@ async function main() {
     }
 
     const playwright = await importPlaywright();
-    const crawled = await crawlAndAnalyze({
-      playwright,
-      startUrl: args.site,
-      outDir: args.out,
+    const envRunNo = String(process.env.FORGE_UX_PROGRESS_RUN_NO || '').trim();
+    const runDisplay = envRunNo || runMeta.runId.slice(0, 8);
+    const crawlProgress = createCrawlProgressReporter({
+      label: '[ux-score]',
+      runDisplay,
       maxPages: args.maxPages,
-      timeoutMs: args.timeoutMs,
-      screenshots: args.screenshots,
-      siteKind,
-      stopAfterMajorPlus: null,
-      stopDisabled: true,
+      progressLogPath: scorerCrawlProgressLog,
     });
+    /** @type {Awaited<ReturnType<typeof crawlAndAnalyze>>} */
+    let crawled;
+    try {
+      crawled = await crawlAndAnalyze({
+        playwright,
+        startUrl: args.site,
+        outDir: args.out,
+        maxPages: args.maxPages,
+        timeoutMs: args.timeoutMs,
+        screenshots: args.screenshots,
+        siteKind,
+        stopAfterMajorPlus: null,
+        stopDisabled: true,
+        onProgress: crawlProgress.onProgress,
+        maxLinkDepth: args.maxLinkDepth,
+        repoRoot: path.resolve(args.repo),
+      });
+    } finally {
+      crawlProgress.finish();
+    }
 
     /** @typedef {Awaited<ReturnType<computeUxScores>} UxScores */
     const uxScores = computeUxScores({
       pages: crawled.pages,
       crawlSummary: crawled.crawlSummary,
       staticOnly: false,
+      siteKind,
     });
 
     const designPinned = designStdMeta
@@ -170,6 +234,7 @@ async function main() {
         standard: args.standard,
         siteKind: args.siteKind,
         maxPages: args.maxPages,
+        maxLinkDepth: args.maxLinkDepth,
         timeoutMs: args.timeoutMs,
         screenshots: args.screenshots,
         out: args.out,
@@ -181,20 +246,56 @@ async function main() {
       })),
     };
 
-    const md = buildUxQualityScoreMarkdown({
+    let md = buildUxQualityScoreMarkdown({
       runMeta,
       profile,
       designStandard: designStdMeta || designPinned || {},
       uxScores,
       argsSummary:
-        `- \`--repo\` \`${args.repo}\`\n- \`--site\` \`${args.site || ''}\`\n- **max-pages** \`${args.maxPages}\`\n- **Scorer crawl mode:** \`${crawled.crawlSummary.crawlMode}\` (${crawled.crawlSummary.stopReason})`,
+        `- \`--repo\` \`${args.repo}\`\n- \`--site\` \`${args.site || ''}\`\n- **max-pages** \`${args.maxPages}\`\n- **max-link-depth** \`${args.maxLinkDepth}\` (link hops from start URL; **0** = start page only)\n- **Scorer crawl mode:** \`${crawled.crawlSummary.crawlMode}\` (${crawled.crawlSummary.stopReason})`,
       crawlSummary: crawled.crawlSummary,
     });
 
-    const jsonPath = path.join(args.out, 'ux-quality-score.json');
+    /** @type {ReturnType<typeof compareUxScores> | null} */
+    let loopDelta = null;
+    /** @type {string | null} */
+    let verbalSummary = null;
+    if (await fileExists(prevPath)) {
+      try {
+        const prevText = await fsp.readFile(prevPath, 'utf8');
+        const prevParsed = JSON.parse(prevText);
+        const priorUx = extractUxScoresFromSavedJson(prevParsed);
+        loopDelta = compareUxScores(priorUx, uxScores);
+        verbalSummary = formatUxScoreLoopDeltaVerbalParagraph(loopDelta);
+        if (verbalSummary) {
+          console.error(`[ux-scorer-loop] ${verbalSummary}`);
+        }
+        const tbl = formatUxScoreLoopDeltaMarkdownTables(loopDelta);
+        if (tbl) {
+          md += `\n## Vs prior loop snapshot (\`ux-quality-score.previous.json\`)\n\n${tbl}`;
+        }
+      } catch (e) {
+        console.warn(`[ux-scorer-loop] Could not diff vs ux-quality-score.previous.json: ${String(e?.message ?? e)}`);
+      }
+    }
+
     const mdPath = path.join(args.out, 'ux-quality-score.md');
     await writeFile(jsonPath, `${JSON.stringify(jsonPayload, null, 2)}\n`);
     await writeFile(mdPath, `${md}`);
+
+    mergeDashboardStateIfWatching(args.out, {
+      phase: 'post_scorer',
+      scoresPreview: { overall: uxScores.overall },
+    });
+
+    const loopDeltaPayload = {
+      generatedAt: runMeta.generatedAt,
+      scorerRunId: runMeta.runId,
+      baselinePath: loopDelta ? 'ux-quality-score.previous.json' : null,
+      delta: loopDelta,
+      verbalSummary,
+    };
+    await writeFile(path.join(args.out, LOOP_DELTA_FILENAME), `${JSON.stringify(loopDeltaPayload, null, 2)}\n`);
 
     if (args.uxCsv) {
       try {
@@ -213,17 +314,15 @@ async function main() {
       }
     }
 
-    console.log('\nForge UX quality score complete.');
-    console.log(`Run id: ${runMeta.runId}`);
-    console.log(`Overall design UX score (heuristic): ${uxScores.overall} / 100`);
-    console.log(JSON.stringify({
-      crawlMode: crawled.crawlSummary.crawlMode,
-      pagesAnalyzed: crawled.pages.length,
-      effectiveFindingCount: uxScores.coverage.effectiveFindingCount,
-      perfectScoreEligible: uxScores.coverage.perfectScoreEligible,
-    }));
-    console.log(`Written: ${path.relative(args.repo, jsonPath)}`);
-    console.log(`Written: ${path.relative(args.repo, mdPath)}`);
+    const deltaRel = path.relative(args.repo, path.join(args.out, LOOP_DELTA_FILENAME));
+    console.log(
+      `[ux-score] complete · run=${runMeta.runId} · score=${formatUxScoreDisplay(uxScores.overall)}/${formatUxScoreDisplay(100)} · `
+      + `${crawled.pages.length}p · ${crawled.crawlSummary.crawlMode} · findingsEff=${uxScores.coverage.effectiveFindingCount} · `
+      + `perfectEligible=${uxScores.coverage.perfectScoreEligible}`,
+    );
+    console.log(
+      `[ux-score] wrote ${path.relative(args.repo, jsonPath)} · ${path.relative(args.repo, mdPath)} · ${deltaRel}`,
+    );
   } finally {
     if (server && !server.killed) {
       server.kill('SIGTERM');

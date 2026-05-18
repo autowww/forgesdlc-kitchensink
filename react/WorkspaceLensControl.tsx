@@ -3,6 +3,7 @@
  */
 import { useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import type { WorkspaceLensMode } from './workspaceLensTypes'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type WorkspaceLensControlProps = {
   mode: WorkspaceLensMode
@@ -171,7 +172,7 @@ export function WorkspaceLensControl({
       .filter(Boolean)
       .join(' ')
     return (
-      <div className={toggleClass}>
+      <div className={toggleClass} {...ksReactPrimitiveAttrs('WorkspaceLensControl')}>
         <div className="le-lens-toggle__row le-lens-toggle__row--compact">
           <span id={labelId} className="sr-only">
             Workspace lens
@@ -237,7 +238,7 @@ export function WorkspaceLensControl({
     .join(' ')
 
   return (
-    <div ref={rootRef} className={rootClass}>
+    <div ref={rootRef} className={rootClass} {...ksReactPrimitiveAttrs('WorkspaceLensControl')}>
       <div className="le-lens__header">
         <span id={labelId} className="ks-workspace-lens__eyebrow le-lens__eyebrow">
           Workspace lens

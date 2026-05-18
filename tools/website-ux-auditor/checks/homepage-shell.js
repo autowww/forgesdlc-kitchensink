@@ -5,7 +5,7 @@ import { pageContext } from './context.js';
 export const checkId = 'homepage-shell';
 
 const HARD_REMEDIATION = [
-  'Separate the public landing route from the generated handbook shell (mode 1 vs handbook modes in docs/design/forge-enterprise-ai-website-standard-v2-addendum.md).',
+  'Separate the public landing route from the generated handbook shell (page mode taxonomy in docs/design/forge-enterprise-ai-website-standard.md).',
   'Move full docs/sidebar trees behind /handbook, /docs, /reference, /maintainer, or equivalent deep routes.',
   'Do not satisfy this finding with Markdown hero edits alone—fix layout/routing first.',
 ].join(' ');
@@ -59,9 +59,9 @@ export function runCheck(m, url, ctx = {}) {
     }
   } else if (sidebarHeavy && chromeHeavy) {
     add(
-      'critical',
+      'blocker',
       'information-architecture',
-      'Dense sidebar/offcanvas links plus handbook framing appear before the main landing story.',
+      'Public homepage reads as handbook/docs chrome ahead of the product landing story (sidebar + handbook framing).',
     );
   } else if (sidebarHeavy && policy.maxSidebarOffcanvasLinksBlocker < 900) {
     add('critical', 'navigation', 'Sidebar/offcanvas region exposes an unusually large documentation link rail.', NAV_REMEDIATION);

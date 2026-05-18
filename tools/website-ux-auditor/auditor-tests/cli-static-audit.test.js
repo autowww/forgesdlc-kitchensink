@@ -20,6 +20,9 @@ test('CLI: static audit exits 0 and writes schema v2 audit-data.json', () => {
     { encoding: 'utf8' },
   );
   assert.equal(r.status, 0, r.stderr || r.stdout);
+  assert.match(r.stderr || '', /\[ux-audit\] phase=startup/);
+  assert.match(r.stderr || '', /\[ux-audit\] phase=inventory · done/);
+  assert.match(r.stderr || '', /\[ux-audit\] phase=static_only/);
   const data = JSON.parse(readFileSync(join(out, 'audit-data.json'), 'utf8'));
   assert.equal(data.schemaVersion, 2);
   assert.ok(data.designStandard?.sha256 && data.designStandard.sha256.length === 64);
@@ -29,6 +32,7 @@ test('CLI: static audit exits 0 and writes schema v2 audit-data.json', () => {
   assert.strictEqual(data.uxScoreDeltaVsPrior, null);
   assert.strictEqual(data.priorUxScoresSnapshot, null);
   assert.strictEqual(data.precrawlUxScores, null);
+  assert.strictEqual(data.uxQualityScoreLoopDelta ?? null, null);
   assert.ok(Array.isArray(data.pages) && data.pages.length === 1);
   const first = data.pages[0].findings || [];
   assert.ok(first.length >= 1);

@@ -19,6 +19,44 @@ jobs:
       - name: Test forge-autodoc
         run: pytest forge-autodoc/tests -q
 
+  design-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tools/design-catalog/package-lock.json
+      - name: Install forge-autodoc (dev)
+        run: pip install -e "./forge-autodoc[dev]"
+      - name: npm ci (design catalog)
+        working-directory: tools/design-catalog
+        run: npm ci
+      - name: npm ci (showcase React app)
+        working-directory: showcase-react-app
+        run: npm ci
+      - name: Build showcase React bundle
+        working-directory: showcase-react-app
+        run: npm run build
+      - name: Build showcase (HTML markers)
+        run: python3 generator/build-showcase.py
+      - name: Inventory KS visuals
+        run: node tools/design-catalog/inventory-ks-visuals.mjs --repo . --out docs/design/catalog/visual-inventory.generated.json
+      - name: Validate visual catalog
+        run: node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase
+      - name: Test forge-autodoc
+        run: pytest forge-autodoc/tests -q
+      - name: npm ci (Forge Website UX Auditor)
+        working-directory: tools/website-ux-auditor
+        run: npm ci
+      - name: Test Forge Website UX Auditor
+        working-directory: tools/website-ux-auditor
+        run: npm test
+
   website-ux-auditor:
     runs-on: ubuntu-latest
     steps:

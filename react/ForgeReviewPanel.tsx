@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type ForgeReviewPanelProps = {
   title?: string
@@ -13,7 +14,11 @@ export type ForgeReviewPanelProps = {
  */
 export function ForgeReviewPanel({ title = 'Review', kicker, children, className = '' }: ForgeReviewPanelProps) {
   return (
-    <section className={`ks-fe-review ${className}`.trim()} aria-label={title}>
+    <section
+      className={`ks-fe-review ${className}`.trim()}
+      aria-label={title}
+      {...ksReactPrimitiveAttrs('ForgeReviewPanel')}
+    >
       {kicker ? <div className="ks-fe-review__kicker">{kicker}</div> : null}
       <h3 className="ks-fe-review__title">{title}</h3>
       <div className="ks-fe-review__body">{children}</div>

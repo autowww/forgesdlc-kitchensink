@@ -1,4 +1,5 @@
 import type { ForgeWorkflowStageStatus } from './forgeRunTypes'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type ForgeWorkflowStage = {
   id: string
@@ -78,7 +79,11 @@ export function ForgeWorkflowStageBar({
   const nav = Boolean(onStageClick)
   const vClass = variant === 'executive' ? ' ks-fe-stagebar--executive' : ''
   return (
-    <ol className={`ks-fe-stagebar${nav ? ' ks-fe-stagebar--nav' : ''}${vClass} ${className}`.trim()} aria-label={ariaLabel}>
+    <ol
+      className={`ks-fe-stagebar${nav ? ' ks-fe-stagebar--nav' : ''}${vClass} ${className}`.trim()}
+      aria-label={ariaLabel}
+      {...ksReactPrimitiveAttrs('ForgeWorkflowStageBar')}
+    >
       {stages.map((st, i) => {
         const isCurrent = currentStageId != null && st.id === currentStageId
         const nodeClass = [

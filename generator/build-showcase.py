@@ -33,6 +33,7 @@ sys.path.insert(0, str(REPO_ROOT / "generator"))
 
 from components import e  # noqa: E402
 from layout_previews import write_layout_preview_pages  # noqa: E402
+from ks_catalog_hashes import page_main_attrs  # noqa: E402
 from layouts import (  # noqa: E402
     gallery_page,
     landing_page,
@@ -185,6 +186,7 @@ def _breadcrumb(page: dict) -> str:
 def _render_page(page: dict, all_pages: list[dict]) -> str:
     mod = page["_module"]
     layout = page.get("layout", "showcase")
+    ks_p = page_main_attrs(page["slug"])
 
     if layout == "landing":
         from pages.index import body_html as index_body_html
@@ -206,6 +208,7 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
             theme_css_href="assets/forge-theme.css",
             theme_js_href="assets/forge-theme.js",
             living_background=bool(page.get("living_background")),
+            ks_page_attrs=ks_p,
         )
 
     if layout == "listing":
@@ -243,6 +246,7 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
             has_mermaid=has_m,
             has_ks_diagram=has_ks,
             include_diagram_expand_modal=inc_modal,
+            ks_page_attrs=ks_p,
         )
 
     sidebar_html = _build_sidebar(all_pages, page["slug"])
@@ -279,6 +283,7 @@ def _render_page(page: dict, all_pages: list[dict]) -> str:
         has_mermaid=has_m,
         has_ks_diagram=has_ks,
         include_diagram_expand_modal=inc_modal,
+        ks_page_attrs=ks_p,
     )
     if "content_max_width" in page:
         common["content_max_width"] = page["content_max_width"]

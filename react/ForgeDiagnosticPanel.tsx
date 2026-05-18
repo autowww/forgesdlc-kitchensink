@@ -1,4 +1,5 @@
 import { useId, useState, type ReactNode } from 'react'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type ForgeDiagnosticPanelProps = {
   title?: string
@@ -31,7 +32,11 @@ export function ForgeDiagnosticPanel({
   const preId = `${id}-raw`
 
   return (
-    <section className={`ks-fe-diag ${className}`.trim()} aria-labelledby={`${id}-h`}>
+    <section
+      className={`ks-fe-diag ${className}`.trim()}
+      aria-labelledby={`${id}-h`}
+      {...ksReactPrimitiveAttrs('ForgeDiagnosticPanel')}
+    >
       <h3 id={`${id}-h`} className="ks-fe-diag__title">
         {title}
       </h3>

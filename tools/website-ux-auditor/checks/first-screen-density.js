@@ -19,7 +19,8 @@ export function runCheck(m, url, ctx = {}) {
     add('major', 'page-depth', 'This page is long and may need progressive disclosure.', `${m.wordCount} words detected.`, 'Split overview, quickstart, reference, and operations content into separate pages or accordions.');
   }
 
-  const foldWordLimit = siteKind === 'platform' && isHome ? 380 : 320;
+  const HANDBOOK_HOME_FOLD_LIMIT_KINDS = new Set(['platform', 'lenses', 'fleet', 'lcdl']);
+  const foldWordLimit = HANDBOOK_HOME_FOLD_LIMIT_KINDS.has(siteKind) && isHome ? 380 : 320;
   if (m.aboveFoldWordCount > foldWordLimit) {
     add('critical', 'first-screen', 'The first screen contains too much text.', `${m.aboveFoldWordCount} words above the fold (main column).`, 'Reduce above-fold content to hero, subhead, two CTAs, and one visual/diagram.');
   }

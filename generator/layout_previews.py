@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from ks_catalog_hashes import page_main_attrs
 from components import render_product_footer, render_product_landing_hero
 from enterprise_marketing import MegaFooterColumn, render_mega_footer
 
@@ -56,8 +57,8 @@ def write_layout_preview_pages(out_dir: Path) -> None:
         extra_js=["assets/showcase.js"],
         theme_css_href="assets/forge-theme.css",
         theme_js_href="assets/forge-theme.js",
+        ks_page_attrs=page_main_attrs("preview-split"),
     )
-    (out_dir / "preview-split.html").write_text(split_html, encoding="utf-8")
 
     hb_sidebar = """
 <div class="nav-rail">
@@ -93,8 +94,8 @@ def write_layout_preview_pages(out_dir: Path) -> None:
         has_mermaid=False,
         theme_css_href="assets/forge-theme.css",
         theme_js_href="assets/forge-theme.js",
+        ks_page_attrs=page_main_attrs("preview-handbook"),
     )
-    (out_dir / "preview-handbook.html").write_text(handbook_html, encoding="utf-8")
 
     ch_header = """<header class="mb-4 pb-3" style="border-bottom:1px solid var(--forge-border)">
   <p class="section-label text-cyan mb-2">Methodology</p>
@@ -125,8 +126,8 @@ def write_layout_preview_pages(out_dir: Path) -> None:
         extra_scripts=None,
         theme_css_href="assets/docs-theme.css",
         theme_js_href="assets/forge-theme.js",
+        ks_page_attrs=page_main_attrs("preview-chapter"),
     )
-    (out_dir / "preview-chapter.html").write_text(chapter_html, encoding="utf-8")
 
     fs_nav = """
 <p class="small text-uppercase mb-2" style="color:var(--forge-text-3);letter-spacing:0.08em">Product tier</p>
@@ -160,8 +161,8 @@ def write_layout_preview_pages(out_dir: Path) -> None:
         footer_html=render_product_footer(),
         theme_css_href="assets/forge-theme.css",
         extra_css='  <link rel="stylesheet" href="assets/forgesdlc-theme.css" />\n',
+        ks_page_attrs=page_main_attrs("preview-product"),
     )
-    (out_dir / "preview-product.html").write_text(product_html, encoding="utf-8")
 
     marketing_html = marketing_page(
         browser_title="Marketing layout preview",
@@ -184,8 +185,8 @@ def write_layout_preview_pages(out_dir: Path) -> None:
         footer_html='<p class="forge-support small text-center py-3 mb-0">footer_html</p>',
         theme_css_href="assets/forge-theme.css",
         product_chrome_css_href="assets/forgesdlc-theme.css",
+        ks_page_attrs=page_main_attrs("preview-marketing"),
     )
-    (out_dir / "preview-marketing.html").write_text(marketing_html, encoding="utf-8")
 
     listing_html = listing_page(
         browser_title="Listing layout preview",
@@ -210,8 +211,8 @@ def write_layout_preview_pages(out_dir: Path) -> None:
         footer_html='<p class="forge-support small text-center py-3 mb-0">footer_html below article</p>',
         theme_css_href="assets/forge-theme.css",
         product_chrome_css_href="assets/forgesdlc-theme.css",
+        ks_page_attrs=page_main_attrs("preview-listing"),
     )
-    (out_dir / "preview-listing.html").write_text(listing_html, encoding="utf-8")
 
     landing_hero = render_product_landing_hero(
         title="Landing layout preview",
@@ -245,5 +246,12 @@ def write_layout_preview_pages(out_dir: Path) -> None:
         hero_band_extra_class="fs-hero-band--scrim",
         include_theme_toggle=False,
         use_collapsible_nav=True,
+        ks_page_attrs=page_main_attrs("preview-landing"),
     )
+    (out_dir / "preview-split.html").write_text(split_html, encoding="utf-8")
+    (out_dir / "preview-handbook.html").write_text(handbook_html, encoding="utf-8")
+    (out_dir / "preview-chapter.html").write_text(chapter_html, encoding="utf-8")
+    (out_dir / "preview-product.html").write_text(product_html, encoding="utf-8")
+    (out_dir / "preview-marketing.html").write_text(marketing_html, encoding="utf-8")
+    (out_dir / "preview-listing.html").write_text(listing_html, encoding="utf-8")
     (out_dir / "preview-landing.html").write_text(landing_html, encoding="utf-8")

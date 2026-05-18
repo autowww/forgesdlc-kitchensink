@@ -8,7 +8,7 @@ export function applies(ctx, url) {
   return pageContext(url, siteKind).isPlatformHandbookInner;
 }
 
-/** Inner handbook doc pages — structural / a11y signals only (reference depth OK). */
+/** Inner handbook doc pages for platform, lenses, fleet, lcdl — structural / a11y signals only. */
 export function runCheck(m, url) {
   const findings = [];
   const add = (severity, area, message, evidence, remediation) => findings.push(

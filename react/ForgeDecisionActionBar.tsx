@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type ForgeDecisionActionBarProps = {
   children: ReactNode
@@ -22,6 +23,7 @@ export function ForgeDecisionActionBar({
       className={`ks-fe-actionbar${sticky ? ' ks-fe-actionbar--sticky' : ''} ${className}`.trim()}
       role="toolbar"
       aria-label={ariaLabel}
+      {...ksReactPrimitiveAttrs('ForgeDecisionActionBar')}
     >
       <div className="ks-fe-actionbar__inner">{children}</div>
     </div>

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { ForgeStatusBannerVariant } from './forgeRunTypes'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type ForgeStatusBannerProps = {
   variant: ForgeStatusBannerVariant
@@ -34,7 +35,11 @@ export function ForgeStatusBanner({
 }: ForgeStatusBannerProps) {
   const vc = VARIANT_CLASS[variant] || 'ks-fe-banner--info'
   return (
-    <div className={`ks-fe-banner ${vc} ${className}`.trim()} role={role}>
+    <div
+      className={`ks-fe-banner ${vc} ${className}`.trim()}
+      role={role}
+      {...ksReactPrimitiveAttrs('ForgeStatusBanner')}
+    >
       <div className="ks-fe-banner__body">
         <strong className="ks-fe-banner__title">{title}</strong>
         {description ? <div className="ks-fe-banner__desc">{description}</div> : null}

@@ -7,6 +7,7 @@ export const DESIGN_DIMENSION_IDS = [
   'trustAndEcosystemTruth',
   'visualRhythmFirstScreen',
   'accessibilitySemanticsMeta',
+  'visualCatalogGovernance',
 ];
 
 /**
@@ -16,6 +17,7 @@ export const DESIGN_DIMENSION_IDS = [
 export const AREA_TO_DESIGN_DIMENSION = {
   hero: 'narrativeHero',
   messaging: 'narrativeHero',
+  'product-story': 'narrativeHero',
   conversion: 'narrativeHero',
   'first-screen': 'visualRhythmFirstScreen',
   navigation: 'informationArchitecture',
@@ -28,6 +30,7 @@ export const AREA_TO_DESIGN_DIMENSION = {
   accessibility: 'accessibilitySemanticsMeta',
   metadata: 'accessibilitySemanticsMeta',
   semantics: 'accessibilitySemanticsMeta',
+  'visual-catalog': 'visualCatalogGovernance',
   inventory: null,
   'site-inspection': null,
 };
@@ -35,15 +38,21 @@ export const AREA_TO_DESIGN_DIMENSION = {
 export const DESIGN_DIMENSION_META = {
   narrativeHero: {
     label: 'Narrative, hero & CTAs',
-    standardSections: ['Core principle', 'Messaging rules', 'Landing page anatomy', 'Universal storyline'],
+    standardSections: [
+      'Product Story Contract (Linear benchmark)',
+      'Universal storyline',
+      'Messaging rules',
+      'Landing page anatomy',
+    ],
   },
   informationArchitecture: {
     label: 'Information architecture & navigation',
     standardSections: [
+      'Root Homepage Shell Contract',
+      'Public homepage shell rule',
+      'Page mode taxonomy',
       'Information architecture rules',
       'Anti-patterns',
-      'Public homepage shell rule (v2 addendum)',
-      'Page mode taxonomy (v2 addendum)',
     ],
 
   },
@@ -57,11 +66,23 @@ export const DESIGN_DIMENSION_META = {
   },
   visualRhythmFirstScreen: {
     label: 'Visual rhythm & first screen',
-    standardSections: ['Visual design principles', 'Landing page anatomy'],
+    standardSections: [
+      'Product Visual Requirement',
+      'First-screen budget',
+      'Visual design principles',
+      'Visual acceptance and screenshot-based review',
+    ],
   },
   accessibilitySemanticsMeta: {
     label: 'Accessibility, semantics & metadata',
     standardSections: ['Agent implementation rules', 'Visual design principles'],
+  },
+  visualCatalogGovernance: {
+    label: 'KS visual catalog governance',
+    standardSections: [
+      'Forge Kitchen Sink visual-registry.yaml',
+      'Design contracts under docs/design/catalog/',
+    ],
   },
 };
 

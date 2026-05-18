@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type ForgeKeyValueItem = {
   label: string
@@ -28,6 +29,7 @@ export function ForgeKeyValueGrid({
     <dl
       className={`ks-fe-kvgrid${dense ? ' ks-fe-kvgrid--dense' : ''} ${className}`.trim()}
       aria-label={ariaLabel}
+      {...ksReactPrimitiveAttrs('ForgeKeyValueGrid')}
     >
       {items.map((row, i) => (
         <div className="ks-fe-kvgrid__row" key={`${row.label}-${i}`}>

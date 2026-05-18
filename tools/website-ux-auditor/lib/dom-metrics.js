@@ -204,6 +204,54 @@ export async function collectDomMetrics(page, href) {
         if (c > 1) duplicateNavLinkTextCount += (c - 1);
       }
 
+      const outsideMainHeaderNavAnchors = qsDoc('header a[href], nav a[href]').filter((a) => visible(a) && !auxiliaryLink(a)).filter(isOutsideMain);
+      const outsideMainHeaderNavLinkCount = outsideMainHeaderNavAnchors.length;
+
+      const heroFoldBottom = Math.min(900, Math.max(Math.round(window.innerHeight * 0.92), 560));
+      const qualifiesHeroVisual = (el) => {
+        if (!visible(el) || !mainElRaw || !mainElRaw.contains(el)) return false;
+        const r = el.getBoundingClientRect();
+        if (r.top >= heroFoldBottom || r.bottom <= 48) return false;
+        return r.width >= 236 && r.height >= 156;
+      };
+
+      let mainHeroVisualAboveFoldCount = 0;
+      if (mainElRaw) {
+        const candidates = [
+          ...mainElRaw.querySelectorAll('img'),
+          ...mainElRaw.querySelectorAll('svg'),
+          ...mainElRaw.querySelectorAll('video'),
+          ...mainElRaw.querySelectorAll('canvas'),
+        ];
+        const seen = new Set();
+        for (const el of candidates) {
+          if (!qualifiesHeroVisual(el)) continue;
+          const key = `${el.tagName}:${Math.round(el.getBoundingClientRect().top)}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          mainHeroVisualAboveFoldCount += 1;
+        }
+      }
+
+      /** First headings inside main for storyline heuristics */
+      let earlyMainHeadings = [];
+      if (mainElRaw) {
+        earlyMainHeadings = Array.from(mainElRaw.querySelectorAll('h2, h3'))
+          .filter(visible)
+          .map((el) => ({
+            tag: el.tagName.toLowerCase(),
+            text: textOf(el).slice(0, 200),
+            top: Math.round(el.getBoundingClientRect().top),
+          }))
+          .sort((a, b) => a.top - b.top)
+          .slice(0, 14);
+      }
+
+      const mainLower = norm(mainElRaw ? mainElRaw.innerText || '' : '').toLowerCase();
+      const workflowStorySignalHits = ['how it works', 'how we work', 'workflow', 'stage', 'step ', 'steps', 'your work', 'pipeline', 'lifecycle'].filter((t) => mainLower.includes(t)).length;
+      const aiCapabilityStoryHits = ['agent', 'llm', 'model ', 'governed', 'contract', 'delegat', 'review gate', 'human review', 'bounded'].filter((t) => mainLower.includes(t)).length;
+      const proofStorySignalHits = ['trust', 'boundary', 'evidence', 'security posture', 'enterprise', 'designed for governed', 'data boundary'].filter((t) => mainLower.includes(t)).length;
+
       return {
         title,
         metaDescription,
@@ -249,6 +297,21 @@ export async function collectDomMetrics(page, href) {
         duplicateNavLinkTextCount,
         firstMainH1Top,
         firstMainContentTop,
+        outsideMainHeaderNavLinkCount,
+        mainHeroVisualAboveFoldCount,
+        earlyMainHeadings,
+        workflowStorySignalHits,
+        aiCapabilityStoryHits,
+        proofStorySignalHits,
+        ksVisualHashes: (() => {
+          const fromAttr = Array.from(document.querySelectorAll('[data-ks-hash]'))
+            .map((el) => el.getAttribute('data-ks-hash'))
+            .filter(Boolean);
+          const fromHash = Array.from(document.querySelectorAll('[hash]'))
+            .map((el) => el.getAttribute('hash'))
+            .filter(Boolean);
+          return [...new Set([...fromAttr, ...fromHash])].filter((h) => /^[A-Za-z]{3}$/.test(String(h)));
+        })(),
       };
     },
     {

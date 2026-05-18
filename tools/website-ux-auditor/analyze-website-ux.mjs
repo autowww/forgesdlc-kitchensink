@@ -32,6 +32,16 @@ import {
 } from './lib/severity.js';
 import { scorePage } from './lib/scoring.js';
 import { crawlAndAnalyze } from './lib/crawl.js';
+import { createCrawlProgressReporter } from './lib/crawl-progress-line.js';
+import { createLogger } from './lib/logger.js';
+import {
+  archiveAuditDataToPrevious,
+  readAuditDataPrevious,
+  readCrawlSession,
+  writeCrawlSession,
+  extractMajorPlusUrlsFromPriorAudit,
+  buildRegressionWaveSummary,
+} from './lib/incremental-audit.js';
 import { loadDesignStandard, warnIfDesignStandardChanged } from './lib/design-standard.js';
 import { writeRcaPromptBatch } from './lib/rca.js';
 import { runAllChecks } from './checks/index.js';
@@ -47,7 +57,11 @@ import { applyDefaultForgeStandard, inferSiteKind, PRODUCT_PROFILES } from './li
 import { inventoryRepo } from './lib/repo-inventory.js';
 import { startServer, waitForReady } from './lib/site-bootstrap.js';
 import { ensureDir, writeFile, fileExists, readMaybe } from './lib/files.js';
+import { mergeDashboardStateIfWatching } from './lib/ux-loop-dashboard-state.js';
 import { appendUxScoringCsv, UX_SCORING_CSV_FILENAME } from './lib/ux-scoring-csv.js';
+import { ensureBlockingStdio } from './lib/piped-stdio-flush.js';
+
+ensureBlockingStdio();
 
 /** One shared identity for audit report, JSON, and all plan files emitted in a single invocation. */
 function newAuditRunMeta() {
@@ -114,6 +128,12 @@ UX score tracking (optional):
   --prior-ux-scores PATH       Path relative to repo (or absolute) to ux-quality-score.json or audit-data.json from a prior run; audit report + audit-data.json include Δ vs current rollup.
   --no-ux-csv                  Skip appending repo-root ux-scoring.csv (default: append each run for analysis).
 
+Incremental campaign (reuse one --out folder across runs):
+  --incremental                After archiving audit-data.json → audit-data.previous.json, re-check URLs that had Major+ in the prior snapshot and resume crawl-session.json queue when present (see README).
+  --incremental-regression-max-pages N   Cap URLs pulled from audit-data.previous.json for the regression wave (default: 40).
+  --verbose, --verbose=N       Stderr diagnostics ([incremental], [crawl], …); level 2 via N=2. Alias: --debug-log.
+                               Env mirror: UX_AUDIT_VERBOSE=1|2.
+
 Site kinds:
   forgesdlc | lcdl | fleet | lenses | platform | generic | auto
 `;
@@ -142,6 +162,9 @@ function parseArgs(argv) {
     scoresFirstMaxPages: 120,
     priorUxScoresPath: null,
     uxCsv: true,
+    incremental: false,
+    incrementalRegressionMaxPages: 40,
+    verbose: 0,
   };
   for (let i = 2; i < argv.length; i += 1) {
     const raw = argv[i];
@@ -173,6 +196,22 @@ function parseArgs(argv) {
       args.scoresFirst = true;
       continue;
     }
+    if (raw === '--incremental') {
+      args.incremental = true;
+      continue;
+    }
+    if (raw.startsWith('--verbose=')) {
+      args.verbose = Number(raw.slice('--verbose='.length)) || 1;
+      continue;
+    }
+    if (raw.startsWith('--debug-log=')) {
+      args.verbose = Number(raw.slice('--debug-log='.length)) || 1;
+      continue;
+    }
+    if (raw === '--verbose' || raw === '--debug-log') {
+      args.verbose = 1;
+      continue;
+    }
     if (raw === '--no-ux-csv') {
       args.uxCsv = false;
       continue;
@@ -200,6 +239,7 @@ function parseArgs(argv) {
       'stopAfterMajorPlus',
       'priorUxScoresPath',
       'scoresFirstMaxPages',
+      'incrementalRegressionMaxPages',
     ];
     if (!needsValue.includes(key)) {
       throw new Error(`Unknown flag: ${flag}`);
@@ -220,6 +260,10 @@ function parseArgs(argv) {
   if (!Number.isFinite(args.stopAfterMajorPlus) || args.stopAfterMajorPlus < 1) args.stopAfterMajorPlus = 10;
   args.scoresFirstMaxPages = Number(args.scoresFirstMaxPages);
   if (!Number.isFinite(args.scoresFirstMaxPages) || args.scoresFirstMaxPages < 1) args.scoresFirstMaxPages = 120;
+  args.incrementalRegressionMaxPages = Number(args.incrementalRegressionMaxPages);
+  if (!Number.isFinite(args.incrementalRegressionMaxPages) || args.incrementalRegressionMaxPages < 1) {
+    args.incrementalRegressionMaxPages = 40;
+  }
   if (args.priorUxScoresPath) {
     args.priorUxScoresPath = path.isAbsolute(args.priorUxScoresPath)
       ? path.normalize(args.priorUxScoresPath)
@@ -452,7 +496,39 @@ async function emitAuditPrecrawlScoreSidecars({
   await writeFile(path.join(args.out, 'ux-quality-score-audit-precrawl.md'), md);
 }
 
-function buildAuditReport({ args, inventory, profile, pages, standardText, runMeta, designStandard, crawlSummary, uxScores, uxScoreSnippetExtras }) {
+function regressionWaveAppendixMd(regressionWave) {
+  if (!regressionWave || !regressionWave.rows?.length) return '';
+  const rows = regressionWave.rows
+    .slice(0, 120)
+    .map(
+      (r) =>
+        `| ${markdownEscape(r.url)} | ${r.priorMajorPlusCount ?? '—'} | ${r.currentMajorPlusCount} | ${r.deltaMajorPlus ?? '—'} |`,
+    )
+    .join('\n');
+  return `## Previously Major+ URLs re-checked
+
+Baseline artifact: **${markdownEscape(regressionWave.baselineArtifact || '')}** · URLs checked this wave: **${regressionWave.urlsChecked}**
+
+| URL | Prior Maj+ count | Current Maj+ count | Δ Maj+ |
+|-----|------------------|-------------------|--------|
+${rows}
+
+`;
+}
+
+function buildAuditReport({
+  args,
+  inventory,
+  profile,
+  pages,
+  standardText,
+  runMeta,
+  designStandard,
+  crawlSummary,
+  uxScores,
+  uxScoreSnippetExtras,
+  regressionWave,
+}) {
   const summary = summarizeFindings(pages);
   const crawl = crawlSummary || {};
 
@@ -636,6 +712,7 @@ ${formatList(inventory.styleFiles.slice(0, 40).map((f) => `\`${f}\``))}
 
 ${screenshots}
 
+${regressionWaveAppendixMd(regressionWave)}
 ## Standard excerpt used for this audit
 
 \`\`\`md
@@ -667,7 +744,7 @@ function cursorPlanHeader(title, order, profile, runMeta, siteKind = 'generic', 
     platformShell = `
 ## Forge Platform — landing shell first
 
-When \`homepage-shell\` or visual evidence shows handbook sidebars or docs trees before the hero, **Markdown copy alone is insufficient**. Split the \`/\` route from the generated handbook shell (or hide the full nav on the root page) per **docs/design/forge-enterprise-ai-website-standard-v2-addendum.md**. Prefer completing **Plan 03** shell/IA work before deep **Plan 02** rewrites; validate with **Plan 08** screenshots.
+When \`homepage-shell\`, \`product-visual\`, or visual evidence shows handbook sidebars or docs trees before the hero, **Markdown copy alone is insufficient**. Split the \`/\` route from the generated handbook shell per **docs/design/forge-enterprise-ai-website-standard.md** (**Root Homepage Shell Contract**). Complete **Plan 02** shell/layout work before deep **Plan 03** storyline rewrites; use **Plan 04** for IA consolidation and **Plan 09** for screenshot acceptance.
 `;
 
   }
@@ -692,6 +769,7 @@ ${siteSpecificCopy(profile)}
 - Keep docs/reference pages technically complete.
 - Maintain existing build conventions, routing conventions, and component style unless the repo clearly supports a better shared pattern.
 - Validate links, responsive layout, semantic headings, and basic accessibility before finishing.
+- Do not respond to audits by **rewriting Markdown copy only**. First verify root \`/\` uses **product landing shell** vs **docs/handbook shell** per **docs/design/forge-enterprise-ai-website-standard.md**. When \`homepage-shell\`, \`product-visual\`, or \`storyline-flow\` findings indicate wrong shell or a missing hero visual slot, complete **Plan 02** (shell/layout separation) before hero copy work (**Plan 03**).
 ${platformShell}`;
 }
 
@@ -716,6 +794,16 @@ ${checklist(inventory.styleFiles.slice(0, 35), '- [ ] Locate global styles, them
 `;
 }
 
+function hasShellVisualStoryGateSignals(pages) {
+  const watch = new Set(['homepage-shell', 'product-visual', 'storyline-flow']);
+  for (const p of pages || []) {
+    for (const f of p.findings || []) {
+      if (f && watch.has(f.checkId)) return true;
+    }
+  }
+  return false;
+}
+
 function buildForgeUxRemediationDotPlanMd({ profile, args, inventory, pages, previousTodoStatuses, runMeta, crawlSummary }) {
   const name = `${profile.name} — Forge UX remediation (Build)`;
   const pgs = pages || [];
@@ -736,13 +824,14 @@ function buildForgeUxRemediationDotPlanMd({ profile, args, inventory, pages, pre
   const steps = [
     ['ux-00', 'Read 00-master-remediation-sequence.md and audit-report.md'],
     ['ux-01', 'Execute 01-site-inventory-and-content-map.md'],
-    ['ux-02', 'Execute 02-homepage-storyline-and-hero.md'],
-    ['ux-03', 'Execute 03-information-architecture-and-navigation.md'],
-    ['ux-04', 'Execute 04-page-depth-and-technical-content-pruning.md'],
-    ['ux-05', 'Execute 05-trust-model-and-ecosystem-fit.md'],
-    ['ux-06', 'Execute 06-visual-system-and-spacious-enterprise-polish.md'],
-    ['ux-07', 'Execute 07-accessibility-responsive-link-and-build-qa.md'],
-    ['ux-08', 'Execute 08-screenshot-and-homepage-shell-review.md'],
+    ['ux-02', 'Execute 02-homepage-shell-and-product-landing-mode.md'],
+    ['ux-03', 'Execute 03-homepage-storyline-and-hero.md'],
+    ['ux-04', 'Execute 04-information-architecture-and-navigation.md'],
+    ['ux-05', 'Execute 05-page-depth-and-technical-content-pruning.md'],
+    ['ux-06', 'Execute 06-trust-model-and-ecosystem-fit.md'],
+    ['ux-07', 'Execute 07-visual-system-and-spacious-enterprise-polish.md'],
+    ['ux-08', 'Execute 08-accessibility-responsive-link-and-build-qa.md'],
+    ['ux-09', 'Execute 09-screenshot-and-homepage-shell-review.md'],
   ];
   const todoYaml = steps
     .map(([id, content]) => {
@@ -758,7 +847,7 @@ function buildForgeUxRemediationDotPlanMd({ profile, args, inventory, pages, pre
 | **audit_run_id** | \`${runMeta.auditRunId}\` |
 | **generated_at (UTC)** | \`${runMeta.generatedAt}\` |
 
-All generated artifacts in this folder from **this** invocation share this **audit_run_id**. Each audit run creates a **new** id and timestamp (including \`audit-report.md\`, \`audit-data.json\`, \`00\`–\`08\`, and this plan).
+All generated artifacts in this folder from **this** invocation share this **audit_run_id**. Each audit run creates a **new** id and timestamp (including \`audit-report.md\`, \`audit-data.json\`, \`00\`–\`09\`, and this plan).
 
 `;
   const refreshSection = refresh
@@ -774,7 +863,7 @@ This run used **\`--no-refresh-plan-status\`**: all todos were written as \`pend
 `;
   const body = `# ${profile.name} — Forge UX remediation
 
-This \`forge-ux-remediation.plan.md\` file is intended for Cursor's **plan UI** (todos + **Build**). The sibling \`00\`–\`08\` Markdown files carry the themed prompts; **this file adds the audit snapshot from the generator run** so the orchestrator is not context-free.
+This \`forge-ux-remediation.plan.md\` file is intended for Cursor's **plan UI** (todos + **Build**). The sibling \`00\`–\`09\` Markdown files carry the themed prompts; **this file adds the audit snapshot from the generator run** so the orchestrator is not context-free.
 
 - After substantive edits, run your site's build command (e.g. \`python3 generator/build-site.py\` for generator-based sites).
 - Re-run the auditor with \`--site\` when a dev server is available for Playwright evidence and richer DOM metrics.
@@ -787,12 +876,13 @@ Use this workflow instead:
 
 1. Switch to **Agent** (not **Ask**), in the same workspace root as \`--repo\`.
 2. In chat, attach this plan with **\@** (e.g. \`@forge-ux-remediation.plan.md\` or the path under \`.cursor/plans/\`).
-3. Ask: **Execute the YAML todos in order (ux-00 … ux-08); after each todo summarize files touched and stop for review if the change is large.**
+3. Ask: **Execute the YAML todos in order (ux-00 … ux-09); after each todo summarize files touched and stop for review if the change is large.**
 4. If you use a repo-level orchestrator in \`.cursor/plans/*.plan.md\`, attach that file instead — some Cursor builds wire **Build** more reliably for plans **directly under** \`.cursor/plans/\` than for nested copies.
 5. With **\`--mirror-root-plan\`**, a **uniquely named copy** is written under \`.cursor/plans/\`: \`forge-ux-remediation__<UTC-stamp>__<audit_run_id>.plan.md\` (same YAML + body). It may still not enable **Build**; use **Agent \@** or \`cursor-agent-run-ux-plan.sh\` (see KS tool README).
 
 ## Audit snapshot (this run)
 
+${hasShellVisualStoryGateSignals(pgs) ? `### Gate failures (shell / visual / storyline)\n\nThis audit reports \`homepage-shell\`, \`product-visual\`, and/or \`storyline-flow\` findings. Execute **02 - Homepage shell and product landing mode** before **03 - Homepage storyline and hero** unless you have verified root \`/\` already uses the correct **product landing shell** (not docs/handbook chrome).\n\n` : ''}
 ${auditSnapshotForBuildPlanBody({ pages: pgs, args, inventory, crawlSummary })}
 
 ## Quantitative metrics (per URL)
@@ -807,7 +897,7 @@ Static-only audits use repo-derived text samples; re-run with \`--site\` for liv
 |------|------|
 | \`audit-report.md\` | Full heuristic table and evidence |
 | \`00-master-remediation-sequence.md\` | Sequence and constraints |
-| \`01\`–\`08\` | Themed remediation prompts (each includes signals + findings for this run) |
+| \`01\`–\`09\` | Themed remediation prompts (each includes signals + findings for this run) |
 `;
   return `---
 name: ${JSON.stringify(name)}
@@ -823,15 +913,16 @@ ${body}`;
 }
 
 function buildMasterPlan({ profile, runMeta, siteKind = 'generic' }) {
-  const platformOrder = siteKind === 'platform'
-    ? '\n> **Forge Platform:** complete **03 - Information architecture** (shell/routing) and **08 - Screenshot review** before deep **02 - Homepage storyline** copy-only passes.\n'
-    : '';
+  let orderNotes = '\n> **Shell before copy:** when audits show \`homepage-shell\`, \`product-visual\`, or \`storyline-flow\` findings, complete **02 - Homepage shell** before **03 - Homepage storyline**.\n';
+  if (siteKind === 'platform') {
+    orderNotes += '> **Forge Platform:** root \`/\` must remain **mode 1** product/architecture landing; full handbook navigation belongs under Docs/Handbook/Reference — use **02**, **04**, and **09** before declaring UX done.\n';
+  }
   return `${cursorPlanHeader('00 - Master remediation sequence', 0, profile, runMeta, siteKind, { emphasizePlatformShell: true })}
 
 **Repo-level Build plan:** [\`../forge-platform-ux-remediation.plan.md\`](../forge-platform-ux-remediation.plan.md) — open from \`.cursor/plans/\` when this file exists (Forge Platform handbook workflow).
 
 **Same-folder Build:** [\`forge-ux-remediation.plan.md\`](./forge-ux-remediation.plan.md)
-${platformOrder}
+${orderNotes}
 ## How to use this plan set
 
 This folder contains ordered remediation plans generated from a deterministic UX audit. Use either workflow:
@@ -848,16 +939,17 @@ Ask Cursor Agent to read this master plan and execute child plans in order. This
 
 - [ ] **Foundation**
   - [ ] 01 - Site inventory and content map
-  - [ ] 02 - Homepage storyline and hero
+  - [ ] 02 - Homepage shell and product landing mode
+  - [ ] 03 - Homepage storyline and hero
 - [ ] **Structure**
-  - [ ] 03 - Information architecture and navigation
-  - [ ] 04 - Page depth and technical-content pruning
+  - [ ] 04 - Information architecture and navigation
+  - [ ] 05 - Page depth and technical-content pruning
 - [ ] **Trust and enterprise feel**
-  - [ ] 05 - Trust model and ecosystem fit
-  - [ ] 06 - Visual system and spacious enterprise polish
+  - [ ] 06 - Trust model and ecosystem fit
+  - [ ] 07 - Visual system and spacious enterprise polish
 - [ ] **Verification**
-  - [ ] 07 - Accessibility, responsive, link, and build QA
-  - [ ] 08 - Screenshot and homepage shell review
+  - [ ] 08 - Accessibility, responsive, link, and build QA
+  - [ ] 09 - Screenshot and homepage shell review
 
 ## Execution prompt for Cursor
 
@@ -918,12 +1010,42 @@ ${findingBullets(pages, ['page-depth', 'technical-depth', 'navigation', 'messagi
 `;
 }
 
-function buildPlan02({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
+function buildPlan02Shell({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
+  return `${cursorPlanHeader('02 - Homepage shell and product landing mode', 2, profile, runMeta, siteKind, { emphasizePlatformShell: true })}
+
+## Goal
+
+Ensure root \`/\` uses a **product landing shell** (mode 1 in the design standard), not a generated **docs/handbook shell**, before investing in hero copy. **Forge Platform:** full handbook navigation belongs under **Docs / Handbook / Reference**, not the root first screen.
+
+${candidateFileBlock(inventory)}
+
+${sharedMetricsAppendix(pages)}
+
+## Audit findings to account for
+
+${findingBullets(pages, ['navigation', 'information-architecture', 'first-screen', 'product-story'])}
+
+## Tasks
+
+- [ ] Verify whether the homepage route mounts **product landing** vs **handbook/docs** chrome (sidebar, generated tree, duplicated nav before \`<main>\`).
+- [ ] When \`homepage-shell\`, \`product-visual\`, or \`storyline-flow\` findings indicate wrong shell, missing hero visual slot, or docs-first story order, **fix layout/routing/section order first** — not Markdown-only edits.
+- [ ] Split or template-separate \`/\` from handbook layouts; relocate full trees to \`/docs\`, \`/handbook\`, \`/reference\`, or maintainer routes.
+- [ ] Preserve canonical technical content by moving depth and links, not deleting reference material.
+
+## Completion checklist
+
+- [ ] Root first screen reads as product/architecture landing (screenshot or local viewport sanity check).
+- [ ] Ready to execute **03 - Homepage storyline and hero** without masking shell debt.
+
+`;
+}
+
+function buildPlan03Storyline({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
   const platformLead = siteKind === 'platform'
-    ? '- [ ] **Forge Platform:** Complete **Plan 03** shell/routing separation (and **Plan 08** visual review) before heavy **Plan 02** copy-only edits when `homepage-shell` signals are present.\n'
+    ? '- [ ] **Forge Platform:** Complete **Plan 02** shell/layout separation (and **Plan 09** screenshot review) before heavy **Plan 03** copy-only edits when `homepage-shell` or `product-visual` signals are present.\n'
 
     : '';
-  return `${cursorPlanHeader('02 - Homepage storyline and hero', 2, profile, runMeta, siteKind, { emphasizePlatformShell: true })}
+  return `${cursorPlanHeader('03 - Homepage storyline and hero', 3, profile, runMeta, siteKind, { emphasizePlatformShell: true })}
 
 ## Goal
 
@@ -935,7 +1057,7 @@ ${sharedMetricsAppendix(pages)}
 
 ## Audit findings to account for
 
-${findingBullets(pages, ['hero', 'first-screen', 'conversion', 'messaging', 'metadata', 'navigation', 'information-architecture'])}
+${findingBullets(pages, ['hero', 'first-screen', 'conversion', 'messaging', 'metadata', 'navigation', 'information-architecture', 'product-story'])}
 
 ## Recommended homepage story
 
@@ -947,7 +1069,8 @@ ${findingBullets(pages, ['hero', 'first-screen', 'conversion', 'messaging', 'met
 
 ## Tasks
 
-${platformLead}- [ ] Rewrite the homepage hero to contain:
+${platformLead}- [ ] **Do not rewrite only Markdown copy** — confirm Plan **02** cleared shell/visual debt when \`homepage-shell\`, \`product-visual\`, or \`storyline-flow\` findings were present.
+- [ ] Rewrite the homepage hero to contain:
   - [ ] One H1 with a 4-9 word outcome-led promise.
   - [ ] One explanatory subhead with no jargon before plain-language framing.
   - [ ] One primary CTA and one secondary CTA.
@@ -980,8 +1103,8 @@ Adjust wording to match the exact product truth in this repo.
 `;
 }
 
-function buildPlan03({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
-  return `${cursorPlanHeader('03 - Information architecture and navigation', 3, profile, runMeta, siteKind, { emphasizePlatformShell: true })}
+function buildPlan04InformationArchitecture({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
+  return `${cursorPlanHeader('04 - Information architecture and navigation', 4, profile, runMeta, siteKind, { emphasizePlatformShell: true })}
 
 ## Goal
 
@@ -1037,8 +1160,8 @@ Recommended product-local nav:
 `;
 }
 
-function buildPlan04({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
-  return `${cursorPlanHeader('04 - Page depth and technical-content pruning', 4, profile, runMeta, siteKind)}
+function buildPlan05PageDepth({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
+  return `${cursorPlanHeader('05 - Page depth and technical-content pruning', 5, profile, runMeta, siteKind)}
 
 ## Goal
 
@@ -1076,8 +1199,8 @@ ${TECHNICAL_TRANSLATIONS.map(([term, plain]) => `  - [ ] \`${term}\` -> ${plain}
 `;
 }
 
-function buildPlan05({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
-  return `${cursorPlanHeader('05 - Trust model and ecosystem fit', 5, profile, runMeta, siteKind)}
+function buildPlan06TrustEcosystem({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
+  return `${cursorPlanHeader('06 - Trust model and ecosystem fit', 6, profile, runMeta, siteKind)}
 
 ## Goal
 
@@ -1130,8 +1253,8 @@ Add a compact strip explaining the relevant relationship to:
 `;
 }
 
-function buildPlan06({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
-  return `${cursorPlanHeader('06 - Visual system and spacious enterprise polish', 6, profile, runMeta, siteKind, { emphasizePlatformShell: true })}
+function buildPlan07VisualPolish({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
+  return `${cursorPlanHeader('07 - Visual system and spacious enterprise polish', 7, profile, runMeta, siteKind, { emphasizePlatformShell: true })}
 
 ## Goal
 
@@ -1172,8 +1295,8 @@ ${findingBullets(pages, ['first-screen', 'readability', 'accessibility', 'naviga
 `;
 }
 
-function buildPlan07({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
-  return `${cursorPlanHeader('07 - Accessibility, responsive, link, and build QA', 7, profile, runMeta, siteKind)}
+function buildPlan08BuildQa({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
+  return `${cursorPlanHeader('08 - Accessibility, responsive, link, and build QA', 8, profile, runMeta, siteKind)}
 
 ## Goal
 
@@ -1214,12 +1337,12 @@ ${findingBullets(pages, ['accessibility', 'metadata', 'semantics', 'conversion',
 `;
 }
 
-function buildPlan08({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
-  return `${cursorPlanHeader('08 - Screenshot and homepage shell review', 8, profile, runMeta, siteKind, { emphasizePlatformShell: siteKind === 'platform' })}
+function buildPlan09Screenshot({ inventory, pages, profile, runMeta, siteKind = 'generic' }) {
+  return `${cursorPlanHeader('09 - Screenshot and homepage shell review', 9, profile, runMeta, siteKind, { emphasizePlatformShell: siteKind === 'platform' })}
 
 ## Goal
 
-Validate **visual-first acceptance** aligned with the **Forge enterprise AI website standard v2 addendum** (\`docs/design/forge-enterprise-ai-website-standard-v2-addendum.md\` inside Kitchen Sink) — first screen reads as product/architecture landing, not a documentation reader.
+Validate **visual-first acceptance** aligned with **docs/design/forge-enterprise-ai-website-standard.md** (**Visual acceptance and screenshot-based review**) — first screen reads as product/architecture landing, not a documentation reader.
 
 ${candidateFileBlock(inventory)}
 
@@ -1233,7 +1356,7 @@ ${findingBullets(pages, ['navigation', 'information-architecture', 'first-screen
 
 - [ ] Inspect \`screenshots/01-*.png\` (desktop) and \`screenshots/00-mobile-*.png\` from this run **when screenshots were captured** (omit if you used \`--no-screenshots\`).
 - [ ] Confirm the hero sits in the **visual center**, the primary CTA is obvious, and dense sidebar/offcanvas/handbook clusters do not crowd the fold.
-- [ ] Any remaining \`homepage-shell\` blocker must be cleared before declaring UX remediation done—iterate Plans 03/06 rather than rewriting markdown only.
+- [ ] Any remaining \`homepage-shell\` blocker must be cleared before declaring UX remediation done—iterate Plans **02**, **04**, and **07** rather than rewriting Markdown only.
 - [ ] Re-run the auditor with \`--site\` and confirm sidebar/offcanvas counts and handbook chrome hits match expectation.
 
 ## Completion checklist
@@ -1265,6 +1388,8 @@ Product one-liner: ${profile.oneLiner}
 - Do not invent product capabilities, integrations, customers, certifications, compliance claims, or metrics.
 - Keep public landing pages short, clear, spacious, and outcome-led.
 - Keep docs/reference pages complete and precise.
+- Do not satisfy shell or visual-slot failures by **rewriting Markdown copy only** — verify **product landing shell** vs **docs/handbook shell** on root \`/\` first (**Plan 02**).
+- Execute todos **ux-00** through **ux-09** in order unless the user specifies otherwise.
 - Validate with build/check commands where available.
 - After each plan, report files changed, UX impact, validation performed, and unresolved risks.
 `;
@@ -1350,9 +1475,10 @@ async function analyzeStaticRepoOnly({ args, inventory }) {
     outcomeTermCount: countIncludedTerms(OUTCOME_TERMS, plain),
     imagesMissingAlt: 0,
     lowContrast: [],
+    ksVisualHashes: [],
   };
   const findings = [
-    ...runAllChecks(metrics, metrics.url, { siteKind: siteKindResolved }),
+    ...runAllChecks(metrics, metrics.url, { siteKind: siteKindResolved, repoRoot: path.resolve(args.repo) }),
   ];
   findings.unshift(
     makeFinding({
@@ -1380,6 +1506,17 @@ async function analyzeStaticRepoOnly({ args, inventory }) {
   return { url: metrics.url, metrics, findings, score, staticOnly: true };
 }
 
+async function readUxQualityScoreLoopDelta(outDir) {
+  const p = path.join(outDir, 'ux-quality-score-loop-delta.json');
+  if (!(await fileExists(p))) return null;
+  try {
+    const raw = JSON.parse(await fsp.readFile(p, 'utf8'));
+    return raw && typeof raw === 'object' ? raw : null;
+  } catch {
+    return null;
+  }
+}
+
 async function writePlans({
   args,
   inventory,
@@ -1394,11 +1531,15 @@ async function writePlans({
   precrawlCrawlSummary = null,
   priorUxScoresSnapshot = null,
   priorUxScoresSourceDisplay = null,
+  regressionWave = null,
+  uxQualityScoreLoopDelta = null,
+  logger,
 }) {
   const uxScores = computeUxScores({
     pages,
     crawlSummary,
     staticOnly: args.staticOnly,
+    siteKind,
   });
   const uxScoreDeltaVsPrior = priorUxScoresSnapshot ? compareUxScores(priorUxScoresSnapshot, uxScores) : null;
   const uxScoreSnippetExtras = {
@@ -1406,6 +1547,7 @@ async function writePlans({
     precrawlCrawlSummary,
     uxScoreDeltaVsPrior,
     priorUxScoresSourceDisplay,
+    scorerLoopUxDelta: uxQualityScoreLoopDelta,
   };
 
   if (args.uxCsv) {
@@ -1470,6 +1612,7 @@ async function writePlans({
     crawlSummary,
     uxScores,
     uxScoreSnippetExtras,
+    regressionWave,
   });
   const reportPath = path.join(args.out, 'audit-report.md');
   const jsonPath = path.join(args.out, 'audit-data.json');
@@ -1489,6 +1632,8 @@ async function writePlans({
         precrawlCrawlSummary: precrawlCrawlSummary ?? null,
         priorUxScoresSource: priorUxScoresSourceDisplay,
         priorUxScoresSnapshot,
+        uxQualityScoreLoopDelta,
+        regressionWave,
         args,
         inventory,
         profile,
@@ -1512,13 +1657,14 @@ async function writePlans({
   const planBuilders = [
     ['00-master-remediation-sequence.md', buildMasterPlan],
     ['01-site-inventory-and-content-map.md', buildPlan01],
-    ['02-homepage-storyline-and-hero.md', buildPlan02],
-    ['03-information-architecture-and-navigation.md', buildPlan03],
-    ['04-page-depth-and-technical-content-pruning.md', buildPlan04],
-    ['05-trust-model-and-ecosystem-fit.md', buildPlan05],
-    ['06-visual-system-and-spacious-enterprise-polish.md', buildPlan06],
-    ['07-accessibility-responsive-link-and-build-qa.md', buildPlan07],
-    ['08-screenshot-and-homepage-shell-review.md', buildPlan08],
+    ['02-homepage-shell-and-product-landing-mode.md', buildPlan02Shell],
+    ['03-homepage-storyline-and-hero.md', buildPlan03Storyline],
+    ['04-information-architecture-and-navigation.md', buildPlan04InformationArchitecture],
+    ['05-page-depth-and-technical-content-pruning.md', buildPlan05PageDepth],
+    ['06-trust-model-and-ecosystem-fit.md', buildPlan06TrustEcosystem],
+    ['07-visual-system-and-spacious-enterprise-polish.md', buildPlan07VisualPolish],
+    ['08-accessibility-responsive-link-and-build-qa.md', buildPlan08BuildQa],
+    ['09-screenshot-and-homepage-shell-review.md', buildPlan09Screenshot],
   ];
   const planCtx = { args, inventory, profile, pages, standardText, runMeta, siteKind };
   for (const [file, builder] of planBuilders) {
@@ -1535,6 +1681,7 @@ async function writePlans({
       previousTodoStatuses = new Map();
     }
   }
+  logger?.verbose?.('[plans]', 'prior plan ux-* todo entries parsed', `${previousTodoStatuses.size}`);
 
   const buildPlanPath = path.join(args.out, 'forge-ux-remediation.plan.md');
   const buildPlanBody = buildForgeUxRemediationDotPlanMd({
@@ -1569,6 +1716,7 @@ async function writePlans({
   const mergedNonPendingTodos = args.refreshPlanStatus
     ? [...previousTodoStatuses.values()].filter((s) => s && s !== 'pending').length
     : 0;
+  logger?.verbose?.('[plans]', 'merged non-pending UX todos from prior forge-ux-remediation.plan.md', `${mergedNonPendingTodos}`);
 
   /** @type {string | null} */
   let precrawlJsonRel = null;
@@ -1595,6 +1743,11 @@ async function writePlans({
   };
 }
 
+/** UX audit phase breadcrumbs on stderr so they appear live next to `[ux-score]` / crawl rows (piped stdout can block-buffer). */
+function uxAuditPhase(line) {
+  console.error(line);
+}
+
 async function main() {
   const args = parseArgs(process.argv);
   if (!args.site && args.readyUrl) args.site = args.readyUrl;
@@ -1603,25 +1756,62 @@ async function main() {
   }
   if (!args.staticOnly && !args.site) throw new Error('Provide --site URL to inspect, or use --static-only.');
 
+  uxAuditPhase('[ux-audit] phase=startup · loading Forge standard + repo inventory (large repos can sit here tens of seconds before [ux-audit] phase=run)');
   await applyDefaultForgeStandard(args);
   const designStdMeta = await loadDesignStandard(args.standard ?? '');
   const standardText = designStdMeta.rawFull;
-  const inventory = await inventoryRepo(args.repo);
+  const inventory = await inventoryRepo(args.repo, { progressLog: true });
   const siteKind = inferSiteKind(args, inventory);
   const profile = PRODUCT_PROFILES[siteKind] || PRODUCT_PROFILES.generic;
 
   let server = null;
   let serverExited = false;
   try {
+    const logger = createLogger(Math.max(Number(args.verbose) || 0, Number(process.env.UX_AUDIT_VERBOSE) || 0));
     await ensureDir(args.out);
+    const auditorCrawlProgressLog = path.resolve(args.out, 'auditor-crawl-progress.log');
+    uxAuditPhase(`[ux-audit] phase=diag · auditorCrawlProgressLog=${auditorCrawlProgressLog}`);
+    await archiveAuditDataToPrevious(args.out, logger);
     await warnIfDesignStandardChanged(args.out, designStdMeta.sha256);
 
     let pages = [];
     let crawlSummary;
     let precrawlUxScores = null;
     let precrawlCrawlSummary = null;
+    let regressionWave = null;
+
+    /** @type {string[]} */
+    let regressionUrls = [];
+    /** @type {string[]} */
+    let resumeVisitedUrls = [];
+    /** @type {string[]} */
+    let resumeQueuedUrls = [];
+    /** @type {object|null} */
+    let priorParsedForIncremental = null;
 
     const runMeta = newAuditRunMeta();
+    const envRunNo = String(process.env.FORGE_UX_PROGRESS_RUN_NO || '').trim();
+    const progressRunDisplay = envRunNo || runMeta.auditRunId.slice(0, 8);
+    const autoSubphase = process.env.FORGE_UX_PROGRESS_RUN_AUTO === '1';
+    const phaseBaseRaw = String(process.env.FORGE_UX_PROGRESS_PHASE_BASE || envRunNo || '').trim();
+    const phaseBaseNum = Number(phaseBaseRaw);
+    const hasNumericPhaseBase = phaseBaseRaw !== '' && Number.isFinite(phaseBaseNum);
+
+    let precrawlRunDisplay = progressRunDisplay;
+    let mainCrawlRunDisplay = progressRunDisplay;
+    if (autoSubphase && hasNumericPhaseBase && args.scoresFirst) {
+      precrawlRunDisplay = String(phaseBaseNum);
+      mainCrawlRunDisplay = String(phaseBaseNum + 1);
+    }
+
+    uxAuditPhase(
+      `[ux-audit] phase=run · auditRunId=${runMeta.auditRunId} · site=${args.site} · siteKind=${siteKind}`
+      + ` · incremental=${args.incremental ? '1' : '0'} · staticOnly=${args.staticOnly ? '1' : '0'}`
+      + ` · maxPages=${args.maxPages} · out=${relativeFromRepo(args.repo, args.out)}`
+      + `${args.scoresFirst ? ` · scoresFirstMaxPages=${args.scoresFirstMaxPages}` : ''}`
+      + ` · progressRuns precrawl=${precrawlRunDisplay} main=${mainCrawlRunDisplay}`,
+    );
+
     let priorUxScoresSnapshot = null;
     let priorUxScoresSourceDisplay = null;
     if (args.priorUxScoresPath) {
@@ -1629,8 +1819,30 @@ async function main() {
       priorUxScoresSnapshot = await readPriorUxScoresSnapshot(args.priorUxScoresPath);
     }
 
+    if (!args.staticOnly && args.incremental) {
+      priorParsedForIncremental = await readAuditDataPrevious(args.out);
+      logger.verbose('[incremental]', 'baseline audit-data.previous.json', priorParsedForIncremental ? 'present' : 'absent');
+      const crawlSessionSnap = await readCrawlSession(args.out);
+      logger.verbose(
+        '[incremental]',
+        'crawl-session.json',
+        crawlSessionSnap?.completed === true ? 'completed marker' : crawlSessionSnap ? 'resume snapshot' : 'absent',
+      );
+      if (priorParsedForIncremental) {
+        regressionUrls = extractMajorPlusUrlsFromPriorAudit(priorParsedForIncremental, args.incrementalRegressionMaxPages);
+        logger.verbose('[incremental]', 'regression wave candidate URLs', `${regressionUrls.length} (cap ${args.incrementalRegressionMaxPages})`);
+      }
+      if (crawlSessionSnap && crawlSessionSnap.completed !== true) {
+        resumeVisitedUrls = crawlSessionSnap.visitedUrls || [];
+        resumeQueuedUrls = crawlSessionSnap.queuedUrls || [];
+        logger.verbose('[incremental]', 'resume crawl queue', `visited=${resumeVisitedUrls.length} queued=${resumeQueuedUrls.length}`);
+      }
+    }
+
     if (args.staticOnly) {
-      if (args.scoresFirst) console.log('Note: --scores-first is ignored for static-only runs (no Playwright precrawl).');
+      mergeDashboardStateIfWatching(args.out, { phase: 'auditor_static_only' });
+      uxAuditPhase('[ux-audit] phase=static_only · no Playwright crawl; generating repo-only analysis');
+      if (args.scoresFirst) console.error('Note: --scores-first is ignored for static-only runs (no Playwright precrawl).');
       pages = [await analyzeStaticRepoOnly({ args, inventory })];
       const flat = pages.flatMap((p) => p.findings || []);
       crawlSummary = {
@@ -1645,51 +1857,135 @@ async function main() {
       };
     } else {
       if (args.start) {
+        uxAuditPhase(`[ux-audit] phase=site · action=start_cmd · waiting_ready · url=${args.readyUrl || args.site}`);
         server = startServer(args.start, args.repo);
         server.on('exit', () => { serverExited = true; });
         await waitForReady(args.readyUrl || args.site, args.timeoutMs);
         if (serverExited) throw new Error('The start command exited before the site was ready.');
+        uxAuditPhase(`[ux-audit] phase=site · action=ready · url=${args.readyUrl || args.site}`);
       }
 
+      uxAuditPhase('[ux-audit] phase=playwright · action=import');
       const playwright = await importPlaywright();
+      uxAuditPhase('[ux-audit] phase=playwright · action=loaded');
       if (args.scoresFirst) {
-        console.log('[scores-first] Sitewide precrawl UX score crawl (design-standard rollup)...');
-        const precrawled = await crawlAndAnalyze({
-          playwright,
-          startUrl: args.site,
-          outDir: args.out,
+        mergeDashboardStateIfWatching(args.out, { phase: 'auditor_precrawl' });
+        uxAuditPhase(
+          `[ux-audit-pre] phase=precrawl · maxPages=${args.scoresFirstMaxPages} · label=[ux-audit-pre] · run=${precrawlRunDisplay}`,
+        );
+        console.error('[scores-first] Sitewide precrawl UX score crawl (design-standard rollup)...');
+        const precrawlProg = createCrawlProgressReporter({
+          label: '[ux-audit-pre]',
+          runDisplay: precrawlRunDisplay,
           maxPages: args.scoresFirstMaxPages,
-          timeoutMs: args.timeoutMs,
-          screenshots: false,
-          siteKind,
-          stopAfterMajorPlus: null,
-          stopDisabled: true,
         });
+        /** @type {Awaited<ReturnType<typeof crawlAndAnalyze>>} */
+        let precrawled;
+        try {
+          precrawled = await crawlAndAnalyze({
+            playwright,
+            startUrl: args.site,
+            outDir: args.out,
+            maxPages: args.scoresFirstMaxPages,
+            timeoutMs: args.timeoutMs,
+            screenshots: false,
+            siteKind,
+            stopAfterMajorPlus: null,
+            stopDisabled: true,
+            onProgress: precrawlProg.onProgress,
+            repoRoot: path.resolve(args.repo),
+          });
+        } finally {
+          precrawlProg.finish();
+        }
         precrawlCrawlSummary = precrawled.crawlSummary;
         precrawlUxScores = computeUxScores({
           pages: precrawled.pages,
           crawlSummary: precrawled.crawlSummary,
           staticOnly: false,
+          siteKind,
         });
-        console.log(
+        console.error(
           `[scores-first] Precrawl done: overall ${precrawlUxScores.overall}/100 · pages ${precrawled.pages.length} · effective findings ${precrawlUxScores.coverage.effectiveFindingCount}`,
         );
       }
 
-      const crawled = await crawlAndAnalyze({
-        playwright,
-        startUrl: args.site,
-        outDir: args.out,
+      mergeDashboardStateIfWatching(args.out, { phase: 'auditor_main' });
+      uxAuditPhase(
+        `[ux-audit] phase=main_crawl · maxPages=${args.maxPages} · stopAfterMajorPlus=${args.stopAfterMajorPlus ?? '—'}`
+        + ` · stopDisabled=${args.stopDisabled ? '1' : '0'} · label=[ux-audit] · run=${mainCrawlRunDisplay}`,
+      );
+      uxAuditPhase('[ux-audit] phase=main_crawl · action=launch_browser (next lines use crawl progress format)');
+      const crawlProg = createCrawlProgressReporter({
+        label: '[ux-audit]',
+        runDisplay: mainCrawlRunDisplay,
         maxPages: args.maxPages,
-        timeoutMs: args.timeoutMs,
-        screenshots: args.screenshots,
-        siteKind,
-        stopAfterMajorPlus: args.stopAfterMajorPlus,
-        stopDisabled: args.stopDisabled,
+        progressLogPath: auditorCrawlProgressLog,
       });
+      /** @type {Awaited<ReturnType<typeof crawlAndAnalyze>>} */
+      let crawled;
+      try {
+        crawled = await crawlAndAnalyze({
+          playwright,
+          startUrl: args.site,
+          outDir: args.out,
+          maxPages: args.maxPages,
+          timeoutMs: args.timeoutMs,
+          screenshots: args.screenshots,
+          siteKind,
+          stopAfterMajorPlus: args.stopAfterMajorPlus,
+          stopDisabled: args.stopDisabled,
+          regressionUrls,
+          resumeVisitedUrls,
+          resumeQueuedUrls,
+          logger,
+          onProgress: crawlProg.onProgress,
+          repoRoot: path.resolve(args.repo),
+        });
+      } finally {
+        crawlProg.finish();
+      }
       pages = crawled.pages;
       crawlSummary = crawled.crawlSummary;
+
+      if (priorParsedForIncremental && regressionUrls.length) {
+        regressionWave = buildRegressionWaveSummary(
+          priorParsedForIncremental,
+          pages.filter((p) => p.auditWave === 'regression'),
+        );
+        logger.verbose('[incremental]', 'regression wave summary rows', `${regressionWave.rows?.length ?? 0}`);
+      }
+
+      const originUrl = new URL(args.site).origin;
+      const sessionPayload =
+        crawlSummary.stopReason === 'major_plus_threshold'
+          ? {
+              completed: false,
+              origin: originUrl,
+              startUrl: args.site,
+              visitedUrls: crawled.visitedUrls,
+              queuedUrls: crawled.queuedUrlsAtStop,
+              majorPlusFindingCountTotal: crawlSummary.majorPlusFindingCountTotal,
+              stopAfterMajorPlus: crawlSummary.stopAfterMajorPlus,
+              pagesCaptured: crawlSummary.pagesCaptured,
+              generatedAt: runMeta.generatedAt,
+              auditRunId: runMeta.auditRunId,
+              stopReason: crawlSummary.stopReason,
+            }
+          : {
+              completed: true,
+              generatedAt: runMeta.generatedAt,
+              auditRunId: runMeta.auditRunId,
+              origin: originUrl,
+              startUrl: args.site,
+              visitedUrls: crawled.visitedUrls,
+              queuedUrls: [],
+              crawlStopReason: crawlSummary.stopReason,
+            };
+      await writeCrawlSession(args.out, sessionPayload, logger);
     }
+
+    const uxQualityScoreLoopDelta = await readUxQualityScoreLoopDelta(args.out);
 
     const written = await writePlans({
       args,
@@ -1705,6 +2001,13 @@ async function main() {
       precrawlCrawlSummary,
       priorUxScoresSnapshot,
       priorUxScoresSourceDisplay,
+      regressionWave,
+      uxQualityScoreLoopDelta,
+      logger,
+    });
+    mergeDashboardStateIfWatching(args.out, {
+      phase: 'audit_complete',
+      auditRunId: written.auditRunId,
     });
     console.log('\nForge UX audit complete.');
     console.log(`Audit run id: ${written.auditRunId}`);
@@ -1715,12 +2018,24 @@ async function main() {
     if (written.rcaPromptCount) console.log(`RCA prompts: ${written.rcaPromptCount} in ${relativeFromRepo(args.repo, path.join(args.out, 'rca-prompts'))}/`);
     console.log(`Report: ${relativeFromRepo(args.repo, written.reportPath)}`);
     console.log(`Data:   ${relativeFromRepo(args.repo, written.jsonPath)}`);
+    if (!args.staticOnly) {
+      console.log(`Session: ${relativeFromRepo(args.repo, path.join(args.out, 'crawl-session.json'))}`);
+      if (args.incremental) {
+        console.log(`Prior snapshot (incremental baseline): ${relativeFromRepo(args.repo, path.join(args.out, 'audit-data.previous.json'))}`);
+      }
+    }
     if (written.precrawlJsonRel && written.precrawlMdRel) {
       console.log(`Precrawl score (scores-first): ${written.precrawlJsonRel}`);
       console.log(`Precrawl score (scores-first): ${written.precrawlMdRel}`);
     }
     if (args.priorUxScoresPath && priorUxScoresSourceDisplay) {
       console.log(`Prior UX baseline (for deltas): ${priorUxScoresSourceDisplay}`);
+    }
+    if (uxQualityScoreLoopDelta?.verbalSummary) {
+      console.log(`Sitewide scorer vs prior loop: ${uxQualityScoreLoopDelta.verbalSummary}`);
+    }
+    if (uxQualityScoreLoopDelta) {
+      console.log(`Scorer loop sidecar: ${relativeFromRepo(args.repo, path.join(args.out, 'ux-quality-score-loop-delta.json'))}`);
     }
     if (written.buildPlanPath) {
       console.log(`Cursor Build: ${relativeFromRepo(args.repo, written.buildPlanPath)}`);

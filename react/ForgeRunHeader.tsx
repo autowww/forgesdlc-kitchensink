@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { ForgeBadgeTone } from './forgeRunTypes'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type ForgeRunBadge = {
   label: string
@@ -46,7 +47,7 @@ export function ForgeRunHeader({
   headingId,
 }: ForgeRunHeaderProps) {
   return (
-    <header className={`ks-fe-run-header ${className}`.trim()}>
+    <header className={`ks-fe-run-header ${className}`.trim()} {...ksReactPrimitiveAttrs('ForgeRunHeader')}>
       <div className="ks-fe-run-header__top">
         <div className="ks-fe-run-header__titles">
           <h2 className="ks-fe-run-header__title" id={headingId}>

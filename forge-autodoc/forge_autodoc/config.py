@@ -68,6 +68,8 @@ class HandbookBuildConfig:
     """Optional subtitle under the handbook name in the desktop sidebar."""
     handbook_sidebar_rail_heading: str | None = None
     """When set, replaces the visible sidebar rail heading (shown above nav links); default remains \"Chapters\" in layouts."""
+    handbook_homepage_minimal_shell: bool = False
+    """When True with *handbook_homepage_md_rel*, emit the handbook home without the handbook sidebar/offcanvas rail."""
 
 def _resolve_path(base: Path, value: str | Path) -> Path:
     p = Path(value)
@@ -159,6 +161,7 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
             if raw.get("handbook_sidebar_rail_heading")
             else None
         ),
+        handbook_homepage_minimal_shell=bool(raw.get("handbook_homepage_minimal_shell", False)),
     )
 
 
@@ -246,4 +249,5 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
             if raw.get("handbook_sidebar_rail_heading")
             else None
         ),
+        handbook_homepage_minimal_shell=bool(raw.get("handbook_homepage_minimal_shell", False)),
     )

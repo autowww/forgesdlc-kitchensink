@@ -4,9 +4,16 @@ import { fileExists, readMaybe } from './files.js';
 export const SKIP_DIRS = new Set([
   '.git', 'node_modules', '.next', '.nuxt', 'dist', 'build', 'out', '.cache', '.turbo',
   'coverage', '.vercel', '.netlify', 'vendor', '__pycache__', '.venv', 'venv',
+  /** Generated site trees — inventory is heuristic-only; skipping avoids multi‑minute walks on handbook bundles. */
+  'website', 'showcase',
 ]);
 
-export async function walkFiles(root, maxFiles = 6000) {
+/**
+ * @param {string} root
+ * @param {number} [maxFiles]
+ * @param {(count: number) => void} [onCounted] invoked every 1500 files collected (same cadence after first batch)
+ */
+export async function walkFiles(root, maxFiles = 6000, onCounted = null) {
   const fsp = await import('node:fs/promises');
   const results = [];
   async function walk(dir) {
@@ -26,6 +33,7 @@ export async function walkFiles(root, maxFiles = 6000) {
         if (!SKIP_DIRS.has(entry.name)) await walk(full);
       } else if (entry.isFile()) {
         results.push(rel);
+        if (onCounted && results.length % 1500 === 0) onCounted(results.length);
       }
     }
   }
@@ -39,10 +47,27 @@ export async function walkFiles(root, maxFiles = 6000) {
  * Lightweight repository survey for heuristic UX audits.
  *
  * @param {string} repo
+ * @param {{ progressLog?: boolean, progressTag?: string }} [opts]
+ * progressLog — stderr breadcrumbs during walk (auditor only; sitewide scorer stays quiet).
+ * progressTag — prefix for lines (default `[ux-audit]`).
  * @returns {Promise<object>}
  */
-export async function inventoryRepo(repo) {
-  const files = await walkFiles(repo);
+export async function inventoryRepo(repo, opts = {}) {
+  const progressLog = opts.progressLog === true;
+  const tag = typeof opts.progressTag === 'string' && opts.progressTag.trim()
+    ? opts.progressTag.trim()
+    : '[ux-audit]';
+
+  const onCounted = progressLog
+    ? (n) => {
+      console.error(`${tag} phase=inventory · ${n} paths sampled (still walking repo tree…)`);
+    }
+    : null;
+
+  const files = await walkFiles(repo, 6000, onCounted);
+  if (progressLog) {
+    console.error(`${tag} phase=inventory · done · ${files.length} paths (cap 6000)`);
+  }
   const packageJsonPath = path.join(repo, 'package.json');
   let packageJson = {};
   if (await fileExists(packageJsonPath)) {

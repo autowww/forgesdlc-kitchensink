@@ -3,18 +3,24 @@ import { applies as handbookApplies } from './platform-handbook-inner.js';
 import { runCheck as platformHandbook } from './platform-handbook-inner.js';
 import { runCheck as heroHeadings } from './hero-headings.js';
 import { runCheck as firstScreenDensity } from './first-screen-density.js';
+import { runCheck as productVisual } from './product-visual.js';
+import { runCheck as storylineFlow } from './storyline-flow.js';
 import { runCheck as ctaTrustEco } from './cta-trust-ecosystem.js';
 import { runCheck as technicalDepth } from './technical-depth.js';
 import { runCheck as readabilityStructure } from './readability-structure.js';
 import { runCheck as metadataA11y } from './metadata-a11y.js';
+import { runCheck as visualCatalogAwareness } from './visual-catalog-awareness.js';
 
 const generalChecks = [
   heroHeadings,
   firstScreenDensity,
+  productVisual,
+  storylineFlow,
   ctaTrustEco,
   technicalDepth,
   readabilityStructure,
   metadataA11y,
+  visualCatalogAwareness,
 ];
 
 /**

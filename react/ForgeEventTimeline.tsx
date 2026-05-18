@@ -1,4 +1,5 @@
 import { useId, useState, type ReactNode } from 'react'
+import { ksReactPrimitiveAttrs } from './ksVisualAttrs'
 
 export type ForgeTimelineEvent = {
   id: string
@@ -28,11 +29,22 @@ export function ForgeEventTimeline({
   const [open, setOpen] = useState<Record<string, boolean>>({})
 
   if (!events.length) {
-    return <p className="ks-fe-timeline ks-fe-timeline--empty forge-support">{emptyLabel}</p>
+    return (
+      <p
+        className="ks-fe-timeline ks-fe-timeline--empty forge-support"
+        {...ksReactPrimitiveAttrs('ForgeEventTimeline')}
+      >
+        {emptyLabel}
+      </p>
+    )
   }
 
   return (
-    <ol className={`ks-fe-timeline ${className}`.trim()} aria-label="Event timeline">
+    <ol
+      className={`ks-fe-timeline ${className}`.trim()}
+      aria-label="Event timeline"
+      {...ksReactPrimitiveAttrs('ForgeEventTimeline')}
+    >
       {events.map((ev) => {
         const expanded = open[ev.id] ?? ev.defaultOpen ?? false
         const panelId = `${baseId}-panel-${ev.id}`

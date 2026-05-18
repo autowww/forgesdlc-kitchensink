@@ -13,6 +13,9 @@
 # (legacy: .cursor/plans/YYYY-MM-DD_forge-ux-remediation.plan.md)
 #
 # Requires: Cursor CLI `agent` on PATH (https://cursor.com/docs/cli/overview)
+#
+# When FORGE_UX_LOOP_WATCH_LOG is set to a writable path, streams agent stdout/stderr
+# through tee -a into that log (for loop-watch-dashboard activity pane). Exit status is preserved.
 
 set -euo pipefail
 
@@ -59,8 +62,15 @@ fi
 ABS_PLAN="$(cd "$(dirname "$PLAN_REL")" && pwd)/$(basename "$PLAN_REL")"
 ROOT="$(pwd)"
 
-exec agent -p --trust "Repository root: ${ROOT}
+AGENT_PROMPT="Repository root: ${ROOT}
 
 Read and execute the remediation plan at: ${ABS_PLAN}
 
-Follow the YAML todos in order (ux-00 through ux-08). For each todo, open the referenced Markdown files from the same folder as the plan (00-master, 01-08, audit-report as needed). Summarize files changed after each todo. Pause if a step would touch an unexpectedly large set of files."
+Follow the YAML todos in order (ux-00 through ux-09). For each todo, open the referenced Markdown files from the same folder as the plan (00-master, 01-09, audit-report as needed). Summarize files changed after each todo. Pause if a step would touch an unexpectedly large set of files."
+
+if [[ -n "${FORGE_UX_LOOP_WATCH_LOG:-}" ]]; then
+  printf '[%s] remediation_agent_spawn plan=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${ABS_PLAN}" >> "${FORGE_UX_LOOP_WATCH_LOG}" || true
+  exit "${PIPESTATUS[0]}"
+else
+  exec agent -p --trust "${AGENT_PROMPT}"
+fi
