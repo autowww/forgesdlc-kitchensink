@@ -58,6 +58,7 @@ except ImportError:
 
 # ``diagram_modal_fragment`` lives next to ``layouts.py``; importers add ``…/components`` to ``sys.path``.
 from diagram_modal_fragment import render_diagram_expand_modal_html
+from ks_catalog_hashes import chrome_region_attrs, layout_shell_attrs
 
 
 def _fs_pack_html_attr(fs_pack: str | None) -> str:
@@ -68,6 +69,21 @@ def _fs_pack_html_attr(fs_pack: str | None) -> str:
     if not pid or pid == "default":
         return ""
     return f' data-fs-pack="{e(pid)}"'
+
+
+def _chrome_space(slug: str) -> str:
+    a = chrome_region_attrs(slug)
+    return f" {a}" if a else ""
+
+
+def _wrap_site_footer(footer_html: str) -> str:
+    t = footer_html.strip()
+    if not t:
+        return ""
+    a = chrome_region_attrs("site-footer")
+    if not a:
+        return t
+    return f'<div class="ks-site-footer-region" {a}>{t}</div>'
 
 
 # ---------------------------------------------------------------------------
@@ -464,7 +480,7 @@ def _render_sidebar(
     tag = brand_tagline if brand_tagline is not None else "Handbook · Product-agnostic"
     tag_html = e(tag).replace(" · ", " &middot; ")
     return f"""\
-      <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" style="min-height:100vh;position:sticky;top:{e(sticky_top)};overflow-y:auto;align-self:flex-start;max-height:100vh">
+      <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0"{_chrome_space("doc-sidebar")} style="min-height:100vh;position:sticky;top:{e(sticky_top)};overflow-y:auto;align-self:flex-start;max-height:100vh">
         <div class="px-3 py-3" style="border-bottom:1px solid var(--forge-border)">
           <p class="forge-brand mb-0">
             <span class="brand-icon">F</span>
@@ -484,7 +500,7 @@ def _render_sidebar(
 def _render_sidebar_js_driven(handbook_name: str, subtitle: str) -> str:
     """Sidebar whose content is populated by a client-side JS nav file."""
     return f"""\
-      <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" style="min-height:100vh;position:sticky;top:0;overflow-y:auto">
+      <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0"{_chrome_space("doc-sidebar")} style="min-height:100vh;position:sticky;top:0;overflow-y:auto">
         <div class="px-3 py-3" style="border-bottom:1px solid var(--forge-border)">
           <p class="forge-brand mb-0">
             <span class="brand-icon">F</span>
@@ -498,7 +514,7 @@ def _render_sidebar_js_driven(handbook_name: str, subtitle: str) -> str:
 
 def _render_offcanvas(handbook_name: str, offcanvas_html: str) -> str:
     return f"""\
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="docNavOffcanvas" aria-labelledby="docNavLabel" style="background:var(--forge-bg);color:var(--forge-text);border-right:1px solid var(--forge-border)">
+      <div class="offcanvas offcanvas-start"{_chrome_space("doc-offcanvas")} tabindex="-1" id="docNavOffcanvas" aria-labelledby="docNavLabel" style="background:var(--forge-bg);color:var(--forge-text);border-right:1px solid var(--forge-border)">
         <div class="offcanvas-header" style="border-bottom:1px solid var(--forge-border)">
           <h5 class="offcanvas-title font-display" id="docNavLabel" style="font-size:1rem">
             <span class="text-amber">{e(handbook_name)}</span>
@@ -554,7 +570,7 @@ def _handbook_seo_head_fragment(
 
 def _render_offcanvas_js_driven(handbook_name: str) -> str:
     return f"""\
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="docNavOffcanvas" aria-labelledby="docNavLabel" style="background:var(--forge-bg);color:var(--forge-text);border-right:1px solid var(--forge-border)">
+      <div class="offcanvas offcanvas-start"{_chrome_space("doc-offcanvas")} tabindex="-1" id="docNavOffcanvas" aria-labelledby="docNavLabel" style="background:var(--forge-bg);color:var(--forge-text);border-right:1px solid var(--forge-border)">
         <div class="offcanvas-header" style="border-bottom:1px solid var(--forge-border)">
           <h5 class="offcanvas-title font-display" id="docNavLabel" style="font-size:1rem">
             <span class="text-amber">{e(handbook_name)}</span>
@@ -600,11 +616,13 @@ def handbook_page(
     sidebar_chapters_label: str = "Chapters",
     top_shell_html: str = "",
     handbook_sidebar_brand_tagline: str | None = None,
+    minimal_shell: bool = False,
     meta_description: str = "",
     canonical_href: str = "",
     og_image_href: str = "",
     json_ld_script: str = "",
     extra_head_metas_html: str = "",
+    ks_page_attrs: str = "",
 ) -> str:
     """Complete HTML page for an auto-generated handbook entry.
 
@@ -623,6 +641,10 @@ def handbook_page(
 
     Optional *meta_description*, *canonical_href*, *og_image_href* (absolute URL),
     and *json_ld_script* (raw JSON, no ``<script>`` wrapper) add SEO / social tags.
+
+    When *minimal_shell* is True (product handbook home), omit the handbook sidebar,
+    offcanvas, and floating mobile nav toggle so the primary chrome is only the
+    optional *top_shell_html* (curated top nav).
     """
     ap = asset_href_prefix
     col_class = "col-lg-8 col-xl-9 order-2 order-lg-1" if toc_sidebar_html else "col-12"
@@ -639,7 +661,10 @@ def handbook_page(
     living_body_open = ""
     living_scripts = ""
     body_class = ""
+    _la_hbk = layout_shell_attrs("handbook_page")
     shell_attrs = 'class="container-fluid px-0"'
+    if _la_hbk:
+        shell_attrs = f'{shell_attrs} {_la_hbk}'
     # *asset_href_prefix* points at the shared assets directory (e.g. ``assets/`` or
     # ``../assets/``); living CSS/JS files sit next to forge-theme.css under that dir.
     asset_base = ap if ap else "assets/"
@@ -659,7 +684,7 @@ def handbook_page(
             f'  <script defer src="{e(asset_base)}ks-living-motion.js"></script>\n'
         )
         body_class = ' class="ks-living-enabled"'
-        shell_attrs = 'class="container-fluid px-0" style="position:relative;z-index:1"'
+        shell_attrs = f'{shell_attrs} style="position:relative;z-index:1"'
 
     seo_extra = _handbook_seo_head_fragment(
         handbook_name=handbook_name,
@@ -676,6 +701,32 @@ def handbook_page(
     sidebar_sticky_top = "3.75rem" if has_top_shell else "0"
     mobile_nav_style = "z-index:1040;top:3.75rem" if has_top_shell else "z-index:1040"
 
+    mobile_nav_btn = ""
+    sidebar_col = ""
+    offcanvas_block = ""
+    main_classes = "col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5"
+    if minimal_shell:
+        main_classes = "col-12 px-3 px-md-5 pt-4 pt-lg-5 pb-5"
+    else:
+        sidebar_col = _render_sidebar(
+            handbook_name,
+            sidebar_html,
+            chapters_label=sidebar_chapters_label,
+            brand_tagline=handbook_sidebar_brand_tagline,
+            sticky_top=sidebar_sticky_top,
+        )
+        offcanvas_block = _render_offcanvas(handbook_name, offcanvas_html)
+        mobile_nav_btn = f"""  <button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="{e(mobile_nav_style)}" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="{e(open_nav_aria_label)}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
+  </button>
+"""
+
+    section_label_html = ""
+    if handbook_section_label.strip():
+        section_label_html = (
+            f'            <p class="section-label text-cyan mb-2">{e(handbook_section_label)}</p>\n'
+        )
+
     return f"""<!DOCTYPE html>
 <html lang="{e(html_lang)}">
 <head>
@@ -691,18 +742,14 @@ def handbook_page(
   <div class="forge-aurora"></div>
 {living_body_open}  <a href="#main" class="skip-link">{e(skip_link_label)}</a>
 {top_shell_html}{THEME_TOGGLE_DROPDOWN}
-  <button type="button" class="btn btn-forge position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="{e(open_nav_aria_label)}">
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
-  </button>
+{mobile_nav_btn}
   <div {shell_attrs}>
     <div class="row g-0 flex-lg-nowrap min-vh-100">
-{_render_sidebar(handbook_name, sidebar_html, chapters_label=sidebar_chapters_label, brand_tagline=handbook_sidebar_brand_tagline, sticky_top=sidebar_sticky_top)}
-{_render_offcanvas(handbook_name, offcanvas_html)}
-      <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5" style="position:relative">
+{sidebar_col}{offcanvas_block}
+      <main id="main" class="{main_classes}" style="position:relative" {ks_page_attrs}>
         <div class="mx-auto doc-content" style="max-width:56rem">
           <header class="mb-4 pb-3" style="border-bottom:1px solid var(--forge-border)">
-            <p class="section-label text-cyan mb-2">{e(handbook_section_label)}</p>
-            <h1 class="font-display" style="font-size:clamp(1.75rem,4vw,2.5rem)">{e(page_title)}</h1>
+{section_label_html}            <h1 class="font-display" style="font-size:clamp(1.75rem,4vw,2.5rem)">{e(page_title)}</h1>
             <p class="forge-support mt-2 mb-0" style="font-size:1rem">{intro}</p>
           </header>
 {template_banner}
@@ -714,7 +761,7 @@ def handbook_page(
           </div>
 {canonical_note}
 {nav_buttons}
-          {footer_html}
+          {_wrap_site_footer(footer_html)}
         </div>
       </main>
     </div>
@@ -750,6 +797,7 @@ def chapter_page(
     theme_js_href: str = "assets/forge-theme.js",
     nav_btn_class: str = "btn-forge",
     include_diagram_expand_modal: bool = False,
+    ks_page_attrs: str = "",
 ) -> str:
     """Complete HTML page for a hand-crafted methodology chapter.
 
@@ -768,6 +816,7 @@ def chapter_page(
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
     )
+    _la_chp = layout_shell_attrs("chapter_page")
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -787,24 +836,24 @@ def chapter_page(
   <button type="button" class="btn {nav_btn_class} position-fixed top-0 start-0 m-3 d-lg-none shadow" style="z-index:1040" data-bs-toggle="offcanvas" data-bs-target="#docNavOffcanvas" aria-controls="docNavOffcanvas" aria-label="Open navigation">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
   </button>
-  <div class="container-fluid px-0">
+  <div class="container-fluid px-0" {_la_chp}>
     <div class="row g-0 flex-lg-nowrap min-vh-100">
 {_render_sidebar_js_driven(handbook_name, handbook_subtitle)}
 {_render_offcanvas_js_driven(handbook_name)}
-      <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5" style="position:relative">
+      <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5" style="position:relative" {ks_page_attrs}>
         <div class="mx-auto doc-content" style="max-width:56rem">
           {header_html}
           <div class="row g-3 g-lg-4">
             <div class="col-lg-8 col-xl-9 order-2 order-lg-1">
 {main_sections}
             </div>
-            <div class="col-lg-4 col-xl-3 order-1 order-lg-2">
+            <div class="col-lg-4 col-xl-3 order-1 order-lg-2"{_chrome_space("doc-toc-sidebar")}>
 {toc_sidebar_html}
             </div>
           </div>
 {canonical_note}
           {nav_buttons}
-          {footer_html}
+          {_wrap_site_footer(footer_html)}
         </div>
       </main>
     </div>
@@ -845,6 +894,7 @@ def product_page(
     include_diagram_expand_modal: bool = False,
     extra_scripts: str = "",
     fs_pack: str | None = None,
+    ks_page_attrs: str = "",
 ) -> str:
     """Complete HTML page for a product / marketing site.
 
@@ -876,6 +926,7 @@ def product_page(
     )
     head_x = head_extra.strip()
     head_block = (head_x + "\n  ") if head_x else ""
+    _la_prd = layout_shell_attrs("product_page")
 
     return f"""<!DOCTYPE html>
 <html lang="en"{fs_attr}>
@@ -895,13 +946,13 @@ def product_page(
     <a class="fs-brand text-decoration-none" href="index.html">{e(brand_name)}<span class="fs-accent">{e(brand_accent)}</span></a>
     <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#fsNav" aria-controls="fsNav">Menu</button>
   </div>
-  <nav class="fs-primary-nav-global" aria-label="Site sections">
+  <nav class="fs-primary-nav-global" aria-label="Site sections"{_chrome_space("product-primary-nav")}>
     <div class="fs-primary-nav-global-inner">
       {primary_nav_html}
     </div>
   </nav>
 
-  <div class="offcanvas offcanvas-start fs-offcanvas d-lg-none" tabindex="-1" id="fsNav" aria-labelledby="fsNavLabel">
+  <div class="offcanvas offcanvas-start fs-offcanvas d-lg-none"{_chrome_space("doc-offcanvas")} tabindex="-1" id="fsNav" aria-labelledby="fsNavLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="fsNavLabel">Navigate</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -911,18 +962,18 @@ def product_page(
     </div>
   </div>
 
-  <div class="container-fluid fs-layout">
+  <div class="container-fluid fs-layout" {_la_prd}>
     <div class="row g-0">
-      <aside class="col-lg-3 col-xl-2 d-none d-lg-block fs-sidebar py-3 px-3 px-xxl-5">
+      <aside class="col-lg-3 col-xl-2 d-none d-lg-block fs-sidebar py-3 px-3 px-xxl-5"{_chrome_space("doc-sidebar")}>
         <a class="fs-brand d-block text-decoration-none mb-3" href="index.html">{e(brand_name)}<span class="fs-accent">{e(brand_accent)}</span></a>
         {nav_html}
       </aside>
-      <main class="col-lg-9 col-xl-10 fs-main fs-main--product-wide">
+      <main class="col-lg-9 col-xl-10 fs-main fs-main--product-wide" {ks_page_attrs}>
         <article>
           {cross_refs_html}
           {body_html}
         </article>
-        {footer_html}
+        {_wrap_site_footer(footer_html)}
       </main>
     </div>
   </div>
@@ -996,6 +1047,15 @@ def _showcase_header(
     page_title: str,
     breadcrumb_html: str,
 ) -> str:
+    bc_block = ""
+    if breadcrumb_html.strip():
+        _bc = chrome_region_attrs("doc-breadcrumb")
+        _bx = f" {_bc}" if _bc else ""
+        bc_block = (
+            f'      <div class="ks-doc-breadcrumb"{_bx}>\n'
+            f"      {breadcrumb_html}\n"
+            f"      </div>\n"
+        )
     return f"""\
 <header class="site-header d-none d-lg-block">
   <div class="row g-0">
@@ -1004,8 +1064,7 @@ def _showcase_header(
       <p class="mt-1 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{e(brand_subtitle)}</p>
     </div>
     <div class="col-lg-9 col-xl-10 site-header-content">
-      {breadcrumb_html}
-      <h1 class="font-display forge-gradient-text mb-0" style="font-size:clamp(1.25rem,3vw,1.75rem)">{e(page_title)}</h1>
+{bc_block}      <h1 class="font-display forge-gradient-text mb-0" style="font-size:clamp(1.25rem,3vw,1.75rem)">{e(page_title)}</h1>
     </div>
   </div>
 </header>"""
@@ -1013,7 +1072,7 @@ def _showcase_header(
 
 def _showcase_sidebar(sidebar_html: str) -> str:
     return f"""\
-  <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" id="ks-sidebar-aside">
+  <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" id="ks-sidebar-aside"{_chrome_space("doc-sidebar")}>
     <nav class="nav-scroll flex-grow-1 px-2 py-3" style="overflow-y:auto;min-height:0" aria-label="Sections">
       {sidebar_html}
     </nav>
@@ -1066,6 +1125,8 @@ def showcase_page(
     include_diagram_expand_modal: bool = False,
     body_extra_class: str = "",
     content_max_width: str | None = "56rem",
+    ks_layout_symbol: str = "showcase_page",
+    ks_page_attrs: str = "",
 ) -> str:
     """Showcase documentation page: unified header + sticky sidebar + content + optional ToC.
 
@@ -1086,8 +1147,10 @@ def showcase_page(
     col_class = "col-12"
     if toc_html:
         col_class = "col-lg-8 col-xl-9 order-2 order-lg-1"
+        _ktx = chrome_region_attrs("doc-toc-sidebar")
+        _ktx_s = f" {_ktx}" if _ktx else ""
         toc_col = f"""
-    <div class="col-lg-4 col-xl-3 order-1 order-lg-2">
+    <div class="col-lg-4 col-xl-3 order-1 order-lg-2"{_ktx_s}>
       <nav class="forge-toc" aria-label="On this page">
         <p class="toc-title mb-2">On this page</p>
         {toc_html}
@@ -1098,6 +1161,12 @@ def showcase_page(
         doc_content_open = '<div class="doc-content w-100" style="max-width:none">'
     else:
         doc_content_open = f'<div class="mx-auto doc-content" style="max-width:{e(content_max_width)}">'
+
+    _la_show = layout_shell_attrs(ks_layout_symbol)
+    _shell_outer = '<div class="container-fluid px-0"'
+    if _la_show:
+        _shell_outer += f' {_la_show}'
+    _shell_outer += '>'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -1121,13 +1190,13 @@ def showcase_page(
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
 </button>
 
-<div class="container-fluid px-0">
+{_shell_outer}
 {_showcase_header(brand_name, brand_subtitle, page_title, breadcrumb_html)}
 
 <div class="row g-0 flex-lg-nowrap min-vh-100">
 {_showcase_sidebar(sidebar_html)}
 
-  <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="docNavOffcanvas" style="background:var(--forge-bg);border-right:1px solid var(--forge-border);max-width:280px">
+  <div class="offcanvas offcanvas-start d-lg-none"{_chrome_space("doc-offcanvas")} tabindex="-1" id="docNavOffcanvas" style="background:var(--forge-bg);border-right:1px solid var(--forge-border);max-width:280px">
     <div class="offcanvas-header" style="border-bottom:1px solid var(--forge-border)">
       <p class="forge-brand mb-0"><span class="brand-icon">F</span> <span class="text-amber">{e(brand_name)}</span></p>
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -1137,7 +1206,7 @@ def showcase_page(
     </div>
   </div>
 
-  <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main">
+  <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main" {ks_page_attrs}>
   {doc_content_open}
     <div class="row g-3 g-lg-4">
     <div class="{col_class}">
@@ -1145,7 +1214,7 @@ def showcase_page(
     </div>
 {toc_col}
     </div>
-    {footer_html}
+    {_wrap_site_footer(footer_html)}
   </div>
   </main>
 </div>
@@ -1192,6 +1261,7 @@ def landing_page(
     use_collapsible_nav: bool = False,
     product_chrome_css_href: str | None = None,
     hero_band_extra_class: str = "",
+    ks_page_attrs: str = "",
 ) -> str:
     """Full-width hero landing page with no sidebar.
 
@@ -1247,6 +1317,13 @@ def landing_page(
     if living_background:
         body_classes.append("ks-living-enabled")
     body_class_attr = f' class="{e(" ".join(body_classes))}"' if body_classes else ""
+    _la_ldg = layout_shell_attrs("landing_page")
+    body_open = "<body"
+    if body_classes:
+        body_open += body_class_attr
+    if _la_ldg:
+        body_open += f" {_la_ldg}"
+    body_open += ">"
     hero_attrs = 'data-fs-section="hero"'
     if living_background:
         hero_attrs += ' data-ks-living-archetype="hero" data-ks-living-intensity="3"'
@@ -1306,13 +1383,13 @@ def landing_page(
 {_resolve_theme_css(theme_css_href)}
 {product_chrome_link}{living_head}{extra_css}
 </head>
-<body{body_class_attr}>
+{body_open}
 <div class="forge-aurora"></div>
 {living_body_open}<a href="#main" class="skip-link">Skip to content</a>
 {announcement_block}{theme_toggle_html}
 {header_block}
 
-<main id="main" class="fs-landing-main">
+<main id="main" class="fs-landing-main" {ks_page_attrs}>
   <div class="{hero_band_classes}" {hero_attrs}>
     {hero_html}
   </div>
@@ -1320,7 +1397,7 @@ def landing_page(
   <div class="fs-landing-body-shell">
     {body_html}
   </div>
-  {footer_html}
+  {_wrap_site_footer(footer_html)}
 </main>
 
 {CDN_BOOTSTRAP_JS}
@@ -1358,6 +1435,7 @@ def marketing_page(
     extra_scripts: str = "",
     announcement_html: str = "",
     product_chrome_css_href: str | None = None,
+    ks_page_attrs: str = "",
 ) -> str:
     """Single-column marketing page: landing-style header, no hero band, no sidebar.
 
@@ -1388,6 +1466,12 @@ def marketing_page(
     if body_extra_class.strip():
         body_classes.append(body_extra_class.strip())
     body_class_attr = f' class="{e(" ".join(body_classes))}"'
+    _la_mkt = layout_shell_attrs("marketing_page")
+    body_open = "<body"
+    body_open += body_class_attr
+    if _la_mkt:
+        body_open += f" {_la_mkt}"
+    body_open += ">"
     theme_toggle_html = THEME_TOGGLE_DROPDOWN if include_theme_toggle else ""
     diagram_scripts = _footer_diagram_scripts(
         has_mermaid,
@@ -1420,7 +1504,7 @@ def marketing_page(
 {_resolve_theme_css(theme_css_href)}
 {product_chrome_link}{extra_css}
 </head>
-<body{body_class_attr}>
+{body_open}
 <div class="forge-aurora"></div>
 <a href="#main" class="skip-link">Skip to content</a>
 {announcement_block}{theme_toggle_html}
@@ -1441,12 +1525,12 @@ def marketing_page(
   </nav>
 </header>
 
-<main id="main" class="fs-landing-main fs-marketing-interior">
+<main id="main" class="fs-landing-main fs-marketing-interior" {ks_page_attrs}>
   <div class="fs-marketing-body-shell">
     <article class="fs-marketing-article">
       {body_html}
     </article>
-    {footer_html}
+    {_wrap_site_footer(footer_html)}
   </div>
 </main>
 
@@ -1489,6 +1573,7 @@ def listing_page(
     extra_scripts: str = "",
     announcement_html: str = "",
     product_chrome_css_href: str | None = None,
+    ks_page_attrs: str = "",
 ) -> str:
     """Marketing interior with optional left filter column and listing main column.
 
@@ -1509,6 +1594,12 @@ def listing_page(
     if body_extra_class.strip():
         body_classes.append(body_extra_class.strip())
     body_class_attr = f' class="{e(" ".join(body_classes))}"'
+    _la_lst = layout_shell_attrs("listing_page")
+    body_open = "<body"
+    body_open += body_class_attr
+    if _la_lst:
+        body_open += f" {_la_lst}"
+    body_open += ">"
     theme_toggle_html = THEME_TOGGLE_DROPDOWN if include_theme_toggle else ""
     diagram_scripts = _footer_diagram_scripts(
         has_mermaid,
@@ -1555,7 +1646,7 @@ def listing_page(
 {_resolve_theme_css(theme_css_href)}
 {product_chrome_link}{extra_css}
 </head>
-<body{body_class_attr}>
+{body_open}
 <div class="forge-aurora"></div>
 <a href="#main" class="skip-link">Skip to content</a>
 {announcement_block}{theme_toggle_html}
@@ -1576,13 +1667,13 @@ def listing_page(
   </nav>
 </header>
 
-<main id="main" class="fs-landing-main fs-marketing-interior fs-listing-layout">
+<main id="main" class="fs-landing-main fs-marketing-interior fs-listing-layout" {ks_page_attrs}>
   <div class="fs-marketing-body-shell fs-listing-body-shell">
     <div class="container-fluid px-3 px-xxl-5 fs-listing-container">
       <article class="fs-marketing-article fs-listing-article">
         {inner_main}
       </article>
-      {footer_html}
+      {_wrap_site_footer(footer_html)}
     </div>
   </div>
 </main>
@@ -1620,6 +1711,7 @@ def gallery_page(
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
     include_diagram_expand_modal: bool = False,
+    ks_page_attrs: str = "",
 ) -> str:
     """Gallery page: sidebar + full-width card grid; optional right-rail ToC like showcase_page."""
     return showcase_page(
@@ -1640,6 +1732,8 @@ def gallery_page(
         has_mermaid=has_mermaid,
         has_ks_diagram=has_ks_diagram,
         include_diagram_expand_modal=include_diagram_expand_modal,
+        ks_layout_symbol="gallery_page",
+        ks_page_attrs=ks_page_attrs,
     )
 
 
@@ -1666,6 +1760,7 @@ def split_page(
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
     include_diagram_expand_modal: bool = False,
+    ks_page_attrs: str = "",
 ) -> str:
     """Split page: sidebar + two-panel layout (example left, docs right)."""
     body = f"""
@@ -1695,4 +1790,6 @@ def split_page(
         has_mermaid=has_mermaid,
         has_ks_diagram=has_ks_diagram,
         include_diagram_expand_modal=include_diagram_expand_modal,
+        ks_layout_symbol="split_page",
+        ks_page_attrs=ks_page_attrs,
     )

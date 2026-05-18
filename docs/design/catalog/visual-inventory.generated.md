@@ -1,0 +1,373 @@
+# Visual inventory (generated)
+
+- Generated: 2026-05-18
+- Total items: 350
+
+## By type
+- **diagram-or-asset:** 79
+- **design-terminology:** 67
+- **component:** 59
+- **generated-showcase-page:** 29
+- **page-instance:** 23
+- **museum-surface-asset:** 23
+- **visual-style:** 22
+- **interaction-module:** 18
+- **primitive:** 10
+- **layout:** 9
+- **layout-preview:** 7
+- **visual-helper:** 1
+- **showcase-app-source:** 1
+- **desktop-interface:** 1
+- **library-consumer:** 1
+
+## Items (abbrev)
+- [layout] `components/layouts.py` — handbook_page
+- [layout] `components/layouts.py` — chapter_page
+- [layout] `components/layouts.py` — product_page
+- [layout] `components/layouts.py` — showcase_page
+- [layout] `components/layouts.py` — landing_page
+- [layout] `components/layouts.py` — marketing_page
+- [layout] `components/layouts.py` — listing_page
+- [layout] `components/layouts.py` — gallery_page
+- [layout] `components/layouts.py` — split_page
+- [page-instance] `generator/pages/controls.py` — Showcase page: controls
+- [page-instance] `generator/pages/data_charts_api.py` — Showcase page: data-charts-api
+- [page-instance] `generator/pages/data_charts_static.py` — Showcase page: data-charts-static
+- [page-instance] `generator/pages/diagram_code_examples.py` — Showcase page: diagram-code-examples
+- [page-instance] `generator/pages/diagrams.py` — Showcase page: diagrams
+- [page-instance] `generator/pages/enterprise_marketing.py` — Showcase page: enterprise-marketing
+- [page-instance] `generator/pages/for_agents.py` — Showcase page: for-agents
+- [page-instance] `generator/pages/forge_ambient.py` — Showcase page: forge-ambient
+- [page-instance] `generator/pages/forge_react_primitives.py` — Showcase page: forge-react-primitives
+- [page-instance] `generator/pages/index.py` — Showcase page: index
+- [page-instance] `generator/pages/ks_creation_mindmap.py` — Showcase page: ks-creation-mindmap
+- [page-instance] `generator/pages/layouts_demo.py` — Showcase page: layouts
+- [page-instance] `generator/pages/living_background_system.py` — Showcase page: living-background
+- [page-instance] `generator/pages/motion.py` — Showcase page: motion
+- [page-instance] `generator/pages/navigation.py` — Showcase page: navigation
+- [page-instance] `generator/pages/nested_roadmap.py` — Showcase page: nested-roadmap
+- [page-instance] `generator/pages/presentation.py` — Showcase page: presentation
+- [page-instance] `generator/pages/react_primitives_live.py` — Showcase page: react-primitives-live
+- [page-instance] `generator/pages/split_layout_demo.py` — Showcase page: split-layout
+- [page-instance] `generator/pages/surfaces.py` — Showcase page: surfaces
+- [page-instance] `generator/pages/svg_backgrounds.py` — Showcase page: svg-backgrounds
+- [page-instance] `generator/pages/tokens.py` — Showcase page: tokens
+- [layout-preview] `generator/layout_previews.py` — Layout preview preview-split.html
+- [layout-preview] `generator/layout_previews.py` — Layout preview preview-handbook.html
+- [layout-preview] `generator/layout_previews.py` — Layout preview preview-chapter.html
+- [layout-preview] `generator/layout_previews.py` — Layout preview preview-product.html
+- [layout-preview] `generator/layout_previews.py` — Layout preview preview-marketing.html
+- [layout-preview] `generator/layout_previews.py` — Layout preview preview-listing.html
+- [layout-preview] `generator/layout_previews.py` — Layout preview preview-landing.html
+- [component] `components/components.py` — components/components.py:render_table
+- [component] `components/components.py` — components/components.py:render_io_table
+- [component] `components/components.py` — components/components.py:render_form_group
+- [component] `components/components.py` — components/components.py:render_form_input
+- [component] `components/components.py` — components/components.py:render_form_textarea
+- [component] `components/components.py` — components/components.py:render_form_select
+- [component] `components/components.py` — components/components.py:render_form_check
+- [component] `components/components.py` — components/components.py:render_form_switch
+- [component] `components/components.py` — components/components.py:render_form_stack
+- [component] `components/components.py` — components/components.py:render_section
+- [component] `components/components.py` — components/components.py:render_mermaid_block
+- [component] `components/components.py` — components/components.py:render_ks_diagram_block
+- [component] `components/components.py` — components/components.py:render_diagrams_section
+- [component] `components/components.py` — components/components.py:render_alert
+- [component] `components/components.py` — components/components.py:render_template_banner
+- [component] `components/components.py` — components/components.py:render_canonical_note
+- [component] `components/components.py` — components/components.py:render_breadcrumbs
+- [component] `components/components.py` — components/components.py:render_nav_buttons
+- [component] `components/components.py` — components/components.py:render_external_sources_section
+- [component] `components/components.py` — components/components.py:render_flow_details_section
+- [component] `components/components.py` — components/components.py:render_toc_sidebar
+- [component] `components/components.py` — components/components.py:render_toc_sidebar_simple
+- [component] `components/components.py` — components/components.py:render_skip_link
+- [component] `components/components.py` — components/components.py:render_mobile_nav_button
+- [component] `components/components.py` — components/components.py:render_footer
+- [component] `components/components.py` — components/components.py:render_page_header
+- [component] `components/components.py` — components/components.py:render_page_header_chapter
+- [component] `components/components.py` — components/components.py:render_tier_nav
+- [component] `components/components.py` — components/components.py:render_cross_refs
+- [component] `components/components.py` — components/components.py:render_authorship_signal
+- [component] `components/components.py` — components/components.py:render_landing_signal_field
+- [component] `components/components.py` — components/components.py:render_product_landing_hero
+- [component] `components/components.py` — components/components.py:render_blog_post_wrapper
+- [component] `components/components.py` — components/components.py:render_blog_recent_section
+- [component] `components/components.py` — components/components.py:render_product_footer
+- [component] `components/components.py` — components/components.py:render_topic_preview_trigger
+- [component] `components/components.py` — components/components.py:render_ks_chart_mount
+- [component] `components/diagram_modal_fragment.py` — components/diagram_modal_fragment.py:render_diagram_expand_modal_html
+- [component] `components/enterprise_marketing.py` — components/enterprise_marketing.py:render_mega_footer
+- [component] `components/enterprise_marketing.py` — components/enterprise_marketing.py:render_tab_panel
+- [component] `components/enterprise_marketing.py` — components/enterprise_marketing.py:render_faq_section
+- [component] `components/enterprise_marketing.py` — components/enterprise_marketing.py:render_listing_shell
+- [component] `components/enterprise_marketing.py` — components/enterprise_marketing.py:render_listing_pagination
+- [component] `components/enterprise_marketing.py` — components/enterprise_marketing.py:render_listing_empty_state
+- [component] `components/marketing_sections.py` — components/marketing_sections.py:render_marketing_stat_band
+- [component] `components/marketing_sections.py` — components/marketing_sections.py:render_case_study_spotlight
+- [component] `components/marketing_sections.py` — components/marketing_sections.py:render_people_showcase
+- [visual-helper] `components/nested_roadmap.py` — components/nested_roadmap.py:get_nested_roadmap_demo_config
+- [component] `components/nested_roadmap.py` — components/nested_roadmap.py:render_nested_roadmap_modal_shell
+- [component] `components/nested_roadmap.py` — components/nested_roadmap.py:render_nested_roadmap
+- [component] `components/presentation.py` — components/presentation.py:render_stage_carousel
+- [component] `components/presentation.py` — components/presentation.py:render_thumb_gallery
+- [component] `components/presentation.py` — components/presentation.py:render_card_rail
+- [component] `components/presentation.py` — components/presentation.py:render_rail
+- [component] `components/presentation.py` — components/presentation.py:render_logo_strip
+- [component] `components/presentation.py` — components/presentation.py:render_hero_carousel
+- [component] `components/presentation.py` — components/presentation.py:render_gallery_carousel
+- [component] `components/presentation.py` — components/presentation.py:render_testimonial_slider
+- [component] `components/roadmap_date_editor.py` — components/roadmap_date_editor.py:render_roadmap_date_editor
+- [component] `components/transforms.py` — components/transforms.py:render_ascii_diagram_fence
+- [primitive] `react/ForgeDecisionActionBar.tsx` — React ForgeDecisionActionBar
+- [primitive] `react/ForgeDiagnosticPanel.tsx` — React ForgeDiagnosticPanel
+- [primitive] `react/ForgeEventTimeline.tsx` — React ForgeEventTimeline
+- [primitive] `react/ForgeKeyValueGrid.tsx` — React ForgeKeyValueGrid
+- [primitive] `react/ForgeReviewPanel.tsx` — React ForgeReviewPanel
+- [primitive] `react/ForgeRunHeader.tsx` — React ForgeRunHeader
+- [primitive] `react/ForgeStatusBanner.tsx` — React ForgeStatusBanner
+- [primitive] `react/ForgeWorkflowStageBar.tsx` — React ForgeWorkflowStageBar
+- [primitive] `react/TileDropdownControl.tsx` — React TileDropdownControl
+- [primitive] `react/WorkspaceLensControl.tsx` — React WorkspaceLensControl
+- [showcase-app-source] `showcase-react-app/src/main.tsx` — showcase-react-app main.tsx
+- [visual-style] `css/docs-theme.css` — css/docs-theme.css
+- [visual-style] `css/forge-ambient-themes.css` — css/forge-ambient-themes.css
+- [visual-style] `css/forge-ambient.css` — css/forge-ambient.css
+- [visual-style] `css/forge-data-charts.css` — css/forge-data-charts.css
+- [visual-style] `css/forge-fleet-admin.css` — css/forge-fleet-admin.css
+- [visual-style] `css/forge-light-theme.css` — css/forge-light-theme.css
+- [visual-style] `css/forge-react-primitives.css` — css/forge-react-primitives.css
+- [visual-style] `css/forge-theme.css` — css/forge-theme.css
+- [visual-style] `css/forgesdlc-pack-contrast.css` — css/forgesdlc-pack-contrast.css
+- [visual-style] `css/forgesdlc-pack-enterprise.css` — css/forgesdlc-pack-enterprise.css
+- [visual-style] `css/forgesdlc-pack-focus.css` — css/forgesdlc-pack-focus.css
+- [visual-style] `css/forgesdlc-pack-minimal.css` — css/forgesdlc-pack-minimal.css
+- [visual-style] `css/forgesdlc-pack-showcase.css` — css/forgesdlc-pack-showcase.css
+- [visual-style] `css/forgesdlc-theme.css` — css/forgesdlc-theme.css
+- [visual-style] `css/ks-animated-backgrounds.css` — css/ks-animated-backgrounds.css
+- [visual-style] `css/ks-living-background.css` — css/ks-living-background.css
+- [visual-style] `css/nested-roadmap.css` — css/nested-roadmap.css
+- [visual-style] `css/script-assembly.css` — css/script-assembly.css
+- [visual-style] `css/svg-background-gallery.css` — css/svg-background-gallery.css
+- [visual-style] `css/tile-dropdown.css` — css/tile-dropdown.css
+- [visual-style] `css/wizard-flow.css` — css/wizard-flow.css
+- [visual-style] `css/workspace-lens.css` — css/workspace-lens.css
+- [interaction-module] `js/diagram-modal-zoom.js` — js/diagram-modal-zoom.js
+- [interaction-module] `js/docs-nav.js` — js/docs-nav.js
+- [interaction-module] `js/forge-ambient.js` — js/forge-ambient.js
+- [interaction-module] `js/forge-data-charts.js` — js/forge-data-charts.js
+- [interaction-module] `js/forge-theme.js` — js/forge-theme.js
+- [interaction-module] `js/fs-home-expand-tiles.js` — js/fs-home-expand-tiles.js
+- [interaction-module] `js/fs-nav-dropdown.js` — js/fs-nav-dropdown.js
+- [interaction-module] `js/fs-presentation.js` — js/fs-presentation.js
+- [interaction-module] `js/ks-animated-backgrounds.js` — js/ks-animated-backgrounds.js
+- [interaction-module] `js/ks-diagram-catalog.js` — js/ks-diagram-catalog.js
+- [interaction-module] `js/ks-diagram-modal.js` — js/ks-diagram-modal.js
+- [interaction-module] `js/ks-living-motion.js` — js/ks-living-motion.js
+- [interaction-module] `js/ks-tilt-tiles.js` — js/ks-tilt-tiles.js
+- [interaction-module] `js/nested-roadmap.js` — js/nested-roadmap.js
+- [interaction-module] `js/portal-nav.js` — js/portal-nav.js
+- [interaction-module] `js/roadmap-dates.js` — js/roadmap-dates.js
+- [interaction-module] `js/showcase.js` — js/showcase.js
+- [interaction-module] `js/svg-background-gallery.js` — js/svg-background-gallery.js
+- [diagram-or-asset] `assets/svg/ambient/aurora-flow.svg` — assets/svg/ambient/aurora-flow.svg
+- [diagram-or-asset] `assets/svg/ambient/constellation-sweep.svg` — assets/svg/ambient/constellation-sweep.svg
+- [diagram-or-asset] `assets/svg/ambient/contour-drift.svg` — assets/svg/ambient/contour-drift.svg
+- [diagram-or-asset] `assets/svg/ambient/mesh-bloom.svg` — assets/svg/ambient/mesh-bloom.svg
+- [diagram-or-asset] `assets/svg/ambient/orbit-field.svg` — assets/svg/ambient/orbit-field.svg
+- [diagram-or-asset] `assets/svg/ambient/signal-river.svg` — assets/svg/ambient/signal-river.svg
+- [diagram-or-asset] `assets/svg/backgrounds/contours/bg-contour-depth-01.svg` — assets/svg/backgrounds/contours/bg-contour-depth-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/contours/bg-contour-flow-01.svg` — assets/svg/backgrounds/contours/bg-contour-flow-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/contours/bg-topology-soft-01.svg` — assets/svg/backgrounds/contours/bg-topology-soft-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/dots/bg-dots-cluster-01.svg` — assets/svg/backgrounds/dots/bg-dots-cluster-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/dots/bg-dots-drift-01.svg` — assets/svg/backgrounds/dots/bg-dots-drift-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/dots/bg-dots-field-01.svg` — assets/svg/backgrounds/dots/bg-dots-field-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/dots/bg-dots-pulse-01.svg` — assets/svg/backgrounds/dots/bg-dots-pulse-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/grids/bg-grid-pulse-01.svg` — assets/svg/backgrounds/grids/bg-grid-pulse-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/grids/bg-grid-shift-01.svg` — assets/svg/backgrounds/grids/bg-grid-shift-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/grids/bg-hex-drift-01.svg` — assets/svg/backgrounds/grids/bg-hex-drift-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/grids/bg-lattice-flow-01.svg` — assets/svg/backgrounds/grids/bg-lattice-flow-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/neurons/bg-neurons-cluster-01.svg` — assets/svg/backgrounds/neurons/bg-neurons-cluster-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/neurons/bg-neurons-pulsegraph-01.svg` — assets/svg/backgrounds/neurons/bg-neurons-pulsegraph-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/neurons/bg-neurons-softmesh-01.svg` — assets/svg/backgrounds/neurons/bg-neurons-softmesh-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/neurons/bg-neurons-synapse-01.svg` — assets/svg/backgrounds/neurons/bg-neurons-synapse-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/orbits/bg-orbit-minimal-01.svg` — assets/svg/backgrounds/orbits/bg-orbit-minimal-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/orbits/bg-orbit-node-01.svg` — assets/svg/backgrounds/orbits/bg-orbit-node-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/orbits/bg-pulse-ring-01.svg` — assets/svg/backgrounds/orbits/bg-pulse-ring-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/orbits/bg-signal-beacon-01.svg` — assets/svg/backgrounds/orbits/bg-signal-beacon-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/signals/bg-signal-trace-01.svg` — assets/svg/backgrounds/signals/bg-signal-trace-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/sinusoids/bg-fourier-forge-spectral-01.svg` — assets/svg/backgrounds/sinusoids/bg-fourier-forge-spectral-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/sinusoids/bg-fourier-forge-spectral-animated-01.svg` — assets/svg/backgrounds/sinusoids/bg-fourier-forge-spectral-animated-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/sinusoids/bg-sine-interference-01.svg` — assets/svg/backgrounds/sinusoids/bg-sine-interference-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/sinusoids/bg-sine-layered-01.svg` — assets/svg/backgrounds/sinusoids/bg-sine-layered-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/sinusoids/bg-sine-ribbon-01.svg` — assets/svg/backgrounds/sinusoids/bg-sine-ribbon-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/stars/bg-stars-drift-01.svg` — assets/svg/backgrounds/stars/bg-stars-drift-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/stars/bg-stars-parallax-01.svg` — assets/svg/backgrounds/stars/bg-stars-parallax-01.svg
+- [diagram-or-asset] `assets/svg/backgrounds/stars/bg-stars-sparse-01.svg` — assets/svg/backgrounds/stars/bg-stars-sparse-01.svg
+- [diagram-or-asset] `assets/svg/layout-schematic-gallery.svg` — assets/svg/layout-schematic-gallery.svg
+- [diagram-or-asset] `assets/svg/layout-schematic-handbook.svg` — assets/svg/layout-schematic-handbook.svg
+- [diagram-or-asset] `assets/svg/layout-schematic-landing.svg` — assets/svg/layout-schematic-landing.svg
+- [diagram-or-asset] `assets/svg/layout-schematic-product.svg` — assets/svg/layout-schematic-product.svg
+- [diagram-or-asset] `assets/svg/layout-schematic-showcase.svg` — assets/svg/layout-schematic-showcase.svg
+- [diagram-or-asset] `assets/svg/layout-schematic-split.svg` — assets/svg/layout-schematic-split.svg
+- [diagram-or-asset] `assets/svg/living/global/field-rails-01.svg` — assets/svg/living/global/field-rails-01.svg
+- [diagram-or-asset] `assets/svg/living/motifs/branch-rail-01.svg` — assets/svg/living/motifs/branch-rail-01.svg
+- [diagram-or-asset] `assets/svg/living/motifs/converge-trace-01.svg` — assets/svg/living/motifs/converge-trace-01.svg
+- [diagram-or-asset] `assets/svg/living/motifs/dual-rail-01.svg` — assets/svg/living/motifs/dual-rail-01.svg
+- [diagram-or-asset] `assets/svg/living/motifs/frame-card-grid-01.svg` — assets/svg/living/motifs/frame-card-grid-01.svg
+- [diagram-or-asset] `assets/svg/living/motifs/narrative-guides-01.svg` — assets/svg/living/motifs/narrative-guides-01.svg
+- [diagram-or-asset] `assets/svg/living/motifs/sparse-frame-01.svg` — assets/svg/living/motifs/sparse-frame-01.svg
+- [diagram-or-asset] `assets/svg/living/motifs/trace-flow-01.svg` — assets/svg/living/motifs/trace-flow-01.svg
+- [diagram-or-asset] `assets/svg/template-area-chart.svg` — assets/svg/template-area-chart.svg
+- [diagram-or-asset] `assets/svg/template-bar-chart.svg` — assets/svg/template-bar-chart.svg
+- [diagram-or-asset] `assets/svg/template-board-columns.svg` — assets/svg/template-board-columns.svg
+- [diagram-or-asset] `assets/svg/template-bullet-chart.svg` — assets/svg/template-bullet-chart.svg
+- [diagram-or-asset] `assets/svg/template-checklist.svg` — assets/svg/template-checklist.svg
+- [diagram-or-asset] `assets/svg/template-decision-flow.svg` — assets/svg/template-decision-flow.svg
+- [diagram-or-asset] `assets/svg/template-funnel.svg` — assets/svg/template-funnel.svg
+- [diagram-or-asset] `assets/svg/template-gantt.svg` — assets/svg/template-gantt.svg
+- [diagram-or-asset] `assets/svg/template-gate-chain.svg` — assets/svg/template-gate-chain.svg
+- [diagram-or-asset] `assets/svg/template-gauge.svg` — assets/svg/template-gauge.svg
+- [diagram-or-asset] `assets/svg/template-heatmap.svg` — assets/svg/template-heatmap.svg
+- [diagram-or-asset] `assets/svg/template-kpi-card.svg` — assets/svg/template-kpi-card.svg
+- [diagram-or-asset] `assets/svg/template-line-chart.svg` — assets/svg/template-line-chart.svg
+- [diagram-or-asset] `assets/svg/template-linear-flow.svg` — assets/svg/template-linear-flow.svg
+- [diagram-or-asset] `assets/svg/template-loop-cycle.svg` — assets/svg/template-loop-cycle.svg
+- [diagram-or-asset] `assets/svg/template-nested-donut.svg` — assets/svg/template-nested-donut.svg
+- [diagram-or-asset] `assets/svg/template-network.svg` — assets/svg/template-network.svg
+- [diagram-or-asset] `assets/svg/template-org-chart.svg` — assets/svg/template-org-chart.svg
+- [diagram-or-asset] `assets/svg/template-pie-donut.svg` — assets/svg/template-pie-donut.svg
+- [diagram-or-asset] `assets/svg/template-quadrant.svg` — assets/svg/template-quadrant.svg
+- [diagram-or-asset] `assets/svg/template-radar.svg` — assets/svg/template-radar.svg
+- [diagram-or-asset] `assets/svg/template-roadmap.svg` — assets/svg/template-roadmap.svg
+- [diagram-or-asset] `assets/svg/template-scatter.svg` — assets/svg/template-scatter.svg
+- [diagram-or-asset] `assets/svg/template-sequence.svg` — assets/svg/template-sequence.svg
+- [diagram-or-asset] `assets/svg/template-stacked-bar.svg` — assets/svg/template-stacked-bar.svg
+- [diagram-or-asset] `assets/svg/template-state-machine.svg` — assets/svg/template-state-machine.svg
+- [diagram-or-asset] `assets/svg/template-swimlane.svg` — assets/svg/template-swimlane.svg
+- [diagram-or-asset] `assets/svg/template-timeline.svg` — assets/svg/template-timeline.svg
+- [diagram-or-asset] `assets/svg/template-tree.svg` — assets/svg/template-tree.svg
+- [diagram-or-asset] `assets/svg/template-venn.svg` — assets/svg/template-venn.svg
+- [diagram-or-asset] `assets/svg/template-waterfall.svg` — assets/svg/template-waterfall.svg
+- [design-terminology] `docs/design/catalog/ONTOLOGY.md` — Design doc docs/design/catalog/ONTOLOGY.md
+- [design-terminology] `docs/design/catalog/README.md` — Design doc docs/design/catalog/README.md
+- [design-terminology] `docs/design/catalog/chrome/Kbc-doc-breadcrumb.md` — Design doc docs/design/catalog/chrome/Kbc-doc-breadcrumb.md
+- [design-terminology] `docs/design/catalog/chrome/Kco-doc-offcanvas.md` — Design doc docs/design/catalog/chrome/Kco-doc-offcanvas.md
+- [design-terminology] `docs/design/catalog/chrome/Kpn-product-primary-nav.md` — Design doc docs/design/catalog/chrome/Kpn-product-primary-nav.md
+- [design-terminology] `docs/design/catalog/chrome/Ksf-site-footer.md` — Design doc docs/design/catalog/chrome/Ksf-site-footer.md
+- [design-terminology] `docs/design/catalog/chrome/Ksr-doc-sidebar.md` — Design doc docs/design/catalog/chrome/Ksr-doc-sidebar.md
+- [design-terminology] `docs/design/catalog/chrome/Ktx-doc-toc-sidebar.md` — Design doc docs/design/catalog/chrome/Ktx-doc-toc-sidebar.md
+- [design-terminology] `docs/design/catalog/components/Kpr-fam-python-renderers.md` — Design doc docs/design/catalog/components/Kpr-fam-python-renderers.md
+- [design-terminology] `docs/design/catalog/contract-template.md` — Design doc docs/design/catalog/contract-template.md
+- [design-terminology] `docs/design/catalog/desktop-interfaces/Msm-museum-studio.md` — Design doc docs/design/catalog/desktop-interfaces/Msm-museum-studio.md
+- [design-terminology] `docs/design/catalog/diagrams/Ksv-fam-svg.md` — Design doc docs/design/catalog/diagrams/Ksv-fam-svg.md
+- [design-terminology] `docs/design/catalog/interactions/Ksj-fam-scripts.md` — Design doc docs/design/catalog/interactions/Ksj-fam-scripts.md
+- [design-terminology] `docs/design/catalog/layouts/Chp-layout-chapter.md` — Design doc docs/design/catalog/layouts/Chp-layout-chapter.md
+- [design-terminology] `docs/design/catalog/layouts/Gly-layout-gallery.md` — Design doc docs/design/catalog/layouts/Gly-layout-gallery.md
+- [design-terminology] `docs/design/catalog/layouts/Hbk-layout-handbook.md` — Design doc docs/design/catalog/layouts/Hbk-layout-handbook.md
+- [design-terminology] `docs/design/catalog/layouts/Ldg-layout-landing.md` — Design doc docs/design/catalog/layouts/Ldg-layout-landing.md
+- [design-terminology] `docs/design/catalog/layouts/Lst-layout-listing.md` — Design doc docs/design/catalog/layouts/Lst-layout-listing.md
+- [design-terminology] `docs/design/catalog/layouts/Mkt-layout-marketing.md` — Design doc docs/design/catalog/layouts/Mkt-layout-marketing.md
+- [design-terminology] `docs/design/catalog/layouts/Prd-layout-product.md` — Design doc docs/design/catalog/layouts/Prd-layout-product.md
+- [design-terminology] `docs/design/catalog/layouts/Shw-layout-showcase.md` — Design doc docs/design/catalog/layouts/Shw-layout-showcase.md
+- [design-terminology] `docs/design/catalog/layouts/Spl-layout-split.md` — Design doc docs/design/catalog/layouts/Spl-layout-split.md
+- [design-terminology] `docs/design/catalog/page-types/Fad-forge-autodoc.md` — Design doc docs/design/catalog/page-types/Fad-forge-autodoc.md
+- [design-terminology] `docs/design/catalog/page-types/Kdt-fam-design-terminology.md` — Design doc docs/design/catalog/page-types/Kdt-fam-design-terminology.md
+- [design-terminology] `docs/design/catalog/pages/Ctr-controls.md` — Design doc docs/design/catalog/pages/Ctr-controls.md
+- [design-terminology] `docs/design/catalog/pages/Dca-data-charts-api.md` — Design doc docs/design/catalog/pages/Dca-data-charts-api.md
+- [design-terminology] `docs/design/catalog/pages/Dce-diagram-code-examples.md` — Design doc docs/design/catalog/pages/Dce-diagram-code-examples.md
+- [design-terminology] `docs/design/catalog/pages/Dcs-data-charts-static.md` — Design doc docs/design/catalog/pages/Dcs-data-charts-static.md
+- [design-terminology] `docs/design/catalog/pages/Dgm-diagrams.md` — Design doc docs/design/catalog/pages/Dgm-diagrams.md
+- [design-terminology] `docs/design/catalog/pages/Enm-enterprise-marketing.md` — Design doc docs/design/catalog/pages/Enm-enterprise-marketing.md
+- [design-terminology] `docs/design/catalog/pages/Fag-for-agents.md` — Design doc docs/design/catalog/pages/Fag-for-agents.md
+- [design-terminology] `docs/design/catalog/pages/Fam-forge-ambient.md` — Design doc docs/design/catalog/pages/Fam-forge-ambient.md
+- [design-terminology] `docs/design/catalog/pages/Frp-forge-react-primitives.md` — Design doc docs/design/catalog/pages/Frp-forge-react-primitives.md
+- [design-terminology] `docs/design/catalog/pages/Hdc-handbook-chapter.md` — Design doc docs/design/catalog/pages/Hdc-handbook-chapter.md
+- [design-terminology] `docs/design/catalog/pages/Idx-index.md` — Design doc docs/design/catalog/pages/Idx-index.md
+- [design-terminology] `docs/design/catalog/pages/Kcm-ks-creation-mindmap.md` — Design doc docs/design/catalog/pages/Kcm-ks-creation-mindmap.md
+- [design-terminology] `docs/design/catalog/pages/Kra-fam-showcase-react-app.md` — Design doc docs/design/catalog/pages/Kra-fam-showcase-react-app.md
+- [design-terminology] `docs/design/catalog/pages/Lvg-living-background.md` — Design doc docs/design/catalog/pages/Lvg-living-background.md
+- [design-terminology] `docs/design/catalog/pages/Lyt-layouts.md` — Design doc docs/design/catalog/pages/Lyt-layouts.md
+- [design-terminology] `docs/design/catalog/pages/Mtn-motion.md` — Design doc docs/design/catalog/pages/Mtn-motion.md
+- [design-terminology] `docs/design/catalog/pages/Nav-navigation.md` — Design doc docs/design/catalog/pages/Nav-navigation.md
+- [design-terminology] `docs/design/catalog/pages/Ndr-nested-roadmap.md` — Design doc docs/design/catalog/pages/Ndr-nested-roadmap.md
+- [design-terminology] `docs/design/catalog/pages/Pnz-presentation.md` — Design doc docs/design/catalog/pages/Pnz-presentation.md
+- [design-terminology] `docs/design/catalog/pages/Rpl-react-primitives-live.md` — Design doc docs/design/catalog/pages/Rpl-react-primitives-live.md
+- [design-terminology] `docs/design/catalog/pages/Sgb-svg-backgrounds.md` — Design doc docs/design/catalog/pages/Sgb-svg-backgrounds.md
+- [design-terminology] `docs/design/catalog/pages/Slt-split-layout.md` — Design doc docs/design/catalog/pages/Slt-split-layout.md
+- [design-terminology] `docs/design/catalog/pages/Srf-surfaces.md` — Design doc docs/design/catalog/pages/Srf-surfaces.md
+- [design-terminology] `docs/design/catalog/pages/Tkn-tokens.md` — Design doc docs/design/catalog/pages/Tkn-tokens.md
+- [design-terminology] `docs/design/catalog/pages/Vcp-preview-chapter.md` — Design doc docs/design/catalog/pages/Vcp-preview-chapter.md
+- [design-terminology] `docs/design/catalog/pages/Vhb-preview-handbook.md` — Design doc docs/design/catalog/pages/Vhb-preview-handbook.md
+- [design-terminology] `docs/design/catalog/pages/Vlg-preview-listing.md` — Design doc docs/design/catalog/pages/Vlg-preview-listing.md
+- [design-terminology] `docs/design/catalog/pages/Vln-preview-landing.md` — Design doc docs/design/catalog/pages/Vln-preview-landing.md
+- [design-terminology] `docs/design/catalog/pages/Vmk-preview-marketing.md` — Design doc docs/design/catalog/pages/Vmk-preview-marketing.md
+- [design-terminology] `docs/design/catalog/pages/Vpd-preview-product.md` — Design doc docs/design/catalog/pages/Vpd-preview-product.md
+- [design-terminology] `docs/design/catalog/pages/Vsp-preview-split.md` — Design doc docs/design/catalog/pages/Vsp-preview-split.md
+- [design-terminology] `docs/design/catalog/primitives/FAM-react-primitives.md` — Design doc docs/design/catalog/primitives/FAM-react-primitives.md
+- [design-terminology] `docs/design/catalog/screenshots/README.md` — Design doc docs/design/catalog/screenshots/README.md
+- [design-terminology] `docs/design/catalog/sections/README.md` — Design doc docs/design/catalog/sections/README.md
+- [design-terminology] `docs/design/catalog/styles/Ksc-fam-styles.md` — Design doc docs/design/catalog/styles/Ksc-fam-styles.md
+- [design-terminology] `docs/design/catalog/visual-inventory.generated.md` — Design doc docs/design/catalog/visual-inventory.generated.md
+- [design-terminology] `docs/design/catalog/visual-registry-coverage.md` — Design doc docs/design/catalog/visual-registry-coverage.md
+- [design-terminology] `docs/design/forge-enterprise-ai-website-standard-v2-addendum.md` — Design doc docs/design/forge-enterprise-ai-website-standard-v2-addendum.md
+- [design-terminology] `docs/design/forge-enterprise-ai-website-standard.md` — Design doc docs/design/forge-enterprise-ai-website-standard.md
+- [design-terminology] `docs/design/forge-enterprise-ui.md` — Design doc docs/design/forge-enterprise-ui.md
+- [design-terminology] `docs/design/lenses-studio-shell.md` — Design doc docs/design/lenses-studio-shell.md
+- [design-terminology] `docs/design/wizard-flow-studio.md` — Design doc docs/design/wizard-flow-studio.md
+- [design-terminology] `docs/PAGE-LAYOUT-TAXONOMY.md` — PAGE-LAYOUT-TAXONOMY
+- [generated-showcase-page] `showcase/controls.html` — Generated showcase HTML: controls.html
+- [generated-showcase-page] `showcase/data-charts-api.html` — Generated showcase HTML: data-charts-api.html
+- [generated-showcase-page] `showcase/data-charts-static.html` — Generated showcase HTML: data-charts-static.html
+- [generated-showcase-page] `showcase/diagram-code-examples.html` — Generated showcase HTML: diagram-code-examples.html
+- [generated-showcase-page] `showcase/diagrams.html` — Generated showcase HTML: diagrams.html
+- [generated-showcase-page] `showcase/enterprise-marketing.html` — Generated showcase HTML: enterprise-marketing.html
+- [generated-showcase-page] `showcase/for-agents.html` — Generated showcase HTML: for-agents.html
+- [generated-showcase-page] `showcase/forge-ambient.html` — Generated showcase HTML: forge-ambient.html
+- [generated-showcase-page] `showcase/forge-react-primitives.html` — Generated showcase HTML: forge-react-primitives.html
+- [generated-showcase-page] `showcase/index.html` — Generated showcase HTML: index.html
+- [generated-showcase-page] `showcase/ks-creation-mindmap.html` — Generated showcase HTML: ks-creation-mindmap.html
+- [generated-showcase-page] `showcase/layouts.html` — Generated showcase HTML: layouts.html
+- [generated-showcase-page] `showcase/living-background.html` — Generated showcase HTML: living-background.html
+- [generated-showcase-page] `showcase/motion.html` — Generated showcase HTML: motion.html
+- [generated-showcase-page] `showcase/navigation.html` — Generated showcase HTML: navigation.html
+- [generated-showcase-page] `showcase/nested-roadmap.html` — Generated showcase HTML: nested-roadmap.html
+- [generated-showcase-page] `showcase/presentation.html` — Generated showcase HTML: presentation.html
+- [generated-showcase-page] `showcase/preview-chapter.html` — Generated showcase HTML: preview-chapter.html
+- [generated-showcase-page] `showcase/preview-handbook.html` — Generated showcase HTML: preview-handbook.html
+- [generated-showcase-page] `showcase/preview-landing.html` — Generated showcase HTML: preview-landing.html
+- [generated-showcase-page] `showcase/preview-listing.html` — Generated showcase HTML: preview-listing.html
+- [generated-showcase-page] `showcase/preview-marketing.html` — Generated showcase HTML: preview-marketing.html
+- [generated-showcase-page] `showcase/preview-product.html` — Generated showcase HTML: preview-product.html
+- [generated-showcase-page] `showcase/preview-split.html` — Generated showcase HTML: preview-split.html
+- [generated-showcase-page] `showcase/react-primitives-live.html` — Generated showcase HTML: react-primitives-live.html
+- [generated-showcase-page] `showcase/split-layout.html` — Generated showcase HTML: split-layout.html
+- [generated-showcase-page] `showcase/surfaces.html` — Generated showcase HTML: surfaces.html
+- [generated-showcase-page] `showcase/svg-backgrounds.html` — Generated showcase HTML: svg-backgrounds.html
+- [generated-showcase-page] `showcase/tokens.html` — Generated showcase HTML: tokens.html
+- [museum-surface-asset] `museum/studio/assets/AgenticBridgePage-Bp215oP-.js` — Museum studio asset: assets/AgenticBridgePage-Bp215oP-.js
+- [museum-surface-asset] `museum/studio/assets/BlueprintsWizardHub-B7QEdR4V.js` — Museum studio asset: assets/BlueprintsWizardHub-B7QEdR4V.js
+- [museum-surface-asset] `museum/studio/assets/BlueprintsWizardLayout-WheM6hfS.js` — Museum studio asset: assets/BlueprintsWizardLayout-WheM6hfS.js
+- [museum-surface-asset] `museum/studio/assets/BlueprintsWizardSessionPage-BoO2r1Ph.js` — Museum studio asset: assets/BlueprintsWizardSessionPage-BoO2r1Ph.js
+- [museum-surface-asset] `museum/studio/assets/BoardEditorPage-Bj7I3ae8.js` — Museum studio asset: assets/BoardEditorPage-Bj7I3ae8.js
+- [museum-surface-asset] `museum/studio/assets/BoardHubPage-CKDO9fdK.js` — Museum studio asset: assets/BoardHubPage-CKDO9fdK.js
+- [museum-surface-asset] `museum/studio/assets/MethodologyBridgePages-Ds70Sm91.js` — Museum studio asset: assets/MethodologyBridgePages-Ds70Sm91.js
+- [museum-surface-asset] `museum/studio/assets/OverviewChartsPage-DURPSfYQ.js` — Museum studio asset: assets/OverviewChartsPage-DURPSfYQ.js
+- [museum-surface-asset] `museum/studio/assets/PlanMatrixPage-DrYJmUCo.js` — Museum studio asset: assets/PlanMatrixPage-DrYJmUCo.js
+- [museum-surface-asset] `museum/studio/assets/PlanPage-Z_zVH7PW.js` — Museum studio asset: assets/PlanPage-Z_zVH7PW.js
+- [museum-surface-asset] `museum/studio/assets/TimelinePage-Dplnk-aa.js` — Museum studio asset: assets/TimelinePage-Dplnk-aa.js
+- [museum-surface-asset] `museum/studio/assets/blueprintsWizard-HYZhnW1x.js` — Museum studio asset: assets/blueprintsWizard-HYZhnW1x.js
+- [museum-surface-asset] `museum/studio/assets/boards-KUTjXUXI.js` — Museum studio asset: assets/boards-KUTjXUXI.js
+- [museum-surface-asset] `museum/studio/assets/index-BS2w9f2K.css` — Museum studio asset: assets/index-BS2w9f2K.css
+- [museum-surface-asset] `museum/studio/assets/index-BmGHD6a3.js` — Museum studio asset: assets/index-BmGHD6a3.js
+- [museum-surface-asset] `museum/studio/assets/page-BKpbe3oQ.js` — Museum studio asset: assets/page-BKpbe3oQ.js
+- [museum-surface-asset] `museum/studio/assets/react-dom-DFrNY_9T.js` — Museum studio asset: assets/react-dom-DFrNY_9T.js
+- [museum-surface-asset] `museum/studio/assets/studioVisibleCopy-XG6KIFpY.js` — Museum studio asset: assets/studioVisibleCopy-XG6KIFpY.js
+- [museum-surface-asset] `museum/studio/assets/wizardAsyncUi-D_DjIJiG.js` — Museum studio asset: assets/wizardAsyncUi-D_DjIJiG.js
+- [museum-surface-asset] `museum/studio/assets/wizardSessionMapping-BF3q1Q81.js` — Museum studio asset: assets/wizardSessionMapping-BF3q1Q81.js
+- [museum-surface-asset] `museum/studio/assets/wizardSessionMapping-EG4fCDL6.css` — Museum studio asset: assets/wizardSessionMapping-EG4fCDL6.css
+- [museum-surface-asset] `museum/studio/favicon.svg` — Museum studio asset: favicon.svg
+- [museum-surface-asset] `museum/studio/icons.svg` — Museum studio asset: icons.svg
+- [desktop-interface] `museum/studio/index.html` — Museum studio shell
+- [library-consumer] `forge-autodoc/forge_autodoc/page.py` — Forge autodoc handbook assembler
+- [page-instance] `forge-autodoc/forge_autodoc/page.py` — Handbook chapter main (autodoc handbook_page <main>)

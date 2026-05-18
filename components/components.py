@@ -12,6 +12,8 @@ from __future__ import annotations
 import html as html_mod
 import json
 
+from ks_catalog_hashes import chrome_region_attrs
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -34,6 +36,7 @@ def bold(s: str) -> str:
 # ---------------------------------------------------------------------------
 # Tables
 # ---------------------------------------------------------------------------
+
 
 def render_table(
     headers: list[str],
@@ -629,8 +632,10 @@ def render_toc_sidebar(
             f'<a class="nav-link"{indent} '
             f'href="#{e(hid)}">{e(text)}</a>\n'
         )
+    _ktx = chrome_region_attrs("doc-toc-sidebar")
+    _ktx_s = f" {_ktx}" if _ktx else ""
     return f"""
-            <div class="col-lg-4 col-xl-3 order-1 order-lg-2">
+            <div class="col-lg-4 col-xl-3 order-1 order-lg-2"{_ktx_s}>
               <nav class="forge-toc" aria-label="{e(nav_aria_label)}">
                 <p class="toc-title mb-2">{e(nav_title)}</p>
 {links}

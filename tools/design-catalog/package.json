@@ -1,0 +1,13 @@
+{
+  "name": "forge-ks-design-catalog",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Kitchen Sink visual hash catalog tooling (standalone from UX auditor/scorer)",
+  "dependencies": {
+    "yaml": "^2.7.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}

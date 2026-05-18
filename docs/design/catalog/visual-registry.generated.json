@@ -1,0 +1,2273 @@
+{
+  "schemaVersion": 1,
+  "repoRoot": "/home/lzvyahin/Code/forgesdlc-kitchensink",
+  "entries": [
+    {
+      "hash": "Hbk",
+      "name": "Handbook layout",
+      "slug": "layout-handbook",
+      "type": "layout",
+      "family": "layouts",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "handbook_page"
+      ],
+      "root_selector": "div.container-fluid.px-0",
+      "contract": "docs/design/catalog/layouts/Hbk-layout-handbook.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-handbook.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Hbk.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Chp",
+      "name": "Chapter layout",
+      "slug": "layout-chapter",
+      "type": "layout",
+      "family": "layouts",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "chapter_page"
+      ],
+      "root_selector": "div.container-fluid.px-0",
+      "contract": "docs/design/catalog/layouts/Chp-layout-chapter.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-chapter.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Chp.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Prd",
+      "name": "Product handbook layout",
+      "slug": "layout-product",
+      "type": "layout",
+      "family": "layouts",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "product_page"
+      ],
+      "root_selector": "div.container-fluid.px-0",
+      "contract": "docs/design/catalog/layouts/Prd-layout-product.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-product.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Prd.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Shw",
+      "name": "Showcase documentation layout",
+      "slug": "layout-showcase",
+      "type": "layout",
+      "family": "layouts",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "showcase_page"
+      ],
+      "root_selector": "div.container-fluid.px-0",
+      "contract": "docs/design/catalog/layouts/Shw-layout-showcase.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Shw.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Ldg",
+      "name": "Landing layout",
+      "slug": "layout-landing",
+      "type": "layout",
+      "family": "layouts",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "landing_page"
+      ],
+      "root_selector": "div.container-fluid.px-0",
+      "contract": "docs/design/catalog/layouts/Ldg-layout-landing.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-landing.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Ldg.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Mkt",
+      "name": "Marketing interior layout",
+      "slug": "layout-marketing",
+      "type": "layout",
+      "family": "layouts",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "marketing_page"
+      ],
+      "root_selector": "div.container-fluid.px-0",
+      "contract": "docs/design/catalog/layouts/Mkt-layout-marketing.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-marketing.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Mkt.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Lst",
+      "name": "Listing layout",
+      "slug": "layout-listing",
+      "type": "layout",
+      "family": "layouts",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "listing_page"
+      ],
+      "root_selector": "div.container-fluid.px-0",
+      "contract": "docs/design/catalog/layouts/Lst-layout-listing.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-listing.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Lst.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Gly",
+      "name": "Gallery layout",
+      "slug": "layout-gallery",
+      "type": "layout",
+      "family": "layouts",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "gallery_page"
+      ],
+      "root_selector": "div.container-fluid.px-0",
+      "contract": "docs/design/catalog/layouts/Gly-layout-gallery.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Gly.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Spl",
+      "name": "Split two-panel layout",
+      "slug": "layout-split",
+      "type": "layout",
+      "family": "layouts",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "split_page"
+      ],
+      "root_selector": "div.container-fluid.px-0",
+      "contract": "docs/design/catalog/layouts/Spl-layout-split.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-split.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Spl.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Idx",
+      "name": "Showcase home",
+      "slug": "index",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/index.py"
+      ],
+      "source_symbols": [
+        "index"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Idx-index.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/index.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Idx.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Tkn",
+      "name": "Design tokens",
+      "slug": "tokens",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/tokens.py"
+      ],
+      "source_symbols": [
+        "tokens"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Tkn-tokens.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/tokens.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Tkn.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Ctr",
+      "name": "Controls",
+      "slug": "controls",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/controls.py"
+      ],
+      "source_symbols": [
+        "controls"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Ctr-controls.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/controls.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Ctr.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Nav",
+      "name": "Navigation patterns",
+      "slug": "navigation",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/navigation.py"
+      ],
+      "source_symbols": [
+        "navigation"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Nav-navigation.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/navigation.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Nav.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Srf",
+      "name": "Surfaces",
+      "slug": "surfaces",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/surfaces.py"
+      ],
+      "source_symbols": [
+        "surfaces"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Srf-surfaces.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/surfaces.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Srf.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Pnz",
+      "name": "Presentation",
+      "slug": "presentation",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/presentation.py"
+      ],
+      "source_symbols": [
+        "presentation"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Pnz-presentation.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/presentation.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Pnz.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Enm",
+      "name": "Enterprise marketing",
+      "slug": "enterprise-marketing",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/enterprise_marketing.py"
+      ],
+      "source_symbols": [
+        "enterprise_marketing"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Enm-enterprise-marketing.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-marketing.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Enm.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fag",
+      "name": "For agents",
+      "slug": "for-agents",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/for_agents.py"
+      ],
+      "source_symbols": [
+        "for_agents"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Fag-for-agents.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/for-agents.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Fag.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Lyt",
+      "name": "Layouts demo",
+      "slug": "layouts",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/layouts_demo.py"
+      ],
+      "source_symbols": [
+        "layouts_demo"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Lyt-layouts.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/layouts.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Lyt.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Slt",
+      "name": "Split layout demo",
+      "slug": "split-layout",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/split_layout_demo.py"
+      ],
+      "source_symbols": [
+        "split_layout_demo"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Slt-split-layout.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/split-layout.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Slt.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Ndr",
+      "name": "Nested roadmap",
+      "slug": "nested-roadmap",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/nested_roadmap.py"
+      ],
+      "source_symbols": [
+        "nested_roadmap"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Ndr-nested-roadmap.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/nested-roadmap.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Ndr.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Frp",
+      "name": "Forge React primitives",
+      "slug": "forge-react-primitives",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/forge_react_primitives.py"
+      ],
+      "source_symbols": [
+        "forge_react_primitives"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Frp-forge-react-primitives.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Frp.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Rpl",
+      "name": "React primitives live",
+      "slug": "react-primitives-live",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/react_primitives_live.py"
+      ],
+      "source_symbols": [
+        "react_primitives_live"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Rpl-react-primitives-live.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/react-primitives-live.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Rpl.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Kcm",
+      "name": "KS creation mindmap",
+      "slug": "ks-creation-mindmap",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/ks_creation_mindmap.py"
+      ],
+      "source_symbols": [
+        "ks_creation_mindmap"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Kcm-ks-creation-mindmap.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/ks-creation-mindmap.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Kcm.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Dcs",
+      "name": "Data charts static",
+      "slug": "data-charts-static",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/data_charts_static.py"
+      ],
+      "source_symbols": [
+        "data_charts_static"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Dcs-data-charts-static.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/data-charts-static.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Dcs.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Dca",
+      "name": "Data charts API",
+      "slug": "data-charts-api",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/data_charts_api.py"
+      ],
+      "source_symbols": [
+        "data_charts_api"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Dca-data-charts-api.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/data-charts-api.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Dca.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Dce",
+      "name": "Diagram code examples",
+      "slug": "diagram-code-examples",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/diagram_code_examples.py"
+      ],
+      "source_symbols": [
+        "diagram_code_examples"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Dce-diagram-code-examples.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/diagram-code-examples.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Dce.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Dgm",
+      "name": "Diagrams",
+      "slug": "diagrams",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/diagrams.py"
+      ],
+      "source_symbols": [
+        "diagrams"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Dgm-diagrams.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/diagrams.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Dgm.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Sgb",
+      "name": "SVG backgrounds",
+      "slug": "svg-backgrounds",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/svg_backgrounds.py"
+      ],
+      "source_symbols": [
+        "svg_backgrounds"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Sgb-svg-backgrounds.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/svg-backgrounds.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Sgb.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Mtn",
+      "name": "Motion",
+      "slug": "motion",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/motion.py"
+      ],
+      "source_symbols": [
+        "motion"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Mtn-motion.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/motion.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Mtn.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fam",
+      "name": "Forge ambient",
+      "slug": "forge-ambient",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/forge_ambient.py"
+      ],
+      "source_symbols": [
+        "forge_ambient"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Fam-forge-ambient.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-ambient.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Fam.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Lvg",
+      "name": "Living background system",
+      "slug": "living-background",
+      "type": "page",
+      "family": "showcase-pages",
+      "status": "active",
+      "source_paths": [
+        "generator/pages/living_background_system.py"
+      ],
+      "source_symbols": [
+        "living_background_system"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Lvg-living-background.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/living-background.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Lvg.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Vsp",
+      "name": "Preview split layout",
+      "slug": "preview-split",
+      "type": "layout-preview",
+      "family": "layout-previews",
+      "status": "active",
+      "source_paths": [
+        "generator/layout_previews.py"
+      ],
+      "source_symbols": [
+        "write_layout_preview_pages"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Vsp-preview-split.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-split.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Vsp.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Vhb",
+      "name": "Preview handbook layout",
+      "slug": "preview-handbook",
+      "type": "layout-preview",
+      "family": "layout-previews",
+      "status": "active",
+      "source_paths": [
+        "generator/layout_previews.py"
+      ],
+      "source_symbols": [
+        "write_layout_preview_pages"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Vhb-preview-handbook.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-handbook.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Vhb.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Vcp",
+      "name": "Preview chapter layout",
+      "slug": "preview-chapter",
+      "type": "layout-preview",
+      "family": "layout-previews",
+      "status": "active",
+      "source_paths": [
+        "generator/layout_previews.py"
+      ],
+      "source_symbols": [
+        "write_layout_preview_pages"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Vcp-preview-chapter.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-chapter.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Vcp.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Vpd",
+      "name": "Preview product layout",
+      "slug": "preview-product",
+      "type": "layout-preview",
+      "family": "layout-previews",
+      "status": "active",
+      "source_paths": [
+        "generator/layout_previews.py"
+      ],
+      "source_symbols": [
+        "write_layout_preview_pages"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Vpd-preview-product.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-product.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Vpd.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Vmk",
+      "name": "Preview marketing layout",
+      "slug": "preview-marketing",
+      "type": "layout-preview",
+      "family": "layout-previews",
+      "status": "active",
+      "source_paths": [
+        "generator/layout_previews.py"
+      ],
+      "source_symbols": [
+        "write_layout_preview_pages"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Vmk-preview-marketing.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-marketing.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Vmk.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Vlg",
+      "name": "Preview listing layout",
+      "slug": "preview-listing",
+      "type": "layout-preview",
+      "family": "layout-previews",
+      "status": "active",
+      "source_paths": [
+        "generator/layout_previews.py"
+      ],
+      "source_symbols": [
+        "write_layout_preview_pages"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Vlg-preview-listing.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-listing.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Vlg.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Vln",
+      "name": "Preview landing layout",
+      "slug": "preview-landing",
+      "type": "layout-preview",
+      "family": "layout-previews",
+      "status": "active",
+      "source_paths": [
+        "generator/layout_previews.py"
+      ],
+      "source_symbols": [
+        "write_layout_preview_pages"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Vln-preview-landing.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/preview-landing.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Vln.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Ksr",
+      "name": "Doc sidebar rail",
+      "slug": "doc-sidebar",
+      "type": "chrome-region",
+      "family": "chrome-regions",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "handbook_page",
+        "chapter_page",
+        "showcase_page"
+      ],
+      "root_selector": "aside.forge-sidebar",
+      "contract": "docs/design/catalog/chrome/Ksr-doc-sidebar.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Kco",
+      "name": "Doc offcanvas",
+      "slug": "doc-offcanvas",
+      "type": "chrome-region",
+      "family": "chrome-regions",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "handbook_page",
+        "chapter_page",
+        "showcase_page",
+        "product_page"
+      ],
+      "root_selector": null,
+      "contract": "docs/design/catalog/chrome/Kco-doc-offcanvas.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Ksf",
+      "name": "Site footer region",
+      "slug": "site-footer",
+      "type": "chrome-region",
+      "family": "chrome-regions",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "handbook_page",
+        "chapter_page",
+        "showcase_page",
+        "product_page"
+      ],
+      "root_selector": ".ks-site-footer-region",
+      "contract": "docs/design/catalog/chrome/Ksf-site-footer.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Kbc",
+      "name": "Doc breadcrumb",
+      "slug": "doc-breadcrumb",
+      "type": "chrome-region",
+      "family": "chrome-regions",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "showcase_page"
+      ],
+      "root_selector": ".ks-doc-breadcrumb",
+      "contract": "docs/design/catalog/chrome/Kbc-doc-breadcrumb.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Ktx",
+      "name": "Doc ToC sidebar",
+      "slug": "doc-toc-sidebar",
+      "type": "chrome-region",
+      "family": "chrome-regions",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py",
+        "components/components.py"
+      ],
+      "source_symbols": [
+        "render_toc_sidebar",
+        "showcase_page",
+        "chapter_page"
+      ],
+      "root_selector": ".col-lg-4.col-xl-3.order-1.order-lg-2",
+      "contract": "docs/design/catalog/chrome/Ktx-doc-toc-sidebar.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Kpn",
+      "name": "Product primary nav",
+      "slug": "product-primary-nav",
+      "type": "chrome-region",
+      "family": "chrome-regions",
+      "status": "active",
+      "source_paths": [
+        "components/layouts.py"
+      ],
+      "source_symbols": [
+        "product_page"
+      ],
+      "root_selector": "nav.fs-primary-nav-global",
+      "contract": "docs/design/catalog/chrome/Kpn-product-primary-nav.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Hdc",
+      "name": "Handbook chapter main",
+      "slug": "handbook-chapter",
+      "type": "page",
+      "family": "handbook-pages",
+      "status": "active",
+      "source_paths": [
+        "forge-autodoc/forge_autodoc/page.py"
+      ],
+      "source_symbols": [
+        "assemble_handbook_page"
+      ],
+      "root_selector": "main#main",
+      "contract": "docs/design/catalog/pages/Hdc-handbook-chapter.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Tdc",
+      "name": "TileDropdownControl",
+      "slug": "tile-dropdown-control",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/TileDropdownControl.tsx"
+      ],
+      "source_symbols": [
+        "TileDropdownControl"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Tdc.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fkg",
+      "name": "ForgeKeyValueGrid",
+      "slug": "forge-key-value-grid",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/ForgeKeyValueGrid.tsx"
+      ],
+      "source_symbols": [
+        "ForgeKeyValueGrid"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Fkg.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fsb",
+      "name": "ForgeStatusBanner",
+      "slug": "forge-status-banner",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/ForgeStatusBanner.tsx"
+      ],
+      "source_symbols": [
+        "ForgeStatusBanner"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Fsb.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fvw",
+      "name": "ForgeReviewPanel",
+      "slug": "forge-review-panel",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/ForgeReviewPanel.tsx"
+      ],
+      "source_symbols": [
+        "ForgeReviewPanel"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Fvw.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fdg",
+      "name": "ForgeDiagnosticPanel",
+      "slug": "forge-diagnostic-panel",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/ForgeDiagnosticPanel.tsx"
+      ],
+      "source_symbols": [
+        "ForgeDiagnosticPanel"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Fdg.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fwb",
+      "name": "ForgeWorkflowStageBar",
+      "slug": "forge-workflow-stage-bar",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/ForgeWorkflowStageBar.tsx"
+      ],
+      "source_symbols": [
+        "ForgeWorkflowStageBar"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Fwb.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fen",
+      "name": "ForgeEventTimeline",
+      "slug": "forge-event-timeline",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/ForgeEventTimeline.tsx"
+      ],
+      "source_symbols": [
+        "ForgeEventTimeline"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Fen.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Frh",
+      "name": "ForgeRunHeader",
+      "slug": "forge-run-header",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/ForgeRunHeader.tsx"
+      ],
+      "source_symbols": [
+        "ForgeRunHeader"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Frh.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fda",
+      "name": "ForgeDecisionActionBar",
+      "slug": "forge-decision-action-bar",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/ForgeDecisionActionBar.tsx"
+      ],
+      "source_symbols": [
+        "ForgeDecisionActionBar"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Fda.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Wlc",
+      "name": "WorkspaceLensControl",
+      "slug": "workspace-lens-control",
+      "type": "react-primitive",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/WorkspaceLensControl.tsx"
+      ],
+      "source_symbols": [
+        "WorkspaceLensControl"
+      ],
+      "root_selector": "[data-ks-react-root]",
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "family-covered",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Wlc.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Rpf",
+      "name": "React primitives family",
+      "slug": "fam-react-primitives",
+      "type": "primitive-family",
+      "family": "react-primitives",
+      "status": "active",
+      "source_paths": [
+        "react/TileDropdownControl.tsx",
+        "react/ForgeKeyValueGrid.tsx",
+        "react/ForgeStatusBanner.tsx",
+        "react/ForgeReviewPanel.tsx",
+        "react/ForgeDiagnosticPanel.tsx",
+        "react/ForgeWorkflowStageBar.tsx",
+        "react/ForgeEventTimeline.tsx",
+        "react/ForgeRunHeader.tsx",
+        "react/ForgeDecisionActionBar.tsx",
+        "react/WorkspaceLensControl.tsx"
+      ],
+      "source_symbols": [
+        "TileDropdownControl",
+        "ForgeKeyValueGrid",
+        "ForgeStatusBanner",
+        "ForgeReviewPanel",
+        "ForgeDiagnosticPanel",
+        "ForgeWorkflowStageBar",
+        "ForgeEventTimeline",
+        "ForgeRunHeader",
+        "ForgeDecisionActionBar",
+        "WorkspaceLensControl"
+      ],
+      "root_selector": null,
+      "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/forge-react-primitives.html",
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [
+        "Tdc",
+        "Fkg",
+        "Fsb",
+        "Fvw",
+        "Fdg",
+        "Fwb",
+        "Fen",
+        "Frh",
+        "Fda",
+        "Wlc"
+      ],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "Family contract lists covered react primitive hashes.",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Ksc",
+      "name": "Kitchen Sink stylesheets",
+      "slug": "fam-styles",
+      "type": "style-family",
+      "family": "css-styles",
+      "status": "active",
+      "source_paths": [
+        "css/forge-theme.css",
+        "css/forge-react-primitives.css",
+        "css/script-assembly.css",
+        "css/forge-fleet-admin.css",
+        "css/tile-dropdown.css",
+        "css/nested-roadmap.css",
+        "css/forgesdlc-theme.css",
+        "css/docs-theme.css",
+        "css/wizard-flow.css",
+        "css/workspace-lens.css",
+        "css/forgesdlc-pack-minimal.css",
+        "css/forgesdlc-pack-contrast.css",
+        "css/forgesdlc-pack-focus.css",
+        "css/forgesdlc-pack-showcase.css",
+        "css/forgesdlc-pack-enterprise.css",
+        "css/forge-data-charts.css",
+        "css/forge-ambient.css",
+        "css/forge-ambient-themes.css",
+        "css/ks-living-background.css",
+        "css/forge-light-theme.css",
+        "css/svg-background-gallery.css",
+        "css/ks-animated-backgrounds.css"
+      ],
+      "source_symbols": [],
+      "root_selector": null,
+      "contract": "docs/design/catalog/styles/Ksc-fam-styles.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Ksj",
+      "name": "Kitchen Sink interaction scripts",
+      "slug": "fam-scripts",
+      "type": "script-family",
+      "family": "js-modules",
+      "status": "active",
+      "source_paths": [
+        "js/nested-roadmap.js",
+        "js/showcase.js",
+        "js/forge-theme.js",
+        "js/ks-diagram-modal.js",
+        "js/forge-data-charts.js",
+        "js/roadmap-dates.js",
+        "js/ks-tilt-tiles.js",
+        "js/ks-diagram-catalog.js",
+        "js/ks-animated-backgrounds.js",
+        "js/forge-ambient.js",
+        "js/ks-living-motion.js",
+        "js/fs-home-expand-tiles.js",
+        "js/fs-nav-dropdown.js",
+        "js/diagram-modal-zoom.js",
+        "js/fs-presentation.js",
+        "js/svg-background-gallery.js",
+        "js/portal-nav.js",
+        "js/docs-nav.js"
+      ],
+      "source_symbols": [],
+      "root_selector": null,
+      "contract": "docs/design/catalog/interactions/Ksj-fam-scripts.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Ksv",
+      "name": "Kitchen Sink SVG diagram & schematic assets",
+      "slug": "fam-svg",
+      "type": "diagram-family",
+      "family": "svg-assets",
+      "status": "active",
+      "source_paths": [
+        "assets/svg/ambient/aurora-flow.svg",
+        "assets/svg/ambient/constellation-sweep.svg",
+        "assets/svg/ambient/contour-drift.svg",
+        "assets/svg/ambient/mesh-bloom.svg",
+        "assets/svg/ambient/orbit-field.svg",
+        "assets/svg/ambient/signal-river.svg",
+        "assets/svg/backgrounds/contours/bg-contour-depth-01.svg",
+        "assets/svg/backgrounds/contours/bg-contour-flow-01.svg",
+        "assets/svg/backgrounds/contours/bg-topology-soft-01.svg",
+        "assets/svg/backgrounds/dots/bg-dots-cluster-01.svg",
+        "assets/svg/backgrounds/dots/bg-dots-drift-01.svg",
+        "assets/svg/backgrounds/dots/bg-dots-field-01.svg",
+        "assets/svg/backgrounds/dots/bg-dots-pulse-01.svg",
+        "assets/svg/backgrounds/grids/bg-grid-pulse-01.svg",
+        "assets/svg/backgrounds/grids/bg-grid-shift-01.svg",
+        "assets/svg/backgrounds/grids/bg-hex-drift-01.svg",
+        "assets/svg/backgrounds/grids/bg-lattice-flow-01.svg",
+        "assets/svg/backgrounds/neurons/bg-neurons-cluster-01.svg",
+        "assets/svg/backgrounds/neurons/bg-neurons-pulsegraph-01.svg",
+        "assets/svg/backgrounds/neurons/bg-neurons-softmesh-01.svg",
+        "assets/svg/backgrounds/neurons/bg-neurons-synapse-01.svg",
+        "assets/svg/backgrounds/orbits/bg-orbit-minimal-01.svg",
+        "assets/svg/backgrounds/orbits/bg-orbit-node-01.svg",
+        "assets/svg/backgrounds/orbits/bg-pulse-ring-01.svg",
+        "assets/svg/backgrounds/orbits/bg-signal-beacon-01.svg",
+        "assets/svg/backgrounds/signals/bg-signal-trace-01.svg",
+        "assets/svg/backgrounds/sinusoids/bg-fourier-forge-spectral-01.svg",
+        "assets/svg/backgrounds/sinusoids/bg-fourier-forge-spectral-animated-01.svg",
+        "assets/svg/backgrounds/sinusoids/bg-sine-interference-01.svg",
+        "assets/svg/backgrounds/sinusoids/bg-sine-layered-01.svg",
+        "assets/svg/backgrounds/sinusoids/bg-sine-ribbon-01.svg",
+        "assets/svg/backgrounds/stars/bg-stars-drift-01.svg",
+        "assets/svg/backgrounds/stars/bg-stars-parallax-01.svg",
+        "assets/svg/backgrounds/stars/bg-stars-sparse-01.svg",
+        "assets/svg/layout-schematic-gallery.svg",
+        "assets/svg/layout-schematic-handbook.svg",
+        "assets/svg/layout-schematic-landing.svg",
+        "assets/svg/layout-schematic-product.svg",
+        "assets/svg/layout-schematic-showcase.svg",
+        "assets/svg/layout-schematic-split.svg",
+        "assets/svg/living/global/field-rails-01.svg",
+        "assets/svg/living/motifs/branch-rail-01.svg",
+        "assets/svg/living/motifs/converge-trace-01.svg",
+        "assets/svg/living/motifs/dual-rail-01.svg",
+        "assets/svg/living/motifs/frame-card-grid-01.svg",
+        "assets/svg/living/motifs/narrative-guides-01.svg",
+        "assets/svg/living/motifs/sparse-frame-01.svg",
+        "assets/svg/living/motifs/trace-flow-01.svg",
+        "assets/svg/template-area-chart.svg",
+        "assets/svg/template-bar-chart.svg",
+        "assets/svg/template-board-columns.svg",
+        "assets/svg/template-bullet-chart.svg",
+        "assets/svg/template-checklist.svg",
+        "assets/svg/template-decision-flow.svg",
+        "assets/svg/template-funnel.svg",
+        "assets/svg/template-gantt.svg",
+        "assets/svg/template-gate-chain.svg",
+        "assets/svg/template-gauge.svg",
+        "assets/svg/template-heatmap.svg",
+        "assets/svg/template-kpi-card.svg",
+        "assets/svg/template-line-chart.svg",
+        "assets/svg/template-linear-flow.svg",
+        "assets/svg/template-loop-cycle.svg",
+        "assets/svg/template-nested-donut.svg",
+        "assets/svg/template-network.svg",
+        "assets/svg/template-org-chart.svg",
+        "assets/svg/template-pie-donut.svg",
+        "assets/svg/template-quadrant.svg",
+        "assets/svg/template-radar.svg",
+        "assets/svg/template-roadmap.svg",
+        "assets/svg/template-scatter.svg",
+        "assets/svg/template-sequence.svg",
+        "assets/svg/template-stacked-bar.svg",
+        "assets/svg/template-state-machine.svg",
+        "assets/svg/template-swimlane.svg",
+        "assets/svg/template-timeline.svg",
+        "assets/svg/template-tree.svg",
+        "assets/svg/template-venn.svg",
+        "assets/svg/template-waterfall.svg"
+      ],
+      "source_symbols": [],
+      "root_selector": null,
+      "contract": "docs/design/catalog/diagrams/Ksv-fam-svg.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Kpr",
+      "name": "Python HTML renderer helpers",
+      "slug": "fam-python-renderers",
+      "type": "python-renderer-family",
+      "family": "python-components",
+      "status": "active",
+      "source_paths": [
+        "components/components.py",
+        "components/presentation.py",
+        "components/enterprise_marketing.py",
+        "components/marketing_sections.py",
+        "components/nested_roadmap.py",
+        "components/diagram_catalog.py",
+        "components/transforms.py",
+        "components/living_background.py",
+        "components/roadmap_date_editor.py",
+        "components/diagram_modal_fragment.py"
+      ],
+      "source_symbols": [],
+      "root_selector": null,
+      "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "Covers public render_* and related helpers inventoried under components/*.py",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Kdt",
+      "name": "Design terminology docs",
+      "slug": "fam-design-docs",
+      "type": "docs-family",
+      "family": "docs-terminology",
+      "status": "active",
+      "source_paths": [
+        "docs/design/forge-enterprise-ui.md",
+        "docs/design/forge-enterprise-ai-website-standard-v2-addendum.md",
+        "docs/design/forge-enterprise-ai-website-standard.md",
+        "docs/design/lenses-studio-shell.md",
+        "docs/design/wizard-flow-studio.md",
+        "docs/PAGE-LAYOUT-TAXONOMY.md"
+      ],
+      "source_symbols": [],
+      "root_selector": null,
+      "contract": "docs/design/catalog/page-types/Kdt-fam-design-terminology.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Kra",
+      "name": "Showcase React app sources",
+      "slug": "fam-showcase-react-app",
+      "type": "showcase-app-family",
+      "family": "showcase-react-app",
+      "status": "active",
+      "source_paths": [
+        "showcase-react-app/src/main.tsx"
+      ],
+      "source_symbols": [],
+      "root_selector": null,
+      "contract": "docs/design/catalog/pages/Kra-fam-showcase-react-app.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "Expand source_paths when inventory lists additional src files.",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Msm",
+      "name": "Museum studio desktop shell",
+      "slug": "museum-studio",
+      "type": "desktop-interface",
+      "family": "museum",
+      "status": "active",
+      "source_paths": [
+        "museum/studio/index.html"
+      ],
+      "source_symbols": [],
+      "root_selector": "body",
+      "contract": "docs/design/catalog/desktop-interfaces/Msm-museum-studio.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": "https://ks.forgesdlc.com/showcase/screenshots/Msm.png",
+      "screenshot_status": "planned",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "Static bundled studio;-marker optional—emit on body when paths are stable.",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    },
+    {
+      "hash": "Fad",
+      "name": "Forge-autodoc handbook consumer",
+      "slug": "forge-autodoc",
+      "type": "library-consumer",
+      "family": "forge-autodoc",
+      "status": "active",
+      "source_paths": [
+        "forge-autodoc/forge_autodoc/page.py",
+        "forge-autodoc/forge_autodoc/simple_build.py"
+      ],
+      "source_symbols": [],
+      "root_selector": "main",
+      "contract": "docs/design/catalog/page-types/Fad-forge-autodoc.md",
+      "contract_status": "own",
+      "showcase_url": null,
+      "screenshot_url": null,
+      "screenshot_status": "not-applicable",
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "Uses handbook_page and other layouts when building handbooks.",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": false
+    }
+  ]
+}

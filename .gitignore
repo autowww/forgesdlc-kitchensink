@@ -11,5 +11,11 @@ showcase-react-app/dist/
 # Website UX auditor (Node)
 tools/website-ux-auditor/node_modules/
 
+# Design catalog tooling (Node)
+tools/design-catalog/node_modules/
+
 # Forge Website UX auditor/scorer dimension history (local analysis)
 ux-scoring.csv
+
+# UX remediation loop outputs (ephemeral audit runs from tools/website-ux-auditor)
+workbench/

@@ -45,6 +45,8 @@ def assemble_handbook_page(
     json_ld_script: str = "",
     top_shell_html: str = "",
     handbook_sidebar_brand_tagline: str | None = None,
+    handbook_section_label_override: str | None = None,
+    minimal_shell: bool = False,
     extra_head_metas_html: str = "",
 ) -> str:
     """Render fragments into a complete document using KS ``handbook_page``."""
@@ -59,6 +61,7 @@ def assemble_handbook_page(
         render_template_banner,
         render_toc_sidebar,
     )
+    from ks_catalog_hashes import page_main_attrs
     from layouts import handbook_page
 
     ap = asset_href_prefix
@@ -100,6 +103,12 @@ def assemble_handbook_page(
         liv = liv[len("assets/") :]
     living_href = f"{ap}{liv}" if ap else living_background_global_href
 
+    section_label = (
+        handbook_section_label_override
+        if handbook_section_label_override is not None
+        else chrome.get("handbook.section_label", "Handbook")
+    )
+
     hp_kwargs = dict(
         browser_title=browser_title,
         handbook_name=handbook_name,
@@ -122,7 +131,8 @@ def assemble_handbook_page(
         living_background_global_href=living_href,
         asset_href_prefix=ap,
         html_lang=locale,
-        handbook_section_label=chrome.get("handbook.section_label", "Handbook"),
+        handbook_section_label=section_label,
+        minimal_shell=minimal_shell,
         skip_link_label=chrome.get("a11y.skip_to_content", "Skip to content"),
         open_nav_aria_label=chrome.get("a11y.open_navigation", "Open navigation"),
         sidebar_chapters_label=sidebar_chapters_label,
@@ -133,6 +143,7 @@ def assemble_handbook_page(
         top_shell_html=top_shell_html,
         handbook_sidebar_brand_tagline=handbook_sidebar_brand_tagline,
         extra_head_metas_html=extra_head_metas_html,
+        ks_page_attrs=page_main_attrs("handbook-chapter"),
     )
     filtered_hp = {k: v for k, v in hp_kwargs.items() if k in _hp_sig.parameters}
     return handbook_page(**filtered_hp)
