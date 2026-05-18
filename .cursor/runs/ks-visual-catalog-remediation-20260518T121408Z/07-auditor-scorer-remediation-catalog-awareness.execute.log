@@ -1,0 +1,27 @@
+Here is what was implemented for **phase 07**, scoped to the website UX tooling and plans.
+
+### Behavior
+
+1. **`lib/dom-metrics.js`** — Builds `ksVisualHashReport` in the browser: valid 3-letter hashes, invalid attribute values, `hash` vs `data-ks-hash` mismatches, incomplete pairs (only one attribute), and `instanceCountByHash`. Keeps **`ksVisualHashes`** as `validUnique` for compatibility.
+
+2. **`lib/visual-catalog.js`** — Shared helpers only on **generated JSON**: `registryDuplicateHashes`, `ksVisualHashReportFromHtmlBlob` (static HTML), `ksVisualHashReportFromMetrics` (DOM report or legacy `ksVisualHashes`), `summarizeVisualCatalogCoverage` (scorer rollup).
+
+3. **`checks/visual-catalog-awareness.js`** — Emits stable **`id`**s (e.g. `visual-catalog-unknown-hash`), **`hash`** / **`selector`** where relevant, **`warn`** for unknown / duplicate / incomplete markers / bad registry rows, paths cite **`visual-registry.generated.json`**. Registry duplicate rows fire **once per crawl** via a shared `ctx` flag. Handles **missing contract** when `contract_status` is `own` or `family-covered` but `contract` is empty.
+
+4. **`lib/severity.js`** — New **`warn`** between **major** and **minor** (`SCORE_WEIGHTS.warn = 14`). **`legacySeverityFrom`** updated so **major / warn / minor** stay in the **medium** band.
+
+5. **`score-website-ux.mjs` + `lib/design-ux-score.js`** — Adds **`visualCatalogCoverage`** to **`ux-quality-score.json`** and a **KS visual catalog coverage** section in **`ux-quality-score.md`** (no call into the auditor).
+
+6. **`analyze-website-ux.mjs`** — **`visualCatalogRemediationSection`** in Plan **07** lists **Affected visual**, **Design contract**, and **update both implementation and contract** for **known** hashes; **visual-catalog** included in findings. Static mode fills hash data via **`ksVisualHashReportFromHtmlBlob`**.
+
+7. **Tests** — Extended **`auditor-tests/visual-catalog-json.test.js`**, added **`auditor-tests/fixtures/catalog-dup-repo/`**, tightened **severity** / **design-ux-score** tests.
+
+### Evidence
+
+- **`.cursor/plans/ks-visual-catalog-remediation/07-auditor-scorer-remediation-catalog-awareness.md`** — phase summary + **`npm test`** result (**68 tests, all passing**, 2026-05-18).
+
+### Command
+
+```bash
+cd tools/website-ux-auditor && npm test
+```

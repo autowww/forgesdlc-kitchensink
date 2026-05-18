@@ -18,7 +18,7 @@ Use this runbook on **any** website repo that runs the Forge Website UX auditor 
 4. **Read** the generated report and structured data under the remediation output folder; treat **blocker, critical, and major** findings as mandatory work unless you explicitly waive them.
 5. **Fix root causes**: content (copy, headings, meta), navigation or layout shells, generator output, broken links that point at files not served by the static site—or, rarely, unjustified heuristic checks in **this** tooling (only after evidence and tests).
 6. **Rebuild**, **serve again**, and **audit again** with the **same live** invocation (**`--site`**, never **`--static-only`**) and the **same** budget shape.
-7. **Repeat** until a full **live** crawl records **zero** blocker, critical, or major findings **and** the crawl queue is empty at your chosen budget (or you accept orphaned pages with a tracked exception list).
+7. **Repeat** until a full **live** crawl records **zero** blocker, critical, or major findings **and** the crawl queue is empty at your chosen budget (or you accept orphaned pages with a tracked exception list). If the loop wrapper enables **`FORGE_UX_ENABLE_AI_AUDIT=1`**, run that AI-assisted pass only after this deterministic-clean state; treat its artifacts as advisory follow-up, not as a replacement for deterministic sign-off.
 8. **Shut down** the temporary local server used for auditing.
 
 Pass the finalized path to **`audit-report.md`**, **`audit-data.json`**, and any RCA prompts downstream to reviewers or to Cursor remediation plans already emitted beside them.
@@ -57,6 +57,8 @@ Treat these checks as **binding only after** a **`--site`** (Playwright) crawl a
 3. Check **`crawlSummary.queuedRemainingAtStop`** at your **`--max-pages`**: **`0`** means the crawler exhausted the same-origin frontier at that budget (good coverage signal). A non-zero queue with a **low** page cap means you may need a **higher** budget or seed URLs (project-specific).
 
 The numeric **`crawlSummary.majorPlusFindingCountTotal`** is cumulative during the crawl; under **`--breadth-crawl`** the **per-page `findings`** list is still the source of truth for sign-off.
+
+If you enable the loop’s post-clean AI pass, review **`ai-audit/ai-audit-report.md`** and **`ai-audit/ai-audit-data.json`** separately. Those findings are **AI-assisted and advisory**; they intentionally do not modify deterministic **`audit-data.json`** or the Major+ gating rules.
 
 ### Common finding families (fix at source)
 

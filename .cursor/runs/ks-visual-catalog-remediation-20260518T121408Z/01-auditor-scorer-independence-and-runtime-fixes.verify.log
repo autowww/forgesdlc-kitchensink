@@ -1,0 +1,52 @@
+VERDICT: PASS
+
+### Evidence
+
+- **YAML / `parse-registry` removed from auditor runtime:** `lib/visual-catalog.js` is JSON-only (`loadGeneratedRegistry` → `JSON.parse`, `existsSync`; local `entryByHash`) with no imports from design-catalog.
+
+```1:41:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/lib/visual-catalog.js
+/**
+ * KS visual hash catalog helpers for the website UX auditor/scorer.
+ * Reads only docs/design/catalog/visual-registry.generated.json (no YAML, no design-catalog runtime deps).
+ */
+// ... entryByHash, generatedRegistryPath, loadGeneratedRegistry — JSON/fs only ...
+```
+
+- **No ES-module import of `parse-registry.mjs`:** Grep under `tools/website-ux-auditor` for `parse-registry.mjs`, `design-catalog/lib`, or `from '...design-catalog...'` only hits **comments/strings** (e.g. test title, remediation hint), not `import`/runtime resolution.
+- **`fs` usage fixed:** `checks/visual-catalog-awareness.js` begins with `import fs from 'node:fs'` and uses `fs.existsSync` for contract paths.
+- **Missing/bad registry → finding, not crash:** When `ksVisualHashes` is non-empty but `loadGeneratedRegistry` returns `null` (missing file or invalid JSON → `catch` returns `null`), the check emits one **`minor`** finding with the expected JSON path in `evidence`.
+
+```29:43:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/checks/visual-catalog-awareness.js
+  const cat = loadCatalog(repoRoot);
+  if (!cat) {
+    return [
+      makeFinding({
+        checkId,
+        severity: 'minor',
+        area: 'visual-catalog',
+        message:
+          'KS visual hash markers were found in the DOM but visual-registry.generated.json is missing or unreadable for this repo root.',
+        evidence: `Expected ${path.join(repoRoot, 'docs/design/catalog/visual-registry.generated.json')}`,
+        // ...
+      }),
+    ];
+  }
+```
+
+- **Auditor/scorer separation:** `analyze-website-ux.mjs` and `score-website-ux.mjs` do not import each other (each wires `crawlAndAnalyze` / checks independently; shared logic is `lib/crawl.js` → `runAllChecks`). `scorePage` in `lib/scoring.js` is **not** the scorer CLI — naming overlap only.
+
+- **Scorer shares the same catalog path:** `lib/crawl.js` imports `runAllChecks`, which includes `visual-catalog-awareness`; both CLIs exercise the same JSON-only catalog loading when crawling with `--repo`.
+- **Tests + fixture:** `auditor-tests/visual-catalog-json.test.js` covers JSON load, missing-registry finding via `fixtures/minimal-repo`, and known vs unknown hash with `fixtures/catalog-json-repo/.../visual-registry.generated.json`. **`package.json`** has no `yaml` dependency (only Playwright dev).
+- **Plan / AC doc:** `.cursor/plans/ks-visual-catalog-remediation/01-auditor-scorer-independence-and-runtime-fixes.md` exists and documents changes plus a recorded **`npm test`** result (62 pass).
+
+### Missing work
+
+- None substantive relative to the written acceptance criteria. Optional hardening only: add an explicit unit test where the registry file exists but contains **invalid JSON** (behavior is already the same as “missing” via `loadGeneratedRegistry`’s `try/catch`).
+
+### Exact next actions
+
+1. **Re-run verification locally** (this session did not execute `npm test` because Ask mode disallows non-readonly commands):  
+   `cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor && npm test`
+2. If you want parity with the plan’s claim, confirm output still matches (**62 passed, 0 failed**) and refresh the dated “Validation” snippet in the plan if the count drifts after other edits.
+
+If you later want edits or CI wiring, switch to Agent mode.

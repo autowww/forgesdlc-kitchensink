@@ -107,6 +107,23 @@ function main() {
   const items = [];
   const now = new Date().toISOString().slice(0, 10);
 
+  function collectChromeSlugsFromPy(repoRoot) {
+    const slugs = new Set();
+    const relFiles = ['components/layouts.py', 'components/components.py'];
+    for (const rel of relFiles) {
+      const fp = path.join(repoRoot, rel);
+      if (!exists(fp)) continue;
+      const txt = readText(fp);
+      for (const m of txt.matchAll(/chrome_region_attrs\(\s*["']([^"']+)["']/g)) {
+        slugs.add(m[1]);
+      }
+      for (const m of txt.matchAll(/_chrome_space\(\s*["']([^"']+)["']/g)) {
+        slugs.add(m[1]);
+      }
+    }
+    return slugs;
+  }
+
   const layoutsPath = path.join(repo, 'components', 'layouts.py');
   if (exists(layoutsPath)) {
     const txt = readText(layoutsPath);
@@ -127,6 +144,22 @@ function main() {
         });
       }
     }
+  }
+
+  for (const slug of collectChromeSlugsFromPy(repo)) {
+    items.push({
+      proposed_name: `Chrome region: ${slug}`,
+      proposed_slug: slug,
+      proposed_type: 'chrome-region',
+      source_path: 'components/layouts.py',
+      source_symbol: slug,
+      visual_root_selector: 'layout chrome root (region-specific)',
+      showcase_path_guess: 'consumer layouts',
+      needs_own_contract: true,
+      family_group: 'chrome-regions',
+      confidence: 'high',
+      notes: 'Detected via chrome_region_attrs("…") in Python sources',
+    });
   }
 
   const pagesDir = path.join(repo, 'generator', 'pages');
@@ -193,6 +226,35 @@ function main() {
         notes: '',
       });
     }
+  }
+
+  const compPathsWithSymbols = new Set(
+    items
+      .filter(
+        (it) =>
+          String(it.source_path || '').startsWith('components/') &&
+          !String(it.source_path || '').includes('layouts.py'),
+      )
+      .map((it) => String(it.source_path || '').replace(/\\/g, '/')),
+  );
+  for (const py of walkDir(compDir, (f) => f.endsWith('.py'))) {
+    if (path.basename(py) === 'layouts.py') continue;
+    if (path.basename(py) === '__init__.py') continue;
+    const rel = path.relative(repo, py).replace(/\\/g, '/');
+    if (compPathsWithSymbols.has(rel)) continue;
+    items.push({
+      proposed_name: `Python components module (helpers-only): ${rel}`,
+      proposed_slug: `${path.basename(py, '.py')}-module-anchor`,
+      proposed_type: 'python-component-anchor',
+      source_path: rel,
+      source_symbol: null,
+      visual_root_selector: 'n/a',
+      showcase_path_guess: 'internal helpers',
+      needs_own_contract: false,
+      family_group: 'python-components',
+      confidence: 'high',
+      notes: 'No public render_* or _page symbol surfaced by main inventory pass; anchor for registry ↔ module mapping',
+    });
   }
 
   const reactDir = path.join(repo, 'react');

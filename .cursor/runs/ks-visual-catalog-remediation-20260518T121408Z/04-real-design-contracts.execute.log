@@ -1,0 +1,30 @@
+## Summary
+
+Phase **04** is done: registry-backed contracts are no longer stubbed with `TBD` / “Auto-stub” text, family roll-ups use **`## Covered children`**, and there is a single **page-type design guide** that covers all twelve archetypes you listed (plus cross-links to layouts/chrome/families).
+
+### Main additions
+
+- **`docs/design/catalog/page-types/Ks-page-type-design-guidelines.md`** — Per archetype: intent, first screen, hierarchy, nav, density, enterprise trust, responsive behavior, accessibility, forbidden patterns (plus a cross-reference table to hashes/families).
+- **54 unique contract files** under `docs/design/catalog/` were rewritten or aligned to the standard sections (Identity through Change policy / Changelog). **`Hdc`** was corrected so it describes **forge-autodoc** `assemble_handbook_page`, not a `generator/pages/...` museum page.
+- **Family contracts** (`Kpr`, `Ksv`, `Ksj`, `Ksc`, **`Rpf`/FAM**, **`Kdt`**, **`Kra`**, **`Msm`**, **`Fad`**) now include **Identity**, **Covered children** (or equivalent explicit lists), **Enterprise look and feel rules**, **Implementation notes**, **Screenshot acceptance**, and **Change policy** where appropriate.
+- **`docs/design/catalog/contract-template.md`** — Instructional template without stub bullets or fake `XYZ` demo hash in a way that would confuse scanners.
+- **`docs/design/catalog/README.md`** — Links the new guidelines doc.
+
+### Acceptance
+
+```bash
+node tools/design-catalog/check-visual-catalog.mjs \
+  --repo . \
+  --registry docs/design/catalog/visual-registry.yaml \
+  --showcase showcase \
+  --refresh-inventory \
+  --strict-contract-placeholders
+```
+
+**Exit 0** — `check-visual-catalog OK (91 entries).`
+
+### Evidence
+
+- **`.cursor/plans/ks-visual-catalog-remediation/04-real-design-contracts.md`** — Commands, registry counts (`own` 54, `family-covered` 37, **54** distinct contract paths), and notes.
+
+The one-off emitter script was **removed** after use so `tools/design-catalog/` does not keep throwaway tooling.

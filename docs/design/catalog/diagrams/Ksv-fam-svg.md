@@ -11,9 +11,19 @@ screenshot_status: "not-applicable"
 
 # Ksv — Kitchen Sink SVG diagram & schematic assets
 
+## Identity
+
+- **Hash:** Ksv
+- **Name:** Kitchen Sink SVG diagram & schematic assets
+- **Type:** diagram-family
+- **Category:** diagram / asset governance (no single DOM root)
+- **Source paths:** see frontmatter (representative template list + child bucket paths in Covered children)
+- **Showcase URL / status:** Assets appear inside diagram and gallery pages—not one dedicated family URL.
+- **Screenshot URL / status:** Not applicable for **`Ksv`** row; capture pages embedding each child hash.
+
 ## Purpose
 
-See [visual-registry.yaml](../visual-registry.yaml) and [contract-template.md](../contract-template.md). Expand this stub with anatomy, states, and a11y expectations.
+Govern reusable SVG motifs and templates consumed by generators, backgrounds, and diagram showcases. Child hashes (**`hMR`**, **`TXK`**, **`LkY`**, **`Zmg`**, **`Zxd`**) isolate ambient art, tiled backgrounds, layout schematics, living-background rails, and **`template-*`** archetypes.
 
 ## Expected look
 
@@ -21,35 +31,48 @@ Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md]
 
 ## Anatomy
 
-- TBD
+- **Ambient motifs (`hMR`):** decorative fills used behind hero or gallery surfaces.
+- **Tiled backgrounds (`TXK`):** repeatable patterns for large surfaces.
+- **Layout schematics (`LkY`):** canonical layout silhouettes per page family.
+- **Living rails (`Zmg`):** layered SVG inputs for motion-capable backgrounds.
+- **Templates (`Zxd`):** parameterized diagram archetypes (bars, timelines, matrices, etc.).
 
 ## Content rules
 
-- TBD
+- Templates remain label-neutral until consuming sites substitute final copy in Figma or CMS workflows.
+- Preserve viewBox consistency when editing so downstream CSS scaling stays predictable.
 
 ## States
 
-- Default
+- Static SVG defaults; optional animation hooks coordinate with **`TNH`** motion scripts only when explicitly enabled.
 
 ## Variants
 
-- TBD
+- Distinguished by filesystem grouping noted in **Per-group registry children**; do not cross-register templates onto schematic rows.
 
 ## Responsive behavior
 
-- TBD
+- Prefer vector scaling via CSS **`max-width: 100%`** / **`height: auto`** at consumption sites; avoid hard-coded pixel widths inside SVG unless intrinsic mini-glyphs.
 
 ## Accessibility contract
 
-- TBD
+- Decorative SVGs should expose **`role="img"`** with empty alt or **`aria-hidden="true"`** when purely ornamental; informative diagrams need textual equivalents where surfaced.
 
-## Enterprise look/feel rules
+## Enterprise look and feel rules
 
-- TBD
+- Palettes align with Forge tokens when layered behind KS pages; avoid neon extremes inconsistent with enterprise tone unless scoped to experimental demos.
 
 ## Forbidden patterns
 
-- TBD
+- Embedding raster snapshots inside SVG solely to bypass vector scaling benefits without documenting rationale.
+
+## Covered children
+
+- **hMR** — `assets/svg/ambient/*.svg` atmospheric motifs.
+- **TXK** — `assets/svg/backgrounds/**` tiled background library.
+- **LkY** — Layout schematics (`layout-schematic-*.svg` at repo root of `assets/svg/`).
+- **Zmg** — `assets/svg/living/**` living-background rails and motifs.
+- **Zxd** — `assets/svg/template-*.svg` reusable diagram type templates.
 
 ## Source paths
 
@@ -93,22 +116,21 @@ Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md]
 
 ## Dependencies
 
-- TBD
+- Consumers link assets via generators (`Kpr`) or static showcase pages; CSS from **`DVN`/`KEm`** may tint backgrounds hosting SVGs.
 
-## Showcase and screenshots
+## Implementation notes
 
-- n/a
-- Screenshot: planned
+- Reference child paths when adding SVGs; run inventory to ensure each path maps to **`hMR`**, **`TXK`**, **`LkY`**, **`Zmg`**, or **`Zxd`** rows.
 
-## Acceptance checklist
+## Screenshot acceptance
 
-- [ ] Root emits `hash="Ksv"` and matching `data-ks-hash`.
-- [ ] Registry row current.
+- Validate on diagram/gallery showcase pages: SVGs scale without clipping axis labels; print/export still readable.
 
-## Change rules
+## Change policy
 
-Keep hash for compatible refinements; allocate new hash for breaking visual identity changes.
+Keep **`Ksv`** hash for compatible additions; allocate new child hashes when a bucket splits visually (for example new ambient families).
 
 ## Changelog
 
-- Auto-stub generated — replace with authored contract.
+- Phase 03: replaced stub markers; clarified child buckets and accessibility expectations.
+- 2026-05-18 — Phase 04: Identity, Covered children, section alignment, wording cleanup.

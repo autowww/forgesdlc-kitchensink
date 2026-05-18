@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "repoRoot": "fixture-catalog-json-repo",
+  "entries": [
+    {
+      "hash": "Tst",
+      "name": "Fixture catalog entry",
+      "slug": "fixture-entry",
+      "type": "layout",
+      "status": "active",
+      "contract": null,
+      "contract_status": "not-applicable",
+      "aliases": []
+    }
+  ]
+}

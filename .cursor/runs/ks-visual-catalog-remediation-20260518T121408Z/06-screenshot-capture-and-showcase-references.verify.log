@@ -1,0 +1,43 @@
+VERDICT: PASS
+
+### Evidence (matches phase 06 + execution log)
+
+- **`capture-showcase-screenshots.mjs`** loads YAML via `loadRegistry` or `--registry-json`, serves `showcase/` with Node `http` when `--serve-showcase`, targets `[hash="…"], [data-ks-hash="…"]` with `body` fallback, writes `{HASH}.png` / `.mobile.png` / `.light.png`, optional `.dark.png` via `--write-dark-alias`, emits `screenshot-capture-report.{json,md}`, supports `--update-registry` (sets `screenshot_status: captured` + hosted `screenshot_url`), `--mirror-to-showcase`, Playwright `reducedMotion`, `deviceScaleFactor: 1`, and injected freeze CSS.
+
+```209:231:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/capture-showcase-screenshots.mjs
+async function captureOneHash(page, hash, outDir, opts) {
+  const sel = `[hash="${hash}"], [data-ks-hash="${hash}"]`;
+  const loc = page.locator(sel).first();
+  const count = await loc.count();
+  const target = count ? loc : page.locator('body');
+  // ...
+  await target.screenshot({ path: path.join(outDir, `${hash}.png`) });
+  // ...
+  await target.screenshot({ path: path.join(outDir, `${hash}.light.png`) });
+  // ...
+  await target.screenshot({ path: path.join(outDir, `${hash}.mobile.png`) });
+```
+
+- **Registry / counts**: 91 entries; `screenshot_status` counts **captured 48**, **not-applicable 41**, **blocked 2** — aligned with `docs/design/catalog/visual-registry-coverage.md` and the phase plan file.
+- **`emit_marker_in_showcase: true`**: exactly **48** rows, all **`captured`** (none stuck in `planned` / `missing`).
+- **Blocked rows**: **Kra**, **Msm** include `screenshot_reason`; **`emit_marker_in_showcase: false`** for both — consistent with “not static showcase HTML.”
+- **Shw / Gly**: `showcase_url` points at `layouts.html` / `diagrams.html`; capture report lists **Shw** on `layouts.html` (and **Gly** would be on `diagrams.html` per registry).
+- **Artifacts**: **144** PNGs under `docs/design/catalog/screenshots/` and **144** under `showcase/screenshots/` (= 48 hashes × 3 variants); `screenshot-capture-report.json` present with recent `generatedAt`.
+- **Captured rows**: every `captured` hash has a matching `{HASH}.png` on disk and `screenshot_url` exactly `https://ks.forgesdlc.com/showcase/screenshots/{HASH}.png` (validated programmatically).
+- **`not-applicable`**: all 41 rows have at least one of `screenshot_reason`, non-empty `notes`, or `screenshot_url` (phase “reason” satisfied in data).
+- **Docs**: `docs/design/catalog/README.md` and `docs/design/catalog/screenshots/README.md` document the commands; **`.cursor/plans/.../06-screenshot-capture-and-showcase-references.md`** records criteria, status table, blocked reasons, and commands.
+- **`check-visual-catalog.mjs`**: allows `blocked` in `SCREENSHOT_STATUSES` and applies the documentation rule for **`planned` / `missing` / `blocked`** (not for `not-applicable` in code — see gaps).
+
+### Missing work / residual risk (does not overturn PASS)
+
+1. **Checker vs policy**: Phase text says **`not-applicable` requires a reason**; `check-visual-catalog.mjs` only enforces “reason” for `planned`, `missing`, and `blocked`, **not** `not-applicable`. Today’s YAML complies, but bad future edits would not be caught by CI until someone notices.
+2. **`visual-registry-coverage.md`** lists screenshot statuses with non-zero counts only — it does **not** print explicit **`planned: 0` / `missing: 0`** lines; the phase plan file does, which is enough for the phase artifact requirement.
+3. **Recommended `HASH.dark.png`**: Default output uses **`HASH.png` as the dark desktop baseline**; `.dark.png` is optional. Naming differs slightly from the phase’s “recommended” list but behavior and docs are coherent.
+
+### Exact next actions (optional hardening)
+
+1. Extend **`check-visual-catalog.mjs`** so **`screenshot_status: not-applicable`** requires the same documentation triplet as blocked/planned (`screenshot_url`, `notes`, or `screenshot_reason`).
+2. Optionally extend **`visual-registry-coverage.md` generation** to always emit zero-count rows for every allowed `screenshot_status` (including `planned` / `missing`) so reports stay symmetrical with the phase table.
+3. Operational: decide repo policy for **~78 MiB** of tracked PNGs vs **Git LFS** / ignore + CI-generated artifacts (already noted in the execution log).
+
+*(Ask mode: acceptance checks above used read-only inspection plus local `python3`/`pathlib` reads against your tree; I did not rerun Playwright, `npm test`, or `check-visual-catalog`.)*

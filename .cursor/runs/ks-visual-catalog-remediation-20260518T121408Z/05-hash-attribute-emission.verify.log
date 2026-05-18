@@ -1,0 +1,90 @@
+VERDICT: PASS
+
+## Evidence
+
+**Museum/static surfaces (`Msm`, `vYA`)**
+
+- `#root` in `museum/studio/index.html` includes the required quartet (`hash`, `data-ks-hash`, `data-ks-type`, `data-ks-name`).
+
+```20:26:museum/studio/index.html
+    <div
+      id="root"
+      hash="Msm"
+      data-ks-hash="Msm"
+      data-ks-type="desktop-interface"
+      data-ks-name="museum-studio"
+    ></div>
+```
+
+- Root `<svg>` in `museum/studio/icons.svg` and `museum/studio/favicon.svg` include the same four attributes with `vYA` / `museum-chrome-asset` / `museum-studio-chrome-graphics` (confirmed in-repo).
+
+**Registry alignment**
+
+- `visual-registry.yaml` ties **`Msm`** to `museum/studio/index.html` and **`vYA`** to both `museum/studio/icons.svg` and `museum/studio/favicon.svg` under one row (`museum studio chrome graphics`), so repeating **`vYA`** on two files is intentional (two delivery artifacts for one cataloged visual), not unrelated reuse of one hash across two independent registry visuals.
+
+**Checker behavior**
+
+- `check-visual-catalog.mjs` documents museum validation in the header and implements a pass over `emits_html` rows whose `source_paths` are under `museum/studio/` and end in `.html` or `.svg`, requiring both `hash="<Hhh>"` and `data-ks-hash="<Hhh>"`:
+
+```599:624:tools/design-catalog/check-visual-catalog.mjs
+  // Museum studio bootstrap HTML + co-shipped SVG chrome (paths under museum/studio/, not showcase/).
+  for (const e of entries) {
+    if (!e.emits_html) continue;
+    ...
+      const has = txt.includes(`hash="${h}"`) && txt.includes(`data-ks-hash="${h}"`);
+      if (!has) {
+        errors.push(
+          regMsg(
+            h,
+            e.type,
+            norm,
+            e.contract ?? null,
+            `missing both hash="${h}" and data-ks-hash="${h}" in ${norm}`,
+          ),
+        );
+      }
+```
+
+**Central helpers**
+
+- Python: `components/ks_hash_attrs.py` emits the full quartet in one fragment.
+
+```29:35:components/ks_hash_attrs.py
+def ks_hash_attrs(hash_id: str, visual_type: str, name: str) -> str:
+    """Return HTML attribute fragment for a visual root (values escaped)."""
+    _validate_hash(hash_id)
+    return (
+        f'hash="{e(hash_id)}" data-ks-hash="{e(hash_id)}" '
+        f'data-ks-type="{e(visual_type)}" data-ks-name="{e(name)}"'
+    )
+```
+
+- React: `react/ksVisualAttrs.ts` defines the same props.
+
+**Counts and plan artifact**
+
+- Summing grep output for `showcase/**/*.html` and `data-ks-hash=` yields **172** line matches (matches the execution log).
+- `museum/studio/` has **3** `data-ks-hash=` lines (shell + two SVG roots), matching the log.
+- `.cursor/plans/ks-visual-catalog-remediation/05-hash-attribute-emission.md` documents scope, acceptance table, commands, and those counts.
+
+**Showcase/sample HTML**
+
+- Example: `showcase/forge-react-primitives.html` includes paired layout/page/chrome markers (e.g. `hash="Frp"` … `data-ks-hash="Frp"` on `<main>`), consistent with the phase goal.
+
+*(In this Ask session the build and `node … check-visual-catalog.mjs …` commands were **not** re-run; the log claims they passed are treated as unverified here but aligned with static evidence.)*
+
+## Missing work / softer gaps
+
+- **Automated tests / snapshots:** The phase mentions “tests or snapshot checks where feasible”; the execution log does not record new tests. That is optional wording, but it is unchecked from a strict evidence standpoint.
+- **Broad “inspect every listed area”:** The remediation focuses on museum + checker; other areas (`components/layouts.py`, every `generator/*`, CSS/JS wrappers) are asserted as already covered helpers rather than re-audited line-by-line in the log—reasonable if Phase 05 is scoped as “museum gap + enforcement,” but it is narrower than listing every bullet as newly verified.
+- **Non-showcase `emits_html` sources (e.g. forge-autodoc `.py`):** The museum checker covers `museum/studio/` HTML/SVG only; `.py` paths remain outside that block (markers expected via shared layout/chrome helpers when consumers build)—not contradictory, but coverage is architectural, not literal per-`.py` file pairing.
+
+## Exact next actions
+
+1. On your machine, re-run verification from the repo root:  
+   `python3 generator/build-showcase.py`  
+   then  
+   `node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase`  
+   and confirm exit code **0**.
+2. Repeat the documented greps (`data-ks-hash=` in `showcase/`, `museum/studio/`) if you want to refresh counts after further edits.
+3. If you want Phase 05 “complete with tests,” add a minimal regression test or snapshot (e.g. fixture repo + checker invocation, or a small script/assert on museum files) keyed to **`Msm`** / **`vYA`** pairing—optional per the phase text.

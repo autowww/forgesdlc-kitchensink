@@ -67,6 +67,9 @@ function main() {
   } else {
     for (const c of catalog) console.log(`- ${c}`);
   }
+  console.log(
+    '\nNext — refresh inventory + catalog check:\n  node tools/design-catalog/inventory-ks-visuals.mjs --repo . --out docs/design/catalog/visual-inventory.generated.json\n  node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase\n',
+  );
 }
 
 main();

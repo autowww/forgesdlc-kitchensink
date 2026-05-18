@@ -1,0 +1,21 @@
+VERDICT: PASS
+
+## Evidence
+
+- **Plan / counts:** `.cursor/plans/ks-visual-catalog-remediation/04-real-design-contracts.md` documents 91 registry entries, 54 `own` / 37 `family-covered`, 54 distinct contract paths, the Phase 04 section list, and the acceptance command with claimed exit 0.
+- **Page-type guidance:** `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` covers all twelve archetypes from the phase (public product landing through desktop studio) with the requested dimensions expressed as bold fields (e.g. **User intent**, **First-screen requirements**, … **Forbidden patterns**) plus a **Cross-reference** table and changelog.
+- **Family `## Covered children`:** Present on the family roll-ups under `docs/design/catalog/` (e.g. `FAM-react-primitives.md` lists child hashes in a table; `Kpr`, `Ksv`, `Ksj`, `Ksc`, `Kdt`, `Kra`, `Msm` also have `## Covered children`). `Fad-forge-autodoc.md` is `contract_status: own`, so it correctly does **not** need a family children section.
+- **Stub / placeholder bullets:** No `- TBD`, `- TODO`, or `- FIXME` lines under `docs/design/catalog/**/*.md` (grep). The strict scanner only flags those bullet forms (see `tools/design-catalog/lib/contract-placeholders.mjs`).
+- **Section coverage spot-check:** Registry-backed contracts (e.g. `layouts/Ldg-layout-landing.md`, `page-types/Fad-forge-autodoc.md`, `primitives/FAM-react-primitives.md`) include the Phase 04 heading set through `## Change policy` / `## Changelog`. The same pattern holds across the catalog `*-*` contract set, including `## Enterprise look and feel rules`.
+- **Automated check:** `node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase --strict-contract-placeholders` exited **0** with `check-visual-catalog OK (91 entries).`
+
+## Missing work / caveats
+
+- **Supplemental guidelines vs contract template:** `Ks-page-type-design-guidelines.md` is not structured with the same `## Identity` … `## Change policy` headings as registry contracts; it uses per–page-type `##` sections and bold sub-fields, plus a trailing **Change policy:** paragraph. That matches the phase’s “page-level guidance” intent but is not a literal copy of the contract skeleton.
+- **Canonical acceptance command side effects:** The phase’s documented command includes `--refresh-inventory`, which regenerates inventory artifacts. Even **without** `--refresh-inventory`, `check-visual-catalog.mjs` reported writing `docs/design/catalog/visual-registry-coverage.md`, so a “verification only” run is not a no-op on disk.
+
+## Exact next actions
+
+1. If you need a **clean tree** after verification, run `git restore docs/design/catalog/visual-registry-coverage.md` (and any other generated files if you used `--refresh-inventory`).
+2. **CI truth:** Confirm `.github/workflows/ci.yml` runs the catalog check with `--strict-contract-placeholders` (or equivalent) so this phase stays enforced on merge.
+3. **Optional consistency polish:** Promote the trailing **Change policy:** line in `Ks-page-type-design-guidelines.md` to a `## Change policy` section if you want every catalog design doc to mirror the same heading scheme as own contracts (not required for registry validation).

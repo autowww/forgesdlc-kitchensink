@@ -25,8 +25,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-handbook.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Hbk.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout
+    emits_html: true
   - family: layouts
     aliases: []
     parent_hash: null
@@ -53,8 +55,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-chapter.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Chp.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout
+    emits_html: true
   - family: layouts
     aliases: []
     parent_hash: null
@@ -81,8 +85,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-product.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Prd.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout
+    emits_html: true
   - family: layouts
     aliases: []
     parent_hash: null
@@ -107,10 +113,12 @@ entries:
     root_selector: div.container-fluid.px-0
     contract: docs/design/catalog/layouts/Shw-layout-showcase.md
     contract_status: own
-    showcase_url: null
+    showcase_url: https://ks.forgesdlc.com/showcase/layouts.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Shw.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout
+    emits_html: true
   - family: layouts
     aliases: []
     parent_hash: null
@@ -137,8 +145,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-landing.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Ldg.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout
+    emits_html: true
   - family: layouts
     aliases: []
     parent_hash: null
@@ -165,8 +175,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-marketing.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Mkt.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout
+    emits_html: true
   - family: layouts
     aliases: []
     parent_hash: null
@@ -193,8 +205,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-listing.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Lst.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout
+    emits_html: true
   - family: layouts
     aliases: []
     parent_hash: null
@@ -219,10 +233,12 @@ entries:
     root_selector: div.container-fluid.px-0
     contract: docs/design/catalog/layouts/Gly-layout-gallery.md
     contract_status: own
-    showcase_url: null
+    showcase_url: https://ks.forgesdlc.com/showcase/diagrams.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Gly.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout
+    emits_html: true
   - family: layouts
     aliases: []
     parent_hash: null
@@ -249,8 +265,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-split.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Spl.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -277,8 +295,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/index.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Idx.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -305,8 +325,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/tokens.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Tkn.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -333,8 +355,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/controls.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Ctr.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -361,8 +385,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/navigation.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Nav.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -389,8 +415,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/surfaces.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Srf.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -417,8 +445,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/presentation.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Pnz.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -445,8 +475,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/enterprise-marketing.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Enm.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -473,8 +505,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/for-agents.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Fag.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -501,8 +535,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/layouts.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Lyt.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -529,8 +565,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/split-layout.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Slt.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -557,8 +595,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/nested-roadmap.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Ndr.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -585,8 +625,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Frp.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -613,8 +655,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/react-primitives-live.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Rpl.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -641,8 +685,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/ks-creation-mindmap.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Kcm.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -669,8 +715,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/data-charts-static.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Dcs.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -697,8 +745,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/data-charts-api.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Dca.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -725,8 +775,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/diagram-code-examples.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Dce.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -753,8 +805,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/diagrams.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Dgm.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -781,8 +835,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/svg-backgrounds.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Sgb.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -809,8 +865,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/motion.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Mtn.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -837,8 +895,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/forge-ambient.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Fam.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: showcase-pages
     aliases: []
     parent_hash: null
@@ -865,8 +925,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/living-background.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Lvg.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: page
+    emits_html: true
   - family: layout-previews
     aliases: []
     parent_hash: null
@@ -893,8 +955,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-split.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Vsp.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout-preview
+    emits_html: true
   - family: layout-previews
     aliases: []
     parent_hash: null
@@ -921,8 +985,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-handbook.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Vhb.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout-preview
+    emits_html: true
   - family: layout-previews
     aliases: []
     parent_hash: null
@@ -949,8 +1015,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-chapter.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Vcp.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout-preview
+    emits_html: true
   - family: layout-previews
     aliases: []
     parent_hash: null
@@ -977,8 +1045,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-product.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Vpd.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout-preview
+    emits_html: true
   - family: layout-previews
     aliases: []
     parent_hash: null
@@ -1005,8 +1075,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-marketing.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Vmk.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout-preview
+    emits_html: true
   - family: layout-previews
     aliases: []
     parent_hash: null
@@ -1033,8 +1105,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-listing.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Vlg.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout-preview
+    emits_html: true
   - family: layout-previews
     aliases: []
     parent_hash: null
@@ -1061,8 +1135,10 @@ entries:
     contract_status: own
     showcase_url: https://ks.forgesdlc.com/showcase/preview-landing.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Vln.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: layout-preview
+    emits_html: true
   - family: chrome-regions
     aliases: []
     parent_hash: null
@@ -1086,13 +1162,15 @@ entries:
       - handbook_page
       - chapter_page
       - showcase_page
-    root_selector: "aside.forge-sidebar"
+    root_selector: aside.forge-sidebar
     contract: docs/design/catalog/chrome/Ksr-doc-sidebar.md
     contract_status: own
     showcase_url: null
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: chrome-region
+    emits_html: true
   - family: chrome-regions
     aliases: []
     parent_hash: null
@@ -1123,6 +1201,8 @@ entries:
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: chrome-region
+    emits_html: true
   - family: chrome-regions
     aliases: []
     parent_hash: null
@@ -1147,13 +1227,15 @@ entries:
       - chapter_page
       - showcase_page
       - product_page
-    root_selector: ".ks-site-footer-region"
+    root_selector: .ks-site-footer-region
     contract: docs/design/catalog/chrome/Ksf-site-footer.md
     contract_status: own
     showcase_url: null
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: chrome-region
+    emits_html: true
   - family: chrome-regions
     aliases: []
     parent_hash: null
@@ -1175,13 +1257,15 @@ entries:
       - components/layouts.py
     source_symbols:
       - showcase_page
-    root_selector: ".ks-doc-breadcrumb"
+    root_selector: .ks-doc-breadcrumb
     contract: docs/design/catalog/chrome/Kbc-doc-breadcrumb.md
     contract_status: own
     showcase_url: null
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: chrome-region
+    emits_html: true
   - family: chrome-regions
     aliases: []
     parent_hash: null
@@ -1206,13 +1290,15 @@ entries:
       - render_toc_sidebar
       - showcase_page
       - chapter_page
-    root_selector: ".col-lg-4.col-xl-3.order-1.order-lg-2"
+    root_selector: .col-lg-4.col-xl-3.order-1.order-lg-2
     contract: docs/design/catalog/chrome/Ktx-doc-toc-sidebar.md
     contract_status: own
     showcase_url: null
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: chrome-region
+    emits_html: true
   - family: chrome-regions
     aliases: []
     parent_hash: null
@@ -1234,13 +1320,15 @@ entries:
       - components/layouts.py
     source_symbols:
       - product_page
-    root_selector: "nav.fs-primary-nav-global"
+    root_selector: nav.fs-primary-nav-global
     contract: docs/design/catalog/chrome/Kpn-product-primary-nav.md
     contract_status: own
     showcase_url: null
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: chrome-region
+    emits_html: true
   - family: handbook-pages
     aliases: []
     parent_hash: null
@@ -1269,6 +1357,8 @@ entries:
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: page
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1295,8 +1385,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Tdc.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1323,8 +1415,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Fkg.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1351,8 +1445,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Fsb.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1379,8 +1475,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Fvw.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1407,8 +1505,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Fdg.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1435,8 +1535,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Fwb.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1463,8 +1565,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Fen.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1491,8 +1595,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Frh.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1519,8 +1625,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Fda.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1547,8 +1655,10 @@ entries:
     contract_status: family-covered
     showcase_url: https://ks.forgesdlc.com/showcase/forge-react-primitives.html
     screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Wlc.png
-    screenshot_status: planned
+    screenshot_status: captured
     emit_marker_in_showcase: true
+    category: react-primitive
+    emits_html: true
   - family: react-primitives
     aliases: []
     parent_hash: null
@@ -1605,15 +1715,22 @@ entries:
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: primitive-family
+    emits_html: false
   - family: css-styles
     aliases: []
     parent_hash: null
-    child_hashes: []
+    child_hashes:
+      - Ech
+      - Mar
+      - DVN
+      - FXK
+      - KEm
     accessibility_notes: null
     responsive_notes: null
     owner: forge-ks
     last_reviewed: null
-    notes: ""
+    notes: Parent roll-up; each CSS file is registered on a child visual-style row.
     hash_exception_reason: null
     design_standard_refs:
       - docs/design/forge-enterprise-ai-website-standard.md
@@ -1621,30 +1738,9 @@ entries:
     name: Kitchen Sink stylesheets
     slug: fam-styles
     type: style-family
+    category: stylesheet-family
     status: active
-    source_paths:
-      - css/forge-theme.css
-      - css/forge-react-primitives.css
-      - css/script-assembly.css
-      - css/forge-fleet-admin.css
-      - css/tile-dropdown.css
-      - css/nested-roadmap.css
-      - css/forgesdlc-theme.css
-      - css/docs-theme.css
-      - css/wizard-flow.css
-      - css/workspace-lens.css
-      - css/forgesdlc-pack-minimal.css
-      - css/forgesdlc-pack-contrast.css
-      - css/forgesdlc-pack-focus.css
-      - css/forgesdlc-pack-showcase.css
-      - css/forgesdlc-pack-enterprise.css
-      - css/forge-data-charts.css
-      - css/forge-ambient.css
-      - css/forge-ambient-themes.css
-      - css/ks-living-background.css
-      - css/forge-light-theme.css
-      - css/svg-background-gallery.css
-      - css/ks-animated-backgrounds.css
+    source_paths: []
     source_symbols: []
     root_selector: null
     contract: docs/design/catalog/styles/Ksc-fam-styles.md
@@ -1653,15 +1749,183 @@ entries:
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
-  - family: js-modules
+    emits_html: false
+  - family: css-styles
     aliases: []
-    parent_hash: null
+    parent_hash: Ksc
     child_hashes: []
     accessibility_notes: null
     responsive_notes: null
     owner: forge-ks
     last_reviewed: null
-    notes: ""
+    notes: Base Forge / handbook / product theme surfaces.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Ech
+    name: Core site themes
+    slug: style-core-themes
+    type: visual-style
+    category: stylesheet
+    status: active
+    source_paths:
+      - css/forge-theme.css
+      - css/forgesdlc-theme.css
+      - css/docs-theme.css
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/styles/Ksc-fam-styles.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: css-styles
+    aliases: []
+    parent_hash: Ksc
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Preset theme packs and alternate light theme.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Mar
+    name: Theme packs and light theme
+    slug: style-theme-packs
+    type: visual-style
+    category: stylesheet
+    status: active
+    source_paths:
+      - css/forgesdlc-pack-minimal.css
+      - css/forgesdlc-pack-contrast.css
+      - css/forgesdlc-pack-focus.css
+      - css/forgesdlc-pack-showcase.css
+      - css/forgesdlc-pack-enterprise.css
+      - css/forge-light-theme.css
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/styles/Ksc-fam-styles.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: css-styles
+    aliases: []
+    parent_hash: Ksc
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Shared component, assembly, roadmap, chart, diagram, and motion surfaces.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: DVN
+    name: Shared UI and diagram surfaces
+    slug: style-shared-ui-surfaces
+    type: visual-style
+    category: stylesheet
+    status: active
+    source_paths:
+      - css/forge-react-primitives.css
+      - css/script-assembly.css
+      - css/tile-dropdown.css
+      - css/nested-roadmap.css
+      - css/forge-data-charts.css
+      - css/svg-background-gallery.css
+      - css/ks-animated-backgrounds.css
+      - css/ks-living-background.css
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/styles/Ksc-fam-styles.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: css-styles
+    aliases: []
+    parent_hash: Ksc
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Desktop-adjacent chrome (Fleet admin, wizard, workspace lens).
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: FXK
+    name: Desktop app chrome styles
+    slug: style-desktop-chrome
+    type: visual-style
+    category: stylesheet
+    status: active
+    source_paths:
+      - css/forge-fleet-admin.css
+      - css/wizard-flow.css
+      - css/workspace-lens.css
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/styles/Ksc-fam-styles.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: css-styles
+    aliases: []
+    parent_hash: Ksc
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Ambient background layers and theme variants.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: KEm
+    name: Ambient and atmospheric styles
+    slug: style-ambient-layers
+    type: visual-style
+    category: stylesheet
+    status: active
+    source_paths:
+      - css/forge-ambient.css
+      - css/forge-ambient-themes.css
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/styles/Ksc-fam-styles.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: js-modules
+    aliases: []
+    parent_hash: null
+    child_hashes:
+      - LJa
+      - TNH
+      - Kfr
+      - pUW
+      - Bru
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Parent roll-up; each JS module is registered on a child interaction-script row.
     hash_exception_reason: null
     design_standard_refs:
       - docs/design/forge-enterprise-ai-website-standard.md
@@ -1669,26 +1933,9 @@ entries:
     name: Kitchen Sink interaction scripts
     slug: fam-scripts
     type: script-family
+    category: interaction-family
     status: active
-    source_paths:
-      - js/nested-roadmap.js
-      - js/showcase.js
-      - js/forge-theme.js
-      - js/ks-diagram-modal.js
-      - js/forge-data-charts.js
-      - js/roadmap-dates.js
-      - js/ks-tilt-tiles.js
-      - js/ks-diagram-catalog.js
-      - js/ks-animated-backgrounds.js
-      - js/forge-ambient.js
-      - js/ks-living-motion.js
-      - js/fs-home-expand-tiles.js
-      - js/fs-nav-dropdown.js
-      - js/diagram-modal-zoom.js
-      - js/fs-presentation.js
-      - js/svg-background-gallery.js
-      - js/portal-nav.js
-      - js/docs-nav.js
+    source_paths: []
     source_symbols: []
     root_selector: null
     contract: docs/design/catalog/interactions/Ksj-fam-scripts.md
@@ -1697,15 +1944,179 @@ entries:
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
-  - family: svg-assets
+    emits_html: false
+  - family: js-modules
     aliases: []
-    parent_hash: null
+    parent_hash: Ksj
     child_hashes: []
     accessibility_notes: null
     responsive_notes: null
     owner: forge-ks
     last_reviewed: null
-    notes: ""
+    notes: Navigation, docs tree, showcase chrome; client nav behaviors.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: LJa
+    name: Portal, docs, and nav interactions
+    slug: script-nav-and-docs
+    type: interaction-script
+    category: interaction
+    status: active
+    source_paths:
+      - js/portal-nav.js
+      - js/docs-nav.js
+      - js/fs-nav-dropdown.js
+      - js/showcase.js
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/interactions/Ksj-fam-scripts.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: js-modules
+    aliases: []
+    parent_hash: Ksj
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Theme toggles, ambient motion, animated backgrounds, living motion, SVG gallery.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: TNH
+    name: Theme, ambient, and motion
+    slug: script-theme-ambient-motion
+    type: interaction-script
+    category: interaction
+    status: active
+    source_paths:
+      - js/forge-theme.js
+      - js/forge-ambient.js
+      - js/ks-living-motion.js
+      - js/ks-animated-backgrounds.js
+      - js/svg-background-gallery.js
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/interactions/Ksj-fam-scripts.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: js-modules
+    aliases: []
+    parent_hash: Ksj
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Diagram modals, zoom, catalog browsing, and chart rendering.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Kfr
+    name: Diagram and chart interactions
+    slug: script-diagrams-charts
+    type: interaction-script
+    category: interaction
+    status: active
+    source_paths:
+      - js/ks-diagram-modal.js
+      - js/diagram-modal-zoom.js
+      - js/ks-diagram-catalog.js
+      - js/forge-data-charts.js
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/interactions/Ksj-fam-scripts.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: js-modules
+    aliases: []
+    parent_hash: Ksj
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Nested roadmap rendering and date editing.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: pUW
+    name: Roadmap interactions
+    slug: script-roadmap
+    type: interaction-script
+    category: interaction
+    status: active
+    source_paths:
+      - js/nested-roadmap.js
+      - js/roadmap-dates.js
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/interactions/Ksj-fam-scripts.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: js-modules
+    aliases: []
+    parent_hash: Ksj
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Marketing tiles, tilt, expand, and presentation helpers.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Bru
+    name: Tiles and presentation
+    slug: script-tiles-presentation
+    type: interaction-script
+    category: interaction
+    status: active
+    source_paths:
+      - js/fs-presentation.js
+      - js/ks-tilt-tiles.js
+      - js/fs-home-expand-tiles.js
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/interactions/Ksj-fam-scripts.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: svg-assets
+    aliases: []
+    parent_hash: null
+    child_hashes:
+      - hMR
+      - TXK
+      - LkY
+      - Zmg
+      - Zxd
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Parent roll-up; SVG library paths are partitioned into diagram-asset-group children.
     hash_exception_reason: null
     design_standard_refs:
       - docs/design/forge-enterprise-ai-website-standard.md
@@ -1713,6 +2124,35 @@ entries:
     name: Kitchen Sink SVG diagram & schematic assets
     slug: fam-svg
     type: diagram-family
+    category: diagram-family
+    status: active
+    source_paths: []
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/diagrams/Ksv-fam-svg.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: false
+  - family: svg-assets
+    aliases: []
+    parent_hash: Ksv
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Atmospheric inline SVG motifs for animated backgrounds.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: hMR
+    name: Ambient SVG motifs
+    slug: svg-ambient-motifs
+    type: diagram-asset-group
+    category: diagram
     status: active
     source_paths:
       - assets/svg/ambient/aurora-flow.svg
@@ -1721,6 +2161,34 @@ entries:
       - assets/svg/ambient/mesh-bloom.svg
       - assets/svg/ambient/orbit-field.svg
       - assets/svg/ambient/signal-river.svg
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/diagrams/Ksv-fam-svg.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: svg-assets
+    aliases: []
+    parent_hash: Ksv
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Tiled background library for hero and section depth.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: TXK
+    name: Background SVG library
+    slug: svg-background-library
+    type: diagram-asset-group
+    category: diagram
+    status: active
+    source_paths:
       - assets/svg/backgrounds/contours/bg-contour-depth-01.svg
       - assets/svg/backgrounds/contours/bg-contour-flow-01.svg
       - assets/svg/backgrounds/contours/bg-topology-soft-01.svg
@@ -1749,12 +2217,68 @@ entries:
       - assets/svg/backgrounds/stars/bg-stars-drift-01.svg
       - assets/svg/backgrounds/stars/bg-stars-parallax-01.svg
       - assets/svg/backgrounds/stars/bg-stars-sparse-01.svg
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/diagrams/Ksv-fam-svg.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: svg-assets
+    aliases: []
+    parent_hash: Ksv
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Layout anatomy schematics used in docs and showcases.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: LkY
+    name: Layout schematic SVGs
+    slug: svg-layout-schematics
+    type: diagram-asset-group
+    category: diagram
+    status: active
+    source_paths:
       - assets/svg/layout-schematic-gallery.svg
       - assets/svg/layout-schematic-handbook.svg
       - assets/svg/layout-schematic-landing.svg
       - assets/svg/layout-schematic-product.svg
       - assets/svg/layout-schematic-showcase.svg
       - assets/svg/layout-schematic-split.svg
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/diagrams/Ksv-fam-svg.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: svg-assets
+    aliases: []
+    parent_hash: Ksv
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Living background rails and narrative motifs.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Zmg
+    name: Living background SVGs
+    slug: svg-living-motifs
+    type: diagram-asset-group
+    category: diagram
+    status: active
+    source_paths:
       - assets/svg/living/global/field-rails-01.svg
       - assets/svg/living/motifs/branch-rail-01.svg
       - assets/svg/living/motifs/converge-trace-01.svg
@@ -1763,6 +2287,34 @@ entries:
       - assets/svg/living/motifs/narrative-guides-01.svg
       - assets/svg/living/motifs/sparse-frame-01.svg
       - assets/svg/living/motifs/trace-flow-01.svg
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/diagrams/Ksv-fam-svg.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: svg-assets
+    aliases: []
+    parent_hash: Ksv
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Reusable diagram type templates (charts, flows, matrices).
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Zxd
+    name: Diagram template SVGs
+    slug: svg-diagram-templates
+    type: diagram-asset-group
+    category: diagram
+    status: active
+    source_paths:
       - assets/svg/template-area-chart.svg
       - assets/svg/template-bar-chart.svg
       - assets/svg/template-board-columns.svg
@@ -1797,20 +2349,32 @@ entries:
     source_symbols: []
     root_selector: null
     contract: docs/design/catalog/diagrams/Ksv-fam-svg.md
-    contract_status: own
+    contract_status: family-covered
     showcase_url: null
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    emits_html: true
   - family: python-components
     aliases: []
     parent_hash: null
-    child_hashes: []
+    child_hashes:
+      - VtQ
+      - pvx
+      - rJd
+      - VPc
+      - ARv
+      - Gtf
+      - qrv
+      - vZr
+      - bNG
+      - nzA
+      - Khx
     accessibility_notes: null
     responsive_notes: null
     owner: forge-ks
     last_reviewed: null
-    notes: Covers public render_* and related helpers inventoried under components/*.py
+    notes: Parent roll-up; one registry row per components/*.py module (excluding layouts.py).
     hash_exception_reason: null
     design_standard_refs:
       - docs/design/forge-enterprise-ai-website-standard.md
@@ -1818,18 +2382,9 @@ entries:
     name: Python HTML renderer helpers
     slug: fam-python-renderers
     type: python-renderer-family
+    category: python-renderer-family
     status: active
-    source_paths:
-      - components/components.py
-      - components/presentation.py
-      - components/enterprise_marketing.py
-      - components/marketing_sections.py
-      - components/nested_roadmap.py
-      - components/diagram_catalog.py
-      - components/transforms.py
-      - components/living_background.py
-      - components/roadmap_date_editor.py
-      - components/diagram_modal_fragment.py
+    source_paths: []
     source_symbols: []
     root_selector: null
     contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
@@ -1838,6 +2393,327 @@ entries:
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    emits_html: false
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Core HTML blocks and chrome helpers
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: VtQ
+    name: Python module components
+    slug: py-html-components
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/components.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Presentation-stage marketing sections
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: pvx
+    name: Python module presentation
+    slug: py-presentation-blocks
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/presentation.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Enterprise marketing assemblies
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: rJd
+    name: Python module enterprise_marketing
+    slug: py-enterprise-marketing
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/enterprise_marketing.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Reusable marketing section renderers
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: VPc
+    name: Python module marketing_sections
+    slug: py-marketing-sections
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/marketing_sections.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Nested roadmap visualization
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: ARv
+    name: Python module nested_roadmap
+    slug: py-nested-roadmap
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/nested_roadmap.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Diagram catalog / gallery builders
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Gtf
+    name: Python module diagram_catalog
+    slug: py-diagram-catalog
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/diagram_catalog.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: HTML transform helpers
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: qrv
+    name: Python module transforms
+    slug: py-html-transforms
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/transforms.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Living background composition
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: vZr
+    name: Python module living_background
+    slug: py-living-background
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/living_background.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Roadmap date edit surfaces
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: bNG
+    name: Python module roadmap_date_editor
+    slug: py-roadmap-date-editor
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/roadmap_date_editor.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Diagram modal HTML fragments
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: nzA
+    name: Python module diagram_modal_fragment
+    slug: py-diagram-modal-fragment
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/diagram_modal_fragment.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Hash attribute builders and catalog wiring for visual roots (no standalone page chrome).
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Khx
+    name: KS hash and catalog attribute helpers
+    slug: py-hash-catalog-helpers
+    type: python-component-module
+    category: python-renderer
+    status: active
+    source_paths:
+      - components/ks_hash_attrs.py
+      - components/ks_catalog_hashes.py
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/components/Kpr-fam-python-renderers.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
   - family: docs-terminology
     aliases: []
     parent_hash: null
@@ -1870,6 +2746,8 @@ entries:
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: design-documentation
+    emits_html: false
   - family: showcase-react-app
     aliases: []
     parent_hash: null
@@ -1895,17 +2773,23 @@ entries:
     contract_status: own
     showcase_url: null
     screenshot_url: null
-    screenshot_status: planned
+    screenshot_status: blocked
+    screenshot_reason: Showcase React app sources are not a single static showcase HTML root; SPA capture is out of scope
+      for this static screenshot pipeline.
     emit_marker_in_showcase: false
+    category: showcase-app
+    emits_html: false
   - family: museum
     aliases: []
     parent_hash: null
-    child_hashes: []
+    child_hashes:
+      - vYA
     accessibility_notes: null
     responsive_notes: null
     owner: forge-ks
     last_reviewed: null
-    notes: Static bundled studio;-marker optional—emit on body when paths are stable.
+    notes: Shell entry (index.html). Vite chunks under museum/studio/assets/ are deferred from per-file registry
+      (content-hashed filenames); see visual-registry-coverage.md.
     hash_exception_reason: null
     design_standard_refs:
       - docs/design/forge-enterprise-ai-website-standard.md
@@ -1913,6 +2797,7 @@ entries:
     name: Museum studio desktop shell
     slug: museum-studio
     type: desktop-interface
+    category: desktop-interface
     status: active
     source_paths:
       - museum/studio/index.html
@@ -1921,9 +2806,41 @@ entries:
     contract: docs/design/catalog/desktop-interfaces/Msm-museum-studio.md
     contract_status: own
     showcase_url: null
-    screenshot_url: https://ks.forgesdlc.com/showcase/screenshots/Msm.png
-    screenshot_status: planned
+    screenshot_url: null
+    screenshot_status: blocked
+    screenshot_reason: Museum studio shell targets Electron; it is not served as static showcase HTML for Playwright capture.
     emit_marker_in_showcase: false
+    emits_html: true
+  - family: museum
+    aliases: []
+    parent_hash: Msm
+    child_hashes: []
+    accessibility_notes: null
+    responsive_notes: null
+    owner: forge-ks
+    last_reviewed: null
+    notes: Static SVG favicon and icon sprite shipped with the museum studio shell.
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: vYA
+    name: Museum studio chrome graphics
+    slug: museum-studio-chrome-graphics
+    type: museum-chrome-asset
+    category: desktop-chrome-asset
+    status: active
+    source_paths:
+      - museum/studio/icons.svg
+      - museum/studio/favicon.svg
+    source_symbols: []
+    root_selector: null
+    contract: docs/design/catalog/desktop-interfaces/Msm-museum-studio.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: not-applicable
+    emit_marker_in_showcase: false
+    emits_html: true
   - family: forge-autodoc
     aliases: []
     parent_hash: null
@@ -1952,3 +2869,5 @@ entries:
     screenshot_url: null
     screenshot_status: not-applicable
     emit_marker_in_showcase: false
+    category: library-consumer
+    emits_html: true

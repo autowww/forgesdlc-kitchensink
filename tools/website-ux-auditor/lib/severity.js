@@ -3,7 +3,7 @@
  * Blocker … Cosmetic — lower rank() = worse on the UX scale.
  */
 
-export const SEVERITY_LEVELS = ['blocker', 'critical', 'major', 'minor', 'trivial', 'cosmetic'];
+export const SEVERITY_LEVELS = ['blocker', 'critical', 'major', 'warn', 'minor', 'trivial', 'cosmetic'];
 
 /** Stable sort: worse severities first, then URL, message. */
 export function severityRank(level) {
@@ -22,7 +22,7 @@ export function isMajorPlus(level) {
 export function legacySeverityFrom(level) {
   const r = severityRank(level);
   if (r <= 1) return 'high';
-  if (r <= 3) return 'medium';
+  if (r <= 4) return 'medium';
   return 'low';
 }
 
@@ -30,6 +30,7 @@ export const SCORE_WEIGHTS = {
   blocker: 55,
   critical: 34,
   major: 20,
+  warn: 14,
   minor: 8,
   trivial: 4,
   cosmetic: 2,
@@ -74,6 +75,7 @@ export function severityDefinitionsMarkdownTable() {
 | **Blocker** | Would likely block enterprise review on a key landing page — script uses sparingly when heuristics show a catastrophic miss (story/hero failure). |
 | **Critical** | Severe deviation: first-screen/hero violations, dense technical content above fold, missing CTA hierarchy, absent trust framing. |
 | **Major** | Clear standard violation: overcrowded nav, too many competing CTAs, weak ecosystem/trust cues, readability or visible a11y/metadata issues. |
+| **Warn** | Catalog alignment, governance, or policy nits that should be fixed but are unlikely to block a release alone (e.g. unknown or mismatched KS visual hash markers). |
 | **Minor** | Noticeable polish or IA friction without breaking comprehension. |
 | **Trivial** | Low-impact inconsistency. |
 | **Cosmetic** | Visual/spatial nits; usually deferred to human judgement. |

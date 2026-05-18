@@ -10,6 +10,7 @@
 */
 
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import fsp from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
@@ -31,7 +32,7 @@ import {
   summarizeBySeverity,
 } from './lib/severity.js';
 import { scorePage } from './lib/scoring.js';
-import { crawlAndAnalyze } from './lib/crawl.js';
+import { crawlAndAnalyze, normalizeCrawlHref } from './lib/crawl.js';
 import { createCrawlProgressReporter } from './lib/crawl-progress-line.js';
 import { createLogger } from './lib/logger.js';
 import {
@@ -55,11 +56,12 @@ import {
 import { importPlaywright } from './lib/playwright-import.js';
 import { applyDefaultForgeStandard, inferSiteKind, PRODUCT_PROFILES } from './lib/product-profiles.js';
 import { inventoryRepo } from './lib/repo-inventory.js';
-import { startServer, waitForReady } from './lib/site-bootstrap.js';
+import { startServer, stopStartedServer, waitForReady } from './lib/site-bootstrap.js';
 import { ensureDir, writeFile, fileExists, readMaybe } from './lib/files.js';
 import { mergeDashboardStateIfWatching } from './lib/ux-loop-dashboard-state.js';
 import { appendUxScoringCsv, UX_SCORING_CSV_FILENAME } from './lib/ux-scoring-csv.js';
 import { ensureBlockingStdio } from './lib/piped-stdio-flush.js';
+import { DEFAULT_DEFECT_PLAN_LIMIT, buildRankedDefectClusters } from './lib/defect-remediation-plans.js';
 
 ensureBlockingStdio();
 
@@ -117,6 +119,7 @@ Optional:
   --install-rule               Also write a Cursor rule for remediation-plan execution.
   --no-mirror-root-plan        Skip copying forge-ux-remediation.plan.md to a uniquely named file under .cursor/plans/ (UTC stamp + audit_run_id)
   --no-refresh-plan-status     Reset all YAML todos in forge-ux-remediation.plan.md to pending (default is to merge statuses from the previous plan file in --out when present)
+  --remediation-plan-limit N   Number of defect remediation plans to generate (default: ${DEFAULT_DEFECT_PLAN_LIMIT}; ordered by estimated UX score impact).
   --stop-after-major-plus N    Stop expanding crawl queue after N blocker/critical/major findings accumulate total (default: 10; live crawl only; ignored with breadth flags below).
   --stop-disable               Full breadth within --max-pages: disable Major+ queue stop (--full-crawl, --breadth-crawl aliases).
   --full-crawl                 Alias for --stop-disable.
@@ -131,6 +134,7 @@ UX score tracking (optional):
 Incremental campaign (reuse one --out folder across runs):
   --incremental                After archiving audit-data.json → audit-data.previous.json, re-check URLs that had Major+ in the prior snapshot and resume crawl-session.json queue when present (see README).
   --incremental-regression-max-pages N   Cap URLs pulled from audit-data.previous.json for the regression wave (default: 40).
+  --exclude-crawl-urls-file PATH   Same-origin URLs (one per line, # comments) treated as already visited: skip re-audit and link expansion from those URLs so --max-pages budget can reach other pages. The --site URL is never excluded.
   --verbose, --verbose=N       Stderr diagnostics ([incremental], [crawl], …); level 2 via N=2. Alias: --debug-log.
                                Env mirror: UX_AUDIT_VERBOSE=1|2.
 
@@ -164,7 +168,9 @@ function parseArgs(argv) {
     uxCsv: true,
     incremental: false,
     incrementalRegressionMaxPages: 40,
+    excludeCrawlUrlsFile: null,
     verbose: 0,
+    remediationPlanLimit: DEFAULT_DEFECT_PLAN_LIMIT,
   };
   for (let i = 2; i < argv.length; i += 1) {
     const raw = argv[i];
@@ -240,6 +246,8 @@ function parseArgs(argv) {
       'priorUxScoresPath',
       'scoresFirstMaxPages',
       'incrementalRegressionMaxPages',
+      'excludeCrawlUrlsFile',
+      'remediationPlanLimit',
     ];
     if (!needsValue.includes(key)) {
       throw new Error(`Unknown flag: ${flag}`);
@@ -264,12 +272,39 @@ function parseArgs(argv) {
   if (!Number.isFinite(args.incrementalRegressionMaxPages) || args.incrementalRegressionMaxPages < 1) {
     args.incrementalRegressionMaxPages = 40;
   }
+  args.remediationPlanLimit = Number(args.remediationPlanLimit);
+  if (!Number.isFinite(args.remediationPlanLimit) || args.remediationPlanLimit < 1) {
+    args.remediationPlanLimit = DEFAULT_DEFECT_PLAN_LIMIT;
+  }
   if (args.priorUxScoresPath) {
     args.priorUxScoresPath = path.isAbsolute(args.priorUxScoresPath)
       ? path.normalize(args.priorUxScoresPath)
       : path.resolve(args.repo, args.priorUxScoresPath);
   }
+  if (args.excludeCrawlUrlsFile) {
+    args.excludeCrawlUrlsFile = path.isAbsolute(args.excludeCrawlUrlsFile)
+      ? path.normalize(args.excludeCrawlUrlsFile)
+      : path.resolve(args.repo, args.excludeCrawlUrlsFile);
+  }
   return args;
+}
+
+/** @param {string | null | undefined} absPath */
+function loadExcludeCrawlHrefsFromFile(absPath) {
+  if (!absPath || !fs.existsSync(absPath)) return [];
+  try {
+    const raw = fs.readFileSync(absPath, 'utf8');
+    const out = [];
+    for (const line of raw.split(/\n/)) {
+      const t = line.trim();
+      if (!t || t.startsWith('#')) continue;
+      const n = normalizeCrawlHref(t);
+      if (n) out.push(n);
+    }
+    return [...new Set(out)];
+  } catch {
+    return [];
+  }
 }
 
 function summarizeFindings(pages) {
@@ -804,7 +839,16 @@ function hasShellVisualStoryGateSignals(pages) {
   return false;
 }
 
-function buildForgeUxRemediationDotPlanMd({ profile, args, inventory, pages, previousTodoStatuses, runMeta, crawlSummary }) {
+function buildForgeUxRemediationDotPlanMd({
+  profile,
+  args,
+  inventory,
+  pages,
+  previousTodoStatuses,
+  runMeta,
+  crawlSummary,
+  defectPlans,
+}) {
   const name = `${profile.name} — Forge UX remediation (Build)`;
   const pgs = pages || [];
   const summary = summarizeFindings(pgs);
@@ -817,22 +861,17 @@ function buildForgeUxRemediationDotPlanMd({ profile, args, inventory, pages, pre
   const prev = previousTodoStatuses || new Map();
   const refresh = args.refreshPlanStatus !== false;
   const mergedCount = refresh ? [...prev.values()].filter((s) => s && s !== 'pending').length : 0;
+  const topDefectCount = defectPlans?.length || 0;
   let overview = `Ordered remediation for ${profile.name}. Run ${pgs.length} source(s) in this audit | ${blk} blocker, ${cri} critical, ${maj} major, ${min} minor, ${tri} trivial, ${cos} cosmetic. See body for snapshot, URLs, and top signals.`;
+  overview += ` Defect plans generated: ${topDefectCount} (limit ${args.remediationPlanLimit}).`;
   if (refresh && mergedCount > 0) {
     overview += ` ${mergedCount} todo(s) carried forward as non-pending from the previous plan file.`;
   }
-  const steps = [
-    ['ux-00', 'Read 00-master-remediation-sequence.md and audit-report.md'],
-    ['ux-01', 'Execute 01-site-inventory-and-content-map.md'],
-    ['ux-02', 'Execute 02-homepage-shell-and-product-landing-mode.md'],
-    ['ux-03', 'Execute 03-homepage-storyline-and-hero.md'],
-    ['ux-04', 'Execute 04-information-architecture-and-navigation.md'],
-    ['ux-05', 'Execute 05-page-depth-and-technical-content-pruning.md'],
-    ['ux-06', 'Execute 06-trust-model-and-ecosystem-fit.md'],
-    ['ux-07', 'Execute 07-visual-system-and-spacious-enterprise-polish.md'],
-    ['ux-08', 'Execute 08-accessibility-responsive-link-and-build-qa.md'],
-    ['ux-09', 'Execute 09-screenshot-and-homepage-shell-review.md'],
-  ];
+  const steps = [['ux-00', 'Read 00-master-remediation-sequence.md and audit-report.md']];
+  for (const dp of defectPlans || []) {
+    const uxId = `ux-${String(dp.order).padStart(2, '0')}`;
+    steps.push([uxId, `Execute ${dp.fileName} (priority defect plan #${dp.order})`]);
+  }
   const todoYaml = steps
     .map(([id, content]) => {
       const status = mergeTodoStatus(id, prev, refresh);
@@ -861,14 +900,29 @@ By default the auditor **merges prior YAML \`status:\` values** for each \`ux-*\
 This run used **\`--no-refresh-plan-status\`**: all todos were written as \`pending\`.
 
 `;
+  const defectTable = (defectPlans || []).length
+    ? `## Defect plans in this run (priority order)
+
+| Order | File | Check | Area | Estimated score Δ | URLs |
+|------:|------|-------|------|------------------:|-----:|
+${(defectPlans || []).map((dp) => `| ${dp.order} | \`${dp.fileName}\` | \`${dp.checkId}\` | \`${dp.area}\` | +${Number(dp.estimatedOverallDelta || 0).toFixed(2)} | ${dp.affectedUrls?.length || 0} |`).join('\n')}
+`
+    : `## Defect plans in this run (priority order)
+
+_No scored defect clusters were detected in this run. Manual review is still required._
+`;
   const body = `# ${profile.name} — Forge UX remediation
 
-This \`forge-ux-remediation.plan.md\` file is intended for Cursor's **plan UI** (todos + **Build**). The sibling \`00\`–\`09\` Markdown files carry the themed prompts; **this file adds the audit snapshot from the generator run** so the orchestrator is not context-free.
+This \`forge-ux-remediation.plan.md\` file is intended for Cursor's **plan UI** (todos + **Build**). The sibling markdown files carry **defect-prioritized** remediation prompts; **this file adds the audit snapshot from the generator run** so the orchestrator is not context-free.
 
 - After substantive edits, run your site's build command (e.g. \`python3 generator/build-site.py\` for generator-based sites).
 - Re-run the auditor with \`--site\` when a dev server is available for Playwright evidence and richer DOM metrics.
+- Prefer **root-cause, sitewide fixes** (generators, shared layout/shell templates, global CSS/theme tokens, navigation sources, content-map rules) when the same finding pattern appears on multiple URLs—see **\`00-master-remediation-sequence.md\`**. Patch individual pages only when the issue is truly local.
+- Use **Plan–Do–Check–Adjust**: each defect file is the **Plan** slice; **Do** a coherent root-cause change; **Check** with build/serve and a fresh audit+score pass; **Adjust** by revisiting the same defect plan until severity/score movement is satisfactory.
 
-${runIdentitySection}${refreshSection}## If the Build button does nothing
+${runIdentitySection}${refreshSection}${defectTable}
+
+## If the Build button does nothing
 
 **Build** in Plan mode is meant to hand the plan to the **Agent** so it can implement. That handoff is mainly tested for plans **created in Plan Mode in the same session**. Auditor-generated \`.plan.md\` files are valid Markdown, but Cursor may not attach the same Build action to them (or to plans in a **nested** folder like \`forge-ux-remediation/\`).
 
@@ -876,7 +930,7 @@ Use this workflow instead:
 
 1. Switch to **Agent** (not **Ask**), in the same workspace root as \`--repo\`.
 2. In chat, attach this plan with **\@** (e.g. \`@forge-ux-remediation.plan.md\` or the path under \`.cursor/plans/\`).
-3. Ask: **Execute the YAML todos in order (ux-00 … ux-09); after each todo summarize files touched and stop for review if the change is large.**
+3. Ask: **Execute the YAML todos in order (ux-00 … ux-10); after each todo summarize files touched and stop for review if the change is large.**
 4. If you use a repo-level orchestrator in \`.cursor/plans/*.plan.md\`, attach that file instead — some Cursor builds wire **Build** more reliably for plans **directly under** \`.cursor/plans/\` than for nested copies.
 5. With **\`--mirror-root-plan\`**, a **uniquely named copy** is written under \`.cursor/plans/\`: \`forge-ux-remediation__<UTC-stamp>__<audit_run_id>.plan.md\` (same YAML + body). It may still not enable **Build**; use **Agent \@** or \`cursor-agent-run-ux-plan.sh\` (see KS tool README).
 
@@ -897,7 +951,7 @@ Static-only audits use repo-derived text samples; re-run with \`--site\` for liv
 |------|------|
 | \`audit-report.md\` | Full heuristic table and evidence |
 | \`00-master-remediation-sequence.md\` | Sequence and constraints |
-| \`01\`–\`09\` | Themed remediation prompts (each includes signals + findings for this run) |
+| \`01\`–\`10\` | Defect remediation prompts (ordered by estimated score impact) |
 `;
   return `---
 name: ${JSON.stringify(name)}
@@ -912,7 +966,7 @@ isProject: true
 ${body}`;
 }
 
-function buildMasterPlan({ profile, runMeta, siteKind = 'generic' }) {
+function buildMasterPlan({ profile, runMeta, siteKind = 'generic', defectPlans = [], remediationPlanLimit = DEFAULT_DEFECT_PLAN_LIMIT }) {
   let orderNotes = '\n> **Shell before copy:** when audits show \`homepage-shell\`, \`product-visual\`, or \`storyline-flow\` findings, complete **02 - Homepage shell** before **03 - Homepage storyline**.\n';
   if (siteKind === 'platform') {
     orderNotes += '> **Forge Platform:** root \`/\` must remain **mode 1** product/architecture landing; full handbook navigation belongs under Docs/Handbook/Reference — use **02**, **04**, and **09** before declaring UX done.\n';
@@ -925,7 +979,15 @@ function buildMasterPlan({ profile, runMeta, siteKind = 'generic' }) {
 ${orderNotes}
 ## How to use this plan set
 
-This folder contains ordered remediation plans generated from a deterministic UX audit. Use either workflow:
+This folder contains ordered remediation plans generated from a deterministic UX audit.
+
+## Prefer root-cause, sitewide fixes
+
+Many findings repeat across URLs because they share one **upstream lever**: a static-site **generator**, a **layout/shell** template, **global CSS** or design-system tokens, a **navigation** component or data file, or a **content-map** rule. Use **01** (inventory + \`content-map.md\`) and clusters in \`audit-report.md\` to infer that lever, then fix it there so the **entire site** inherits the improvement. Treat page-level Markdown or HTML tweaks as a last resort when the signal is truly local.
+
+## Plan–Do–Check–Adjust until acceptance
+
+Each defect plan (\`01-defect-*.md\`) is one **Plan** slice. **Do** the smallest coherent root-cause change set for that defect cluster. **Check** with local build/serve and a fresh scorer+audit pass. **Adjust**: if checks fail, Major+ remains, or acceptance criteria below are not met, revisit that same defect plan with an updated root-cause hypothesis and repeat **Do→Check→Adjust** before moving forward. Automated **\`run-website-ux-remediation-loop.sh\`** (scorer→audit→agent until Major+ is clean on **visited** pages) is an extra **Check** pass—it does not replace product acceptance or fixes on URLs the crawl never reached.
 
 ### Controlled workflow
 
@@ -937,23 +999,13 @@ Ask Cursor Agent to read this master plan and execute child plans in order. This
 
 ## Plan tree
 
-- [ ] **Foundation**
-  - [ ] 01 - Site inventory and content map
-  - [ ] 02 - Homepage shell and product landing mode
-  - [ ] 03 - Homepage storyline and hero
-- [ ] **Structure**
-  - [ ] 04 - Information architecture and navigation
-  - [ ] 05 - Page depth and technical-content pruning
-- [ ] **Trust and enterprise feel**
-  - [ ] 06 - Trust model and ecosystem fit
-  - [ ] 07 - Visual system and spacious enterprise polish
-- [ ] **Verification**
-  - [ ] 08 - Accessibility, responsive, link, and build QA
-  - [ ] 09 - Screenshot and homepage shell review
+${defectPlans.length
+    ? `- [ ] **Defect-first remediation** (top ${defectPlans.length}/${remediationPlanLimit})\n${defectPlans.map((dp) => `  - [ ] ${dp.order.toString().padStart(2, '0')} - ${dp.checkId} (${dp.area}) · est Δ +${Number(dp.estimatedOverallDelta || 0).toFixed(2)} · ${dp.affectedUrls?.length || 0} URL(s)`).join('\n')}`
+    : '- [ ] **Defect-first remediation**\n  - [ ] No defect clusters found in this run — verify manually and re-run with broader crawl if needed.'}
 
 ## Execution prompt for Cursor
 
-Read every file in \`.cursor/plans/forge-ux-remediation/\`, starting with this file. Execute the child plans in numeric order. After each child plan, summarize files changed, UX impact, remaining risks, and validation performed. Stop before making risky product-claim changes that are not supported by existing repo content.
+Read every file in \`.cursor/plans/forge-ux-remediation/\`, starting with this file. Execute the child plans in numeric order. After each defect plan, summarize files changed, UX impact, remaining risks, validation performed, and whether **Check** (build, scorer delta, and audit delta) passes or you must **Adjust** by iterating the same defect plan before continuing. Stop before making risky product-claim changes that are not supported by existing repo content.
 
 ## Final acceptance criteria
 
@@ -964,6 +1016,93 @@ Read every file in \`.cursor/plans/forge-ux-remediation/\`, starting with this f
 - Navigation is curated, not a generated link wall.
 - Visual hierarchy feels spacious, bold, AI-enabled, and enterprise-ready.
 - Build, links, responsive layout, and accessibility checks pass or have documented exceptions.
+`;
+}
+
+function formatSeverityInline(bySeverity = {}) {
+  const ordered = ['blocker', 'critical', 'major', 'warn', 'minor', 'trivial', 'cosmetic'];
+  return ordered
+    .map((k) => (bySeverity[k] ? `${k}:${bySeverity[k]}` : null))
+    .filter(Boolean)
+    .join(', ') || 'none';
+}
+
+function buildDefectPlan({ defect, inventory, profile, runMeta, siteKind = 'generic', rcaRefs = [] }) {
+  const dimensionRows = Object.entries(defect.dimensionDamage || {})
+    .map(([id, row]) => `- \`${id}\`: rawDamage ${Number(row.rawDamage || 0).toFixed(2)} (${row.findingCount} finding(s))`)
+    .join('\n') || '- none';
+  const topFindings = (defect.findings || [])
+    .slice(0, 8)
+    .sort(compareFindingSeverity)
+    .map((f) => `- **${String(f.severity).toUpperCase()}** ${f.message} (${f.url || 'n/a'})\n  - Evidence: ${f.evidence}\n  - Remediation hint: ${f.remediation}`)
+    .join('\n') || '- none';
+  const rcaBlock = rcaRefs.length
+    ? rcaRefs.map((r) => `- \`${r.relPath}\` · ${r.severity} · ${r.url}`).join('\n')
+    : '- none';
+
+  return `${cursorPlanHeader(defect.title, defect.order, profile, runMeta, siteKind)}
+
+## Defect identity
+
+- **checkId:** \`${defect.checkId}\`
+- **area:** \`${defect.area}\`
+- **severity mix:** ${formatSeverityInline(defect.bySeverity)}
+- **major+ count:** ${defect.majorPlusCount}
+- **affected URLs:** ${defect.affectedUrls.length}
+- **estimated overall score delta if this cluster is fixed:** **+${Number(defect.estimatedOverallDelta || 0).toFixed(2)}**
+- **primary scorer dimension:** ${defect.dimensionLabel}
+- **homepage-cap gate involved:** ${defect.hasHomepageGate ? 'yes' : 'no'}
+
+## Why this is prioritized
+
+- This cluster ranks #${defect.order} by scorer impact model (homepage cap gates first, then estimated overall score delta, severity weight, and URL coverage).
+- Cluster coverage share (findings in this cluster / all findings): ${(defect.coverageShare * 100).toFixed(1)}%.
+
+## Root-cause hypothesis
+
+${defect.rootCauseHint}
+
+${candidateFileBlock(inventory)}
+
+## Scorer impact details
+
+${dimensionRows}
+
+## Findings sampled from this run
+
+${topFindings}
+
+## Related RCA prompts (optional deep dive)
+
+${rcaBlock}
+
+## Plan–Do–Check–Adjust
+
+### Plan
+
+- [ ] Confirm whether this defect pattern is shared across routes (generator/layout/nav/theme) or page-local.
+- [ ] Identify the minimal shared lever and exact files to touch.
+
+### Do
+
+- [ ] Implement the root-cause fix at the shared lever first.
+- [ ] If a route-specific exception remains, apply a narrow page-level patch and document why it is local-only.
+
+### Check
+
+- [ ] Run build/check commands from this repo.
+- [ ] Re-run scorer and auditor on the same campaign output folder.
+- [ ] Verify this cluster's severity count drops and relevant scorer dimension improves.
+
+### Adjust
+
+- [ ] If score/finding movement is insufficient, revise root-cause hypothesis and iterate this plan again before proceeding.
+
+## Completion checklist
+
+- [ ] Cluster reduced or cleared across affected URLs.
+- [ ] No regression introduced in other major dimensions.
+- [ ] Changes remain consistent with product truth and non-negotiable constraints.
 `;
 }
 
@@ -984,6 +1123,7 @@ ${findingBullets(pages, ['page-depth', 'technical-depth', 'navigation', 'messagi
 
 ## Tasks
 
+- [ ] Cluster \`audit-report.md\` / \`audit-data.json\` findings by \`checkId\` and \`area\`; note patterns that imply a **shared** root cause (same generator path, layout, nav, or theme) vs one-off page issues.
 - [ ] Locate the homepage route and primary layout shell.
 - [ ] Locate product overview pages, quickstarts, docs/reference pages, operation pages, schema pages, and generated indexes.
 - [ ] Create or update an internal planning note at \`.cursor/plans/forge-ux-remediation/content-map.md\` with:
@@ -1384,12 +1524,14 @@ Product one-liner: ${profile.oneLiner}
 - Execute remediation plans in numeric order unless the user gives a different order.
 - Re-run the UX auditor from the website repo **without \`--no-refresh-plan-status\`** (default) after substantive remediation so \`forge-ux-remediation.plan.md\` **keeps YAML todo \`status:\` values** (\`completed\`, \`in_progress\`, …) across regenerations. Use **\`--no-refresh-plan-status\`** only when you intentionally want every todo reset to \`pending\`.
 - Before editing, inspect the referenced source files and confirm the repo's actual framework/routing conventions.
+- Prefer **root-cause, sitewide fixes** (generators, shared layouts/shells, global styles/theme tokens, nav sources, content-map rules) when the same finding pattern appears on multiple URLs or inventory points to one lever; patch single pages only when the signal is truly local.
+- Follow **Plan–Do–Check–Adjust** for each defect plan: implement (**Do**), then **Check** with build/serve and a fresh scorer+auditor run with \`--site\` when possible; if Major+ or acceptance gaps remain, **Adjust** by iterating the same defect plan before advancing.
 - Preserve canonical technical content by relocating it to appropriate docs/reference depth instead of deleting it.
 - Do not invent product capabilities, integrations, customers, certifications, compliance claims, or metrics.
 - Keep public landing pages short, clear, spacious, and outcome-led.
 - Keep docs/reference pages complete and precise.
-- Do not satisfy shell or visual-slot failures by **rewriting Markdown copy only** — verify **product landing shell** vs **docs/handbook shell** on root \`/\` first (**Plan 02**).
-- Execute todos **ux-00** through **ux-09** in order unless the user specifies otherwise.
+- Do not satisfy shell or visual-slot failures by **rewriting Markdown copy only** — verify **product landing shell** vs **docs/handbook shell** on root \`/\` first.
+- Execute todos **ux-00** then remaining \`ux-*\` in numeric order unless the user specifies otherwise.
 - Validate with build/check commands where available.
 - After each plan, report files changed, UX impact, validation performed, and unresolved risks.
 `;
@@ -1654,21 +1796,45 @@ async function writePlans({
     crawlSummary,
   });
 
-  const planBuilders = [
-    ['00-master-remediation-sequence.md', buildMasterPlan],
-    ['01-site-inventory-and-content-map.md', buildPlan01],
-    ['02-homepage-shell-and-product-landing-mode.md', buildPlan02Shell],
-    ['03-homepage-storyline-and-hero.md', buildPlan03Storyline],
-    ['04-information-architecture-and-navigation.md', buildPlan04InformationArchitecture],
-    ['05-page-depth-and-technical-content-pruning.md', buildPlan05PageDepth],
-    ['06-trust-model-and-ecosystem-fit.md', buildPlan06TrustEcosystem],
-    ['07-visual-system-and-spacious-enterprise-polish.md', buildPlan07VisualPolish],
-    ['08-accessibility-responsive-link-and-build-qa.md', buildPlan08BuildQa],
-    ['09-screenshot-and-homepage-shell-review.md', buildPlan09Screenshot],
-  ];
-  const planCtx = { args, inventory, profile, pages, standardText, runMeta, siteKind };
-  for (const [file, builder] of planBuilders) {
-    await writeFile(path.join(args.out, file), builder(planCtx));
+  const rankedDefects = buildRankedDefectClusters({
+    pages,
+    crawlSummary,
+    siteKind,
+    limit: args.remediationPlanLimit,
+  });
+  const defectPlans = rankedDefects.clusters.map((c) => ({
+    ...c,
+    fileName: `${c.fileStem}.md`,
+  }));
+
+  const rcaEntries = (rca.entries || []).map((r) => ({
+    ...r,
+    relPath: relativeFromRepo(args.repo, r.path),
+  }));
+
+  const masterPlanFile = '00-master-remediation-sequence.md';
+  const masterBody = buildMasterPlan({
+    profile,
+    runMeta,
+    siteKind,
+    defectPlans,
+    remediationPlanLimit: args.remediationPlanLimit,
+  });
+  await writeFile(path.join(args.out, masterPlanFile), masterBody);
+
+  for (const defect of defectPlans) {
+    const relatedRca = rcaEntries.filter((r) => r.checkId === defect.checkId || (r.area && r.area === defect.area));
+    await writeFile(
+      path.join(args.out, defect.fileName),
+      buildDefectPlan({
+        defect,
+        inventory,
+        profile,
+        runMeta,
+        siteKind,
+        rcaRefs: relatedRca.slice(0, 5),
+      }),
+    );
   }
 
   let previousTodoStatuses = new Map();
@@ -1692,6 +1858,7 @@ async function writePlans({
     previousTodoStatuses,
     runMeta,
     crawlSummary,
+    defectPlans,
   });
   await writeFile(buildPlanPath, buildPlanBody);
 
@@ -1709,7 +1876,8 @@ async function writePlans({
   }
 
   const planFiles = [
-    ...planBuilders.map(([f]) => path.join(args.out, f)),
+    path.join(args.out, masterPlanFile),
+    ...defectPlans.map((d) => path.join(args.out, d.fileName)),
     buildPlanPath,
   ];
   if (rootMirrorPlanPath) planFiles.push(rootMirrorPlanPath);
@@ -1839,6 +2007,14 @@ async function main() {
       }
     }
 
+    const excludeCrawlHrefs = loadExcludeCrawlHrefsFromFile(args.excludeCrawlUrlsFile);
+    if (excludeCrawlHrefs.length) {
+      uxAuditPhase(
+        `[ux-audit] phase=diag · excludeCrawlUrls=${excludeCrawlHrefs.length} · file=${args.excludeCrawlUrlsFile ? relativeFromRepo(args.repo, args.excludeCrawlUrlsFile) : '—'}`,
+      );
+      logger.verbose('[crawl]', 'exclude-crawl-urls preseed', String(excludeCrawlHrefs.length));
+    }
+
     if (args.staticOnly) {
       mergeDashboardStateIfWatching(args.out, { phase: 'auditor_static_only' });
       uxAuditPhase('[ux-audit] phase=static_only · no Playwright crawl; generating repo-only analysis');
@@ -1894,6 +2070,7 @@ async function main() {
             stopDisabled: true,
             onProgress: precrawlProg.onProgress,
             repoRoot: path.resolve(args.repo),
+            excludeCrawlHrefs,
           });
         } finally {
           precrawlProg.finish();
@@ -1941,6 +2118,7 @@ async function main() {
           logger,
           onProgress: crawlProg.onProgress,
           repoRoot: path.resolve(args.repo),
+          excludeCrawlHrefs,
         });
       } finally {
         crawlProg.finish();
@@ -2013,7 +2191,9 @@ async function main() {
     console.log(`Audit run id: ${written.auditRunId}`);
     console.log(`Generated at (UTC): ${written.generatedAt}`);
     if (!args.staticOnly && crawlSummary?.stopReason === 'major_plus_threshold') {
-      console.log(`Crawl: stopped early after Major+ backlog reached threshold (${String(crawlSummary.stopAfterMajorPlus)}); ${String(crawlSummary.queuedRemainingAtStop)} queued URL(s) not visited`);
+      console.log(
+        `Crawl: stopped early after Major+ backlog reached threshold (${String(crawlSummary.stopAfterMajorPlus)}); ${String(crawlSummary.queuedRemainingAtStop)} queued URL(s) not visited — queue expansion frozen for remediation (Cursor plans / agent).`,
+      );
     }
     if (written.rcaPromptCount) console.log(`RCA prompts: ${written.rcaPromptCount} in ${relativeFromRepo(args.repo, path.join(args.out, 'rca-prompts'))}/`);
     console.log(`Report: ${relativeFromRepo(args.repo, written.reportPath)}`);
@@ -2053,10 +2233,7 @@ async function main() {
     if (args.staticOnly) console.log('Mode: static-only repo analysis. Re-run with --site for Playwright evidence.');
     if (args.installRule) console.log('Cursor rule: .cursor/rules/forge-ux-remediation-plan-runner.mdc');
   } finally {
-    if (server && !server.killed) {
-      server.kill('SIGTERM');
-      setTimeout(() => { if (!server.killed) server.kill('SIGKILL'); }, 1500).unref();
-    }
+    await stopStartedServer(server);
   }
 }
 

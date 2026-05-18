@@ -6,6 +6,10 @@
  *   ETA triple = `cur/run/script` (compact slash-separated block; “—” replaces verbose “N/A”).
  *   Use “—” where an ETA is not available (replaces verbose “N/A”).
  *
+ * After each analyzed page, a separate `[label] phase=page_done …` line records Major+ counts
+ * (this page vs cumulative run) and whether the Major+ queue governor froze further expansion
+ * (default cap 10 → Cursor remediation plans consume the backlog).
+ *
  * Env:
  *   FORGE_UX_CRAWL_PROGRESS=1|always — force on even when stderr is not a TTY
  *   FORGE_UX_CRAWL_PROGRESS=0|off    — disable
@@ -268,6 +272,35 @@ export function createCrawlProgressReporter(opts) {
     }
   }
 
+  /**
+   * One line per finished page: Major+ on this page vs cumulative; governor cap; halt_expand freezes BFS for remediation.
+   * @param {{ phase?: string, href?: string, waveLabel?: string, pagesCompletedAfter?: number, queueLen?: number, budget?: number, majorPlusPage?: number, majorPlusRunTotal?: number, crawlHaltMajorPlus?: boolean, stopAfterMajorPlus?: number | null, stopDisabled?: boolean }} ev
+   */
+  function appendPageDoneLine(ev) {
+    if (typeof ev.majorPlusRunTotal !== 'number' || !Number.isFinite(ev.majorPlusRunTotal)) return;
+    const mjP = Number.isFinite(Number(ev.majorPlusPage)) ? Number(ev.majorPlusPage) : 0;
+    const mjR = ev.majorPlusRunTotal;
+    const cap =
+      ev.stopDisabled || ev.stopAfterMajorPlus == null || !Number.isFinite(Number(ev.stopAfterMajorPlus))
+        ? 'off'
+        : String(Math.max(1, Math.floor(Number(ev.stopAfterMajorPlus))));
+    const halt = ev.crawlHaltMajorPlus ? '1' : '0';
+    const pa = ev.pagesCompletedAfter ?? '—';
+    const maxP = ev.budget ?? maxPages;
+    const q = ev.queueLen ?? 0;
+    const wave = ev.waveLabel || '—';
+    const u = truncateUrl(String(ev.href || ''), 72);
+    const tail =
+      cap === 'off'
+        ? `governor=off`
+        : `governor=on cap=${cap} (freeze_queue_when mj_run≥cap)`;
+    const line = `${fixedLeft(label, COL.LABEL)} phase=page_done · wave=${wave} · mj_page=${mjP} · mj_run=${mjR} · pages=${pa}/${maxP} · q=${q} · halt_expand=${halt} · ${tail} · url=${u}`;
+    appendProgressLog(line);
+    if (enabled && !dashboardWatch) {
+      stream.write(`${line}\n`);
+    }
+  }
+
   function pushDashboardSnapshot(now, queueLen, etaScriptMs) {
     if (!dashboardWatch) return;
     try {
@@ -333,7 +366,7 @@ export function createCrawlProgressReporter(opts) {
     startHeartbeat();
   }
 
-  /** @param {{ phase?: string, href?: string, waveLabel?: string, durationMs?: number, pagesCompletedBefore?: number, pagesCompletedAfter?: number, pagesCompleted?: number, queueLen?: number }} ev */
+  /** @param {{ phase?: string, href?: string, waveLabel?: string, durationMs?: number, pagesCompletedBefore?: number, pagesCompletedAfter?: number, pagesCompleted?: number, queueLen?: number, budget?: number, majorPlusPage?: number, majorPlusRunTotal?: number, crawlHaltMajorPlus?: boolean, stopAfterMajorPlus?: number | null, stopDisabled?: boolean }} ev */
   function onProgress(ev) {
     if (!crawlHooksActive || !ev) return;
     const now = Date.now();
@@ -366,6 +399,7 @@ export function createCrawlProgressReporter(opts) {
     }
 
     if (ev.phase === 'page_end') {
+      appendPageDoneLine(ev);
       recordSample(ev.durationMs ?? now - (pageStartMs ?? now));
       pageStartMs = null;
       pageInFlight = false;

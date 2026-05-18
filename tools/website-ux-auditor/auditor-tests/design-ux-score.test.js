@@ -16,6 +16,8 @@ import {
 test('findingDamageWeight respects SCORE_WEIGHTS', () => {
   const w = findingDamageWeight(makeFinding({ severity: 'major', area: 'hero', message: '', evidence: '', remediation: '' }));
   assert.equal(w, 20);
+  const ww = findingDamageWeight(makeFinding({ severity: 'warn', area: 'visual-catalog', message: '', evidence: '', remediation: '' }));
+  assert.equal(ww, 14);
 });
 
 test('harmonicMean of equal values ≈ that value', () => {

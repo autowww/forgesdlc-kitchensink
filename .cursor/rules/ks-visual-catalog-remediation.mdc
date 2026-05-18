@@ -1,0 +1,17 @@
+---
+description: KS visual hash catalog remediation governance
+alwaysApply: true
+---
+
+# KS visual hash catalog remediation governance
+
+When editing KS visual surfaces, generated HTML, design catalog files, visual audit tooling, or website UX remediation plans:
+
+- Every visible reusable page/layout/section/component/primitive/style/diagram/interaction/desktop interface must be represented in `docs/design/catalog/visual-registry.yaml` or explicitly family-covered.
+- Every emitted visual root should include both `hash="XYZ"` and `data-ks-hash="XYZ"`, with three ASCII letters and global uniqueness.
+- Visual implementation changes must update the relevant design contract unless the change is explicitly marked `no_visual_change` with evidence.
+- Do not leave design contracts with unresolved placeholder language.
+- Do not make `analyze-website-ux.mjs` call `score-website-ux.mjs`, or vice versa.
+- Do not add runtime dependency from the website UX auditor/scorer to the design-catalog YAML parser. Use generated JSON or shared dependency-free helpers.
+- For public consumer sites, do not claim hash deployment until raw HTML is checked for `hash="XYZ"` and `data-ks-hash="XYZ"`.
+- Final reports must use current generated counts, not stale copied numbers.

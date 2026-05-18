@@ -19,7 +19,19 @@
 #   UX_AUDIT_INCREMENTAL=1                   Always pass --incremental to the auditor.
 #   UX_AUDIT_FORCE_FULL=1                    With UX_AUDIT_OUT_DIR + audit-data.json present,
 #                                           skip auto --incremental (full crawl baseline).
-#   UX_AUDIT_VERBOSE=1|2                     Pass --verbose or --verbose=2 (stderr breadcrumbs).
+#   UX_AUDIT_VERBOSE=1|2|0                   **1** or **2** = auditor `--verbose` on stderr; **0** or unset = quiet auditor (default).
+#   FORGE_UX_CURSOR_AGENT_EXTRA              Optional space-separated extra `agent` flags (see cursor-agent-run-ux-plan.sh). Overrides FORGE_UX_CURSOR_AGENT_VERBOSE defaults.
+#   FORGE_UX_CURSOR_AGENT_VERBOSE            **1** = stream-json agent log (compact `[ux-agent]` summary lines by default). **0** or unset = plain `agent -p` text (default).
+#   FORGE_UX_REMEDIATION_AGENT_LOG           When unset, defaults to **OUT_DIR/remediation-agent.log** (agent stdout/stderr tee). Set to empty before the loop to disable that file; set to an absolute path to override.
+#   FORGE_UX_AGENT_STREAM_SUMMARY            When **`agent`** uses **`stream-json`**: **1** (default) = one **`[ux-agent]`** line per tool/system event (no huge tool payloads in the log). **0** = raw NDJSON to the transcript/terminal.
+#   FORGE_UX_AGENT_RAW_JSONL                 Optional path: append every raw NDJSON line from **`agent`** (forensics) while **`FORGE_UX_AGENT_STREAM_SUMMARY=1`** still prints compact lines to the main transcript.
+#   FORGE_UX_ENABLE_AI_AUDIT=1               After a deterministic-clean pass (`Major+ = 0`), run a second AI-assisted audit pass and write separate artifacts under OUT_DIR/ai-audit/.
+#   FORGE_UX_AI_AUDIT_BATCH_SIZE             AI-assisted audit batch size (default: 5 URLs per Cursor agent call; homepage is still isolated first when present).
+#   FORGE_UX_AI_AUDIT_MAX_BATCHES            Optional cap on AI-assisted audit batches per pass (0/unset = all batches).
+#   FORGE_UX_AI_AUDIT_LOG                    Override combined transcript path for the AI-assisted audit runner (default: OUT_DIR/ai-audit/ai-audit-agent.log).
+#   FORGE_UX_AI_AUDIT_AGENT_EXTRA            Space-separated extra flags for the AI-assisted audit `agent` calls (falls back to FORGE_UX_CURSOR_AGENT_EXTRA when unset).
+#   FORGE_UX_AUDITOR_BIN / FORGE_UX_SCORER_BIN / FORGE_UX_RUN_PLAN_BIN / FORGE_UX_RUN_AI_AUDIT_BIN / FORGE_UX_MAJOR_PLUS_COUNT_BIN
+#                                           Internal path overrides used primarily by tooling tests.
 #
 # Progress streams:
 #   Phase lines (`[ux-audit] phase=…`), inventory sampling, shell handoffs (`_out_echo`), sitewide scorer
@@ -28,6 +40,7 @@
 #
 # Env:
 #   SKIP_CURSOR_AGENT=1      Audit + plans only (no agent). Skips Cursor CLI auth at start.
+#                             Also turns off FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN (no outer remediation loop).
 #   SKIP_CURSOR_LOGIN=1      After auth banner: do not run `agent login` when unauthenticated.
 #   CURSOR_API_KEY           Non-interactive CLI auth (skips login).
 #   DESIGN_STANDARD_PATH     Override enterprise standard Markdown (default: KS docs/design/…).
@@ -38,7 +51,8 @@
 #   UX_AUDIT_SCORER_MAX_PAGES    Sitewide scorer --max-pages (remediation loop default: 10; override e.g. 120).
 #   UX_AUDIT_SCORER_MAX_LINK_DEPTH   Pass-through --max-link-depth for the scorer (default: 2 = root + 2 hops).
 #   UX_AUDIT_SCORER_NO_CSV=1     Pass --no-ux-csv to scorer only.
-#   UX_AUDIT_FIXTURE_HTTP_VERBOSE=1   Show python http.server access-log lines on stderr (default: stderr quiet).
+#   UX_AUDIT_FIXTURE_HTTP_VERBOSE=1   Forward python http.server stdout/stderr as [site] lines (default: discard —
+#                                       avoids pipe backpressure deadlocks under `2>&1 | tee`).
 #   FORGE_UX_PROGRESS_RUN_NO     Progress line [run …]: preset to pin one label for both scorer + auditor.
 #                                When unset, this script sets 1=sitewide scorer, 2=auditor (and auditor bumps for --scores-first).
 #   FORGE_UX_CRAWL_PROGRESS=1    Force crawl progress when stderr is not a TTY; =0 disables.
@@ -47,6 +61,13 @@
 #   FORGE_UX_LOOP_WATCH=1           Alternate-screen dashboard on stderr TTY; merges crawl state into ux-loop-dashboard-state.json instead of printing rows to stderr.
 #                                   Optional FORGE_UX_LOOP_WATCH_REFRESH_MS (poll interval for dashboard UI). FORGE_UX_LOOP_WATCH_LOG is set to OUT_DIR/ux-loop-dashboard.log.
 #                                   Equivalent CLI (not passed through to the auditor): --watch  or  --loop-watch
+#   FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN      Default **1** — repeat scorer→audit→agent until Major+ clean (see README). Legacy single pass: **FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN=0**.
+#                                       Also forced off when SKIP_CURSOR_AGENT=1. CLI: **--until-major-clean**.
+#   FORGE_UX_LOOP_MAX_ITERATIONS=20       Safety cap for the outer loop (default 20).
+#   FORGE_UX_LOOP_POST_AGENT_BUILD       Default **1** — after each agent run, if generator/build-site.py exists under WEBSITE_REPO,
+#                                        run python3 generator/build-site.py so the fixture crawl picks up fresh HTML.
+#                                        Disable entirely: FORGE_UX_LOOP_POST_AGENT_BUILD=0.
+#   FORGE_UX_SKIP_DONE_CRAWL_MERGE=1     Do not rewrite OUT_DIR/ux-audit-done-crawl-urls.txt after each audit (merge lists only URLs visited that pass with zero Major+).
 #   RUN_WEBSITE_UX_LOOP_SHOW_RUNNER_PATH=1   Echo absolute KS runner path + KS_ROOT (verify workspace delegates to the expected checkout).
 #
 # Extra auditor CLI flags after the two positionals:
@@ -54,6 +75,13 @@
 #   ./run-website-ux-remediation-loop.sh repo ./website --watch --site-kind fleet
 #
 set -euo pipefail
+
+# Workspace-friendly defaults (override before invocation: VAR=0 … ./run-website-ux-remediation-loop.sh …).
+: "${FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN:=1}"
+: "${FORGE_UX_LOOP_POST_AGENT_BUILD:=1}"
+if [[ "${SKIP_CURSOR_AGENT:-}" == "1" ]]; then
+  FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN=0
+fi
 
 _out_echo() {
   printf '%s\n' "$@" >&2
@@ -64,8 +92,9 @@ KS_ROOT="$(cd "$TOOL_DIR/../.." && pwd)"
 if [[ "${RUN_WEBSITE_UX_LOOP_SHOW_RUNNER_PATH:-}" == "1" ]]; then
   echo "run-website-ux-remediation-loop: KS runner=${TOOL_DIR}/run-website-ux-remediation-loop.sh KS_ROOT=${KS_ROOT}" >&2
 fi
-AUDITOR="$TOOL_DIR/analyze-website-ux.mjs"
-RUN_PLAN="$TOOL_DIR/cursor-agent-run-ux-plan.sh"
+AUDITOR="${FORGE_UX_AUDITOR_BIN:-$TOOL_DIR/analyze-website-ux.mjs}"
+RUN_PLAN="${FORGE_UX_RUN_PLAN_BIN:-$TOOL_DIR/cursor-agent-run-ux-plan.sh}"
+RUN_AI_AUDIT="${FORGE_UX_RUN_AI_AUDIT_BIN:-$TOOL_DIR/cursor-agent-run-ux-audit.sh}"
 STANDARD="${DESIGN_STANDARD_PATH:-$KS_ROOT/docs/design/forge-enterprise-ai-website-standard.md}"
 
 usage() {
@@ -78,6 +107,8 @@ Usage:
 Examples:
   ./run-website-ux-remediation-loop.sh ~/Code/forge-fleet-website ~/Code/forge-fleet-website/website
   ./run-website-ux-remediation-loop.sh ~/Code/forgesdlc https://forgesdlc.com/ --site-kind forgesdlc
+  # Single scorer+audit+agent pass only (defaults are repeat-until-clean + post-agent build-site.py):
+  FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN=0 ./run-website-ux-remediation-loop.sh ~/Code/forge-fleet-website ~/Code/forge-fleet-website/website
 
 Outputs: <kitchensink>/workbench/ux-audit/<slug>/<UTC_random>/ unless UX_AUDIT_OUT_DIR is set.
 
@@ -97,6 +128,10 @@ _EXTRA_OUT=()
 for arg in "${EXTRA[@]}"; do
   if [[ "$arg" == "--watch" || "$arg" == "--loop-watch" ]]; then
     export FORGE_UX_LOOP_WATCH=1
+    continue
+  fi
+  if [[ "$arg" == "--until-major-clean" ]]; then
+    export FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN=1
     continue
   fi
   _EXTRA_OUT+=( "$arg" )
@@ -120,7 +155,7 @@ if [[ ! -f "$AUDITOR" ]]; then
   echo "run-website-ux-remediation-loop: missing $AUDITOR" >&2
   exit 1
 fi
-SCORER="$TOOL_DIR/score-website-ux.mjs"
+SCORER="${FORGE_UX_SCORER_BIN:-$TOOL_DIR/score-website-ux.mjs}"
 if [[ ! -f "$SCORER" ]]; then
   echo "run-website-ux-remediation-loop: missing $SCORER" >&2
   exit 1
@@ -131,6 +166,16 @@ if [[ ! -f "$RUN_PLAN" ]]; then
 fi
 if [[ ! -f "$STANDARD" ]]; then
   echo "run-website-ux-remediation-loop: missing design standard: $STANDARD" >&2
+  exit 1
+fi
+MAJOR_PLUS_COUNT="${FORGE_UX_MAJOR_PLUS_COUNT_BIN:-$TOOL_DIR/audit-major-plus-count.mjs}"
+if [[ ! -f "$MAJOR_PLUS_COUNT" ]]; then
+  echo "run-website-ux-remediation-loop: missing $MAJOR_PLUS_COUNT" >&2
+  exit 1
+fi
+MERGE_DONE_CRAWL_URLS="$TOOL_DIR/merge-done-crawl-urls-from-audit.mjs"
+if [[ ! -f "$MERGE_DONE_CRAWL_URLS" ]]; then
+  echo "run-website-ux-remediation-loop: missing $MERGE_DONE_CRAWL_URLS" >&2
   exit 1
 fi
 
@@ -300,85 +345,7 @@ else
   export FORGE_UX_PROGRESS_RUN_NO=1
 fi
 
-# Log files and pipes are not TTY — Node disables the crawl line unless forced, which looks "stuck" after the scorer.
-if [[ ! -t 2 ]] && [[ -z "${FORGE_UX_CRAWL_PROGRESS+x}" ]]; then
-  export FORGE_UX_CRAWL_PROGRESS=1
-fi
-
-if [[ "${UX_AUDIT_SKIP_SCORER:-}" == "1" ]]; then
-  echo "run-website-ux-remediation-loop: UX_AUDIT_SKIP_SCORER=1 — skipping score-website-ux.mjs (removing stale ux-quality-score-loop-delta.json if present)." >&2
-  rm -f "${OUT_DIR}/ux-quality-score-loop-delta.json"
-  echo '[ux-audit] phase=shell_handoff · scorer=skipped · next=analyze-website-ux.mjs' >&2
-else
-  SCORER_CMD=(
-    node "$SCORER"
-    --repo "$REPO_ROOT"
-    "${START_ARGS[@]}"
-    --site "$SITE_URL"
-    --standard "$STANDARD"
-    --out "$OUT_DIR"
-    --timeout-ms "$TIMEOUT_MS"
-    "${SITE_KIND_ARGS[@]}"
-  )
-  SCORER_CMD+=(--max-pages "$SCORER_PAGES")
-  if [[ -n "$SCORER_LINK_DEPTH" ]]; then
-    SCORER_CMD+=(--max-link-depth "$SCORER_LINK_DEPTH")
-  fi
-  if [[ "${UX_AUDIT_SCORER_NO_CSV:-}" == "1" ]]; then
-    SCORER_CMD+=(--no-ux-csv)
-  fi
-  forge_ux_log_line "phase=scorer_begin"
-  forge_ux_merge_json '{"phase":"scorer_crawl"}'
-  echo "run-website-ux-remediation-loop: sitewide scorer → score-website-ux.mjs · max-pages=${SCORER_PAGES} (override with UX_AUDIT_SCORER_MAX_PAGES)" >&2
-  _out_echo "run-website-ux-remediation-loop: scorer crawl progress log → ${OUT_DIR}/scorer-crawl-progress.log"
-  "${SCORER_CMD[@]}"
-  _out_echo "run-website-ux-remediation-loop: sitewide scorer finished."
-  _out_echo '[ux-audit] phase=shell_handoff · scorer=complete · next=analyze-website-ux.mjs'
-  if [[ "$_UX_PROG_LOCKED" == 0 ]]; then
-    export FORGE_UX_PROGRESS_RUN_NO=$((FORGE_UX_PROGRESS_RUN_NO + 1))
-  fi
-fi
-
-AUTO_INCREMENTAL=false
-if [[ "${UX_AUDIT_INCREMENTAL:-}" == "1" ]]; then
-  AUTO_INCREMENTAL=true
-elif [[ -n "${UX_AUDIT_OUT_DIR:-}" ]] && [[ -f "${OUT_DIR}/audit-data.json" ]] && [[ "${UX_AUDIT_FORCE_FULL:-}" != "1" ]]; then
-  AUTO_INCREMENTAL=true
-fi
-
-AUDITOR_EXTRA_FLAGS=()
-if [[ "$AUTO_INCREMENTAL" == true ]]; then
-  AUDITOR_EXTRA_FLAGS+=(--incremental)
-fi
-if [[ "${UX_AUDIT_VERBOSE:-}" == "2" ]]; then
-  AUDITOR_EXTRA_FLAGS+=(--verbose=2)
-elif [[ "${UX_AUDIT_VERBOSE:-}" == "1" ]]; then
-  AUDITOR_EXTRA_FLAGS+=(--verbose)
-elif [[ -n "${UX_AUDIT_VERBOSE:-}" ]]; then
-  AUDITOR_EXTRA_FLAGS+=(--verbose="${UX_AUDIT_VERBOSE}")
-fi
-
-AUDITOR_ARGS=(
-  node "$AUDITOR"
-  --repo "$REPO_ROOT"
-  "${START_ARGS[@]}"
-  --site "$SITE_URL"
-  --standard "$STANDARD"
-  --out "$OUT_DIR"
-  --timeout-ms "$TIMEOUT_MS"
-  --install-rule
-  "${AUDITOR_EXTRA_FLAGS[@]}"
-)
-
-if [[ -n "${MAX_PAGES:-}" ]]; then
-  AUDITOR_ARGS+=(--max-pages "$MAX_PAGES")
-fi
-if [[ -n "${STOP_AFTER_MAJOR_PLUS:-}" ]]; then
-  AUDITOR_ARGS+=(--stop-after-major-plus "$STOP_AFTER_MAJOR_PLUS")
-fi
-if [[ "${UX_AUDIT_BREADTH_CRAWL:-}" == "1" ]]; then
-  AUDITOR_ARGS+=(--breadth-crawl)
-fi
+_FORGE_UX_LOOP_MAX="${FORGE_UX_LOOP_MAX_ITERATIONS:-20}"
 
 echo "run-website-ux-remediation-loop: kitchensink=${KS_ROOT}" >&2
 echo "run-website-ux-remediation-loop: WEBSITE_REPO=${REPO_ROOT}" >&2
@@ -390,22 +357,207 @@ else
   echo "run-website-ux-remediation-loop: ephemeral OUT=${OUT_DIR}" >&2
 fi
 echo "run-website-ux-remediation-loop: run-meta=${META_JSON}" >&2
-echo "run-website-ux-remediation-loop: auditor → incremental=${AUTO_INCREMENTAL} breadth_crawl=${UX_AUDIT_BREADTH_CRAWL:-0} verbose=${UX_AUDIT_VERBOSE:-} scorer_skipped=${UX_AUDIT_SKIP_SCORER:-0}" >&2
+if [[ "${FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN:-1}" == "1" ]]; then
+  echo "run-website-ux-remediation-loop: loop_mode=until_major_clean max_iterations=${_FORGE_UX_LOOP_MAX} post_agent_build=${FORGE_UX_LOOP_POST_AGENT_BUILD:-1}" >&2
+else
+  echo "run-website-ux-remediation-loop: loop_mode=single_pass (set FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN=1 or --until-major-clean for outer loop)" >&2
+fi
 
-export FORGE_UX_PROGRESS_PHASE_BASE="${FORGE_UX_PROGRESS_RUN_NO}"
+forge_ux_merge_done_crawl_urls_if_enabled() {
+  if [[ "${FORGE_UX_SKIP_DONE_CRAWL_MERGE:-}" == "1" ]]; then
+    return 0
+  fi
+  if [[ ! -f "${OUT_DIR}/audit-data.json" ]]; then
+    return 0
+  fi
+  node "$MERGE_DONE_CRAWL_URLS" "${OUT_DIR}/audit-data.json" "${OUT_DIR}/ux-audit-done-crawl-urls.txt" >&2 || true
+}
 
-forge_ux_log_line "phase=auditor_begin"
-forge_ux_merge_json '{"phase":"auditor_enter"}'
+forge_ux_post_agent_build() {
+  if [[ "${FORGE_UX_LOOP_POST_AGENT_BUILD:-1}" != "1" ]]; then
+    return 0
+  fi
+  local _gen="${REPO_ROOT}/generator/build-site.py"
+  if [[ ! -f "$_gen" ]]; then
+    return 0
+  fi
+  echo "run-website-ux-remediation-loop: post-agent build → (cd \"${REPO_ROOT}\" && python3 generator/build-site.py)" >&2
+  (cd "$REPO_ROOT" && python3 generator/build-site.py) || {
+    echo "run-website-ux-remediation-loop: warning: post-agent build-site.py exited non-zero." >&2
+    return 1
+  }
+}
 
-_out_echo '[ux-audit] phase=shell · action=exec_node · script=analyze-website-ux.mjs'
-_out_echo "run-website-ux-remediation-loop: starting auditor → analyze-website-ux.mjs"
-_out_echo "run-website-ux-remediation-loop: hint · phase + inventory + crawl progress lines → stderr ([ux-audit] / [ux-score]; piped-safe)."
-_out_echo "run-website-ux-remediation-loop: auditor crawl progress log → ${OUT_DIR}/auditor-crawl-progress.log"
-"${AUDITOR_ARGS[@]}" "${EXTRA[@]}"
+forge_ux_run_scorer_and_auditor() {
+  # Log files and pipes are not TTY — Node disables the crawl line unless forced, which looks "stuck" after the scorer.
+  if [[ ! -t 2 ]] && [[ -z "${FORGE_UX_CRAWL_PROGRESS+x}" ]]; then
+    export FORGE_UX_CRAWL_PROGRESS=1
+  fi
 
-echo "run-website-ux-remediation-loop: artifacts → ux-quality-score.{json,md} ux-quality-score-loop-delta.json audit-report.md audit-data.json …" >&2
+  if [[ "${UX_AUDIT_SKIP_SCORER:-}" == "1" ]]; then
+    echo "run-website-ux-remediation-loop: UX_AUDIT_SKIP_SCORER=1 — skipping score-website-ux.mjs (removing stale ux-quality-score-loop-delta.json if present)." >&2
+    rm -f "${OUT_DIR}/ux-quality-score-loop-delta.json"
+    echo '[ux-audit] phase=shell_handoff · scorer=skipped · next=analyze-website-ux.mjs' >&2
+  else
+    SCORER_CMD=(
+      node "$SCORER"
+      --repo "$REPO_ROOT"
+      "${START_ARGS[@]}"
+      --site "$SITE_URL"
+      --standard "$STANDARD"
+      --out "$OUT_DIR"
+      --timeout-ms "$TIMEOUT_MS"
+      "${SITE_KIND_ARGS[@]}"
+    )
+    SCORER_CMD+=(--max-pages "$SCORER_PAGES")
+    if [[ -n "$SCORER_LINK_DEPTH" ]]; then
+      SCORER_CMD+=(--max-link-depth "$SCORER_LINK_DEPTH")
+    fi
+    if [[ "${UX_AUDIT_SCORER_NO_CSV:-}" == "1" ]]; then
+      SCORER_CMD+=(--no-ux-csv)
+    fi
+    forge_ux_log_line "phase=scorer_begin"
+    forge_ux_merge_json '{"phase":"scorer_crawl"}'
+    echo "run-website-ux-remediation-loop: sitewide scorer → score-website-ux.mjs · max-pages=${SCORER_PAGES} (override with UX_AUDIT_SCORER_MAX_PAGES)" >&2
+    _out_echo "run-website-ux-remediation-loop: scorer crawl progress log → ${OUT_DIR}/scorer-crawl-progress.log"
+    "${SCORER_CMD[@]}"
+    _out_echo "run-website-ux-remediation-loop: sitewide scorer finished."
+    _out_echo '[ux-audit] phase=shell_handoff · scorer=complete · next=analyze-website-ux.mjs'
+    if [[ "$_UX_PROG_LOCKED" == 0 ]]; then
+      export FORGE_UX_PROGRESS_RUN_NO=$((FORGE_UX_PROGRESS_RUN_NO + 1))
+    fi
+  fi
+
+  local AUTO_INCREMENTAL=false
+  if [[ "${UX_AUDIT_INCREMENTAL:-}" == "1" ]]; then
+    AUTO_INCREMENTAL=true
+  elif [[ -n "${UX_AUDIT_OUT_DIR:-}" ]] && [[ -f "${OUT_DIR}/audit-data.json" ]] && [[ "${UX_AUDIT_FORCE_FULL:-}" != "1" ]]; then
+    AUTO_INCREMENTAL=true
+  fi
+
+  local AUDITOR_EXTRA_FLAGS=()
+  if [[ "$AUTO_INCREMENTAL" == true ]]; then
+    AUDITOR_EXTRA_FLAGS+=(--incremental)
+  fi
+  if [[ "${UX_AUDIT_VERBOSE:-}" == "2" ]]; then
+    AUDITOR_EXTRA_FLAGS+=(--verbose=2)
+  elif [[ "${UX_AUDIT_VERBOSE:-}" == "1" ]]; then
+    AUDITOR_EXTRA_FLAGS+=(--verbose)
+  elif [[ -n "${UX_AUDIT_VERBOSE:-}" ]] && [[ "${UX_AUDIT_VERBOSE}" != "0" ]]; then
+    AUDITOR_EXTRA_FLAGS+=(--verbose="${UX_AUDIT_VERBOSE}")
+  fi
+
+  local AUDITOR_ARGS=(
+    node "$AUDITOR"
+    --repo "$REPO_ROOT"
+    "${START_ARGS[@]}"
+    --site "$SITE_URL"
+    --standard "$STANDARD"
+    --out "$OUT_DIR"
+    --timeout-ms "$TIMEOUT_MS"
+    --install-rule
+    "${AUDITOR_EXTRA_FLAGS[@]}"
+  )
+
+  if [[ -n "${MAX_PAGES:-}" ]]; then
+    AUDITOR_ARGS+=(--max-pages "$MAX_PAGES")
+  fi
+  if [[ -n "${STOP_AFTER_MAJOR_PLUS:-}" ]]; then
+    AUDITOR_ARGS+=(--stop-after-major-plus "$STOP_AFTER_MAJOR_PLUS")
+  fi
+  if [[ "${UX_AUDIT_BREADTH_CRAWL:-}" == "1" ]]; then
+    AUDITOR_ARGS+=(--breadth-crawl)
+  fi
+
+  local DONE_URLS_FILE="${OUT_DIR}/ux-audit-done-crawl-urls.txt"
+  if [[ -f "$DONE_URLS_FILE" ]] && grep -qEv '^(#|[[:space:]]*$)' "$DONE_URLS_FILE" 2>/dev/null; then
+    AUDITOR_ARGS+=(--exclude-crawl-urls-file "$DONE_URLS_FILE")
+    echo "run-website-ux-remediation-loop: excluding prior clean crawl URLs via --exclude-crawl-urls-file ${DONE_URLS_FILE}" >&2
+  fi
+
+  echo "run-website-ux-remediation-loop: auditor → incremental=${AUTO_INCREMENTAL} breadth_crawl=${UX_AUDIT_BREADTH_CRAWL:-0} verbose=${UX_AUDIT_VERBOSE:-} scorer_skipped=${UX_AUDIT_SKIP_SCORER:-0}" >&2
+
+  export FORGE_UX_PROGRESS_PHASE_BASE="${FORGE_UX_PROGRESS_RUN_NO}"
+
+  forge_ux_log_line "phase=auditor_begin"
+  forge_ux_merge_json '{"phase":"auditor_enter"}'
+
+  _out_echo '[ux-audit] phase=shell · action=exec_node · script=analyze-website-ux.mjs'
+  _out_echo "run-website-ux-remediation-loop: starting auditor → analyze-website-ux.mjs"
+  _out_echo "run-website-ux-remediation-loop: hint · phase + inventory + crawl progress lines → stderr ([ux-audit] / [ux-score]; piped-safe)."
+  _out_echo "run-website-ux-remediation-loop: auditor crawl progress log → ${OUT_DIR}/auditor-crawl-progress.log"
+  "${AUDITOR_ARGS[@]}" "${EXTRA[@]}"
+
+  echo "run-website-ux-remediation-loop: artifacts → ux-quality-score.{json,md} ux-quality-score-loop-delta.json audit-report.md audit-data.json …" >&2
+
+  if [[ "$_UX_PROG_LOCKED" == 0 ]]; then
+    export FORGE_UX_PROGRESS_RUN_NO=$((FORGE_UX_PROGRESS_RUN_NO + 1))
+  fi
+}
+
+forge_ux_run_remediation_agent() {
+  local PLAN_FILE="$OUT_DIR/forge-ux-remediation.plan.md"
+  if [[ ! -f "$PLAN_FILE" ]]; then
+    echo "run-website-ux-remediation-loop: missing plan $PLAN_FILE" >&2
+    return 1
+  fi
+
+  if [[ -z "${FORGE_UX_REMEDIATION_AGENT_LOG+x}" ]]; then
+    export FORGE_UX_REMEDIATION_AGENT_LOG="${OUT_DIR}/remediation-agent.log"
+  fi
+
+  echo "run-website-ux-remediation-loop: remediation repo=${REPO_ROOT}" >&2
+  echo "run-website-ux-remediation-loop: remediation plan=$(realpath "$PLAN_FILE")" >&2
+  echo "run-website-ux-remediation-loop: remediation → $(realpath "$RUN_PLAN")" >&2
+  if [[ -n "${FORGE_UX_REMEDIATION_AGENT_LOG:-}" ]]; then
+    echo "run-website-ux-remediation-loop: agent transcript (tee) → ${FORGE_UX_REMEDIATION_AGENT_LOG}" >&2
+  fi
+
+  forge_ux_log_line "phase=remediation_agent_begin"
+  forge_ux_merge_json '{"phase":"remediation_agent"}'
+
+  bash "$RUN_PLAN" "$REPO_ROOT" "$PLAN_FILE"
+}
+
+forge_ux_run_ai_audit_if_enabled() {
+  if [[ "${FORGE_UX_ENABLE_AI_AUDIT:-0}" != "1" ]]; then
+    return 0
+  fi
+  if [[ "${SKIP_CURSOR_AGENT:-}" == "1" ]]; then
+    echo "run-website-ux-remediation-loop: FORGE_UX_ENABLE_AI_AUDIT=1 but SKIP_CURSOR_AGENT=1 — skipping AI audit." >&2
+    return 0
+  fi
+  if [[ ! -f "$RUN_AI_AUDIT" ]]; then
+    echo "run-website-ux-remediation-loop: missing AI audit runner $RUN_AI_AUDIT" >&2
+    return 1
+  fi
+
+  forge_ux_log_line "phase=ai_audit_begin"
+  forge_ux_merge_json '{"phase":"ai_audit"}'
+  echo "[ux-audit] phase=ai_audit · action=start · mode=post_clean" >&2
+  echo "run-website-ux-remediation-loop: AI-assisted audit → ${RUN_AI_AUDIT}" >&2
+  set +e
+  bash "$RUN_AI_AUDIT" "$REPO_ROOT" "$OUT_DIR" "$STANDARD"
+  local _rc=$?
+  set -e
+  if [[ "$_rc" -ne 0 ]]; then
+    echo "run-website-ux-remediation-loop: warning: AI-assisted audit exited non-zero (${_rc}); continuing with deterministic result." >&2
+    forge_ux_log_line "phase=ai_audit_warn exit_code=${_rc}"
+    return 0
+  fi
+  if [[ -f "${OUT_DIR}/ai-audit/ai-audit-data.json" ]]; then
+    local _ai_total _ai_major
+    _ai_total="$(node -e "const fs=require('fs'); const j=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); process.stdout.write(String(j.totalFindings ?? 0));" "${OUT_DIR}/ai-audit/ai-audit-data.json" 2>/dev/null || echo 0)"
+    _ai_major="$(node -e "const fs=require('fs'); const j=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); process.stdout.write(String(j.majorPlusFindingCount ?? 0));" "${OUT_DIR}/ai-audit/ai-audit-data.json" 2>/dev/null || echo 0)"
+    echo "[ux-audit] phase=ai_audit · action=done · findings=${_ai_total} · majorPlus=${_ai_major}" >&2
+  fi
+}
 
 if [[ "${SKIP_CURSOR_AGENT:-}" == "1" ]]; then
+  forge_ux_run_scorer_and_auditor
+  _mj="$(node "$MAJOR_PLUS_COUNT" "${OUT_DIR}/audit-data.json" 2>/dev/null || echo 999)"
+  echo "run-website-ux-remediation-loop: Major+ count (visited pages)=${_mj}" >&2
+  forge_ux_merge_done_crawl_urls_if_enabled
   forge_ux_log_line "phase=skip_cursor_agent"
   forge_ux_merge_json '{"phase":"audit_only_done"}'
   echo "run-website-ux-remediation-loop: SKIP_CURSOR_AGENT=1 — skipping remediation."
@@ -417,21 +569,60 @@ if ! command -v agent >/dev/null 2>&1; then
   exit 1
 fi
 
-PLAN_FILE="$OUT_DIR/forge-ux-remediation.plan.md"
-if [[ ! -f "$PLAN_FILE" ]]; then
-  echo "run-website-ux-remediation-loop: missing plan $PLAN_FILE" >&2
+if [[ "${FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN:-1}" == "1" ]]; then
+  _mj=1
+  _iter=0
+  while true; do
+    if [[ "${_iter}" -ge "${_FORGE_UX_LOOP_MAX}" ]]; then
+      echo "run-website-ux-remediation-loop: until-major-clean — exceeded FORGE_UX_LOOP_MAX_ITERATIONS=${_FORGE_UX_LOOP_MAX} (Major+ still ${_mj})." >&2
+      exit 1
+    fi
+    _iter=$((_iter + 1))
+    echo "run-website-ux-remediation-loop: until-major-clean · iteration ${_iter}/${_FORGE_UX_LOOP_MAX}" >&2
+
+    forge_ux_run_scorer_and_auditor
+
+    if ! _mj="$(node "$MAJOR_PLUS_COUNT" "${OUT_DIR}/audit-data.json" 2>/dev/null)"; then
+      echo "run-website-ux-remediation-loop: audit-major-plus-count failed (missing or corrupt audit-data.json?)." >&2
+      exit 1
+    fi
+    echo "run-website-ux-remediation-loop: Major+ count (visited pages)=${_mj}" >&2
+    forge_ux_merge_done_crawl_urls_if_enabled
+
+    if [[ "${_mj}" -eq 0 ]]; then
+      forge_ux_run_ai_audit_if_enabled || true
+      echo "run-website-ux-remediation-loop: until-major-clean — audit pass (zero Blocker/Critical/Major on visited pages)." >&2
+      forge_ux_log_line "phase=until_major_clean_pass iterations=${_iter}"
+      forge_ux_merge_json "{\"phase\":\"until_major_clean_pass\",\"iterations\":${_iter}}" || true
+      exit 0
+    fi
+
+    forge_ux_run_remediation_agent
+    _agent_ec=$?
+    forge_ux_post_agent_build || true
+    if [[ "${_agent_ec}" -ne 0 ]]; then
+      exit "${_agent_ec}"
+    fi
+  done
+fi
+
+# Single pass (FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN=0)
+forge_ux_run_scorer_and_auditor
+
+if ! _mj="$(node "$MAJOR_PLUS_COUNT" "${OUT_DIR}/audit-data.json" 2>/dev/null)"; then
+  echo "run-website-ux-remediation-loop: audit-major-plus-count failed (missing or corrupt audit-data.json?)." >&2
   exit 1
 fi
+echo "run-website-ux-remediation-loop: Major+ count (visited pages)=${_mj}" >&2
+forge_ux_merge_done_crawl_urls_if_enabled
 
-echo "run-website-ux-remediation-loop: remediation repo=${REPO_ROOT}" >&2
-echo "run-website-ux-remediation-loop: remediation plan=$(realpath "$PLAN_FILE")" >&2
-echo "run-website-ux-remediation-loop: remediation → $(basename "$RUN_PLAN")" >&2
-
-forge_ux_log_line "phase=remediation_agent_begin"
-forge_ux_merge_json '{"phase":"remediation_agent"}'
-
-if [[ "${FORGE_UX_LOOP_WATCH:-}" == "1" ]]; then
-  bash "$RUN_PLAN" "$REPO_ROOT" "$PLAN_FILE"
-else
-  exec bash "$RUN_PLAN" "$REPO_ROOT" "$PLAN_FILE"
+if [[ "${_mj}" -eq 0 ]]; then
+  forge_ux_run_ai_audit_if_enabled || true
+  echo "run-website-ux-remediation-loop: single-pass clean — no remediation agent needed." >&2
+  exit 0
 fi
+
+forge_ux_run_remediation_agent
+_agent_ec=$?
+forge_ux_post_agent_build || true
+exit "${_agent_ec}"

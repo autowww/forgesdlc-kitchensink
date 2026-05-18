@@ -1,0 +1,53 @@
+[INFO] Repo: /home/lzvyahin/Code/forgesdlc-kitchensink
+[INFO] Prompt dir: /home/lzvyahin/Code/ks-visual-catalog-remediation-pack/prompts
+[INFO] Run dir: /home/lzvyahin/Code/forgesdlc-kitchensink/.cursor/runs/ks-visual-catalog-remediation-20260518T121408Z
+[INFO] Cursor force: 1
+[PHASE] 01-auditor-scorer-independence-and-runtime-fixes
+[PLAN] 01-auditor-scorer-independence-and-runtime-fixes
+[EXECUTE] 01-auditor-scorer-independence-and-runtime-fixes
+[VERIFY] 01-auditor-scorer-independence-and-runtime-fixes
+[PASS] 01-auditor-scorer-independence-and-runtime-fixes
+[PHASE] 02-catalog-validation-tooling
+[PLAN] 02-catalog-validation-tooling
+[EXECUTE] 02-catalog-validation-tooling
+[VERIFY] 02-catalog-validation-tooling
+[PASS] 02-catalog-validation-tooling
+[PHASE] 03-per-element-inventory-and-registry-coverage
+[PLAN] 03-per-element-inventory-and-registry-coverage
+[EXECUTE] 03-per-element-inventory-and-registry-coverage
+[VERIFY] 03-per-element-inventory-and-registry-coverage
+[WARN] Verification did not pass for 03-per-element-inventory-and-registry-coverage
+[RETRY 1] 03-per-element-inventory-and-registry-coverage
+[PASS AFTER RETRY] 03-per-element-inventory-and-registry-coverage
+[PHASE] 04-real-design-contracts
+[PLAN] 04-real-design-contracts
+[EXECUTE] 04-real-design-contracts
+[VERIFY] 04-real-design-contracts
+[PASS] 04-real-design-contracts
+[PHASE] 05-hash-attribute-emission
+[PLAN] 05-hash-attribute-emission
+[EXECUTE] 05-hash-attribute-emission
+[VERIFY] 05-hash-attribute-emission
+[PASS] 05-hash-attribute-emission
+[PHASE] 06-screenshot-capture-and-showcase-references
+[PLAN] 06-screenshot-capture-and-showcase-references
+[EXECUTE] 06-screenshot-capture-and-showcase-references
+[VERIFY] 06-screenshot-capture-and-showcase-references
+[PASS] 06-screenshot-capture-and-showcase-references
+[PHASE] 07-auditor-scorer-remediation-catalog-awareness
+[PLAN] 07-auditor-scorer-remediation-catalog-awareness
+[EXECUTE] 07-auditor-scorer-remediation-catalog-awareness
+[VERIFY] 07-auditor-scorer-remediation-catalog-awareness
+[PASS] 07-auditor-scorer-remediation-catalog-awareness
+[PHASE] 08-consumer-site-propagation-and-live-checks
+[PLAN] 08-consumer-site-propagation-and-live-checks
+[EXECUTE] 08-consumer-site-propagation-and-live-checks
+[VERIFY] 08-consumer-site-propagation-and-live-checks
+[PASS] 08-consumer-site-propagation-and-live-checks
+[PHASE] 09-final-qa-and-coverage-report
+[PLAN] 09-final-qa-and-coverage-report
+[EXECUTE] 09-final-qa-and-coverage-report
+[VERIFY] 09-final-qa-and-coverage-report
+[PASS] 09-final-qa-and-coverage-report
+[PHASE] 10-follow-up-maintenance-workflow
+[PLAN] 10-follow-up-maintenance-workflow

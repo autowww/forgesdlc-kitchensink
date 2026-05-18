@@ -14,12 +14,15 @@ import {
 test('severityRank orders worst-first (lower rank = worse)', () => {
   assert.ok(severityRank('blocker') < severityRank('critical'));
   assert.ok(severityRank('critical') < severityRank('major'));
-  assert.ok(severityRank('major') < severityRank('minor'));
+  assert.ok(severityRank('major') < severityRank('warn'));
+  assert.ok(severityRank('warn') < severityRank('minor'));
 });
 
 test('isMajorPlus is true for blocker crit major only', () => {
   assert.equal(isMajorPlus('blocker'), true);
+  assert.equal(isMajorPlus('critical'), true);
   assert.equal(isMajorPlus('major'), true);
+  assert.equal(isMajorPlus('warn'), false);
   assert.equal(isMajorPlus('minor'), false);
 });
 

@@ -1,0 +1,118 @@
+VERDICT: PASS
+
+## Evidence (maps to phase requirements)
+
+**Architecture (shared JSON, no cross-CLI)**  
+- `lib/visual-catalog.js` documents generated-JSON-only usage and exposes `loadGeneratedRegistry`, `summarizeVisualCatalogCoverage`, and HTML helpers ```1:4:tools/website-ux-auditor/lib/visual-catalog.js
+/**
+ * KS visual hash catalog helpers for the website UX auditor/scorer.
+ * Reads only docs/design/catalog/visual-registry.generated.json (no YAML, no design-catalog runtime deps).
+ */
+```  
+- Grep shows no `score-website-ux` / `child_process` / `spawn` usage in `analyze-website-ux.mjs`, and no `analyze-website-ux` in `score-website-ux.mjs`; both only share `lib/visual-catalog.js` / `lib/design-ux-score.js` patterns described in README (shell may run both, scripts do not call each other).
+
+**DOM scan (`hash` + `data-ks-hash`)**  
+- Playwright metrics build `ksVisualHashReport` from `[data-ks-hash], [hash]`, with invalid values, mismatches, incomplete pairs, and per-hash counts ```255:311:tools/website-ux-auditor/lib/dom-metrics.js
+      const ksVisualHashReport = (() => {
+        const nodes = Array.from(document.querySelectorAll('[data-ks-hash], [hash]'));
+        const invalidRaw = [];
+        const mismatches = [];
+        const incompleteMarkers = [];
+        const instanceCountByHash = new Map();
+        const validSet = new Set();
+        // ...
+        return {
+          validUnique: [...validSet].sort(),
+          invalidRaw,
+          mismatches,
+          incompleteMarkers,
+          instanceCountByHash: instObj,
+        };
+      })();
+```
+
+**Check behavior (unknown / invalid / deprecated / duplicate / contracts)**  
+- `checks/visual-catalog-awareness.js` defines stable `id`s including `visual-catalog-unknown-hash`, mismatch, incomplete marker, duplicate emitted hash, deprecated, registry duplicate, missing contract ref, contract file missing, etc., with messages pointing at `visual-registry.generated.json` and remediation paths under `docs/design/catalog/…` (sample unknown-hash shape matches the phase example).
+
+**Scoring / dimension**  
+- `area: 'visual-catalog'` maps to dimension `visualCatalogGovernance` ```17:33:tools/website-ux-auditor/lib/design-dimensions.js
+export const AREA_TO_DESIGN_DIMENSION = {
+  // ...
+  'visual-catalog': 'visualCatalogGovernance',
+```
+- `severity: 'warn'` and `SCORE_WEIGHTS.warn = 14` ```29:37:tools/website-ux-auditor/lib/severity.js
+export const SCORE_WEIGHTS = {
+  blocker: 55,
+  critical: 34,
+  major: 20,
+  warn: 14,
+  minor: 8,
+```
+- Scorer writes `visualCatalogCoverage` into JSON and renders **KS visual catalog coverage** in Markdown ```217:235:tools/website-ux-auditor/score-website-ux.mjs
+    const visualCatalogCoverage = summarizeVisualCatalogCoverage(crawled.pages, args.repo);
+    // ...
+    const jsonPayload = {
+      runMeta,
+      uxScores,
+      crawlSummary: crawled.crawlSummary,
+      profile: { name: profile.name, siteKindKey: siteKind },
+      designStandard: designPinned,
+      visualCatalogCoverage,
+```
+
+**Remediation plans**  
+- Plan 07 inserts `visualCatalogRemediationSection`: “Affected visual”, “Design contract”, and “Update **both** implementation and matching design contract…” for known hashes ```752:790:tools/website-ux-auditor/analyze-website-ux.mjs
+function visualCatalogRemediationSection({ pages, args }) {
+  // ...
+      lines.push(`- **Affected visual:** ${hk} — ${name}`);
+      // ...
+      if (contractRaw) {
+        lines.push(`  - **Design contract:** \`${contractRaw}\``);
+        lines.push('  - Update **both** implementation and matching design contract if the visual expectation changes.');
+```  
+- Same plan lists `visual-catalog` in `findingBullets` (grep line 1340).
+
+**Catalog absent → warning, not fatal**  
+- Missing registry adds `visual-catalog-registry-missing` at `minor` and returns; tests assert no crash ```43:54:tools/website-ux-auditor/auditor-tests/visual-catalog-json.test.js
+test('visual catalog awareness: DOM hashes without generated registry emit a finding (no crash)', () => {
+  const findings = visualCatalogAwareness(
+    { ksVisualHashes: ['Tst'] },
+    'https://example.com/',
+    { repoRoot: fixtureMinimalRepo },
+  );
+  assert.equal(findings.length, 1);
+  assert.equal(findings[0].id, 'visual-catalog-registry-missing');
+```
+
+**Tests on generated JSON only**  
+- Fixture-based tests in `auditor-tests/visual-catalog-json.test.js` use `loadGeneratedRegistry`, `runCheck`, `ksVisualHashReportFromHtmlBlob`, `summarizeVisualCatalogCoverage`; no YAML parser in tooling (only human-readable strings mention `visual-registry.yaml` in remediation text).
+
+**Phase evidence file**  
+- `.cursor/plans/ks-visual-catalog-remediation/07-auditor-scorer-remediation-catalog-awareness.md` records scope, independence, `npm test` result (**68 tests**, 2026-05-18).
+
+## Missing / weaker areas (not blocking a PASS, but worth tightening)
+
+1. **Static HTML path vs live DOM** — `ksVisualHashReportFromHtmlBlob` only collects valid 3-letter markers; it does **not** populate `invalidRaw`, `mismatches`, or `incompleteMarkers` ```46:72:tools/website-ux-auditor/lib/visual-catalog.js
+export function ksVisualHashReportFromHtmlBlob(blob) {
+  // ...
+  return {
+    validUnique: [...seen].sort(),
+    invalidRaw: [],
+    mismatches: [],
+    incompleteMarkers: [],
+    instanceCountByHash,
+  };
+}
+```  
+   So static-only runs under-report hash governance relative to Playwright (invalid / pair / mismatch findings need the live DOM report).
+
+2. **Test breadth** — Fixtures cover registry load, unknown hash (with `selector` / severity), registry missing, DOM mismatch + duplicate instances without catalog, registry duplicate once-per-ctx, HTML blob discovery, and coverage rollup. There are **no** dedicated tests for every finding id (e.g. deprecated, incomplete marker, invalid raw, missing contract ref, missing contract file).
+
+3. **Independent re-check of `npm test`** — In Ask mode this session did not execute `npm test`; acceptance is taken from the phase doc plus code review. Re-run locally if you need machine-verified proof today.
+
+## Exact next actions
+
+1. Run `cd tools/website-ux-auditor && npm test` on your machine and confirm **0 failures** (aligns with the plan’s 68-test claim).  
+2. If static audits must match live hash governance, extend `ksVisualHashReportFromHtmlBlob` (or document that static mode is best-effort only).  
+3. Optionally add small fixture tests for `visual-catalog-incomplete-marker`, `visual-catalog-invalid-hash`, `visual-catalog-deprecated-hash`, and `visual-catalog-missing-contract-ref` to lock behavior.  
+4. Optional spot-check: live `score-website-ux.mjs` run with a repo that has `visual-registry.generated.json` and pages with `hash` / `data-ks-hash`; confirm `ux-quality-score.json` → `visualCatalogCoverage` and the Markdown **KS visual catalog coverage** table.

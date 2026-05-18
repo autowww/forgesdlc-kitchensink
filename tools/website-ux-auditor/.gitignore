@@ -1,1 +1,3 @@
 .ux-loop-e2e-*/
+.ux-loop-e2e-log-*.txt
+.ux-loop-e2e-stall-*.flag

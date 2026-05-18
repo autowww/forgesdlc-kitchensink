@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Suggest unused three-letter visual hashes for manual allocation.
- * Does not edit visual-registry.yaml.
+ * Does not edit visual-registry.yaml. Uniqueness and format are enforced by check-visual-catalog.mjs.
  *
  * Usage:
  *   node allocate-visual-hash.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --suggest 10

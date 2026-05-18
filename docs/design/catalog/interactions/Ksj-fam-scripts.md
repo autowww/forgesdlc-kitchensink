@@ -11,9 +11,19 @@ screenshot_status: "not-applicable"
 
 # Ksj — Kitchen Sink interaction scripts
 
+## Identity
+
+- **Hash:** Ksj
+- **Name:** Kitchen Sink interaction scripts
+- **Type:** script-family
+- **Category:** client-side interaction modules
+- **Source paths:** see frontmatter (`js/*.js` list)
+- **Showcase URL / status:** Behaviors exercised across many showcase pages—not one bundle URL.
+- **Screenshot URL / status:** Not applicable at family row; capture motion/nav states on affected pages or recordings when helpful.
+
 ## Purpose
 
-See [visual-registry.yaml](../visual-registry.yaml) and [contract-template.md](../contract-template.md). Expand this stub with anatomy, states, and a11y expectations.
+Govern client-side behaviors shipped under `js/`. Child registry rows (**`LJa`**, **`TNH`**, **`Kfr`**, **`pUW`**, **`Bru`**) group modules by navigation, motion/theme, diagrams, roadmap editing, and presentation tiles so inventory ↔ registry alignment stays testable.
 
 ## Expected look
 
@@ -21,35 +31,42 @@ Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md]
 
 ## Anatomy
 
-- TBD
+- **Navigation (`LJa`):** portal/docs/showcase menus and dropdown affordances.
+- **Theme & motion (`TNH`):** runtime theme selection, ambient layers, optional motion for backgrounds and living SVG scenes (respecting reduction prefs).
+- **Diagrams & charts (`Kfr`):** modal hosts, zoom, catalog browsing, chart bindings.
+- **Roadmap (`pUW`):** nested roadmap interactions and timeline edits.
+- **Presentation (`Bru`):** fullscreen decks, tilt tiles, home tile expansion.
 
 ## Content rules
 
-- TBD
+- Scripts attach to DOM hooks emitted by Python/React primitives; do not require undocumented IDs.
+- Progressive enhancement: core content remains usable when JS fails aside from explicitly interactive demos.
 
 ## States
 
-- Default
+- Default plus modal-open, expanded-nav, presentation-fullscreen, and reduced-motion branches where implemented.
 
 ## Variants
 
-- TBD
+- Split strictly along **child hashes** in `visual-registry.yaml`; avoid registering unrelated bundles on the same row.
 
 ## Responsive behavior
 
-- TBD
+- Touch-friendly hit areas for nav (`LJa`); chart/modal flows usable at narrow widths (`Kfr`).
 
 ## Accessibility contract
 
-- TBD
+- Keyboard reachability for nav and modal closures; focus trapping inside modal shells where applicable.
+- Respect **`prefers-reduced-motion`** for ambient/motion scripts coordinated with **`TNH`** and **`Ksc`** layers.
 
-## Enterprise look/feel rules
+## Enterprise look and feel rules
 
-- TBD
+- Motion accents reinforce hierarchy rather than distract; keep durations moderate.
 
 ## Forbidden patterns
 
-- TBD
+- Hijacking global shortcuts without documented affordances.
+- Sole reliance on hover-only controls without keyboard/touch equivalents.
 
 ## Source paths
 
@@ -72,24 +89,31 @@ Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md]
 - `js/portal-nav.js`
 - `js/docs-nav.js`
 
+## Covered children
+
+- **LJa** — Portal, docs, nav, showcase: `portal-nav.js`, `docs-nav.js`, `fs-nav-dropdown.js`, `showcase.js`.
+- **TNH** — Theme, ambient, motion: `forge-theme.js`, `forge-ambient.js`, `ks-living-motion.js`, `ks-animated-backgrounds.js`, `svg-background-gallery.js`.
+- **Kfr** — Diagrams and charts: `ks-diagram-modal.js`, `diagram-modal-zoom.js`, `ks-diagram-catalog.js`, `forge-data-charts.js`.
+- **pUW** — Roadmap: `nested-roadmap.js`, `roadmap-dates.js`.
+- **Bru** — Tiles and presentation: `fs-presentation.js`, `ks-tilt-tiles.js`, `fs-home-expand-tiles.js`.
+
 ## Dependencies
 
-- TBD
+- DOM structures from **`Kpr`** components and **`Rpf`** React primitives plus stylesheet hooks from **`Ksc`** children.
 
-## Showcase and screenshots
+## Implementation notes
 
-- n/a
-- Screenshot: planned
+- Add new modules under `js/` and register them on the correct child hash (`LJa`, `TNH`, `Kfr`, `pUW`, `Bru`) in `visual-registry.yaml`.
 
-## Acceptance checklist
+## Screenshot acceptance
 
-- [ ] Root emits `hash="Ksj"` and matching `data-ks-hash`.
-- [ ] Registry row current.
+- Prefer lightweight screen recordings or stills for modal/nav transitions; static PNGs optional. Automated checks should ensure scripts load without uncaught exceptions on showcase pages.
 
-## Change rules
+## Change policy
 
-Keep hash for compatible refinements; allocate new hash for breaking visual identity changes.
+Keep **`Ksj`** as roll-up; add modules by extending the correct child row's **`source_paths`** or allocating a new hash when behavior splits visually.
 
 ## Changelog
 
-- Auto-stub generated — replace with authored contract.
+- Phase 03: replaced stub markers; clarified child grouping and accessibility expectations.
+- 2026-05-18 — Phase 04: Identity, Covered children, implementation and acceptance alignment.

@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-18T12:49:50.999Z",
+  "baseUrl": "http://127.0.0.1:42519/",
+  "outDir": "docs/design/catalog/screenshots",
+  "rows": [
+    {
+      "hash": "Hbk",
+      "html": "preview-handbook.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Vhb",
+      "html": "preview-handbook.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Chp",
+      "html": "preview-chapter.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Vcp",
+      "html": "preview-chapter.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Prd",
+      "html": "preview-product.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Vpd",
+      "html": "preview-product.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Shw",
+      "html": "layouts.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Lyt",
+      "html": "layouts.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Ldg",
+      "html": "preview-landing.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Vln",
+      "html": "preview-landing.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Mkt",
+      "html": "preview-marketing.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Vmk",
+      "html": "preview-marketing.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Lst",
+      "html": "preview-listing.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Vlg",
+      "html": "preview-listing.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Gly",
+      "html": "diagrams.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Dgm",
+      "html": "diagrams.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Spl",
+      "html": "preview-split.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Vsp",
+      "html": "preview-split.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Idx",
+      "html": "index.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Tkn",
+      "html": "tokens.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Ctr",
+      "html": "controls.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Nav",
+      "html": "navigation.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Srf",
+      "html": "surfaces.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Pnz",
+      "html": "presentation.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Enm",
+      "html": "enterprise-marketing.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Fag",
+      "html": "for-agents.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Slt",
+      "html": "split-layout.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Ndr",
+      "html": "nested-roadmap.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Frp",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Tdc",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Fkg",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Fsb",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Fvw",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Fdg",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Fwb",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Fen",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Frh",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Fda",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Wlc",
+      "html": "forge-react-primitives.html",
+      "ok": true,
+      "usedLocator": false
+    },
+    {
+      "hash": "Rpl",
+      "html": "react-primitives-live.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Kcm",
+      "html": "ks-creation-mindmap.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Dcs",
+      "html": "data-charts-static.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Dca",
+      "html": "data-charts-api.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Dce",
+      "html": "diagram-code-examples.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Sgb",
+      "html": "svg-backgrounds.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Mtn",
+      "html": "motion.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Fam",
+      "html": "forge-ambient.html",
+      "ok": true,
+      "usedLocator": true
+    },
+    {
+      "hash": "Lvg",
+      "html": "living-background.html",
+      "ok": true,
+      "usedLocator": true
+    }
+  ],
+  "summary": {
+    "attempted": 48,
+    "captured": 48,
+    "failed": 0
+  }
+}

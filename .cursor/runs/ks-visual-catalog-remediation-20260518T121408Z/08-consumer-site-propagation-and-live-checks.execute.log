@@ -1,0 +1,35 @@
+## What was implemented
+
+### 1. `tools/design-catalog/check-consumer-hashes.mjs`
+- **Inputs:** `--url`, `--file`, or `--dir` (exactly one); optional `--repo`, `--registry` (defaults to `docs/design/catalog/visual-registry.generated.json` under `--repo`).
+- **Reports:** occurrence counts for valid 3-letter `hash=` / `data-ks-hash=`, distinct ids, invalid values, hashes not in the registry, per-id **pair count mismatches**, and optional handbook-url heuristics.
+- **`--strict`:** exit `1` if any of those problems appear.
+- **Governance:** does not call the website UX auditor/scorer (per rule).
+
+### 2. `docs/design/catalog/consumer-site-hash-verification.md`
+- Table of public hosts and how they relate to consumer repos.
+- **Mapping:** live three-letter id → `visual-registry.generated.json` → `contract_path` and `screenshot_url` / `https://ks.forgesdlc.com/showcase/screenshots/{HASH}.png`.
+- **Local:** run the script on `website/` after build (with example `KS_ROOT` paths).
+- **Live:** required `curl | grep` examples plus Node checks; notes that **`ks.forgesdlc.com` uses `cases/showcase/`** and that **live HTML can lag** this repo.
+- **Deploy checklist** for submodule bump → build → `check-consumer-hashes.mjs` → deploy → `curl`/`--url` proof.
+
+### 3. `docs/design/catalog/README.md`
+- Short “Consumer sites” subsection pointing at the new doc and script.
+
+### 4. `.github/workflows/ci.yml`
+- After `build-showcase.py`, runs  
+  `node tools/design-catalog/check-consumer-hashes.mjs --repo . --dir showcase --strict`.
+
+### 5. Evidence file
+- `.cursor/plans/ks-visual-catalog-remediation/08-consumer-site-propagation-and-live-checks.md` — deliverables, propagation rationale (KS + submodule; no consumer redesign), local and **live** results.
+
+## Consumer propagation
+Hashes are already emitted from KS (`ks_hash_attrs`, `ks_catalog_hashes`, `forge_autodoc` → `page_main_attrs`, layouts). Consumer sites pick them up by **bumping `kitchensink/`** and rebuilding; no edits were made in `forgesdlc/` or handbook repos in this phase (those repos are only referenced in the new doc).
+
+## Acceptance checks run
+| Check | Result |
+|--------|--------|
+| `node tools/design-catalog/check-consumer-hashes.mjs --repo . --dir showcase --strict` | **OK** (172 paired markers, 29 HTML files) |
+| Live `forgesdlc.com` / `platform.forgesdlc.com` with `--url --strict` | **OK** |
+| Live `lcdl` / `fleet` / `lenses` homepages, `curl \| grep` | **Markers present** |
+| Live `https://ks.forgesdlc.com/cases/showcase/preview-handbook.html` | **No `data-ks-hash` in fetched HTML** — evidence file states **not** to claim KS showcase is updated until live raw HTML shows markers (deploy appears behind this repo). |

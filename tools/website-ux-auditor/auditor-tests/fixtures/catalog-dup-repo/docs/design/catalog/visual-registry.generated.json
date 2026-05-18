@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "repoRoot": "fixture-catalog-dup-repo",
+  "entries": [
+    {
+      "hash": "Dup",
+      "name": "Duplicate row A",
+      "slug": "dup-a",
+      "type": "layout",
+      "status": "active",
+      "contract": null,
+      "contract_status": "not-applicable",
+      "aliases": []
+    },
+    {
+      "hash": "Dup",
+      "name": "Duplicate row B",
+      "slug": "dup-b",
+      "type": "layout",
+      "status": "active",
+      "contract": null,
+      "contract_status": "not-applicable",
+      "aliases": []
+    }
+  ]
+}

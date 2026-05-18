@@ -78,6 +78,11 @@ function dequeueItem(raw, fallbackDepth = 0) {
  *   pagesCompleted?: number,
  *   queueLen?: number,
  *   budget?: number,
+ *   majorPlusPage?: number,
+ *   majorPlusRunTotal?: number,
+ *   crawlHaltMajorPlus?: boolean,
+ *   stopAfterMajorPlus?: number | null,
+ *   stopDisabled?: boolean,
  * }} CrawlProgressEvent
  */
 
@@ -96,6 +101,7 @@ function dequeueItem(raw, fallbackDepth = 0) {
  *   regressionUrls?: string[],
  *   resumeVisitedUrls?: string[],
  *   resumeQueuedUrls?: string[],
+ *   excludeCrawlHrefs?: string[],
  *   logger?: { verbose?: (tag: string, message?: string, detail?: string) => void },
  *   onProgress?: (ev: CrawlProgressEvent) => void,
  *   maxLinkDepth?: number | null,
@@ -116,6 +122,7 @@ export async function crawlAndAnalyze(opts) {
     regressionUrls = [],
     resumeVisitedUrls = [],
     resumeQueuedUrls = [],
+    excludeCrawlHrefs = [],
     logger,
     onProgress,
     maxLinkDepth: maxLinkDepthOpt = null,
@@ -135,6 +142,12 @@ export async function crawlAndAnalyze(opts) {
   const origin = new URL(startUrl).origin;
   const startNorm = normalizeCrawlHref(startUrl);
 
+  /** Treat as already visited: skip analysis and link expansion (frees crawl budget for other URLs). Start URL is never excluded. */
+  const excludeSet = new Set(
+    (excludeCrawlHrefs || []).map((u) => normalizeCrawlHref(String(u || ''))).filter(Boolean),
+  );
+  if (startNorm) excludeSet.delete(startNorm);
+
   /** @type {string[]} */
   const visitedOrder = [];
 
@@ -142,6 +155,9 @@ export async function crawlAndAnalyze(opts) {
   const seen = new Set();
   for (const raw of resumeVisitedUrls || []) {
     const h = normalizeCrawlHref(raw);
+    if (h && isCrawlableUrl(h, origin)) seen.add(h);
+  }
+  for (const h of excludeSet) {
     if (h && isCrawlableUrl(h, origin)) seen.add(h);
   }
 
@@ -227,8 +243,9 @@ export async function crawlAndAnalyze(opts) {
       await mobilePage.close();
     }
 
+    const majorPlusPage = countMajorPlus(analyzed.findings || []);
     pages.push(analyzed);
-    majorPlusAccum += countMajorPlus(analyzed.findings || []);
+    majorPlusAccum += majorPlusPage;
 
     logger?.verbose?.(
       '[crawl]',
@@ -261,6 +278,11 @@ export async function crawlAndAnalyze(opts) {
       pagesCompletedAfter: pages.length,
       queueLen: queue.length,
       budget: maxPages,
+      majorPlusPage,
+      majorPlusRunTotal: majorPlusAccum,
+      crawlHaltMajorPlus: haltExpand,
+      stopAfterMajorPlus: stopDisabled ? null : stopAfterMajorPlus,
+      stopDisabled,
     });
 
     return haltExpand;
@@ -322,6 +344,7 @@ export async function crawlAndAnalyze(opts) {
     pagesPlannedBudget: maxPages,
     stopDisabled,
     maxLinkDepth,
+    excludeCrawlPreseeded: excludeSet.size,
   };
 
   const visitedUrls = [...visitedOrder];

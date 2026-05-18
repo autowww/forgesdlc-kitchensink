@@ -37,7 +37,7 @@ const HARM_EPS = 1e-6;
 export function findingDamageWeight(finding) {
   if (!finding) return 0;
   const w = SCORE_WEIGHTS[String(finding.severity || '').toLowerCase()];
-  return Number.isFinite(w) ? w : 8;
+  return Number.isFinite(w) ? w : SCORE_WEIGHTS.minor;
 }
 
 function dimensionScoreFromDamage(rawDamage) {
@@ -320,6 +320,7 @@ export function buildUxQualityScoreMarkdown(opts) {
     uxScores,
     argsSummary,
     crawlSummary,
+    visualCatalogCoverage,
   } = opts;
 
   const lines = [];
@@ -392,6 +393,37 @@ export function buildUxQualityScoreMarkdown(opts) {
       lines.push(`**Strongest cap applied:** ${formatUxScoreDisplay(hr.appliedCap)} (site kind \`${hr.siteKind}\`).`);
     }
     lines.push('');
+  }
+  if (visualCatalogCoverage && typeof visualCatalogCoverage === 'object') {
+    const vc = visualCatalogCoverage;
+    lines.push('## KS visual catalog coverage (generated JSON)');
+    lines.push('');
+    lines.push(
+      '_Quality signal for **visualCatalogGovernance**: compares DOM `hash` / `data-ks-hash` markers vs `docs/design/catalog/visual-registry.generated.json` (YAML is not parsed here)._',
+    );
+    lines.push('');
+    lines.push('| Signal | Value |');
+    lines.push('|--------|-------|');
+    lines.push(`| Registry readable | \`${Boolean(vc.catalogPresent)}\` |`);
+    lines.push(`| Pages with ≥1 KS marker | \`${vc.pagesWithKsMarkers ?? '—'}\` |`);
+    lines.push(`| Unique hashes emitted | \`${vc.uniqueHashesEmitted ?? '—'}\` |`);
+    lines.push(`| Known in registry | \`${Array.isArray(vc.knownHashesEmitted) ? vc.knownHashesEmitted.length : '—'}\` |`);
+    lines.push(`| Unknown in registry | \`${Array.isArray(vc.unknownHashesEmitted) ? vc.unknownHashesEmitted.length : '—'}\` |`);
+    if (vc.coverageRatio !== null && vc.coverageRatio !== undefined && Number.isFinite(Number(vc.coverageRatio))) {
+      lines.push(`| Known / unique (coverage ratio) | \`${formatUxScoreDisplay(Number(vc.coverageRatio) * 100)}%\` |`);
+    } else {
+      lines.push('| Known / unique (coverage ratio) | `—` |');
+    }
+    lines.push(`| Duplicate registry rows (same hash) | \`${Array.isArray(vc.registryDuplicateHashes) ? vc.registryDuplicateHashes.length : '—'}\` |`);
+    lines.push(`| Duplicate DOM instances (same hash, >1 node) | \`${Array.isArray(vc.duplicateEmittedHashes) ? vc.duplicateEmittedHashes.length : '—'}\` |`);
+    lines.push(`| Invalid marker values | \`${vc.domInvalidMarkerCount ?? '—'}\` |`);
+    lines.push(`| hash vs data-ks-hash mismatches | \`${vc.domMismatchCount ?? '—'}\` |`);
+    lines.push(`| Incomplete marker pairs | \`${vc.incompleteMarkerCount ?? '—'}\` |`);
+    lines.push('');
+    if (Array.isArray(vc.unknownHashesEmitted) && vc.unknownHashesEmitted.length) {
+      lines.push(`**Unknown hashes:** \`${vc.unknownHashesEmitted.join('`, `')}\`.`);
+      lines.push('');
+    }
   }
   lines.push('## Machine-readable blob');
   lines.push('');

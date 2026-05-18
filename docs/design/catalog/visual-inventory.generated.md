@@ -1,11 +1,11 @@
 # Visual inventory (generated)
 
 - Generated: 2026-05-18
-- Total items: 350
+- Total items: 363
 
 ## By type
 - **diagram-or-asset:** 79
-- **design-terminology:** 67
+- **design-terminology:** 70
 - **component:** 59
 - **generated-showcase-page:** 29
 - **page-instance:** 23
@@ -15,6 +15,8 @@
 - **primitive:** 10
 - **layout:** 9
 - **layout-preview:** 7
+- **chrome-region:** 6
+- **python-component-anchor:** 4
 - **visual-helper:** 1
 - **showcase-app-source:** 1
 - **desktop-interface:** 1
@@ -30,6 +32,12 @@
 - [layout] `components/layouts.py` — listing_page
 - [layout] `components/layouts.py` — gallery_page
 - [layout] `components/layouts.py` — split_page
+- [chrome-region] `components/layouts.py` — Chrome region: site-footer
+- [chrome-region] `components/layouts.py` — Chrome region: doc-breadcrumb
+- [chrome-region] `components/layouts.py` — Chrome region: doc-toc-sidebar
+- [chrome-region] `components/layouts.py` — Chrome region: doc-sidebar
+- [chrome-region] `components/layouts.py` — Chrome region: doc-offcanvas
+- [chrome-region] `components/layouts.py` — Chrome region: product-primary-nav
 - [page-instance] `generator/pages/controls.py` — Showcase page: controls
 - [page-instance] `generator/pages/data_charts_api.py` — Showcase page: data-charts-api
 - [page-instance] `generator/pages/data_charts_static.py` — Showcase page: data-charts-static
@@ -119,6 +127,10 @@
 - [component] `components/presentation.py` — components/presentation.py:render_testimonial_slider
 - [component] `components/roadmap_date_editor.py` — components/roadmap_date_editor.py:render_roadmap_date_editor
 - [component] `components/transforms.py` — components/transforms.py:render_ascii_diagram_fence
+- [python-component-anchor] `components/diagram_catalog.py` — Python components module (helpers-only): components/diagram_catalog.py
+- [python-component-anchor] `components/ks_catalog_hashes.py` — Python components module (helpers-only): components/ks_catalog_hashes.py
+- [python-component-anchor] `components/ks_hash_attrs.py` — Python components module (helpers-only): components/ks_hash_attrs.py
+- [python-component-anchor] `components/living_background.py` — Python components module (helpers-only): components/living_background.py
 - [primitive] `react/ForgeDecisionActionBar.tsx` — React ForgeDecisionActionBar
 - [primitive] `react/ForgeDiagnosticPanel.tsx` — React ForgeDiagnosticPanel
 - [primitive] `react/ForgeEventTimeline.tsx` — React ForgeEventTimeline
@@ -258,6 +270,7 @@
 - [design-terminology] `docs/design/catalog/chrome/Ksr-doc-sidebar.md` — Design doc docs/design/catalog/chrome/Ksr-doc-sidebar.md
 - [design-terminology] `docs/design/catalog/chrome/Ktx-doc-toc-sidebar.md` — Design doc docs/design/catalog/chrome/Ktx-doc-toc-sidebar.md
 - [design-terminology] `docs/design/catalog/components/Kpr-fam-python-renderers.md` — Design doc docs/design/catalog/components/Kpr-fam-python-renderers.md
+- [design-terminology] `docs/design/catalog/consumer-site-hash-verification.md` — Design doc docs/design/catalog/consumer-site-hash-verification.md
 - [design-terminology] `docs/design/catalog/contract-template.md` — Design doc docs/design/catalog/contract-template.md
 - [design-terminology] `docs/design/catalog/desktop-interfaces/Msm-museum-studio.md` — Design doc docs/design/catalog/desktop-interfaces/Msm-museum-studio.md
 - [design-terminology] `docs/design/catalog/diagrams/Ksv-fam-svg.md` — Design doc docs/design/catalog/diagrams/Ksv-fam-svg.md
@@ -273,6 +286,7 @@
 - [design-terminology] `docs/design/catalog/layouts/Spl-layout-split.md` — Design doc docs/design/catalog/layouts/Spl-layout-split.md
 - [design-terminology] `docs/design/catalog/page-types/Fad-forge-autodoc.md` — Design doc docs/design/catalog/page-types/Fad-forge-autodoc.md
 - [design-terminology] `docs/design/catalog/page-types/Kdt-fam-design-terminology.md` — Design doc docs/design/catalog/page-types/Kdt-fam-design-terminology.md
+- [design-terminology] `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` — Design doc docs/design/catalog/page-types/Ks-page-type-design-guidelines.md
 - [design-terminology] `docs/design/catalog/pages/Ctr-controls.md` — Design doc docs/design/catalog/pages/Ctr-controls.md
 - [design-terminology] `docs/design/catalog/pages/Dca-data-charts-api.md` — Design doc docs/design/catalog/pages/Dca-data-charts-api.md
 - [design-terminology] `docs/design/catalog/pages/Dce-diagram-code-examples.md` — Design doc docs/design/catalog/pages/Dce-diagram-code-examples.md
@@ -306,6 +320,7 @@
 - [design-terminology] `docs/design/catalog/pages/Vsp-preview-split.md` — Design doc docs/design/catalog/pages/Vsp-preview-split.md
 - [design-terminology] `docs/design/catalog/primitives/FAM-react-primitives.md` — Design doc docs/design/catalog/primitives/FAM-react-primitives.md
 - [design-terminology] `docs/design/catalog/screenshots/README.md` — Design doc docs/design/catalog/screenshots/README.md
+- [design-terminology] `docs/design/catalog/screenshots/screenshot-capture-report.md` — Design doc docs/design/catalog/screenshots/screenshot-capture-report.md
 - [design-terminology] `docs/design/catalog/sections/README.md` — Design doc docs/design/catalog/sections/README.md
 - [design-terminology] `docs/design/catalog/styles/Ksc-fam-styles.md` — Design doc docs/design/catalog/styles/Ksc-fam-styles.md
 - [design-terminology] `docs/design/catalog/visual-inventory.generated.md` — Design doc docs/design/catalog/visual-inventory.generated.md

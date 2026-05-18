@@ -1,0 +1,82 @@
+VERDICT: PASS
+
+## Evidence
+
+- **Checker script** — `tools/design-catalog/check-consumer-hashes.mjs` implements `--url` / `--file` / `--dir` (exactly one), defaults registry to `docs/design/catalog/visual-registry.generated.json` under `--repo`, supports `--strict` / `--quiet`, loads registry entries, reports valid 3-letter occurrence counts, distinct ids, invalid values, unknown-vs-registry hashes, per-id `hash` vs `data-ks-hash` **count** mismatches, and optional handbook heuristics for `forgesdlc.com`. Header states it does **not** call the website UX auditor/scorer (aligned with governance).
+
+```1:13:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/check-consumer-hashes.mjs
+#!/usr/bin/env node
+/**
+ * Scan raw HTML (URL, file, or directory tree) for KS visual hash markers and compare
+ * against docs/design/catalog/visual-registry.generated.json.
+ *
+ * Does not invoke analyze-website-ux.mjs or score-website-ux.mjs.
+ *
+ * Usage (from KS repo root):
+ *   node tools/design-catalog/check-consumer-hashes.mjs --url https://forgesdlc.com/
+ *   node tools/design-catalog/check-consumer-hashes.mjs --file path/to/index.html
+ *   node tools/design-catalog/check-consumer-hashes.mjs --dir showcase/
+ *   node tools/design-catalog/check-consumer-hashes.mjs --dir dist/ --repo . --strict
+ */
+```
+
+- **Operator doc** — `docs/design/catalog/consumer-site-hash-verification.md` covers the six required hosts (plus blueprints), mapping live id → `visual-registry.generated.json` → `contract` / `contract_path` and `screenshot_url` / `ks.forgesdlc.com` screenshot URLs, local runs on `website/` via `KS_ROOT`, required `curl | grep` lines (including the two from the phase prompt), Node `--url` checks, deploy checklist, and “only KS checkout” instructions.
+
+```53:61:/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/catalog/consumer-site-hash-verification.md
+## Live raw HTML — quick grep
+
+**These only prove markers exist in the fetched HTML snapshot — not that a specific deploy revision matches git.**
+
+```bash
+curl -L https://forgesdlc.com/ | grep -E 'data-ks-hash|hash="[A-Za-z]{3}"'
+curl -L https://platform.forgesdlc.com/ | grep -E 'data-ks-hash|hash="[A-Za-z]{3}"'
+curl -L https://ks.forgesdlc.com/cases/showcase/preview-handbook.html | grep -E 'data-ks-hash|hash="[A-Za-z]{3}"'
+```
+```
+
+- **Catalog README** — Subsection “Consumer sites (prod HTML checks)” links the guide and script and warns against claiming prod without sampling raw HTML.
+
+```84:91:/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/catalog/README.md
+### Consumer sites (prod HTML checks)
+
+After rebuilding a consumer site against an updated `kitchensink/` submodule, verify **`hash` / `data-ks-hash`** in generated or live HTML:
+
+- Guide: [consumer-site-hash-verification.md](consumer-site-hash-verification.md)
+- Script: `node tools/design-catalog/check-consumer-hashes.mjs` (`--url`, `--file`, or `--dir`, optional `--strict`)
+
+Do not claim public hosts reflect a new KS revision without sampling **current** raw HTML (local build or `curl`).
+```
+
+- **CI** — After `python3 generator/build-showcase.py`, workflow runs `node tools/design-catalog/check-consumer-hashes.mjs --repo . --dir showcase --strict`.
+
+```45:48:/home/lzvyahin/Code/forgesdlc-kitchensink/.github/workflows/ci.yml
+      - name: Build showcase (HTML markers)
+        run: python3 generator/build-showcase.py
+      - name: Consumer hash marker smoke (showcase HTML)
+        run: node tools/design-catalog/check-consumer-hashes.mjs --repo . --dir showcase --strict
+```
+
+- **Phase record** — `.cursor/plans/ks-visual-catalog-remediation/08-consumer-site-propagation-and-live-checks.md` documents deliverables, submodule propagation model, local scan results, live sampling table, and explicitly **does not** claim `ks.forgesdlc.com` showcase HTML is updated where markers were absent.
+
+- **Governance** — No implication that `forgesdlc.com` is fixed without a live HTML check is required for PASS; the artifacts require proof and the plan distinguishes hosts with observed markers vs the KS showcase sample.
+
+## Missing / weaker than ideal (not blockers for PASS)
+
+- **Live checks** — For `lcdl` / `fleet` / `lenses`, the plan records grep-only verification; the phase prefers a registry-aware Node pass when available. Rerunning `check-consumer-hashes.mjs --url … --strict` for those origins would match the “more robust Node checker” guidance end-to-end.
+
+- **Pairing semantics** — The script enforces **equal occurrence counts per hash id**, not per-element DOM pairing; that still catches “`hash` id never appears on `data-ks-hash`” in aggregate but not every malformed markup pattern.
+
+- **Consumer propagation** — No consumer-repo commits in this tree; acceptable given the phase allows “only checkout is KS” and the doc gives exact commands. Automated CI still only validates **`showcase/`**, not a built `forgesdlc` / `website/` tree (operators must run the documented `--dir website/` flow).
+
+## Exact next actions
+
+1. From a KS checkout whose registry matches the submodule you ship, run:
+
+   `node tools/design-catalog/check-consumer-hashes.mjs --repo . --url https://lcdl.forgesdlc.com/ --strict`  
+   (repeat for `https://fleet.forgesdlc.com/`, `https://lenses.forgesdlc.com/`, and optionally `https://ks.forgesdlc.com/` root or representative `cases/showcase/*.html`), then refresh the phase plan table with those results.
+
+2. After deploying showcase from current `build-showcase.py`, re-`curl` / `--url` the KS URLs you care about and only then treat `ks.forgesdlc.com` as hash-complete in reports.
+
+3. In each consumer repo after submodule bump + build:  
+   `node "$KS_ROOT/tools/design-catalog/check-consumer-hashes.mjs" --repo "$KS_ROOT" --dir website/ --strict`  
+   before deploy (already documented; treat as mandatory release gate).

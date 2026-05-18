@@ -3,81 +3,98 @@ hash: "Kdt"
 name: "Design terminology docs"
 type: "docs-family"
 status: "active"
-source_paths: ["docs/design/forge-enterprise-ui.md","docs/design/forge-enterprise-ai-website-standard-v2-addendum.md","docs/design/forge-enterprise-ai-website-standard.md","docs/design/lenses-studio-shell.md","docs/design/wizard-flow-studio.md","docs/PAGE-LAYOUT-TAXONOMY.md"]
-showcase_url: ""
-screenshot_url: ""
+source_paths:
+  - docs/design/forge-enterprise-ui.md
+  - docs/design/forge-enterprise-ai-website-standard-v2-addendum.md
+  - docs/design/forge-enterprise-ai-website-standard.md
+  - docs/design/lenses-studio-shell.md
+  - docs/design/wizard-flow-studio.md
+  - docs/PAGE-LAYOUT-TAXONOMY.md
+showcase_url: null
+screenshot_url: null
 screenshot_status: "not-applicable"
 ---
 
 # Kdt — Design terminology docs
 
+## Identity
+
+- **Hash:** Kdt
+- **Name:** Design terminology docs
+- **Type:** docs-family
+- **Category:** docs (governance sources, not DOM surfaces)
+- **Source paths:** Markdown under `docs/design/` and `docs/PAGE-LAYOUT-TAXONOMY.md` (see frontmatter)
+- **Showcase URL / status:** Not a rendered showcase route; documents inform generators and contracts.
+- **Screenshot URL / status:** Not applicable—no DOM hash for this row.
+
 ## Purpose
 
-See [visual-registry.yaml](../visual-registry.yaml) and [contract-template.md](../contract-template.md). Expand this stub with anatomy, states, and a11y expectations.
+Aggregate **non-generated** design reference prose that defines Forge enterprise UI vocabulary, studio shells, wizard flows, and the page-layout taxonomy. Catalog reviewers use these files to judge whether emitted HTML meets naming, density, and trust rules before hashing regressions.
+
+## Covered children
+
+This family does not enumerate three-letter DOM hashes; it **covers the source documents themselves** as referenced by registry `source_paths`:
+
+- `docs/design/forge-enterprise-ui.md` — baseline UI terminology and tokens.
+- `docs/design/forge-enterprise-ai-website-standard.md` + v2 addendum — public/marketing/handbook tone and structure.
+- `docs/design/lenses-studio-shell.md` — desktop studio framing for Lenses metaphors.
+- `docs/design/wizard-flow-studio.md` — guided-flow expectations.
+- `docs/PAGE-LAYOUT-TAXONOMY.md` — mapping from marketing patterns to KS layouts.
+
+**Follow-up:** When a new long-lived design doc under `docs/design/` materially affects visuals, **forge-ks** maintainer adds its path to this row’s `source_paths` in `visual-registry.yaml` in the same PR as the doc lands.
 
 ## Expected look
 
-Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md).
+N/A at pixel level—content is Markdown. “Look” means consistent definitions: headings declare scope; tables map terms; cross-links resolve to current catalog contracts.
 
 ## Anatomy
 
-- TBD
-
-## Content rules
-
-- TBD
+- Hierarchical Markdown: topic → principles → checklists; avoid orphan bullets without section headers.
 
 ## States
 
-- Default
+- **Current:** version notes or date stamps where drift risk is high (AI addendum + taxonomy).
+- **Superseded:** older sections must point to replacement headings—**forge-ks** removes contradictions when found.
 
 ## Variants
 
-- TBD
+- English-only in-repo; localization follows workspace localization scope doc when translated copies are introduced.
 
 ## Responsive behavior
 
-- TBD
+N/A for source files; authored preview must read well at handbook line lengths (roughly 72–90ch in rendered HTML).
 
 ## Accessibility contract
 
-- TBD
+- Source Markdown uses ordered heading levels for eventual autodoc consumers; diagrams (if added) require alt or companion text in the same change.
 
-## Enterprise look/feel rules
+## Enterprise look and feel rules
 
-- TBD
+- Terminology favors governed, reviewable, evidence-first language per Forge copy rules—no faux compliance claims.
+
+## Content rules
+
+- Define terms once and cross-link; do not duplicate full layout contracts—point to `docs/design/catalog/**` instead.
+- Taxonomy tables stay in sync with `components/layouts.py` symbol names; **forge-ks** updates when new layouts ship.
 
 ## Forbidden patterns
 
-- TBD
+- Speculative customer stories or metrics in normative design docs.
+- Empty section headings with no owner—track gaps in backlog with a named follow-up instead.
 
-## Source paths
+## Implementation notes
 
-- `docs/design/forge-enterprise-ui.md`
-- `docs/design/forge-enterprise-ai-website-standard-v2-addendum.md`
-- `docs/design/forge-enterprise-ai-website-standard.md`
-- `docs/design/lenses-studio-shell.md`
-- `docs/design/wizard-flow-studio.md`
-- `docs/PAGE-LAYOUT-TAXONOMY.md`
+- Consumers (handbook sites) may embed excerpts via forge-autodoc; KS itself references these files in CI and human review.
+- Inventory tool may flag new `docs/design/*.md` paths—extend `source_paths` here when inventory warns.
 
-## Dependencies
+## Screenshot acceptance
 
-- TBD
+- N/A; validation is editorial and link integrity (plus catalog check when registry paths change).
 
-## Showcase and screenshots
+## Change policy
 
-- n/a
-- Screenshot: planned
-
-## Acceptance checklist
-
-- [ ] Root emits `hash="Kdt"` and matching `data-ks-hash`.
-- [ ] Registry row current.
-
-## Change rules
-
-Keep hash for compatible refinements; allocate new hash for breaking visual identity changes.
+- Update **`Kdt`** `source_paths` whenever covered Markdown moves or splits; keep prose and registry aligned in one commit.
 
 ## Changelog
 
-- Auto-stub generated — replace with authored contract.
+- 2026-05-18 — Phase 04: authored family contract; listed covered source docs; removed stubs.

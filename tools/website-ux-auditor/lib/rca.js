@@ -51,6 +51,7 @@ export async function writeRcaPromptBatch({
   await ensureDir(dir);
 
   let i = 0;
+  const entries = [];
   for (const f of batch) {
     const nid = `${runMeta.auditRunId}-f${String(i).padStart(2, '0')}`;
     const relShot = shotMap[f.url];
@@ -118,8 +119,16 @@ When done, summarize files changed and re-run **\`node …/analyze-website-ux.mj
 `;
 
     await wf(filePath, body);
+    entries.push({
+      findingId: nid,
+      path: filePath,
+      checkId: f.checkId || 'unknown',
+      area: f.area || '',
+      severity: f.severity || '',
+      url: f.url || '',
+    });
     i += 1;
   }
 
-  return { count: batch.length, dir };
+  return { count: batch.length, dir, entries };
 }

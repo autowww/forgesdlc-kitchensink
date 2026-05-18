@@ -1,0 +1,21 @@
+## Done
+
+### Museum studio markers
+The cataloged **museum** surfaces had no markers in-repo. They now match the usual quartet (`hash`, `data-ks-hash`, `data-ks-type`, `data-ks-name`):
+
+- **`museum/studio/index.html`** — `#root` tagged as **`Msm`** (`desktop-interface` / `museum-studio`).
+- **`museum/studio/icons.svg`** & **`museum/studio/favicon.svg`** — root `<svg>` tagged as **`vYA`** (`museum-chrome-asset` / `museum-studio-chrome-graphics`).
+
+### Catalog checker
+**`tools/design-catalog/check-visual-catalog.mjs`** now validates **`museum/studio/*.html|*.svg`** for any **`emits_html`** registry row (skips missing paths), using the same paired `hash` + `data-ks-hash` rule as showcase files. The module header comment documents this.
+
+### Verification
+- `python3 generator/build-showcase.py` — OK  
+- `node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase` — OK  
+
+**Counts** (grep): **`showcase/`** ≈172 lines with `data-ks-hash=` and `data-ks-type=`; **`museum/studio/`** 3 lines with `data-ks-hash=` (shell + two SVG roots).
+
+### Evidence
+**`.cursor/plans/ks-visual-catalog-remediation/05-hash-attribute-emission.md`** — scope, acceptance table, commands, and counts.
+
+Showcase/HTML layouts, previews, chrome, and React primitives were already emitting the full helper shape via **`ks_hash_attrs`** / **`ks_catalog_hashes`** and **`react/ksVisualAttrs.ts`**; this phase fills the **`museum/studio`** gap called out in the prompt and wires it into **`check-visual-catalog.mjs`** so regressions fail CI early.

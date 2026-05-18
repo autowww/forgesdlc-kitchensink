@@ -1,0 +1,25 @@
+## Done (phase 03)
+
+### Registry expansion
+- **64 → 91** entries by splitting the broad families into hashed children:
+  - **Ksc** → **Ech, Mar, DVN, FXK, KEm** (`visual-style`, grouped by theme/packs/surfaces/desktop chrome/ambient).
+  - **Ksj** → **LJa, TNH, Kfr, pUW, Bru** (`interaction-script`, grouped by nav, theme/motion, diagrams/charts, roadmap, tiles/presentation). Fixed typo **`ks-living-motion.js`** in paths.
+  - **Ksv** → **hMR, TXK, LkY, Zmg, Zxd** (`diagram-asset-group`, ambient / backgrounds / layout schematics / living / templates).
+  - **Kpr** → **VtQ, pvx, rJd, VPc, ARv, Gtf, qrv, vZr, bNG, nzA** plus **Khx** for **`ks_hash_attrs.py`** + **`ks_catalog_hashes.py`** (`python-component-module`).
+  - **Msm** → child **vYA** (`museum-chrome-asset`) for **`icons.svg`** + **`favicon.svg`**, `family-covered` under **`Msm-museum-studio.md`**.
+- Parent rows (**Ksc, Ksj, Ksv, Kpr**) now use **`source_paths: []`** and **`child_hashes`**; coverage is on children. **`category`** set on new rows.
+
+### Inventory + checks
+- **`inventory-ks-visuals.mjs`**: adds **`python-component-anchor`** for helper-only `components/*.py` modules; skips **`__init__.py`**.
+- **`check-visual-catalog.mjs`**: unions paths for CSS/JS/SVG/Kpr validation; matches **visual-style**, **interaction-script**, **diagram-asset-group**, **python-component-module**, **museum-chrome-asset**; **every** path on a multi-path `python-component-module` must appear in inventory; **`visual-registry-coverage.md`** now has **Uncovered or deferred museum inventory paths** (Vite bundles under `museum/studio/assets/*` deferred; **needs attention: none**).
+
+### Contracts
+- Family contracts name the child hashes: **`Ksc-fam-styles.md`**, **`Ksj-fam-scripts.md`**, **`Ksv-fam-svg.md`**, **`Kpr-fam-python-renderers.md`**, **`Msm-museum-studio.md`**.
+
+### Regenerated / verified
+- **`visual-inventory.generated.json`** / **`.md`**, **`visual-registry.generated.json`**, **`visual-registry-coverage.md`**
+- **`verify-bad-fixture.sh`** OK  
+- **`tools/website-ux-auditor/auditor-tests/visual-catalog-json.test.js`** OK  
+
+### Evidence
+- **`.cursor/plans/ks-visual-catalog-remediation/03-per-element-inventory-and-registry-coverage.md`** — before/after table, new hashes, deferral note, commands.

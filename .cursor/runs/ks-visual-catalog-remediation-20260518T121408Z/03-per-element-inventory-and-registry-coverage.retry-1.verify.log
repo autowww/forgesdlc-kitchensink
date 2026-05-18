@@ -1,0 +1,95 @@
+VERDICT: PASS
+
+## Evidence
+
+- **Registry scale and shape:** `visual-registry-coverage.md` reports **91** entries, inventory **360** items, and breakdowns by **type**, **category**, and **`emits_html`** (74 `true` / 17 `false`), matching the execution log. ```1:51:docs/design/catalog/visual-registry-coverage.md
+# Visual registry coverage
+
+Generated: 2026-05-18T12:32:20.397Z (from check-visual-catalog.mjs; counts reflect current registry and inventory inputs)
+
+- Registry entries: 91
+...
+## By emits_html
+- false: 17
+- true: 74
+```
+
+- **Family roll-ups vs children:** `Ksc` lists **`child_hashes`** and children use **`parent_hash: Ksc`** + **`contract_status: family-covered`**, with concrete child hashes (**`Ech`**, **`Mar`**, …) called out in the family contract. ```1720:1778:docs/design/catalog/visual-registry.yaml
+  - family: css-styles
+    aliases: []
+    parent_hash: null
+    child_hashes:
+      - Ech
+      - Mar
+      - DVN
+      - FXK
+      - KEm
+...
+    hash: Ksc
+...
+    contract: docs/design/catalog/styles/Ksc-fam-styles.md
+    contract_status: own
+...
+  - family: css-styles
+...
+    hash: Ech
+...
+    parent_hash: Ksc
+...
+    contract: docs/design/catalog/styles/Ksc-fam-styles.md
+    contract_status: family-covered
+``` ```14:17:docs/design/catalog/styles/Ksc-fam-styles.md
+Roll-up contract for Kitchen Sink CSS. Concrete visuals are attributed per **child** registry hashes (**`Ech`**, **`Mar`**, **`DVN`**, **`FXK`**, **`KEm`**) so generators and reviewers can trace stylesheet changes to the right governance row.
+```
+
+- **Required tooling behavior:** `check-visual-catalog.mjs` enforces **`category`** (non-empty) and **`emits_html`** (boolean), and **`isValidHashFormat`** / duplicate detection for hashes. ```225:269:tools/design-catalog/check-visual-catalog.mjs
+    if (!isValidHashFormat(h)) {
+      errors.push(regMsg(String(h), typ, src0, con, 'invalid hash format (expected /^[A-Za-z]{3}$/)'));
+    }
+...
+    if (hashesSeen.has(h)) errors.push(regMsg(h, typ, src0, con, 'duplicate hash'));
+...
+    if (!String(e.category || '').trim()) {
+      errors.push(regMsg(h, typ, src0, con, 'category is required (non-empty string)'));
+    }
+    if (typeof e.emits_html !== 'boolean') {
+      errors.push(regMsg(h, typ, src0, con, 'emits_html is required (boolean true/false)'));
+    }
+```
+
+- **`contract_path` for consumers:** normalized JSON maps **`contract_path`** from YAML **`contract`**. ```40:42:tools/design-catalog/lib/parse-registry.mjs
+      contract: e.contract ?? null,
+      /** Same as `contract`; emitted for checklist parity with docs that ask for `contract_path`. */
+      contract_path: e.contract ?? null,
+```
+
+- **Uncovered / deferred list:** coverage doc shows **“Needs registry attention” → (none)** and justified deferral for **`museum/studio/assets/*`**. ```94:104:docs/design/catalog/visual-registry-coverage.md
+## Uncovered or deferred museum inventory paths
+...
+### Needs registry attention
+
+- (none)
+```
+
+- **Phase record:** plan file documents commands, **64 → 91** registry entries, **356 → 360** inventory, family splits, and deferred museum bundles. ```17:23:.cursor/plans/ks-visual-catalog-remediation/03-per-element-inventory-and-registry-coverage.md
+| Metric | Before | After |
+|--------|--------|-------|
+| Registry entries | 64 | 91 |
+| Inventory items | 356 | 360 |
+| `contract_status: family-covered` rows | 10 | 37 |
+```
+
+- **React surface count:** **10** `react/*.tsx` files in-repo align with **`react-primitive: 10`** in the coverage report.
+
+## Missing / residual (not blocking a phase PASS)
+
+- **Literal field name `contract_path` in YAML:** the phase text asks for **`contract_path`** on each entry; the canonical YAML field is **`contract`**, with **`contract_path`** supplied only in generated JSON. Functionally covered; strict checklist pedantry would duplicate or rename in YAML.
+- **`showcase_url: null` without a dedicated reason field:** many rows use `null` showcase URLs (families, styles, scripts, etc.) with no separate `showcase_reason`; this is consistent with “not showcased in one HTML page” but is looser than “URL or explicit reason” wording.
+- **Process evidence:** artifact review supports “inventory-first + checks”; this verification did not re-run `check-visual-catalog.mjs` (Ask mode); we rely on the generated coverage timestamp and your logged successful run.
+
+## Exact next actions
+
+1. After future registry edits, run the plan’s command block (`build-showcase.py` → `inventory-ks-visuals.mjs` → `check-visual-catalog.mjs` → `verify-bad-fixture.sh` → `visual-catalog-json.test.js`) and confirm `visual-registry-coverage.md` regenerates with **“Needs registry attention: (none)”** unless new deferrals are written up.
+2. If you need **literal** phase wording compliance, add **`contract_path:`** mirroring **`contract:`** in `visual-registry.yaml` (or extend the checker to treat `contract` as the authoritative key and update the phase template—pick one source of truth).
+3. Optionally add **`showcase_reason`** (or similar) where `showcase_url` is null but “why not” is non-obvious for reviewers.
+4. Keep monitoring **non-family contracts** that still trip placeholder warnings (execution log: **42** files)—out of this phase’s listed family-contract scope but still governance debt.

@@ -3,77 +3,83 @@ hash: "Fad"
 name: "Forge-autodoc handbook consumer"
 type: "library-consumer"
 status: "active"
-source_paths: ["forge-autodoc/forge_autodoc/page.py","forge-autodoc/forge_autodoc/simple_build.py"]
-showcase_url: ""
-screenshot_url: ""
+source_paths:
+  - forge-autodoc/forge_autodoc/page.py
+  - forge-autodoc/forge_autodoc/simple_build.py
+showcase_url: null
+screenshot_url: null
 screenshot_status: "not-applicable"
 ---
 
 # Fad — Forge-autodoc handbook consumer
 
+## Identity
+
+- **Hash:** Fad
+- **Name:** Forge-autodoc handbook consumer
+- **Type:** library-consumer
+- **Category:** library-consumer
+- **Source paths:** `forge-autodoc/forge_autodoc/page.py`, `forge-autodoc/forge_autodoc/simple_build.py`
+- **Showcase URL / status:** Not part of static `showcase/` HTML; consumers run their own `simple_build` or Python entrypoints.
+- **Screenshot URL / status:** Not applicable at library row; verify hashes in generated consumer HTML instead.
+
 ## Purpose
 
-See [visual-registry.yaml](../visual-registry.yaml) and [contract-template.md](../contract-template.md). Expand this stub with anatomy, states, and a11y expectations.
+Describe how **forge-autodoc**, as a library embedded in handbook consumers (blueprints-website, product handbooks), must assemble pages: stable `<main>` structure, KS hash markers compatible with `Hdc` (handbook chapter main), and integration points for nav injection scripts.
 
 ## Expected look
 
-Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md).
+Rendered HTML mirrors handbook layout contracts (`Hbk`, `Chp`) when consumers apply KS layouts: readable column, doc sidebar where configured, Forge tokenized chrome from `docs-theme.css`.
 
 ## Anatomy
 
-- TBD
-
-## Content rules
-
-- TBD
+- Page assembly splits between Markdown ingestion, template wrappers, and optional `simple_build` orchestration—see `page.py` for `assemble_handbook_page` and related helpers.
+- Output `<main>` must remain a single logical landmark per chapter view unless consumer explicitly composes split layouts.
 
 ## States
 
-- Default
+- **Build:** CLI success/failure with actionable logs when templates or paths invalid.
+- **Runtime static:** no client JS required for base handbook read—progressive enhancement only when consumers add `Ksj` scripts.
 
 ## Variants
 
-- TBD
+- Multi-tenant consumers may pass different asset roots; visual identity still derives from KS submodule version, not ad-hoc forks.
 
 ## Responsive behavior
 
-- TBD
+- Inherits consumer’s responsive CSS; autodoc must not emit fixed widths that defeat Bootstrap grid wrappers.
 
 ## Accessibility contract
 
-- TBD
+- Generated heading hierarchy reflects Markdown structure; tables include headers; images forward alt text from Markdown when provided.
 
-## Enterprise look/feel rules
+## Enterprise look and feel rules
 
-- TBD
+- Handbook tone stays instructional, calm, and precise—no retail promo components in default templates.
+
+## Content rules
+
+- Authors write Markdown; generators must not silently drop semantic elements (admonitions, code fences) without documenting the limitation.
+- Links resolve relative to consumer site URL policy; broken link detection is consumer CI responsibility.
 
 ## Forbidden patterns
 
-- TBD
+- Stripping `data-ks-hash` attributes when post-processing HTML.
+- Injecting unscoped inline styles that override KS tokens without escalation review.
 
-## Source paths
+## Implementation notes
 
-- `forge-autodoc/forge_autodoc/page.py`
-- `forge-autodoc/forge_autodoc/simple_build.py`
+- Entry: `forge-autodoc/forge_autodoc/page.py`, `simple_build.py`; coordinate bumps with `Hdc` contract when `<main>` contract changes.
+- Consumers must run `python3 generator/build-showcase.py` only applies to KS repo—consumer builds use their own scripts.
 
-## Dependencies
+## Screenshot acceptance
 
-- TBD
+- Validate via raw HTML sampling: at least one production handbook page includes both `hash="Hdc"` and `data-ks-hash="Hdc"` on chapter main when that contract applies (per workspace governance rule for public consumer sites).
 
-## Showcase and screenshots
+## Change policy
 
-- n/a
-- Screenshot: planned
-
-## Acceptance checklist
-
-- [ ] Root emits `hash="Fad"` and matching `data-ks-hash`.
-- [ ] Registry row current.
-
-## Change rules
-
-Keep hash for compatible refinements; allocate new hash for breaking visual identity changes.
+- **`Fad`** tracks library behavior; patch-level HTML assembly tweaks ship here. Breaking consumer contracts require semver note in forge-autodoc changelog and coordinated submodule bump.
 
 ## Changelog
 
-- Auto-stub generated — replace with authored contract.
+- 2026-05-18 — Phase 04: full contract for handbook consumer; linked to `Hdc` expectations.

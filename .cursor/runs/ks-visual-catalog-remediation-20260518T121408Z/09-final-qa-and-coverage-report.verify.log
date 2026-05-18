@@ -1,0 +1,39 @@
+VERDICT: PASS
+
+### Evidence (static verification)
+
+- **Report present and rubric-compliant:** `.cursor/plans/ks-visual-catalog-remediation/09-final-qa-and-coverage-report.md` exists and opens with `Status: PASS_WITH_LIMITATIONS` (line 3), matching the phase template.
+- **Counts match generated artifacts:**  
+  - `visual-inventory.generated.json`: `summary.total` **363**; `byType` buckets sum to **363** (same buckets as `visual-registry-coverage.md` § inventory snapshot).  
+  - `visual-registry.generated.json`: **91**× `"contract_status"`; **48**× `"emit_marker_in_showcase": true`.  
+  - `visual-registry-coverage.md`: **91** entries; **54** own / **37** family-covered; screenshot **48 / 41 / 2**; inventory **363**; generated timestamp **2026-05-18** — all echoed consistently in the report.
+- **Git context matches report:** `HEAD` **1760774**, branch **`master`**, **`master...origin/master [ahead 1]`**, dirty tree (confirmed via `git`).
+- **Auditor/scorer independence (codebase search):** no reference to `score-website-ux` in `analyze-website-ux.mjs`; no `analyze-website-ux` / `child_process` / `spawn` / `execFile`-style subprocess wiring found in `score-website-ux.mjs` from that grep (only harmless `RegExp.prototype.exec`-style “exec” in analyze).
+- **Honesty / limitations:** report explicitly calls out **no consumer submodule bumps**, **live KS showcase URL** claimed **0** `data-ks-hash` hits, and **other hosts not re-run** in Phase 09 — consistent with `PASS_WITH_LIMITATIONS` rules.
+- **Exact commands:** report lists the concrete CLI lines (including **`--out`** for inventory and **`check-consumer-hashes.mjs`**) rather than only the abbreviated phase snippet.
+
+### What was not re-verified here (Ask mode / no test run)
+
+- **`npm test`**, **`pytest`**, **`build-showcase.py`**, and **`check-visual-catalog.mjs`** were **not executed** in this session; pass counts (**68** / **36**) are **claims** backed only by the written report, not by a fresh run.
+- **Live `curl`** against `https://ks.forgesdlc.com/...` was **not** repeated; live marker status is unconfirmed by this verification.
+
+### Missing work (relative to full “done everywhere”)
+
+1. **Deploy / refresh** hosted KS showcase so live HTML matches local `showcase/` markers (report already flags **0** markers on the sampled URL).
+2. **Submodule propagation** to consumer repos per `docs/design/catalog/consumer-site-hash-verification.md`.
+3. **Optional:** `--strict-contract-placeholders` in CI; museum Vite chunk policy when stable (already listed as risks/follow-ups).
+
+### Exact next actions
+
+1. From KS repo root (when you want executable proof):  
+   `node tools/design-catalog/inventory-ks-visuals.mjs --repo . --out docs/design/catalog/visual-inventory.generated.json`  
+   `node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase`  
+   `node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase --verbose-contract-placeholders`  
+   `node tools/design-catalog/check-consumer-hashes.mjs --repo . --dir showcase --strict`  
+   `python3 generator/build-showcase.py`  
+   `python3 -m pytest forge-autodoc/tests -q`  
+   `cd tools/website-ux-auditor && npm test`
+2. After deploy: **`curl -sSL`** (or checker **`check-consumer-hashes.mjs --url … --strict`** if supported) on the live preview-handbook URL and compare to local strict scan.
+3. Run **`./sync-kitchensink-and-rebuild.sh`** (or your consumer bump workflow) from the workspace root when propagation is in scope.
+
+**Bottom line:** Phase 09 **documentation and on-disk catalog artifacts are internally consistent** and the report’s **`PASS_WITH_LIMITATIONS`** is justified by its stated gaps; full acceptance of “commands all green” still wants one **non-stale** re-run of the listed commands if you need runtime proof beyond the report text.

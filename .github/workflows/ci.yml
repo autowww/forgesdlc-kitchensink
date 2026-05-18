@@ -44,10 +44,14 @@ jobs:
         run: npm run build
       - name: Build showcase (HTML markers)
         run: python3 generator/build-showcase.py
+      - name: Consumer hash marker smoke (showcase HTML)
+        run: node tools/design-catalog/check-consumer-hashes.mjs --repo . --dir showcase --strict
       - name: Inventory KS visuals
         run: node tools/design-catalog/inventory-ks-visuals.mjs --repo . --out docs/design/catalog/visual-inventory.generated.json
       - name: Validate visual catalog
         run: node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase
+      - name: Design catalog negative fixture
+        run: bash tools/design-catalog/verify-bad-fixture.sh
       - name: Test forge-autodoc
         run: pytest forge-autodoc/tests -q
       - name: npm ci (Forge Website UX Auditor)

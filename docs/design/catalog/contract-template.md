@@ -1,101 +1,80 @@
 ---
-hash: "XYZ"
-name: "example-visual"
-type: "component"
+hash: "___"
+name: "Allocated visual name"
+type: "layout"
 status: "proposed"
-source_paths: []
-showcase_url: ""
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/XYZ.png"
+source_paths:
+  - path/to/source.ext
+showcase_url: null
+screenshot_url: null
 screenshot_status: "planned"
 ---
 
-# XYZ — Example visual
+# ___ — Allocated visual name
+
+> **Instruction:** Replace `___` with the three-letter hash from `allocate-visual-hash.mjs`. This file is **not** scanned by `check-visual-catalog.mjs`; copy the structure into a new path such as `docs/design/catalog/<area>/<HASH>-slug.md` and register the row in `visual-registry.yaml`.
+
+## Identity
+
+- **Hash:** (must match heading and frontmatter)
+- **Name:** (human label)
+- **Type:** (`layout`, `page`, `chrome-region`, …)
+- **Category:** (registry category string)
+- **Source paths:** (repo-relative)
+- **Showcase URL / status:** (URL or explanation if none)
+- **Screenshot URL / status:** (URL + `screenshot_status` rationale)
 
 ## Purpose
 
-What job this visual performs for a user.
+One paragraph: the user or maintainer job this surface supports.
 
 ## Expected look
 
-Describe the desired visual impression: scale, spacing, rhythm, density, hierarchy, tone, enterprise feel, and relationship to surrounding surfaces.
+Describe rhythm, density, typography roles, color discipline, and neighbor relationships—specific enough for a reviewer to tell whether an implementation matches intent. Link [forge-enterprise-ai-website-standard.md](../../design/forge-enterprise-ai-website-standard.md).
 
 ## Anatomy
 
-- Root
-- Header/title region
-- Body/content region
-- Actions/controls
-- Optional media/diagram region
-- Status/metadata region
-
-## Content rules
-
-- Allowed copy length
-- Required/optional fields
-- Empty/loading/error copy behavior
-- Terminology constraints
+Bulleted structure from outer root through major regions; mention landmark roles.
 
 ## States
 
-- Default
-- Hover, focus, active/selected, disabled
-- Empty, loading, error, success
-- Reduced motion
+Default, interactive, empty, loading, error, reduced-motion—only what applies.
 
 ## Variants
 
-List supported variants and when to use each.
+Authorized visual or density variants; when to select each.
 
 ## Responsive behavior
 
-Desktop, tablet, mobile, and desktop-app/pane behavior where relevant.
+Breakpoints, collapse rules, scroll containers, tap target expectations.
 
 ## Accessibility contract
 
-- Semantic role/landmark expectations
-- Keyboard behavior and focus visibility
-- Contrast expectations
-- Image/diagram alt requirements
-- Motion-reduction expectations
+Landmarks, focus order, keyboard shortcuts, contrast, text equivalents for non-text cues.
 
-## Enterprise look/feel rules
+## Enterprise look and feel rules
 
-- Spacious but information-efficient
-- Calm, high-trust visual language
-- Clear boundaries, hierarchy, and control points
+Trust, spacing, evidence-first tone—no invented proof points.
+
+## Content rules
+
+Copy limits, required labels, empty states, terminology constraints.
 
 ## Forbidden patterns
 
-- Dense link walls
-- Unlabeled icon-only controls
-- Mystery-meat interactions
+Specific anti-patterns for this surface (not generic “bad UX”).
 
-## Source paths
+## Implementation notes
 
-- `path/to/source`
+Concrete hooks: Python helpers, React props, attribute emitters, build steps.
 
-## Dependencies
+## Screenshot acceptance
 
-- CSS, JS, assets, tokens as applicable
+What a captured PNG (if any) must prove; acceptable DOM-only checks when `screenshot_status` is `not-applicable`.
 
-## Showcase and screenshots
+## Change policy
 
-- Showcase: TBD
-- Screenshot: `https://ks.forgesdlc.com/showcase/screenshots/XYZ.png`
-- Status: planned
-
-## Acceptance checklist
-
-- [ ] Root emits `hash="XYZ"` and `data-ks-hash="XYZ"`.
-- [ ] Registry row exists and source paths are current.
-- [ ] Contract describes expected look and states.
-- [ ] Showcase reference exists or is planned.
-- [ ] Screenshot captured or marked planned.
-- [ ] Catalog validation passes.
-
-## Change rules
-
-Keep this hash for copy refinements, small spacing/token refinements, bug fixes, and accessibility improvements that preserve visual identity. Allocate a new hash for breaking role changes, incompatible anatomy, or a new reusable visual type.
+When to keep the hash vs allocate a new one ( tie to governance doc ).
 
 ## Changelog
 

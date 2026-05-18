@@ -12,6 +12,7 @@ Every reusable visual surface in **forgesdlc-kitchensink** is tracked with a sta
 | [visual-inventory.generated.md](visual-inventory.generated.md) | Human-readable inventory summary |
 | [visual-registry-coverage.md](visual-registry-coverage.md) | Counts by type/status/contract (from check) |
 | [contract-template.md](contract-template.md) | Template for new contracts |
+| [page-types/Ks-page-type-design-guidelines.md](page-types/Ks-page-type-design-guidelines.md) | Page-type IA, density, and trust guidance |
 | [ONTOLOGY.md](ONTOLOGY.md) | Classification and page-type principles |
 
 Subfolders (`layouts/`, `pages/`, `components/`, …) hold contracts and optional screenshots.
@@ -49,21 +50,59 @@ node tools/design-catalog/inventory-ks-visuals.mjs --repo . --out docs/design/ca
 node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase
 ```
 
+One-shot refresh of inventory inside the checker (still offline):
+
+```bash
+node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase --refresh-inventory
+```
+
+Checker flags:
+
+| Flag | Purpose |
+|------|---------|
+| `--refresh-inventory` | Run `inventory-ks-visuals.mjs` before validating |
+| `--strict-contract-placeholders` | Fail on `TBD` / `TODO` / `FIXME` stub bullets (default: one summary warning with count) |
+| `--verbose-contract-placeholders` | Emit one warning per contract that still uses stub bullets |
+| `--allow-minimal-showcase` | Skip Shw/Gly density guards (for tiny fixture repos) |
+| `--no-strict-inventory` | Do not cross-check `visual-inventory.generated.json` |
+
 Optional:
 
 ```bash
 node tools/design-catalog/allocate-visual-hash.mjs --suggest 5
-node tools/design-catalog/capture-showcase-screenshots.mjs --showcase-url http://127.0.0.1:4173/showcase/
+node tools/design-catalog/capture-showcase-screenshots.mjs --repo . --serve-showcase --update-registry --mirror-to-showcase
 node tools/design-catalog/changed-visual-contracts.mjs
+bash tools/design-catalog/verify-bad-fixture.sh
 ```
+
+Screenshot capture (alternate: external server): `--base-url http://127.0.0.1:4173/` with root serving `showcase/`. See [`screenshots/README.md`](screenshots/README.md).
+
+`verify-bad-fixture.sh` asserts `check-visual-catalog.mjs` exits **1** on the synthetic bad registry under [`tools/design-catalog/fixtures/bad-visual-catalog/`](../../tools/design-catalog/fixtures/bad-visual-catalog/).
 
 **Rule:** scripts under `tools/design-catalog/` **must not** invoke `analyze-website-ux.mjs` or `score-website-ux.mjs`.
 
+### Consumer sites (prod HTML checks)
+
+After rebuilding a consumer site against an updated `kitchensink/` submodule, verify **`hash` / `data-ks-hash`** in generated or live HTML:
+
+- Guide: [consumer-site-hash-verification.md](consumer-site-hash-verification.md)
+- Script: `node tools/design-catalog/check-consumer-hashes.mjs` (`--url`, `--file`, or `--dir`, optional `--strict`)
+
+Do not claim public hosts reflect a new KS revision without sampling **current** raw HTML (local build or `curl`).
+
 ## Screenshot conventions
 
-- Registry `screenshot_status`: `planned` | `captured` | `missing` | `not-applicable`  
-- Hosted URL pattern: `https://ks.forgesdlc.com/showcase/screenshots/{HASH}.png`  
-- Phase 1 does not require all captures; mark `planned` when missing.
+- Registry `screenshot_status`: `planned` | `captured` | `missing` | `blocked` | `not-applicable`
+- For `planned`, `missing`, or `blocked`, provide at least one of `screenshot_url`, non-empty `notes`, or `screenshot_reason` (enforced by `check-visual-catalog.mjs`).
+- Hosted desktop PNG pattern: `https://ks.forgesdlc.com/showcase/screenshots/{HASH}.png`  
+- Mobile captures (when produced): same directory `{HASH}.mobile.png` (mirrored under `showcase/screenshots/` when using `--mirror-to-showcase`).
+- Phase 06 capture (local, no remote fetch for validation):
+
+```bash
+python3 generator/build-showcase.py
+cd tools/design-catalog && npm ci && npx playwright install chromium
+node capture-showcase-screenshots.mjs --repo ../.. --serve-showcase --update-registry --mirror-to-showcase
+```
 
 ## Maintenance workflow (visual change) — Prompt 10 checklist
 

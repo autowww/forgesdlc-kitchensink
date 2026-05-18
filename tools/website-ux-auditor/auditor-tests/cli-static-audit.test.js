@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { readFileSync, rmSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -40,5 +40,9 @@ test('CLI: static audit exits 0 and writes schema v2 audit-data.json', () => {
     assert.ok(f.severity);
     assert.ok(f.legacySeverity);
   }
+  const orchestrator = readFileSync(join(out, 'forge-ux-remediation.plan.md'), 'utf8');
+  assert.match(orchestrator, /id:\s+ux-00/);
+  assert.match(orchestrator, /id:\s+ux-01/);
+  assert.ok(existsSync(join(out, '00-master-remediation-sequence.md')));
   rmSync(out, { recursive: true, force: true });
 });

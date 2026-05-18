@@ -11,9 +11,19 @@ screenshot_status: "not-applicable"
 
 # Kpr — Python HTML renderer helpers
 
+## Identity
+
+- **Hash:** Kpr
+- **Name:** Python HTML renderer helpers
+- **Type:** python-renderer-family
+- **Category:** governed Python modules emitting HTML fragments
+- **Source paths:** see frontmatter (all `components/*.py` covered by child hashes)
+- **Showcase URL / status:** No single URL; validation happens on showcase pages composing these modules.
+- **Screenshot URL / status:** Not applicable at family level; capture via layout and page registry rows.
+
 ## Purpose
 
-See [visual-registry.yaml](../visual-registry.yaml) and [contract-template.md](../contract-template.md). Expand this stub with anatomy, states, and a11y expectations.
+Govern Python modules that emit HTML fragments for KS generators and consumers. Child hashes (**`VtQ`** … **`Khx`**) map one-to-one with `components/*.py` surfaces so inventory anchors stay precise.
 
 ## Expected look
 
@@ -21,35 +31,42 @@ Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md]
 
 ## Anatomy
 
-- TBD
+- **Composable UI builders (`VtQ`, `pvx`, `rJd`, `VPc`):** cards, heroes, marketing slices, presentation shells.
+- **Structural flows (`ARv`, `Gtf`, `nzA`):** roadmap, diagram catalog/listing, modal fragments.
+- **Transforms & chrome (`qrv`):** HTML transforms applied across layouts.
+- **Living backgrounds (`vZr`):** SVG/CSS-backed scenic blocks.
+- **Editors (`bNG`):** roadmap date tooling embedded in pages.
+- **Hash utilities (`Khx`):** standardized `hash` / `data-ks-hash` attribute emission helpers.
 
 ## Content rules
 
-- TBD
+- Visible roots produced by these modules must emit **`hash="XYZ"`** and **`data-ks-hash="XYZ"`** matching their registry hash unless explicitly covered by a layout parent documented in the row notes.
+- Prefer semantic HTML landmarks consistent with layouts in `components/layouts.py`.
 
 ## States
 
-- Default
+- Default rendering plus interactive states declared per component (expanded nav, modal open, editing mode) where applicable.
 
 ## Variants
 
-- TBD
+- Split along module boundaries listed under **Per-module registry children**; do not merge unrelated renderers on one hash.
 
 ## Responsive behavior
 
-- TBD
+- Patterns inherit KS grid/spacing; marketing and roadmap modules must collapse cleanly at mobile breakpoints without horizontal scroll traps.
 
 ## Accessibility contract
 
-- TBD
+- Interactive controls expose names and roles; modal fragments coordinate focus return; diagrams include textual summaries when acting as primary content.
 
-## Enterprise look/feel rules
+## Enterprise look and feel rules
 
-- TBD
+- Dense data displays (roadmaps, catalogs) prioritize scanability—consistent typography scale and muted chrome.
 
 ## Forbidden patterns
 
-- TBD
+- Emitting anonymous `<div>` soup without landmarks for primary sections.
+- Hard-coded external brand assets without licensing notes.
 
 ## Source paths
 
@@ -64,24 +81,38 @@ Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md]
 - `components/roadmap_date_editor.py`
 - `components/diagram_modal_fragment.py`
 
+## Covered children
+
+- **VtQ** — `components/components.py`
+- **pvx** — `components/presentation.py`
+- **rJd** — `components/enterprise_marketing.py`
+- **VPc** — `components/marketing_sections.py`
+- **ARv** — `components/nested_roadmap.py`
+- **Gtf** — `components/diagram_catalog.py`
+- **qrv** — `components/transforms.py`
+- **vZr** — `components/living_background.py`
+- **bNG** — `components/roadmap_date_editor.py`
+- **nzA** — `components/diagram_modal_fragment.py`
+- **Khx** — `components/ks_hash_attrs.py`, `components/ks_catalog_hashes.py` (hash attributes and catalog layout wiring)
+
 ## Dependencies
 
-- TBD
+- Layout helpers from `components/layouts.py`, styling from **`Ksc`** children, optional behaviors from **`Ksj`** scripts.
 
-## Showcase and screenshots
+## Implementation notes
 
-- n/a
-- Screenshot: planned
+- Import renderers from `components/*.py`; use `ks_hash_attrs` / `chrome_region_attrs` helpers for marker emission.
+- When adding a module, extend the correct child hash row in `visual-registry.yaml` before merging.
 
-## Acceptance checklist
+## Screenshot acceptance
 
-- [ ] Root emits `hash="Kpr"` and matching `data-ks-hash`.
-- [ ] Registry row current.
+- No family PNG; accept screenshots on pages that compose each module (see page/layout contracts). DOM snapshots must show child hashes on visible roots.
 
-## Change rules
+## Change policy
 
-Keep hash for compatible refinements; allocate new hash for breaking visual identity changes.
+Keep **`Kpr`** roll-up; add modules by extending child rows or allocating hashes when an emitter splits responsibilities.
 
 ## Changelog
 
-- Auto-stub generated — replace with authored contract.
+- Phase 03: replaced stub markers; documented module-level constraints.
+- 2026-05-18 — Phase 04: Identity, Covered children label, implementation and screenshot acceptance sections.

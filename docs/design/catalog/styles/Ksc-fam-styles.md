@@ -11,9 +11,19 @@ screenshot_status: "not-applicable"
 
 # Ksc — Kitchen Sink stylesheets
 
+## Identity
+
+- **Hash:** Ksc
+- **Name:** Kitchen Sink stylesheets
+- **Type:** style-family
+- **Category:** CSS themes and assemblies
+- **Source paths:** see frontmatter (full CSS inventory)
+- **Showcase URL / status:** Styles apply across showcase and consumers—no isolated URL.
+- **Screenshot URL / status:** Not applicable at family row; verify via composed pages per child hash.
+
 ## Purpose
 
-See [visual-registry.yaml](../visual-registry.yaml) and [contract-template.md](../contract-template.md). Expand this stub with anatomy, states, and a11y expectations.
+Roll-up contract for Kitchen Sink CSS. Concrete visuals are attributed per **child** registry hashes (**`Ech`**, **`Mar`**, **`DVN`**, **`FXK`**, **`KEm`**) so generators and reviewers can trace stylesheet changes to the right governance row.
 
 ## Expected look
 
@@ -21,35 +31,40 @@ Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md]
 
 ## Anatomy
 
-- TBD
+- **Layered themes:** core Forge / product / handbook tokens (**`Ech`**), optional preset packs and light surfaces (**`Mar`**).
+- **Composed UI:** primitives assembly, roadmap, charts, motion-backed backgrounds (**`DVN`**).
+- **Desktop-style shells:** Fleet admin, wizard, workspace lens chrome (**`FXK`**).
+- **Atmospheric layers:** ambient backgrounds and theme variants (**`KEm`**).
 
 ## Content rules
 
-- TBD
+- Prefer tokens and documented spacing rhythm from the Forge enterprise UI docs; avoid ad-hoc hex stacks unless migrating tokens deliberately.
+- Packs (**`Mar`**) may swap accents and density but must keep WCAG contrast for core body and interactive targets unless explicitly labeled experimental.
 
 ## States
 
-- Default
+- Default theme loads plus optional **`prefers-color-scheme`** / runtime toggles driven by **`TNH`** scripts (`forge-theme.js`, ambient companions).
 
 ## Variants
 
-- TBD
+- **Core (`Ech`), packs/light (`Mar`), shared assemblies (`DVN`), desktop chrome (`FXK`), ambient (`KEm`)** — each maps to registry paths listed below.
 
 ## Responsive behavior
 
-- TBD
+- Layout breakpoints align with Bootstrap 5 conventions inherited by KS pages; chrome-heavy surfaces (**`FXK`**) must keep usable tap targets at narrow widths.
 
 ## Accessibility contract
 
-- TBD
+- Visible focus rings remain readable against KS backgrounds; motion-heavy backgrounds (**`DVN`**, **`KEm`**) pair with **`prefers-reduced-motion`** handling implemented in companion scripts (see **`Ksj`** family).
 
-## Enterprise look/feel rules
+## Enterprise look and feel rules
 
-- TBD
+- Typography and color ramps stay consistent with Forge marketing and handbook consumers; avoid novelty gradients that break trust-heavy tone.
 
 ## Forbidden patterns
 
-- TBD
+- Shipping unreadable contrast for primary actions solely for aesthetic effect.
+- Hidden reliance on motion-only cues without static equivalents.
 
 ## Source paths
 
@@ -76,24 +91,32 @@ Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md]
 - `css/svg-background-gallery.css`
 - `css/ks-animated-backgrounds.css`
 
+## Covered children
+
+- **Ech** — Core site themes: `forge-theme.css`, `forgesdlc-theme.css`, `docs-theme.css`.
+- **Mar** — Theme packs and light theme: `forgesdlc-pack-*.css`, `forge-light-theme.css`.
+- **DVN** — Shared UI and diagram surfaces (primitives assembly, roadmaps, charts, motion helpers).
+- **FXK** — Desktop chrome: Fleet admin, wizard flow, workspace lens.
+- **KEm** — Ambient layers: `forge-ambient.css`, `forge-ambient-themes.css`.
+
 ## Dependencies
 
-- TBD
+- Bootstrap 5.3 baseline referenced through Forge KS layouts and components.
+- Companion **`Ksj`** interaction modules attach classes and data attributes expected by these sheets.
 
-## Showcase and screenshots
+## Implementation notes
 
-- n/a
-- Screenshot: planned
+- When splitting or merging CSS groups, update the corresponding child hash (`Ech`, `Mar`, `DVN`, `FXK`, `KEm`) before merge.
 
-## Acceptance checklist
+## Screenshot acceptance
 
-- [ ] Root emits `hash="Ksc"` and matching `data-ks-hash`.
-- [ ] Registry row current.
+- No family-level PNG; regression relies on page screenshots plus visual diff tooling when enabled.
 
-## Change rules
+## Change policy
 
-Keep hash for compatible refinements; allocate new hash for breaking visual identity changes.
+Keep **`Ksc`** for compatible refinements; allocate new child hashes when a stylesheet group gains an independent visual identity consumers must pin separately.
 
 ## Changelog
 
-- Auto-stub generated — replace with authored contract.
+- Phase 03: replaced stub markers; documented child constraints and governance expectations.
+- 2026-05-18 — Phase 04: Identity, Covered children, implementation notes alignment.

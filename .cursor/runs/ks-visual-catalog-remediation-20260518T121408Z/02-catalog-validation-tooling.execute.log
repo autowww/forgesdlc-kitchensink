@@ -1,0 +1,30 @@
+## Summary
+
+### `check-visual-catalog.mjs`
+- Validates **hash format**, **duplicates**, **repeated letters** (unless `hash_exception_reason`), **missing sources/contracts**, **`family-covered`** (needs **`parent_hash` → existing row** or **`FAM-*` contract basename**), **`parent_hash` targets**, **screenshot** rules (`planned` / `missing` need `screenshot_url`, `notes`, or `screenshot_reason`; `captured` needs URL; unknown status errors), and **contract placeholders** via `lib/contract-placeholders.mjs` (hard fails for lorem / example markers; **TBD/TODO/FIXME** = one summary warning unless `--strict-contract-placeholders` or `--verbose-contract-placeholders`).
+- **Registry ↔ inventory**: non–family rows must match inventory (layouts, pages, layout-previews, chrome-regions, react-primitives, desktop-interface, library-consumer); family rows (Ksc-style) stay exempt.
+- **Flags**: `--refresh-inventory`, `--strict-contract-placeholders`, `--verbose-contract-placeholders`, `--allow-minimal-showcase` (for the tiny bad fixture only).
+- **Artifacts**: writes **`visual-registry.generated.json`** with `generatedAt`, and **`visual-registry-coverage.md`** with timestamp, counts, inventory snapshot, and alignment line.
+
+### `inventory-ks-visuals.mjs`
+- Adds **`chrome-region`** items by parsing **`chrome_region_attrs("…")`** and **`_chrome_space("…")`** in `components/layouts.py` and `components/components.py` (fixes missing **doc-sidebar**, **doc-offcanvas**, **product-primary-nav** in inventory).
+
+### Fixture & CI
+- **`tools/design-catalog/fixtures/bad-visual-catalog/`** + **`verify-bad-fixture.sh`** (expects exit **1** with invalid/duplicate/repeat/missing contract/source/family-covered/placeholder/deprecated errors).
+- **`.github/workflows/ci.yml`** runs `verify-bad-fixture.sh` after the main catalog check.
+
+### Other scripts
+- **`parse-registry.mjs`**: `screenshot_reason` in generated JSON.
+- **`changed-visual-contracts.mjs`**: prints suggested inventory + check commands.
+- **`capture-showcase-screenshots.mjs`**: clarifies local server / loopback use (still optional tooling).
+- **`allocate-visual-hash.mjs`**: notes that **`check-visual-catalog`** enforces format/uniqueness.
+
+### Docs & evidence
+- **`docs/design/catalog/README.md`**: commands, flags, screenshot metadata, fixture link.
+- **`.cursor/plans/ks-visual-catalog-remediation/02-catalog-validation-tooling.md`**: commands and sample outputs.
+
+### Acceptance
+- Full run: **`check-visual-catalog OK (64 entries)`** with one expected stub warning (**47** contract files with TBD-style bullets).
+- **Regenerated** `visual-inventory.generated.json`, `visual-registry.generated.json`, and `visual-registry-coverage.md` with **current** counts (e.g. **356** inventory items, **6** chrome-region).
+
+**Deferred (as documented):** screenshot capture remains optional automation (`capture-showcase-screenshots.mjs`); catalog validation stays offline and does not call it.

@@ -29,7 +29,8 @@ import { ensureBlockingStdio } from './lib/piped-stdio-flush.js';
 import { applyDefaultForgeStandard, inferSiteKind, PRODUCT_PROFILES } from './lib/product-profiles.js';
 import { importPlaywright } from './lib/playwright-import.js';
 import { inventoryRepo } from './lib/repo-inventory.js';
-import { startServer, waitForReady } from './lib/site-bootstrap.js';
+import { startServer, stopStartedServer, waitForReady } from './lib/site-bootstrap.js';
+import { summarizeVisualCatalogCoverage } from './lib/visual-catalog.js';
 
 ensureBlockingStdio();
 
@@ -213,6 +214,8 @@ async function main() {
       siteKind,
     });
 
+    const visualCatalogCoverage = summarizeVisualCatalogCoverage(crawled.pages, args.repo);
+
     const designPinned = designStdMeta
       ? {
         path: designStdMeta.path,
@@ -228,6 +231,7 @@ async function main() {
       crawlSummary: crawled.crawlSummary,
       profile: { name: profile.name, siteKindKey: siteKind },
       designStandard: designPinned,
+      visualCatalogCoverage,
       args: {
         repo: args.repo,
         site: args.site,
@@ -254,6 +258,7 @@ async function main() {
       argsSummary:
         `- \`--repo\` \`${args.repo}\`\n- \`--site\` \`${args.site || ''}\`\n- **max-pages** \`${args.maxPages}\`\n- **max-link-depth** \`${args.maxLinkDepth}\` (link hops from start URL; **0** = start page only)\n- **Scorer crawl mode:** \`${crawled.crawlSummary.crawlMode}\` (${crawled.crawlSummary.stopReason})`,
       crawlSummary: crawled.crawlSummary,
+      visualCatalogCoverage,
     });
 
     /** @type {ReturnType<typeof compareUxScores> | null} */
@@ -324,10 +329,7 @@ async function main() {
       `[ux-score] wrote ${path.relative(args.repo, jsonPath)} · ${path.relative(args.repo, mdPath)} · ${deltaRel}`,
     );
   } finally {
-    if (server && !server.killed) {
-      server.kill('SIGTERM');
-      setTimeout(() => { if (!server.killed) server.kill('SIGKILL'); }, 1500).unref();
-    }
+    await stopStartedServer(server);
   }
 }
 

@@ -3,17 +3,30 @@ hash: "Msm"
 name: "Museum studio desktop shell"
 type: "desktop-interface"
 status: "active"
-source_paths: ["museum/studio/index.html"]
-showcase_url: ""
+source_paths:
+  - museum/studio/index.html
+showcase_url: null
 screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Msm.png"
 screenshot_status: "planned"
 ---
 
 # Msm — Museum studio desktop shell
 
+## Identity
+
+- **Hash:** Msm
+- **Name:** Museum studio desktop shell
+- **Type:** desktop-interface
+- **Category:** desktop-interface
+- **Source paths:** `museum/studio/index.html`
+- **Showcase URL / status:** Local Vite bundle (see `museum/studio/` README)—not guaranteed as a single static ks.forgesdlc URL in every hosting layout.
+- **Screenshot URL / status:** `https://ks.forgesdlc.com/showcase/screenshots/Msm.png` — **planned** until the capture pipeline pins a representative frame.
+
 ## Purpose
 
-See [visual-registry.yaml](../visual-registry.yaml) and [contract-template.md](../contract-template.md). Expand this stub with anatomy, states, and a11y expectations.
+Govern the **Vite-built museum studio** shell used as a desktop-oriented explorer for KS visuals. Operators browse hashes without treating the shell as a public marketing page.
+
+Chrome SVG assets ship under child **`vYA`**; hashed JavaScript bundles under `museum/studio/assets/` stay **deferred** from per-file registry rows until filenames stabilize (see `visual-registry-coverage.md`).
 
 ## Expected look
 
@@ -21,58 +34,60 @@ Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md]
 
 ## Anatomy
 
-- TBD
-
-## Content rules
-
-- TBD
+- **Shell (`Msm`):** HTML bootstrap, mount targets, and studio framing for nested routes/components. Semantic landmarks (`main`, `nav`) match other Forge desktop prototypes.
+- **Chrome graphics (`vYA`):** `icons.svg` sprite and `favicon.svg` co-shipped with the shell.
 
 ## States
 
-- Default
+- Cold load, hydrated app state after JS bundles execute; offline/error states should remain readable (surface copy inside shell).
 
 ## Variants
 
-- TBD
+- Single maintained museum variant; experimental forks need their own registry entries if visuals diverge.
 
 ## Responsive behavior
 
-- TBD
+- Desktop-first; minimum widths documented in studio README should prevent crushed controls—scroll containers preferred over overlapping HUDs.
 
 ## Accessibility contract
 
-- TBD
+- Keyboard traversal through chrome controls; icon-only buttons expose **`aria-label`** or visible tooltips.
 
-## Enterprise look/feel rules
+## Enterprise look and feel rules
 
-- TBD
+- Visual density aligns with Forge studio metaphors—muted backgrounds, high-contrast interactive accents.
+
+## Content rules
+
+- Avoid embedding undocumented remote assets; bundle icons locally under **`vYA`** paths.
+- When adding studio copy, keep operator tone—no fabricated customer stories.
 
 ## Forbidden patterns
 
-- TBD
+- Shipping mutable CDN URLs for critical chrome assets without pinning/version notes.
 
-## Source paths
+## Covered children
 
-- `museum/studio/index.html`
+- **vYA** — `museum/studio/icons.svg`, `museum/studio/favicon.svg` (chrome graphics family-covered under this contract).
 
 ## Dependencies
 
-- TBD
+- Build outputs under `museum/studio/assets/*` consumed by the shell (content-hashed filenames deferred per registry coverage notes).
 
-## Showcase and screenshots
+## Implementation notes
 
-- n/a
-- Screenshot: https://ks.forgesdlc.com/showcase/screenshots/Msm.png
+- Rebuild studio after structural edits; keep registry **`notes`** on the `Msm` row synchronized when deferring hashed chunk files.
 
-## Acceptance checklist
+## Screenshot acceptance
 
-- [ ] Root emits `hash="Msm"` and matching `data-ks-hash`.
-- [ ] Registry row current.
+- Planned PNG must show framed studio chrome clearly; until capture lands, rely on local smoke tests and checklist in `visual-registry-coverage.md`.
+- Deferred bundles must not block screenshot tasks for the shell frame itself.
 
-## Change rules
+## Change policy
 
-Keep hash for compatible refinements; allocate new hash for breaking visual identity changes.
+Keep **`Msm`** for iterative studio refinements; allocate successor hashes only when the shell pattern forks visually for a different product.
 
 ## Changelog
 
-- Auto-stub generated — replace with authored contract.
+- Phase 03: replaced stub markers; clarified chrome versus deferred bundles.
+- 2026-05-18 — Phase 04: Identity, Covered children, screenshot acceptance, section alignment.

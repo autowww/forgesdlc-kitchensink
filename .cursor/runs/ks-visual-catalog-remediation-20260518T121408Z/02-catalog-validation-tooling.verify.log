@@ -1,0 +1,35 @@
+VERDICT: PASS
+
+## Evidence (mapped to the phase)
+
+**`check-visual-catalog.mjs`** implements the listed rules in code: invalid hash format and duplicate hashes (`195–202`); repeated letters without `hash_exception_reason` (`198–200`); missing sources (`235–238`); missing contracts for `own` / `family-covered` (`240–247`); `family-covered` without `parent_hash` → existing row or `FAM-*` basename (`208–228`); invalid `parent_hash` (`231–233`); screenshot rules including unknown status, `planned`/`missing` metadata, and `captured` URL (`252–278`); contract placeholders via `contract-placeholders.mjs` (`295–322`); inventory → registry gaps for new/unregistered visuals (`338–417`); registry → inventory gaps (`420–444`); emitted markers from `showcase/` (`129–161`, `471–546`) including deprecated still emitted without aliases (`471–487`) and `emit_marker_in_showcase` / react primitives (`489–514`); Shw/Gly density guards with `--allow-minimal-showcase` (`460–468`). Messages use `regMsg()` with hash, type, source, contract (`64–70`, `436–442`).
+
+**Docs & commands:** Repo-root usage is documented in the script header (`7–8`) and `docs/design/catalog/README.md` (`46–56`, `58–75`). `.cursor/plans/ks-visual-catalog-remediation/02-catalog-validation-tooling.md` records commands, flags, fixture command, acceptance snapshots, and the offline/deferral notes (`17–52`).
+
+**Generated artifacts:** Present with aligned metadata — e.g. `visual-registry-coverage.md` (`1–61`) shows `Generated: 2026-05-18T12:23:11.136Z`, `64` registry entries, `356` inventory items, `chrome-region: 6`, and the registry ↔ inventory line; `visual-inventory.generated.json` (`1–8`) matches `356` total and `2026-05-18`; `visual-registry.generated.json` includes `screenshot_reason` and `generatedAt`-level output from the check path (via `normalizeRegistryForJson` and post-write in check).
+
+**Fixture & CI:** `tools/design-catalog/fixtures/bad-visual-catalog/docs/design/catalog/visual-registry.yaml` encodes invalid hash, duplicate, repeats, missing source (`MSR`), missing contract (`MCN`), bad `family-covered` (`FCV`), lorem placeholder (`PLH`), deprecated emitted (`DEP`). `verify-bad-fixture.sh` requires exit code `1`. `.github/workflows/ci.yml` runs `inventory-ks-visuals.mjs`, `check-visual-catalog.mjs`, then `verify-bad-fixture.sh` (`47–52`).
+
+**`inventory-ks-visuals.mjs`:** Parses `chrome_region_attrs` and `_chrome_space` for `chrome-region` items (`117–120`, `153–161` in grep context).
+
+**No validation-on-network:** `check-visual-catalog.mjs` only reads local files and optionally spawns inventory; no HTTP client. `capture-showcase-screenshots.mjs` documents local loopback use (`1–8`) and is not invoked by the checker.
+
+**Deferred optional tool:** Plan § “Deferred / optional” documents screenshot capture as optional (`13–15`).
+
+---
+
+## Gaps / nuance (not automatic failures)
+
+1. **`screenshot_status` empty** is a **warning**, not an error (`257–259` in `check-visual-catalog.mjs`). If you want a hard gate on “every row must declare status,” policy would need to tighten that.
+2. **Showcase hash enforcement** is driven by `emit_marker_in_showcase`, react-primitive scanning, and related rules—not a blanket scan of every built HTML file. Scope matches the registry flags, not “every possible generated file” without opt-in.
+3. **Committed `visual-registry.generated.json`** includes **`repoRoot` as an absolute path** (`parse-registry.mjs` `27`). Regenerating on another machine rewrites that field and may create noisy diffs; worth normalizing later if you care about stable commits.
+4. **Numeric examples** in the plan (e.g. “47 contract file(s)…” in `02-catalog-validation-tooling.md` `39–43`) are a **point-in-time snapshot**; the coverage markdown embeds live counts, but the plan’s sample line will drift as contracts change—refresh that section when you refresh acceptance runs.
+
+---
+
+## Exact next actions (if you want to tighten further)
+
+1. Re-run locally (or watch CI) once: `bash tools/design-catalog/verify-bad-fixture.sh` and the documented catalog check, and confirm the stub warning count still matches expectations if you keep sample numbers in the plan.
+2. Decide whether **`screenshot_status` unset** should fail CI (change checker) or stay a warning.
+3. Optionally change **`normalizeRegistryForJson`** to emit a **relative** or placeholder `repoRoot` to reduce cross-machine churn in `visual-registry.generated.json`.
+4. Keep **phase 02 doc** acceptance numbers in sync when you change contract stub prevalence or registry entry counts.

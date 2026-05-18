@@ -72,9 +72,13 @@ Reuse one **`--out`** directory across verification passes so **`forge-ux-remedi
    - **Resume wave:** restore **`visitedUrls`** / **`queuedUrls`** after a **`major_plus_threshold`** halt so BFS continues instead of restarting only from **`/`**.
 3. **`crawl-session.json`** is rewritten each live run: **`completed: false`** while the crawl halted early with queued URLs remaining; **`completed: true`** when the crawl completes normally within **`--max-pages`**.
 
-Kitchen Sink **`tools/website-ux-auditor/run-website-ux-remediation-loop.sh`** accepts **`UX_AUDIT_OUT_DIR`** for a stable campaign folder and auto-adds **`--incremental`** when that folder already contains **`audit-data.json`**, unless **`UX_AUDIT_FORCE_FULL=1`**.
+Kitchen Sink **`tools/website-ux-auditor/run-website-ux-remediation-loop.sh`** accepts **`UX_AUDIT_OUT_DIR`** for a stable campaign folder and auto-adds **`--incremental`** when that folder already contains **`audit-data.json`**, unless **`UX_AUDIT_FORCE_FULL=1`**. The auditor is **quiet** by default (omit **`UX_AUDIT_VERBOSE`** or set **`UX_AUDIT_VERBOSE=0`**); set **`UX_AUDIT_VERBOSE=1`** or **`2`** for stderr breadcrumbs. The Cursor **`agent`** step defaults to **plain text** output; set **`FORGE_UX_CURSOR_AGENT_VERBOSE=1`** for **`stream-json`** (by default piped through **`agent-stream-summary.mjs`** so **`remediation-agent.log`** and the terminal get **one `[ux-agent] …` line per tool/system event**, not megabyte **`tool_call` result** payloads). Use **`FORGE_UX_AGENT_STREAM_SUMMARY=0`** for raw NDJSON, and **`FORGE_UX_AGENT_RAW_JSONL=/path/to/file.jsonl`** to retain a full raw transcript alongside the summary. Disable the transcript file with **`FORGE_UX_REMEDIATION_AGENT_LOG=`** before the loop, or override the path with **`FORGE_UX_REMEDIATION_AGENT_LOG`**.
 
-Diagnostics: **`--verbose`** / **`UX_AUDIT_VERBOSE`** emit **`[incremental]`**, **`[crawl]`**, **`[archive]`**, **`[session]`**, **`[plans]`** markers on stderr only (stdout stays pipe-safe).
+**Optional post-clean AI audit:** set **`FORGE_UX_ENABLE_AI_AUDIT=1`** to run a second, **advisory** Cursor-agent audit only after the deterministic pass records **zero Major+**. It reuses the deterministic pass’s visited URLs, batches them into small prompt groups, and writes separate artifacts under **`<out>/ai-audit/`** such as **`ai-audit-report.md`**, **`ai-audit-data.json`**, batch transcripts, and a combined AI transcript. This AI phase does **not** change deterministic gating, does **not** rewrite **`audit-data.json`**, and is skipped entirely while deterministic Major+ findings still exist.
+
+**Done crawl URLs (session budget):** after each audit pass, **`merge-done-crawl-urls-from-audit.mjs`** **rewrites** **`ux-audit-done-crawl-urls.txt`** to the URLs **visited in that audit** with **zero** Blocker/Critical/Major (same Major+ batch as early-stop). Entries from older runs that were **not** re-audited as clean in this pass are **removed**, so a narrow crawl (for example only `/`) does not leave a stale full-site exclude list. The next auditor invocation receives **`--exclude-crawl-urls-file`** (see **`analyze-website-ux.mjs`**) so listed URLs are treated as already visited: they are **not** re-fetched and do **not** consume **`--max-pages`** slots. The **`--site`** URL is never excluded. Disable merging with **`FORGE_UX_SKIP_DONE_CRAWL_MERGE=1`** on the remediation loop shell.
+
+Diagnostics: **`--verbose`** / **`UX_AUDIT_VERBOSE`** emit **`[incremental]`**, **`[crawl]`**, **`[archive]`**, **`[session]`**, **`[plans]`** markers on stderr only (stdout stays pipe-safe). During live crawls, stderr crawl rows are followed by **`phase=page_done`** lines: **`mj_page`** = Major+ findings on that URL, **`mj_run`** = cumulative Major+ findings so far; when the governor is on (default cap **10**), **`halt_expand=1`** means link expansion stopped so **`audit-report.md`** / **`.cursor/plans/…`** can drive Cursor remediation before a breadth crawl. The remediation loop does **not** turn verbose on by default.
 
 ## Design-standard UX scores (dimensions + logarithmic curve)
 
@@ -222,7 +226,7 @@ The site kind controls the one-liner, recommended storyline, and plan prompts. U
 
 ## Output
 
-**`forge-ux-remediation.plan.md`** — Cursor-native plan (YAML todos + **Build**). It lives in the same output folder as `00`–`08`.
+**`forge-ux-remediation.plan.md`** — Cursor-native plan (YAML todos + **Build**). It lives in the same output folder as the master plan plus defect plans.
 
 Default output folder:
 
@@ -246,19 +250,16 @@ audit-data.json
 rca-prompts/*.md
 forge-ux-remediation.plan.md
 00-master-remediation-sequence.md
-01-site-inventory-and-content-map.md
-02-homepage-shell-and-product-landing-mode.md
-03-homepage-storyline-and-hero.md
-04-information-architecture-and-navigation.md
-05-page-depth-and-technical-content-pruning.md
-06-trust-model-and-ecosystem-fit.md
-07-visual-system-and-spacious-enterprise-polish.md
-08-accessibility-responsive-link-and-build-qa.md
-09-screenshot-and-homepage-shell-review.md
+01-defect-<slug>.md
+02-defect-<slug>.md
+...
+10-defect-<slug>.md
 screenshots/*.png
 ```
 
-**Run identity:** `audit-report.md`, `forge-ux-remediation.plan.md`, `00`–`09`, and `audit-data.json` from the **same** invocation share **`audit_run_id`** and **`generated_at`** (ISO UTC). The CLI prints `Audit run id:` and `Generated at (UTC):` after each run.
+By default the auditor writes up to **10 defect remediation plans** ordered by estimated UX score impact (homepage-cap defects first, then score delta/severity/coverage). Use `--remediation-plan-limit` to override.
+
+**Run identity:** `audit-report.md`, `forge-ux-remediation.plan.md`, `00-master-remediation-sequence.md`, `NN-defect-*.md`, and `audit-data.json` from the **same** invocation share **`audit_run_id`** and **`generated_at`** (ISO UTC). The CLI prints `Audit run id:` and `Generated at (UTC):` after each run.
 
 With `--install-rule`, it also writes (under **`--repo`**):
 
@@ -274,8 +275,8 @@ In Cursor, **Build** on a plan is wired to **Plan Mode sessions**: the agent and
 
 ### What we do instead
 
-1. **Dated mirror at `.cursor/plans/`** — On each audit, the same `forge-ux-remediation.plan.md` content is also written to  
-   `.cursor/plans/YYYY-MM-DD_forge-ux-remediation.plan.md`  
+1. **Root mirror at `.cursor/plans/`** — On each audit, the same `forge-ux-remediation.plan.md` content is also written to  
+   `.cursor/plans/forge-ux-remediation__<UTC-stamp>__<audit_run_id>.plan.md`  
    so it sits beside Cursor’s usual “Save to workspace” layout. It still may not fix **Build**, but it improves discoverability. Use **`--no-mirror-root-plan`** to skip.
 
 2. **Cursor CLI (`agent`) — one-shot “build”** — From the website repo, after installing the [Cursor CLI](https://cursor.com/docs/cli/overview):
@@ -300,12 +301,12 @@ In Cursor, **Build** on a plan is wired to **Plan Mode sessions**: the agent and
 
    The analyzer does **not** call **`agent`** by default (explicit operator step).
 
-4. **In the IDE** — Open **Agent** (not Ask), **\@**‑attach `forge-ux-remediation.plan.md` or the repo-level orchestrator, and ask to run todos **ux-00** … **ux-09**.
+4. **In the IDE** — Open **Agent** (not Ask), **\@**‑attach `forge-ux-remediation.plan.md` or the repo-level orchestrator, and ask to run todos **ux-00** then remaining **ux-*** in numeric order.
 
 ### Controlled mode (manual)
 
 1. Open `00-master-remediation-sequence.md`.
-2. Ask Cursor Plan Mode to execute child plans **01–09** in numeric order (**02** shell/layout before **03** storyline when audits showed shell/visual/storyline gates).
+2. Ask Cursor Plan Mode to execute defect plans (`01-defect-*.md`, `02-defect-*.md`, …) in numeric order (already prioritized by scorer impact).
 3. Review each plan, implement, test, and commit before continuing.
 4. Prefer one child plan at a time for large public-site changes.
 
@@ -316,7 +317,7 @@ This is the safest workflow for public website changes.
 Ask Cursor Agent:
 
 ```text
-Read .cursor/plans/forge-ux-remediation/00-master-remediation-sequence.md and execute the child plans in numeric order. After each child plan, summarize files changed, UX impact, validation performed, and unresolved risks. Stop before making unsupported product claims.
+Read .cursor/plans/forge-ux-remediation/00-master-remediation-sequence.md and execute the defect plans in numeric order. After each plan, summarize files changed, UX impact, validation performed, scorer/audit deltas, and unresolved risks. Stop before making unsupported product claims.
 ```
 
 This can work for smaller repos, but it is less safe for broad IA and visual changes.

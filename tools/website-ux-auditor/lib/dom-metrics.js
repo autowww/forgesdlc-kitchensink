@@ -252,6 +252,64 @@ export async function collectDomMetrics(page, href) {
       const aiCapabilityStoryHits = ['agent', 'llm', 'model ', 'governed', 'contract', 'delegat', 'review gate', 'human review', 'bounded'].filter((t) => mainLower.includes(t)).length;
       const proofStorySignalHits = ['trust', 'boundary', 'evidence', 'security posture', 'enterprise', 'designed for governed', 'data boundary'].filter((t) => mainLower.includes(t)).length;
 
+      const ksVisualHashReport = (() => {
+        const nodes = Array.from(document.querySelectorAll('[data-ks-hash], [hash]'));
+        const invalidRaw = [];
+        const mismatches = [];
+        const incompleteMarkers = [];
+        const instanceCountByHash = new Map();
+        const validSet = new Set();
+
+        const pushInvalid = (value, source) => {
+          const v = String(value || '').trim();
+          if (!v) return;
+          if (/^[A-Za-z]{3}$/.test(v)) return;
+          invalidRaw.push({ value: v.slice(0, 80), source });
+        };
+
+        for (const el of nodes) {
+          const dRaw = el.getAttribute('data-ks-hash');
+          const hRaw = el.getAttribute('hash');
+          const dTrim = String(dRaw || '').trim();
+          const hTrim = String(hRaw || '').trim();
+          const tag = el.tagName.toLowerCase();
+
+          if (dTrim) pushInvalid(dRaw, 'data-ks-hash');
+          if (hTrim) pushInvalid(hRaw, 'hash');
+
+          const dValid = /^[A-Za-z]{3}$/.test(dTrim);
+          const hValid = /^[A-Za-z]{3}$/.test(hTrim);
+
+          if (dValid && hValid && dTrim !== hTrim) {
+            mismatches.push({ hashAttr: hTrim, dataKsHash: dTrim, tag });
+            continue;
+          }
+
+          if (dValid && !hTrim) {
+            incompleteMarkers.push({ side: 'hash-missing', tag, dataKsHash: dTrim });
+          } else if (hValid && !dTrim) {
+            incompleteMarkers.push({ side: 'data-ks-hash-missing', tag, hash: hTrim });
+          }
+
+          const canon = dValid ? dTrim : (hValid ? hTrim : '');
+          if (canon) {
+            instanceCountByHash.set(canon, (instanceCountByHash.get(canon) || 0) + 1);
+            validSet.add(canon);
+          }
+        }
+
+        const instObj = {};
+        for (const [k, v] of instanceCountByHash.entries()) instObj[k] = v;
+
+        return {
+          validUnique: [...validSet].sort(),
+          invalidRaw,
+          mismatches,
+          incompleteMarkers,
+          instanceCountByHash: instObj,
+        };
+      })();
+
       return {
         title,
         metaDescription,
@@ -303,15 +361,8 @@ export async function collectDomMetrics(page, href) {
         workflowStorySignalHits,
         aiCapabilityStoryHits,
         proofStorySignalHits,
-        ksVisualHashes: (() => {
-          const fromAttr = Array.from(document.querySelectorAll('[data-ks-hash]'))
-            .map((el) => el.getAttribute('data-ks-hash'))
-            .filter(Boolean);
-          const fromHash = Array.from(document.querySelectorAll('[hash]'))
-            .map((el) => el.getAttribute('hash'))
-            .filter(Boolean);
-          return [...new Set([...fromAttr, ...fromHash])].filter((h) => /^[A-Za-z]{3}$/.test(String(h)));
-        })(),
+        ksVisualHashReport,
+        ksVisualHashes: ksVisualHashReport.validUnique,
       };
     },
     {

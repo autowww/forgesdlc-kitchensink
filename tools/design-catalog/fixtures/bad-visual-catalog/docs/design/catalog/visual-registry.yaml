@@ -1,0 +1,166 @@
+# Synthetic broken registry for check-visual-catalog self-test (not a real catalog).
+entries:
+  - hash: "9ZZ"
+    name: Invalid hash uses digit
+    slug: bad-hash-format
+    type: page
+    category: page
+    emits_html: true
+    status: active
+    family: fixture
+    source_paths:
+      - showcase/index.html
+    source_symbols: []
+    contract: docs/design/catalog/pages/Ok-contract.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: https://example.com/9zz.png
+    screenshot_status: planned
+    notes: fixture metadata for screenshot rule
+    emit_marker_in_showcase: false
+  - hash: DUP
+    name: Duplicate one
+    slug: dup-a
+    type: page
+    category: page
+    emits_html: true
+    status: active
+    family: fixture
+    source_paths:
+      - showcase/index.html
+    source_symbols: []
+    contract: docs/design/catalog/pages/Ok-contract.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: https://example.com/a.png
+    screenshot_status: planned
+    notes: fixture
+    emit_marker_in_showcase: false
+  - hash: DUP
+    name: Duplicate two
+    slug: dup-b
+    type: page
+    category: page
+    emits_html: true
+    status: active
+    family: fixture
+    source_paths:
+      - showcase/index.html
+    source_symbols: []
+    contract: docs/design/catalog/pages/Ok-contract.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: https://example.com/b.png
+    screenshot_status: planned
+    notes: fixture
+    emit_marker_in_showcase: false
+  - hash: QQA
+    name: Repeated letter hash
+    slug: repeat-letters
+    type: page
+    category: page
+    emits_html: true
+    status: active
+    family: fixture
+    source_paths:
+      - showcase/index.html
+    source_symbols: []
+    contract: docs/design/catalog/pages/Ok-contract.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: https://example.com/q.png
+    screenshot_status: planned
+    notes: fixture
+    emit_marker_in_showcase: false
+  - hash: MSR
+    name: Missing registry source file
+    slug: missing-src
+    type: page
+    category: page
+    emits_html: true
+    status: active
+    family: fixture
+    source_paths:
+      - generator/pages/__fixture_not_found__.py
+    source_symbols: []
+    contract: docs/design/catalog/pages/Ok-contract.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: https://example.com/m.png
+    screenshot_status: planned
+    notes: fixture
+    emit_marker_in_showcase: false
+  - hash: MCN
+    name: Missing contract file
+    slug: missing-contract
+    type: page
+    category: page
+    emits_html: true
+    status: active
+    family: fixture
+    source_paths:
+      - showcase/index.html
+    source_symbols: []
+    contract: docs/design/catalog/pages/__missing_contract__.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: https://example.com/c.png
+    screenshot_status: planned
+    notes: fixture
+    emit_marker_in_showcase: false
+  - hash: PLH
+    name: Placeholder contract body
+    slug: placeholder-contract
+    type: page
+    category: page
+    emits_html: true
+    status: active
+    family: fixture
+    source_paths:
+      - showcase/index.html
+    source_symbols: []
+    contract: docs/design/catalog/pages/Bad-lorem.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: https://example.com/p.png
+    screenshot_status: planned
+    notes: fixture
+    emit_marker_in_showcase: false
+  - hash: FCV
+    name: Family covered without parent or FAM contract
+    slug: bad-family-covered
+    type: page
+    category: page
+    emits_html: true
+    status: active
+    family: fixture
+    parent_hash: null
+    source_paths:
+      - showcase/index.html
+    source_symbols: []
+    contract: docs/design/catalog/pages/Nonfam.md
+    contract_status: family-covered
+    showcase_url: null
+    screenshot_url: https://example.com/f.png
+    screenshot_status: planned
+    notes: fixture
+    emit_marker_in_showcase: false
+  - hash: DEP
+    name: Deprecated but still emitted
+    slug: fixture-dep
+    type: page
+    category: page
+    emits_html: true
+    status: deprecated
+    family: fixture
+    aliases: []
+    source_paths:
+      - showcase/fixture-dep.html
+    source_symbols: []
+    contract: docs/design/catalog/pages/Ok-contract.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: https://example.com/d.png
+    screenshot_status: planned
+    notes: fixture
+    emit_marker_in_showcase: true
