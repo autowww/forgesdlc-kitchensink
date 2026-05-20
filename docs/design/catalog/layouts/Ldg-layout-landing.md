@@ -28,7 +28,8 @@ Public marketing landing: hero-first storytelling, outcome bands, and CTA rhythm
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Landing** canvas: hero-forward vertical storytelling with generous bands; chrome stays minimal versus marketing body.
+- Section stacks follow Forge landing rhythm (hero → proof → depth) without burying primary CTA ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,8 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Hero typography scales down without orphans; CTAs remain thumb-reachable.
+- Background media yields to content stacking first—no illegible overlaps.
 
 ## Accessibility contract
 
@@ -69,6 +70,19 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Ldg** markers: emitted roots include both `hash="Ldg"` and `data-ks-hash="Ldg"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: div.container-fluid.px-0: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Hero band and first outcome blocks stay above the fold at the contract preview width; primary and secondary CTAs map to distinct destinations.
+- Token-driven contrast for hero overlays meets WCAG AA against the ambient background treatment for this layout.
+
+## AI-enabled review cues
+
+- Does **Landing layout** read as the correct *role* for consumers (handbook vs museum vs landing) rather than an accidental mash-up of two layouts?
+- Under studio lighting (screenshots at ~1440px), does vertical rhythm reinforce scan-friendly hierarchy (not cramped headings or orphaned whitespace bands)?
+- When paired with diagrams or dense tables, does chrome stay visually subordinate while remaining discoverable?
 
 ## Forbidden patterns
 

@@ -28,7 +28,8 @@ Static preview page demonstrating **Preview split layout** in isolation (`genera
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- Static **preview** of **Spl** split layout—both panes visible before narrow breakpoints collapse them.
+- Demonstrates divider affordances without live app state ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,7 @@ Registry **root_selector:** `main#main`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Include one stacked variant screenshot showing pane order and headings.
 
 ## Accessibility contract
 
@@ -69,6 +69,18 @@ Registry **root_selector:** `main#main`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Vsp** markers: emitted roots include both `hash="Vsp"` and `data-ks-hash="Vsp"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: main#main: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Miniature preview page mirrors typography and shell stripe patterns of its parent layout hash without spoofing unrelated themes.
+- Preview iframe/card (if present) retains readable type scale; no unreadable pixel-type used only for pixel-fit.
+
+## AI-enabled review cues
+
+- Does the preview communicate *which* layout family is selected (visual signature of **Preview split layout**) to handbook readers at a glance?
+- Would a consumer maintainer recognize migration risk from the preview alone (density, nav chrome, hero treatment)?
 
 ## Forbidden patterns
 

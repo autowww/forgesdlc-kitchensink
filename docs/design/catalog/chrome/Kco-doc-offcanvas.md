@@ -28,7 +28,9 @@ Reusable chrome region **Doc offcanvas** (`slug: doc-offcanvas`) embedded by lay
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Offcanvas drawer** (`offcanvas panel`) slides over content with Forge slate panel styling and clear header/title row.
+- Focus trap while open; closing restores prior focus and avoids obscuring skip targets ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- Used where handbook/mobile chrome collapses—coordinate width and elevation with **Ksr**/**Kpn** disclosures.
 
 ## Anatomy
 
@@ -49,8 +51,8 @@ Region root matches registry `root_selector`; nests links, controls, or metadata
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Panel width caps around tablet sizes; full-height takeover respects safe-area insets on mobile.
+- Escape gestures/controls remain visible—no invisible dismiss targets.
 
 ## Accessibility contract
 
@@ -69,6 +71,19 @@ Region root matches registry `root_selector`; nests links, controls, or metadata
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Kco** markers: emitted roots include both `hash="Kco"` and `data-ks-hash="Kco"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: registry Anatomy root_selector: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Offcanvas open/close pairs with `button`/`a` triggers that have accessible names; focus traps while open per Bootstrap patterns.
+- Closing restores focus to the invoking control across route-like hash changes.
+
+## AI-enabled review cues
+
+- For **Doc offcanvas** (`doc-offcanvas`), does the chrome read as purposeful product IA rather than decorative Bootstrap filler?
+- At condensed widths, collapsed affordances remain obvious (motion, affordance cues, labeling); no mystery-meat menus.
+- Credibility check: typography and spacing match Forge enterprise tone ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)) without looking like a generic template swap.
 
 ## Forbidden patterns
 

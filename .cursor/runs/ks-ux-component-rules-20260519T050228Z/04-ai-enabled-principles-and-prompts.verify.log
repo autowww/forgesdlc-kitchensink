@@ -1,0 +1,20 @@
+VERDICT: PASS
+
+**Evidence**
+
+- **`docs/design/ux-audit/ai-enabled-design-principles.md`** — Describes AI review as an advisory layer; documents the required JSON block (`principleId`, `deterministicCoverage`, `candidateDeterministicRule`, `hashesOrContractsAffected`, `screenshotOrDomEvidence`, numeric `confidence`); lists all seven canonical `principleId` values (lines 33–45); explicitly biases promotion toward `DET.*` and references `AI.RULE_DISCOVERY.CANDIDATE_DETERMINISTIC_RULE` (lines 31–32, 45).
+- **`tools/website-ux-auditor/lib/ai-audit-batches.js`** — Exports `AI_REVIEW_CONTRACT` with the same seven ids and `requiredFindingMetadata`; manifest and each batch include `aiReviewContract`; `normalizeAiFinding` maps snake_case aliases, normalizes coverage and numeric confidence (including legacy `high|medium|low`); `aggregateAiAuditResults` emits those fields into `data.findings` and markdown (including “Candidate deterministic rule”).
+- **`build-ai-audit-batches.mjs` / `aggregate-ai-audit-results.mjs`** — Usage stderr documents `aiReviewContract` and preserved finding fields (lines 9–15 in each).
+- **`cursor-agent-run-ux-audit.sh`** — Instructs use of `aiReviewContract`, mapping to canonical principles, and preferring repeatable issues → concrete `DET.*` candidates; return schema matches the required fields with numeric `confidence` (lines 92–136).
+- **Tests** — `auditor-tests/ai-audit-batches.test.js` asserts `aiReviewContract` on manifests/batches and aggregation preserves `candidateDeterministicRule`, hashes/contracts, screenshot/DOM evidence, and `confidence` → `0.85` from `"high"`.
+- **`npm test`** in `tools/website-ux-auditor` — **99/99 passing** (verified in this session).
+
+**Missing work**
+
+- None required by the phase acceptance criteria. Optional hardening (not demanded): validate `principleId` against `AI_REVIEW_CONTRACT.principleIds` during normalization or fail closed on missing metadata.
+
+**Exact next actions**
+
+1. Treat phase 04 as complete for governance/traceability; proceed to the next phase in the master sequence if one exists.
+2. If you want machine-enforced findings shape, add validation/rejection paths for missing or non-canonical `principleId` (plus tests).
+3. Keep running `npm test` under `tools/website-ux-auditor` after future edits to AI batch or aggregation code.

@@ -1,0 +1,37 @@
+Implemented **DET.SURFACE.ELEVATION_TOKEN** as a deterministic CSS token scan aligned with the spec: elevated surfaces should use theme elevation tokens, not ad-hoc `box-shadow` literals outside theme packs.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-surface-elevation-token.check.js`**
+   - **`isSanctionedBoxShadowValue` / `splitBoxShadowLayers`** — treats `none`, sanctioned `var(--forge-*| --ks-*| --bs-*| --le-surface*)`, thin border rings (`0 0 0 Npx …`), and zero shadows as OK.
+   - **`isSurfaceSelector`** — targets cards, dialogs, modals, panels, popovers, tooltips, `data-card`, etc.; skips card chrome (`.card-title`, etc.).
+   - **`scanCssTextForElevationViolations`** — static scan of `box-shadow` on surface selectors; skips `@keyframes`.
+   - **`scanRepoSurfaceElevation`** — scans `css/*.css` except theme packs (`forge-theme.css`, `docs-theme.css`, …).
+   - **`collectSurfaceElevationReport(page)`** — Playwright pass for inline styles and same-origin stylesheet rules on surfaces.
+   - **`run(ctx)`** — merges page report + repo scan (capped at 12 findings) into standard finding shape (`severity` / `area` / `message` / `evidence` / `remediation`).
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `area: readability`, `scoreDimension: visualRhythmFirstScreen`, `defaultSeverity: warn`, `priorityWeight: 7`.
+
+3. **`auditor-tests/det-surface-elevation-token.test.js`**
+   - Unit tests for sanction logic, CSS scan, findings mapping, and `run()` with injected metrics.
+
+`registry.generated.json` already lists this rule as **implemented** (46 explicit-map rules). Re-run **`npm run blend-rules`** after the mapping edit so the fingerprint stays in sync.
+
+### Why this approach
+
+- Matches **“CSS token scan”** in `deterministic-design-rules.md`.
+- Theme packs may define raw shadows; feature CSS and live pages must reference tokens on elevated surfaces.
+- Repo scan on kitchensink will surface real drift (e.g. `.ks-nrm-dialog` in `nested-roadmap.css`) until those use `var(--forge-glow-*)` or a local `--*-shadow` token.
+
+### Verify locally
+
+Shell was unavailable in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+If anything fails, paste the output and we can adjust (e.g. ring-layer rules or surface selector scope).

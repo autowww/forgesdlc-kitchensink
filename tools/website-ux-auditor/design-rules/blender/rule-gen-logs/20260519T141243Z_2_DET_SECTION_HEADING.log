@@ -1,0 +1,40 @@
+## Summary
+
+Implemented **`DET.SECTION.HEADING`** as a deterministic check aligned with the doc anchor: *each major section has one heading; order matches outline*.
+
+### Signals (deterministic)
+
+| Violation | Condition |
+|-----------|-----------|
+| `missing-section-heading` | Major `section`/`article` in `main` (≥45 words or ≥48px tall) has **no** primary heading (h1–h6 / `role="heading"` at section root, or `aria-labelledby`) |
+| `duplicate-section-heading` | Same section has **2+** primary headings |
+| `skipped-heading-level` | Main-column outline jumps a rank (e.g. h2 → h4) in DOM order |
+
+Chrome/TOC/nav/footer regions are excluded from the outline walk.
+
+### Files changed
+
+1. **`design-rules/deterministic/generated/det-section-heading.check.js`** — Full implementation: `collectSectionHeadingReport`, pure helpers, `findingsFromSectionHeadingReport`, `run`. Skips platform handbook inner pages (same pattern as `hero-headings` / `DET.PROSE.LENGTH`).
+
+2. **`design-rules/blender/rule-mappings.js`** — Registered under `DETERMINISTIC_IMPLEMENTATIONS` as `implemented` with `area: semantics`, `scoreDimension: narrativeHero`, `priorityWeight: 10` (matches the `hero-headings` legacy adapter).
+
+3. **`auditor-tests/det-section-heading.test.js`** — Unit tests for helpers and `run`.
+
+4. **`design-rules/registry.generated.json`** — Marked rule `implemented` and updated coverage counts (43 implemented / 7 stubs).
+
+### Relationship to legacy `hero-headings`
+
+- Legacy check still handles **H1** hero semantics.
+- **`DET.SECTION.HEADING`** handles **section-level** titles and **h1–h6 outline** continuity in `main`.
+
+### Verification
+
+Shell was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules   # refreshes fingerprint + generatedAt
+npm test
+```
+
+`blend-rules` will reconcile `registry.generated.json` fully (including fingerprint) from `rule-mappings.js`.

@@ -13,6 +13,7 @@
  *   --strict-contract-placeholders  Treat stub bullets (TBD/TODO/FIXME) as errors.
  *   --verbose-contract-placeholders List each contract with stub placeholders (default: summarize).
  *   --allow-minimal-showcase  Skip Shw/Gly density guard (for tiny fixture repos).
+ *   --strict-contract-governance  Also warn on missing Deterministic/AI review headings (stateful contracts).
  */
 
 import fs from 'node:fs';
@@ -22,6 +23,11 @@ import { fileURLToPath } from 'node:url';
 import { loadRegistry, normalizeRegistryForJson } from './lib/parse-registry.mjs';
 import { isValidHashFormat, lettersDistinct } from './lib/hash-utils.mjs';
 import { analyzeContractPlaceholders } from './lib/contract-placeholders.mjs';
+import {
+  analyzeContractSpecificity,
+  analyzeDuplicateExpectedLookBodies,
+  extractExpectedLookBody,
+} from './lib/contract-specificity.mjs';
 
 function parseArgs(argv) {
   const o = {
@@ -34,6 +40,7 @@ function parseArgs(argv) {
     strictContractPlaceholders: false,
     verboseContractPlaceholders: false,
     allowMinimalShowcase: false,
+    strictContractGovernance: false,
   };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
@@ -46,6 +53,7 @@ function parseArgs(argv) {
     else if (a === '--strict-contract-placeholders') o.strictContractPlaceholders = true;
     else if (a === '--verbose-contract-placeholders') o.verboseContractPlaceholders = true;
     else if (a === '--allow-minimal-showcase') o.allowMinimalShowcase = true;
+    else if (a === '--strict-contract-governance') o.strictContractGovernance = true;
   }
   if (!o.registry) {
     console.error(
@@ -278,6 +286,20 @@ function main() {
     if (cs === 'own' && e.contract) {
       const cp = path.join(args.repo, e.contract);
       if (!fs.existsSync(cp)) errors.push(regMsg(h, typ, src0, e.contract, 'missing contract file'));
+      else {
+        const base = path.basename(String(e.contract));
+        if (isValidHashFormat(h) && !/^FAM-/i.test(base) && !base.includes(h)) {
+          errors.push(
+            regMsg(
+              h,
+              typ,
+              src0,
+              e.contract,
+              'contract filename/path should include the registry hash (registry↔contract drift guard)',
+            ),
+          );
+        }
+      }
     }
     if (cs === 'family-covered' && e.contract) {
       const cp = path.join(args.repo, e.contract);
@@ -345,6 +367,15 @@ function main() {
     for (const m of phErr) {
       errors.push(regMsg(e.hash, e.type, (e.source_paths || [])[0] ?? null, rel, m));
     }
+    const { errors: specErr, warnings: specWarn } = analyzeContractSpecificity(txt, rel, e.type || '', {
+      strictGovernanceHeadings: args.strictContractGovernance,
+    });
+    for (const m of specErr) {
+      errors.push(regMsg(e.hash, e.type, (e.source_paths || [])[0] ?? null, rel, m));
+    }
+    for (const w of specWarn) {
+      warnings.push(regMsg(e.hash, e.type, (e.source_paths || [])[0] ?? null, rel, w));
+    }
     const isStubWarn = phWarn.some((w) => w.includes('stub bullets'));
     if (isStubWarn) stubContractFiles++;
     if (args.verboseContractPlaceholders) {
@@ -357,6 +388,32 @@ function main() {
     warnings.push(
       `${stubContractFiles} contract file(s) still contain stub bullets (TBD/TODO/FIXME); use --verbose-contract-placeholders to list each or --strict-contract-placeholders to fail`,
     );
+  }
+
+  /** Cross-contract duplicate Expected look bodies (layout/page/chrome/layout-preview). */
+  const contractPathTypes = new Map();
+  for (const e of entries) {
+    const cs = e.contract_status;
+    if (cs !== 'own' && cs !== 'family-covered') continue;
+    if (!e.contract) continue;
+    const rel = String(e.contract).replace(/\\/g, '/');
+    if (!contractPathTypes.has(rel)) contractPathTypes.set(rel, new Set());
+    contractPathTypes.get(rel).add(String(e.type || ''));
+  }
+  /** @type {{ relPath: string, registryTypes: string[], body: string }[]} */
+  const expectedLookSamples = [];
+  for (const [rel, types] of contractPathTypes) {
+    const cp = path.join(args.repo, rel);
+    if (!fs.existsSync(cp)) continue;
+    const t = fs.readFileSync(cp, 'utf8');
+    expectedLookSamples.push({
+      relPath: rel,
+      registryTypes: [...types],
+      body: extractExpectedLookBody(t),
+    });
+  }
+  for (const m of analyzeDuplicateExpectedLookBodies(expectedLookSamples)) {
+    errors.push(m);
   }
 
   function sourcePathUnionForTypes(typeList) {
@@ -678,6 +735,25 @@ function main() {
     ...Object.entries(byScreenshot).map(([k, v]) => `- ${k}: ${v}`),
     '',
   ];
+
+  const familyCovered = entries.filter((e) => String(e.contract_status || '') === 'family-covered').sort((a, b) =>
+    String(a.hash).localeCompare(String(b.hash)),
+  );
+  covLines.push(
+    '## Intentional family-covered rows',
+    '',
+    'These entries share a roll-up contract; child hashes and path-level contracts carry per-file specificity. Presence here is expected.',
+    '',
+    '| Hash | Type | Name | Contract | Parent hash |',
+    '|---|---|---|---|---|',
+    ...familyCovered.map((e) => {
+      const ph = e.parent_hash != null && String(e.parent_hash).trim() !== '' ? `\`${e.parent_hash}\`` : '—';
+      const c = String(e.contract ?? '').replace(/\\/g, '/');
+      const n = String(e.name ?? '').replace(/\|/g, '\\|');
+      return `| ${e.hash ?? ''} | ${String(e.type ?? '').replace(/\|/g, '\\|')} | ${n} | \`${c}\` | ${ph} |`;
+    }),
+    '',
+  );
 
   if (inv?.items?.length) {
     /** @type {Record<string, number>} */

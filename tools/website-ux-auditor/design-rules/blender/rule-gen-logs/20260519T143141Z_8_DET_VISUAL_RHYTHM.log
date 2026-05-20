@@ -1,0 +1,37 @@
+## Summary
+
+Implemented **DET.VISUAL.RHYTHM** as a deterministic check for repeated vertical section spacing (aligned with `docs/design/ux-audit/deterministic-design-rules.md#det-visual-rhythm`).
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-visual-rhythm.check.js`**
+   - **Cramped rhythm:** `sectionMedianGapPx < 32` with ≥4 sections (same signal as `first-screen-density`, but page-wide).
+   - **Gap inconsistency:** spread between section top gaps exceeds 55% of the median (ad hoc spacing).
+   - **Ad hoc spacing:** sections with inline `margin`/`padding` styles or computed vertical spacing not on the 8px grid / `var(--*)` / rem, unless spacing utility classes apply.
+   - Exports `rule`, `run`, testable helpers, and `collectVisualRhythmReport(page)` for live crawls.
+   - `run()` uses crawl `metrics` and optional Playwright collection.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `area: readability`, `scoreDimension: visualRhythmFirstScreen`, `defaultSeverity: warn`, `priorityWeight: 7`.
+
+3. **`auditor-tests/det-visual-rhythm.test.js`**
+   - Unit tests for helpers, finding mapping, and `run()` with metrics-only paths.
+
+4. **`design-rules/registry.generated.json`**
+   - Updated coverage counts and rule row to `implemented` (49 implemented / 1 stub).
+
+### Why this approach
+
+The rule calls for **computed-style / token** checks, not AI. The check reuses `sectionMedianGapPx` from `dom-metrics.js`, adds gap spread and margin/padding token sampling in the browser, and matches patterns used by `det-layout-grid-consistency` and `det-context-burden`.
+
+### Verify locally
+
+Shell was not available in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` refreshes the registry **fingerprint**; `npm test` should include the new `det-visual-rhythm.test.js` cases. If anything fails, share the output and I can adjust.

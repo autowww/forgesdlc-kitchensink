@@ -1,0 +1,53 @@
+Implemented **`DET.JS.NO_CONSOLE_ERROR`** as a Playwright-backed deterministic check and registered it in the blender map. Shell commands were not available in this session, so run verification locally (below).
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-js-no-console-error.check.js`
+
+Replaced the auto-generated stub with a real check that:
+
+- Listens for **`console` type `error`** and **`pageerror`** (uncaught exceptions)
+- Runs a bounded **golden-path smoke** (up to 5 clicks on safe controls: Bootstrap tabs/collapse, `<details>`, theme toggle, navbar toggler)
+- Filters noisy benign messages (favicon failures, ResizeObserver loop, extension URLs, source-map devtools noise)
+- Exposes testable helpers:
+  - `shouldIgnoreConsoleMessage()`
+  - `findingsFromJsConsoleErrorReport()`
+  - `beginJsConsoleErrorCapture()` (for future pre-`goto` wiring in crawl)
+  - `collectJsConsoleErrorReport()` / `runGoldenPathSmoke()`
+
+`run(ctx)` uses `metrics.jsConsoleErrorReport` when present, otherwise collects from `page` if available.
+
+Findings use the standard shape: `severity`, `area`, `message`, `evidence`, `remediation` (plus runtime enrichment for `ruleId`, `scoreDimension`, etc.).
+
+### 2. `design-rules/blender/rule-mappings.js`
+
+Added **`DETERMINISTIC_IMPLEMENTATIONS['DET.JS.NO_CONSOLE_ERROR']`**:
+
+| Field | Value |
+|--------|--------|
+| status | `implemented` |
+| area | `interaction` |
+| scoreDimension | `depthAndTechnicalDisclosure` |
+| defaultSeverity | `major` |
+| priorityWeight | `8` |
+| sourceRule | `#det-js-no_console_error` |
+
+### 3. `auditor-tests/det-js-no-console-error.test.js`
+
+Unit tests for ignore filtering, findings mapping, and `run()` with injected metrics (same pattern as other `det-*` tests).
+
+## Why this design
+
+The rule anchor requires **no uncaught/script errors on golden-path smoke** with **Playwright** evidence. That maps to console/pageerror listeners plus a small, safe interaction probe—not AI judgment.
+
+Load-time errors before `run()` are only captured if something pre-fills `metrics.jsConsoleErrorReport` or calls `beginJsConsoleErrorCapture()` before navigation; `beginJsConsoleErrorCapture` is exported so crawl can adopt that later without changing the rule logic.
+
+## Verify locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+After `blend-rules`, `registry.generated.json` should list `DET.JS.NO_CONSOLE_ERROR` with `status: "implemented"` and the interaction/depth metadata from the map.

@@ -1,0 +1,519 @@
+
+> forge-website-ux-auditor@0.1.0 rulegen
+> bash design-rules/blender/cursor-agent-generate-rule-library.sh --lane deterministic --max-rules 10
+
+[rule-gen] repo=/home/lzvyahin/Code/forgesdlc-kitchensink
+[rule-gen] lane=deterministic model=composer-2.5-fast max_rules=10
+[rule-gen] selected targets=10
+[rule-gen] (1/10) lane=deterministic rule=DET.CONTEXT.BURDEN
+## Summary
+
+Implemented **DET.CONTEXT.BURDEN** as a deterministic first-screen / chrome burden check aligned with `docs/design/ux-audit/deterministic-design-rules.md#det-context-burden` and the Forge enterprise first-screen budget in `docs/design/forge-enterprise-ai-website-standard.md`.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-context-burden.check.js`**
+
+Replaced the auto-generated stub with a real check that measures:
+
+| Signal | Threshold | Source |
+|--------|-----------|--------|
+| Links before first in-main H1 | ≤ 10 | Enterprise standard |
+| Header/nav links outside `main` | ≤ 7 | Standard (4–7 curated choices) |
+| Chrome regions outside `main` | ≤ 4 | Nav-band competition |
+| First-viewport links (homepage only) | ≤ 28 | Same as `readability-structure` link-wall proxy |
+| Hero-fold interactive controls (homepage) | ≤ 3 | Aligns with `DET.BUTTON.GROUP.MAX` |
+
+- Uses existing crawl metrics (`preMainFirstH1LinkCount`, `outsideMainHeaderNavLinkCount`, `navChromeContainerCount`, `firstViewportLinkCount`).
+- `collectContextBurdenReport(page)` counts hero-fold actions inside `main` when Playwright is available.
+- Skips platform/lenses/fleet/lcdl **handbook inner** pages (same pattern as `first-screen-density`).
+- Exports `rule`, `run(ctx)`, and testable helpers (`buildContextBurdenSnapshot`, `findingsFromContextBurdenSnapshot`, etc.).
+- Findings use `severity`, `area: 'first-screen'`, `message`, `evidence`, `remediation`.
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `status: 'implemented'`
+- `area: 'first-screen'`
+- `scoreDimension: 'visualRhythmFirstScreen'`
+- `priorityWeight: 12` (matches legacy `first-screen-density` adapter)
+
+**3. `auditor-tests/det-context-burden.test.js`**
+
+Eight unit tests for thresholds, snapshot/metrics behavior, home vs inner routes, and `run()` integration.
+
+### Why these signals
+
+The rule doc calls for quantitative caps on hero controls, nav bands, and above-the-fold link clusters. The enterprise standard gives concrete numbers (10 pre-H1 links, 4–7 top nav, hero CTA budget). The check reuses crawl metrics where possible and only uses `page.evaluate` for hero interactive control counting.
+
+### Verification (please run locally)
+
+Shell execution was unavailable in this session. From `tools/website-ux-auditor`:
+
+```bash
+npm run blend-rules
+npm test
+```
+
+`registry.generated.json` already lists `DET.CONTEXT.BURDEN` as `implemented` with `implementationSource: 'explicit-map'`; `blend-rules` will refresh the fingerprint after the `rule-mappings.js` change.
+
+If anything fails, paste the output and we can tune thresholds or selectors.
+[rule-gen] ok rule=DET.CONTEXT.BURDEN log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T113056Z_1_DET_CONTEXT_BURDEN.log
+[rule-gen] (2/10) lane=deterministic rule=DET.CONTRACT.PATH
+## Summary
+
+Implemented **`DET.CONTRACT.PATH`** as a repo-wide catalog check: active registry rows that require a contract (`contract_status: own` | `family-covered`) must have a non-empty path and an on-disk `.md` file.
+
+### Rule signals (from `deterministic-design-rules.md`)
+
+| Signal | Pass | Fail |
+|--------|------|------|
+| Row scope | `status === 'active'` | deprecated / other statuses skipped |
+| Policy | `contract_status` is `own` or `family-covered` | `not-applicable`, `missing`, etc. skipped |
+| Path | `contract` / `contract_path` non-empty | empty path |
+| File | `repoRoot + contract` exists | missing file |
+
+Aligned with `check-visual-catalog.mjs` and the per-page logic in `visual-catalog-awareness.js`, but scoped to the full registry (not DOM hashes).
+
+### Files changed
+
+1. **`design-rules/deterministic/generated/det-contract-path.check.js`** — `scanContractPaths`, `findingsFromContractPathReport`, `run()`; uses `loadGeneratedRegistry` / `contractPathFromRegistryEntry`; caps at 12 findings per pass.
+
+2. **`design-rules/blender/rule-mappings.js`** — registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+   - `area: 'visual-catalog'`
+   - `scoreDimension: 'visualCatalogGovernance'`
+   - `priorityWeight: 8`
+   - `defaultSeverity: 'minor'`
+
+3. **`auditor-tests/det-contract-path.test.js`** — unit tests for policy helpers, scan, finding mapping, and `run()`.
+
+4. **`design-rules/registry.generated.json`** — synced so `DET.CONTRACT.PATH` is `implemented` with `explicit-map` (same outcome as `npm run blend-rules`).
+
+### Verification (please run locally)
+
+Shell execution was blocked in this session. From `tools/website-ux-auditor`:
+
+```bash
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should leave `DET.CONTRACT.PATH` as `implemented` and bump `deterministicCoverage.implementedCount` to **14**. The new tests in `auditor-tests/det-contract-path.test.js` should pass.
+[rule-gen] ok rule=DET.CONTRACT.PATH log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T113247Z_2_DET_CONTRACT_PATH.log
+[rule-gen] (3/10) lane=deterministic rule=DET.CONTRACT.PLACEHOLDERS
+## Summary
+
+Implemented **`DET.CONTRACT.PLACEHOLDERS`** as a repo-level visual-catalog check, aligned with `tools/design-catalog/lib/contract-placeholders.mjs` and `check-visual-catalog.mjs`.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-contract-placeholders.check.js`**
+
+Replaced the blender stub with a real check that:
+
+- Loads registry-linked contracts (`contract_status` `own` | `family-covered`), skips `contract-template.md` and missing files.
+- Reuses **`analyzeContractPlaceholders()`** from the design-catalog linter (no AI).
+- **Always** reports hard placeholder markers as **minor** findings (lorem ipsum, `[placeholder]`, `example-visual`, `XYZ` headings, etc.).
+- Reports **TBD / TODO / FIXME** stub bullets only when **`ctx.strictContractPlaceholders === true`** (same strict semantics as `--strict-contract-placeholders` on the catalog script).
+- Exposes `scanContractPlaceholders`, `findingsFromContractPlaceholderReport`, and `run` with the usual finding shape (`severity`, `area`, `message`, `evidence`, `remediation`).
+- Caps output at 12 findings per pass (same pattern as `DET.CONTRACT.PATH` / `DET.CATALOG.CONTRACT_SPECIFICITY`).
+- Accepts precomputed `metrics.contractPlaceholderReport` for tests and batch pipelines.
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|--------|--------|
+| `status` | `implemented` |
+| `area` | `visual-catalog` |
+| `scoreDimension` | `visualCatalogGovernance` |
+| `priorityWeight` | `8` |
+| `defaultSeverity` | `minor` |
+
+**3. `auditor-tests/det-contract-placeholders.test.js`**
+
+Unit tests for scan strict/non-strict behavior, finding mapping, and `run()` wiring.
+
+### Why
+
+The rule anchor requires deterministic detection of unresolved contract placeholder language. The catalog already encodes that logic; this check wires it into the UX auditor with the same strict/non-strict split for stub bullets.
+
+### Verify locally
+
+Shell execution was blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should mark `DET.CONTRACT.PLACEHOLDERS` as **implemented** in `design-rules/registry.generated.json` and bump coverage counts.
+
+### Strict mode
+
+To treat stub bullets as failures during an audit:
+
+```javascript
+ctx: { strictContractPlaceholders: true }
+```
+
+Without that, only non-stub placeholder markers (e.g. lorem ipsum) are reported—matching the rule doc’s “when strict mode enabled” wording for TBD/TODO/FIXME.
+[rule-gen] ok rule=DET.CONTRACT.PLACEHOLDERS log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T113421Z_3_DET_CONTRACT_PLACEHOLDERS.log
+[rule-gen] (4/10) lane=deterministic rule=DET.CTA.HIERARCHY
+## Summary
+
+Implemented **`DET.CTA.HIERARCHY`** as a deterministic DOM check: at most **one primary CTA** per logical viewport region (hero, open modal/panel, sticky footer).
+
+### Source rule → signals
+
+From `docs/design/ux-audit/deterministic-design-rules.md#det-cta-hierarchy`:
+
+- **Pass:** one primary CTA per hero / sticky footer / modal band  
+- **Evidence:** button-class scan (`btn-primary`, `btn-forge`; excludes outline/secondary/link)
+
+### Files changed
+
+| File | Change |
+|------|--------|
+| `design-rules/deterministic/generated/det-cta-hierarchy.check.js` | Full implementation: `collectCtaHierarchyReport`, `findingsFromCtaHierarchyReport`, `run` |
+| `design-rules/blender/rule-mappings.js` | Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented** (`conversion`, `trustAndEcosystemTruth`, `major`, weight **9**) |
+| `design-rules/registry.generated.json` | `DET.CTA.HIERARCHY` → **implemented**; coverage **15** implemented / **35** stub |
+| `auditor-tests/det-cta-hierarchy.test.js` | Unit tests for report → findings and `run` |
+
+### Check behavior
+
+- **Regions:** KS hero shells (`.landing-hero*`, `.product-hero`), visible modals (`.modal.show`, `.offcanvas.show`, `role="dialog"` + `aria-modal`), sticky/fixed bottom bands  
+- **Primary detection:** same pattern as `DET.CARD.ACTION_LIMIT` (`btn-primary`, `btn-forge`; not outline/secondary)  
+- **Findings:** `severity` major/critical, `area: conversion`, standard `message` / `evidence` / `remediation`  
+- **Runtime:** uses `metrics.ctaHierarchyReport` or live `page` via Playwright (same pattern as button-group / card-action checks)
+
+Legacy `cta-trust-ecosystem` check still maps to this rule ID; the new rule adds **primary-per-region** enforcement separate from “too many CTAs above fold.”
+
+### Verification (please run locally)
+
+Shell was not available in this session. From `tools/website-ux-auditor`:
+
+```bash
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` **fingerprint** (manual registry edits may differ slightly until then). `npm test` includes `auditor-tests/det-cta-hierarchy.test.js` and re-runs the blender smoke test.
+[rule-gen] ok rule=DET.CTA.HIERARCHY log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T113518Z_4_DET_CTA_HIERARCHY.log
+[rule-gen] (5/10) lane=deterministic rule=DET.CTA.LABEL_NONEMPTY
+## Summary
+
+Implemented **`DET.CTA.LABEL_NONEMPTY`** as a deterministic DOM check: visible interactive controls must have a non-empty accessible name.
+
+### Rule signal (from catalog)
+
+Pass when every relevant **button/link** has a non-empty accessible name via `aria-label`, `aria-labelledby`, `title`, visible text, `input` value, `img` alt, or screen-reader-only text.
+
+### Files changed
+
+| File | Change |
+|------|--------|
+| `design-rules/deterministic/generated/det-cta-label-nonempty.check.js` | Full implementation: `collectCtaLabelNonemptyReport()` (Playwright `page.evaluate`), `findingsFromCtaLabelNonemptyReport()`, `run()` |
+| `design-rules/blender/rule-mappings.js` | Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented** |
+| `auditor-tests/det-cta-label-nonempty.test.js` | Unit tests for report mapping and `run()` |
+| `design-rules/registry.generated.json` | Updated to `status: "implemented"` (coverage 16/34) |
+
+### Implementation details
+
+- Scans: `a[href]`, `button`, submit/reset/image inputs, `[role="button"]`, `[role="link"]`
+- Skips hidden/invisible controls, `aria-hidden` subtrees, nested interactives, and disabled buttons
+- **`MIN_CTA_LABEL_CHARS = 1`** (non-empty after trim)
+- Findings: `severity: major`, `area: accessibility`, standard `message` / `evidence` / `remediation`
+- Registry metadata: `accessibilitySemanticsMeta`, `priorityWeight: 8`
+
+### Mapping registration
+
+```239:247:tools/website-ux-auditor/design-rules/blender/rule-mappings.js
+  'DET.CTA.LABEL_NONEMPTY': {
+    modulePath: 'design-rules/deterministic/generated/det-cta-label-nonempty.check.js',
+    status: 'implemented',
+    defaultSeverity: 'major',
+    area: 'accessibility',
+    scoreDimension: 'accessibilitySemanticsMeta',
+    priorityWeight: 8,
+    sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-cta-label_nonempty',
+  },
+```
+
+### Verification (run locally)
+
+Shell was unavailable in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` fingerprint/`generatedAt`. The registry entry for this rule is already aligned with the explicit map; blending should be a no-op aside from metadata refresh.
+[rule-gen] ok rule=DET.CTA.LABEL_NONEMPTY log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T113703Z_5_DET_CTA_LABEL_NONEMPTY.log
+[rule-gen] (6/10) lane=deterministic rule=DET.DATA.COLOR_ONLY
+## Summary
+
+Implemented **`DET.DATA.COLOR_ONLY`** as a deterministic accessibility check aligned with the catalog rule: *meaning must not be conveyed by color alone (pattern/label redundancy where detectable)*.
+
+### What the check detects
+
+| Signal | Detection |
+|--------|-----------|
+| **KS token swatches** | `.ks-swatch` without a `.ks-swatch-label` (≥2 chars) |
+| **Chart legend swatches** | `.lenses-overview-donut-swatch`, `.ks-swatch-box`, and other swatch/legend-mark selectors inside chart/legend/table contexts without sibling text, `aria-label`, or `title` |
+| **Heatmap-style table cells** | `td`/`th` with a visible background color, empty text, no `aria-label`, inside a table with labeled headers |
+
+Scans are limited to **data contexts** (charts, legends, tables, figures, `.ks-swatch`) to avoid flagging decorative UI chrome.
+
+### Files changed
+
+1. **`design-rules/deterministic/generated/det-data-color-only.check.js`** — full implementation:
+   - `export const rule` with `area: accessibility`, `scoreDimension: accessibilitySemanticsMeta`, `priorityWeight: 7`
+   - `collectColorOnlyReport(page)` / `findingsFromColorOnlyReport(report)` / `run({ metrics, page, url })`
+   - Uses `metrics.colorOnlyReport` when precomputed (same pattern as `DET.CHART.ALT_SUMMARY`)
+
+2. **`design-rules/blender/rule-mappings.js`** — `DET.DATA.COLOR_ONLY` registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented**
+
+3. **`auditor-tests/det-data-color-only.test.js`** — unit tests for findings helpers and `run()`
+
+4. **`design-rules/registry.generated.json`** — rule moved from **stub → implemented**; coverage **17 implemented / 33 stub**
+
+### Finding shape (backward compatible)
+
+- `severity`: `major` for missing `.ks-swatch-label`, `warn` for other swatch/cell cases  
+- `area`, `message`, `evidence` (`color_only_encoding kind=…`), `remediation`  
+- Optional `url=` appended to evidence when a URL is provided  
+
+### Verification (run locally)
+
+Shell execution was blocked in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` fingerprint/`generatedAt`. Targeted test:
+
+```bash
+node --test auditor-tests/det-data-color-only.test.js
+```
+[rule-gen] ok rule=DET.DATA.COLOR_ONLY log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T113912Z_6_DET_DATA_COLOR_ONLY.log
+[rule-gen] (7/10) lane=deterministic rule=DET.DATA.TABLE_HEADERS
+Implemented **`DET.DATA.TABLE_HEADERS`** as a deterministic DOM check aligned with the catalog rule: data tables must use `<th scope>` or explicit `headers` associations.
+
+### Source rule → measurable signals
+
+From `deterministic-design-rules.md`: pass when visible data tables either:
+
+1. Use `<th>` (or `role="columnheader"` / `role="rowheader"`) with valid `scope` (`col`, `row`, `colgroup`, `rowgroup`), or  
+2. Every body `<td>` has a `headers` attribute pointing at header cell ids in the same table.
+
+### What was added
+
+**`design-rules/deterministic/generated/det-data-table-headers.check.js`**
+
+- `collectTableHeadersReport(page)` — scans visible `<table>` elements with at least one visible `<td>`
+- Skips layout tables (`role="presentation"`, hidden subtrees)
+- Violations:
+  - `no-header-cells` — no header cells and not all `td` have valid `headers`
+  - `th-missing-scope` — header cells exist but lack `scope`, and not all `td` use `headers`
+- `findingsFromTableHeadersReport()` / `run({ metrics, page, url })` — same pattern as `DET.CHART.ALT_SUMMARY` and `DET.DATA.COLOR_ONLY` (`metrics.tableHeadersReport` when precomputed)
+
+**`design-rules/blender/rule-mappings.js`**
+
+- Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented** with `area: accessibility`, `scoreDimension: accessibilitySemanticsMeta`, `priorityWeight: 7`, `defaultSeverity: major`
+
+**`auditor-tests/det-data-table-headers.test.js`**
+
+- Unit tests for findings helpers and `run()`
+
+**`design-rules/registry.generated.json`**
+
+- Rule marked **implemented** (18 implemented / 32 stub)
+
+### Finding shape (backward compatible)
+
+- `severity`: `major`
+- `area`, `message`, `evidence` (`missing_table_headers issue=…`), `remediation`
+- Optional `url=` on evidence when a URL is provided
+
+### Verification
+
+Shell execution was blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` refreshes the registry fingerprint/`generatedAt`. Targeted test:
+
+```bash
+node --test auditor-tests/det-data-table-headers.test.js
+```
+[rule-gen] ok rule=DET.DATA.TABLE_HEADERS log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T114059Z_7_DET_DATA_TABLE_HEADERS.log
+[rule-gen] (8/10) lane=deterministic rule=DET.DIAGRAM.ALT
+Implemented **DET.DIAGRAM.ALT** as a deterministic accessibility check for diagram decorative/informative classification.
+
+## Rule signal
+
+From `docs/design/ux-audit/deterministic-design-rules.md#det-diagram-alt`:
+
+- **Decorative** diagrams should use `aria-hidden`, `role="presentation"`, and/or empty `alt`.
+- **Informative** diagrams should use `role="figure"` / `role="img"` with text alternatives (`alt`, `aria-label`, `figcaption`).
+- Violations are **conflicting signals**, not semantic accuracy (that stays AI-side).
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-diagram-alt.check.js`
+
+Replaced the stub with a full check (pattern aligned with `det-chart-alt-summary`):
+
+- **`MIN_DIAGRAM_ALT_CHARS = 3`**
+- **Diagram roots:** `.forge-diagram`, `.ks-diagram-tile`, `[data-diagram-key]`, ASCII figure variants, embedded diagram `img`/`svg`
+- **Exclusions:** chart mounts, ambient/background layers, nav/toolbar chrome
+- **Violation kinds:**
+  - `diagram-alt-conflicting-role` — `aria-hidden` + `role="img"`
+  - `diagram-alt-informative-hidden` — caption/alt present but hidden via `aria-hidden` or `role="presentation"`
+  - `diagram-alt-decorative-named` — empty `alt` on img but accessible name elsewhere without hide markers
+  - `diagram-alt-missing-summary` — catalog-linked or `role="figure"`/`role="img"` without text alternative
+- **Exports:** `rule`, `findingsFromDiagramAltReport`, `collectDiagramAltReport`, `run(ctx)`
+
+Metadata: `area: accessibility`, `scoreDimension: accessibilitySemanticsMeta`, `defaultSeverity: major`, `priorityWeight: 7`.
+
+### 2. `design-rules/blender/rule-mappings.js`
+
+Registered `DET.DIAGRAM.ALT` under `DETERMINISTIC_IMPLEMENTATIONS` with `status: 'implemented'`.
+
+### 3. `auditor-tests/det-diagram-alt.test.js`
+
+Unit tests for constants, finding shapes, empty report, and `metrics.diagramAltReport` wiring.
+
+## Verification
+
+Shell was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+Targeted test:
+
+```bash
+node --test auditor-tests/det-diagram-alt.test.js
+```
+
+`blend-rules` will refresh `registry.generated.json` so `DET.DIAGRAM.ALT` shows `status: "implemented"` with the mapped metadata. Scope was limited to this single rule only.
+[rule-gen] ok rule=DET.DIAGRAM.ALT log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T114225Z_8_DET_DIAGRAM_ALT.log
+[rule-gen] (9/10) lane=deterministic rule=DET.DIAGRAM.ASSET_REGISTRY
+## Summary
+
+Implemented **`DET.DIAGRAM.ASSET_REGISTRY`** so diagram catalog keys and shipped `assets/svg/` paths align with active **`diagram-family`** / **`diagram-asset-group`** rows in `visual-registry.generated.json`.
+
+### Rule signals (from `deterministic-design-rules.md`)
+
+| Signal | Check |
+|--------|--------|
+| Registry | Active `diagram-family` row exists |
+| Repo | Every `js/ks-diagram-catalog.js` key maps to `_diagram_gallery.py` → `template-*.svg` |
+| Repo | Every gallery template path appears in registry `source_paths` |
+| DOM (crawl) | `data-diagram-key` values are in the KS catalog (repo or `__FORGE_KS_DIAGRAM_CATALOG`) |
+| DOM | Diagram `img[src]` under `assets/svg/` is covered by registry paths when `--repo` is set |
+
+### Files changed
+
+1. **`design-rules/deterministic/generated/det-diagram-asset-registry.check.js`** — Full check with `scanRepoDiagramAssetRegistry`, `collectDiagramAssetRegistryReport` (Playwright), `findingsFromDiagramAssetRegistryReport`, and `run()`.
+2. **`design-rules/blender/rule-mappings.js`** — Registered under `DETERMINISTIC_IMPLEMENTATIONS` as `implemented` (`visual-catalog` / `visualCatalogGovernance` / `warn` / weight `7`).
+3. **`design-rules/registry.generated.json`** — Rule marked `implemented` (re-run `npm run blend-rules` to refresh fingerprint/timestamp).
+4. **`auditor-tests/det-diagram-asset-registry.test.js`** — Unit tests for parsers, repo scan, DOM analysis, and findings shape.
+
+### Metadata
+
+- **area:** `visual-catalog`
+- **scoreDimension:** `visualCatalogGovernance`
+- **defaultSeverity:** `warn`
+- **priorityWeight:** `7`
+
+### Verification (run locally)
+
+Shell was unavailable in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+Targeted:
+
+```bash
+node --test auditor-tests/det-diagram-asset-registry.test.js
+```
+
+On the kitchensink repo with `--repo`, the repo scan should pass (Ksv family + Zxd template paths). Consumer pages flag unknown `data-diagram-key` values or SVG paths not listed on diagram registry rows when a catalog baseline is available.
+[rule-gen] ok rule=DET.DIAGRAM.ASSET_REGISTRY log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T114349Z_9_DET_DIAGRAM_ASSET_REGISTRY.log
+[rule-gen] (10/10) lane=deterministic rule=DET.DIAGRAM.LABELS
+Implemented **DET.DIAGRAM.LABELS** as a deterministic visual-catalog check. Shell commands were blocked in this session, so please run verification locally.
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-diagram-labels.check.js`
+Replaced the auto-generated stub with a full check that:
+
+- **Repo scan** (`scanRepoDiagramLabels`): For each `generator/pages/_diagram_gallery.py` key, reads `js/ks-diagram-catalog.js` legend `items[].node` values and compares them to `<text>` / `<tspan>` content in the matching `assets/svg/template-*.svg`.
+- **DOM scan** (`collectDiagramLabelsReport`): For visible, non-decorative tiles with `data-diagram-key`, loads labels from inline SVG, fetched `<img>` SVG, or ASCII `<pre>` text and compares them to `window.__FORGE_KS_DIAGRAM_CATALOG`.
+- **Pass criteria**: At least `max(2, ceil(50% × legendCount))` legend node strings must appear in readable diagram text (constants: `MIN_LEGEND_NODE_MATCHES`, `LEGEND_COVERAGE_RATIO`).
+- **Violation kinds**:
+  - `diagram-labels-no-readable-text` — no usable labels in SVG/ASCII
+  - `diagram-labels-legend-gap` — too few legend keys present on the surface
+
+Reuses `loadDiagramCatalogKeys` / `parseDiagramGalleryKeyToSvg` from `det-diagram-asset-registry.check.js` to avoid duplicating catalog parsing.
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|--------|--------|
+| status | `implemented` |
+| area | `visual-catalog` |
+| scoreDimension | `visualCatalogGovernance` |
+| defaultSeverity | `warn` |
+| priorityWeight | `7` |
+
+### 3. `auditor-tests/det-diagram-labels.test.js`
+Unit tests for SVG/legend parsing, coverage analysis, finding shape, and `run()` wiring via `metrics.diagramLabelsReport`.
+
+### 4. `design-rules/registry.generated.json`
+Updated `DET.DIAGRAM.LABELS` to `implemented` and adjusted coverage counts (`implementedCount` 20, `stubCount` 30). Re-run `blend-rules` to refresh fingerprint/timestamp.
+
+## Why
+
+The rule requires **readable diagram labels aligned with catalog legend keys** (`deterministic-design-rules.md`). That is measurable by matching `ks-diagram-catalog.js` `node` strings to SVG text nodes (and ASCII art for `forge-diagram-ascii`), without LLM judgment.
+
+## Verify locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+Targeted:
+
+```bash
+node --test auditor-tests/det-diagram-labels.test.js
+```
+
+On the kitchensink repo with `--repo`, the repo scan should pass for standard `template-*.svg` tiles (e.g. `linear` → Step A–D). Consumer pages flag catalog-linked diagrams whose rendered labels do not cover enough legend nodes when the diagram catalog script is present.
+[rule-gen] ok rule=DET.DIAGRAM.LABELS log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T114607Z_10_DET_DIAGRAM_LABELS.log
+[rule-gen] done targets=10 failures=0

@@ -1,0 +1,62 @@
+## Report: `AI.DIAGRAM.SEMANTIC_ACCURACY` rule page
+
+### What was written
+
+A complete PDCA handbook page for **Diagram semantic accuracy** is ready at the auditor staging path (same content intended for the canonical file):
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-diagram-semantic-accuracy.md`
+
+This session’s workspace root is `tools/website-ux-auditor`, so writes under `docs/design/ux-audit/rule-pages/` at the Kitchen Sink repo root were blocked. A copy helper is already in place.
+
+### Front matter (confirmed)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.DIAGRAM.SEMANTIC_ACCURACY` |
+| `lane` | `ai` |
+| **`page_version`** | **`b2c3cd488a5b9e9c2bc8a294a6cc9bda1433047eeefebb9ce28fc0fd07fd705f`** |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-diagram-semantic-accuracy` |
+
+### Page content (summary)
+
+- **Purpose:** AI judgment that diagram topology (arrows, gates, loops) matches captions, prose, and catalog `legend_map`—beyond `DET.DIAGRAM.*` mechanical checks.
+- **Passing / failing signals:** Template family fit (`template-gate-chain` vs `template-loop-cycle`), arrow direction vs agency, label/legend alignment, modal legend consistency.
+- **Before (fail):** `template-loop-cycle.svg` + cyclic `alt` under copy/figcaption claiming a linear human→agent gate chain (`forge-section`, `ks-diagram-tile`, `figcaption`).
+- **After (pass):** `template-gate-chain.svg` with `forge-diagram-trigger`, `data-diagram-key`, and support copy that matches left-to-right gate topology.
+- **Evidence & remediation:** PDCA steps ending with optional `DET.DIAGRAM.*` candidate when mismatches repeat.
+- **Related rules:** `DET.DIAGRAM.LABELS`, `DET.DIAGRAM.ALT`, `DET.DIAGRAM.ASSET_REGISTRY`, `DET.HASH.MARKERS`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`, `AI.DATA.INSIGHT_LEGIBILITY`.
+
+No Mermaid, no Fleet-specific profiles.
+
+### Canonical path + manifest (your step)
+
+From the Kitchen Sink repo root:
+
+```bash
+bash tools/website-ux-auditor/.copy-ai-diagram-semantic-accuracy-pending.sh
+```
+
+That copies to:
+
+`docs/design/ux-audit/rule-pages/ai-diagram-semantic-accuracy.md`
+
+and runs:
+
+```bash
+cd tools/website-ux-auditor/design-rules/blender
+node rule-page-version.mjs --write-manifest
+```
+
+After that, confirm:
+
+```bash
+grep page_version docs/design/ux-audit/rule-pages/ai-diagram-semantic-accuracy.md
+```
+
+Expected: `page_version: b2c3cd488a5b9e9c2bc8a294a6cc9bda1433047eeefebb9ce28fc0fd07fd705f`, and manifest `AI.DIAGRAM.SEMANTIC_ACCURACY` → `status: current`.
+
+### `page_version` confirmation
+
+In the written file, **`page_version` is exactly** `b2c3cd488a5b9e9c2bc8a294a6cc9bda1433047eeefebb9ce28fc0fd07fd705f` (matches manifest `contentVersion`). Manifest update could not be run from this workspace; the copy script performs step 7 once you run it locally.

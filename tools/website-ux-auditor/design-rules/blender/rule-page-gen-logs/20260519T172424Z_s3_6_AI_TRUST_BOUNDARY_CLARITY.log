@@ -1,0 +1,58 @@
+## Report: `AI.TRUST.BOUNDARY_CLARITY` rule page
+
+### Written
+
+Full handbook page created at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md`
+
+(Workspace-relative: `docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md`)
+
+Writes to the canonical Kitchen Sink path  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md`  
+were blocked in this session (outside the auditor workspace root). Copy it once from the repo root:
+
+```bash
+mkdir -p docs/design/ux-audit/rule-pages
+cp -f tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md \
+  docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md
+```
+
+### `page_version` confirmed
+
+```yaml
+page_version: 0929fdd3699536971fecf79ca4794c70cc1af4ef21db2378c83585da555d3cb6
+```
+
+Matches `rule-pages.manifest.json` `contentVersion` for this rule.
+
+### Front matter (sources)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.TRUST.BOUNDARY_CLARITY` |
+| `lane` | `ai` |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-trust-boundary-clarity` |
+| `agent_model` | `composer-2.5-fast` |
+| `generated_at` | `2026-05-19T22:45:00.000Z` |
+
+### Page content (PDCA)
+
+- **Purpose** — Judges whether **data**, **execution**, and **human-control** boundaries are plain-language and separable (not security/compliance attestation).
+- **Passing / failing signals** — Aligned with source principle: plain trust copy, no “AI magic,” jargon only after gloss; distinct from `AI.CREDIBILITY.NO_OVERCLAIM` (invented proof).
+- **Before example** — Failing `landing-hero` + single `forge-card` trust blob mixing agents, automation, tenancy, and argv/catalog jargon without three boundaries.
+- **After example** — Passing hero with `landing-hero-clarification` (Data / Execution / Control) plus three `forge-card card-amber breathe-link` tiles with `card-label`, `section-label`, `btn-forge`, `btn-cyan-outline`.
+- **Evidence and remediation** — Capture/remediation steps + optional `DET.*` promotion for repeated three-tile pattern.
+- **Related rules** — Six linked rules per schema.
+
+### KS class names used (verified in `css/`)
+
+`landing-hero`, `fs-landing-hero-band`, `forge-section`, `landing-hero-wide`, `landing-hero-grid`, `landing-hero-copy`, `landing-hero-kicker`, `product-landing-title`, `forge-gradient-text`, `forge-support`, `landing-hero-tagline`, `landing-hero-clarification`, `landing-hero-actions`, `landing-hero-actions__buttons`, `btn-forge`, `btn-cyan-outline`, `section-label`, `forge-card`, `card-amber`, `card-label`, `breathe-link`, hash/`data-ks-*` attrs.
+
+No Mermaid; no Fleet-specific audit profile (generic “job execution plane” example only).
+
+### Implementation reference
+
+Prompt stub: `design-rules/ai/prompts/generated/ai-trust-boundary-clarity.md` (PDCA overlay; judgment-only).

@@ -28,7 +28,8 @@ Showcase museum page **data-charts-api** (`generator/pages/data-charts-api.py`) 
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Charts API** demos show interactive refresh states—loading/error overlays bounded to chart region.
+- Tooltips and focus rings remain keyboard reachable ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,7 @@ Registry **root_selector:** `main#main`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Loading overlays respect reduced space; chart region keeps minimum readable height.
 
 ## Accessibility contract
 
@@ -69,6 +69,19 @@ Registry **root_selector:** `main#main`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Dca** markers: emitted roots include both `hash="Dca"` and `data-ks-hash="Dca"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: main#main: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Page generator `data_charts_api.py` composes inside the advertised parent layout; built HTML for slug `data-charts-api` includes the nested layout hash markers expected by showcase inventory.
+- `main#main` (or contracted root) headings follow one H1 convention per view; supplementary cards do not spoof heading levels.
+
+## AI-enabled review cues
+
+- Does **Data charts API** storytelling match the KS museum intent (education, reassurance, parity with consumer sites), not accidental placeholder copy?
+- Are technical blocks (API tables, prose blocks) progressively disclosed consistent with Forge landing doctrine?
+- Screenshot or DOM review: hero / first-scroll real estate reinforces the visitor job for **data-charts-api**.
 
 ## Forbidden patterns
 

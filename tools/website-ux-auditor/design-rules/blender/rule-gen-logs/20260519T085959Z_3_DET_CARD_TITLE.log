@@ -1,0 +1,43 @@
+## Summary
+
+Implemented **DET.CARD.TITLE** as a deterministic DOM check aligned with the source rule: each card must have a **visible title** or **`aria-labelledby`** (also accepts **`aria-label`** on the card root).
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-card-title.check.js`**
+   - Reuses the same card-root discovery as `DET.CARD.ACTION_LIMIT` (`.card`, `.forge-card`, `[data-card]`, etc.).
+   - **Pass** when the card has:
+     - `aria-label` with ≥2 characters, or
+     - `aria-labelledby` referencing visible labelled text, or
+     - Visible `h1`–`h6`, `.card-title`, `.card-label`, `[class*="card-title"]`, or `[role="heading"]` (not nested inside another card).
+   - Skips toolbar cards and nav/chrome contexts (same exclusions as action-limit).
+   - Exports `collectCardTitleReport`, `findingsFromCardTitleReport`, and `run` (uses `metrics.cardTitleReport` or live `page`).
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**:
+     - `area`: `accessibility`
+     - `scoreDimension`: `accessibilitySemanticsMeta`
+     - `defaultSeverity`: `major`
+     - `priorityWeight`: `7`
+
+3. **`auditor-tests/det-card-title.test.js`**
+   - Unit tests for report → findings mapping and `run()` wiring.
+
+4. **`design-rules/registry.generated.json`**
+   - Updated `DET.CARD.TITLE` from `stub` → `implemented` with the same metadata (fingerprint/`generatedAt` should be refreshed by `blend-rules`).
+
+### Why these signals
+
+The rule anchor only requires measurable DOM/a11y evidence—no AI judgment. Heading and ARIA name patterns match how KS emits cards (`h5` + `.card-label`, Bootstrap `.card-title`, etc.).
+
+### Checks (run locally)
+
+Shell execution was blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` (including `fingerprint` and `generatedAt`). `npm test` includes the blender test and the new `det-card-title` tests.

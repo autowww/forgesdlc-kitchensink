@@ -1,0 +1,58 @@
+## Summary
+
+Implemented **DET.NAV.IN_PAGE_TOC** as a deterministic check aligned with the source rule: handbook/doc pages should expose an in-page TOC when content is long enough, and TOC links must resolve to in-main heading targets.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-nav-in-page-toc.check.js`**
+
+Replaced the auto-generated stub with a full check that:
+
+- **Requires TOC** when the page is a doc hub (handbook/chapter/showcase/etc. layout, doc sidebar, or showcase header) **and** content exceeds thresholds:
+  - ≥ 4 `h2`/`h3` headings in `main`, or
+  - ≥ 900 words in `main`
+- **Detects TOC** via Ktx markers (`.forge-toc`, `[data-ks-hash="Ktx"]`, `nav[aria-label="On this page"]`, etc.)
+- **Validates anchor map**: each TOC `#fragment` must resolve to an element inside `main`
+- Exports testable helpers: `pageRequiresTocFromSignals`, `findingsFromNavInPageTocReport`, `collectNavInPageTocReport`, `run`
+- Accepts precomputed `metrics.navInPageTocReport` or collects via Playwright `page.evaluate`
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `status: implemented`
+- `area: informationArchitecture`
+- `scoreDimension: informationArchitecture`
+- `defaultSeverity: warn`
+- `priorityWeight: 7`
+
+**3. `design-rules/registry.generated.json`**
+
+Updated coverage counts and the rule entry to `implemented` (36 implemented / 14 stub).
+
+**4. `auditor-tests/det-nav-in-page-toc.test.js`**
+
+Unit tests for threshold logic, finding shape, and `run()` with `metrics.navInPageTocReport` (same pattern as other nav checks).
+
+### Why these signals
+
+From `deterministic-design-rules.md` and the **Ktx** contract:
+
+| Signal | Rationale |
+|--------|-----------|
+| Doc-hub page detection | Rule applies to handbook/doc pages, not landing/marketing |
+| Heading/word thresholds | “when length exceeds threshold” |
+| Ktx / `.forge-toc` selectors | Matches KS chrome contract |
+| Broken `#` anchor check | “links skip correctly” via anchor map validation |
+
+### Verification
+
+Shell was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `fingerprint` and `generatedAt` in the registry. All tests should pass, including the new `det-nav-in-page-toc.test.js`.

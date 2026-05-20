@@ -1,0 +1,54 @@
+## Report: `DET.CTA.HIERARCHY` rule page
+
+Wrote the handbook page for **Primary CTA hierarchy** following `RULE_PAGE_SCHEMA.md` and the implementation in `det-cta-hierarchy.check.js`.
+
+### File location
+
+Content is at the auditor staging path (same pattern as other rule-page batches):
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-cta-hierarchy.md`
+
+A mirror copy also exists at:
+
+`tools/website-ux-auditor/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-cta-hierarchy.md`
+
+This environment could not write or copy to the canonical KS path:
+
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-cta-hierarchy.md`
+
+To promote it (same flow as `det-button-group-max`):
+
+```bash
+mkdir -p /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages && \
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-cta-hierarchy.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-cta-hierarchy.md
+```
+
+### `page_version` confirmed
+
+```
+96c734fbaeda694dfccadfe33c76c0e18ce82d905b6013754688a044463755af
+```
+
+### Page contents
+
+| Section | Coverage |
+|---------|----------|
+| **Purpose** | One primary (`btn-forge` / `btn-primary`) per hero, modal, or sticky-footer region; PDCA workflow |
+| **Passing signals** | Canonical KS hero stack: one `btn-forge`, optional `btn-cyan-outline`, `landing-hero-secondary-link` |
+| **Failing signals** | Multiple filled primaries; modal/sticky-footer duplicates; distinction from `DET.BUTTON.GROUP.MAX` |
+| **Before example** | Two `btn-forge` links in `.landing-hero-actions__buttons` inside `.landing-hero-wide` |
+| **After example** | One `btn-forge` + `btn-cyan-outline` + `landing-hero-secondary-links` row |
+| **Evidence and remediation** | `metrics.ctaHierarchyReport`, severity tiers, six-step fix order |
+| **Related rules** | `DET.BUTTON.GROUP.MAX`, `DET.CTA.LABEL_NONEMPTY`, `DET.CONTEXT.BURDEN`, `DET.CARD.ACTION_LIMIT`, `AI.VISUAL.HIERARCHY` |
+
+### Real KS classes used
+
+Before/after examples use classes from `components/components.py` and region selectors from the check module:
+
+- Layout: `landing-hero`, `landing-hero-wide`, `landing-hero-grid`, `landing-hero-copy`, `fs-landing-hero-band`, `forge-section`
+- Typography: `font-display`, `forge-gradient-text`, `product-landing-title`, `forge-support`, `landing-hero-tagline`
+- CTA stack: `landing-hero-actions`, `landing-hero-actions__buttons`, `btn btn-forge`, `btn btn-cyan-outline`, `landing-hero-secondary-links`, `landing-hero-secondary-link`, `landing-hero-secondary-sep`
+- Hash governance: `hash="Ldg"`, `data-ks-hash`, `data-ks-type`, `data-ks-name`
+
+No Mermaid, no Fleet-specific profiles, no edits to check modules or registry.

@@ -1,0 +1,48 @@
+## Summary
+
+Implemented **`DET.DATA.COLOR_ONLY`** as a deterministic accessibility check aligned with the catalog rule: *meaning must not be conveyed by color alone (pattern/label redundancy where detectable)*.
+
+### What the check detects
+
+| Signal | Detection |
+|--------|-----------|
+| **KS token swatches** | `.ks-swatch` without a `.ks-swatch-label` (≥2 chars) |
+| **Chart legend swatches** | `.lenses-overview-donut-swatch`, `.ks-swatch-box`, and other swatch/legend-mark selectors inside chart/legend/table contexts without sibling text, `aria-label`, or `title` |
+| **Heatmap-style table cells** | `td`/`th` with a visible background color, empty text, no `aria-label`, inside a table with labeled headers |
+
+Scans are limited to **data contexts** (charts, legends, tables, figures, `.ks-swatch`) to avoid flagging decorative UI chrome.
+
+### Files changed
+
+1. **`design-rules/deterministic/generated/det-data-color-only.check.js`** — full implementation:
+   - `export const rule` with `area: accessibility`, `scoreDimension: accessibilitySemanticsMeta`, `priorityWeight: 7`
+   - `collectColorOnlyReport(page)` / `findingsFromColorOnlyReport(report)` / `run({ metrics, page, url })`
+   - Uses `metrics.colorOnlyReport` when precomputed (same pattern as `DET.CHART.ALT_SUMMARY`)
+
+2. **`design-rules/blender/rule-mappings.js`** — `DET.DATA.COLOR_ONLY` registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented**
+
+3. **`auditor-tests/det-data-color-only.test.js`** — unit tests for findings helpers and `run()`
+
+4. **`design-rules/registry.generated.json`** — rule moved from **stub → implemented**; coverage **17 implemented / 33 stub**
+
+### Finding shape (backward compatible)
+
+- `severity`: `major` for missing `.ks-swatch-label`, `warn` for other swatch/cell cases  
+- `area`, `message`, `evidence` (`color_only_encoding kind=…`), `remediation`  
+- Optional `url=` appended to evidence when a URL is provided  
+
+### Verification (run locally)
+
+Shell execution was blocked in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` fingerprint/`generatedAt`. Targeted test:
+
+```bash
+node --test auditor-tests/det-data-color-only.test.js
+```

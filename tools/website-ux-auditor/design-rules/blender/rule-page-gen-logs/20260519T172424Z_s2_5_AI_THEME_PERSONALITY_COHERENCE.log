@@ -1,0 +1,38 @@
+## Written
+
+Created **`AI.THEME.PERSONALITY_COHERENCE`** handbook page at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-theme-personality-coherence.md`
+
+The requested KS root path (`docs/design/ux-audit/rule-pages/ai-theme-personality-coherence.md`) could not be written from this sandbox (writes outside the auditor workspace are blocked). A copy helper is ready:
+
+```bash
+bash tools/website-ux-auditor/.copy-ai-theme-personality-coherence-pending.sh
+```
+
+Run that from the Kitchen Sink repo root to place the file where `generator/ux_audit_rule_pages.py` expects it.
+
+## Page contents
+
+| Section | Focus |
+|---------|--------|
+| **Purpose** | Forge theme personality — amber/cyan roles, dark foundation, theme-pack consistency; PDCA framing |
+| **Passing signals** | Stable accent roles (`section-label text-cyan`, `card-amber`, `btn-forge`, `btn-cyan-outline`), focal `forge-gradient-text`, consistent theme packs |
+| **Failing signals** | Accent roulette, gradient overload, theme-pack collision, light/dark whiplash, Bootstrap vs Forge button mix |
+| **Before example** | Failing HTML: inline hex, `btn-success`/`btn-warning`/`btn-info`, gradient on multiple headings, `bg-light` band |
+| **After example** | Passing HTML: `fs-landing-hero-band`, `landing-hero-kicker`, single gradient hero title, `forge-card card-amber`, neutral `glass` tile |
+| **Evidence and remediation** | Screenshot capture + 7-step remediation ladder |
+| **Related rules** | Links to premium feel, ambient readability, hierarchy, and `DET.THEME.*` / `DET.TOKEN.*` companions |
+
+## Front matter
+
+- **`page_version`:** `c55d81ed3a33aedc15eb7162fdfc84805ab6d5f34b1b8ee11afd5b9fa9af67aa` ✓
+- **`registry_fingerprint`:** `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba`
+- **`registry_status`:** `generated`
+- **`agent_model`:** `composer-2.5-fast`
+
+## KS class verification
+
+Before/after examples use real classes from `css/forge-theme.css`, `css/forgesdlc-theme.css`, and `generator/pages/_for_agents_content.py`: `landing-hero`, `fs-landing-hero-band`, `landing-hero-kicker`, `product-landing-title`, `forge-gradient-text`, `btn-forge`, `btn-cyan-outline`, `forge-section`, `section-label`, `text-cyan`, `forge-card`, `card-amber`, `breathe-link`, `glass`, `glass-amber`, `card-label`, `forge-support`, etc.
+
+No Mermaid, no Fleet-specific profiles, no edits to checks/registry/mappings.

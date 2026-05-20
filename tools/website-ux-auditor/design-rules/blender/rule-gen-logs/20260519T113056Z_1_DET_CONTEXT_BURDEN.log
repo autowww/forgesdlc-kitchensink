@@ -1,0 +1,53 @@
+## Summary
+
+Implemented **DET.CONTEXT.BURDEN** as a deterministic first-screen / chrome burden check aligned with `docs/design/ux-audit/deterministic-design-rules.md#det-context-burden` and the Forge enterprise first-screen budget in `docs/design/forge-enterprise-ai-website-standard.md`.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-context-burden.check.js`**
+
+Replaced the auto-generated stub with a real check that measures:
+
+| Signal | Threshold | Source |
+|--------|-----------|--------|
+| Links before first in-main H1 | ≤ 10 | Enterprise standard |
+| Header/nav links outside `main` | ≤ 7 | Standard (4–7 curated choices) |
+| Chrome regions outside `main` | ≤ 4 | Nav-band competition |
+| First-viewport links (homepage only) | ≤ 28 | Same as `readability-structure` link-wall proxy |
+| Hero-fold interactive controls (homepage) | ≤ 3 | Aligns with `DET.BUTTON.GROUP.MAX` |
+
+- Uses existing crawl metrics (`preMainFirstH1LinkCount`, `outsideMainHeaderNavLinkCount`, `navChromeContainerCount`, `firstViewportLinkCount`).
+- `collectContextBurdenReport(page)` counts hero-fold actions inside `main` when Playwright is available.
+- Skips platform/lenses/fleet/lcdl **handbook inner** pages (same pattern as `first-screen-density`).
+- Exports `rule`, `run(ctx)`, and testable helpers (`buildContextBurdenSnapshot`, `findingsFromContextBurdenSnapshot`, etc.).
+- Findings use `severity`, `area: 'first-screen'`, `message`, `evidence`, `remediation`.
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `status: 'implemented'`
+- `area: 'first-screen'`
+- `scoreDimension: 'visualRhythmFirstScreen'`
+- `priorityWeight: 12` (matches legacy `first-screen-density` adapter)
+
+**3. `auditor-tests/det-context-burden.test.js`**
+
+Eight unit tests for thresholds, snapshot/metrics behavior, home vs inner routes, and `run()` integration.
+
+### Why these signals
+
+The rule doc calls for quantitative caps on hero controls, nav bands, and above-the-fold link clusters. The enterprise standard gives concrete numbers (10 pre-H1 links, 4–7 top nav, hero CTA budget). The check reuses crawl metrics where possible and only uses `page.evaluate` for hero interactive control counting.
+
+### Verification (please run locally)
+
+Shell execution was unavailable in this session. From `tools/website-ux-auditor`:
+
+```bash
+npm run blend-rules
+npm test
+```
+
+`registry.generated.json` already lists `DET.CONTEXT.BURDEN` as `implemented` with `implementationSource: 'explicit-map'`; `blend-rules` will refresh the fingerprint after the `rule-mappings.js` change.
+
+If anything fails, paste the output and we can tune thresholds or selectors.

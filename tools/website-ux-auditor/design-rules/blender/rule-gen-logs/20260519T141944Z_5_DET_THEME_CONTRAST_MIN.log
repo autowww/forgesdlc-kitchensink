@@ -1,0 +1,45 @@
+Implemented **DET.THEME.CONTRAST_MIN** as a deterministic WCAG AA contrast check.
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-theme-contrast-min.check.js`
+Replaced the no-op stub with a real check that:
+
+- Uses **WCAG AA thresholds**: 4.5:1 for normal text, 3:1 for large text (≥ 24px)
+- Reads **`metrics.lowContrast`** or **`metrics.contrastReport.lowContrast`** from the existing crawl (`lib/dom-metrics.js`)
+- Falls back to **`collectContrastReport(page)`** when metrics are missing (same color-extraction algorithm as dom-metrics)
+- Emits up to **12** findings with per-sample evidence: tag, ratio, font size, threshold, text snippet
+- Uses **`severity: major`**, **`area: accessibility`**, and standard remediation copy
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|-------|-------|
+| status | `implemented` |
+| area | `accessibility` |
+| scoreDimension | `accessibilitySemanticsMeta` |
+| defaultSeverity | `major` |
+| priorityWeight | `8` |
+
+### 3. `auditor-tests/det-theme-contrast-min.test.js`
+Unit tests for thresholds, sample filtering, finding shape, metrics wiring, and empty `run()`.
+
+### 4. `design-rules/registry.generated.json`
+Promoted the rule from **stub → implemented** (47 implemented / 3 stub). Re-run `blend-rules` to refresh `fingerprint` and `generatedAt`.
+
+## Why this approach
+
+The rule doc says: *“Text/background pairs meet configured contrast minimum for body UI (WCAG AA heuristic). Evidence: Color extraction.”* The check reuses crawl metrics where possible and only runs in-page color extraction as a fallback — no AI heuristics.
+
+## Verification (not run here)
+
+Shell commands were blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh the registry fingerprint; `npm test` includes the new `det-theme-contrast-min.test.js` and the blender integration test.

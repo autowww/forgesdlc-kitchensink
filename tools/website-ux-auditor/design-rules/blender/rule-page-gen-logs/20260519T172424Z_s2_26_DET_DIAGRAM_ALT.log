@@ -1,0 +1,37 @@
+## Report: `DET.DIAGRAM.ALT` handbook page
+
+### Status
+The full rule page is written and refined at the **staging path** (auditor workspace mirror):
+
+`tools/website-ux-auditor/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-diagram-alt.md`
+
+The **canonical target** you specified is not on disk yet from this session (writes outside the auditor workspace were blocked). Install it with:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink && node tools/website-ux-auditor/_run-copy-det-diagram-alt.mjs
+```
+
+That copies staging → `docs/design/ux-audit/rule-pages/det-diagram-alt.md` and removes the extra auditor-local copy.
+
+### `page_version` confirmation
+In the staged file, front matter is exactly:
+
+```yaml
+page_version: 2a41d2762a8955a191adcfb2803cbf7d10eb49e43c8b575f7545749b36ddb51d
+```
+
+### What the page covers
+| Area | Content |
+|------|---------|
+| **Source** | `deterministic-design-rules.md#det-diagram-alt` — decorative vs informative `role` / `aria-hidden` alignment |
+| **Implementation** | `det-diagram-alt.check.js` — `diagramAltReport`, `MIN_DIAGRAM_ALT_CHARS = 3`, four violation kinds |
+| **PDCA Purpose** | Plan/do/check/act for classifying tiles via `ks_diagram_tile_html` / fence `decorative:` |
+| **Before** | Failing `ks-section` with `forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, catalog keys `gate` / `loop` / `linear`, and mixed AT conflicts |
+| **After** | Passing informative tile (`role="figure"`, meaningful `alt`, `forge-diagram-trigger`, `openDiagramWithDetail`), decorative tile (`role="presentation"`, `aria-hidden`), and `figure.forge-diagram-ascii` with `figcaption.forge-diagram-ascii-caption` |
+| **Registry** | `registry_fingerprint: 6773fda5…`, `registry_status: implemented` |
+| **Related** | `DET.DIAGRAM.LABELS`, `DET.DIAGRAM.ASSET_REGISTRY`, `DET.CHART.ALT_SUMMARY`, `AI.DIAGRAM.SEMANTIC_ACCURACY`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` |
+
+### KS class names used (verified against `components/transforms.py` and `showcase/diagrams.html`)
+`forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, `forge-diagram-ascii`, `forge-diagram-ascii-canvas`, `forge-diagram-ascii-pre`, `forge-diagram-ascii-caption`, `forge-diagram-trigger`, `ks-diagram-trigger`, `data-diagram-key`, `forge-support`, `ks-section`, `hash` / `data-ks-hash`, and catalog keys `gate`, `loop`, `linear`.
+
+No Mermaid, no Fleet-specific profiles. Check modules and registry were not edited.

@@ -1,0 +1,35 @@
+## Report
+
+Wrote the **DET.APP.FOCUS_TRAP** handbook page at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-app-focus-trap.md`
+
+Writes and shell to the canonical Kitchen Sink path (`docs/design/ux-audit/rule-pages/det-app-focus-trap.md` at repo root) are blocked in this session. A copy helper is ready:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-det-app-focus-trap-pending.sh
+```
+
+That copies the finished page to the path the generator and manifest expect (`generator/ux_audit_rule_pages.py` reads `REPO_ROOT/docs/design/ux-audit/rule-pages/`).
+
+### `page_version` (confirmed)
+
+`b00d291ded12c54043f412b186dfb0ed74880144c3ffab69d19386d2c6be1b47`
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Overlay shells: Bootstrap `.modal`/`.offcanvas`, KS `#diagramModal`, `#topicPreviewModal`, custom `[role="dialog"]`; Tab-cycle probe when openers exist |
+| **Passing** | Dismiss controls (`data-bs-dismiss`, `.btn-close`, `.diagram-modal-close`, `[data-topic-preview-close]`), paired openers, focus stays in shell, `aria-modal="true"`, `hidden` when closed |
+| **Failing** | `no-dismiss`, `no-trigger`, `trap-escape`, `background-tabbable`, `no-focusable`, `missing-aria-modal` (from `det-app-focus-trap.check.js`) |
+| **Before** | Open `#diagramModal` without `.diagram-modal-close`; background `.nav-link` still tabbable |
+| **After** | `docNavOffcanvas` + `btn btn-forge` opener + `btn-close`/`data-bs-dismiss`; canonical diagram modal fragment from `diagram_modal_fragment.py` |
+| **Evidence** | `appFocusTrapReport` metrics and remediation steps |
+| **Related** | `DET.NAV.FOCUS_ORDER`, `DET.REACT.A11Y_ROLE`, `DET.APP.PERSISTENT_CHROME`, `AI.JS.BEHAVIOR_DISCOVERABILITY`, `AI.APP.DENSITY_BALANCE` |
+
+### KS class names used in examples
+
+Real patterns from `components/layouts.py`, `diagram_modal_fragment.py`, and `forge-theme.js`: `offcanvas`, `offcanvas-start`, `offcanvas-header`, `offcanvas-body`, `forge-sidebar`, `nav-rail`, `btn btn-forge`, `btn-close btn-close-white`, `diagram-modal-backdrop`, `diagram-modal`, `diagram-modal-header`, `diagram-modal__title`, `forge-gradient-text`, `diagram-modal-close`, `diagram-modal-close-icon`, `diagram-modal-body`, `diagram-modal-canvas`, `diagram-modal-detail`, `forge-diagram`, `forge-main`, `nav-link`.
+
+Run the copy script above so the page lands at the canonical path before the batch updates `rule-pages.manifest.json`.

@@ -19,6 +19,34 @@ export function entryByHash(entries) {
 }
 
 /**
+ * @param {object | null | undefined} entry registry row
+ * @returns {string}
+ */
+export function contractPathFromRegistryEntry(entry) {
+  if (!entry || typeof entry !== 'object') return '';
+  const c = entry.contract ?? entry.contract_path;
+  return c && String(c).trim() ? String(c).trim() : '';
+}
+
+/**
+ * Resolve design contract paths for 3-letter hashes using generated registry JSON only.
+ * @param {string} repoRoot
+ * @param {Iterable<string>} hashes
+ * @returns {{ hash: string, contract: string, name: string }[]}
+ */
+export function resolveRegistryContractsForHashes(repoRoot, hashes) {
+  const reg = loadGeneratedRegistry(repoRoot);
+  const byHash = reg ? entryByHash(reg.entries || []) : new Map();
+  const sorted = [...new Set([...hashes].map((h) => String(h || '').trim()).filter((h) => /^[A-Za-z]{3}$/.test(h)))].sort();
+  return sorted.map((hash) => {
+    const e = byHash.get(hash);
+    const contract = e ? contractPathFromRegistryEntry(e) : '';
+    const name = e?.name != null ? String(e.name) : '';
+    return { hash, contract, name };
+  });
+}
+
+/**
  * @param {object[] | null | undefined} entries
  * @returns {string[]}
  */
@@ -158,9 +186,15 @@ export function summarizeVisualCatalogCoverage(pages, repoRoot) {
   const known = [];
   /** @type {string[]} */
   const unknown = [];
+  /** @type {{ hash: string, contract: string }[]} */
+  const knownHashContracts = [];
   for (const h of [...allHashes].sort()) {
-    if (byHash.has(h)) known.push(h);
-    else unknown.push(h);
+    if (byHash.has(h)) {
+      known.push(h);
+      const e = byHash.get(h);
+      const cp = e ? contractPathFromRegistryEntry(e) : '';
+      if (cp) knownHashContracts.push({ hash: h, contract: cp });
+    } else unknown.push(h);
   }
 
   const u = allHashes.size;
@@ -171,6 +205,7 @@ export function summarizeVisualCatalogCoverage(pages, repoRoot) {
     pagesWithKsMarkers: pageUrlsWithHashes.length,
     uniqueHashesEmitted: u,
     knownHashesEmitted: known,
+    knownHashContracts,
     unknownHashesEmitted: unknown,
     duplicateEmittedHashes: [...dupEmit].sort(),
     domInvalidMarkerCount: invalidTotal,

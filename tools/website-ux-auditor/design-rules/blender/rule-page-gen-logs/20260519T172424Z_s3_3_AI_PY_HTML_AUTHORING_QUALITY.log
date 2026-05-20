@@ -1,0 +1,52 @@
+## Report
+
+Wrote the PDCA handbook page for **`AI.PY.HTML_AUTHORING_QUALITY`** with required schema sections, front matter, and KS-specific before/after HTML examples.
+
+### `page_version` (confirmed)
+
+`9612773abc083bc074cce0ff2d407a12d9c644290bb098f2c79f335ea54c80f8`
+
+### File location
+
+The page is on disk at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-py-html-authoring-quality.md`
+
+Writes to the canonical path you specified were blocked from this Cursor workspace (sandbox is limited to `tools/website-ux-auditor/`). Copy it to the handbook path with:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-py-html-authoring-quality.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-py-html-authoring-quality.md
+```
+
+Optional cleanup of the mirror copy:
+
+```bash
+rm /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-py-html-authoring-quality.md
+```
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | AI judgment on whether Python-emitted HTML looks intentional vs nesting soup; PDCA tied to `render_section`, `ks_hash_attrs`, contracts |
+| **Passing signals** | `render_section` shells, heading ladder, hash attrs, KS spacing tokens, shared helpers, optional-region omission |
+| **Failing signals** | Wrapper soup, `h1`→`h4` jumps, ghost sections, ad-hoc chrome, hash afterthought |
+| **Before example** | Failing: nested unclassed `<div>`s, inline margins, `h1` then card `h4`, no `forge-card` / `<section>` |
+| **After example** | Passing: `forge-divider`, `<section class="mb-5">`, `section-label`, `h2`, `forge-card breathe-static`, `card-label`, `h3`, `forge-support` |
+| **Evidence & remediation** | Capture paths, DOM, contracts; 7-step remediate ending in `DET.*` proposals |
+| **Related rules** | `DET.PY.KS_HASH_ATTRS`, `DET.PY.OPTIONAL_REGIONS`, `DET.SECTION.HEADING`, `DET.SECTION.SINGLE_JOB`, `DET.HASH.MARKERS`, `AI.CONTRACT.IMPLEMENTATION_USEFULNESS` |
+
+### Front matter
+
+- `registry_fingerprint`: `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba`
+- `registry_status`: `generated`
+- `source_rule`: `docs/design/ux-audit/ai-enabled-design-principles.md#ai-py-html-authoring-quality`
+- `generated_at`: `2026-05-19T19:15:00.000Z`
+- `agent_model`: `composer-2.5-fast`
+
+### KS classes used in examples
+
+`forge-divider`, `mb-5`, `section-label`, `text-cyan`, `font-display`, `forge-gradient-text`, `forge-support`, `forge-card`, `breathe-static`, `card-label`, `row`, `col-md-4` — aligned with `components/components.py` (`render_section`) and `presentation._rail_card_cell`.
+
+No Mermaid, no Fleet-specific profiles. Check modules and registry were not edited.

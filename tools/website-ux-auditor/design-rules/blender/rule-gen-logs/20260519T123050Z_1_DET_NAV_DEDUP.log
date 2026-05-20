@@ -1,0 +1,47 @@
+## Summary
+
+Implemented **DET.NAV.DEDUP** as a deterministic link-graph check: same-origin destinations must not repeat across **conflicting** chrome bands without hierarchy.
+
+### Rule signal (from spec)
+
+- **Pass:** No redundant same-destination links across peer nav bands (primary ↔ sidebar ↔ offcanvas).
+- **Allow:** Breadcrumb-only duplicates (hierarchy), footer utility repeats, fragment-only TOC links.
+- **Evidence:** Normalized pathname link graph per band (Kpn primary, Ksr sidebar, offcanvas, Kbc breadcrumb, etc.).
+
+### Files changed
+
+| File | Change |
+|------|--------|
+| `design-rules/deterministic/generated/det-nav-dedup.check.js` | Full implementation: `normalizeNavDestination`, `violationsFromNavLinkEntries`, `collectNavDedupReport` (Playwright), `findingsFromNavDedupReport`, `run` |
+| `design-rules/blender/rule-mappings.js` | `DETERMINISTIC_IMPLEMENTATIONS['DET.NAV.DEDUP']` — `implemented`, `informationArchitecture`, `warn`, weight `7` |
+| `design-rules/registry.generated.json` | Promoted rule from `stub` → `implemented` (counts 33/17) |
+| `auditor-tests/det-nav-dedup.test.js` | Unit tests for normalization, band conflicts, exemptions, findings, `run` |
+
+### Check behavior
+
+1. Classifies visible chrome links outside `main` into bands: **primary**, **sidebar**, **offcanvas**, **breadcrumb**, **toc**, **footer**.
+2. Normalizes `href` to same-origin `pathname` (+ hash when present).
+3. Flags:
+   - **`duplicate-destination`** — same path in conflicting pairs (`primary+sidebar`, `primary+offcanvas`, `sidebar+offcanvas`).
+   - **`duplicate-primary-roots`** — same path in two separate primary nav roots (nested mastheads per Kpn).
+4. Skips breadcrumb-only duplicates and footer-only peer pairs.
+5. Accepts precomputed `metrics.navDedupReport` or collects via `page.evaluate`.
+
+Findings use the standard shape: `severity`, `area`, `message`, `evidence`, `remediation` (aligned with `det-nav-breadcrumb` / `det-chrome-boundary`).
+
+### Verification
+
+Shell was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh the registry fingerprint; the registry entry was updated manually to match the explicit map so the runtime will execute the rule before you blend.
+
+### Relation to existing checks
+
+- **`duplicateNavLinkTextCount`** (dom-metrics / `homepage-shell`) — duplicate **labels** across chrome.
+- **DET.NAV.DEDUP** — duplicate **destinations** across conflicting **bands** (link graph), which matches the spec’s “Link graph” evidence type.

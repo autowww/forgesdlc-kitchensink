@@ -1,0 +1,46 @@
+## Report: `DET.CHROME.BOUNDARY` rule handbook page
+
+### Written
+
+**Primary draft (complete, 180 lines):**  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-chrome-boundary.md`
+
+**Mirror copy (same content):**  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-chrome-boundary.md`
+
+**Canonical path you requested** (`docs/design/ux-audit/rule-pages/det-chrome-boundary.md` under Kitchen Sink root) is **not writable from this Cursor workspace** (writes outside `tools/website-ux-auditor/` are blocked). Copy it locally with:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/_run-copy-det-chrome-boundary.mjs
+```
+
+That script copies staging → `forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-chrome-boundary.md`, verifies `page_version`, and removes the staging file.
+
+### `page_version` confirmed
+
+```yaml
+page_version: f76b4b124b9d5e2362faab0ea9bf8d6854faecdaee21e15455e8fc96a942335c
+```
+
+Matches `rule-pages.manifest.json` `contentVersion` for `DET.CHROME.BOUNDARY`.
+
+### Page contents (PDCA / schema)
+
+| Section | Focus |
+|--------|--------|
+| **Purpose** | Chrome outside `main` must show border, shadow, or ≥0.06 luminance delta vs main; aligned with `det-chrome-boundary.check.js` |
+| **Passing signals** | `.forge-sidebar` + `var(--forge-border)`, `.site-header` `border-bottom`, `.ks-site-footer-region` top rule, pseudo cues |
+| **Failing signals** | `missing-boundary`, inline `border-*: none`, flat shared `var(--forge-bg)` |
+| **Before / After** | Handbook shell: `site-header`, **Ksr** `aside.forge-sidebar`, `doc-main`, **Ksf** `.ks-site-footer-region`, `forge-card`, `nav-link`, `ks-doc-breadcrumb` |
+| **Evidence** | `chromeBoundaryReport`, remediation steps, `analyze-website-ux.mjs` |
+| **Related rules** | `DET.LANDMARKS.REQUIRED`, `DET.LAYOUT.GRID_CONSISTENCY`, `DET.APP.PERSISTENT_CHROME`, nav rules, AI workflow/hierarchy |
+
+### Sources used
+
+- Anchor: `deterministic-design-rules.md` — chrome separated by border/bg/shadow per contract  
+- Implementation: `design-rules/deterministic/generated/det-chrome-boundary.check.js` (selectors, `MIN_CHROME_BG_LUMINANCE_DELTA = 0.06`, cue detection)  
+- KS patterns: `css/forge-theme.css` (`.forge-sidebar`), `components/layouts.py` (`site-header`, `_wrap_site-footer`), contracts **Ksr** / **Ksf**
+
+### Not changed
+
+Check modules, `rule-mappings.js`, and registry were not edited (per instructions).

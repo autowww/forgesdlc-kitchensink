@@ -29,7 +29,9 @@ Reusable chrome region **Doc ToC sidebar** (`slug: doc-toc-sidebar`) embedded by
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- Narrow **in-page ToC** column (`.col-lg-4.col-xl-3.order-1.order-lg-2`): mirrors heading hierarchy with subtle indent stepped lists.
+- Active anchor state tracks scroll position without shouting over article body styles ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- Paired with chapter/handbook layouts—never mistaken for **Ksr** doc IA rail.
 
 ## Anatomy
 
@@ -50,8 +52,8 @@ Registry **root_selector:** `.col-lg-4.col-xl-3.order-1.order-lg-2`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- **Ktx** stacks beneath article **or** hides behind toggle per layout variant—never squeezes body line length below readable widths.
+- Sticky behaviors (if enabled) degrade gracefully when overflow clipping would trap focus.
 
 ## Accessibility contract
 
@@ -70,6 +72,19 @@ Registry **root_selector:** `.col-lg-4.col-xl-3.order-1.order-lg-2`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Ktx** markers: emitted roots include both `hash="Ktx"` and `data-ks-hash="Ktx"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: .col-lg-4.col-xl-3.order-1.order-lg-2: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Heading-index links map to real `id` targets inside `main`; broken anchors fail CI when heading text changes.
+- Sticky ToC clears fixed masthead offsets so focused targets are not clipped.
+
+## AI-enabled review cues
+
+- For **Doc ToC sidebar** (`doc-toc-sidebar`), does the chrome read as purposeful product IA rather than decorative Bootstrap filler?
+- At condensed widths, collapsed affordances remain obvious (motion, affordance cues, labeling); no mystery-meat menus.
+- Credibility check: typography and spacing match Forge enterprise tone ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)) without looking like a generic template swap.
 
 ## Forbidden patterns
 

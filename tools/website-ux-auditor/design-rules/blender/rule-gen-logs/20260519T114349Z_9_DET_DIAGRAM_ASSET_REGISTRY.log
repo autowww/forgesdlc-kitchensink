@@ -1,0 +1,45 @@
+## Summary
+
+Implemented **`DET.DIAGRAM.ASSET_REGISTRY`** so diagram catalog keys and shipped `assets/svg/` paths align with active **`diagram-family`** / **`diagram-asset-group`** rows in `visual-registry.generated.json`.
+
+### Rule signals (from `deterministic-design-rules.md`)
+
+| Signal | Check |
+|--------|--------|
+| Registry | Active `diagram-family` row exists |
+| Repo | Every `js/ks-diagram-catalog.js` key maps to `_diagram_gallery.py` → `template-*.svg` |
+| Repo | Every gallery template path appears in registry `source_paths` |
+| DOM (crawl) | `data-diagram-key` values are in the KS catalog (repo or `__FORGE_KS_DIAGRAM_CATALOG`) |
+| DOM | Diagram `img[src]` under `assets/svg/` is covered by registry paths when `--repo` is set |
+
+### Files changed
+
+1. **`design-rules/deterministic/generated/det-diagram-asset-registry.check.js`** — Full check with `scanRepoDiagramAssetRegistry`, `collectDiagramAssetRegistryReport` (Playwright), `findingsFromDiagramAssetRegistryReport`, and `run()`.
+2. **`design-rules/blender/rule-mappings.js`** — Registered under `DETERMINISTIC_IMPLEMENTATIONS` as `implemented` (`visual-catalog` / `visualCatalogGovernance` / `warn` / weight `7`).
+3. **`design-rules/registry.generated.json`** — Rule marked `implemented` (re-run `npm run blend-rules` to refresh fingerprint/timestamp).
+4. **`auditor-tests/det-diagram-asset-registry.test.js`** — Unit tests for parsers, repo scan, DOM analysis, and findings shape.
+
+### Metadata
+
+- **area:** `visual-catalog`
+- **scoreDimension:** `visualCatalogGovernance`
+- **defaultSeverity:** `warn`
+- **priorityWeight:** `7`
+
+### Verification (run locally)
+
+Shell was unavailable in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+Targeted:
+
+```bash
+node --test auditor-tests/det-diagram-asset-registry.test.js
+```
+
+On the kitchensink repo with `--repo`, the repo scan should pass (Ksv family + Zxd template paths). Consumer pages flag unknown `data-diagram-key` values or SVG paths not listed on diagram registry rows when a catalog baseline is available.

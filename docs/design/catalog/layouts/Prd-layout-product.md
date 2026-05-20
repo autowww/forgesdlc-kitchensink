@@ -28,7 +28,8 @@ Product or architecture landing frame: global primary nav band, hero-capable mai
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Product docs** shell mirroring handbook density but with product IA cues (overview/quickstart depth) inside `main`.
+- Chrome stack matches handbook family (**Kpn**, **Kbc**, rails, **Ksf**) with layout spacing tuned for mixed prose + reference blocks ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,8 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Mirrors handbook responsive behavior with allowance for wider reference tables in product docs.
+- Sidebars collapse consistently with **Hbk**/**Chp** variants.
 
 ## Accessibility contract
 
@@ -69,6 +70,19 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Prd** markers: emitted roots include both `hash="Prd"` and `data-ks-hash="Prd"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: div.container-fluid.px-0: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- `product-primary-nav` (**Kpn**) precedes primary content without duplicating handbook sidebars intended for dense doc trees.
+- Product/overview patterns keep trust blocks and CTAs inside `main`; no rogue full-width grids outside landmarked regions.
+
+## AI-enabled review cues
+
+- Does **Product handbook layout** read as the correct *role* for consumers (handbook vs museum vs landing) rather than an accidental mash-up of two layouts?
+- Under studio lighting (screenshots at ~1440px), does vertical rhythm reinforce scan-friendly hierarchy (not cramped headings or orphaned whitespace bands)?
+- When paired with diagrams or dense tables, does chrome stay visually subordinate while remaining discoverable?
 
 ## Forbidden patterns
 

@@ -30,7 +30,9 @@ Chrome SVG assets ship under child **`vYA`**; hashed JavaScript bundles under `m
 
 ## Expected look
 
-Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md).
+- Vite/Electron studio shell mirrors Forge desktop prototypes: dark panels, crisp separators, monospace-friendly diagnostics lanes ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- Reads as an internal operator explorer—not a consumer landing; slightly denser chrome is acceptable when controls stay labeled.
+- Co-shipped SVG chrome (**`vYA`**) aligns stroke weights with KS icon vocabulary.
 
 ## Anatomy
 

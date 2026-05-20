@@ -60,6 +60,14 @@ Trust, spacing, evidence-first tone—no invented proof points.
 
 Copy limits, required labels, empty states, terminology constraints.
 
+## Deterministic checks
+
+Repeatable gates for this hash: emitted `hash` / `data-ks-hash`, structural selectors, landmarks, inventories, typography tokens—tie to thresholds or scripts where KS ships them.
+
+## AI-enabled review cues
+
+Judgment-only questions (premium feel, narrative clarity, ambiguity) that must stay separate from deterministic gates above.
+
 ## Forbidden patterns
 
 Specific anti-patterns for this surface (not generic “bad UX”).

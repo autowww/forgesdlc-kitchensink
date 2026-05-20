@@ -1,0 +1,53 @@
+## Report: `DET.CONTRACT.PATH` handbook page
+
+### Written
+**Primary content (complete, schema-compliant):**  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-contract-path.md`
+
+**Mirror (same content):**  
+`tools/website-ux-auditor/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-contract-path.md`
+
+**Canonical KS path (manifest target) — not written in this session** (workspace sandbox blocks writes outside `tools/website-ux-auditor/`):  
+`docs/design/ux-audit/rule-pages/det-contract-path.md`
+
+To install at the repo root:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-det-contract-path-pending.sh
+```
+
+or:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/_run-copy-det-contract-path-dest.mjs
+```
+
+### `page_version` (confirmed)
+`6083955e6d8907caed366060a29dc76649afb4426732ba85cdadc89524e30a35`
+
+### Page summary
+| Field | Value |
+|--------|--------|
+| **Title** | Registry contract path resolution |
+| **Lane** | deterministic |
+| **Check** | `scanContractPaths` in `det-contract-path.check.js` — active rows with `contract_status: own` \| `family-covered` need a resolvable `contract` / `contract_path` on disk |
+| **registry_fingerprint** | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| **registry_status** | implemented |
+
+### Before / after examples (real KS patterns)
+Both use handbook layout markup from `handbook_page` / `Hbk-layout-handbook.md`:
+
+- **Layout:** `container-fluid px-0`, hash **Hbk**
+- **Sidebar:** `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-rail`, `nav-link`, hash **Ksr**
+- **Main:** `doc-content`, `section-label text-cyan`, `font-display`, `forge-support`, `forge-card`, `card-label`
+- **Footer:** `ks-site-footer-region border-top`, hash **Ksf**
+
+Before/after HTML is structurally the same; the rule fails on **registry governance** (broken or missing contract path), not broken DOM — called out in the prose.
+
+### Sections included
+Purpose (PDCA), Passing signals, Failing signals, Before example, After example, Evidence and remediation, Related rules — per `RULE_PAGE_SCHEMA.md`. No Mermaid, no Fleet profile.
+
+### Helpers added (copy workflow, same pattern as other `det-*` pages)
+- `.copy-det-contract-path-pending.sh`
+- `_run-copy-det-contract-path-dest.mjs`
+- `auditor-tests/copy-det-contract-path-dest.test.js`

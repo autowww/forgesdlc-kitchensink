@@ -1,0 +1,47 @@
+## Handbook page written
+
+The rule page is complete at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-app-density-balance.md`
+
+The canonical path you specified is still missing because writes outside the auditor workspace were blocked:
+
+`docs/design/ux-audit/rule-pages/ai-app-density-balance.md`
+
+**Run this once** from your machine to copy and refresh the manifest:
+
+```bash
+mkdir -p /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-app-density-balance.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-app-density-balance.md
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node rule-page-version.mjs --write-manifest
+```
+
+Or: `node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/write-rule-page-temp.mjs` (helper script added by a subagent).
+
+---
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | AI judgment for operator/desktop shells (`Msm`, `data-ks-type="desktop-interface"`) — dense but governed, with PDCA framing |
+| **Passing signals** | Labeled chrome, `forge-card` / `ks-wizard-flow__panel` grouping, `ks-workspace-lens__segments`, bounded diagnostics |
+| **Failing signals** | Mystery icon toolbars, duplicate nav, raw `<pre>` stacks, opacity hacks |
+| **Before** | Failing `Msm` shell: unlabeled `btn-sm` grid, inline dumps, no regions |
+| **After** | Passing shell: `nav-section-label`, `ks-workspace-lens`, `ks-wizard-flow__session-list`, `forge-card` + `ks-wizard-flow__panel`, `data-shell-region` |
+| **Evidence** | Screenshot + remediation steps; links to `DET.APP.PERSISTENT_CHROME`, `DET.NAV.DEDUP` candidate |
+
+Sources used: `ai-enabled-design-principles.md#ai-app-density-balance`, `Msm-museum-studio.md`, `generator/pages/navigation.py`, `css/workspace-lens.css`, `css/wizard-flow.css`. No Fleet profile, no Mermaid.
+
+---
+
+### Front matter (confirmed in written file)
+
+- **`page_version`:** `2d2d266d5695bd7cd7524f96ba9a8294900d4df7e4a061b26a5eea6b3681be28` (matches manifest `contentVersion`)
+- **`registry_fingerprint`:** `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba`
+- **`registry_status`:** `generated`
+- **`agent_model`:** `composer-2.5-fast`
+
+After you run the copy + `rule-page-version.mjs --write-manifest`, manifest entry `AI.APP.DENSITY_BALANCE` should move from **`missing`** to **`current`**. I could not run that step here due to sandbox limits on shell and parent-repo writes.

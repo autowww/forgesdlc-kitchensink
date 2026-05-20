@@ -27,7 +27,10 @@ Roll-up contract for Kitchen Sink CSS. Concrete visuals are attributed per **chi
 
 ## Expected look
 
-Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md).
+- **Layered themes:** core Forge / product / handbook tokens (**`Ech`**) set baseline typography, surfaces, and accent discipline ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- **Composed assemblies:** shared controls, roadmaps, charts, and motion helpers (**`DVN`**) keep museum and consumer pages visually coherent without one-off CSS islands.
+- **Desktop chrome:** Fleet admin, wizard, and workspace lens shells (**`FXK`**) read as operator-grade dark UI with readable focus and dense tables.
+- **Ambient layers:** gradients/noise/backdrops (**`KEm`**) stay subordinate to foreground content and honor reduced-motion companions (**`Ksj`**).
 
 ## Anatomy
 

@@ -43,11 +43,11 @@ Use `--install-rule` to also write (under `--repo`):
 
 Keep one output folder across loops so **`audit-data.previous.json`**, **`crawl-session.json`**, **`ux-quality-score.previous.json`**, and YAML **`status:`** merges behave as intended.
 
-The KS **`run-website-ux-remediation-loop.sh`** runs **`score-website-ux.mjs`** then **`analyze-website-ux.mjs`** (auditor never invokes the scorer). Env: **`UX_AUDIT_SKIP_SCORER`**, **`UX_AUDIT_SCORER_MAX_PAGES`**, **`UX_AUDIT_SCORER_NO_CSV`**, plus **`UX_AUDIT_OUT_DIR`**, **`UX_AUDIT_INCREMENTAL`**, …
+The KS **`run-website-ux-remediation-loop.sh`** runs **`score-website-ux.mjs`** then **`analyze-website-ux.mjs`** (auditor never invokes the scorer). Env: **`UX_AUDIT_SKIP_SCORER`**, **`UX_AUDIT_SCORER_MAX_PAGES`** (default **500**), **`UX_AUDIT_SCORER_MAX_LINK_DEPTH`** (default **50**), **`MAX_PAGES`** (default **500**), **`UX_AUDIT_BREADTH_CRAWL`** (default **1** = auditor **`--breadth-crawl`**), **`FORGE_UX_ENABLE_AI_AUDIT`** (default **1**; **`0`** disables post-clean AI audit), **`UX_AUDIT_SCORER_NO_CSV`**, plus **`UX_AUDIT_OUT_DIR`**, **`UX_AUDIT_INCREMENTAL`**, …
 
 ```bash
 export UX_AUDIT_OUT_DIR="$PWD/workbench/my-site-campaign"
-# Optional: UX_AUDIT_INCREMENTAL=1  UX_AUDIT_FORCE_FULL=1  UX_AUDIT_VERBOSE=1  UX_AUDIT_SKIP_SCORER=1  UX_AUDIT_SCORER_MAX_PAGES=80
+# Optional overrides: UX_AUDIT_INCREMENTAL=1  UX_AUDIT_FORCE_FULL=1  UX_AUDIT_VERBOSE=1  UX_AUDIT_SKIP_SCORER=1  UX_AUDIT_SCORER_MAX_PAGES=80  UX_AUDIT_BREADTH_CRAWL=0  FORGE_UX_ENABLE_AI_AUDIT=0
 
 /path/to/forgesdlc-kitchensink/tools/website-ux-auditor/run-website-ux-remediation-loop.sh \
   "$PWD" ./website --site-kind fleet

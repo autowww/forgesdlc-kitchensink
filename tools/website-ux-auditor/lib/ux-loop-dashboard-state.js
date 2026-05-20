@@ -39,13 +39,28 @@ export function readDashboardStateSafe(outDir) {
  */
 export function shallowMergeDashboard(prev, patch) {
   /** @type {Record<string, unknown>} */
-  const next = { ...prev };
+  let next = { ...prev };
   for (const [k, v] of Object.entries(patch)) {
     if (k === 'crawl' && v && typeof v === 'object' && !Array.isArray(v)) {
-      const pc = prev.crawl && typeof prev.crawl === 'object' && !Array.isArray(prev.crawl)
-        ? /** @type {Record<string, unknown>} */ ({ ...prev.crawl })
+      const pc = next.crawl && typeof next.crawl === 'object' && !Array.isArray(next.crawl)
+        ? /** @type {Record<string, unknown>} */ ({ ...next.crawl })
         : {};
-      next.crawl = { ...pc, .../** @type {Record<string, unknown>} */ (v) };
+      next = { ...next, crawl: { ...pc, .../** @type {Record<string, unknown>} */ (v) } };
+    } else if (
+      (k === 'loop'
+        || k === 'processDefects'
+        || k === 'qualityGate'
+        || k === 'scorerBacklog'
+        || k === 'progress'
+        || k === 'auditProgress')
+      && v
+      && typeof v === 'object'
+      && !Array.isArray(v)
+    ) {
+      const prevObj = next[k] && typeof next[k] === 'object' && !Array.isArray(next[k])
+        ? /** @type {Record<string, unknown>} */ ({ .../** @type {Record<string, unknown>} */ (next[k]) })
+        : {};
+      next = { ...next, [k]: { ...prevObj, .../** @type {Record<string, unknown>} */ (v) } };
     } else {
       next[k] = v;
     }
@@ -73,6 +88,17 @@ export function writeDashboardStateAtomic(outDir, obj) {
 export function mergeDashboardState(outDir, patch) {
   const prev = readDashboardStateSafe(outDir);
   const next = shallowMergeDashboard(prev, patch);
+  const sig = (o) => {
+    const { updatedAt: _u, ...rest } = o && typeof o === 'object' && !Array.isArray(o) ? o : {};
+    try {
+      return JSON.stringify(rest);
+    } catch {
+      return '';
+    }
+  };
+  if (sig(prev) === sig(next)) {
+    return;
+  }
   next.updatedAt = new Date().toISOString();
   writeDashboardStateAtomic(outDir, next);
 }
@@ -89,13 +115,17 @@ export function mergeDashboardStateIfWatching(outDirAbs, patch) {
 }
 
 /**
+ * Append one line to the dashboard log (plain text, no per-line ISO stamp).
+ * Skips empty lines and dash-only placeholder lines.
  * @param {string} outDir
  * @param {string} line single line (newlines stripped)
  */
 export function appendDashboardLog(outDir, line) {
   const p = dashboardLogPath(outDir);
   fs.mkdirSync(path.dirname(p), { recursive: true });
-  const stamp = new Date().toISOString();
-  const safe = String(line || '').replace(/\r?\n/g, ' ');
-  fs.appendFileSync(p, `[${stamp}] ${safe}\n`);
+  const safe = String(line || '').replace(/\r?\n/g, ' ').trim();
+  if (!safe.length) return;
+  /** Skip placeholder-only lines (legacy stamped logs may still carry `[ISO]` elsewhere). */
+  if (/^[\s\-–—\u2013\u2014]+$/.test(safe)) return;
+  fs.appendFileSync(p, `${safe}\n`);
 }

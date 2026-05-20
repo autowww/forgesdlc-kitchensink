@@ -28,7 +28,8 @@ Showcase museum page **index** (`generator/pages/index.py`) documenting Showcase
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Showcase home / index**: curated portal into museum sections—cards or lists introduce areas without dumping raw link walls.
+- First screen sells scan structure; dense references stay below the fold ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,7 @@ Registry **root_selector:** `main#main`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Portal cards stack single-column on phones; maintain breathing room between dense museum links.
 
 ## Accessibility contract
 
@@ -69,6 +69,19 @@ Registry **root_selector:** `main#main`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Idx** markers: emitted roots include both `hash="Idx"` and `data-ks-hash="Idx"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: main#main: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Page generator `index.py` composes inside the advertised parent layout; built HTML for slug `index` includes the nested layout hash markers expected by showcase inventory.
+- `main#main` (or contracted root) headings follow one H1 convention per view; supplementary cards do not spoof heading levels.
+
+## AI-enabled review cues
+
+- Does **Showcase home** storytelling match the KS museum intent (education, reassurance, parity with consumer sites), not accidental placeholder copy?
+- Are technical blocks (API tables, prose blocks) progressively disclosed consistent with Forge landing doctrine?
+- Screenshot or DOM review: hero / first-scroll real estate reinforces the visitor job for **index**.
 
 ## Forbidden patterns
 

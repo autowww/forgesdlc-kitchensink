@@ -1,0 +1,19 @@
+---
+description: Govern KS UX component ruleset upgrades, deterministic audits, and AI-enabled design principles.
+alwaysApply: true
+---
+
+# KS UX Component Rules Governance
+
+When working on `forgesdlc-kitchensink` UX audit/design governance:
+
+1. Do not create a Fleet-specific profile. Fleet may be used only as a generic regression example of docs-first, mechanism-led, context-heavy content.
+2. Treat the KS visual catalog, showcase screenshots, emitted hashes, source files, and contracts as the combined design source of truth.
+3. Prefer deterministic checks for repeatable UX/design issues.
+4. Use AI-enabled review only for judgment-heavy quality: premium enterprise feel, context clarity, visual hierarchy, explanatory value, credibility, and contract usefulness.
+5. Every AI finding should propose a candidate deterministic rule when the issue is repeatable.
+6. Keep `analyze-website-ux.mjs` and `score-website-ux.mjs` separate. They may share low-level checks/metrics but must not call each other.
+7. Design contracts must be element-specific enough to guide implementation. Avoid generic expected-look boilerplate across unrelated components.
+8. Any visual element that KS emits to consumers must have either its own design contract or an explicit, justified family-covered contract.
+9. Preserve hash governance: `hash="XYZ"`, `data-ks-hash="XYZ"`, `data-ks-type`, and `data-ks-name` where practical.
+10. Final QA must include deterministic checks, AI-only remaining principles, no-Fleet-profile confirmation, and coverage status.

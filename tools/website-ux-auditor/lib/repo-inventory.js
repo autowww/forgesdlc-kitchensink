@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { fileExists, readMaybe } from './files.js';
+import { appendDashboardLog } from './ux-loop-dashboard-state.js';
 
 export const SKIP_DIRS = new Set([
   '.git', 'node_modules', '.next', '.nuxt', 'dist', 'build', 'out', '.cache', '.turbo',
@@ -57,16 +58,21 @@ export async function inventoryRepo(repo, opts = {}) {
   const tag = typeof opts.progressTag === 'string' && opts.progressTag.trim()
     ? opts.progressTag.trim()
     : '[ux-audit]';
+  const watchOutDir = String(process.env.FORGE_UX_LOOP_WATCH_OUT_DIR || '').trim();
 
   const onCounted = progressLog
     ? (n) => {
-      console.error(`${tag} phase=inventory · ${n} paths sampled (still walking repo tree…)`);
+      const line = `${tag} phase=inventory · ${n} paths sampled (still walking repo tree…)`;
+      if (watchOutDir) appendDashboardLog(watchOutDir, line);
+      else console.error(line);
     }
     : null;
 
   const files = await walkFiles(repo, 6000, onCounted);
   if (progressLog) {
-    console.error(`${tag} phase=inventory · done · ${files.length} paths (cap 6000)`);
+    const line = `${tag} phase=inventory · done · ${files.length} paths (cap 6000)`;
+    if (watchOutDir) appendDashboardLog(watchOutDir, line);
+    else console.error(line);
   }
   const packageJsonPath = path.join(repo, 'package.json');
   let packageJson = {};

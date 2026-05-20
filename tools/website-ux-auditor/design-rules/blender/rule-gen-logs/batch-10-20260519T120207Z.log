@@ -1,0 +1,492 @@
+
+> forge-website-ux-auditor@0.1.0 rulegen
+> bash design-rules/blender/cursor-agent-generate-rule-library.sh --lane deterministic --max-rules 10
+
+[rule-gen] repo=/home/lzvyahin/Code/forgesdlc-kitchensink
+[rule-gen] lane=deterministic model=composer-2.5-fast max_rules=10
+[rule-gen] selected targets=10
+[rule-gen] (1/10) lane=deterministic rule=DET.HASH.MARKERS
+## Summary
+
+Implemented **`DET.HASH.MARKERS`** as a deterministic DOM marker check, registered it in the blender map, and added unit tests. Shell commands were not available in this session, so you should run verification locally (below).
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-hash-markers.check.js`**
+
+Replaced the no-op stub with a check that reads `metrics.ksVisualHashReport` (from `lib/dom-metrics.js` crawl) via `ksVisualHashReportFromMetrics()`. It flags:
+
+| Signal | Severity | Meaning |
+|--------|----------|---------|
+| `invalidRaw` | minor | Value is not exactly three ASCII letters |
+| `mismatches` | minor | `hash` and `data-ks-hash` differ on the same node |
+| `incompleteMarkers` | warn | Only one of the two attributes is present |
+| `instanceCountByHash` > 1 | warn | Same hash on multiple elements (may be intentional) |
+
+Findings use the usual fields (`severity`, `area`, `message`, `evidence`, `remediation`, plus `hash` / `selector` where useful). Output is capped at **`MAX_HASH_MARKER_FINDINGS` (10)** per page.
+
+Registry crosswalk (`DET.HASH.REGISTRY_ROW`) is intentionally **not** included here.
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `area`: `visual-catalog`
+- `scoreDimension`: `visualCatalogGovernance`
+- `priorityWeight`: `9`
+- `defaultSeverity`: `minor`
+- `status`: `implemented`
+
+**3. `auditor-tests/det-hash-markers.test.js`**
+
+Covers invalid format, mismatch, incomplete pair, empty report, and `run()` with injected metrics.
+
+**4. `design-rules/registry.generated.json`**
+
+Updated `DET.HASH.MARKERS` to **implemented** and adjusted coverage counts (23 / 27). **`fingerprint` and `generatedAt` are stale** until you run `blend-rules`.
+
+### Why this design
+
+The rule anchor requires measurable pass/fail on **`hash="XYZ"`** and **`data-ks-hash="XYZ"`** (3-letter ASCII). That logic already exists in the crawl (`ksVisualHashReport` in `dom-metrics.js`); this rule exposes it as a standalone deterministic module aligned with the legacy `visual-catalog-awareness` check’s marker slice, without registry lookups.
+
+### Verify locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` fingerprint/timestamp. `npm test` includes `auditor-tests/det-hash-markers.test.js` and re-runs the blender in `design-rules-blender.test.js`.
+[rule-gen] ok rule=DET.HASH.MARKERS log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T120208Z_1_DET_HASH_MARKERS.log
+[rule-gen] (2/10) lane=deterministic rule=DET.HASH.REGISTRY_ROW
+Implemented **`DET.HASH.REGISTRY_ROW`** as a focused registry crosswalk (separate from **`DET.HASH.MARKERS`** marker pairing and **`DET.CONTRACT.PATH`** contract files).
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-hash-registry-row.check.js`**
+
+Deterministic checks per emitted hash (from `metrics.ksVisualHashReport.instances`, or live `page.evaluate` when Playwright is available):
+
+| Signal | Severity | Condition |
+|--------|----------|-----------|
+| `registry-missing` | minor | DOM has valid hashes but `visual-registry.generated.json` is missing/unreadable |
+| `registry-duplicate` | warn | Duplicate hash keys in generated registry (once per crawl via `ctx`) |
+| `unknown-hash` | warn | Hash not in registry |
+| `deprecated` | minor | Registry row `status: deprecated` |
+| `type-mismatch` | minor | `data-ks-type` present and ≠ registry `type` |
+
+Findings keep the usual shape: `severity`, `area`, `message`, `evidence`, `remediation`, plus `hash` / `selector` when applicable.
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `status: implemented`
+- `area: visual-catalog`, `scoreDimension: visualCatalogGovernance`
+- `defaultSeverity: warn`, `priorityWeight: 8`
+
+**3. `auditor-tests/det-hash-registry-row.test.js`**
+
+10 unit tests covering unknown hash, type match/mismatch, missing registry, duplicate-registry dedupe, and `run()` wiring.
+
+### Why
+
+The rule anchor requires: **hash exists in the generated registry with the expected `type`**. That is a registry lookup + optional DOM `data-ks-type` crosswalk—aligned with `check-visual-catalog.mjs` and the legacy `visual-catalog-awareness` slice, but isolated so **`DET.HASH.MARKERS`** stays DOM-marker-only.
+
+### Checks not run here
+
+Shell commands were rejected in this session. Please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should move **`DET.HASH.REGISTRY_ROW`** from `stub` → `implemented` in `design-rules/registry.generated.json` and refresh the fingerprint (implemented count **23 → 24**). Focused test:
+
+```bash
+node --test auditor-tests/det-hash-registry-row.test.js
+```
+[rule-gen] ok rule=DET.HASH.REGISTRY_ROW log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T120403Z_2_DET_HASH_REGISTRY_ROW.log
+[rule-gen] (3/10) lane=deterministic rule=DET.INVENTORY.CROSSWALK
+## Summary
+
+Implemented **`DET.INVENTORY.CROSSWALK`** as a repo-wide, deterministic catalog check aligned with the rule anchor: showcase-emitted hashes must be in the registry, with no invalid-format hash tokens.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-inventory-crosswalk.check.js`**
+   - Reads `docs/design/catalog/visual-inventory.generated.json` → `catalogCrosswalk.showcase_hashes_not_in_registry`.
+   - Scans showcase HTML/JS for **stray** `hash` / `data-ks-hash` values (non-empty, not exactly three ASCII letters).
+   - Falls back to a live showcase ↔ registry scan when `catalogCrosswalk` is missing (but inventory exists).
+   - Skips cleanly when the inventory file is absent (typical consumer sites).
+   - Exports `rule`, `run`, and testable helpers; caps at 12 findings with standard `severity` / `area` / `message` / `evidence` / `remediation`.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS`: `status: implemented`, `area: visual-catalog`, `scoreDimension: visualCatalogGovernance`, `priorityWeight: 8`, `defaultSeverity: warn`.
+
+3. **`design-rules/registry.generated.json`**
+   - Updated `DET.INVENTORY.CROSSWALK` to `implemented` and adjusted coverage counts/lists (fingerprint will refresh on the next blend).
+
+4. **`auditor-tests/det-inventory-crosswalk.test.js`**
+   - Unit tests for stray tokens, crosswalk JSON, findings mapping, and `run()` wiring.
+
+### Separation from related rules
+
+| Rule | Scope |
+|------|--------|
+| **`DET.HASH.MARKERS`** | Per-page DOM marker pairing / invalid values |
+| **`DET.HASH.REGISTRY_ROW`** | Per-page emitted hash vs registry row + `data-ks-type` |
+| **`DET.INVENTORY.CROSSWALK`** | Repo showcase inventory vs registry (`visual-inventory.generated.json` + showcase scan) |
+
+### Verify locally
+
+Shell was not available in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor && npm run blend-rules && npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` (fingerprint, `generatedAt`). All tests should pass, including the new `det-inventory-crosswalk.test.js`.
+[rule-gen] ok rule=DET.INVENTORY.CROSSWALK log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T120605Z_3_DET_INVENTORY_CROSSWALK.log
+[rule-gen] (4/10) lane=deterministic rule=DET.JS.NO_CONSOLE_ERROR
+Implemented **`DET.JS.NO_CONSOLE_ERROR`** as a Playwright-backed deterministic check and registered it in the blender map. Shell commands were not available in this session, so run verification locally (below).
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-js-no-console-error.check.js`
+
+Replaced the auto-generated stub with a real check that:
+
+- Listens for **`console` type `error`** and **`pageerror`** (uncaught exceptions)
+- Runs a bounded **golden-path smoke** (up to 5 clicks on safe controls: Bootstrap tabs/collapse, `<details>`, theme toggle, navbar toggler)
+- Filters noisy benign messages (favicon failures, ResizeObserver loop, extension URLs, source-map devtools noise)
+- Exposes testable helpers:
+  - `shouldIgnoreConsoleMessage()`
+  - `findingsFromJsConsoleErrorReport()`
+  - `beginJsConsoleErrorCapture()` (for future pre-`goto` wiring in crawl)
+  - `collectJsConsoleErrorReport()` / `runGoldenPathSmoke()`
+
+`run(ctx)` uses `metrics.jsConsoleErrorReport` when present, otherwise collects from `page` if available.
+
+Findings use the standard shape: `severity`, `area`, `message`, `evidence`, `remediation` (plus runtime enrichment for `ruleId`, `scoreDimension`, etc.).
+
+### 2. `design-rules/blender/rule-mappings.js`
+
+Added **`DETERMINISTIC_IMPLEMENTATIONS['DET.JS.NO_CONSOLE_ERROR']`**:
+
+| Field | Value |
+|--------|--------|
+| status | `implemented` |
+| area | `interaction` |
+| scoreDimension | `depthAndTechnicalDisclosure` |
+| defaultSeverity | `major` |
+| priorityWeight | `8` |
+| sourceRule | `#det-js-no_console_error` |
+
+### 3. `auditor-tests/det-js-no-console-error.test.js`
+
+Unit tests for ignore filtering, findings mapping, and `run()` with injected metrics (same pattern as other `det-*` tests).
+
+## Why this design
+
+The rule anchor requires **no uncaught/script errors on golden-path smoke** with **Playwright** evidence. That maps to console/pageerror listeners plus a small, safe interaction probe—not AI judgment.
+
+Load-time errors before `run()` are only captured if something pre-fills `metrics.jsConsoleErrorReport` or calls `beginJsConsoleErrorCapture()` before navigation; `beginJsConsoleErrorCapture` is exported so crawl can adopt that later without changing the rule logic.
+
+## Verify locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+After `blend-rules`, `registry.generated.json` should list `DET.JS.NO_CONSOLE_ERROR` with `status: "implemented"` and the interaction/depth metadata from the map.
+[rule-gen] ok rule=DET.JS.NO_CONSOLE_ERROR log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T120955Z_4_DET_JS_NO_CONSOLE_ERROR.log
+[rule-gen] (5/10) lane=deterministic rule=DET.JS.PROGRESSIVE
+## Summary
+
+Implemented **`DET.JS.PROGRESSIVE`** as a deterministic progressive-enhancement check: compare main content with JS on (crawl metrics) vs a second Playwright context with **`javaScriptEnabled: false`**.
+
+### Rule signals (from spec)
+
+- **Pass:** Critical content visible without script; enhancements gated.
+- **Evidence:** DOM with JS disabled.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-js-progressive.check.js`**
+   - Replaced the stub with a real check.
+   - **`collectJsProgressiveReport(page, metrics)`** — opens a no-JS context, reloads the same URL, snapshots main word count, H1 count, links, and `<noscript>` words.
+   - **`findingsFromJsProgressiveReport`** — flags when:
+     - No-JS main copy is below **48 words** and retention vs JS-on is below **38%** (`critical-text-collapse`).
+     - JS-on has an H1 but no-JS has none (`missing-primary-heading`).
+     - Main collapses without script and `<noscript>` has fewer than **12 words** (`noscript-fallback`).
+   - Skips thin pages (`< 96` words with JS on) to avoid noise on sparse routes.
+   - **`run(ctx)`** uses `metrics.jsProgressiveReport` when present, otherwise collects from `page` (same pattern as `DET.JS.NO_CONSOLE_ERROR`).
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under **`DETERMINISTIC_IMPLEMENTATIONS`** as **`implemented`**:
+     - `area: 'interaction'`
+     - `scoreDimension: 'depthAndTechnicalDisclosure'`
+     - `defaultSeverity: 'major'`
+     - `priorityWeight: 7`
+
+3. **`auditor-tests/det-js-progressive.test.js`**
+   - Unit tests for snapshot mapping, failure/pass thresholds, noscript credit, and `run()` behavior.
+
+### Verify locally (shell was unavailable here)
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+After **`blend-rules`**, `design-rules/registry.generated.json` should show **`DET.JS.PROGRESSIVE`** with `"status": "implemented"` and `"implementationSource": "explicit-map"` (it is still `"stub"` until you run the blender).
+
+### Design choices
+
+- **Deterministic only** — word/H1 counts from DOM, no AI.
+- **Dual navigation** — only when `page` is provided; precomputed `metrics.jsProgressiveReport` supported for tests or future crawl wiring.
+- **Collection failures** — return no findings (avoids false positives on timeouts); crawl can pre-fill metrics later if needed.
+[rule-gen] ok rule=DET.JS.PROGRESSIVE log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T121112Z_5_DET_JS_PROGRESSIVE.log
+[rule-gen] (6/10) lane=deterministic rule=DET.LANDMARKS.REQUIRED
+Implemented **DET.LANDMARKS.REQUIRED** as a deterministic DOM landmark check. Shell commands were unavailable in this session, so run `npm run blend-rules` and `npm test` locally to refresh the registry fingerprint and confirm.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-landmarks-required.check.js`**
+
+Replaced the auto-stub with measurable DOM checks:
+
+| Signal | Rule |
+|--------|------|
+| **main** | Exactly one visible `main` / `[role="main"]` |
+| **nav** (when applicable) | If ≥2 navigational links exist outside `main`, require a visible `nav` / `[role="navigation"]` outside `main` |
+| **header / banner** | Site chrome (`.site-header`, `.landing-header`, `data-shell-region`, etc.) must use `<header>` or `role="banner"`; at most one document-level banner |
+| **footer / contentinfo** | Footer chrome must use `<footer>` or `role="contentinfo"`; at most one document-level contentinfo |
+
+Exports follow the established pattern: `rule`, `violationsFromLandmarkSnapshot`, `findingsFromLandmarksReport`, `collectLandmarksReport`, and `run` (uses `metrics.landmarksReport` or live `page` collection).
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS` as `implemented` with:
+
+- `area`: `accessibility`
+- `scoreDimension`: `accessibilitySemanticsMeta`
+- `priorityWeight`: `8`
+- `defaultSeverity`: `minor`
+
+(Aligned with the `platform-handbook-inner` legacy adapter.)
+
+**3. `auditor-tests/det-landmarks-required.test.js`**
+
+Unit tests for snapshot → violations → findings mapping and `run()` behavior.
+
+**4. `design-rules/registry.generated.json`**
+
+Updated `DET.LANDMARKS.REQUIRED` to `implemented` and adjusted coverage counts. Re-run blend-rules so the fingerprint matches the new mapping file.
+
+### Why
+
+The rule spec requires document landmarks for assistive tech and keyboard users: one primary `main`, navigation landmarks when global nav exists, and unique top-level header/footer semantics—all detectable from the DOM without AI.
+
+### Verify locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+If anything fails, paste the output and I can adjust.
+[rule-gen] ok rule=DET.LANDMARKS.REQUIRED log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T121323Z_6_DET_LANDMARKS_REQUIRED.log
+[rule-gen] (7/10) lane=deterministic rule=DET.LAYOUT.GRID_CONSISTENCY
+## Summary
+
+Implemented **`DET.LAYOUT.GRID_CONSISTENCY`** as a Playwright/DOM deterministic check aligned with the catalog rule: content should sit on the layout grid (max width + gutters), without accidental full-bleed prose.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-layout-grid-consistency.check.js`**
+   - **`full-bleed-prose`** (`warn`): substantive paragraphs (≥32 words) in `main` that are not inside a grid container (`.container`, `.doc-content`, max-width ancestors, etc.) and span ≥88% of the main column or ≥82% of the viewport.
+   - **`gutter-drift`** (`minor`): within the same `section`/`article`, prose left edges differ by more than 56px.
+   - **`excessive-measure`** (`minor`): prose inside a grid container but wider than 920px.
+   - Heroes, tables, code, modals, and explicit bleed regions are excluded.
+   - Exports: `rule`, `run`, `collectLayoutGridConsistencyReport`, `findingsFromLayoutGridReport`, and testable helpers.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `area: readability`, `scoreDimension: visualRhythmFirstScreen`, `defaultSeverity: warn`, `priorityWeight: 7`.
+
+3. **`auditor-tests/det-layout-grid-consistency.test.js`**
+   - Unit tests for helpers, finding mapping, and `run()` with `metrics.layoutGridConsistencyReport`.
+
+4. **`design-rules/registry.generated.json`**
+   - Moved `DET.LAYOUT.GRID_CONSISTENCY` from stub → implemented (partial update). **Re-run `npm run blend-rules`** to refresh the full registry fingerprint and any other mapping drift.
+
+### Why these signals
+
+They match the doc anchor without AI: measurable width/inset vs main and viewport, KS container patterns (`.doc-content`, Bootstrap containers), and gutter consistency within sections—same pattern as `det-chrome-boundary.check.js` (collect in browser → map to standard finding fields).
+
+### Checks (could not run here)
+
+Shell was blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will fully regenerate `registry.generated.json` (recommended even after the manual registry patch). All tests should pass, including the new `det-layout-grid-consistency.test.js`.
+[rule-gen] ok rule=DET.LAYOUT.GRID_CONSISTENCY log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T121533Z_7_DET_LAYOUT_GRID_CONSISTENCY.log
+[rule-gen] (8/10) lane=deterministic rule=DET.MOTION.NO_AUTO_PLAY_FLASH
+## Summary
+
+Implemented **`DET.MOTION.NO_AUTO_PLAY_FLASH`** as a deterministic accessibility check aligned with WCAG 2.3.1’s general flash limit (more than **3 flashes per second** for a simple on/off cycle).
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-motion-no-auto-play-flash.check.js`**
+   - Exports `rule` and `run(ctx)` (findings array).
+   - **`collectMotionNoAutoPlayFlashReport(page)`** scans the live DOM for:
+     - **Fast infinite animations** — cycle &lt; ~0.67s (estimated &gt; 3 Hz for a 0↔1 toggle).
+     - **Risky names** — `blink`, `flash`, `strobe`, `seizure`, `flicker` on computed `animation-name` or `@keyframes`.
+     - **Autoplay video** — visible `video[autoplay]` (warn; may include rapid luminance change).
+   - Skips near-zero durations when `prefers-reduced-motion: reduce` is active (KS-style overrides).
+   - **`findingsFromMotionNoAutoPlayFlashReport`** maps violations to standard finding fields (`severity`, `area`, `message`, `evidence`, `remediation`).
+   - Supports precomputed `metrics.motionNoAutoPlayFlashReport` or on-demand Playwright collection.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under **`DETERMINISTIC_IMPLEMENTATIONS`** as `implemented`:
+     - `area`: `accessibility`
+     - `scoreDimension`: `accessibilitySemanticsMeta`
+     - `defaultSeverity`: `major`
+     - `priorityWeight`: `9`
+
+3. **`auditor-tests/det-motion-no-auto-play-flash.test.js`**
+   - Unit tests for parsers, flash-rate math, finding mapping, and `run()`.
+
+### Why this approach
+
+The source rule allows **pixel sampling** with a manual fallback. This implementation uses **measurable CSS/DOM signals** (animation timing, keyframe names, autoplay video) so the check stays deterministic and cheap. Full luminance flash detection would need screenshot sampling and is left as a future extension.
+
+### Verify locally
+
+Shell was not available in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should move **`DET.MOTION.NO_AUTO_PLAY_FLASH`** from stub to **implemented** in `design-rules/registry.generated.json` (count **27** implemented). The new test file should pass with the rest of the suite.
+[rule-gen] ok rule=DET.MOTION.NO_AUTO_PLAY_FLASH log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T121745Z_8_DET_MOTION_NO_AUTO_PLAY_FLASH.log
+[rule-gen] (9/10) lane=deterministic rule=DET.MOTION.PREFERS_REDUCED
+Implemented **`DET.MOTION.PREFERS_REDUCED`** as a deterministic accessibility check aligned with the source rule: `@media (prefers-reduced-motion: reduce)` must disable non-essential animation.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-motion-prefers-reduced.check.js`**
+- Replaced the auto-generated stub with a full check exporting `rule` and `run(ctx)`.
+- **`collectMotionPrefersReducedReport(page)`** temporarily emulates `prefers-reduced-motion: reduce` via Playwright, then scans the live DOM for:
+  - **Active CSS animations** — visible elements with `animation-name !== none` and duration > 20ms (skips essential loading/progress indicators).
+  - **Active CSS transitions** — visible non-essential elements with transition duration > 20ms.
+  - **SVG SMIL** — `animate`, `animateTransform`, `set` nodes (CSS cannot disable these).
+  - **Autoplay video** — visible `video[autoplay]` (warn severity).
+- Also counts accessible `@media (prefers-reduced-motion: reduce)` rules in same-origin stylesheets (report metadata).
+- Restores prior media preference after collection so later checks are unaffected.
+- Supports precomputed `metrics.motionPrefersReducedReport` or on-demand Playwright collection.
+
+**2. `design-rules/blender/rule-mappings.js`**
+- Registered under **`DETERMINISTIC_IMPLEMENTATIONS`** as `implemented`:
+  - `area`: `accessibility`
+  - `scoreDimension`: `accessibilitySemanticsMeta`
+  - `defaultSeverity`: `major`
+  - `priorityWeight`: `8`
+
+**3. `auditor-tests/det-motion-prefers-reduced.test.js`**
+- Unit tests for parsers, essential-motion heuristics, finding mapping, and `run()`.
+
+**4. `design-rules/registry.generated.json`**
+- Updated `DET.MOTION.PREFERS_REDUCED` from `stub` → `implemented` (partial manual sync; full regen via blender is still recommended).
+
+### Why this approach
+
+The source rule calls for a **CSS audit**. Rather than AI judgment, the check uses measurable runtime signals: emulate reduced motion, then verify computed styles show motion is actually disabled. This matches KS patterns (`forge-theme.css`, `forge-ambient.css`, JS guards in `ks-animated-backgrounds.js`) and pairs with the sibling `DET.MOTION.NO_AUTO_PLAY_FLASH` check.
+
+### Verify locally
+
+Shell was unavailable in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will fully regenerate `registry.generated.json` (fingerprint, coverage counts, and any other mapping drift). The new `det-motion-prefers-reduced.test.js` should pass with the rest of the suite.
+[rule-gen] ok rule=DET.MOTION.PREFERS_REDUCED log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T121951Z_9_DET_MOTION_PREFERS_REDUCED.log
+[rule-gen] (10/10) lane=deterministic rule=DET.NAV.BREADCRUMB
+## Summary
+
+Implemented **DET.NAV.BREADCRUMB** as a deterministic DOM-presence check aligned with the Kbc doc-breadcrumb contract.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-nav-breadcrumb.check.js`**
+
+Replaced the auto-generated stub with a full check that:
+
+- **Requires breadcrumb** on non-home pages that show doc/product hub signals:
+  - KS layout slugs: `layout-handbook`, `layout-chapter`, `layout-product`, `layout-showcase`, `layout-listing`, `layout-gallery`, `layout-split`
+  - Visible doc sidebar (`.forge-sidebar`, `.fs-sidebar`, Ksr, etc.)
+  - Showcase header band (`.site-header .site-header-content`)
+- **Exempts** home routes and `layout-landing` / `layout-marketing`
+- **Detects breadcrumb** via `.ks-doc-breadcrumb`, `Kbc` hash markers, `nav[aria-label="breadcrumb"]`, or visible `.breadcrumb` with meaningful trail content
+- Exports testable helpers: `pageRequiresBreadcrumbFromSignals`, `findingsFromNavBreadcrumbReport`, `collectNavBreadcrumbReport`, `run`
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `status: implemented`
+- `area: informationArchitecture`
+- `scoreDimension: informationArchitecture`
+- `defaultSeverity: warn`
+- `priorityWeight: 7`
+
+**3. `design-rules/registry.generated.json`**
+
+Updated `DET.NAV.BREADCRUMB` from `stub` → `implemented` and adjusted coverage counts (partial manual sync).
+
+**4. `auditor-tests/det-nav-breadcrumb.test.js`**
+
+Unit tests for signal logic, finding shape, and `run()` behavior.
+
+### Why this approach
+
+The source rule says: *“Product/doc hubs include breadcrumb where registry marks chrome-region breadcrumb contract.”* That maps to measurable signals:
+
+- **Hub detection** — layout hash slugs + doc-sidebar/showcase-header DOM (no AI)
+- **Presence check** — Kbc root selector and standard breadcrumb landmarks
+- **False-positive guard** — skip home and landing/marketing layouts
+
+### Verify locally
+
+Shell execution was unavailable in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will fully regenerate the registry fingerprint and reconcile any coverage drift from the manual registry edit.
+[rule-gen] ok rule=DET.NAV.BREADCRUMB log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T122157Z_10_DET_NAV_BREADCRUMB.log
+[rule-gen] done targets=10 failures=0

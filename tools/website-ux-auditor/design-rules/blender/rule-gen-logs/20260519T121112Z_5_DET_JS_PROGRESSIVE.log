@@ -1,0 +1,46 @@
+## Summary
+
+Implemented **`DET.JS.PROGRESSIVE`** as a deterministic progressive-enhancement check: compare main content with JS on (crawl metrics) vs a second Playwright context with **`javaScriptEnabled: false`**.
+
+### Rule signals (from spec)
+
+- **Pass:** Critical content visible without script; enhancements gated.
+- **Evidence:** DOM with JS disabled.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-js-progressive.check.js`**
+   - Replaced the stub with a real check.
+   - **`collectJsProgressiveReport(page, metrics)`** — opens a no-JS context, reloads the same URL, snapshots main word count, H1 count, links, and `<noscript>` words.
+   - **`findingsFromJsProgressiveReport`** — flags when:
+     - No-JS main copy is below **48 words** and retention vs JS-on is below **38%** (`critical-text-collapse`).
+     - JS-on has an H1 but no-JS has none (`missing-primary-heading`).
+     - Main collapses without script and `<noscript>` has fewer than **12 words** (`noscript-fallback`).
+   - Skips thin pages (`< 96` words with JS on) to avoid noise on sparse routes.
+   - **`run(ctx)`** uses `metrics.jsProgressiveReport` when present, otherwise collects from `page` (same pattern as `DET.JS.NO_CONSOLE_ERROR`).
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under **`DETERMINISTIC_IMPLEMENTATIONS`** as **`implemented`**:
+     - `area: 'interaction'`
+     - `scoreDimension: 'depthAndTechnicalDisclosure'`
+     - `defaultSeverity: 'major'`
+     - `priorityWeight: 7`
+
+3. **`auditor-tests/det-js-progressive.test.js`**
+   - Unit tests for snapshot mapping, failure/pass thresholds, noscript credit, and `run()` behavior.
+
+### Verify locally (shell was unavailable here)
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+After **`blend-rules`**, `design-rules/registry.generated.json` should show **`DET.JS.PROGRESSIVE`** with `"status": "implemented"` and `"implementationSource": "explicit-map"` (it is still `"stub"` until you run the blender).
+
+### Design choices
+
+- **Deterministic only** — word/H1 counts from DOM, no AI.
+- **Dual navigation** — only when `page` is provided; precomputed `metrics.jsProgressiveReport` supported for tests or future crawl wiring.
+- **Collection failures** — return no findings (avoids false positives on timeouts); crawl can pre-fill metrics later if needed.

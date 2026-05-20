@@ -28,7 +28,9 @@ Reusable chrome region **Site footer region** (`slug: site-footer`) embedded by 
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Footer** band (`.ks-site-footer-region`): balanced columns for links/meta; quieter typography than body copy.
+- Separates closing utilities (copyright, secondary links) from page conclusions without competing with CTAs in `main` ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- Decorative dividers or glyphs remain non-semantic (`aria-hidden` where appropriate).
 
 ## Anatomy
 
@@ -49,8 +51,8 @@ Registry **root_selector:** `.ks-site-footer-region`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Footer columns stack by `sm`/`md` with readable link grouping; legal/meta lines wrap instead of tiny horizontal scroll.
+- Maintain tap spacing between dense footer links.
 
 ## Accessibility contract
 
@@ -69,6 +71,19 @@ Registry **root_selector:** `.ks-site-footer-region`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Ksf** markers: emitted roots include both `hash="Ksf"` and `data-ks-hash="Ksf"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: .ks-site-footer-region: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- `site-footer` contains secondary IA and meta links only; no takeover of primary CTA lanes reserved for page body.
+- Footer columns stack predictably below `md` without horizontal scroll traps.
+
+## AI-enabled review cues
+
+- For **Site footer region** (`site-footer`), does the chrome read as purposeful product IA rather than decorative Bootstrap filler?
+- At condensed widths, collapsed affordances remain obvious (motion, affordance cues, labeling); no mystery-meat menus.
+- Credibility check: typography and spacing match Forge enterprise tone ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)) without looking like a generic template swap.
 
 ## Forbidden patterns
 

@@ -1,0 +1,39 @@
+## Summary
+
+Implemented **`DET.CTA.HIERARCHY`** as a deterministic DOM check: at most **one primary CTA** per logical viewport region (hero, open modal/panel, sticky footer).
+
+### Source rule → signals
+
+From `docs/design/ux-audit/deterministic-design-rules.md#det-cta-hierarchy`:
+
+- **Pass:** one primary CTA per hero / sticky footer / modal band  
+- **Evidence:** button-class scan (`btn-primary`, `btn-forge`; excludes outline/secondary/link)
+
+### Files changed
+
+| File | Change |
+|------|--------|
+| `design-rules/deterministic/generated/det-cta-hierarchy.check.js` | Full implementation: `collectCtaHierarchyReport`, `findingsFromCtaHierarchyReport`, `run` |
+| `design-rules/blender/rule-mappings.js` | Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented** (`conversion`, `trustAndEcosystemTruth`, `major`, weight **9**) |
+| `design-rules/registry.generated.json` | `DET.CTA.HIERARCHY` → **implemented**; coverage **15** implemented / **35** stub |
+| `auditor-tests/det-cta-hierarchy.test.js` | Unit tests for report → findings and `run` |
+
+### Check behavior
+
+- **Regions:** KS hero shells (`.landing-hero*`, `.product-hero`), visible modals (`.modal.show`, `.offcanvas.show`, `role="dialog"` + `aria-modal`), sticky/fixed bottom bands  
+- **Primary detection:** same pattern as `DET.CARD.ACTION_LIMIT` (`btn-primary`, `btn-forge`; not outline/secondary)  
+- **Findings:** `severity` major/critical, `area: conversion`, standard `message` / `evidence` / `remediation`  
+- **Runtime:** uses `metrics.ctaHierarchyReport` or live `page` via Playwright (same pattern as button-group / card-action checks)
+
+Legacy `cta-trust-ecosystem` check still maps to this rule ID; the new rule adds **primary-per-region** enforcement separate from “too many CTAs above fold.”
+
+### Verification (please run locally)
+
+Shell was not available in this session. From `tools/website-ux-auditor`:
+
+```bash
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` **fingerprint** (manual registry edits may differ slightly until then). `npm test` includes `auditor-tests/det-cta-hierarchy.test.js` and re-runs the blender smoke test.

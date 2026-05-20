@@ -1,0 +1,50 @@
+## Summary
+
+Implemented **`DET.APP.PERSISTENT_CHROME`** as a deterministic route-crawl check for app/desktop shells whose contract promises persistent chrome.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-app-persistent-chrome.check.js`**
+
+Replaced the stub with:
+
+- **Contract gate** — runs only when persistence is promised via `data-shell-persistent`, `data-persistent-chrome`, `data-route-contract` containing “persistent”, `data-shell-regions` / `data-shell-region`, `data-ks-type="desktop-interface"`, or known app-shell body classes.
+- **Per-page fingerprint** — `header`, `nav`, `aside`, `footer`, and `[data-shell-region]` outside `main`: `id`, KS hash, sorted nav link text signature.
+- **Route crawl** — module-scoped baseline per origin; later crawled URLs are diffed for missing regions, hash drift, and nav link-set drift.
+- **Exports** — `rule`, `run`, `collectAppPersistentChromeReport`, `findingsFromAppPersistentChromeReport`, `diffPersistentChromeRegions`, `resetRouteCrawlStateForTests` (same pattern as focus-trap / ambient-z-index).
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|--------|--------|
+| status | `implemented` |
+| area | `informationArchitecture` |
+| scoreDimension | `informationArchitecture` |
+| priorityWeight | `8` |
+| defaultSeverity | `warn` |
+
+**3. `design-rules/registry.generated.json`**
+
+`DET.APP.PERSISTENT_CHROME` is already `implemented` with matching metadata (re-run `blend-rules` to refresh `fingerprint` / `generatedAt`).
+
+**4. `auditor-tests/det-app-persistent-chrome.test.js`**
+
+Unit tests for region diff, finding mapping, no-op paths, and two-route crawl comparison.
+
+### Why
+
+The source rule requires **shell regions stable across routes when the contract promises persistence** — measurable by DOM fingerprints on chrome outside `main`, not by AI. Generic marketing/handbook pages without an app contract are skipped to avoid false positives.
+
+### Verify locally
+
+Shell was unavailable in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+On Playwright crawls, each page calls `run()` with a live `page`; cross-route findings appear from the second URL onward on the same origin. Static-only runs no-op unless `metrics.appPersistentChromeReport` is supplied.

@@ -1,0 +1,25 @@
+---
+description: Keep website-ux-auditor deterministic and AI rule repositories in sync via DesignRulesBlender.
+alwaysApply: false
+---
+
+# Website UX Design Rules Blender
+
+Use this rule when editing:
+
+- `tools/website-ux-auditor/design-rules/**`
+- `tools/website-ux-auditor/checks/**`
+- `docs/design/ux-audit/*.md`
+- `tools/website-ux-auditor/lib/design-rule-runtime.js`
+
+## Required workflow
+
+1. Regenerate the rule registry:
+   - `cd tools/website-ux-auditor && npm run blend-rules`
+2. Ensure `design-rules/registry.generated.json` is updated in the same change.
+3. Keep deterministic and AI lanes separate:
+   - deterministic checks live under `design-rules/deterministic/**`
+   - AI prompt fragments live under `design-rules/ai/prompts/**`
+4. Do not couple `analyze-website-ux.mjs` and `score-website-ux.mjs`; both may share `lib/design-rule-runtime.js`.
+5. Keep finding metadata populated for ranking:
+   - `ruleId`, `scoreDimension`, `priorityWeight`, `sourceRule`, `scoreImpactWeight`

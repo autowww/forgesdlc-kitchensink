@@ -43,6 +43,9 @@ test('buildAiAuditBatches isolates homepage first and groups remaining pages', (
     repoRoot: '/repo',
     designStandardPath: '/repo/docs/design/std.md',
     batchSize: 2,
+    aiRulePrompts: [{ id: 'AI.CONTEXT.COGNITIVE_CLARITY', promptPath: 'design-rules/ai/prompts/ai-context-cognitive-clarity.md' }],
+    registryFingerprint: 'fp123',
+    registryPath: '/tmp/registry.generated.json',
   });
   assert.equal(manifest.totalBatches, 2);
   assert.deepEqual(manifest.batches[0].urls, ['https://fixture.test/']);
@@ -51,6 +54,33 @@ test('buildAiAuditBatches isolates homepage first and groups remaining pages', (
     'https://fixture.test/docs-start-01-start-here.html',
   ]);
   assert.equal(manifest.batches[0].designStandardPath, 'docs/design/std.md');
+  assert.ok(manifest.aiReviewContract?.principleIds?.includes('AI.CONTEXT.COGNITIVE_CLARITY'));
+  assert.ok(manifest.batches[0].aiReviewContract?.principleIds?.length);
+  assert.equal(manifest.designRulesRegistryFingerprint, 'fp123');
+  assert.equal(manifest.aiRulePrompts?.[0]?.id, 'AI.CONTEXT.COGNITIVE_CLARITY');
+  assert.equal(manifest.batches[0].aiRulePrompts?.[0]?.promptPath, 'design-rules/ai/prompts/ai-context-cognitive-clarity.md');
+});
+
+test('aggregateAiAuditResults records partial plan metadata when batchesPlanned is set', () => {
+  const { data, markdown } = aggregateAiAuditResults({
+    auditData: { auditRunId: 'run123', generatedAt: '2026-05-18T00:00:00.000Z' },
+    manifest: { batches: [{ batchId: 'ai-batch-00' }] },
+    batchArtifacts: [
+      {
+        batchId: 'ai-batch-00',
+        urls: ['https://fixture.test/'],
+        transcriptPath: 'transcripts/ai-batch-00.log',
+        rawOutput: '```json\n{"summary":"ok","findings":[]}\n```',
+      },
+    ],
+    batchesPlanned: 5,
+    stopReason: 'major_plus_threshold',
+  });
+  assert.equal(data.batchesPlanned, 5);
+  assert.equal(data.batchesProcessed, 1);
+  assert.equal(data.batchesSkippedFromPlan, 4);
+  assert.equal(data.stopReason, 'major_plus_threshold');
+  assert.match(markdown, /Early stop/);
 });
 
 test('extractJsonFromAgentText parses fenced JSON blocks', () => {
@@ -67,7 +97,7 @@ test('aggregateAiAuditResults normalizes findings and parse errors', () => {
         batchId: 'ai-batch-00',
         urls: ['https://fixture.test/'],
         transcriptPath: 'transcripts/ai-batch-00.log',
-        rawOutput: '```json\n{"summary":"found one","inspectedUrls":["https://fixture.test/"],"findings":[{"url":"https://fixture.test/","severity":"high","guardrail":"trust","title":"Weak trust proof","evidence":"No governance section","sourceFiles":["content/index.md"],"remediation":"Add proof."}]}\n```',
+        rawOutput: '```json\n{"summary":"found one","inspectedUrls":["https://fixture.test/"],"findings":[{"url":"https://fixture.test/","severity":"high","guardrail":"trust","principleId":"AI.GOVERNANCE.CREDIBILITY","deterministicCoverage":"not-covered","candidateDeterministicRule":"DET.TRUST.HERO_GOVERNANCE_BLOCK presence","hashesOrContractsAffected":["ABC","docs/design/catalog/layouts/foo.md"],"screenshotOrDomEvidence":"Hero lacks governance strip","title":"Weak trust proof","evidence":"No governance section","sourceFiles":["content/index.md"],"remediation":"Add proof.","confidence":"high"}]}\n```',
       },
       {
         batchId: 'ai-batch-01',
@@ -83,4 +113,10 @@ test('aggregateAiAuditResults normalizes findings and parse errors', () => {
   assert.equal(data.parseErrors.length, 1);
   assert.match(markdown, /AI-assisted UX audit/);
   assert.match(markdown, /Weak trust proof/);
+  assert.equal(data.findings[0].principleId, 'AI.GOVERNANCE.CREDIBILITY');
+  assert.equal(data.findings[0].candidateDeterministicRule, 'DET.TRUST.HERO_GOVERNANCE_BLOCK presence');
+  assert.deepEqual(data.findings[0].hashesOrContractsAffected, ['ABC', 'docs/design/catalog/layouts/foo.md']);
+  assert.equal(data.findings[0].screenshotOrDomEvidence, 'Hero lacks governance strip');
+  assert.equal(data.findings[0].confidence, 0.85);
+  assert.match(markdown, /Candidate deterministic rule:/);
 });

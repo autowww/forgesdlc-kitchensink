@@ -1,0 +1,44 @@
+## Summary
+
+Implemented **DET.REACT.A11Y_ROLE** as a deterministic DOM check scoped to KS React primitive roots (`[data-ks-react-root="true"]` and `[data-ks-type="react-primitive"][data-ks-hash]`), aligned with `FAM-react-primitives.md` and the source rule: *interactive primitives expose correct ARIA roles/states for keyboard/screen readers*.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-react-a11y-role.check.js`**
+   - Replaced the auto-generated stub with a full check.
+   - Scans each primitive root for:
+     - **missing-accessible-name** — interactive controls without a name (major)
+     - **missing-aria-expanded** — disclosure/listbox triggers with `aria-haspopup`/`aria-controls` but no `aria-expanded` (warn)
+     - **option-missing-selected** — `role="option"` without `aria-selected` (minor)
+     - **listbox-missing-label** / **toolbar-missing-label** — named regions missing labels (minor)
+     - **banner-missing-live-role** — `Fsb` / `forge-status-banner` without `role="status"|"alert"` (minor)
+     - **focusable-without-role** — `div`/`span` with `tabindex≥0` and no widget role (major)
+   - Exports: `rule`, `run`, `collectReactA11yRoleReport`, `findingsFromReactA11yRoleReport`.
+   - Uses `metrics.reactA11yRoleReport` or live `page.evaluate()`.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+     - `area`: `accessibility`
+     - `scoreDimension`: `accessibilitySemanticsMeta`
+     - `priorityWeight`: `8`
+     - `defaultSeverity`: `minor`
+
+3. **`auditor-tests/det-react-a11y-role.test.js`**
+   - Unit tests for `findingsFromReactA11yRoleReport` and `run` (metrics path).
+
+4. **`design-rules/registry.generated.json`**
+   - Updated `DET.REACT.A11Y_ROLE` to `status: "implemented"` and refreshed coverage counts (40 implemented / 10 stubs).
+
+### Why these signals
+
+They map directly to measurable ARIA patterns in the React source (`TileDropdownControl`, `WorkspaceLensControl`, `ForgeDecisionActionBar`, `ForgeStatusBanner`, etc.) without AI heuristics — the same class of checks axe/DOM would surface for listbox, toolbar, and live-region semantics.
+
+### Verification
+
+Shell execution was unavailable in this session. Please run locally:
+
+```bash
+cd tools/website-ux-auditor && npm run blend-rules && npm test
+```
+
+`blend-rules` should confirm the registry stays in sync; `npm test` should pick up `auditor-tests/det-react-a11y-role.test.js`. If anything fails, share the output and I can adjust.

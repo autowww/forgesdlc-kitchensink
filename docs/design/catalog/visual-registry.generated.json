@@ -3306,7 +3306,13 @@
         "docs/design/forge-enterprise-ai-website-standard.md",
         "docs/design/lenses-studio-shell.md",
         "docs/design/wizard-flow-studio.md",
-        "docs/PAGE-LAYOUT-TAXONOMY.md"
+        "docs/PAGE-LAYOUT-TAXONOMY.md",
+        "docs/design/ux-audit/README.md",
+        "docs/design/ux-audit/ai-enabled-design-principles.md",
+        "docs/design/ux-audit/component-design-ruleset-taxonomy.md",
+        "docs/design/ux-audit/deterministic-design-rules.md",
+        "docs/design/ux-audit/element-level-ruleset-matrix.md",
+        "docs/design/ux-audit/industry-standard-page-quality.md"
       ],
       "source_symbols": [],
       "root_selector": null,
@@ -3476,5 +3482,5 @@
       "emit_marker_in_showcase": false
     }
   ],
-  "generatedAt": "2026-05-18T13:01:03.395Z"
+  "generatedAt": "2026-05-19T06:02:15.373Z"
 }

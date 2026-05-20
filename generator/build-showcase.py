@@ -33,6 +33,7 @@ sys.path.insert(0, str(REPO_ROOT / "generator"))
 
 from components import e  # noqa: E402
 from layout_previews import write_layout_preview_pages  # noqa: E402
+from ux_audit_rule_pages import write_ux_audit_rule_pages  # noqa: E402
 from ks_catalog_hashes import page_main_attrs  # noqa: E402
 from layouts import (  # noqa: E402
     gallery_page,
@@ -405,6 +406,9 @@ def main():
         html = _render_page(page, pages)
         (OUTPUT_DIR / filename).write_text(html, encoding="utf-8")
         print(f"  ✓ {filename}")
+
+    rule_count = write_ux_audit_rule_pages(OUTPUT_DIR)
+    print(f"  ✓ ux-audit-rules/ ({rule_count} detail pages)")
 
     write_layout_preview_pages(OUTPUT_DIR)
     for name in (

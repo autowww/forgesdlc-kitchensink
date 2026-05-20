@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Rewrite ux-audit-done-crawl-urls.txt to the set of URLs that were **visited in this audit**
- * with no page error and **zero** Blocker/Critical/Major findings (same as Major+ batch).
+ * that pass the configured **quality gate** on that page’s findings (default per-severity caps).
  *
  * Stale entries from older runs are **not** kept: if a URL was listed before but was not
  * audited in this pass (or now has Major+), it is dropped so the next crawl can revisit it.
@@ -13,7 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { normalizeCrawlHref } from './lib/crawl.js';
-import { countMajorPlus } from './lib/severity.js';
+import { loadQualityGateThresholdsFromEnv, pagePassesQualityGate } from './lib/quality-gate.js';
 
 const auditPath = process.argv[2];
 const donePath = process.argv[3];
@@ -31,11 +31,17 @@ try {
 }
 
 const pages = audit.pages || [];
+let thresholds;
+try {
+  thresholds = loadQualityGateThresholdsFromEnv();
+} catch (e) {
+  console.error(e?.message || String(e));
+  process.exit(1);
+}
 const fromAudit = new Set();
 for (const p of pages) {
   if (!p || p.error) continue;
-  const mj = countMajorPlus(p.findings || []);
-  if (mj !== 0) continue;
+  if (!pagePassesQualityGate(p.findings || [], thresholds)) continue;
   const u = normalizeCrawlHref(p.url || '');
   if (u) fromAudit.add(u);
 }
@@ -65,6 +71,8 @@ for (const u of prior) {
 const header = [
   '# Crawl URLs treated as done (visited in last audit with zero Major+ findings).',
   '# Managed by run-website-ux-remediation-loop.sh; passed to analyze-website-ux.mjs --exclude-crawl-urls-file.',
+  '# Page listed when its findings pass FORGE_UX quality gate thresholds (see audit-quality-gate.mjs).',
+  `# design_rules_registry_fingerprint=${String(audit?.crawlSummary?.designRuleRegistryFingerprint || '')}`,
   `# merged_from=${path.basename(auditPath)} at=${new Date().toISOString()} last_run_clean=${fromAudit.size} prior_file=${priorSize} removed_stale=${removedStale} newly_listed=${newlyListed}`,
 ].join('\n');
 

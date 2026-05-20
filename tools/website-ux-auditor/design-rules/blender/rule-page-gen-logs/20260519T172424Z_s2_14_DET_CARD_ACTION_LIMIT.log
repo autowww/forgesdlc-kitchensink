@@ -1,0 +1,43 @@
+Connection lost, reconnecting (attempt 1)...
+Retry attempt 1...
+## Report
+
+Wrote the PDCA handbook page for **`DET.CARD.ACTION_LIMIT`** at:
+
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-card-action-limit.md`
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: 8b47ef1cec520e036dadd4f0ae3e9fb630d0f96e8be3c9728b373c131624629c
+```
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.CARD.ACTION_LIMIT` |
+| `lane` | `deterministic` |
+| `title` | One primary action per card |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-card-action-limit` |
+| `related_rules` | `DET.CARD.TITLE`, `DET.CTA.HIERARCHY`, `DET.CTA.LABEL_NONEMPTY`, `DET.BUTTON.GROUP.MAX`, `AI.VISUAL.HIERARCHY` |
+
+### Content (aligned with check implementation)
+
+- **Purpose:** ≤1 primary per card (`MAX_PRIMARY_ACTIONS_PER_CARD = 1`); primaries = `btn-forge` / `btn-primary`; outline/secondary excluded; toolbar-card exemption documented.
+- **Passing / failing signals:** Mirrors `det-card-action-limit.check.js` (card roots, toolbar skip, nav exclusion, severity).
+- **Before:** `.forge-card.breathe-static` outcome tile with two `btn btn-forge` (fails).
+- **After:** Same tile with `btn-forge` + `btn-forge-outline` (passes); optional `data-card-kind="toolbar"` + `.btn-toolbar` pattern for multi-primary toolbars.
+- **Evidence:** `metrics.cardActionLimitReport` and remediation steps from the check’s finding text.
+
+### Real KS class names used
+
+From `css/forge-theme.css`, `components/presentation.py`, `generator/pages/_for_agents_content.py`, and `components/components.py`:
+
+- `forge-card`, `breathe-static`, `breathe-link`, `card-label`, `forge-support`
+- `btn btn-forge`, `btn btn-forge-outline`, `btn-toolbar`
+- `col-md-4`, `d-flex`, `data-ks-hash`, `data-card-kind="toolbar"`
+
+No check modules, registry, or Mermaid were edited. The orchestrator can update `rule-pages.manifest.json` from this `page_version`.

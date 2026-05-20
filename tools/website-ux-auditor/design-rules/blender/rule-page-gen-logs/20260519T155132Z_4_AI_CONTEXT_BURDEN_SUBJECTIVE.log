@@ -1,0 +1,45 @@
+## Report: `AI.CONTEXT.BURDEN_SUBJECTIVE` rule page
+
+Wrote the full PDCA handbook page for **Subjective context burden** — the AI judgment layer on top of `DET.CONTEXT.BURDEN` numeric caps.
+
+### What was written
+
+**Staging copy (complete):**  
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-context-burden-subjective.md`
+
+**Canonical target (not yet on disk):**  
+`docs/design/ux-audit/rule-pages/ai-context-burden-subjective.md`
+
+Shell was blocked in this session, so the file could not be copied to the KS root or the manifest refreshed automatically.
+
+### Page content summary
+
+| Section | Focus |
+|--------|--------|
+| **Purpose** | Catches perceived overload when `DET.CONTEXT.BURDEN` passes but the first viewport still feels noisy (PDCA framing) |
+| **Passing signals** | One focal path (`product-landing-title` → `landing-hero-tagline` → CTAs); `landing-forge-visual` instead of hero-scale diagrams; outcome cards in the next `forge-section` |
+| **Failing signals** | Stacked hero copy bands, dense `ks-diagram-tile` beside headline, three `forge-card` tiles competing in the same viewport |
+| **Before example** | `landing_page` hero with all copy bands + architecture diagram + outcome cards in one viewport (≤ 3 buttons, still overwhelming) |
+| **After example** | Staged hero with `landing-forge-visual`, outcome cards deferred, diagram in a labeled “How it works” section |
+| **Evidence & remediation** | Screenshot capture steps + ordered remediation (collapse hero → defer diagram → section staging → ambient tuning → candidate `DET.*`) |
+
+Uses real KS classes: `landing-hero-*`, `product-landing-title`, `forge-card`, `card-amber`, `forge-diagram`, `ks-diagram-tile`, `landing-forge-visual`, `forge-ambient--subtle`, hash attrs on sections.
+
+### `page_version` confirmation
+
+```yaml
+page_version: 5957d05615097c23a160058f2f2bdf5a180df71a172761243ae0e4fc4b8a7549
+```
+
+This matches the manifest `contentVersion` for `AI.CONTEXT.BURDEN_SUBJECTIVE`.
+
+### Finish promotion + manifest (run locally)
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+node write-rule-page-context-burden.mjs
+```
+
+That copies the page to the canonical KS path and runs `node design-rules/blender/rule-page-version.mjs --write-manifest`, which should set manifest status to **`current`**.
+
+No check modules, `rule-mappings.js`, or registry files were edited.

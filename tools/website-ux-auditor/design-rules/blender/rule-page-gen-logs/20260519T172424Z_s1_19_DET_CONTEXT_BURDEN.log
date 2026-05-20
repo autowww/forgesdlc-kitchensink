@@ -1,0 +1,50 @@
+## Report: `DET.CONTEXT.BURDEN` rule page
+
+Wrote the PDCA handbook page for **First-screen context burden** at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-context-burden.md`
+
+(staging path used by the rule-page batch; copy helpers are ready for the canonical KS path.)
+
+### `page_version` confirmed
+
+```yaml
+page_version: 3a3560d8867679c9b198e83a76c693330f1598634579afc61130ba04c2c41bf5
+```
+
+Matches the required value exactly.
+
+### Page contents
+
+| Section | Summary |
+|---------|---------|
+| **Purpose** | Five numeric caps from `det-context-burden.check.js`, aligned with `forge-enterprise-ai-website-standard.md` first-screen budget; PDCA framing |
+| **Passing signals** | Curated `landing-nav` (4–7 links), no homepage `fs-sidebar`, metrics within caps |
+| **Failing signals** | Pre-main link wall, crowded header nav, stacked chrome bands, homepage link-cluster / hero-control overflow |
+| **Before example** | Failing handbook-style shell: `fs-primary-nav-global` + `landing-header` + `fs-sidebar` + `fs-cross-refs` before H1 + four hero `.btn` actions |
+| **After example** | Passing `landing_page` shell: five curated `landing-nav-link` items, two hero buttons, `landing-hero-secondary-link` demotions, `landing-forge-visual` slot |
+| **Evidence and remediation** | Metrics keys (`preMainFirstH1LinkCount`, etc.) + ordered fix steps |
+| **Related rules** | 7 linked rules including `DET.BUTTON.GROUP.MAX` and `AI.CONTEXT.BURDEN_SUBJECTIVE` |
+
+### Thresholds documented (from check implementation)
+
+- Pre-main links before first in-main H1: **≤ 10**
+- Outside-main header/nav links: **≤ 7**
+- Nav chrome containers outside `main`: **≤ 4**
+- First-viewport links (home only): **≤ 28**
+- Hero-fold interactive controls (home only): **≤ 3**
+
+### KS class verification
+
+Before/after examples use real Kitchen Sink classes from `components/layouts.py`, `components/components.py`, and `css/forgesdlc-theme.css`: `landing-header`, `landing-nav`, `landing-nav-link`, `fs-primary-nav-global`, `fs-sidebar`, `fs-nav-tier-wrap`, `landing-hero-actions__buttons`, `btn-forge`, `btn-cyan-outline`, `landing-hero-secondary-link`, `landing-forge-visual`, `landing-forge-visual__img`, etc.
+
+### Promote to canonical path
+
+The canonical file at `docs/design/ux-audit/rule-pages/det-context-burden.md` (KS repo root) was not writable from this sandbox. Copy helpers are in place:
+
+```bash
+bash tools/website-ux-auditor/.copy-det-context-burden-pending.sh
+# or: node tools/website-ux-auditor/_run-copy-det-context-burden.mjs
+```
+
+The batch orchestrator should run one of these after the pagegen batch to update `rule-pages.manifest.json`.

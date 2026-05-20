@@ -1,0 +1,20 @@
+schema_version: 1
+id: default
+name: Forge default
+status: active
+description: Current Forge enterprise AI website design language extracted as the default KS theme.
+source: current-ks
+source_url: https://ks.forgesdlc.com/
+design_standard_path: ../../forge-enterprise-ai-website-standard.md
+tokens_path: tokens.json
+deterministic_rules_path: deterministic-rules.md
+ai_principles_path: ai-principles.md
+contract_overlays_dir: contracts
+css_files:
+  - ../../../../css/forge-theme.css
+  - ../../../../css/forgesdlc-theme.css
+  - ../../../../css/docs-theme.css
+  - ../../../../css/forge-light-theme.css
+rule_packs:
+  - ../../ux-audit/deterministic-design-rules.md
+  - ../../ux-audit/ai-enabled-design-principles.md

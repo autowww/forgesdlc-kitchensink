@@ -1,0 +1,36 @@
+## Summary
+
+Implemented **`DET.PY.KS_HASH_ATTRS`** as a repo-level Python source check (evidence: generated HTML is already covered by `DET.HASH.MARKERS` on the DOM).
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-py-ks-hash-attrs.check.js`**
+   - **`scanPyKsHashAttrs(repoRoot)`**:
+     - Requires marker-emitter modules (`layouts.py`, `components.py`, `ks_catalog_hashes.py`, `build-showcase.py`, `layout_previews.py`, `forge_autodoc/page.py`, plus registry `layout` / `chrome-region` / `layout-preview` sources) to call `ks_hash_attrs` or `ks_catalog_hashes` helpers.
+     - Scans `components/`, `generator/`, and `forge-autodoc/` for **inline** `hash` / `data-ks-*` literals (only `components/ks_hash_attrs.py` is exempt).
+   - Exports `rule`, `run(ctx)`, and test helpers; findings use `severity` / `area` / `message` / `evidence` / `remediation`.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `visual-catalog` / `visualCatalogGovernance` / `minor` / weight **8**.
+
+3. **`auditor-tests/det-py-ks-hash-attrs.test.js`**
+   - Unit tests plus a pass against the real kitchensink tree.
+
+4. **`design-rules/registry.generated.json`**
+   - Updated `DET.PY.KS_HASH_ATTRS` to `implemented` (coverage counts adjusted). **Re-run `npm run blend-rules`** to refresh `fingerprint` / `generatedAt`.
+
+### Why this design
+
+The rule doc says renderers must use **`ks_hash_attrs` (or equivalent)**. Equivalents are the catalog wrappers (`layout_shell_attrs`, `page_main_attrs`, `chrome_region_attrs`). `generator/pages/*.py` are excluded from the emitter list because markers are applied in `build-showcase.py` / layouts, not in page content modules.
+
+### Verification
+
+Shell was unavailable in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+The kitchensink integration test expects **zero issues** on the current tree. If anything fails, paste the output and we can adjust.

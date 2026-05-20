@@ -1,0 +1,38 @@
+## Summary
+
+Implemented **DET.CARD.ACTION_LIMIT** as a DOM-only check aligned with the source rule: **≤1 primary action per card**, with an exemption for **toolbar cards**.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-card-action-limit.check.js`**
+   - Finds card roots: `.card`, `.forge-card`, `[data-card]`, preview-card patterns.
+   - Counts **primary** actions: `btn-forge` (not outline), `btn-primary`, whole-card links (`a.forge-card`, `a.*card*.breathe-link`).
+   - Ignores outline/secondary buttons (`btn-forge-outline`, `btn-cyan-outline`, etc.).
+   - Skips **toolbar cards** via `data-card-kind`, `data-ks-type`/`data-ks-name`, `toolbar-card` / `card-toolbar` classes, `[role="toolbar"]`, or `.btn-toolbar`.
+   - Excludes nav/chrome/cookie regions (same pattern as `det-button-group-max`).
+   - Deduplicates nested cards and duplicate labels.
+   - Exports `collectCardActionLimitReport`, `findingsFromCardActionLimitReport`, and `run` (uses `metrics.cardActionLimitReport` or live `page`).
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented**:
+     - `area`: `conversion`
+     - `scoreDimension`: `trustAndEcosystemTruth`
+     - `defaultSeverity`: `major`
+     - `priorityWeight`: `7`
+
+3. **`auditor-tests/det-card-action-limit.test.js`**
+   - Unit tests for cap constant, findings shaping, and `run()` with precomputed metrics.
+
+4. **`design-rules/registry.generated.json`**
+   - Already shows `DET.CARD.ACTION_LIMIT` as **implemented** with the same metadata (re-run blender to refresh `fingerprint` / `generatedAt`).
+
+### Verification (please run locally)
+
+Shell execution was blocked in this session. From `tools/website-ux-auditor`:
+
+```bash
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh the registry fingerprint; `npm test` includes the new `det-card-action-limit` tests and the blender smoke test.

@@ -1,0 +1,61 @@
+## Report: `AI.VISUAL.HIERARCHY` handbook page
+
+### Written
+
+Full PDCA rule page (235 lines) at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-visual-hierarchy.md`
+
+*(Workspace root is `tools/website-ux-auditor`; the generator and manifest expect the same relative path under Kitchen Sink repo root: `docs/design/ux-audit/rule-pages/ai-visual-hierarchy.md`.)*
+
+### `page_version` confirmed
+
+```text
+page_version: ec93b09eb3c72879f87748ded10effcf98d81ad21640eebac2c9f0c27019584a
+```
+
+Matches the required hash exactly.
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.VISUAL.HIERARCHY` |
+| `lane` | `ai` |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-hierarchy` |
+| `agent_model` | `composer-2.5-fast` |
+
+### Content summary
+
+- **Purpose** — AI judgment on focal path (hero → proof → depth) via scale, contrast, grouping, and CTA weight; complements `DET.CTA.HIERARCHY`, `DET.BUTTON.GROUP.MAX`, `DET.SECTION.HEADING`.
+- **Passing / failing signals** — Actionable lists tied to KS classes (`product-landing-title`, `landing-hero-tagline`, `btn-forge`, `btn-cyan-outline`, `section-label`, `card-amber`, `breathe-static`, etc.).
+- **Before example** — Failing hero with competing `h2`/`h1`/`h2`, four CTAs, stat card competing with copy, three equal `card-amber` outcome tiles.
+- **After example** — Passing hero with single `product-landing-title`, primary + outline CTA + secondary link, diagram in `landing-hero-visual`, one accented outcome tile + two `breathe-static` siblings, mechanism band at lower weight.
+- **Evidence and remediation** — Squint test, DOM capture, 7-step fix order with deterministic promotion path.
+- **Related rules** — Links to `AI.VISUAL.HIERARCHY_CONFIDENCE` (canonical sibling), deterministic CTA/heading rules, narrative/premium/burden AI rules.
+
+### Canonical path copy
+
+This environment could not write outside the auditor workspace. To place the file where `generator/ux_audit_rule_pages.py` reads it, run:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-ai-visual-hierarchy-pending.sh
+```
+
+or:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-ai-visual-hierarchy.mjs
+```
+
+That copies to `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-visual-hierarchy.md`.
+
+### Sources used
+
+- Registry: `AI.VISUAL.HIERARCHY`, status `generated`, prompt at `design-rules/ai/prompts/generated/ai-visual-hierarchy.md`
+- Principles doc: focal-path signals align with `AI.VISUAL.HIERARCHY_CONFIDENCE` (hero → proof → depth; no equal-weight shouting)
+- KS markup from `components/components.py` (`landing_hero`, `forge-card`, CTA patterns) and sibling pages (`ai-narrative-coherence.md`, `ai-premium-enterprise-feel.md`)
+
+No Mermaid, no Fleet-specific profiles, no registry/check edits.

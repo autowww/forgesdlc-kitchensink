@@ -1,0 +1,16 @@
+schema_version: 1
+id: softserve
+name: SoftServe
+status: draft
+description: Draft theme scrubbed from SoftServe public homepage content and protected-shell fixture evidence.
+source: captured-fixture
+source_url: https://softserveinc.com/
+design_standard_path: design-standard.md
+tokens_path: tokens.json
+deterministic_rules_path: deterministic-rules.md
+ai_principles_path: ai-principles.md
+contract_overlays_dir: contracts
+css_files:
+rule_packs:
+  - ../../ux-audit/deterministic-design-rules.md
+  - ../../ux-audit/ai-enabled-design-principles.md

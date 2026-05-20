@@ -28,7 +28,9 @@ Reusable chrome region **Product primary nav** (`slug: product-primary-nav`) emb
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- Full-width **`nav.fs-primary-nav-global`** top bar with Forge slate shell and restrained amber/cyan focus rings on links ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- Brand mark anchors the left rail; curated primary IA tabs sit on one horizon (distinct from dense handbook side rails **Ksr** / narrow ToC rail **Ktx**).
+- No duplicate “site chrome” cues inside `main` (no nested competing mastheads).
 
 ## Anatomy
 
@@ -49,8 +51,9 @@ Registry **root_selector:** `nav.fs-primary-nav-global`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- At **`lg`** and wider, primary links stay horizontal with predictable spacing; tertiary utilities (`portal`, optional theme/menu affordances) do not force ambiguous two-row mastheads unless explicitly designed.
+- Below **`lg`**, collapse into a reachable disclosure (`navbar-expand-*` pairing with `navbar-toggler` semantics); toggler and first exposed link satisfy **≥44×44px** touch targets.
+- Open disclosure panels avoid occluding skip links or trapping focus (`Kco` offcanvas parity when both appear on a page variant).
 
 ## Accessibility contract
 
@@ -69,6 +72,19 @@ Registry **root_selector:** `nav.fs-primary-nav-global`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Kpn** markers: emitted roots include both `hash="Kpn"` and `data-ks-hash="Kpn"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: nav.fs-primary-nav-global: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Top bar keeps brand mark + primary IA labels on one horizon; collapsing menu moves items into reachable disclosure at `lg` breakpoints.
+- Megamenu or drawers (when used) expose first interactive element on open and restore focus on Esc.
+
+## AI-enabled review cues
+
+- For **Product primary nav** (`product-primary-nav`), does the chrome read as purposeful product IA rather than decorative Bootstrap filler?
+- At condensed widths, collapsed affordances remain obvious (motion, affordance cues, labeling); no mystery-meat menus.
+- Credibility check: typography and spacing match Forge enterprise tone ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)) without looking like a generic template swap.
 
 ## Forbidden patterns
 
@@ -94,4 +110,5 @@ Rendered from `components/layouts.py` within: product_page. Use `chrome_region_a
 
 ## Changelog
 
+- 2026-05-19 — Phase 05: element-specific masthead anatomy + breakpoint behavior; deterministic/AI cues from catalog automation.
 - 2026-05-18 — Phase 04: replaced stub contract with authored guidance.

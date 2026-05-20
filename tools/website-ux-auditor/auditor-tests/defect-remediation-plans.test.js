@@ -1,8 +1,12 @@
 import assert from 'node:assert/strict';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
 import { buildRankedDefectClusters } from '../lib/defect-remediation-plans.js';
 import { makeFinding } from '../lib/severity.js';
+
+const KS_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 
 function f(checkId, severity, area, message) {
   return makeFinding({
@@ -67,5 +71,38 @@ test('defect planner maps area to scorer dimension and respects limit', () => {
   assert.equal(out.clusters.length, 1);
   assert.equal(out.clusters[0].mainDimension, 'accessibilitySemanticsMeta');
   assert.ok(Number.isFinite(out.clusters[0].estimatedOverallDelta));
+});
+
+test('defect planner resolves visual catalog contracts from DOM ksVisualHashReport when repo has generated registry', () => {
+  const pages = [
+    {
+      url: 'https://fixture.test/',
+      metrics: {
+        ksVisualHashReport: {
+          validUnique: ['Hbk'],
+          invalidRaw: [],
+          mismatches: [],
+          incompleteMarkers: [],
+          instanceCountByHash: { Hbk: 1 },
+        },
+      },
+      findings: [
+        f('readability-structure', 'minor', 'readability', 'dense'),
+      ],
+    },
+  ];
+  const out = buildRankedDefectClusters({
+    pages,
+    crawlSummary: { stopReason: 'normal_completion' },
+    siteKind: 'generic',
+    limit: 5,
+    repoRoot: KS_ROOT,
+  });
+  assert.equal(out.clusters.length, 1);
+  const c = out.clusters[0];
+  assert.deepEqual(c.ksVisualHashes, ['Hbk']);
+  assert.equal(c.visualCatalogRefs.length, 1);
+  assert.equal(c.visualCatalogRefs[0].hash, 'Hbk');
+  assert.match(c.visualCatalogRefs[0].contract || '', /Hbk-layout-handbook\.md$/);
 });
 

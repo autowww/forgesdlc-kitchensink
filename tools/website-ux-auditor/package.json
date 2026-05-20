@@ -7,9 +7,19 @@
   "scripts": {
     "audit": "node analyze-website-ux.mjs",
     "score": "node score-website-ux.mjs",
+    "capture-fixture": "node ../site-fixtures/capture-site-fixture.mjs",
+    "theme:build": "node ../design-themes/build-design-theme.mjs",
+    "theme:extract": "node ../design-themes/extract-design-theme.mjs",
+    "blend-rules": "node design-rules/blender/design-rules-blender.mjs",
+    "sync-det-implementations": "node design-rules/blender/sync-deterministic-implementations.mjs",
+    "preflight-deterministic": "node design-rules/blender/preflight-deterministic-coverage.mjs --strict",
+    "rulegen": "bash design-rules/blender/cursor-agent-generate-rule-library.sh",
+    "pagegen": "bash design-rules/blender/cursor-agent-generate-rule-pages.sh",
+    "pagegen:manifest": "node design-rules/blender/rule-page-version.mjs --write-manifest",
     "test": "node --test auditor-tests/*.test.js",
     "test:e2e-loop": "bash auditor-tests/run-remediation-loop-e2e.sh",
-    "install-browsers": "playwright install chromium"
+    "install-browsers": "playwright install chromium",
+    "ux-write-loop-snapshot": "node write-ux-loop-dashboard-snapshot.mjs"
   },
   "devDependencies": {
     "playwright": "^1.56.0"

@@ -1,42 +1,21 @@
 import fsp from 'node:fs/promises';
 import path from 'node:path';
 
-import { countMajorPlus, isMajorPlus } from './severity.js';
+import { countMajorPlus } from './severity.js';
 import { fileExists } from './files.js';
+import {
+  normalizeAuditUrl,
+  extractMajorPlusUrlsFromPriorAudit,
+  extractBacklogUrlsAndRulesFromPriorAudit,
+  mergeRegressionUrls,
+} from './audit-backlog-trace.js';
 
-/** Normalize URL string for stable Set keys (strip hash). */
-export function normalizeAuditUrl(raw) {
-  try {
-    const u = new URL(raw);
-    u.hash = '';
-    return u.href;
-  } catch {
-    return null;
-  }
-}
-
-/**
- * URLs that had any Major+ finding in a prior audit-data JSON payload.
- * @param {object} parsed audit-data.previous.json root
- * @param {number} maxUrls cap
- * @returns {string[]}
- */
-export function extractMajorPlusUrlsFromPriorAudit(parsed, maxUrls) {
-  const urls = [];
-  const seen = new Set();
-  for (const p of parsed?.pages || []) {
-    const url = p?.url;
-    if (!url) continue;
-    const has = (p.findings || []).some((f) => isMajorPlus(f?.severity));
-    if (!has) continue;
-    const n = normalizeAuditUrl(url);
-    if (!n || seen.has(n)) continue;
-    seen.add(n);
-    urls.push(n);
-    if (urls.length >= maxUrls) break;
-  }
-  return urls;
-}
+export {
+  normalizeAuditUrl,
+  extractMajorPlusUrlsFromPriorAudit,
+  extractBacklogUrlsAndRulesFromPriorAudit,
+  mergeRegressionUrls,
+};
 
 /**
  * Per-URL Major+ counts: previous snapshot vs current regression wave pages.

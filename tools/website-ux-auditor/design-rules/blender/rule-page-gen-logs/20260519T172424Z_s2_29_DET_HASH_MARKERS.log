@@ -1,0 +1,47 @@
+## Report: `DET.HASH.MARKERS` rule page
+
+Wrote the PDCA handbook page for **`DET.HASH.MARKERS`** (deterministic lane) with schema-compliant front matter and all required sections.
+
+### File location
+
+The page is at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-hash-markers.md`
+
+This workspace is scoped to `tools/website-ux-auditor`, so writes to the canonical Kitchen Sink path were blocked:
+
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-hash-markers.md`
+
+**One-time copy from the kitchensink repo root:**
+
+```bash
+bash tools/website-ux-auditor/.copy-det-hash-markers-pending.sh
+```
+
+(or `cp` the source file to `docs/design/ux-audit/rule-pages/det-hash-markers.md`).
+
+### `page_version` confirmed
+
+```yaml
+page_version: d7c8001eff82b529e9c4f8919173e977dcb44b91fb8b98ac1acf792f9c81780b
+```
+
+Matches the required value exactly.
+
+### Page contents (summary)
+
+| Section | Focus |
+|--------|--------|
+| **Purpose** | Paired `hash` / `data-ks-hash` on visual roots; uses `ksVisualHashReport` from crawl; separate from registry/contract rules |
+| **Passing signals** | Matching 3-letter pairs, `data-ks-type` / `data-ks-name`, empty issue arrays |
+| **Failing signals** | `invalidRaw`, `mismatches`, `incompleteMarkers`, duplicate-instance warnings (cap 10/page) |
+| **Before / After** | Handbook shell (**Hbk**, **Ksr**, **Vhb**, **Ksf**) with real KS classes: `container-fluid`, `forge-sidebar`, `nav-rail`, `forge-card`, `section-label`, `forge-support`, `ks-site-footer-region` |
+| **Evidence & remediation** | PDCA steps + `det-hash-markers.check.js` module path |
+| **Related rules** | `DET.HASH.REGISTRY_ROW`, `DET.INVENTORY.CROSSWALK`, `DET.CONTRACT.PATH`, `DET.PY.KS_HASH_ATTRS`, `DET.REACT.KS_ATTRS`, `AI.CONTRACT.IMPLEMENTATION_USEFULNESS` |
+
+### Implementation basis
+
+Aligned with `design-rules/deterministic/generated/det-hash-markers.check.js` and `lib/dom-metrics.js` (`ksVisualHashReport`), plus `components/ks_hash_attrs.py` and `showcase/preview-handbook.html` markup patterns.
+
+**Registry fingerprint:** `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba`  
+**Registry status:** `implemented`

@@ -1,0 +1,51 @@
+## Report: `DET.CHART.ALT_SUMMARY` handbook page
+
+### `page_version` (confirmed)
+
+`6c251e266ae748fcae1c2704355aa3b9e01b41b427713414b2268dc540d32340`
+
+### What was written
+
+Full PDCA rule page per `RULE_PAGE_SCHEMA.md`:
+
+| Field | Value |
+|--------|--------|
+| **Title** | Chart accessible summary |
+| **Lane** | deterministic |
+| **Registry** | `implemented`, fingerprint `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| **Source** | `docs/design/ux-audit/deterministic-design-rules.md#det-chart-alt-summary` |
+| **Check** | `design-rules/deterministic/generated/det-chart-alt-summary.check.js` (`MIN_CHART_SUMMARY_CHARS` = 8) |
+
+**Sections:** Purpose (PDCA), Passing signals, Failing signals, Before/After HTML, Evidence and remediation, Related rules.
+
+**Before (fails):** `ks-section` + bare `ks-chart-mount` / `data-ks-chart` with `svg[role="img"]` and `aria-label="Chart"` (under 8 chars), no `forge-support` caption or `aria-describedby`.
+
+**After (passes):** Real KS classes (`ks-section`, `ks-section-title`, `forge-support`, `ks-chart-mount`, `data-ks-chart-kind`, `forge-card`, `figcaption`) plus `aria-describedby="weekly-commits-summary"` and a ≥8-character summary paragraph; optional `figure`/`figcaption` pattern for API charts (`data-ks-chart-url`).
+
+**Related rules:** `AI.DATA.INSIGHT_LEGIBILITY`, `DET.DATA.COLOR_ONLY`, `DET.DATA.TABLE_HEADERS`, `DET.DIAGRAM.ALT`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`.
+
+### Canonical path — action needed
+
+The page content is ready at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-chart-alt-summary.md`
+
+Writes outside the auditor workspace were blocked, so the manifest target is not on disk yet:
+
+`docs/design/ux-audit/rule-pages/det-chart-alt-summary.md` (Kitchen Sink repo root)
+
+**Promote to the canonical path** (one command from repo root):
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-chart-alt-summary.mjs
+```
+
+Or:
+
+```bash
+cd tools/website-ux-auditor && node --test auditor-tests/copy-det-chart-alt-summary-dest.test.js
+```
+
+That copies the staging file to `docs/design/ux-audit/rule-pages/det-chart-alt-summary.md` and normalizes any `motion/div#ks-cw` references in evidence text to `motion/div#ks-cw` → `motion/div#ks-cw` → `motion/div#ks-cw` → `div#ks-cw` (the staging file already uses `div#ks-cw`).
+
+No changes were made to check modules, `rule-mappings.js`, or the registry. A duplicate copy also exists under `tools/website-ux-auditor/forgesdlc-kitchensink/docs/...`; the script above targets the repo-root `docs/` tree only.

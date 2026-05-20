@@ -28,7 +28,8 @@ Internal KS documentation and gallery frame—curated nav, breadcrumbs on select
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- Museum **showcase** shell: fluid chrome with roomy `main` tuned for dense component inventories, TOC-adjacent rails, and anchored sample blocks (not a marketing landing canvas).
+- Typography and color stack follow [`forge-enterprise-ai-website-standard.md`](../../../design/forge-enterprise-ai-website-standard.md): slate base, disciplined amber/cyan accents, Proxima display versus Open Sans body rhythm.
 
 ## Anatomy
 
@@ -49,8 +50,8 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles; wide component demos scroll inside regional containers.
+- Showcase controls and gallery tiles keep ≥44×44px tap targets; skip links stay reachable when masthead/disclosures change height.
 
 ## Accessibility contract
 
@@ -69,6 +70,19 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Shw** markers: emitted roots include both `hash="Shw"` and `data-ks-hash="Shw"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: div.container-fluid.px-0: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Museum shells keep dense component inventories inside `main`; skip-link targets remain reachable when masthead height changes.
+- Gallery children that reuse `showcase_page` still expose component anchors suitable for deeplinks from generated indexes.
+
+## AI-enabled review cues
+
+- Does **Showcase documentation layout** read as the correct *role* for consumers (handbook vs museum vs landing) rather than an accidental mash-up of two layouts?
+- Under studio lighting (screenshots at ~1440px), does vertical rhythm reinforce scan-friendly hierarchy (not cramped headings or orphaned whitespace bands)?
+- When paired with diagrams or dense tables, does chrome stay visually subordinate while remaining discoverable?
 
 ## Forbidden patterns
 
@@ -94,4 +108,5 @@ Python `showcase_page` in `components/layouts.py`; most `generator/pages/*.py` m
 
 ## Changelog
 
+- 2026-05-19 — Phase 05: element-specific expected look; deterministic/AI governance sections.
 - 2026-05-18 — Phase 04: replaced stub contract with authored guidance.

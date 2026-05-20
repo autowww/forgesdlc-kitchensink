@@ -1,0 +1,49 @@
+## Report
+
+Wrote the **DET.DATA.COLOR_ONLY** handbook page (PDCA, `RULE_PAGE_SCHEMA.md`) with implementation details from `det-data-color-only.check.js` and KS markup from `tokens.py`, `layouts.py`, `forge-data-charts.js`, and `forge-data-charts.css`.
+
+### File location
+
+The full page is at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-data-color-only.md`
+
+A mirror copy exists at:
+
+`tools/website-ux-auditor/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-data-color-only.md`
+
+Writes to the canonical Kitchen Sink path  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-data-color-only.md`  
+were blocked from this workspace (outside `tools/website-ux-auditor/`). Materialize it with:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink
+cp tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-data-color-only.md \
+   docs/design/ux-audit/rule-pages/det-data-color-only.md
+```
+
+Or: `node tools/website-ux-auditor/_run-copy-det-data-color-only.mjs` (if present after the subagent run).
+
+### `page_version` (confirmed)
+
+```text
+6867492406d3ec909a0742d87b388c8f118929ae94e16f369025c8fa1c41f736
+```
+
+### Page contents (summary)
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Color must not be the only cue for charts, `.ks-swatch` tokens, and encoded tables; ties to `colorOnlyReport` / `MIN_COLOR_LABEL_CHARS` (2). |
+| **Passing** | `.ks-swatch-label`, donut legend rows (`.lenses-overview-donut-swatch` + name + `%`), text/`aria-label` in cells, SVG `<title>`. |
+| **Failing** | Missing labels (`ks-swatch-missing-label` major), bare legend swatches (`legend-swatch-without-label` warn), color-only `<td>` (`table-cell-color-only` warn). |
+| **Before** | `Tkn` swatches without labels, `Dcs` legend swatches only, status table with background-only cells. |
+| **After** | Token swatches with labels, `forge-data-charts.js`-style legend rows, `text-success`/`text-danger` status text + `aria-describedby` on chart mount. |
+| **Evidence** | `colorOnlyReport`, `color_only_encoding`, remediation steps in generators/templates. |
+| **Related** | `DET.CHART.ALT_SUMMARY`, `DET.DATA.TABLE_HEADERS`, `AI.DATA.INSIGHT_LEGIBILITY`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`, `DET.DIAGRAM.ALT` |
+
+### Real KS classes used in examples
+
+`.ks-section`, `.ks-section-title`, `.ks-swatch`, `.ks-swatch-box`, `.ks-swatch-label`, `.ks-chart-mount`, `[data-ks-chart]`, `.lenses-overview-donut-legend`, `.lenses-overview-donut-swatch`, `.forge-support`, `.forge-table`, `.text-muted`, `.text-success`, `.text-danger`, hash/data-ks-* on `Tkn` / `Dcs` sections.
+
+No Mermaid, no Fleet-specific profiles. Check modules and registry were not edited.

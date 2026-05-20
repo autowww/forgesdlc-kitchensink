@@ -28,7 +28,9 @@ Reusable chrome region **Doc sidebar rail** (`slug: doc-sidebar`) embedded by la
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- Left **handbook sidebar** rail (`aside.forge-sidebar`): vertical IA list with clear active-section affordance and calm separators.
+- Density suits long doc trees; scroll is confined to the rail so `main` reading columns stay stable ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- Distinct from **Ktx** (in-page ToC): this rail owns site/doc section switching, not heading anchors.
 
 ## Anatomy
 
@@ -49,8 +51,8 @@ Registry **root_selector:** `aside.forge-sidebar`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Collapse **Ksr** into **Kco** or navbar disclosure below `lg`; keep scroll containment inside the drawer/rail.
+- When visible, long trees scroll independently of `main`.
 
 ## Accessibility contract
 
@@ -69,6 +71,19 @@ Registry **root_selector:** `aside.forge-sidebar`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Ksr** markers: emitted roots include both `hash="Ksr"` and `data-ks-hash="Ksr"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: aside.forge-sidebar: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- `doc-sidebar` link list exposes current-page state (aria-current / active class) for every built showcase consumption path.
+- Rail width respects reading column; long labels truncate with ellipsis only when tooltip or full text is reachable.
+
+## AI-enabled review cues
+
+- For **Doc sidebar rail** (`doc-sidebar`), does the chrome read as purposeful product IA rather than decorative Bootstrap filler?
+- At condensed widths, collapsed affordances remain obvious (motion, affordance cues, labeling); no mystery-meat menus.
+- Credibility check: typography and spacing match Forge enterprise tone ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)) without looking like a generic template swap.
 
 ## Forbidden patterns
 

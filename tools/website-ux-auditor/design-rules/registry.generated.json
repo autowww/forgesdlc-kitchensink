@@ -1,0 +1,1030 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-19T17:59:47.892Z",
+  "blender": {
+    "version": 1,
+    "entry": "design-rules/blender/design-rules-blender.mjs"
+  },
+  "fingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+  "sources": {
+    "deterministicRulesDoc": {
+      "path": "docs/design/ux-audit/deterministic-design-rules.md",
+      "sha256": "0b6bb5ccc94c32713b0e1cd247f2653c3d4e7188e9a4234b5a3f60b5f32acf9e"
+    },
+    "aiRulesDoc": {
+      "path": "docs/design/ux-audit/ai-enabled-design-principles.md",
+      "sha256": "34934de9425d206bc852f9f47e4f5470cbb2f02f61a9fe6e7eebef03650649ce"
+    },
+    "matrixDoc": {
+      "path": "docs/design/ux-audit/element-level-ruleset-matrix.md",
+      "sha256": "be3dba277351d6bfc198505bab571a99908db74a740a485ac7b0adc3e7c6d7dc"
+    },
+    "taxonomyDoc": {
+      "path": "docs/design/ux-audit/component-design-ruleset-taxonomy.md",
+      "sha256": "3d240d80138de8a5401548195a11ca8f3e813c983fcc3a2c562bf9103a41c91f"
+    },
+    "mappingFile": {
+      "path": "tools/website-ux-auditor/design-rules/blender/rule-mappings.js"
+    }
+  },
+  "aiSelectionPolicy": {
+    "mode": "explicit-only",
+    "description": "Only AI rules explicitly referenced as AI-enabled principles in matrix/taxonomy are emitted for AI review.",
+    "fromMatrixCount": 20,
+    "fromTaxonomyCount": 20,
+    "fromAiDocCount": 24,
+    "selectedCount": 20
+  },
+  "versioning": {
+    "deterministicRulesVersion": "0b6bb5ccc94c32713b0e1cd247f2653c3d4e7188e9a4234b5a3f60b5f32acf9e",
+    "aiRulesVersion": "013774a62681d79900e635229d43808d94a49557290e5701b90b755754a8afcd",
+    "overrideVersionApplied": false,
+    "policy": "Generated files are not rewritten when embedded rules-version matches, unless --override-version is passed."
+  },
+  "generatedLibrary": {
+    "deterministicChecksGenerated": 0,
+    "aiPromptsGenerated": 0
+  },
+  "deterministicCoverage": {
+    "documentedRuleCount": 50,
+    "implementedCount": 49,
+    "stubCount": 1,
+    "implementedRuleIds": [
+      "DET.AMBIENT.Z_INDEX",
+      "DET.APP.FOCUS_TRAP",
+      "DET.APP.PERSISTENT_CHROME",
+      "DET.BUTTON.GROUP.MAX",
+      "DET.CARD.ACTION_LIMIT",
+      "DET.CARD.TITLE",
+      "DET.CATALOG.CONTRACT_SPECIFICITY",
+      "DET.CHART.ALT_SUMMARY",
+      "DET.CHROME.BOUNDARY",
+      "DET.CONTEXT.BURDEN",
+      "DET.CONTRACT.PATH",
+      "DET.CONTRACT.PLACEHOLDERS",
+      "DET.CTA.HIERARCHY",
+      "DET.CTA.LABEL_NONEMPTY",
+      "DET.DATA.COLOR_ONLY",
+      "DET.DATA.TABLE_HEADERS",
+      "DET.DIAGRAM.ALT",
+      "DET.DIAGRAM.ASSET_REGISTRY",
+      "DET.DIAGRAM.LABELS",
+      "DET.HASH.MARKERS",
+      "DET.HASH.REGISTRY_ROW",
+      "DET.INVENTORY.CROSSWALK",
+      "DET.JS.NO_CONSOLE_ERROR",
+      "DET.JS.PROGRESSIVE",
+      "DET.LANDMARKS.REQUIRED",
+      "DET.LAYOUT.GRID_CONSISTENCY",
+      "DET.MOTION.NO_AUTO_PLAY_FLASH",
+      "DET.MOTION.PREFERS_REDUCED",
+      "DET.NAV.BREADCRUMB",
+      "DET.NAV.DEDUP",
+      "DET.NAV.DEPTH",
+      "DET.NAV.FOCUS_ORDER",
+      "DET.NAV.IN_PAGE_TOC",
+      "DET.PAGE.LANG",
+      "DET.PAGE.MODE",
+      "DET.PAGE.TITLE",
+      "DET.PAGE.VIEWPORT",
+      "DET.PROSE.LENGTH",
+      "DET.PY.KS_HASH_ATTRS",
+      "DET.PY.OPTIONAL_REGIONS",
+      "DET.REACT.A11Y_ROLE",
+      "DET.REACT.KS_ATTRS",
+      "DET.SCREENSHOT.STATUS",
+      "DET.SECTION.HEADING",
+      "DET.SECTION.SINGLE_JOB",
+      "DET.SURFACE.ELEVATION_TOKEN",
+      "DET.THEME.CONTRAST_MIN",
+      "DET.TOKEN.NO_DRIFT",
+      "DET.VISUAL.RHYTHM"
+    ],
+    "stubRuleIds": [
+      "DET.THEME.FONT_STACK"
+    ],
+    "byImplementationSource": {
+      "explicit-map": 49
+    }
+  },
+  "requiredAiFindingMetadata": [
+    "principleId",
+    "deterministicCoverage",
+    "candidateDeterministicRule",
+    "hashesOrContractsAffected",
+    "screenshotOrDomEvidence",
+    "confidence"
+  ],
+  "deterministicRules": [
+    {
+      "id": "DET.AMBIENT.Z_INDEX",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "first-screen",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-ambient-z-index.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ambient-z-index",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.FOCUS_TRAP",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-app-focus-trap.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-focus-trap",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.PERSISTENT_CHROME",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-app-persistent-chrome.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-persistent-chrome",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.BUTTON.GROUP.MAX",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "conversion",
+      "scoreDimension": "trustAndEcosystemTruth",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-button-group-max.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-button-group-max",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CARD.ACTION_LIMIT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "conversion",
+      "scoreDimension": "trustAndEcosystemTruth",
+      "defaultSeverity": "major",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-card-action-limit.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-card-action-limit",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CARD.TITLE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-card-title.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-card-title",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CATALOG.CONTRACT_SPECIFICITY",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-catalog-contract-specificity.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-catalog-contract-specificity",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CHART.ALT_SUMMARY",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-chart-alt-summary.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-chart-alt-summary",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CHROME.BOUNDARY",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-chrome-boundary.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-chrome-boundary",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CONTEXT.BURDEN",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "first-screen",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "defaultSeverity": "major",
+      "priorityWeight": 12,
+      "modulePath": "design-rules/deterministic/generated/det-context-burden.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-context-burden",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CONTRACT.PATH",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-contract-path.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-contract-path",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CONTRACT.PLACEHOLDERS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-contract-placeholders.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-contract-placeholders",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CTA.HIERARCHY",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "conversion",
+      "scoreDimension": "trustAndEcosystemTruth",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-cta-hierarchy.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-cta-hierarchy",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.CTA.LABEL_NONEMPTY",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-cta-label-nonempty.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-cta-label_nonempty",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.DATA.COLOR_ONLY",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-data-color-only.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-data-color_only",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.DATA.TABLE_HEADERS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-data-table-headers.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-data-table_headers",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.DIAGRAM.ALT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-diagram-alt.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-diagram-alt",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.DIAGRAM.ASSET_REGISTRY",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-diagram-asset-registry.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-diagram-asset-registry",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.DIAGRAM.LABELS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-diagram-labels.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-diagram-labels",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.HASH.MARKERS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-hash-markers.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-hash-markers",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.HASH.REGISTRY_ROW",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-hash-registry-row.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-hash-registry-row",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.INVENTORY.CROSSWALK",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-inventory-crosswalk.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-inventory-crosswalk",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.JS.NO_CONSOLE_ERROR",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "interaction",
+      "scoreDimension": "depthAndTechnicalDisclosure",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-js-no-console-error.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-js-no_console_error",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.JS.PROGRESSIVE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "interaction",
+      "scoreDimension": "depthAndTechnicalDisclosure",
+      "defaultSeverity": "major",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-js-progressive.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-js-progressive",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.LANDMARKS.REQUIRED",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-landmarks-required.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-landmarks-required",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.LAYOUT.GRID_CONSISTENCY",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "readability",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-layout-grid-consistency.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-layout-grid_consistency",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.MOTION.NO_AUTO_PLAY_FLASH",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-motion-no-auto-play-flash.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-motion-no_auto_play_flash",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.MOTION.PREFERS_REDUCED",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-motion-prefers-reduced.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-motion-prefers_reduced",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.NAV.BREADCRUMB",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-nav-breadcrumb.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-breadcrumb",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.NAV.DEDUP",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-nav-dedup.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-dedup",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.NAV.DEPTH",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-nav-depth.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-depth",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.NAV.FOCUS_ORDER",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-nav-focus-order.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-focus_order",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.NAV.IN_PAGE_TOC",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-nav-in-page-toc.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-in_page_toc",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.PAGE.LANG",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "minor",
+      "priorityWeight": 10,
+      "modulePath": "design-rules/deterministic/page/lang.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-lang",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.PAGE.MODE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "major",
+      "priorityWeight": 10,
+      "modulePath": "design-rules/deterministic/generated/det-page-mode.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-mode",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.PAGE.TITLE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "metadata",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/page/title.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-title",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.PAGE.VIEWPORT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/page/viewport.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-viewport",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.PROSE.LENGTH",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "readability",
+      "scoreDimension": "depthAndTechnicalDisclosure",
+      "defaultSeverity": "minor",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-prose-length.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-prose-length",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.PY.KS_HASH_ATTRS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-py-ks-hash-attrs.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-py-ks_hash_attrs",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.PY.OPTIONAL_REGIONS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "warn",
+      "priorityWeight": 6,
+      "modulePath": "design-rules/deterministic/generated/det-py-optional-regions.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-py-optional_regions",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.REACT.A11Y_ROLE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-react-a11y-role.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-react-a11y_role",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.REACT.KS_ATTRS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-react-ks-attrs.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-react-ks_attrs",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.SCREENSHOT.STATUS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-screenshot-status.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-screenshot-status",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.SECTION.HEADING",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "semantics",
+      "scoreDimension": "narrativeHero",
+      "defaultSeverity": "minor",
+      "priorityWeight": 10,
+      "modulePath": "design-rules/deterministic/generated/det-section-heading.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-section-heading",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.SECTION.SINGLE_JOB",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "narrativeHero",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-section-single-job.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-section-single-job",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.SURFACE.ELEVATION_TOKEN",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "readability",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-surface-elevation-token.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-surface-elevation_token",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.THEME.CONTRAST_MIN",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-theme-contrast-min.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-theme-contrast_min",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.THEME.FONT_STACK",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-theme-font-stack.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-theme-font_stack",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.TOKEN.NO_DRIFT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "readability",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-token-no-drift.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-token-no_drift",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.VISUAL.RHYTHM",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "readability",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-visual-rhythm.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-visual-rhythm",
+      "implementationSource": "explicit-map"
+    }
+  ],
+  "aiRules": [
+    {
+      "id": "AI.AMBIENT.READABILITY_CONFLICT",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-ambient-readability-conflict.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-ambient-readability-conflict"
+    },
+    {
+      "id": "AI.APP.DENSITY_BALANCE",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-app-density-balance.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-density-balance"
+    },
+    {
+      "id": "AI.APP.WORKFLOW_CONTINUITY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-app-workflow-continuity.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-workflow-continuity"
+    },
+    {
+      "id": "AI.CONTEXT.BURDEN_SUBJECTIVE",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-context-burden-subjective.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-context-burden-subjective"
+    },
+    {
+      "id": "AI.CONTEXT.COGNITIVE_CLARITY",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-context-cognitive-clarity.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-context-cognitive-clarity"
+    },
+    {
+      "id": "AI.CONTRACT.IMPLEMENTATION_USEFULNESS",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-contract-implementation-usefulness.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-contract-implementation-usefulness"
+    },
+    {
+      "id": "AI.CREDIBILITY.NO_OVERCLAIM",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-credibility-no-overclaim.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-credibility-no-overclaim"
+    },
+    {
+      "id": "AI.DATA.INSIGHT_LEGIBILITY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-data-insight-legibility.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-data-insight-legibility"
+    },
+    {
+      "id": "AI.DIAGRAM.SEMANTIC_ACCURACY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-diagram-semantic-accuracy.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-diagram-semantic-accuracy"
+    },
+    {
+      "id": "AI.JS.BEHAVIOR_DISCOVERABILITY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-js-behavior-discoverability.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-js-behavior-discoverability"
+    },
+    {
+      "id": "AI.MOTION.INTENTIONALITY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-motion-intentionality.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-motion-intentionality"
+    },
+    {
+      "id": "AI.NARRATIVE.COHERENCE",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-narrative-coherence.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-narrative-coherence"
+    },
+    {
+      "id": "AI.PREMIUM.ENTERPRISE_FEEL",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-premium-enterprise-feel.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-premium-enterprise-feel"
+    },
+    {
+      "id": "AI.PY.HTML_AUTHORING_QUALITY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-py-html-authoring-quality.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-py-html-authoring-quality"
+    },
+    {
+      "id": "AI.REACT.PRIMITIVE_CONSISTENCY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-react-primitive-consistency.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-react-primitive-consistency"
+    },
+    {
+      "id": "AI.THEME.PERSONALITY_COHERENCE",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-theme-personality-coherence.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-theme-personality-coherence"
+    },
+    {
+      "id": "AI.TRUST.BOUNDARY_CLARITY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-trust-boundary-clarity.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-trust-boundary-clarity"
+    },
+    {
+      "id": "AI.VISUAL.HIERARCHY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-visual-hierarchy.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-hierarchy"
+    },
+    {
+      "id": "AI.VISUAL.PRODUCT_EXPLANATORY_VALUE",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-visual-product-explanatory-value.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-product-explanatory-value"
+    },
+    {
+      "id": "AI.VISUAL.RHYTHM_SUBJECTIVE",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-visual-rhythm-subjective.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-rhythm-subjective"
+    }
+  ],
+  "legacyAdapters": [
+    {
+      "checkId": "cta-trust-ecosystem",
+      "ruleIds": [
+        "DET.CTA.HIERARCHY"
+      ],
+      "defaultRuleId": "DET.CTA.HIERARCHY",
+      "scoreDimension": "trustAndEcosystemTruth",
+      "priorityWeight": 9,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-cta-hierarchy"
+    },
+    {
+      "checkId": "first-screen-density",
+      "ruleIds": [
+        "DET.CONTEXT.BURDEN"
+      ],
+      "defaultRuleId": "DET.CONTEXT.BURDEN",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "priorityWeight": 12,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-context-burden"
+    },
+    {
+      "checkId": "hero-headings",
+      "ruleIds": [
+        "DET.SECTION.HEADING"
+      ],
+      "defaultRuleId": "DET.SECTION.HEADING",
+      "scoreDimension": "narrativeHero",
+      "priorityWeight": 10,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-section-heading"
+    },
+    {
+      "checkId": "homepage-shell",
+      "ruleIds": [
+        "DET.PAGE.MODE",
+        "DET.NAV.DEDUP"
+      ],
+      "defaultRuleId": "DET.PAGE.MODE",
+      "scoreDimension": "informationArchitecture",
+      "priorityWeight": 10,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-mode"
+    },
+    {
+      "checkId": "metadata-a11y",
+      "ruleIds": [
+        "DET.PAGE.LANG",
+        "DET.PAGE.TITLE",
+        "DET.PAGE.VIEWPORT"
+      ],
+      "defaultRuleId": "DET.PAGE.LANG",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "priorityWeight": 12,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-lang"
+    },
+    {
+      "checkId": "platform-handbook-inner",
+      "ruleIds": [
+        "DET.PAGE.LANG",
+        "DET.PAGE.TITLE",
+        "DET.LANDMARKS.REQUIRED"
+      ],
+      "defaultRuleId": "DET.LANDMARKS.REQUIRED",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "priorityWeight": 8,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-landmarks-required"
+    },
+    {
+      "checkId": "product-visual",
+      "ruleIds": [
+        "DET.PAGE.MODE"
+      ],
+      "defaultRuleId": "DET.PAGE.MODE",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "priorityWeight": 11,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-mode"
+    },
+    {
+      "checkId": "readability-structure",
+      "ruleIds": [
+        "DET.PROSE.LENGTH"
+      ],
+      "defaultRuleId": "DET.PROSE.LENGTH",
+      "scoreDimension": "depthAndTechnicalDisclosure",
+      "priorityWeight": 7,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-prose-length"
+    },
+    {
+      "checkId": "storyline-flow",
+      "ruleIds": [
+        "DET.SECTION.SINGLE_JOB"
+      ],
+      "defaultRuleId": "DET.SECTION.SINGLE_JOB",
+      "scoreDimension": "narrativeHero",
+      "priorityWeight": 8,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-section-single-job"
+    },
+    {
+      "checkId": "technical-depth",
+      "ruleIds": [
+        "DET.PROSE.LENGTH"
+      ],
+      "defaultRuleId": "DET.PROSE.LENGTH",
+      "scoreDimension": "depthAndTechnicalDisclosure",
+      "priorityWeight": 7,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-prose-length"
+    },
+    {
+      "checkId": "visual-catalog-awareness",
+      "ruleIds": [
+        "DET.HASH.REGISTRY_ROW",
+        "DET.CONTRACT.PATH"
+      ],
+      "defaultRuleId": "DET.HASH.REGISTRY_ROW",
+      "scoreDimension": "visualCatalogGovernance",
+      "priorityWeight": 8,
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-hash-registry-row"
+    }
+  ]
+}

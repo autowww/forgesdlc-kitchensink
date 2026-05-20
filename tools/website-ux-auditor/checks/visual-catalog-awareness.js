@@ -174,6 +174,7 @@ export function runCheck(m, url, ctx = {}) {
           evidence: `DOM marker on ${url}`,
           remediation:
             'If this is a governed Forge Kitchen Sink surface, register it in docs/design/catalog/visual-registry.yaml and add a contract; otherwise remove the stray marker.',
+          deterministicRule: 'DET.CATALOG.HASH_REGISTRY_UNKNOWN',
         }),
       );
       continue;

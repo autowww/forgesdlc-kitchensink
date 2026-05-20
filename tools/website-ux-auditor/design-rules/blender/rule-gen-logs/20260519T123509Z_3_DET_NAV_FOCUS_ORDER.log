@@ -1,0 +1,44 @@
+## Summary
+
+Implemented **`DET.NAV.FOCUS_ORDER`** as a deterministic keyboard focus-order check aligned with the source rule: tab order should follow visual reading order on sampled paths.
+
+### Rule signals (from spec)
+
+- **Pass:** Tab order matches top-to-bottom / left-to-right visual order.
+- **Evidence:** Automated tab order (no AI).
+
+### Implementation
+
+**`design-rules/deterministic/generated/det-nav-focus-order.check.js`**
+
+- Builds a browser tab sequence (positive `tabindex` first, then DOM order) for up to **48** visible tab stops.
+- Flags:
+  - **`positive-tabindex`** — any `tabindex > 0` (minor)
+  - **`reverse-vertical`** — next stop jumps **>72px** upward (warn)
+  - **`reverse-horizontal`** — same-row LTR move **>96px** left (warn; skipped when `dir=rtl`)
+- Exports: `rule`, `run`, `collectNavFocusOrderReport`, `findingsFromNavFocusOrderReport`, `violationsFromFocusOrderSequence` (unit-testable).
+- `run` uses `metrics.navFocusOrderReport` or live `page.evaluate()`.
+
+**`design-rules/blender/rule-mappings.js`**
+
+- Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `area: accessibility`, `scoreDimension: accessibilitySemanticsMeta`, `priorityWeight: 8`.
+
+**`auditor-tests/det-nav-focus-order.test.js`**
+
+- Covers violation detection, finding mapping, and `run()` with precomputed metrics.
+
+**`design-rules/registry.generated.json`**
+
+- Updated so `DET.NAV.FOCUS_ORDER` is **`implemented`** (coverage counts 35/15). Re-run blend to refresh **`fingerprint`** and **`generatedAt`**.
+
+### What you should run locally
+
+Shell was unavailable in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will reconcile the registry fingerprint with `rule-mappings.js`; `npm test` should include the new `det-nav-focus-order` tests plus the existing suite.

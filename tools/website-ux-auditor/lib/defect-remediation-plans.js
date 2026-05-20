@@ -2,6 +2,7 @@ import { pageContext } from '../checks/context.js';
 import { AREA_TO_DESIGN_DIMENSION, DESIGN_DIMENSION_META } from './design-dimensions.js';
 import { computeUxScores } from './design-ux-score.js';
 import { SCORE_WEIGHTS, countMajorPlus, severityRank } from './severity.js';
+import { ksVisualHashReportFromMetrics, resolveRegistryContractsForHashes } from './visual-catalog.js';
 
 export const DEFAULT_DEFECT_PLAN_LIMIT = 10;
 
@@ -19,9 +20,10 @@ function toSlug(text) {
     .slice(0, 64) || 'defect';
 }
 
-function scoreWeightForSeverity(level) {
+function scoreWeightForSeverity(level, priorityWeight = 0) {
   const w = SCORE_WEIGHTS[String(level || '').toLowerCase()];
-  return Number.isFinite(w) ? w : SCORE_WEIGHTS.minor;
+  const base = Number.isFinite(w) ? w : SCORE_WEIGHTS.minor;
+  return base + Math.max(0, Number(priorityWeight || 0));
 }
 
 function isHomepageGateFinding(finding, isHome) {
@@ -53,7 +55,7 @@ function summarizeDimensionDamage(findings) {
     const dim = AREA_TO_DESIGN_DIMENSION[f.area];
     if (!dim) continue;
     if (!byDimension[dim]) byDimension[dim] = { rawDamage: 0, findingCount: 0 };
-    byDimension[dim].rawDamage += scoreWeightForSeverity(f.severity);
+    byDimension[dim].rawDamage += scoreWeightForSeverity(f.severity, f.priorityWeight);
     byDimension[dim].findingCount += 1;
   }
   return byDimension;
@@ -101,18 +103,52 @@ function makeFindingRef(pageIdx, findingIdx, finding, page, siteKind) {
   };
 }
 
+function normalizeUrlKey(u) {
+  const s = String(u || '').trim();
+  if (!s) return '';
+  return s.replace(/\/+$/, '') || s;
+}
+
+/**
+ * KS hashes from findings that carry `hash`, plus per-page DOM metrics (`ksVisualHashReport`) on affected URLs.
+ * @param {object[]} findings
+ * @param {Array<{url?: string, pageUrl?: string, metrics?: object}>} pages
+ * @param {string[]} affectedUrls
+ * @returns {string[]}
+ */
+function collectClusterKsHashes(findings, pages, affectedUrls) {
+  const affectedNorm = new Set((affectedUrls || []).map(normalizeUrlKey).filter(Boolean));
+  /** @type {Set<string>} */
+  const hashes = new Set();
+  for (const finding of findings || []) {
+    const h = finding?.hash != null ? String(finding.hash).trim() : '';
+    if (/^[A-Za-z]{3}$/.test(h)) hashes.add(h);
+  }
+  for (const p of pages || []) {
+    const pk = normalizeUrlKey(p?.url || p?.pageUrl || '');
+    if (!pk || !affectedNorm.has(pk)) continue;
+    const rep = ksVisualHashReportFromMetrics(p.metrics);
+    for (const h of rep.validUnique || []) {
+      if (/^[A-Za-z]{3}$/.test(h)) hashes.add(h);
+    }
+  }
+  return [...hashes].sort();
+}
+
 /**
  * Build ranked defect clusters for remediation plans.
  * @param {object} opts
  * @param {Array<{url?: string, pageUrl?: string, findings?: object[]}>} opts.pages
  * @param {object} opts.crawlSummary
  * @param {string} opts.siteKind
+ * @param {string} [opts.repoRoot] website repo root — resolves `visual-registry.generated.json` for contract paths
  * @param {number} [opts.limit]
  */
 export function buildRankedDefectClusters(opts) {
   const pages = opts?.pages || [];
   const crawlSummary = opts?.crawlSummary || {};
   const siteKind = opts?.siteKind || 'generic';
+  const repoRoot = opts?.repoRoot && String(opts.repoRoot).trim() ? String(opts.repoRoot).trim() : '';
   const limit = Number.isFinite(Number(opts?.limit)) ? Math.max(1, Number(opts.limit)) : DEFAULT_DEFECT_PLAN_LIMIT;
 
   /** @type {Array<ReturnType<typeof makeFindingRef>>} */
@@ -145,7 +181,7 @@ export function buildRankedDefectClusters(opts) {
     const findings = items.map((x) => x.finding);
     const bySeverity = summarizeSeverities(findings);
     const dimensionDamage = summarizeDimensionDamage(findings);
-    const totalWeight = findings.reduce((acc, f) => acc + scoreWeightForSeverity(f.severity), 0);
+    const totalWeight = findings.reduce((acc, f) => acc + scoreWeightForSeverity(f.severity, f.priorityWeight), 0);
     const majorPlusCount = countMajorPlus(findings);
     const hasHomepageGate = items.some((x) => isHomepageGateFinding(x.finding, x.isHome));
     const topSeverityRank = findings.reduce((acc, f) => Math.min(acc, severityRank(f.severity)), Number.MAX_SAFE_INTEGER);
@@ -173,6 +209,9 @@ export function buildRankedDefectClusters(opts) {
     const mainDimension = Object.entries(dimensionDamage)
       .sort((a, b) => b[1].rawDamage - a[1].rawDamage)[0]?.[0] || (AREA_TO_DESIGN_DIMENSION[area] || null);
 
+    const ksVisualHashes = collectClusterKsHashes(findings, pages, affectedUrls);
+    const visualCatalogRefs = resolveRegistryContractsForHashes(repoRoot, ksVisualHashes);
+
     clusters.push({
       key,
       slugBase: toSlug(`${checkId}-${area}`),
@@ -192,6 +231,8 @@ export function buildRankedDefectClusters(opts) {
       estimatedDimensionDelta,
       findings,
       coverageShare: coverageShare(findings.length, totalFindings),
+      ksVisualHashes,
+      visualCatalogRefs,
     });
   }
 

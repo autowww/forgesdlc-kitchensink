@@ -19,7 +19,13 @@ function makeNodeTool(filePath, source) {
   writeExecutable(filePath, `#!/usr/bin/env node\n${source}\n`);
 }
 
-function setupHarness(majorPlusCount) {
+const FIXTURE_DET_RULES = ['DET.PAGE.LANG', 'DET.PAGE.TITLE'];
+
+function detTraceForRules(ruleIds, status = 'ran') {
+  return ruleIds.map((ruleId) => ({ ruleId, status, findingsCount: 0 }));
+}
+
+function setupHarness(qualityGatePass, { aiEligible = true } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ux-ai-loop-'));
   const repo = path.join(root, 'repo');
   const site = path.join(repo, 'website');
@@ -33,6 +39,39 @@ function setupHarness(majorPlusCount) {
   makeNodeTool(fakeScorer, 'process.exit(0);');
 
   const fakeAuditor = path.join(root, 'fake-audit.mjs');
+  const eligibleJson = aiEligible
+    ? JSON.stringify({
+        stopReason: 'normal_completion',
+        queuedRemainingAtStop: 0,
+        pagesCaptured: 2,
+        pagesPlannedBudget: 2,
+        deterministicImplementedRuleIds: FIXTURE_DET_RULES,
+      })
+    : JSON.stringify({
+        stopReason: 'backlog_threshold',
+        queuedRemainingAtStop: 4,
+        pagesCaptured: 2,
+        pagesPlannedBudget: 10,
+        deterministicImplementedRuleIds: FIXTURE_DET_RULES,
+      });
+  const detTrace = JSON.stringify(detTraceForRules(FIXTURE_DET_RULES));
+  const pagesJson = aiEligible
+    ? JSON.stringify([
+        {
+          url: 'http://127.0.0.1:9999/',
+          findings: [],
+          ruleExecution: { deterministic: JSON.parse(detTrace) },
+        },
+        {
+          url: 'http://127.0.0.1:9999/docs-start.html',
+          findings: [],
+          ruleExecution: { deterministic: JSON.parse(detTrace) },
+        },
+      ])
+    : JSON.stringify([
+        { url: 'http://127.0.0.1:9999/', findings: [{ severity: 'minor', message: 'small issue' }] },
+        { url: 'http://127.0.0.1:9999/docs-start.html', findings: [{ severity: 'minor', message: 'small issue' }] },
+      ]);
   makeNodeTool(
     fakeAuditor,
     `
@@ -48,19 +87,33 @@ fs.mkdirSync(out, { recursive: true });
 fs.writeFileSync(path.join(out, 'audit-data.json'), JSON.stringify({
   auditRunId: 'fixture-run',
   generatedAt: '2026-05-18T00:00:00.000Z',
-  pages: [
-    { url: 'http://127.0.0.1:9999/', findings: [] },
-    { url: 'http://127.0.0.1:9999/docs-start.html', findings: [{ severity: 'minor', message: 'small issue' }] }
-  ],
-  crawlSummary: { stopReason: 'normal_completion', queuedRemainingAtStop: 0 }
+  staticOnly: false,
+  pages: ${pagesJson},
+  crawlSummary: ${eligibleJson}
 }, null, 2) + '\\n', 'utf8');
 fs.writeFileSync(path.join(out, 'forge-ux-remediation.plan.md'), 'plan\\n', 'utf8');
 console.log('fake auditor complete');
 `,
   );
 
-  const fakeMajor = path.join(root, 'fake-major.mjs');
-  makeNodeTool(fakeMajor, `process.stdout.write(${JSON.stringify(String(majorPlusCount))});`);
+  const fakeCompletion = path.join(root, 'fake-loop-completion.mjs');
+  const passFlag = qualityGatePass ? '1' : '0';
+  makeNodeTool(
+    fakeCompletion,
+    `
+const pass = ${JSON.stringify(passFlag)} === '1';
+const args = process.argv.slice(2);
+if (args.includes('--check') || args.includes('--check-all-bars')) {
+  if (pass) {
+    console.error('loop-completion: PASS · fixture');
+    process.exit(0);
+  }
+  console.error('loop-completion: FAIL · fixture');
+  process.exit(1);
+}
+process.stdout.write(pass ? '1' : '0');
+`,
+  );
 
   const fakePlan = path.join(root, 'fake-plan.sh');
   writeExecutable(fakePlan, `#!/usr/bin/env bash\nset -euo pipefail\necho plan >> "$2.plan-run.log"\n`, 0o755);
@@ -71,11 +124,11 @@ console.log('fake auditor complete');
   const fakeAgent = path.join(bin, 'agent');
   writeExecutable(fakeAgent, '#!/usr/bin/env bash\nexit 0\n', 0o755);
 
-  return { root, repo, site, fakeScorer, fakeAuditor, fakeMajor, fakePlan, fakeAi, bin };
+  return { root, repo, site, fakeScorer, fakeAuditor, fakeCompletion, fakePlan, fakeAi, bin };
 }
 
-test('loop runs AI audit only on deterministic-clean single-pass branch', () => {
-  const h = setupHarness(0);
+test('loop runs AI audit only on quality-gate pass single-pass branch', () => {
+  const h = setupHarness(true);
   const outDir = path.join(h.root, 'out');
   const res = spawnSync('bash', [loopScript, h.repo, h.site], {
     encoding: 'utf8',
@@ -84,12 +137,13 @@ test('loop runs AI audit only on deterministic-clean single-pass branch', () => 
       PATH: `${h.bin}:${process.env.PATH || ''}`,
       CURSOR_API_KEY: 'fixture',
       UX_AUDIT_OUT_DIR: outDir,
-      FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN: '0',
+      FORGE_UX_LOOP_UNTIL_QUALITY_GATE: '0',
       FORGE_UX_SKIP_DONE_CRAWL_MERGE: '1',
       FORGE_UX_ENABLE_AI_AUDIT: '1',
       FORGE_UX_SCORER_BIN: h.fakeScorer,
       FORGE_UX_AUDITOR_BIN: h.fakeAuditor,
-      FORGE_UX_MAJOR_PLUS_COUNT_BIN: h.fakeMajor,
+      FORGE_UX_LOOP_COMPLETION_BIN: h.fakeCompletion,
+      FORGE_UX_LOOP_ALL_BARS: '0',
       FORGE_UX_RUN_PLAN_BIN: h.fakePlan,
       FORGE_UX_RUN_AI_AUDIT_BIN: h.fakeAi,
     },
@@ -97,11 +151,63 @@ test('loop runs AI audit only on deterministic-clean single-pass branch', () => 
   assert.equal(res.status, 0, `${res.stderr}\n${res.stdout}`);
   assert.equal(fs.existsSync(path.join(outDir, 'ai-ran.log')), true);
   assert.equal(fs.existsSync(path.join(outDir, 'forge-ux-remediation.plan.md.plan-run.log')), false);
-  assert.match(res.stderr, /single-pass clean — no remediation agent needed/);
+  assert.match(res.stderr, /single-pass — loop complete/);
 });
 
-test('loop skips AI audit when deterministic Major\\+ remains and goes to remediation', () => {
-  const h = setupHarness(3);
+test('loop skips AI audit when quality gate passes but crawl is incomplete', () => {
+  const h = setupHarness(true, { aiEligible: false });
+  const outDir = path.join(h.root, 'out-partial');
+  const res = spawnSync('bash', [loopScript, h.repo, h.site], {
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      PATH: `${h.bin}:${process.env.PATH || ''}`,
+      CURSOR_API_KEY: 'fixture',
+      UX_AUDIT_OUT_DIR: outDir,
+      FORGE_UX_LOOP_UNTIL_QUALITY_GATE: '0',
+      FORGE_UX_SKIP_DONE_CRAWL_MERGE: '1',
+      FORGE_UX_ENABLE_AI_AUDIT: '1',
+      FORGE_UX_SCORER_BIN: h.fakeScorer,
+      FORGE_UX_AUDITOR_BIN: h.fakeAuditor,
+      FORGE_UX_LOOP_COMPLETION_BIN: h.fakeCompletion,
+      FORGE_UX_LOOP_ALL_BARS: '0',
+      FORGE_UX_RUN_PLAN_BIN: h.fakePlan,
+      FORGE_UX_RUN_AI_AUDIT_BIN: h.fakeAi,
+    },
+  });
+  assert.equal(res.status, 0, `${res.stderr}\n${res.stdout}`);
+  assert.equal(fs.existsSync(path.join(outDir, 'ai-ran.log')), false);
+  assert.match(res.stderr, /skipping AI audit/);
+});
+
+test('loop runs AI audit when FORGE_UX_FORCE_AI_AUDIT=1 despite incomplete crawl', () => {
+  const h = setupHarness(true, { aiEligible: false });
+  const outDir = path.join(h.root, 'out-force');
+  const res = spawnSync('bash', [loopScript, h.repo, h.site], {
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      PATH: `${h.bin}:${process.env.PATH || ''}`,
+      CURSOR_API_KEY: 'fixture',
+      UX_AUDIT_OUT_DIR: outDir,
+      FORGE_UX_LOOP_UNTIL_QUALITY_GATE: '0',
+      FORGE_UX_SKIP_DONE_CRAWL_MERGE: '1',
+      FORGE_UX_ENABLE_AI_AUDIT: '1',
+      FORGE_UX_FORCE_AI_AUDIT: '1',
+      FORGE_UX_SCORER_BIN: h.fakeScorer,
+      FORGE_UX_AUDITOR_BIN: h.fakeAuditor,
+      FORGE_UX_LOOP_COMPLETION_BIN: h.fakeCompletion,
+      FORGE_UX_LOOP_ALL_BARS: '0',
+      FORGE_UX_RUN_PLAN_BIN: h.fakePlan,
+      FORGE_UX_RUN_AI_AUDIT_BIN: h.fakeAi,
+    },
+  });
+  assert.equal(res.status, 0, `${res.stderr}\n${res.stdout}`);
+  assert.equal(fs.existsSync(path.join(outDir, 'ai-ran.log')), true);
+});
+
+test('loop skips AI audit when quality gate fails and goes to remediation', () => {
+  const h = setupHarness(false);
   const outDir = path.join(h.root, 'out');
   const res = spawnSync('bash', [loopScript, h.repo, h.site], {
     encoding: 'utf8',
@@ -110,12 +216,13 @@ test('loop skips AI audit when deterministic Major\\+ remains and goes to remedi
       PATH: `${h.bin}:${process.env.PATH || ''}`,
       CURSOR_API_KEY: 'fixture',
       UX_AUDIT_OUT_DIR: outDir,
-      FORGE_UX_LOOP_UNTIL_MAJOR_CLEAN: '0',
+      FORGE_UX_LOOP_UNTIL_QUALITY_GATE: '0',
       FORGE_UX_SKIP_DONE_CRAWL_MERGE: '1',
       FORGE_UX_ENABLE_AI_AUDIT: '1',
       FORGE_UX_SCORER_BIN: h.fakeScorer,
       FORGE_UX_AUDITOR_BIN: h.fakeAuditor,
-      FORGE_UX_MAJOR_PLUS_COUNT_BIN: h.fakeMajor,
+      FORGE_UX_LOOP_COMPLETION_BIN: h.fakeCompletion,
+      FORGE_UX_LOOP_ALL_BARS: '0',
       FORGE_UX_RUN_PLAN_BIN: h.fakePlan,
       FORGE_UX_RUN_AI_AUDIT_BIN: h.fakeAi,
     },
@@ -123,4 +230,30 @@ test('loop skips AI audit when deterministic Major\\+ remains and goes to remedi
   assert.equal(res.status, 0, `${res.stderr}\n${res.stdout}`);
   assert.equal(fs.existsSync(path.join(outDir, 'ai-ran.log')), false);
   assert.equal(fs.existsSync(path.join(outDir, 'forge-ux-remediation.plan.md.plan-run.log')), true);
+});
+
+test('loop skips AI audit when FORGE_UX_ENABLE_AI_AUDIT=0 on quality-gate pass single-pass', () => {
+  const h = setupHarness(true);
+  const outDir = path.join(h.root, 'out-no-ai');
+  const res = spawnSync('bash', [loopScript, h.repo, h.site], {
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      PATH: `${h.bin}:${process.env.PATH || ''}`,
+      CURSOR_API_KEY: 'fixture',
+      UX_AUDIT_OUT_DIR: outDir,
+      FORGE_UX_LOOP_UNTIL_QUALITY_GATE: '0',
+      FORGE_UX_SKIP_DONE_CRAWL_MERGE: '1',
+      FORGE_UX_ENABLE_AI_AUDIT: '0',
+      FORGE_UX_SCORER_BIN: h.fakeScorer,
+      FORGE_UX_AUDITOR_BIN: h.fakeAuditor,
+      FORGE_UX_LOOP_COMPLETION_BIN: h.fakeCompletion,
+      FORGE_UX_LOOP_ALL_BARS: '0',
+      FORGE_UX_RUN_PLAN_BIN: h.fakePlan,
+      FORGE_UX_RUN_AI_AUDIT_BIN: h.fakeAi,
+    },
+  });
+  assert.equal(res.status, 0, `${res.stderr}\n${res.stdout}`);
+  assert.equal(fs.existsSync(path.join(outDir, 'ai-ran.log')), false);
+  assert.match(res.stderr, /single-pass — loop complete/);
 });

@@ -1,0 +1,149 @@
+Connection lost, reconnecting (attempt 1)...
+Retry attempt 1...
+Connection lost, reconnecting (attempt 2)...
+Retry attempt 2...
+Connection lost, reconnecting (attempt 3)...
+Retry attempt 3...
+VERDICT: PASS
+
+## Evidence
+
+1. **Weak / duplicate contract detection** — `check-visual-catalog.mjs` wires `analyzeContractSpecificity` and `analyzeDuplicateExpectedLookBodies` from `contract-specificity.mjs`, including the **“Calm Forge enterprise atmosphere…”** slab rule for `layout` / `page` / `chrome-region` / `layout-preview`, generic phrase heuristics, and duplicate **Expected look** bodies for those types (normalized length ≥ 90).
+
+```26:30:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/check-visual-catalog.mjs
+import {
+  analyzeContractSpecificity,
+  analyzeDuplicateExpectedLookBodies,
+  extractExpectedLookBody,
+} from './lib/contract-specificity.mjs';
+```
+
+```17:75:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/lib/contract-specificity.mjs
+const FORGE_CALM_ATMOSPHERE_SLAB =
+  /Calm Forge enterprise atmosphere:\s*deep slate backgrounds/i;
+
+const DUPLICATE_EXPECTED_LOOK_TYPES = new Set(['layout', 'page', 'chrome-region', 'layout-preview']);
+// ...
+export function analyzeDuplicateExpectedLookBodies(fileSamples) {
+```
+
+2. **Boilerplate removal** — No `Calm Forge` matches under `docs/design/catalog/` (repo scan).
+
+3. **Coverage report + family appendix** — `docs/design/catalog/visual-registry-coverage.md` is stamped **2026-05-19**, shows **family-covered: 37**, and lists **Intentional family-covered rows** in a table (37 data rows, hashes **ARv**–**Zxd**).
+
+4. **Concrete “own” contracts** — Example `chrome-region` **Kbc** has element-specific **Expected look**, **States**, **Responsive behavior**, **Deterministic checks**, and **AI-enabled review cues** (matches phase intent for consumer/chrome surfaces).
+
+5. **Automation + docs** — `contract-element-blurbs.mjs` exists; `docs/design/catalog/README.md` documents `apply-element-specific-blurbs.mjs` (dry-run / `--write`).
+
+6. **Checker behavior vs acceptance** — Only **`errors`** yield exit **1**; **`warnings`** print and still exit **0**, which matches “pass or report only justified warnings.”
+
+```684:688:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/check-visual-catalog.mjs
+  for (const w of warnings) console.warn(`[warn] ${w}`);
+  if (errors.length) {
+    console.error(errors.join('\n'));
+    process.exit(1);
+  }
+```
+
+## Missing work / gaps (vs strict reading of the phase *goal* list)
+
+- **Deterministic / AI sections on roll-up families** — e.g. **`docs/design/catalog/primitives/FAM-react-primitives.md`** (`Rpf`) and **`docs/design/catalog/styles/Ksc-fam-styles.md`** have strong **Expected look** / anatomy / states / responsive text but **no** `## Deterministic checks` or `## AI-enabled review cues`. The phase goal said those sections for “each … contract”; tooling only warns about missing deterministic/AI headings under `--strict-contract-governance` for **`layout` / `page` / `chrome-region` / `layout-preview`**, not for `primitive-family`, `style-family`, etc.
+
+```128:156:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/lib/contract-specificity.mjs
+  if (STATEFUL_REGISTRY_TYPES.has(String(registryType || ''))) {
+    // ...
+    if (strictGov && !hasDeterministicHeading) {
+      warnings.push(
+        `${rel}: missing a Deterministic checks/review heading — split repeatable signals from judgment-only review per KS governance.`,
+      );
+    }
+    if (strictGov && !hasAiHeading) {
+      warnings.push(
+        `${rel}: missing an AI / judgment review heading — document model-review scope separately from deterministic gates.`,
+      );
+    }
+  }
+```
+
+- **Per-hash screenshot/DOM proof** — Bulk blurbs + family rewrites are aligned with “prefer automation,” but this verification did **not** re-run `node … check-visual-catalog.mjs …` or `verify-bad-fixture.sh` (Ask mode / no command execution); only static review.
+
+- **Possible residual sameness** — Shared **States** / accessibility bullets recur across pages (e.g. **Tkn** vs **Kbc**); thatVERDICT: PASS
+
+**Evidence**
+
+- **Weak / generic contract detection** is implemented and wired into the checker: `analyzeContractSpecificity` and `analyzeDuplicateExpectedLookBodies` are imported and applied when scanning contracts, and duplicate **Expected look** bodies for `layout` / `page` / `chrome-region` / `layout-preview` are promoted to **errors** (not just warnings).
+
+```26:30:/home/lzahin/Code/forgesdlc-kitchensink/tools/design-catalog/check-visual-catalog.mjs
+import {
+  analyzeContractSpecificity,
+  analyzeDuplicateExpectedLookBodies,
+  extractExpectedLookBody,
+} from './lib/contract-specificity.mjs';
+```
+
+```370:377:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/check-visual-catalog.mjs
+    const { errors: specErr, warnings: specWarn } = analyzeContractSpecificity(txt, rel, e.type || '', {
+      strictGovernanceHeadings: args.strictContractGovernance,
+    });
+    for (const m of specErr) {
+      errors.push(regMsg(e.hash, e.type, (e.source_paths || [])[0] ?? null, rel, m));
+    }
+    for (const w of specWarn) {
+      warnings.push(regMsg(e.hash, e.type, (e.source_paths || [])[0] ?? null, rel, w));
+```
+
+```393:416:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/check-visual-catalog.mjs
+  /** Cross-contract duplicate Expected look bodies (layout/page/chrome/layout-preview). */
+  const contractPathTypes = new Map();
+  ...
+  for (const m of analyzeDuplicateExpectedLookBodies(expectedLookSamples)) {
+    errors.push(m);
+  }
+```
+
+- **Boilerplate slab rule** matches the phase narrative (“Calm Forge enterprise atmosphere…”).
+
+```17:24:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/lib/contract-specificity.mjs
+/** Repeated verbatim paragraph pasted across many KS contracts (phase 05 slab). */
+const FORGE_CALM_ATMOSPHERE_SLAB =
+  /Calm Forge enterprise atmosphere:\s*deep slate backgrounds/i;
+
+const DUPLICATE_EXPECTED_LOOK_TYPES = new Set(['layout', 'page', 'chrome-region', 'layout-preview']);
+```
+
+- **Repo scan:** no `Calm Forge` matches under `docs/design/catalog/`.
+- **Coverage report:** `docs/design/catalog/visual-registry-coverage.md` is present with a **2026-05-19** generation timestamp, **91** registry entries, **54 own / 37 family-covered**, and an **“Intentional family-covered rows”** table listing **37** rows (aligned with `contract_status: family-covered`).
+- **Automation + docs:** `docs/design/catalog/README.md` documents `apply-element-specific-blurbs.mjs`; `lib/contract-element-blurbs.mjs` exists.
+- **Spot-check vs phase intent:** representative **own** contracts (e.g. `Kbc-doc-breadcrumb.md`, `Tkn-tokens.md`) have element-specific **Expected look**, **States**, **Responsive behavior**, **Deterministic checks**, and **AI-enabled review cues**.
+
+**Missing work / caveats**
+
+- **Strict governance headings** (`--strict-contract-governance`) only emit **warnings** for missing Deterministic / AI-style headings, and only for **stateful registry types** (`layout`, `page`, `chrome-region`, `layout-preview`) — not for families or other types — so the checker does **not** enforce items 3–4 of the phase narrative on every contract path.
+
+```128:156:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/lib/contract-specificity.mjs
+  if (STATEFUL_REGISTRY_TYPES.has(String(registryType || ''))) {
+    ...
+    if (strictGov && !hasDeterministicHeading) {
+      warnings.push(
+        `${rel}: missing a Deterministic checks/review heading — split repeatable signals from judgment-only review per KS governance.`,
+      );
+    }
+    if (strictGov && !hasAiHeading) {
+      warnings.push(
+        `${rel}: missing an AI / judgment review heading — document model-review scope separately from deterministic gates.`,
+      );
+    }
+  }
+```
+
+- **Family roll-ups** such as `docs/design/catalog/primitives/FAM-react-primitives.md` and `docs/design/catalog/styles/Ksc-fam-styles.md` are strong on role/anatomy/states/responsive but **do not** include separate **Deterministic checks** / **AI-enabled review cues** sections; if the phase’s “for each contract” list is interpreted literally, that is remaining gap (even though acceptance-focused verification passes).
+
+**Exact next actions**
+
+1. Locally re-run (same as the log):  
+   `node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase --refresh-inventory --strict-contract-governance`  
+   and confirm **exit 0** and acceptable **`[warn]`** lines only.
+2. If you want literal coverage of phase items **3–4** on roll-ups: add **Deterministic checks** + **AI-enabled review cues** (or extend `analyzeContractSpecificity` / types covered under `--strict-contract-governance`) for **family** contracts (`primitive-family`, `style-family`, `script-family`, `diagram-family`, `python-renderer-family`, `desktop-interface`, etc.).
+3. After registry edits: regenerate `visual-registry.generated.json` via a successful catalog check, then run `apply-element-specific-blurbs.mjs` as documented in `docs/design/catalog/README.md`.
+
+*(Ask mode: I did not execute Node or mutate files; verdict is from static review of the tree.)*

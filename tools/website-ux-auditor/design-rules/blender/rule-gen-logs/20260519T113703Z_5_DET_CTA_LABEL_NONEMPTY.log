@@ -1,0 +1,50 @@
+## Summary
+
+Implemented **`DET.CTA.LABEL_NONEMPTY`** as a deterministic DOM check: visible interactive controls must have a non-empty accessible name.
+
+### Rule signal (from catalog)
+
+Pass when every relevant **button/link** has a non-empty accessible name via `aria-label`, `aria-labelledby`, `title`, visible text, `input` value, `img` alt, or screen-reader-only text.
+
+### Files changed
+
+| File | Change |
+|------|--------|
+| `design-rules/deterministic/generated/det-cta-label-nonempty.check.js` | Full implementation: `collectCtaLabelNonemptyReport()` (Playwright `page.evaluate`), `findingsFromCtaLabelNonemptyReport()`, `run()` |
+| `design-rules/blender/rule-mappings.js` | Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented** |
+| `auditor-tests/det-cta-label-nonempty.test.js` | Unit tests for report mapping and `run()` |
+| `design-rules/registry.generated.json` | Updated to `status: "implemented"` (coverage 16/34) |
+
+### Implementation details
+
+- Scans: `a[href]`, `button`, submit/reset/image inputs, `[role="button"]`, `[role="link"]`
+- Skips hidden/invisible controls, `aria-hidden` subtrees, nested interactives, and disabled buttons
+- **`MIN_CTA_LABEL_CHARS = 1`** (non-empty after trim)
+- Findings: `severity: major`, `area: accessibility`, standard `message` / `evidence` / `remediation`
+- Registry metadata: `accessibilitySemanticsMeta`, `priorityWeight: 8`
+
+### Mapping registration
+
+```239:247:tools/website-ux-auditor/design-rules/blender/rule-mappings.js
+  'DET.CTA.LABEL_NONEMPTY': {
+    modulePath: 'design-rules/deterministic/generated/det-cta-label-nonempty.check.js',
+    status: 'implemented',
+    defaultSeverity: 'major',
+    area: 'accessibility',
+    scoreDimension: 'accessibilitySemanticsMeta',
+    priorityWeight: 8,
+    sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-cta-label_nonempty',
+  },
+```
+
+### Verification (run locally)
+
+Shell was unavailable in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` fingerprint/`generatedAt`. The registry entry for this rule is already aligned with the explicit map; blending should be a no-op aside from metadata refresh.

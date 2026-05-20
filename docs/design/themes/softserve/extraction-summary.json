@@ -1,0 +1,12 @@
+{
+  "themeId": "softserve",
+  "fixture": "/home/lzvyahin/Code/workbench/site-fixtures/softserve/20260519T175033Z",
+  "themeDir": "/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/themes/softserve",
+  "generatedPath": "/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/themes/softserve/theme.generated.json",
+  "pagesSampled": 1,
+  "nextSteps": [
+    "Review draft tokens and AI principles.",
+    "Promote stable patterns into KS components or contract overlays.",
+    "Run audits with --theme after accepting the theme."
+  ]
+}

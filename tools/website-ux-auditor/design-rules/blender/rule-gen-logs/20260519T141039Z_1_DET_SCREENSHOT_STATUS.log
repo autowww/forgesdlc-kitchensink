@@ -1,0 +1,37 @@
+## Summary
+
+Implemented **`DET.SCREENSHOT.STATUS`** as a repo-wide deterministic check aligned with `check-visual-catalog.mjs` and the rule spec in `deterministic-design-rules.md`.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-screenshot-status.check.js`**
+   - Scans `docs/design/catalog/visual-registry.generated.json`.
+   - **`captured`**: requires `docs/design/catalog/screenshots/{HASH}.png` and a non-empty `screenshot_url`.
+   - **`blocked` / `planned` / `missing`**: requires at least one of `screenshot_url`, `notes`, or `screenshot_reason`.
+   - Flags unknown `screenshot_status` values.
+   - Exports `scanScreenshotStatus`, `findingsFromScreenshotStatusReport`, and `run` (supports `metrics.screenshotStatusReport` for tests/preflight).
+   - Findings use the usual shape: `severity`, `area`, `message`, `evidence`, `remediation`, optional `hash`.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`** with `area: visual-catalog`, `scoreDimension: visualCatalogGovernance`, `defaultSeverity: warn`, `priorityWeight: 7`.
+
+3. **`auditor-tests/det-screenshot-status.test.js`**
+   - Unit tests for documentation helpers, scan logic, and `run()`.
+
+### Why
+
+The rule is about **screenshot manifest integrity** (registry status vs on-disk catalog PNGs and documented blocked/deferred rows), not crawl screenshots. That matches `inventory-ks-visuals.mjs` / `check-visual-catalog.mjs` and stays fully deterministic.
+
+### Commands to run locally
+
+Shell was not available in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should move **`DET.SCREENSHOT.STATUS`** from `stub` → **`implemented`** in `registry.generated.json` (43 implemented / 7 stub) and refresh the fingerprint. Against the current kitchensink catalog, the check should pass: captured rows have catalog PNGs; blocked rows (`Kra`, `Msm`) have `screenshot_reason`.
+
+If anything fails after `blend-rules`, paste the output and I can adjust.

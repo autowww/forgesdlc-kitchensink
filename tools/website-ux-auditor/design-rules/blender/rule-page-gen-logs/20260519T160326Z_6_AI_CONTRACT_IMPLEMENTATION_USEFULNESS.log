@@ -1,0 +1,50 @@
+## Handbook page: `AI.CONTRACT.IMPLEMENTATION_USEFULNESS`
+
+Wrote the rule handbook page at:
+
+`/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-contract-implementation-usefulness.md`
+
+The canonical target path still has an older draft with invalid `<motion>` tags in the HTML examples. Sync it with:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-contract-implementation-usefulness.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-contract-implementation-usefulness.md
+
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node rule-page-version.mjs --write-manifest
+```
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Contracts under `docs/design/catalog/**/{HASH}-*.md` are the implementation spec; AI judges whether anatomy, states, responsive/a11y rules, and verification are concrete enough that implementers do not guess UX intent (PDCA framing). |
+| **Passing signals** | Element-specific selectors (`.ks-doc-breadcrumb`, `forge-card`, …), full state/responsive/a11y sections, deterministic check references, real `source_paths` / emitters. |
+| **Failing signals** | Template soup, missing states, `root_selector` drift, vague screenshot acceptance, invented DOM, unjustified family coverage. |
+| **Before example** | Ad-hoc slash-separated links in `site-header`—no `Kbc`, no `nav`/`ol`, terminal crumb still a link. |
+| **After example** | Showcase header aligned with **Kbc** and `render_breadcrumbs`: `ks-doc-breadcrumb`, hash markers, `nav[aria-label="breadcrumb"]`, `ol.breadcrumb`, `aria-current="page"` on the terminal item. |
+| **Evidence & remediation** | Capture contract + registry + DOM/screenshot; remediate anatomy → states → specificity → deterministic checks → showcase rebuild. |
+| **Related rules** | `DET.CATALOG.CONTRACT_SPECIFICITY`, `DET.CONTRACT.PATH`, `DET.CONTRACT.PLACEHOLDERS`, `DET.HASH.MARKERS`, `AI.CONTRACT.FAMILY_COVERAGE_JUSTIFIED` |
+
+**Source rule:** `docs/design/ux-audit/ai-enabled-design-principles.md#ai-contract-implementation-usefulness`  
+**Review question:** Could an engineer implement from the contract without guessing UX intent?
+
+### `page_version` confirmation
+
+Front matter (staging copy):
+
+```yaml
+page_version: dd48bd94ca99c402b47d74f66bb8c69406f864cfc5300464985a1a1e8b8f761b
+```
+
+`rule-pages.manifest.json` already lists this rule as **`status: "current"`** with matching `pageVersion` and `contentVersion` (`dd48bd94…`). Re-run `node rule-page-version.mjs --write-manifest` after the `cp` above so the manifest reflects the final HTML examples.
+
+### Check step (step 7)
+
+Shell could not run `rule-page-version.mjs` from this session (command blocked outside the allowlist). After you run the `cp` + manifest commands above, confirm:
+
+```bash
+grep '^page_version:' /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-contract-implementation-usefulness.md
+```
+
+Expected: `page_version: dd48bd94ca99c402b47d74f66bb8c69406f864cfc5300464985a1a1e8b8f761b`

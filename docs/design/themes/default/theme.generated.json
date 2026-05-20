@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-19T17:45:35.139Z",
+  "generator": "tools/design-themes/build-design-theme.mjs",
+  "id": "default",
+  "name": "Forge default",
+  "status": "active",
+  "description": "Current Forge enterprise AI website design language extracted as the default KS theme.",
+  "source": "current-ks",
+  "sourceUrl": "https://ks.forgesdlc.com/",
+  "themeRoot": "docs/design/themes/default",
+  "designStandardPath": "docs/design/forge-enterprise-ai-website-standard.md",
+  "tokensPath": "docs/design/themes/default/tokens.json",
+  "deterministicRulesPath": "docs/design/themes/default/deterministic-rules.md",
+  "aiPrinciplesPath": "docs/design/themes/default/ai-principles.md",
+  "contractOverlaysDir": "docs/design/themes/default/contracts",
+  "cssFiles": [
+    "css/forge-theme.css",
+    "css/forgesdlc-theme.css",
+    "css/docs-theme.css",
+    "css/forge-light-theme.css"
+  ],
+  "rulePacks": [
+    "docs/design/ux-audit/deterministic-design-rules.md",
+    "docs/design/ux-audit/ai-enabled-design-principles.md"
+  ],
+  "sourceFiles": [
+    "docs/design/themes/default/theme.yaml"
+  ],
+  "sources": [
+    {
+      "path": "docs/design/forge-enterprise-ai-website-standard.md",
+      "sha256": "83d52b85aafef12bd9e4a79b3acc27abd2afacf2e7711036e16e75bcf0bec830",
+      "byteLength": 20767
+    },
+    {
+      "path": "docs/design/themes/default/tokens.json",
+      "sha256": "8e967cf3172d006c90b403cb7203c063fec6f4656df7db4981c22d0e3972ec9f",
+      "byteLength": 890
+    },
+    {
+      "path": "docs/design/themes/default/deterministic-rules.md",
+      "sha256": "7fa14ef38d14c0a2724c09a4bfd43a7a7c623cbb4180f4c5a9ca10ea9500b2cd",
+      "byteLength": 896
+    },
+    {
+      "path": "docs/design/themes/default/ai-principles.md",
+      "sha256": "db4e3f136e7b0bb1d59c19fe67bf7a0797ef5c029e2b503fe543a3aef8b39c60",
+      "byteLength": 646
+    },
+    {
+      "path": "css/forge-theme.css",
+      "sha256": "6c6962159cdacb6126145d2777f772ac3476d95ae9de6eb66db497ea3b45a837",
+      "byteLength": 76709
+    },
+    {
+      "path": "css/forgesdlc-theme.css",
+      "sha256": "28cd80888ca3aa52d8279e722312195cbe660039e40f8f90c0a0c39d20644d17",
+      "byteLength": 73797
+    },
+    {
+      "path": "css/docs-theme.css",
+      "sha256": "f321d77e979cd0019027bce17160916ede0ec7830ca63aca12eed941e1824f32",
+      "byteLength": 66814
+    },
+    {
+      "path": "css/forge-light-theme.css",
+      "sha256": "b229247c559df712bad2fd1e22ec1e0f809cc31494a50a29fd12bddddb30226c",
+      "byteLength": 3775
+    },
+    {
+      "path": "docs/design/ux-audit/deterministic-design-rules.md",
+      "sha256": "0b6bb5ccc94c32713b0e1cd247f2653c3d4e7188e9a4234b5a3f60b5f32acf9e",
+      "byteLength": 9173
+    },
+    {
+      "path": "docs/design/ux-audit/ai-enabled-design-principles.md",
+      "sha256": "34934de9425d206bc852f9f47e4f5470cbb2f02f61a9fe6e7eebef03650649ce",
+      "byteLength": 7654
+    }
+  ],
+  "fingerprint": "dbf82571c5b10bd86cfe1baf01b2e772ae05f745789c684bef4dbf49081f4fc0"
+}

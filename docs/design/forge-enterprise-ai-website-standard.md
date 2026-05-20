@@ -205,7 +205,7 @@ Each site inherits the **Product Story Contract**, **Root Homepage Shell Contrac
 - **Promise:** Connect governed delivery from intent to execution.
 - **Story:** Methodology → workspace visibility → governed reasoning → controlled execution → evidence.
 - **Root `/` must be mode 1.** Full handbook chrome belongs on deeper routes only.
-- **Must show on the root homepage:** one-sentence Platform definition; Forge layer map (ForgeSDLC, Lenses, LCDL, Fleet, Blueprints, Platform); intent-to-evidence flow; trust/boundary block; role paths; maintainer/docs CTA (compact).
+- **Must show on the root homepage:** one-sentence Platform definition; Forge layer map (ForgeSDLC, Lenses, LCDL, Fleet, Blueprints, Platform); intent-to-evidence flow; trust/boundary block; role paths; maintainer/docs CTA (compact). When mentioning agents, use **Forge Agent** / **workcell** per platform handbook — avoid unqualified “orchestrator” without naming human vs agent vs control plane.
 - **Must not show before product explanation:** full generated sidebar; ADR, sprint, evidence, prompt, or maintainer-operation trees; repository thesis or maintainer setup as standalone first-screen sections.
 
 ## Landing page anatomy
@@ -395,6 +395,9 @@ Examples:
 - Deterministic operators -> Predictable workflow control.
 - Governed synchronous LLM tasks -> Reviewable LLM calls in production code.
 - Agent workcells -> Bounded agent execution units.
+- **Forge Agent** -> A single bounded agent session under a ForgeRun (AgentRun); not “Forge” itself. Handbook: platform.forgesdlc.com/docs/forge-agent.html
+- **Forge Campaign** -> Multi-repo automation under one ForgeRun (manifest + orchestrator); not a marketing campaign. Handbook: platform.forgesdlc.com/docs/forge-campaign.html
+- Campaign orchestrator -> Deterministic operator that submits Fleet jobs and integrates git/PRs; distinct from a chat agent inside the IDE.
 
 ## Required reusable sections
 

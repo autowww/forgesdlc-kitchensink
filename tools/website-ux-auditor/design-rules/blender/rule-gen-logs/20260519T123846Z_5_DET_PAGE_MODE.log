@@ -1,0 +1,48 @@
+Implemented **DET.PAGE.MODE** as a deterministic page-mode check. Shell commands could not be run in this environment (all invocations were rejected), so please run verification locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-page-mode.check.js`
+Replaced the auto-generated stub with a full implementation that:
+
+- **Declares mode** from KS layout (`[data-ks-type="layout"][data-ks-name]`), `meta[name="forge-page-mode"]`, or `data-page-mode` on `html`/`body`.
+- **Infers structural modes** above the fold: doc sidebar, showcase header, app shell, handbook chrome metrics.
+- **Maps layouts** to canonical modes (`layout-marketing` → `marketing`, `layout-handbook` → `handbook`, etc.).
+- **Flags violations**:
+  - `competing-modes` — e.g. marketing + handbook (landing layout with doc sidebar / handbook chrome).
+  - `home-handbook-shell` — `/` reads as handbook/docs instead of public landing.
+  - `undeclared-mode` — KS page with content but no layout/mode metadata.
+- Exports testable helpers (`detectPageModes`, `violationsFromPageModeSignals`, `collectPageModeReport`, `mergePageModeMetrics`, …) and `run({ metrics, page, url, ctx })` returning standard findings (`severity` / `area` / `message` / `evidence` / `remediation`).
+- Skips **platform handbook inner** routes (same pattern as `DET.CONTEXT.BURDEN`).
+- Merges live crawl metrics (`handbookChromeTermHits`, `sidebarOffcanvasLinkCount`, `hasHandbookChromeOnHome`) when `pageModeReport` is built from Playwright.
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|--------|--------|
+| status | `implemented` |
+| area | `informationArchitecture` |
+| scoreDimension | `informationArchitecture` |
+| defaultSeverity | `major` |
+| priorityWeight | `10` |
+
+(Aligns with the `homepage-shell` legacy adapter mapping for this rule.)
+
+### 3. `auditor-tests/det-page-mode.test.js`
+Unit tests for mode detection, incompatibility pairs, violation → finding mapping, metrics merge, and `run()` behavior.
+
+### 4. `design-rules/registry.generated.json`
+Updated **DET.PAGE.MODE** from `stub` → `implemented` and adjusted coverage counts (`37` implemented / `13` stub). **`npm run blend-rules`** will refresh `fingerprint` and `generatedAt` to match `rule-mappings.js`.
+
+## Why
+
+The rule requires a **single primary page mode** with no competing handbook vs marketing signals above the fold. That is measurable from layout metadata and DOM shell patterns (layout slug, doc sidebar, handbook chrome metrics on `/`) without AI heuristics—matching `docs/design/ux-audit/deterministic-design-rules.md#det-page-mode` and the Page mode taxonomy in `docs/design/forge-enterprise-ai-website-standard.md`.
+
+`homepage-shell` remains the stricter homepage-specific blocker; **DET.PAGE.MODE** generalizes mode clarity for all routes and integrates with the design-rule runtime alongside other deterministic checks.

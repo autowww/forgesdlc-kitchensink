@@ -1,0 +1,46 @@
+## Summary
+
+Implemented **`DET.CHROME.BOUNDARY`** as a deterministic chrome-vs-main separation check, registered it in the blender, and added unit tests. Shell commands could not be run in this environment (`Rejected`), so please run verification locally.
+
+### Rule signal (from docs)
+
+Chrome regions (header, footer, sidebars) must be **visually separated** from the main content canvas using at least one of: **border**, **distinct background**, or **box-shadow** (including `::before` / `::after` separators).
+
+### Implementation (`det-chrome-boundary.check.js`)
+
+- **`collectChromeBoundaryReport(page)`** — In the browser, finds visible chrome roots outside `main` (`header`, `footer`, `.forge-sidebar`, `.site-header`, `.landing-header`, `[data-shell-region]`, etc.), skips modals/cookies, and only checks regions that overlap the main column.
+- **Pass cues** (any one counts):
+  - Visible border on any edge
+  - Non-trivial `box-shadow`
+  - Background luminance delta ≥ `0.06` vs main canvas
+  - Pseudo-element border/shadow/fill
+- **`findingsFromChromeBoundaryReport`** — Maps violations to standard findings (`severity: warn`, `area: informationArchitecture`, evidence + remediation).
+- **`run({ metrics, page, url })`** — Uses `metrics.chromeBoundaryReport` or live collection via Playwright (same pattern as card-title / ambient-z-index).
+
+Exported helpers (`parseRgb`, `borderEdgeVisible`, `chromeBoundaryCuesFromStyles`, …) support unit tests without a browser.
+
+### Registration (`rule-mappings.js`)
+
+| Field | Value |
+|--------|--------|
+| `status` | `implemented` |
+| `area` | `informationArchitecture` |
+| `scoreDimension` | `visualRhythmFirstScreen` |
+| `defaultSeverity` | `warn` |
+| `priorityWeight` | `7` |
+
+`registry.generated.json` already lists this rule as **implemented** (likely from a prior blend).
+
+### Tests (`auditor-tests/det-chrome-boundary.test.js`)
+
+Covers cue detection, finding shape, and `run()` with injected metrics.
+
+### Verify locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` refreshes the registry fingerprint after the `rule-mappings.js` change. If anything fails, paste the output and we can adjust thresholds or selectors.

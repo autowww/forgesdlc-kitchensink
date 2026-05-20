@@ -1,0 +1,37 @@
+## Summary
+
+Implemented **`DET.LAYOUT.GRID_CONSISTENCY`** as a Playwright/DOM deterministic check aligned with the catalog rule: content should sit on the layout grid (max width + gutters), without accidental full-bleed prose.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-layout-grid-consistency.check.js`**
+   - **`full-bleed-prose`** (`warn`): substantive paragraphs (≥32 words) in `main` that are not inside a grid container (`.container`, `.doc-content`, max-width ancestors, etc.) and span ≥88% of the main column or ≥82% of the viewport.
+   - **`gutter-drift`** (`minor`): within the same `section`/`article`, prose left edges differ by more than 56px.
+   - **`excessive-measure`** (`minor`): prose inside a grid container but wider than 920px.
+   - Heroes, tables, code, modals, and explicit bleed regions are excluded.
+   - Exports: `rule`, `run`, `collectLayoutGridConsistencyReport`, `findingsFromLayoutGridReport`, and testable helpers.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `area: readability`, `scoreDimension: visualRhythmFirstScreen`, `defaultSeverity: warn`, `priorityWeight: 7`.
+
+3. **`auditor-tests/det-layout-grid-consistency.test.js`**
+   - Unit tests for helpers, finding mapping, and `run()` with `metrics.layoutGridConsistencyReport`.
+
+4. **`design-rules/registry.generated.json`**
+   - Moved `DET.LAYOUT.GRID_CONSISTENCY` from stub → implemented (partial update). **Re-run `npm run blend-rules`** to refresh the full registry fingerprint and any other mapping drift.
+
+### Why these signals
+
+They match the doc anchor without AI: measurable width/inset vs main and viewport, KS container patterns (`.doc-content`, Bootstrap containers), and gutter consistency within sections—same pattern as `det-chrome-boundary.check.js` (collect in browser → map to standard finding fields).
+
+### Checks (could not run here)
+
+Shell was blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will fully regenerate `registry.generated.json` (recommended even after the manual registry patch). All tests should pass, including the new `det-layout-grid-consistency.test.js`.

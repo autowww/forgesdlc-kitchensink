@@ -1,0 +1,46 @@
+## Report: `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` handbook page
+
+### What was written
+
+A complete PDCA rule handbook page for **`AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`** (255 lines) with all required `RULE_PAGE_SCHEMA.md` sections.
+
+**Written path (this workspace):**  
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-visual-product-explanatory-value.md`
+
+**Requested canonical path (generator / manifest):**  
+`docs/design/ux-audit/rule-pages/ai-visual-product-explanatory-value.md` at Kitchen Sink repo root  
+
+That destination could not be created from this workspace (writes outside `tools/website-ux-auditor/` were blocked). Copy the file locally:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-visual-product-explanatory-value.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-visual-product-explanatory-value.md
+```
+
+(`generator/ux_audit_rule_pages.py` reads from repo-root `docs/design/ux-audit/rule-pages/`.)
+
+### `page_version` (confirmed)
+
+```text
+page_version: 4dee66f4af47e261345697e2c7252c0e126ffd540c16c1b299bb248142f7b72f
+```
+
+### Sources used
+
+| Source | Use |
+|--------|-----|
+| `docs/design/ux-audit/ai-enabled-design-principles.md` | Canonical question: visuals explain structure/benefit, not decoration |
+| `tools/website-ux-auditor/design-rules/registry.generated.json` | `registry_status: implemented`, fingerprint `6773fda5…` |
+| `tools/website-ux-auditor/design-rules/ai/prompts/ai-visual-product-explanatory-value.md` | PDCA prompt framing |
+| `components/components.py`, peer rule pages | Real KS classes for examples |
+
+### Page content summary
+
+- **Purpose:** AI judgment on whether visuals teach product structure/mechanism vs. decorative filler; complements `DET.DIAGRAM.*`, `DET.CHART.ALT_SUMMARY`, and `product-visual`.
+- **Passing / failing signals:** Hero `alt` tied to claims, captions that earn space, mechanism diagrams vs. spectral/generic-cloud filler, etc.
+- **Before example:** `landing-forge-visual` + `bg-fourier-forge-spectral-animated-01.svg` with empty `alt` + generic `forge-card` icon grid.
+- **After example:** `template-gate-chain.svg` with meaningful `alt`, `landing-hero-clarification`, `card-amber` outcome cards, `forge-diagram` / `ks-diagram-tile` with `data-diagram-key`.
+- **Evidence / remediation:** Screenshot + DOM capture; six-step remediate path including `DET.*` promotion bias.
+- **Related rules:** `DET.DIAGRAM.ALT`, `DET.DIAGRAM.LABELS`, `DET.DIAGRAM.ASSET_REGISTRY`, `DET.CHART.ALT_SUMMARY`, `AI.DIAGRAM.SEMANTIC_ACCURACY`, `AI.DATA.INSIGHT_LEGIBILITY`, `AI.PREMIUM.ENTERPRISE_FEEL`, `AI.VISUAL.HIERARCHY_CONFIDENCE`.
+
+No Mermaid, no Fleet-specific profiles. Check modules and registry were not edited.

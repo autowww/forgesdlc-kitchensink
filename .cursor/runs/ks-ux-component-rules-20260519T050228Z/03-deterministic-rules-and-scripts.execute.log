@@ -1,0 +1,33 @@
+## Summary
+
+Phase **03** is implemented with scoped changes across DOM metrics, UX checks, design-catalog validation, tests, and the plan report.
+
+### Deterministic signals added
+
+**`tools/website-ux-auditor/lib/dom-metrics.js`** now emits: `headingBodyWordRatio`, acronym counts (page + above-fold), `apiLikePathHits`, first/second **viewport** link counts, `heroMainWordCount`, `sectionMedianGapPx`, `maxParagraphMeasurePx`, sampled font/color cardinality, `ctaVerticalSpreadPx`, `technicalPrecedesMainExplanation` (+ tops), **`heroPrimaryVisual`** (size, alt/caption, decorative heuristic), on top of existing fields.
+
+**Checks updated**
+
+- `readability-structure.js` — heading/body balance, acronym/jargon proxies, viewport link walls, pre-H1 link leakage, line measure, font/color drift (home), second-viewport link density.
+- `first-screen-density.js` — hero word budget, tight section spacing vs many sections, high card/tile count.
+- `product-visual.js` — after a hero visual exists: decorative-only, undersized, weak alt/caption, visual far below H1.
+- `technical-depth.js` — progressive disclosure inversion (pre/table before first substantial `p`), API-path density, table/pre stack (minor).
+- `cta-trust-ecosystem.js` — clustered CTAs (spread heuristic).
+
+**Design catalog**
+
+- New `tools/design-catalog/lib/contract-specificity.mjs` — weak/generic **`## Expected look`**, **`## States`** coverage warnings for stateful types; optional **`--strict-contract-governance`** for missing Deterministic / AI(judgment) headings.
+- **`check-visual-catalog.mjs`** — calls specificity analysis; **`contract_status: own`** paths must have a basename **including the hash** (drift guard).
+
+### Tests & commands
+
+- New `tools/website-ux-auditor/auditor-tests/deterministic-proxies.test.js` uses a **generic mechanism-led metrics fixture** (not a Fleet profile).
+- **`cd tools/website-ux-auditor && npm test`** — pass (99 tests).
+- **`node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase`** — pass, clean stderr after tightening state rules for `desktop-interface`.
+
+### Plan / evidence doc
+
+- **Report:** `.cursor/plans/ks-ux-component-rules/03-deterministic-rules-and-scripts.md` — includes the **“AI-only → deterministic”** mapping and verification commands.
+- **`00-master-sequence.md`** — pointer to the phase 03 report.
+
+`score-website-ux.mjs` / `analyze-website-ux.mjs` were not wired together; `lib/design-ux-score.js` unchanged.

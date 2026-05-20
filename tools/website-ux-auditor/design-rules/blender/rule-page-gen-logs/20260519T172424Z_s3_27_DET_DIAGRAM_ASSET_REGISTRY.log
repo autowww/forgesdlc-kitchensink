@@ -1,0 +1,45 @@
+## Report: `DET.DIAGRAM.ASSET_REGISTRY` rule page
+
+Wrote the handbook page content for **Diagram asset registry** from:
+
+- Source rule: `docs/design/ux-audit/deterministic-design-rules.md` (Diagrams & visual systems table)
+- Check module: `design-rules/deterministic/generated/det-diagram-asset-registry.check.js`
+- Schema: `RULE_PAGE_SCHEMA.md` and peer page `det-chart-alt-summary.md`
+- KS patterns: `ks_diagram_tile_html`, `forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, catalog key `gate`, SVG `assets/svg/template-gate-chain.svg`, registry rows **Ksv** / **Zxd**
+
+### `page_version` (confirmed)
+
+```
+760457a5e7fdd76fad2a2fdc15e29a3d65de58e38a97a0e6f3b0d66d497fd4dc
+```
+
+Verified in:
+
+- `tools/website-ux-auditor/.staging-det-diagram-asset-registry.md`
+- `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-diagram-asset-registry.md`
+
+### Page contents
+
+| Section | Focus |
+|--------|--------|
+| **Purpose** | Repo + DOM alignment: catalog keys, gallery SVGs, visual-registry `diagram-family` / `diagram-asset-group` rows |
+| **Passing signals** | Valid `data-diagram-key`, registered `assets/svg/template-*.svg`, Ksv/Zxd coverage, catalog↔gallery parity |
+| **Failing signals** | Unknown keys, unregistered SVGs, missing diagram-family, stale modal keys |
+| **Before example** | Fails: `data-diagram-key="gate-chain-delivery"` + `assets/svg/custom-delivery-flow.svg` |
+| **After example** | Passes: `data-diagram-key="gate"` + `assets/svg/template-gate-chain.svg` |
+| **Evidence and remediation** | `diagramAssetRegistryRepoReport` / `diagramAssetRegistryReport` finding kinds + 6-step fix path |
+
+### Canonical path note
+
+Direct writes to the requested path were blocked by the workspace sandbox:
+
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-diagram-asset-registry.md`
+
+Promote staging to the canonical location with:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink
+node tools/website-ux-auditor/_run-copy-det-diagram-asset-registry.mjs
+```
+
+That script copies from `.staging-det-diagram-asset-registry.md` and verifies `page_version` matches the required hash. No check modules, mappings, or registry files were edited.

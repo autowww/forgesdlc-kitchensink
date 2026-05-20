@@ -1,11 +1,11 @@
 # Visual inventory (generated)
 
-- Generated: 2026-05-18
-- Total items: 363
+- Generated: 2026-05-19
+- Total items: 369
 
 ## By type
 - **diagram-or-asset:** 79
-- **design-terminology:** 70
+- **design-terminology:** 76
 - **component:** 59
 - **generated-showcase-page:** 29
 - **page-instance:** 23
@@ -329,6 +329,12 @@
 - [design-terminology] `docs/design/forge-enterprise-ai-website-standard.md` — Design doc docs/design/forge-enterprise-ai-website-standard.md
 - [design-terminology] `docs/design/forge-enterprise-ui.md` — Design doc docs/design/forge-enterprise-ui.md
 - [design-terminology] `docs/design/lenses-studio-shell.md` — Design doc docs/design/lenses-studio-shell.md
+- [design-terminology] `docs/design/ux-audit/README.md` — Design doc docs/design/ux-audit/README.md
+- [design-terminology] `docs/design/ux-audit/ai-enabled-design-principles.md` — Design doc docs/design/ux-audit/ai-enabled-design-principles.md
+- [design-terminology] `docs/design/ux-audit/component-design-ruleset-taxonomy.md` — Design doc docs/design/ux-audit/component-design-ruleset-taxonomy.md
+- [design-terminology] `docs/design/ux-audit/deterministic-design-rules.md` — Design doc docs/design/ux-audit/deterministic-design-rules.md
+- [design-terminology] `docs/design/ux-audit/element-level-ruleset-matrix.md` — Design doc docs/design/ux-audit/element-level-ruleset-matrix.md
+- [design-terminology] `docs/design/ux-audit/industry-standard-page-quality.md` — Design doc docs/design/ux-audit/industry-standard-page-quality.md
 - [design-terminology] `docs/design/wizard-flow-studio.md` — Design doc docs/design/wizard-flow-studio.md
 - [design-terminology] `docs/PAGE-LAYOUT-TAXONOMY.md` — PAGE-LAYOUT-TAXONOMY
 - [generated-showcase-page] `showcase/controls.html` — Generated showcase HTML: controls.html
@@ -386,3 +392,19 @@
 - [desktop-interface] `museum/studio/index.html` — Museum studio shell
 - [library-consumer] `forge-autodoc/forge_autodoc/page.py` — Forge autodoc handbook assembler
 - [page-instance] `forge-autodoc/forge_autodoc/page.py` — Handbook chapter main (autodoc handbook_page <main>)
+
+## Catalog crosswalk (registry JSON + showcase scan)
+
+- Registry rows: 91 (active: 91)
+- Distinct hashes in registry: 91
+- Distinct hashes in showcase HTML/JS scan: 54
+- Emit-marker gaps (expected in showcase, not seen in scan): 0
+- Contract path missing on disk: 0
+- Contracts with TBD/TODO/FIXME (non-strict): 0
+- Screenshot PNGs present (catalog dir): 48 / 91
+- Screenshot PNGs present (showcase dir): 0 / 91
+- Registry expects PNG but neither path exists: 0
+- `family-covered` rows: 37
+- Parent rows listing children: 6
+- Broad-family candidates (medium+ risk): 5
+

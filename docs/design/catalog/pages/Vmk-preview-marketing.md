@@ -28,7 +28,8 @@ Static preview page demonstrating **Preview marketing layout** in isolation (`ge
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- Static **preview** of **Mkt** interior marketing layout—section stacks visible without dynamic CMS.
+- Typography proves marketing rhythm against KS tokens ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,7 @@ Registry **root_selector:** `main#main`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Capture demonstrates stacked marketing bands at phone width—no clipped CTAs.
 
 ## Accessibility contract
 
@@ -69,6 +69,18 @@ Registry **root_selector:** `main#main`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Vmk** markers: emitted roots include both `hash="Vmk"` and `data-ks-hash="Vmk"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: main#main: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Miniature preview page mirrors typography and shell stripe patterns of its parent layout hash without spoofing unrelated themes.
+- Preview iframe/card (if present) retains readable type scale; no unreadable pixel-type used only for pixel-fit.
+
+## AI-enabled review cues
+
+- Does the preview communicate *which* layout family is selected (visual signature of **Preview marketing layout**) to handbook readers at a glance?
+- Would a consumer maintainer recognize migration risk from the preview alone (density, nav chrome, hero treatment)?
 
 ## Forbidden patterns
 

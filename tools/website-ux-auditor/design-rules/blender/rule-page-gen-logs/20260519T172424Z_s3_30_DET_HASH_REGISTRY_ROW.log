@@ -1,0 +1,42 @@
+## Report: `DET.HASH.REGISTRY_ROW` handbook page
+
+### Written
+PDCA rule page for **Visual hash registry crosswalk** — crosswalks emitted `hash` / `data-ks-hash` tokens against `visual-registry.generated.json` (unknown hash, type mismatch, deprecated, missing/duplicate registry), aligned with `det-hash-registry-row.check.js`.
+
+**Paths with full content (identical):**
+- `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-hash-registry-row.md`
+- `tools/website-ux-auditor/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-hash-registry-row.md`
+
+**Canonical target (still missing on disk):**  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-hash-registry-row.md`
+
+Deploy with:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-det-hash-registry-row-pending.sh
+```
+
+### Front matter
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.HASH.REGISTRY_ROW` |
+| `lane` | `deterministic` |
+| `page_version` | `8b23253fec83e82d81039d13831251f57cd75cb62b86f892e33426a08c8c3ba9` |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-hash-registry-row` |
+
+### Sections
+Purpose (PDCA), Passing signals, Failing signals, Before/After HTML, Evidence and remediation, Related rules.
+
+### Examples (real KS patterns)
+- **Before (fails):** **Hbk** `layout` OK; **Zzz** unknown; **Ksr** with wrong `data-ks-type="component"` (registry: `chrome-region`).
+- **After (passes):** **Hbk**, **Ksr** `chrome-region`, **Ksf** `ks-site-footer-region` with matching types.
+- Classes: `container-fluid`, `landing-hero`, `forge-section`, `forge-sidebar`, `nav-scroll`, `nav-rail`, `forge-card`, `forge-brand`, `doc-content`, `section-label`, `product-landing-title`, `forge-support`, etc.
+
+### `page_version` confirmation
+In the written source file, line 6 is exactly:
+
+`page_version: 8b23253fec83e82d81039d13831251f57cd75cb62b86f892e33426a08c8c3ba9`
+
+No Mermaid, no Fleet-specific content. Check modules and registry were not edited. After you run the copy script above, the orchestrator can update `rule-pages.manifest.json` for the canonical path.

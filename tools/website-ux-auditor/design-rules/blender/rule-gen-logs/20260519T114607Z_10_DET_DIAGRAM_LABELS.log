@@ -1,0 +1,52 @@
+Implemented **DET.DIAGRAM.LABELS** as a deterministic visual-catalog check. Shell commands were blocked in this session, so please run verification locally.
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-diagram-labels.check.js`
+Replaced the auto-generated stub with a full check that:
+
+- **Repo scan** (`scanRepoDiagramLabels`): For each `generator/pages/_diagram_gallery.py` key, reads `js/ks-diagram-catalog.js` legend `items[].node` values and compares them to `<text>` / `<tspan>` content in the matching `assets/svg/template-*.svg`.
+- **DOM scan** (`collectDiagramLabelsReport`): For visible, non-decorative tiles with `data-diagram-key`, loads labels from inline SVG, fetched `<img>` SVG, or ASCII `<pre>` text and compares them to `window.__FORGE_KS_DIAGRAM_CATALOG`.
+- **Pass criteria**: At least `max(2, ceil(50% × legendCount))` legend node strings must appear in readable diagram text (constants: `MIN_LEGEND_NODE_MATCHES`, `LEGEND_COVERAGE_RATIO`).
+- **Violation kinds**:
+  - `diagram-labels-no-readable-text` — no usable labels in SVG/ASCII
+  - `diagram-labels-legend-gap` — too few legend keys present on the surface
+
+Reuses `loadDiagramCatalogKeys` / `parseDiagramGalleryKeyToSvg` from `det-diagram-asset-registry.check.js` to avoid duplicating catalog parsing.
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|--------|--------|
+| status | `implemented` |
+| area | `visual-catalog` |
+| scoreDimension | `visualCatalogGovernance` |
+| defaultSeverity | `warn` |
+| priorityWeight | `7` |
+
+### 3. `auditor-tests/det-diagram-labels.test.js`
+Unit tests for SVG/legend parsing, coverage analysis, finding shape, and `run()` wiring via `metrics.diagramLabelsReport`.
+
+### 4. `design-rules/registry.generated.json`
+Updated `DET.DIAGRAM.LABELS` to `implemented` and adjusted coverage counts (`implementedCount` 20, `stubCount` 30). Re-run `blend-rules` to refresh fingerprint/timestamp.
+
+## Why
+
+The rule requires **readable diagram labels aligned with catalog legend keys** (`deterministic-design-rules.md`). That is measurable by matching `ks-diagram-catalog.js` `node` strings to SVG text nodes (and ASCII art for `forge-diagram-ascii`), without LLM judgment.
+
+## Verify locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+Targeted:
+
+```bash
+node --test auditor-tests/det-diagram-labels.test.js
+```
+
+On the kitchensink repo with `--repo`, the repo scan should pass for standard `template-*.svg` tiles (e.g. `linear` → Step A–D). Consumer pages flag catalog-linked diagrams whose rendered labels do not cover enough legend nodes when the diagram catalog script is present.

@@ -1,0 +1,33 @@
+Connection lost, reconnecting (attempt 1)...
+Retry attempt 1...
+## Report: `DET.CARD.TITLE` handbook page
+
+**File written:** [`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-card-title.md`](file:///home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-card-title.md) (129 lines)
+
+**`page_version` confirmed:** `ee28367724421799c6bb05f9eddada3934bfdcfbdc953a16fcf32156ff285354` (matches manifest `contentVersion`)
+
+### Sources used
+
+| Source | What it informed |
+|--------|------------------|
+| `deterministic-design-rules.md` | Pass condition: visible title or `aria-labelledby` |
+| `det-card-title.check.js` | Selectors, `MIN_CARD_TITLE_CHARS = 2`, toolbar/nav exclusions, `cardTitleReport` evidence |
+| `forge-theme.css` + `_for_agents_content.py` | Real classes: `forge-card`, `breathe-static`, `breathe-link`, `card-amber`, `card-label`, `h5`, `forge-support` |
+| `element-level-ruleset-matrix.md` | Related rules list |
+
+### Page structure (PDCA + schema)
+
+- **Front matter:** `rule_id`, `lane`, `title`, `summary`, required `page_version`, `generated_at`, `agent_model`, `registry_fingerprint` (`6773fda5…`), `registry_status: implemented`, `source_rule`, `related_rules`
+- **Body:** Purpose (Plan/Do/Check/Adjust), Passing signals, Failing signals, Before/After HTML examples, Evidence and remediation, Related rules
+
+### Before / after examples (KS classes)
+
+- **Before (fails):** `forge-card breathe-static` with only `forge-support` + `btn btn-outline-primary` — no title
+- **After (passes):** `card-label` + `h5` + `forge-support` + hash attrs (`hash` / `data-ks-hash` / `data-ks-type` / `data-ks-name`)
+- **Bonus pass:** `forge-card card-amber breathe-link` link-card pattern from the For Agents showcase
+
+### Check implementation (reference only — not edited)
+
+Implementation lives at `tools/website-ux-auditor/design-rules/deterministic/generated/det-card-title.check.js` (scans `.forge-card`, `.card`, `[data-card]`, etc.; emits `missing_card_title` at **major** severity).
+
+No changes were made to check modules, `rule-mappings.js`, or registry. The orchestrator can update `rule-pages.manifest.json` in the batch.

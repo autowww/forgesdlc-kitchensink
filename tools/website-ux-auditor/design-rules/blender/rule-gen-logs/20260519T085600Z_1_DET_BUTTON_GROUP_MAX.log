@@ -1,0 +1,41 @@
+## Summary
+
+Implemented **DET.BUTTON.GROUP.MAX** as a deterministic layout check for horizontal action clusters.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-button-group-max.check.js`**
+   - Cap: **`MAX_VISIBLE_HORIZONTAL_ACTIONS = 3`** (primary + secondary + one low-emphasis action; matches Forge hero/CTA guidance and `cta-trust-ecosystem` density).
+   - **`collectButtonGroupMaxReport(page)`** — Playwright `page.evaluate()` that:
+     - Scans KS/Bootstrap patterns (`.btn-group`, `.landing-hero-actions__buttons`, flex action rows in `main`, etc.).
+     - Counts visible `button`, `.btn` links, and `[role="button"]`.
+     - Requires a horizontal cluster (top spread ≤ 14px, left spread > 24px).
+     - Skips nav, pagination, dropdown menus, cookie chrome, header nav.
+   - **`findingsFromButtonGroupMaxReport()`** — maps violations to `severity` / `area` / `message` / `evidence` / `remediation` (critical when count > max+1).
+   - **`run({ metrics, page, url })`** — uses `metrics.buttonGroupMaxReport` or live collection.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `area: conversion`, `scoreDimension: trustAndEcosystemTruth`, `defaultSeverity: major`, `priorityWeight: 8`.
+
+3. **`design-rules/registry.generated.json`**
+   - Updated `DET.BUTTON.GROUP.MAX` from `stub` → `implemented` with the same metadata (stale until `blend-rules` refreshes the fingerprint).
+
+4. **`auditor-tests/det-button-group-max.test.js`**
+   - Unit tests for report mapping and `run()` behavior.
+
+### Verify locally
+
+Shell execution was blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` (including fingerprint). `design-rules-blender.test.js` also runs the blender during `npm test`.
+
+### Runtime behavior
+
+- **Live crawl** (`lib/crawl.js`): runs via `runDeterministicRules({ page, ... })`.
+- **Metrics-only analyze**: pass `metrics.buttonGroupMaxReport` or the check no-ops (same pattern as `DET.AMBIENT.Z_INDEX`).

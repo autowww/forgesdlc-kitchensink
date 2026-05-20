@@ -1,0 +1,55 @@
+## Summary
+
+Implemented **DET.NAV.BREADCRUMB** as a deterministic DOM-presence check aligned with the Kbc doc-breadcrumb contract.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-nav-breadcrumb.check.js`**
+
+Replaced the auto-generated stub with a full check that:
+
+- **Requires breadcrumb** on non-home pages that show doc/product hub signals:
+  - KS layout slugs: `layout-handbook`, `layout-chapter`, `layout-product`, `layout-showcase`, `layout-listing`, `layout-gallery`, `layout-split`
+  - Visible doc sidebar (`.forge-sidebar`, `.fs-sidebar`, Ksr, etc.)
+  - Showcase header band (`.site-header .site-header-content`)
+- **Exempts** home routes and `layout-landing` / `layout-marketing`
+- **Detects breadcrumb** via `.ks-doc-breadcrumb`, `Kbc` hash markers, `nav[aria-label="breadcrumb"]`, or visible `.breadcrumb` with meaningful trail content
+- Exports testable helpers: `pageRequiresBreadcrumbFromSignals`, `findingsFromNavBreadcrumbReport`, `collectNavBreadcrumbReport`, `run`
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `status: implemented`
+- `area: informationArchitecture`
+- `scoreDimension: informationArchitecture`
+- `defaultSeverity: warn`
+- `priorityWeight: 7`
+
+**3. `design-rules/registry.generated.json`**
+
+Updated `DET.NAV.BREADCRUMB` from `stub` → `implemented` and adjusted coverage counts (partial manual sync).
+
+**4. `auditor-tests/det-nav-breadcrumb.test.js`**
+
+Unit tests for signal logic, finding shape, and `run()` behavior.
+
+### Why this approach
+
+The source rule says: *“Product/doc hubs include breadcrumb where registry marks chrome-region breadcrumb contract.”* That maps to measurable signals:
+
+- **Hub detection** — layout hash slugs + doc-sidebar/showcase-header DOM (no AI)
+- **Presence check** — Kbc root selector and standard breadcrumb landmarks
+- **False-positive guard** — skip home and landing/marketing layouts
+
+### Verify locally
+
+Shell execution was unavailable in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will fully regenerate the registry fingerprint and reconcile any coverage drift from the manual registry edit.

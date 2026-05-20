@@ -7,11 +7,16 @@ import { buildAiAuditBatchManifest } from './lib/ai-audit-batches.js';
 import { ensureDir } from './lib/files.js';
 
 function usage() {
-  console.error('usage: node build-ai-audit-batches.mjs --repo REPO --audit AUDIT_DATA_JSON --out AI_OUT_DIR [--standard PATH] [--batch-size N]');
+  console.error(
+    'usage: node build-ai-audit-batches.mjs --repo REPO --audit AUDIT_DATA_JSON --out AI_OUT_DIR [--standard PATH] [--batch-size N]',
+  );
+  console.error(
+    'Note: manifest.json includes aiReviewContract (canonical AI principle ids + required finding metadata; see lib/ai-audit-batches.js).',
+  );
 }
 
 const argv = process.argv.slice(2);
-const args = { repo: '', audit: '', out: '', standard: '', batchSize: 5 };
+const args = { repo: '', audit: '', out: '', standard: '', batchSize: 1 };
 for (let i = 0; i < argv.length; i += 1) {
   const key = argv[i];
   const next = argv[i + 1];
@@ -19,7 +24,7 @@ for (let i = 0; i < argv.length; i += 1) {
   else if (key === '--audit') args.audit = next || '';
   else if (key === '--out') args.out = next || '';
   else if (key === '--standard') args.standard = next || '';
-  else if (key === '--batch-size') args.batchSize = Number(next || '5');
+  else if (key === '--batch-size') args.batchSize = Number(next || '1');
 }
 if (!args.repo || !args.audit || !args.out) {
   usage();

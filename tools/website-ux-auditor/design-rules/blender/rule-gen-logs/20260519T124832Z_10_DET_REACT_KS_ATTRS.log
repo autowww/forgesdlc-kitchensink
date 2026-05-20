@@ -1,0 +1,41 @@
+## Summary
+
+Implemented **DET.REACT.KS_ATTRS** as a DOM deterministic check aligned with `react/ksVisualAttrs.ts` and `docs/design/catalog/primitives/FAM-react-primitives.md`.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-react-ks-attrs.check.js`**
+   - Scans visible KS React primitive roots (`data-ks-react-root="true"` or `data-ks-type="react-primitive"`).
+   - Verifies `data-ks-hash` (three distinct ASCII letters), `data-ks-type="react-primitive"`, `data-ks-name` (non-empty), paired `hash` / `data-ks-hash`, and `data-ks-react-root="true"`.
+   - Exports `findingsFromReactKsAttrsReport`, `collectReactKsAttrsReport`, and `run` (uses `metrics.reactKsAttrsReport` or live `page.evaluate()`).
+   - Findings use `area: visual-catalog`, standard severity/evidence/remediation fields, cap at 10 per page.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as `implemented` with `visualCatalogGovernance`, `priorityWeight: 8`.
+
+3. **`auditor-tests/det-react-ks-attrs.test.js`**
+   - Unit tests for hash validation, findings mapping, and `run()` behavior.
+
+4. **`design-rules/registry.generated.json`**
+   - Coverage updated: **41 implemented**, **9 stubs**, `DET.REACT.KS_ATTRS` marked implemented (fingerprint/`generatedAt` still from the prior blend — re-run blender to refresh).
+
+### Why
+
+The rule requires React primitives to emit the same governed marker trio as `ksReactPrimitiveAttrs()` — the DOM-side complement to **DET.PY.KS_HASH_ATTRS** for Python renderers and separate from **DET.HASH.MARKERS** (global hash pairs) and **DET.REACT.A11Y_ROLE** (ARIA behavior).
+
+### Verification (please run locally)
+
+Terminal access was blocked in this session. From `tools/website-ux-auditor`:
+
+```bash
+npm run blend-rules
+npm test
+```
+
+Or only this rule’s tests:
+
+```bash
+node --test auditor-tests/det-react-ks-attrs.test.js
+```
+
+`blend-rules` will refresh `registry.generated.json` fingerprint after the mapping change. If anything fails, paste the output and I can adjust.

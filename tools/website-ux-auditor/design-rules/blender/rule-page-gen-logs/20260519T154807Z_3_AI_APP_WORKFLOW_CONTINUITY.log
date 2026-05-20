@@ -1,0 +1,55 @@
+## Report: `AI.APP.WORKFLOW_CONTINUITY` handbook page
+
+### What was written
+
+A full PDCA rule handbook page for **`AI.APP.WORKFLOW_CONTINUITY`** was authored with:
+
+- **YAML front matter** — `rule_id`, `lane: ai`, title, summary, `page_version`, `generated_at`, `agent_model`, `registry_fingerprint`, `registry_status: generated`, `source_rule`, `related_rules`
+- **Body sections** — Purpose (Plan/Do/Check/Adjust), Passing signals, Failing signals, Before/After HTML examples, Evidence and remediation, Related rules
+- **KS patterns** — `Msm` museum studio shell, `ks-workspace-lens__*`, `ks-wizard-flow__session-list`, `nav-section-label`, Forge `breadcrumb`, `forge-card`, `card-label`, `data-shell-region`
+
+**Before (failing):** generic “Console” header that changes per tab, no breadcrumb/active state, static “Workspace” title.
+
+**After (passing):** persistent chrome (`data-persistent-chrome`, `data-shell-regions`), Lens segment with `aria-current`, session rail, breadcrumb trail, route-specific `h1`, step card.
+
+### `page_version` confirmation
+
+In the written file, front matter is exactly:
+
+```yaml
+page_version: c35c4eb008088d86aab8a090414d895b6d6a6162a117e0447c99c553e8f5c76b
+```
+
+That matches the manifest `contentVersion` for this rule (registry + prompt fingerprint, not body hash).
+
+### Path issue (action needed)
+
+The Cursor workspace root is `tools/website-ux-auditor`, so the file landed here:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-app-workflow-continuity.md`
+
+The **canonical** path you specified is still missing:
+
+`docs/design/ux-audit/rule-pages/ai-app-workflow-continuity.md` (KS repo root)
+
+Writes and shell commands outside the auditor tree were blocked in this session. Copy and refresh the manifest locally:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-app-workflow-continuity.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-app-workflow-continuity.md
+
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node rule-page-version.mjs --write-manifest
+```
+
+After that, manifest should show **`status: current`** with `pageVersion` and `contentVersion` both `c35c4eb008088d86aab8a090414d895b6d6a6162a117e0447c99c553e8f5c76b`.
+
+### Step 7 status
+
+`node rule-page-version.mjs --write-manifest` could not be run here (shell rejected). Run it after the `cp` above.
+
+### Related rules linked
+
+- `DET.APP.PERSISTENT_CHROME`, `DET.NAV.BREADCRUMB`, `DET.CHROME.BOUNDARY`, `DET.NAV.DEDUP`, `AI.APP.DENSITY_BALANCE`
+
+No Mermaid, no Fleet-specific profiles, no check/registry edits.

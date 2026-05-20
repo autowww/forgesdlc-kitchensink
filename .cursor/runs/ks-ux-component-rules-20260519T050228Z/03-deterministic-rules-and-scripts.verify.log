@@ -1,0 +1,22 @@
+VERDICT: PASS
+
+### Evidence
+
+- **`dom-metrics.js`** exposes the metrics the phase describes (`headingBodyWordRatio`, acronym-style counts, `apiLikePathHits`, viewport link counts, `heroMainWordCount`, `sectionMedianGapPx`, `maxParagraphMeasurePx`, font/color samples, `ctaVerticalSpreadPx`, `technicalPrecedesMainExplanation`, `heroPrimaryVisual`, etc.) and returns them in the metrics object (~ lines 258–495 in [`tools/website-ux-auditor/lib/dom-metrics.js`](/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/lib/dom-metrics.js)).
+- **Deterministic checks** consume those signals: e.g. [`readability-structure.js`](/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/checks/readability-structure.js) (heading/body ratio, acronyms, long paragraphs ~85-word budget, viewport links, measure, fonts/colors); [`technical-depth.js`](/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/checks/technical-depth.js) (progressive disclosure + API-path density); [`first-screen-density.js`](/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/checks/first-screen-density.js); [`product-visual.js`](/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/checks/product-visual.js); [`cta-trust-ecosystem.js`](/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/checks/cta-trust-ecosystem.js).
+- **Design catalog:** [`tools/design-catalog/lib/contract-specificity.mjs`](/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/lib/contract-specificity.mjs) implements generic **`## Expected look`** rules and **`## States`** / governance-heading logic; [`check-visual-catalog.mjs`](/home/lzvyahin/Code/forgesdlc-kitchensink/tools/design-catalog/check-visual-catalog.mjs) imports it (~ line 366) and enforces **`contract_status: own`** contract paths whose basename includes the hash (~ lines 282–294 area from grep context).
+- **Tests:** [`auditor-tests/deterministic-proxies.test.js`](/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/auditor-tests/deterministic-proxies.test.js) documents a generic mechanism-led regression (`mechanismDenseMetrics`, fictional host, `siteKind: 'generic'`), exercises the updated checks plus `analyzeContractSpecificity`, and aggregates via `runAllChecks`.
+- **Separation:** `analyze-website-ux.mjs` pulls shared helpers from `lib/design-ux-score.js` but does **not** import/run `score-website-ux.mjs`; scorer does **not** import the analyzer (`grep` confirms).
+- **Report:** [`.cursor/plans/ks-ux-component-rules/03-deterministic-rules-and-scripts.md`](/home/lzvyahin/Code/forgesdlc-kitchensink/.cursor/plans/ks-ux-component-rules/03-deterministic-rules-and-scripts.md) maps **AI-only → deterministic** behaviors and lists verification commands.
+
+### Missing work / caveats
+
+- This verification is **static** only (Ask mode): **`npm test` and `check-visual-catalog.mjs` were not executed here**, so CLI “green” is taken from consistency with your log, not re-proven locally.
+- The phase wording **“unique concepts”** is met only via **acronym-/token-like** proxies (`uniqueAcronymLikeCount`, above-fold overload), not a separate concept extractor.
+- **`checks/storyline-flow.js` / `checks/context.js`** are not materially expanded in Phase 03; progressive disclosure extras land mainly under **`technical-depth`** plus existing storyline rules.
+
+### Exact next actions
+
+1. **`cd tools/website-ux-auditor && npm test`** — confirm suite (including ~99 tests) passes on your tree.  
+2. **`node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase`** and, if you rely on governance headings, rerun with **`--strict-contract-governance`**.  
+3. If stakeholders want parity with **“unique concepts”** wording, clarify whether acronym/token density is enough or you need another signal (beyond current metrics).

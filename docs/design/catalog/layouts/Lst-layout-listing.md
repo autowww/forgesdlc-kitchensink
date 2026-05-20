@@ -28,7 +28,8 @@ Resource hub or filtered index: list rows, cards, pagination, and empty-state af
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Listing/index** frame tuned for scan-heavy grids or tables—predictable header region + filter slot patterns when present.
+- Pagination or continuation cues remain visually calm versus gallery tiles ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,8 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Filters/toolbars stack; grids reduce columns progressively (**xl→lg→md→sm**).
+- Empty states remain centered and readable on phones.
 
 ## Accessibility contract
 
@@ -69,6 +70,19 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Lst** markers: emitted roots include both `hash="Lst"` and `data-ks-hash="Lst"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: div.container-fluid.px-0: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- List/grid density matches Bootstrap column rules; pagination or filters remain keyboard operable.
+- Card titles maintain heading semantics (not anonymous `div` stacks) when listings are scraped for nav aids.
+
+## AI-enabled review cues
+
+- Does **Listing layout** read as the correct *role* for consumers (handbook vs museum vs landing) rather than an accidental mash-up of two layouts?
+- Under studio lighting (screenshots at ~1440px), does vertical rhythm reinforce scan-friendly hierarchy (not cramped headings or orphaned whitespace bands)?
+- When paired with diagrams or dense tables, does chrome stay visually subordinate while remaining discoverable?
 
 ## Forbidden patterns
 

@@ -56,11 +56,26 @@ One-shot refresh of inventory inside the checker (still offline):
 node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase --refresh-inventory
 ```
 
+Bulk-insert **deterministic vs AI-review** headings for stateful contracts (layouts, chrome, pages, layout-previews)—content is synthesized from [`tools/design-catalog/lib/contract-governance-blocks.mjs`](../../../tools/design-catalog/lib/contract-governance-blocks.mjs):
+
+```bash
+node tools/design-catalog/apply-contract-governance-sections.mjs --registry docs/design/catalog/visual-registry.yaml --repo . --dry-run
+node tools/design-catalog/apply-contract-governance-sections.mjs --registry docs/design/catalog/visual-registry.yaml --repo . --write
+```
+
+Refresh **Expected look** / **Responsive behavior** from slug-keyed blurbs ([`tools/design-catalog/lib/contract-element-blurbs.mjs`](../../../tools/design-catalog/lib/contract-element-blurbs.mjs))—targets duplicated slabs detected by `contract-specificity.mjs`; requires regenerated [`visual-registry.generated.json`](visual-registry.generated.json):
+
+```bash
+node tools/design-catalog/apply-element-specific-blurbs.mjs --repo . --registry-json docs/design/catalog/visual-registry.generated.json --dry-run
+node tools/design-catalog/apply-element-specific-blurbs.mjs --repo . --registry-json docs/design/catalog/visual-registry.generated.json --write
+```
+
 Checker flags:
 
 | Flag | Purpose |
 |------|---------|
 | `--refresh-inventory` | Run `inventory-ks-visuals.mjs` before validating |
+| `--strict-contract-governance` | Warn when stateful contracts omit **Deterministic** / **AI** review headings (`layout`, `page`, `chrome-region`, `layout-preview`) |
 | `--strict-contract-placeholders` | Fail on `TBD` / `TODO` / `FIXME` stub bullets (default: one summary warning with count) |
 | `--verbose-contract-placeholders` | Emit one warning per contract that still uses stub bullets |
 | `--allow-minimal-showcase` | Skip Shw/Gly density guards (for tiny fixture repos) |

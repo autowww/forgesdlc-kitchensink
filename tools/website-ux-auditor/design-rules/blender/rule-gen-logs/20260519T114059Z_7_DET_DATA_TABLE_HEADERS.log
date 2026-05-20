@@ -1,0 +1,53 @@
+Implemented **`DET.DATA.TABLE_HEADERS`** as a deterministic DOM check aligned with the catalog rule: data tables must use `<th scope>` or explicit `headers` associations.
+
+### Source rule → measurable signals
+
+From `deterministic-design-rules.md`: pass when visible data tables either:
+
+1. Use `<th>` (or `role="columnheader"` / `role="rowheader"`) with valid `scope` (`col`, `row`, `colgroup`, `rowgroup`), or  
+2. Every body `<td>` has a `headers` attribute pointing at header cell ids in the same table.
+
+### What was added
+
+**`design-rules/deterministic/generated/det-data-table-headers.check.js`**
+
+- `collectTableHeadersReport(page)` — scans visible `<table>` elements with at least one visible `<td>`
+- Skips layout tables (`role="presentation"`, hidden subtrees)
+- Violations:
+  - `no-header-cells` — no header cells and not all `td` have valid `headers`
+  - `th-missing-scope` — header cells exist but lack `scope`, and not all `td` use `headers`
+- `findingsFromTableHeadersReport()` / `run({ metrics, page, url })` — same pattern as `DET.CHART.ALT_SUMMARY` and `DET.DATA.COLOR_ONLY` (`metrics.tableHeadersReport` when precomputed)
+
+**`design-rules/blender/rule-mappings.js`**
+
+- Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented** with `area: accessibility`, `scoreDimension: accessibilitySemanticsMeta`, `priorityWeight: 7`, `defaultSeverity: major`
+
+**`auditor-tests/det-data-table-headers.test.js`**
+
+- Unit tests for findings helpers and `run()`
+
+**`design-rules/registry.generated.json`**
+
+- Rule marked **implemented** (18 implemented / 32 stub)
+
+### Finding shape (backward compatible)
+
+- `severity`: `major`
+- `area`, `message`, `evidence` (`missing_table_headers issue=…`), `remediation`
+- Optional `url=` on evidence when a URL is provided
+
+### Verification
+
+Shell execution was blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` refreshes the registry fingerprint/`generatedAt`. Targeted test:
+
+```bash
+node --test auditor-tests/det-data-table-headers.test.js
+```

@@ -1,0 +1,53 @@
+---
+description: Code footprint and analyzability — flag large source files, plan semantic splits, and keep generated website/tutorial/CDN outputs out of review sizing.
+globs: **/*.py,**/*.js,**/*.ts,**/*.tsx,**/*.jsx,**/*.mjs,**/*.cjs,**/*.java,**/*.kt,**/*.go,**/*.rs,**/*.rb,**/*.php,**/*.sh,**/*.yaml,**/*.yml,**/*.json,**/*.toml,**/*.md
+alwaysApply: false
+---
+
+# Code Footprint And Analyzability
+
+Use this rule when reviewing or editing major code/style files, after a `blueprints/` submodule bump, or when a file is too large for a focused human or small-LLM review pass.
+
+## Source Standard
+
+- Follow `blueprints/sdlc/methodologies/agentic-coding-standards.md` section **Code analyzability and file footprint**.
+- Treat footprint bands as advisory review guidance, not a hard gate.
+- Repository-local rules in `AGENTS.md`, `.cursor/rules/`, `forge/standards-registry.yaml`, ADRs, or architecture docs may override Blueprints defaults when they are explicit.
+
+## Exclusions
+
+Do not size or split generated/vendor outputs unless the user explicitly asks to edit that output as source of truth:
+
+- generated `website/`, `showcase/`, `dist/`, `build/`, coverage, or static export trees
+- minified CDN or vendor files
+- generated tutorial HTML/CSS/JS
+- lockfiles, snapshots, fixtures intentionally generated from another source
+- vendored dependencies and package manager caches
+
+## When A File Is Large
+
+1. Inspect responsibility and local conventions before proposing a split.
+2. Prefer a split plan before rewriting behavior.
+3. Keep entrypoints stable when possible; avoid breaking imports, CLI commands, public APIs, URLs, or persisted data contracts.
+4. Split by meaning, not by equal line counts:
+   - CLI entrypoint / command wiring
+   - configuration and environment loading
+   - domain services and pure transformations
+   - IO/adapters and external clients
+   - rendering/reporting
+   - tests, fixtures, and sample data
+   - shared types or schemas
+5. If introducing a new folder, add a short `README.md` or `INDEX.md` that explains folder purpose, entrypoints, and what belongs in each file.
+6. Keep split PRs focused; do not combine mechanical decomposition with unrelated feature work.
+
+## After Blueprints Bump
+
+When the repo embeds `blueprints/` and that submodule is updated, check whether coding/style rules changed:
+
+```bash
+bash blueprints/sdlc/methodologies/forge/setup/sync-forge-cursor-rules.sh status --preset recommended --with-code-footprint-rules
+bash blueprints/sdlc/methodologies/forge/setup/sync-forge-cursor-rules.sh diff --preset recommended --with-code-footprint-rules
+python3 blueprints/sdlc/methodologies/forge/setup/code_footprint_scan.py .
+```
+
+Review `diff` before `--force`. The scan is readonly and should produce split candidates, not automatic rewrites.

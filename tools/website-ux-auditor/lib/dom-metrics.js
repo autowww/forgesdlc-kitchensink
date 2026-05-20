@@ -69,6 +69,7 @@ export async function collectDomMetrics(page, href) {
       const h1Count = headings.filter((h) => h.tag === 'h1').length;
       const title = norm(document.title);
       const metaDescription = norm(document.querySelector('meta[name="description"]')?.getAttribute('content') || '');
+      const metaViewport = norm(document.querySelector('meta[name="viewport"]')?.getAttribute('content') || '');
       const lang = document.documentElement.getAttribute('lang') || '';
       const topCtas = buttons.filter((b) => b.top < 900 && CTA_TERMS.some((term) => b.text.toLowerCase().includes(term))).slice(0, 8);
       const allLower = allText.toLowerCase();
@@ -207,7 +208,8 @@ export async function collectDomMetrics(page, href) {
       const outsideMainHeaderNavAnchors = qsDoc('header a[href], nav a[href]').filter((a) => visible(a) && !auxiliaryLink(a)).filter(isOutsideMain);
       const outsideMainHeaderNavLinkCount = outsideMainHeaderNavAnchors.length;
 
-      const heroFoldBottom = Math.min(900, Math.max(Math.round(window.innerHeight * 0.92), 560));
+      const vh = Math.round(window.innerHeight);
+      const heroFoldBottom = Math.min(900, Math.max(Math.round(vh * 0.92), 560));
       const qualifiesHeroVisual = (el) => {
         if (!visible(el) || !mainElRaw || !mainElRaw.contains(el)) return false;
         const r = el.getBoundingClientRect();
@@ -216,6 +218,8 @@ export async function collectDomMetrics(page, href) {
       };
 
       let mainHeroVisualAboveFoldCount = 0;
+      /** @type {{ tag: string, width: number, height: number, top: number, altLen: number, hasCaption: boolean, decorativeGuess: boolean } | null} */
+      let heroPrimaryVisual = null;
       if (mainElRaw) {
         const candidates = [
           ...mainElRaw.querySelectorAll('img'),
@@ -230,8 +234,125 @@ export async function collectDomMetrics(page, href) {
           if (seen.has(key)) continue;
           seen.add(key);
           mainHeroVisualAboveFoldCount += 1;
+          const r = el.getBoundingClientRect();
+          const area = r.width * r.height;
+          const tag = el.tagName.toLowerCase();
+          const alt = tag === 'img' ? (el.getAttribute('alt') || '') : '';
+          const altLower = alt.toLowerCase();
+          const fig = tag === 'img' ? el.closest('figure') : null;
+          const capText = fig ? norm(fig.querySelector('figcaption')?.textContent || '') : '';
+          const decorativeGuess =
+            el.getAttribute('role') === 'presentation'
+            || altLower.includes('decorative')
+            || altLower.includes('background')
+            || altLower.includes('ambient texture')
+            || (tag === 'img' && !alt && !capText && Number(el.naturalWidth || r.width) > 1200);
+          const candidate = {
+            tag,
+            width: Math.round(r.width),
+            height: Math.round(r.height),
+            top: Math.round(r.top),
+            altLen: alt.length,
+            hasCaption: Boolean(capText && capText.length > 3),
+            decorativeGuess,
+          };
+          const prevArea = heroPrimaryVisual ? heroPrimaryVisual.width * heroPrimaryVisual.height : 0;
+          if (!heroPrimaryVisual || area > prevArea) heroPrimaryVisual = candidate;
         }
       }
+
+      const headingWordSum = headings.reduce((acc, h) => acc + (Number(h.words) || 0), 0);
+      const headingBodyWordRatio = bodyWords.length ? headingWordSum / bodyWords.length : 0;
+
+      const extractAcronyms = (txt) => {
+        const out = new Set();
+        const re = /\b[A-Z][A-Z0-9]{1,6}\b/g;
+        let m;
+        while ((m = re.exec(txt)) !== null) {
+          const t = m[0];
+          if (t.length < 2) continue;
+          out.add(t);
+        }
+        return out.size;
+      };
+      const uniqueAcronymLikeCount = extractAcronyms(allText);
+      const aboveFoldAcronymLikeCount = extractAcronyms(aboveFoldText);
+      const apiLikePathHits = (allText.match(/\/v\d+\/[^\s)'"<>]+|\/api\/[^\s)'"<>]+|\/v1\b/gi) || []).length;
+
+      const firstViewportLinkCount = docLinksAll.filter((a) => {
+        const t = Math.round(a.getBoundingClientRect().top);
+        return t >= -2 && t < vh;
+      }).length;
+      const secondViewportLinkCount = docLinksAll.filter((a) => {
+        const t = Math.round(a.getBoundingClientRect().top);
+        return t >= vh && t < 2 * vh;
+      }).length;
+
+      let heroMainWordCount = 0;
+      if (mainElRaw) {
+        let buf = 0;
+        for (const el of mainElRaw.querySelectorAll('h1,h2,h3,p,li')) {
+          if (!visible(el)) continue;
+          const r = el.getBoundingClientRect();
+          if (r.top >= heroFoldBottom || r.bottom <= 0) continue;
+          buf += words(textOf(el)).length;
+        }
+        heroMainWordCount = buf;
+      }
+
+      const sectionTops = sections.map((s) => s.top).filter((t) => Number.isFinite(t) && t >= -4).sort((a, b) => a - b);
+      const sectionGaps = [];
+      for (let i = 1; i < sectionTops.length; i++) sectionGaps.push(sectionTops[i] - sectionTops[i - 1]);
+      const sectionMedianGapPx = sectionGaps.length
+        ? [...sectionGaps].sort((a, b) => a - b)[Math.floor(sectionGaps.length / 2)]
+        : null;
+
+      let maxParagraphMeasurePx = 0;
+      if (mainElRaw) {
+        for (const el of mainElRaw.querySelectorAll('p')) {
+          if (!visible(el)) continue;
+          const wpx = Math.round(el.getBoundingClientRect().width);
+          if (wpx > maxParagraphMeasurePx) maxParagraphMeasurePx = wpx;
+        }
+      }
+
+      const sampleEl = qsRoot('p, li, a, button, h2, h3, span').filter(visible).slice(0, 36);
+      const fontSet = new Set();
+      const colorSet = new Set();
+      for (const el of sampleEl) {
+        const st = window.getComputedStyle(el);
+        const ff = norm(st.fontFamily || '').split(',')[0].replace(/["']/g, '').trim().toLowerCase();
+        if (ff) fontSet.add(ff);
+        const rgb = parseRgb(st.color);
+        if (rgb) colorSet.add(rgb.map((n) => Math.round(n)).join(','));
+      }
+
+      const ctaTops = (topCtas || []).map((c) => Number(c.top)).filter((n) => Number.isFinite(n));
+      const ctaVerticalSpreadPx = ctaTops.length >= 2 ? Math.max(...ctaTops) - Math.min(...ctaTops) : 0;
+
+      /** Progressive disclosure: technical blocks before first substantial explainer paragraph in main. */
+      let firstTechnicalBlockTop = null;
+      let firstExplainerParagraphTop = null;
+      if (mainElRaw) {
+        const blocks = [];
+        for (const el of mainElRaw.querySelectorAll('pre, table, p')) {
+          if (!visible(el)) continue;
+          const tag = el.tagName.toLowerCase();
+          const top = Math.round(el.getBoundingClientRect().top);
+          if (tag === 'pre' || tag === 'table') {
+            blocks.push({ kind: 'technical', top });
+          } else if (tag === 'p' && words(textOf(el)).length >= 16) {
+            blocks.push({ kind: 'explain', top });
+          }
+        }
+        blocks.sort((a, b) => a.top - b.top);
+        firstTechnicalBlockTop = blocks.find((b) => b.kind === 'technical')?.top ?? null;
+        firstExplainerParagraphTop = blocks.find((b) => b.kind === 'explain')?.top ?? null;
+      }
+      const technicalPrecedesMainExplanation =
+        firstTechnicalBlockTop != null
+        && firstExplainerParagraphTop != null
+        && firstTechnicalBlockTop + 4 < firstExplainerParagraphTop;
 
       /** First headings inside main for storyline heuristics */
       let earlyMainHeadings = [];
@@ -313,6 +434,7 @@ export async function collectDomMetrics(page, href) {
       return {
         title,
         metaDescription,
+        metaViewport,
         lang,
         url: window.location.href,
         allTextStart: allText.slice(0, 3000),
@@ -357,6 +479,22 @@ export async function collectDomMetrics(page, href) {
         firstMainContentTop,
         outsideMainHeaderNavLinkCount,
         mainHeroVisualAboveFoldCount,
+        heroPrimaryVisual,
+        headingBodyWordRatio,
+        uniqueAcronymLikeCount,
+        aboveFoldAcronymLikeCount,
+        apiLikePathHits,
+        firstViewportLinkCount,
+        secondViewportLinkCount,
+        heroMainWordCount,
+        sectionMedianGapPx,
+        maxParagraphMeasurePx,
+        distinctFontFamiliesSampled: fontSet.size,
+        distinctTextColorsSampled: colorSet.size,
+        ctaVerticalSpreadPx,
+        firstTechnicalBlockTop,
+        firstExplainerParagraphTop,
+        technicalPrecedesMainExplanation,
         earlyMainHeadings,
         workflowStorySignalHits,
         aiCapabilityStoryHits,

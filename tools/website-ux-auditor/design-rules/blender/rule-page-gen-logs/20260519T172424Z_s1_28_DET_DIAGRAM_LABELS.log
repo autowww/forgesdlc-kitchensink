@@ -1,0 +1,26 @@
+## Report
+
+Created **`docs/design/ux-audit/rule-pages/det-diagram-labels.md`** for **`DET.DIAGRAM.LABELS`** per `RULE_PAGE_SCHEMA.md`.
+
+### Sources used
+- **Rule anchor:** `docs/design/ux-audit/deterministic-design-rules.md` — SVG/diagram readable labels tied to contract legend keys.
+- **Check module:** `tools/website-ux-auditor/design-rules/deterministic/generated/det-diagram-labels.check.js` — violation kinds `diagram-labels-no-readable-text` and `diagram-labels-legend-gap`; thresholds (≥2 chars, ≥2 matches or 50% legend coverage); DOM + repo scan via `js/ks-diagram-catalog.js` and `generator/pages/_diagram_gallery.py`.
+- **Registry:** `registry_fingerprint` `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba`, `registry_status: implemented`.
+- **KS patterns:** `linear` / `gate` catalog keys, `forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, `forge-diagram-trigger`, `forge-support`, `forge-diagram-ascii-pre`, `template-linear-flow.svg`, `template-gate-chain.svg`.
+
+### Page contents
+| Section | Focus |
+|--------|--------|
+| **Purpose** | On-surface SVG/ASCII labels must match `items[].node` in the diagram catalog; separate from alt and semantic accuracy. |
+| **Passing / Failing** | Coverage math, placeholder exclusion, gate **G** vs **Gate 1** gap, alt-only failure mode. |
+| **Before** | `linear` with placeholder-only SVG text; `gate` with **G** instead of full gate names. |
+| **After** | Registered templates with Step A–D / Stage+Gate names; ASCII `gate` figure with catalog tokens. |
+| **Evidence** | `diagramLabelsReport`, `diagramLabelsRepoReport`, remediation by `kind`. |
+
+### `page_version` confirmation
+
+```yaml
+page_version: fb6f4aaa3d5b13909aef3d1985ad765661706eb320f25cc39dd286ab46784aa6
+```
+
+Matches the required orchestrator value exactly. No check modules, mappings, or registry files were edited.

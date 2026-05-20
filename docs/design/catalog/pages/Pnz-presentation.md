@@ -28,7 +28,8 @@ Showcase museum page **presentation** (`generator/pages/presentation.py`) docume
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Presentation** patterns show slide-scale typography and hero bands suited to speaker-view framing.
+- Motion (if present) stays bounded and pairs with reduced-motion fallbacks ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,7 @@ Registry **root_selector:** `main#main`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Slide-scale typography scales down; preview chrome never hides critical headings.
 
 ## Accessibility contract
 
@@ -69,6 +69,19 @@ Registry **root_selector:** `main#main`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Pnz** markers: emitted roots include both `hash="Pnz"` and `data-ks-hash="Pnz"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: main#main: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Page generator `presentation.py` composes inside the advertised parent layout; built HTML for slug `presentation` includes the nested layout hash markers expected by showcase inventory.
+- `main#main` (or contracted root) headings follow one H1 convention per view; supplementary cards do not spoof heading levels.
+
+## AI-enabled review cues
+
+- Does **Presentation** storytelling match the KS museum intent (education, reassurance, parity with consumer sites), not accidental placeholder copy?
+- Are technical blocks (API tables, prose blocks) progressively disclosed consistent with Forge landing doctrine?
+- Screenshot or DOM review: hero / first-scroll real estate reinforces the visitor job for **presentation**.
 
 ## Forbidden patterns
 

@@ -1,0 +1,40 @@
+## Summary
+
+Wrote the **AI.JS.BEHAVIOR_DISCOVERABILITY** handbook page (PDCA in Purpose + Evidence) with schema-compliant front matter and all required sections. Content is ready at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-js-behavior-discoverability.md`
+
+The **canonical** path you specified (`docs/design/ux-audit/rule-pages/ai-js-behavior-discoverability.md` under Kitchen Sink root) could not be written from this session—the workspace sandbox allows edits under `tools/website-ux-auditor/` only. A helper script was added to finish the copy and manifest step locally.
+
+### Front matter (confirmed in source file)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.JS.BEHAVIOR_DISCOVERABILITY` |
+| `lane` | `ai` |
+| `page_version` | `449ba47acb31c696e8e48f933cc72982605fb3541c731b0d8c7e71665973673e` |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-js-behavior-discoverability` |
+
+### Page content highlights
+
+- **Purpose:** Judgment overlay on **`Ksj`** scripts—diagram expand (`forge-diagram-trigger`, `openDiagramWithDetail`), mobile offcanvas (`Kco`, `docNavOffcanvas`), theme (`forge-theme-trigger`), charts (`data-ks-chart`), roadmap/presentation affordances.
+- **Before/after:** `Dce` diagram-code-examples section—failing figure with bare `onclick`, no mobile nav button, icon-only theme; passing variant with `forge-support` hint, `forge-diagram-trigger`, labeled offcanvas + `Kco` chrome, accessible theme control.
+- **Related rules:** `DET.JS.PROGRESSIVE`, `DET.JS.NO_CONSOLE_ERROR`, `DET.MOTION.PREFERS_REDUCED`, `DET.NAV.FOCUS_ORDER`, `AI.MOTION.INTENTIONALITY`.
+
+### Finish locally (canonical path + manifest)
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-ai-js-behavior-discoverability-pending.sh
+```
+
+That copies the page to `docs/design/ux-audit/rule-pages/ai-js-behavior-discoverability.md`, runs `node rule-page-version.mjs --write-manifest`, and prints manifest status.
+
+### `page_version` confirmation
+
+In the written source file, front matter **`page_version`** is exactly:
+
+`449ba47acb31c696e8e48f933cc72982605fb3541c731b0d8c7e71665973673e`
+
+After you run the script, the manifest entry for `AI.JS.BEHAVIOR_DISCOVERABILITY` should show `"status": "current"` with matching `pageVersion`. Until the copy runs, the manifest still lists this rule as `"missing"`.

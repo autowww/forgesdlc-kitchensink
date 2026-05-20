@@ -1,0 +1,48 @@
+## Report: `AI.MOTION.INTENTIONALITY` rule page
+
+The handbook page is written and matches `RULE_PAGE_SCHEMA.md`. Because this Cursor workspace is rooted at `tools/website-ux-auditor`, the file landed in the **staging** path used by other rule-page generators; promotion to the Kitchen Sink canonical path still needs one local command (shell execution was blocked in this session).
+
+### Written content
+
+**Staging path:** `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-motion-intentionality.md`
+
+**Canonical path (pending copy):** `docs/design/ux-audit/rule-pages/ai-motion-intentionality.md`
+
+| Front matter field | Value |
+|---|---|
+| `rule_id` | `AI.MOTION.INTENTIONALITY` |
+| `lane` | `ai` |
+| `title` | Motion intentionality |
+| `page_version` | **`74c3a3b237d7b20f8b0915547e41ac1d3fe3655ef5a2c13112644eec7b36d82b`** |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-motion-intentionality` |
+
+### Page highlights
+
+- **Purpose (PDCA):** Plan → inventory loops/entrances; Do → one focal motion per band; Check → still frame + reduced-motion; Adjust → propose `DET.*` caps when patterns repeat.
+- **KS patterns referenced:** `.pulse`, `.pulse-amber`, `.breathe-link`, `.breathe-static`, `forge-ambient--*`, `.ks-sa-fly-chip`, `.ks-tilt-wrap`, `#ks-living-scene`, **`Mtn`** contract.
+- **Before example:** Failing hero with `.pulse` on copy wrapper, `.pulse-amber` on CTA, multiple `.breathe-static` tiles, and autoplay `.ks-sa-fly-in-*` chips.
+- **After example:** Passing hero with `forge-ambient--subtle`, scrim, static card copy, one `.pulse-amber` stat accent, hover-gated `.breathe-link` tile.
+
+### Manifest status
+
+`rule-pages.manifest.json` still shows `AI.MOTION.INTENTIONALITY` as **`status: "missing"`** until the canonical file exists and the version script runs.
+
+### Finish locally (one command)
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-ai-motion-intentionality-pending.sh
+```
+
+Or:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-ai-motion-intentionality.mjs
+```
+
+After that, expect manifest **`status: "current"`** and **`pageVersion`** = `74c3a3b237d7b20f8b0915547e41ac1d3fe3655ef5a2c13112644eec7b36d82b`.
+
+### `page_version` confirmation
+
+The staging file front matter sets **`page_version: 74c3a3b237d7b20f8b0915547e41ac1d3fe3655ef5a2c13112644eec7b36d82b`** exactly as required. That matches manifest `contentVersion` for this rule.

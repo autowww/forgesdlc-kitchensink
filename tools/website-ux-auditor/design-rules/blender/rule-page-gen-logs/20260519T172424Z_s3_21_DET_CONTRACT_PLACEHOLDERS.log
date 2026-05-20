@@ -1,0 +1,36 @@
+## Report
+
+Wrote the **DET.CONTRACT.PLACEHOLDERS** handbook page at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-contract-placeholders.md`
+
+The canonical Kitchen Sink path you specified (`docs/design/ux-audit/rule-pages/det-contract-placeholders.md` at repo root) could not be written from this session (paths outside the auditor workspace were blocked). Copy it with:
+
+```bash
+cp tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-contract-placeholders.md \
+   docs/design/ux-audit/rule-pages/det-contract-placeholders.md
+```
+
+### Confirmed `page_version`
+
+```yaml
+page_version: 6048d89765c0ff5b9b31c1014f8a33747d54076c0e6678b1c93305b2ac1e8f9d
+```
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Scans registry-linked contracts via `analyzeContractPlaceholders`; always flags `lorem ipsum`, `example-visual`, `XYZ` headings, `[placeholder]`, `<insert`; `TBD`/`TODO`/`FIXME` stub bullets fail only in strict mode (`--strict-contract-placeholders`). |
+| **Passing / Failing** | Aligned with `det-contract-placeholders.check.js` and `contract-placeholders.mjs` (12-finding cap, evidence format, skip when no registry). |
+| **Before / After** | **Kbc** doc breadcrumb: failing Bootstrap `breadcrumb` + lorem/TBD copy vs passing `.ks-doc-breadcrumb` with `hash="Kbc"`, `data-ks-*`, `forge-support`, `site-header` layout from `components/layouts.py`. |
+| **Evidence** | Table + `check-visual-catalog.mjs` / `inventory-ks-visuals.mjs` commands. |
+| **Related rules** | `DET.CONTRACT.PATH`, `DET.CATALOG.CONTRACT_SPECIFICITY`, `DET.HASH.MARKERS`, `AI.CONTRACT.IMPLEMENTATION_USEFULNESS`. |
+
+### Front matter sources
+
+- **registry_fingerprint:** `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` (from `design-rules/registry.generated.json`)
+- **registry_status:** `implemented`
+- **source_rule:** `docs/design/ux-audit/deterministic-design-rules.md#det-contract-placeholders`
+
+No check modules, `rule-mappings.js`, or registry files were edited. No Mermaid; no Fleet-specific profile.

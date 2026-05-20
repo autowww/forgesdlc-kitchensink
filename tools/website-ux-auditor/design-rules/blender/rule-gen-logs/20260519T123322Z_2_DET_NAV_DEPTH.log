@@ -1,0 +1,55 @@
+Implemented **DET.NAV.DEPTH** as a deterministic global-nav depth check. Summary:
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-nav-depth.check.js`
+Replaced the stub with a full check that:
+
+- **Scopes** global primary nav only (Kpn / `.fs-primary-nav-global`, `.landing-nav`, landing header nav) — not doc sidebars or handbook trees
+- **Measures** max nested `<ul>`/`<ol>`/menu depth containing nav links (DOM tree depth)
+- **Treats** `fs-nav-dropdown` / Bootstrap dropdown panels as one flyout tier (+1 depth)
+- **Enforces**:
+  - `MAX_GLOBAL_NAV_DEPTH = 2` (top level + one flyout) without mega-menu
+  - `MAX_GLOBAL_NAV_DEPTH_WITH_MEGA = 4` when mega-menu markers are present
+- **Excludes** theme dropdown chrome from depth measurement
+- **Exports** testable helpers: `allowedNavDepth`, `violationsFromNavDepthMetrics`, `findingsFromNavDepthReport`, `collectNavDepthReport`, `run`
+- **Accepts** precomputed `metrics.navDepthReport` or collects via Playwright `page.evaluate`
+
+Findings use the standard shape: `severity`, `area`, `message`, `evidence`, `remediation`.
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|-------|-------|
+| status | `implemented` |
+| area | `informationArchitecture` |
+| scoreDimension | `informationArchitecture` |
+| defaultSeverity | `warn` |
+| priorityWeight | `7` |
+
+### 3. `auditor-tests/det-nav-depth.test.js`
+Unit tests for depth caps, violation mapping, findings shape, and `run()` with `metrics.navDepthReport`.
+
+### 4. `design-rules/registry.generated.json`
+Updated `DET.NAV.DEPTH` to `implemented` and adjusted coverage counts (34 implemented / 16 stub).
+
+## Rule logic (from spec)
+
+Per `docs/design/ux-audit/deterministic-design-rules.md#det-nav-depth`:
+
+> Global nav depth ≤ configured max; no excessive nested flyouts without mega-menu pattern.
+
+The check flags triple-nested flyouts in global chrome while allowing flat nav, single-tier dropdowns (`fs-nav-dropdown`), and deeper structures only when explicit mega-menu markers exist.
+
+## Verification (not run here)
+
+Shell commands were rejected in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules   # refreshes fingerprint + generatedAt
+npm test
+```
+
+`npm run blend-rules` will re-sync the registry fingerprint after the `rule-mappings.js` change.

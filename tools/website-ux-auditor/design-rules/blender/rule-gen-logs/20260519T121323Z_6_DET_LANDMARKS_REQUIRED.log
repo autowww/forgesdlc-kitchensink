@@ -1,0 +1,49 @@
+Implemented **DET.LANDMARKS.REQUIRED** as a deterministic DOM landmark check. Shell commands were unavailable in this session, so run `npm run blend-rules` and `npm test` locally to refresh the registry fingerprint and confirm.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-landmarks-required.check.js`**
+
+Replaced the auto-stub with measurable DOM checks:
+
+| Signal | Rule |
+|--------|------|
+| **main** | Exactly one visible `main` / `[role="main"]` |
+| **nav** (when applicable) | If ≥2 navigational links exist outside `main`, require a visible `nav` / `[role="navigation"]` outside `main` |
+| **header / banner** | Site chrome (`.site-header`, `.landing-header`, `data-shell-region`, etc.) must use `<header>` or `role="banner"`; at most one document-level banner |
+| **footer / contentinfo** | Footer chrome must use `<footer>` or `role="contentinfo"`; at most one document-level contentinfo |
+
+Exports follow the established pattern: `rule`, `violationsFromLandmarkSnapshot`, `findingsFromLandmarksReport`, `collectLandmarksReport`, and `run` (uses `metrics.landmarksReport` or live `page` collection).
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS` as `implemented` with:
+
+- `area`: `accessibility`
+- `scoreDimension`: `accessibilitySemanticsMeta`
+- `priorityWeight`: `8`
+- `defaultSeverity`: `minor`
+
+(Aligned with the `platform-handbook-inner` legacy adapter.)
+
+**3. `auditor-tests/det-landmarks-required.test.js`**
+
+Unit tests for snapshot → violations → findings mapping and `run()` behavior.
+
+**4. `design-rules/registry.generated.json`**
+
+Updated `DET.LANDMARKS.REQUIRED` to `implemented` and adjusted coverage counts. Re-run blend-rules so the fingerprint matches the new mapping file.
+
+### Why
+
+The rule spec requires document landmarks for assistive tech and keyboard users: one primary `main`, navigation landmarks when global nav exists, and unique top-level header/footer semantics—all detectable from the DOM without AI.
+
+### Verify locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+If anything fails, paste the output and I can adjust.

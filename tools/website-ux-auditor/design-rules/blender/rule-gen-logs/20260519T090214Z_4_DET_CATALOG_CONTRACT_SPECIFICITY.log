@@ -1,0 +1,51 @@
+Implemented **`DET.CATALOG.CONTRACT_SPECIFICITY`** as a repo-level deterministic check aligned with `check-visual-catalog.mjs` and `contract-specificity.mjs`.
+
+## What changed
+
+### 1. `det-catalog-contract-specificity.check.js` (stub → implementation)
+
+The check scans contracts linked from `docs/design/catalog/visual-registry.generated.json` (`contract_status: own` | `family-covered`) and emits findings when:
+
+| Signal | Source |
+|--------|--------|
+| Missing **Expected look**, **Anatomy**, **Forbidden patterns**, or **Deterministic checks** (rule “Verification”) | `analyzeRequiredContractSections()` |
+| Thin/generic **Expected look**, atmosphere slab, etc. | `analyzeContractSpecificity()` from `tools/design-catalog/lib/contract-specificity.mjs` |
+| Duplicate **Expected look** bodies across layout/page/chrome contracts | `analyzeDuplicateExpectedLookBodies()` |
+
+Behavior details:
+- Skips when there is no registry (consumer repos without KS catalog).
+- Caps at **12** findings per pass (+ one overflow notice if needed).
+- Preserves finding shape: `severity`, `area`, `message`, `evidence`, `remediation`.
+- `run()` accepts `metrics.contractSpecificityReport` for tests / precomputed scans.
+
+### 2. `rule-mappings.js`
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented**:
+- `area`: `visual-catalog`
+- `scoreDimension`: `visualCatalogGovernance`
+- `defaultSeverity`: `warn`
+- `priorityWeight`: `8`
+
+### 3. `registry.generated.json`
+
+Updated the rule row to `status: "implemented"` with the same metadata (fingerprint should be refreshed by the blender).
+
+### 4. `auditor-tests/det-catalog-contract-specificity.test.js`
+
+Unit tests for section gaps, finding mapping, skip path, and `metrics.contractSpecificityReport`.
+
+## Verify locally
+
+Shell was not available in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` (including `fingerprint`). All tests should pass, including the new `det-catalog-contract-specificity.test.js`.
+
+## Why this approach
+
+The rule doc asks for element-specific **anatomy**, **forbidden patterns**, and **verification** without generic boilerplate. The KS contract template uses `## Anatomy`, `## Forbidden patterns`, and `## Deterministic checks` for verification; the shared `contract-specificity.mjs` logic already powers `check-visual-catalog.mjs`, so this check reuses that library instead of AI heuristics and stays deterministic and token-efficient.

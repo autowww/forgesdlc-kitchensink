@@ -28,7 +28,8 @@ screenshot_status: "not-applicable"
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Handbook chapter main** body showcases long-form autodoc/handbook HTML inside **Chp**/**Hbk** shells.
+- Heading ladder, callouts, and code blocks adopt handbook rhythm ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,7 @@ Registry **root_selector:** `main#main`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Long-form body uses responsive typography; code blocks and tables scroll regionally.
 
 ## Accessibility contract
 
@@ -69,6 +69,19 @@ Registry **root_selector:** `main#main`.
 - Chapter title matches the handbook heading hierarchy; avoid orphan `<h1>` duplication when site shells add their own title bands.
 - Code samples and diagrams cite stable paths; consumer content stays authoritative—KS contracts govern structure, not editorial backlog.
 - Use `docs/handbook` page-type guidance in `page-types/Ks-page-type-design-guidelines.md` when auditing reading flow.
+
+## Deterministic checks
+
+- Showcase/build output honors **Hdc** markers: emitted roots include both `hash="Hdc"` and `data-ks-hash="Hdc"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: main#main: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Page generator `page.py` composes inside the advertised parent layout; built HTML for slug `handbook-chapter` includes the nested layout hash markers expected by showcase inventory.
+- `main#main` (or contracted root) headings follow one H1 convention per view; supplementary cards do not spoof heading levels.
+
+## AI-enabled review cues
+
+- Does **Handbook chapter main** storytelling match the KS museum intent (education, reassurance, parity with consumer sites), not accidental placeholder copy?
+- Are technical blocks (API tables, prose blocks) progressively disclosed consistent with Forge landing doctrine?
+- Screenshot or DOM review: hero / first-scroll real estate reinforces the visitor job for **handbook-chapter**.
 
 ## Forbidden patterns
 

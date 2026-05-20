@@ -29,6 +29,17 @@ export function runCheck(m, url, ctx = {}) {
     add('major', 'conversion', 'Too many CTAs compete above the fold.', `${topCt.length} CTA-like links/buttons detected above the fold.`, 'Keep the hero to one primary CTA and one secondary CTA.');
   }
 
+  const spread = typeof m.ctaVerticalSpreadPx === 'number' ? m.ctaVerticalSpreadPx : 0;
+  if (topCt.length >= 3 && spread < 40) {
+    add(
+      'major',
+      'conversion',
+      'Multiple above-fold CTAs are vertically clustered (spacing/proximity suggests competing actions).',
+      `top_cta_count=${topCt.length}; cta_vertical_spread_px=${spread}`,
+      'Separate primary vs secondary CTAs with clear hierarchy and spacing, or demote extras below the hero band.',
+    );
+  }
+
   if ((m.ecosystemTermCount ?? 0) < 2) {
     add('major', 'ecosystem', 'The page does not clearly show where it fits in the Forge ecosystem.', `${m.ecosystemTermCount ?? 0} ecosystem terms detected.`, 'Add an ecosystem strip linking ForgeSDLC, Lenses, LCDL, Fleet, Platform, and Blueprints where relevant.');
   }

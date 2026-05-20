@@ -1,0 +1,46 @@
+**DET.TOKEN.NO_DRIFT** is implemented as a deterministic CSS token drift check.
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-token-no-drift.check.js`
+Implements the spec: *forbidden raw hex outside token allowlist for consumer-bound surfaces (when policy enabled) via CSS static scan*.
+
+- **`buildThemeHexAllowlist(repoRoot)`** — collects hex values from theme pack files (`forge-theme.css`, `docs-theme.css`, etc.).
+- **`scanCssTextForTokenDrift()`** — scans declarations for raw `#hex` literals.
+- **Sanctioned contexts** (not flagged):
+  - Theme pack files (token definitions)
+  - Local custom properties (`--name: #hex`)
+  - `var(--token, #fallback)` fallbacks
+  - Hex values on the theme allowlist
+  - `@keyframes` blocks
+- **`isTokenDriftPolicyEnabled()`** — policy is on when `ctx.tokenNoDriftPolicy` / `metrics.tokenNoDriftPolicy` is true, or when the repo has a `css/` directory (kitchensink-style repos).
+- **`run(ctx)`** — merges optional `metrics.tokenDriftReport` with repo CSS scan (max 12 findings), returns standard findings (`severity` / `area` / `message` / `evidence` / `remediation`).
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented**:
+- `area: readability`
+- `scoreDimension: visualRhythmFirstScreen`
+- `defaultSeverity: warn`
+- `priorityWeight: 7`
+
+### 3. `auditor-tests/det-token-no-drift.test.js`
+Unit tests for hex normalization, var-fallback detection, sanction logic, CSS scan, policy gating, and `run()`.
+
+### 4. `design-rules/registry.generated.json`
+Updated `DET.TOKEN.NO_DRIFT` to **implemented** (48 implemented / 2 stubs). Re-run `blend-rules` to refresh the fingerprint.
+
+## Why this approach
+
+Matches **`DET.SURFACE.ELEVATION_TOKEN`**: theme packs define tokens; feature CSS should use `var(--forge-*)` instead of ad-hoc hex. On kitchensink this will surface real drift (e.g. `#86efac` in `forge-react-primitives.css`, gradient stops in `nested-roadmap.css`).
+
+## Verify locally
+
+Shell was unavailable in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+If anything fails, paste the output and I can adjust.

@@ -1,0 +1,638 @@
+[verify] Checking rule IDs in UX audit docs
+[verify] Building showcase
+[verify] Running website UX auditor tests
+
+> forge-website-ux-auditor@0.1.0 test
+> node --test auditor-tests/*.test.js
+
+TAP version 13
+# Subtest: selectLikelySourceFiles prefers slug-matching content and shell files
+ok 1 - selectLikelySourceFiles prefers slug-matching content and shell files
+  ---
+  duration_ms: 19.33728
+  type: 'test'
+  ...
+# Subtest: buildAiAuditBatches isolates homepage first and groups remaining pages
+ok 2 - buildAiAuditBatches isolates homepage first and groups remaining pages
+  ---
+  duration_ms: 6.238886
+  type: 'test'
+  ...
+# Subtest: aggregateAiAuditResults records partial plan metadata when batchesPlanned is set
+ok 3 - aggregateAiAuditResults records partial plan metadata when batchesPlanned is set
+  ---
+  duration_ms: 2.504034
+  type: 'test'
+  ...
+# Subtest: extractJsonFromAgentText parses fenced JSON blocks
+ok 4 - extractJsonFromAgentText parses fenced JSON blocks
+  ---
+  duration_ms: 0.633352
+  type: 'test'
+  ...
+# Subtest: aggregateAiAuditResults normalizes findings and parse errors
+ok 5 - aggregateAiAuditResults normalizes findings and parse errors
+  ---
+  duration_ms: 1.575869
+  type: 'test'
+  ...
+# Subtest: CLI: static audit exits 0 and writes schema v2 audit-data.json
+ok 6 - CLI: static audit exits 0 and writes schema v2 audit-data.json
+  ---
+  duration_ms: 253.509542
+  type: 'test'
+  ...
+# Subtest: fixedLeft width
+ok 7 - fixedLeft width
+  ---
+  duration_ms: 1.569771
+  type: 'test'
+  ...
+# Subtest: fixedRightTruncate
+ok 8 - fixedRightTruncate
+  ---
+  duration_ms: 0.509119
+  type: 'test'
+  ...
+# Subtest: formatEtaMs
+ok 9 - formatEtaMs
+  ---
+  duration_ms: 14.859886
+  type: 'test'
+  ...
+# Subtest: formatElapsedMs floors like display clock
+ok 10 - formatElapsedMs floors like display clock
+  ---
+  duration_ms: 0.376459
+  type: 'test'
+  ...
+# Subtest: estimateRemainingPagesHeuristic
+ok 11 - estimateRemainingPagesHeuristic
+  ---
+  duration_ms: 0.351827
+  type: 'test'
+  ...
+# Subtest: stripCrawlProgressLineForWatchDisplay removes clock and ETA from grid row
+ok 12 - stripCrawlProgressLineForWatchDisplay removes clock and ETA from grid row
+  ---
+  duration_ms: 0.753645
+  type: 'test'
+  ...
+# Subtest: stripCrawlProgressLineForWatchDisplay keeps page_done lines readable
+ok 13 - stripCrawlProgressLineForWatchDisplay keeps page_done lines readable
+  ---
+  duration_ms: 0.600746
+  type: 'test'
+  ...
+# Subtest: normalizeCrawlHref strips hash
+ok 14 - normalizeCrawlHref strips hash
+  ---
+  duration_ms: 1.653121
+  type: 'test'
+  ...
+# Subtest: isCrawlableUrl allows same-origin HTML paths
+ok 15 - isCrawlableUrl allows same-origin HTML paths
+  ---
+  duration_ms: 5.809803
+  type: 'test'
+  ...
+# Subtest: isCrawlableUrl rejects other origins and static assets
+ok 16 - isCrawlableUrl rejects other origins and static assets
+  ---
+  duration_ms: 0.303834
+  type: 'test'
+  ...
+# Subtest: defect planner prioritizes homepage-cap defects first
+ok 17 - defect planner prioritizes homepage-cap defects first
+  ---
+  duration_ms: 5.32188
+  type: 'test'
+  ...
+# Subtest: defect planner maps area to scorer dimension and respects limit
+ok 18 - defect planner maps area to scorer dimension and respects limit
+  ---
+  duration_ms: 1.96764
+  type: 'test'
+  ...
+# Subtest: defect planner resolves visual catalog contracts from DOM ksVisualHashReport when repo has generated registry
+ok 19 - defect planner resolves visual catalog contracts from DOM ksVisualHashReport when repo has generated registry
+  ---
+  duration_ms: 5.105858
+  type: 'test'
+  ...
+# Subtest: loadDesignStandard parses front matter and stable sha256
+ok 20 - loadDesignStandard parses front matter and stable sha256
+  ---
+  duration_ms: 19.393309
+  type: 'test'
+  ...
+# Subtest: loadDesignStandard empty path uses rawFallback only
+ok 21 - loadDesignStandard empty path uses rawFallback only
+  ---
+  duration_ms: 0.609504
+  type: 'test'
+  ...
+# Subtest: findingDamageWeight respects SCORE_WEIGHTS
+ok 22 - findingDamageWeight respects SCORE_WEIGHTS
+  ---
+  duration_ms: 1.566514
+  type: 'test'
+  ...
+# Subtest: harmonicMean of equal values ≈ that value
+ok 23 - harmonicMean of equal values ≈ that value
+  ---
+  duration_ms: 0.341971
+  type: 'test'
+  ...
+# Subtest: computeUxScores: overall 100 on clean live crawl with no findings
+ok 24 - computeUxScores: overall 100 on clean live crawl with no findings
+  ---
+  duration_ms: 2.845452
+  type: 'test'
+  ...
+# Subtest: computeUxScores: homepage-shell blocker on / caps overall
+ok 25 - computeUxScores: homepage-shell blocker on / caps overall
+  ---
+  duration_ms: 0.489545
+  type: 'test'
+  ...
+# Subtest: computeUxScores: product-visual blocker caps overall
+ok 26 - computeUxScores: product-visual blocker caps overall
+  ---
+  duration_ms: 0.615771
+  type: 'test'
+  ...
+# Subtest: computeUxScores: multiple homepage gates use strongest cap
+ok 27 - computeUxScores: multiple homepage gates use strongest cap
+  ---
+  duration_ms: 0.420907
+  type: 'test'
+  ...
+# Subtest: computeUxScores: static-only never grants perfectEligible with zero effective
+ok 28 - computeUxScores: static-only never grants perfectEligible with zero effective
+  ---
+  duration_ms: 0.229746
+  type: 'test'
+  ...
+# Subtest: computeUxScores: ancillary findings do not block perfectEligible on live crawl
+ok 29 - computeUxScores: ancillary findings do not block perfectEligible on live crawl
+  ---
+  duration_ms: 0.255858
+  type: 'test'
+  ...
+# Subtest: computeUxScores: hero damage lands in narrativeHero dimension
+ok 30 - computeUxScores: hero damage lands in narrativeHero dimension
+  ---
+  duration_ms: 0.573281
+  type: 'test'
+  ...
+# Subtest: computeUxScores: paused crawl lowers cap when pristine
+ok 31 - computeUxScores: paused crawl lowers cap when pristine
+  ---
+  duration_ms: 0.533514
+  type: 'test'
+  ...
+# Subtest: extractUxScoresFromSavedJson reads audit-style envelope
+ok 32 - extractUxScoresFromSavedJson reads audit-style envelope
+  ---
+  duration_ms: 0.376061
+  type: 'test'
+  ...
+# Subtest: compareUxScores deltas overall when score improves
+ok 33 - compareUxScores deltas overall when score improves
+  ---
+  duration_ms: 1.398288
+  type: 'test'
+  ...
+# Subtest: formatUxScoreLoopDeltaVerbalParagraph summarizes scorer loop deltas
+ok 34 - formatUxScoreLoopDeltaVerbalParagraph summarizes scorer loop deltas
+  ---
+  duration_ms: 0.549905
+  type: 'test'
+  ...
+# Subtest: buildUxScoreLoopDeltaAuditreportSection includes scorer heading
+ok 35 - buildUxScoreLoopDeltaAuditreportSection includes scorer heading
+  ---
+  duration_ms: 0.608234
+  type: 'test'
+  ...
+# Subtest: technical-depth flags progressive disclosure inversion + endpoint density
+ok 36 - technical-depth flags progressive disclosure inversion + endpoint density
+  ---
+  duration_ms: 2.383429
+  type: 'test'
+  ...
+# Subtest: readability-structure flags acronym + link-wall + heading ratio proxies
+ok 37 - readability-structure flags acronym + link-wall + heading ratio proxies
+  ---
+  duration_ms: 1.056265
+  type: 'test'
+  ...
+# Subtest: first-screen-density flags hero copy + card density
+ok 38 - first-screen-density flags hero copy + card density
+  ---
+  duration_ms: 0.747016
+  type: 'test'
+  ...
+# Subtest: product-visual flags decorative hero visual + weak alt
+ok 39 - product-visual flags decorative hero visual + weak alt
+  ---
+  duration_ms: 0.558846
+  type: 'test'
+  ...
+# Subtest: cta-trust-ecosystem flags clustered CTAs when count ≥3
+ok 40 - cta-trust-ecosystem flags clustered CTAs when count ≥3
+  ---
+  duration_ms: 0.685865
+  type: 'test'
+  ...
+# Subtest: runAllChecks aggregates deterministic proxy findings without throwing
+ok 41 - runAllChecks aggregates deterministic proxy findings without throwing
+  ---
+  duration_ms: 1.919945
+  type: 'test'
+  ...
+# Subtest: analyzeContractSpecificity errors on thin generic Expected look
+ok 42 - analyzeContractSpecificity errors on thin generic Expected look
+  ---
+  duration_ms: 1.420777
+  type: 'test'
+  ...
+# Subtest: analyzeContractSpecificity warns on missing States for layout contracts
+ok 43 - analyzeContractSpecificity warns on missing States for layout contracts
+  ---
+  duration_ms: 0.636674
+  type: 'test'
+  ...
+# Subtest: normalizeAuditUrl strips hash
+ok 44 - normalizeAuditUrl strips hash
+  ---
+  duration_ms: 5.109309
+  type: 'test'
+  ...
+# Subtest: extractMajorPlusUrlsFromPriorAudit caps and dedupes
+ok 45 - extractMajorPlusUrlsFromPriorAudit caps and dedupes
+  ---
+  duration_ms: 2.405605
+  type: 'test'
+  ...
+# Subtest: buildRegressionWaveSummary compares prior vs regression pages
+ok 46 - buildRegressionWaveSummary compares prior vs regression pages
+  ---
+  duration_ms: 0.64423
+  type: 'test'
+  ...
+# Subtest: archiveAuditDataToPrevious copies when audit-data.json exists
+ok 47 - archiveAuditDataToPrevious copies when audit-data.json exists
+  ---
+  duration_ms: 29.135545
+  type: 'test'
+  ...
+# Subtest: createLogger verbose prints structured markers (stderr)
+ok 48 - createLogger verbose prints structured markers (stderr)
+  ---
+  duration_ms: 0.622921
+  type: 'test'
+  ...
+# Subtest: clipPad truncates long strings
+ok 49 - clipPad truncates long strings
+  ---
+  duration_ms: 2.15632
+  type: 'test'
+  ...
+# Subtest: boxEdgeLine top length matches cols
+ok 50 - boxEdgeLine top length matches cols
+  ---
+  duration_ms: 1.0426
+  type: 'test'
+  ...
+# Subtest: buildWatchFrameLines stable pane labels
+ok 51 - buildWatchFrameLines stable pane labels
+  ---
+  duration_ms: 4.312862
+  type: 'test'
+  ...
+# Subtest: partitionWatchActivityTail: last three non-major lines after last milestone
+ok 52 - partitionWatchActivityTail: last three non-major lines after last milestone
+  ---
+  duration_ms: 0.684718
+  type: 'test'
+  ...
+# Subtest: isWatchMajorMilestoneLine matches stamped shell phase line
+ok 53 - isWatchMajorMilestoneLine matches stamped shell phase line
+  ---
+  duration_ms: 0.415517
+  type: 'test'
+  ...
+# Subtest: stripDashboardLogDisplayLine removes legacy ISO prefix
+ok 54 - stripDashboardLogDisplayLine removes legacy ISO prefix
+  ---
+  duration_ms: 0.262046
+  type: 'test'
+  ...
+# Subtest: boxRow clips to cols
+ok 55 - boxRow clips to cols
+  ---
+  duration_ms: 0.416793
+  type: 'test'
+  ...
+# Subtest: buildWatchFrameRedrawSequence: first paint is full
+ok 56 - buildWatchFrameRedrawSequence: first paint is full
+  ---
+  duration_ms: 4.957129
+  type: 'test'
+  ...
+# Subtest: buildWatchFrameRedrawSequence: row-count change forces full
+ok 57 - buildWatchFrameRedrawSequence: row-count change forces full
+  ---
+  duration_ms: 0.257269
+  type: 'test'
+  ...
+# Subtest: buildWatchFrameRedrawSequence: delta updates only changed rows
+ok 58 - buildWatchFrameRedrawSequence: delta updates only changed rows
+  ---
+  duration_ms: 0.18918
+  type: 'test'
+  ...
+# Subtest: buildWatchFrameRedrawSequence: identical rows is none
+ok 59 - buildWatchFrameRedrawSequence: identical rows is none
+  ---
+  duration_ms: 0.176057
+  type: 'test'
+  ...
+# Subtest: buildWatchFrameRedrawSequence: forceFull uses full even when lengths match
+ok 60 - buildWatchFrameRedrawSequence: forceFull uses full even when lengths match
+  ---
+  duration_ms: 1.814303
+  type: 'test'
+  ...
+# Subtest: merge-done-crawl-urls-from-audit rewrites file to zero-Major+ pages from audit
+ok 61 - merge-done-crawl-urls-from-audit rewrites file to zero-Major+ pages from audit
+  ---
+  duration_ms: 140.331908
+  type: 'test'
+  ...
+# Subtest: merge-done-crawl-urls-from-audit drops prior entries not clean in this audit
+ok 62 - merge-done-crawl-urls-from-audit drops prior entries not clean in this audit
+  ---
+  duration_ms: 92.571881
+  type: 'test'
+  ...
+# Subtest: ensureBlockingStdio is safe to call repeatedly
+ok 63 - ensureBlockingStdio is safe to call repeatedly
+  ---
+  duration_ms: 1.819829
+  type: 'test'
+  ...
+# Subtest: writeRcaPromptBatch writes markdown files for priority findings
+ok 64 - writeRcaPromptBatch writes markdown files for priority findings
+  ---
+  duration_ms: 30.683453
+  type: 'test'
+  ...
+# Subtest: runAllChecks returns array of findings with severity strings
+ok 65 - runAllChecks returns array of findings with severity strings
+  ---
+  duration_ms: 4.607922
+  type: 'test'
+  ...
+# Subtest: cta-trust-ecosystem always returns findings array (never undefined concat)
+ok 66 - cta-trust-ecosystem always returns findings array (never undefined concat)
+  ---
+  duration_ms: 0.956597
+  type: 'test'
+  ...
+# Subtest: platform handbook inner uses dedicated check bundle
+ok 67 - platform handbook inner uses dedicated check bundle
+  ---
+  duration_ms: 0.523845
+  type: 'test'
+  ...
+# Subtest: lenses handbook inner matches platform handbook check bundle
+ok 68 - lenses handbook inner matches platform handbook check bundle
+  ---
+  duration_ms: 0.327056
+  type: 'test'
+  ...
+# Subtest: non-platform homepage with sidebar plus handbook chrome emits homepage-shell blocker
+ok 69 - non-platform homepage with sidebar plus handbook chrome emits homepage-shell blocker
+  ---
+  duration_ms: 0.556098
+  type: 'test'
+  ...
+# Subtest: platform homepage with handbook-style sidebar emits homepage-shell blocker
+ok 70 - platform homepage with handbook-style sidebar emits homepage-shell blocker
+  ---
+  duration_ms: 0.352687
+  type: 'test'
+  ...
+# Subtest: docs-heavy early H2 triggers storyline-flow critical
+ok 71 - docs-heavy early H2 triggers storyline-flow critical
+  ---
+  duration_ms: 0.404813
+  type: 'test'
+  ...
+# Subtest: no hero-scale visual triggers product-visual blocker
+ok 72 - no hero-scale visual triggers product-visual blocker
+  ---
+  duration_ms: 0.26429
+  type: 'test'
+  ...
+# Subtest: linear-like headings avoid storyline-flow critical
+ok 73 - linear-like headings avoid storyline-flow critical
+  ---
+  duration_ms: 0.64282
+  type: 'test'
+  ...
+# Subtest: scorePage ignores falsy findings and applies penalties
+ok 74 - scorePage ignores falsy findings and applies penalties
+  ---
+  duration_ms: 2.596741
+  type: 'test'
+  ...
+# Subtest: severityRank orders worst-first (lower rank = worse)
+ok 75 - severityRank orders worst-first (lower rank = worse)
+  ---
+  duration_ms: 1.87156
+  type: 'test'
+  ...
+# Subtest: isMajorPlus is true for blocker crit major only
+ok 76 - isMajorPlus is true for blocker crit major only
+  ---
+  duration_ms: 0.577834
+  type: 'test'
+  ...
+# Subtest: makeFinding adds legacySeverity mapping
+ok 77 - makeFinding adds legacySeverity mapping
+  ---
+  duration_ms: 0.417702
+  type: 'test'
+  ...
+# Subtest: summarizeBySeverity counts tiers
+ok 78 - summarizeBySeverity counts tiers
+  ---
+  duration_ms: 0.404172
+  type: 'test'
+  ...
+# Subtest: countMajorPlus matches isMajorPlus
+ok 79 - countMajorPlus matches isMajorPlus
+  ---
+  duration_ms: 0.591596
+  type: 'test'
+  ...
+# Subtest: compareFindingSeverity sorts blocker before minor then URL
+ok 80 - compareFindingSeverity sorts blocker before minor then URL
+  ---
+  duration_ms: 0.358954
+  type: 'test'
+  ...
+# Subtest: loop runs AI audit only on deterministic-clean single-pass branch
+ok 81 - loop runs AI audit only on deterministic-clean single-pass branch
+  ---
+  duration_ms: 440.891978
+  type: 'test'
+  ...
+# Subtest: loop skips AI audit when deterministic Major\\+ remains and goes to remediation
+ok 82 - loop skips AI audit when deterministic Major\\+ remains and goes to remediation
+  ---
+  duration_ms: 300.770131
+  type: 'test'
+  ...
+# Subtest: loop skips AI audit when FORGE_UX_ENABLE_AI_AUDIT=0 on deterministic-clean single-pass
+ok 83 - loop skips AI audit when FORGE_UX_ENABLE_AI_AUDIT=0 on deterministic-clean single-pass
+  ---
+  duration_ms: 253.780052
+  type: 'test'
+  ...
+# Subtest: tailLogLines reads last non-empty lines
+ok 84 - tailLogLines reads last non-empty lines
+  ---
+  duration_ms: 2.981153
+  type: 'test'
+  ...
+# Subtest: buildUxLoopDashboardSnapshotLines returns boxed frame
+ok 85 - buildUxLoopDashboardSnapshotLines returns boxed frame
+  ---
+  duration_ms: 4.144122
+  type: 'test'
+  ...
+# Subtest: pickActiveCrawlProgressLogPath prefers scorer vs auditor by phase
+ok 86 - pickActiveCrawlProgressLogPath prefers scorer vs auditor by phase
+  ---
+  duration_ms: 1.746685
+  type: 'test'
+  ...
+# Subtest: readDashboardStateSafe: missing → {}
+ok 87 - readDashboardStateSafe: missing → {}
+  ---
+  duration_ms: 3.954193
+  type: 'test'
+  ...
+# Subtest: readDashboardStateSafe: corrupt JSON → {}
+ok 88 - readDashboardStateSafe: corrupt JSON → {}
+  ---
+  duration_ms: 1.98239
+  type: 'test'
+  ...
+# Subtest: shallowMergeDashboard merges crawl nested
+ok 89 - shallowMergeDashboard merges crawl nested
+  ---
+  duration_ms: 0.620443
+  type: 'test'
+  ...
+# Subtest: shallowMergeDashboard merges loop and processDefects nested
+ok 90 - shallowMergeDashboard merges loop and processDefects nested
+  ---
+  duration_ms: 0.315839
+  type: 'test'
+  ...
+# Subtest: mergeDashboardState atomic round-trip
+ok 91 - mergeDashboardState atomic round-trip
+  ---
+  duration_ms: 2.589181
+  type: 'test'
+  ...
+# Subtest: mergeDashboardState skips identical payload (no updatedAt bump)
+ok 92 - mergeDashboardState skips identical payload (no updatedAt bump)
+  ---
+  duration_ms: 1.282023
+  type: 'test'
+  ...
+# Subtest: mergeDashboardStateIfWatching respects env path match
+ok 93 - mergeDashboardStateIfWatching respects env path match
+  ---
+  duration_ms: 1.645851
+  type: 'test'
+  ...
+# Subtest: ux-scoring CSV: writes header once then appends rows
+ok 94 - ux-scoring CSV: writes header once then appends rows
+  ---
+  duration_ms: 14.299297
+  type: 'test'
+  ...
+# Subtest: loadGeneratedRegistry reads only generated JSON (no design-catalog yaml)
+ok 95 - loadGeneratedRegistry reads only generated JSON (no design-catalog yaml)
+  ---
+  duration_ms: 1.787207
+  type: 'test'
+  ...
+# Subtest: entryByHash maps JSON entries like the former parse-registry helper
+ok 96 - entryByHash maps JSON entries like the former parse-registry helper
+  ---
+  duration_ms: 1.056634
+  type: 'test'
+  ...
+# Subtest: registryDuplicateHashes lists repeated hash keys in generated JSON
+ok 97 - registryDuplicateHashes lists repeated hash keys in generated JSON
+  ---
+  duration_ms: 2.400894
+  type: 'test'
+  ...
+# Subtest: visual catalog awareness: DOM hashes without generated registry emit a finding (no crash)
+ok 98 - visual catalog awareness: DOM hashes without generated registry emit a finding (no crash)
+  ---
+  duration_ms: 2.659162
+  type: 'test'
+  ...
+# Subtest: visual catalog awareness: resolves hashes from generated JSON only
+ok 99 - visual catalog awareness: resolves hashes from generated JSON only
+  ---
+  duration_ms: 0.739739
+  type: 'test'
+  ...
+# Subtest: visual catalog awareness: hash mismatch, duplicate instances (catalog not consulted when repo omitted)
+ok 100 - visual catalog awareness: hash mismatch, duplicate instances (catalog not consulted when repo omitted)
+  ---
+  duration_ms: 3.486186
+  type: 'test'
+  ...
+# Subtest: visual catalog awareness: duplicate registry rows emitted once with shared ctx
+ok 101 - visual catalog awareness: duplicate registry rows emitted once with shared ctx
+  ---
+  duration_ms: 0.800087
+  type: 'test'
+  ...
+# Subtest: ksVisualHashReportFromHtmlBlob discovers data-ks-hash and hash attributes
+ok 102 - ksVisualHashReportFromHtmlBlob discovers data-ks-hash and hash attributes
+  ---
+  duration_ms: 0.887572
+  type: 'test'
+  ...
+# Subtest: summarizeVisualCatalogCoverage aggregates pages with generated JSON only
+ok 103 - summarizeVisualCatalogCoverage aggregates pages with generated JSON only
+  ---
+  duration_ms: 1.410647
+  type: 'test'
+  ...
+1..103
+# tests 103
+# suites 0
+# pass 103
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1500.142243
+[verify] Ensuring design-catalog dependencies
+[verify] Running visual catalog validation
+check-visual-catalog OK (91 entries). Wrote docs/design/catalog/visual-registry-coverage.md

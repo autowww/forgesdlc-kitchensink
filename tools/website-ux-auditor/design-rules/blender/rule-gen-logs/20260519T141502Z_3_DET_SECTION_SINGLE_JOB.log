@@ -1,0 +1,49 @@
+## Summary
+
+Implemented **`DET.SECTION.SINGLE_JOB`** as a deterministic section-coherence check (one topic per major section), registered it in the blender map, added unit tests, and aligned the generated registry.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-section-single-job.check.js`**  
+   Replaced the no-op stub with a real check that:
+   - Scans major `section` / `article` blocks (same 45-word / 48px thresholds as `DET.SECTION.HEADING`)
+   - Flags four violation kinds:
+     - **`multi-topic-buckets`** — more than 2 intent buckets (workflow, trust, outcome, ecosystem, reference, pricing, onboarding) in one section
+     - **`divergent-subheadings`** — peer h3+ titles with very low token overlap with each other and the primary heading
+     - **`heading-body-drift`** — primary heading tokens barely overlap top body keywords
+     - **`card-title-sprawl`** — 3+ cards whose titles look unrelated
+   - Exposes `collectSectionSingleJobReport(page)` for live crawls and `run({ metrics, page, url, ctx })` for precomputed metrics
+   - Skips platform handbook inner pages (same pattern as section-heading)
+
+2. **`design-rules/blender/rule-mappings.js`**  
+   Added `DETERMINISTIC_IMPLEMENTATIONS['DET.SECTION.SINGLE_JOB']`:
+   - `status: 'implemented'`
+   - `area: 'informationArchitecture'`
+   - `scoreDimension: 'narrativeHero'`
+   - `priorityWeight: 8` (matches legacy `storyline-flow` adapter)
+
+3. **`auditor-tests/det-section-single-job.test.js`**  
+   Unit tests for token helpers, violation detection, finding shape, and `run()`.
+
+4. **`design-rules/registry.generated.json`**  
+   Updated so the rule is **implemented** (44 explicit-map rules, 6 stubs). Re-run `npm run blend-rules` to refresh fingerprint/timestamp when shell is available.
+
+### Why this approach
+
+The catalog allows “heading + keyword clustering heuristic” without NLP. The check uses:
+- A small **intent lexicon** (regex buckets)
+- **Jaccard overlap** on heading/subheading/body tokens
+
+That stays deterministic, cheap, and aligned with “each section has a single job” from the Forge landing QA rules.
+
+### Checks not run here
+
+Shell was rejected in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will reconcile `registry.generated.json` from `rule-mappings.js`; tests should include the new `det-section-single-job.test.js` file.

@@ -1,0 +1,43 @@
+Implemented **`DET.MOTION.PREFERS_REDUCED`** as a deterministic accessibility check aligned with the source rule: `@media (prefers-reduced-motion: reduce)` must disable non-essential animation.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-motion-prefers-reduced.check.js`**
+- Replaced the auto-generated stub with a full check exporting `rule` and `run(ctx)`.
+- **`collectMotionPrefersReducedReport(page)`** temporarily emulates `prefers-reduced-motion: reduce` via Playwright, then scans the live DOM for:
+  - **Active CSS animations** — visible elements with `animation-name !== none` and duration > 20ms (skips essential loading/progress indicators).
+  - **Active CSS transitions** — visible non-essential elements with transition duration > 20ms.
+  - **SVG SMIL** — `animate`, `animateTransform`, `set` nodes (CSS cannot disable these).
+  - **Autoplay video** — visible `video[autoplay]` (warn severity).
+- Also counts accessible `@media (prefers-reduced-motion: reduce)` rules in same-origin stylesheets (report metadata).
+- Restores prior media preference after collection so later checks are unaffected.
+- Supports precomputed `metrics.motionPrefersReducedReport` or on-demand Playwright collection.
+
+**2. `design-rules/blender/rule-mappings.js`**
+- Registered under **`DETERMINISTIC_IMPLEMENTATIONS`** as `implemented`:
+  - `area`: `accessibility`
+  - `scoreDimension`: `accessibilitySemanticsMeta`
+  - `defaultSeverity`: `major`
+  - `priorityWeight`: `8`
+
+**3. `auditor-tests/det-motion-prefers-reduced.test.js`**
+- Unit tests for parsers, essential-motion heuristics, finding mapping, and `run()`.
+
+**4. `design-rules/registry.generated.json`**
+- Updated `DET.MOTION.PREFERS_REDUCED` from `stub` → `implemented` (partial manual sync; full regen via blender is still recommended).
+
+### Why this approach
+
+The source rule calls for a **CSS audit**. Rather than AI judgment, the check uses measurable runtime signals: emulate reduced motion, then verify computed styles show motion is actually disabled. This matches KS patterns (`forge-theme.css`, `forge-ambient.css`, JS guards in `ks-animated-backgrounds.js`) and pairs with the sibling `DET.MOTION.NO_AUTO_PLAY_FLASH` check.
+
+### Verify locally
+
+Shell was unavailable in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will fully regenerate `registry.generated.json` (fingerprint, coverage counts, and any other mapping drift). The new `det-motion-prefers-reduced.test.js` should pass with the rest of the suite.

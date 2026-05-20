@@ -1,0 +1,50 @@
+## DET.PROSE.LENGTH implemented
+
+Implemented the deterministic prose-length check. Shell commands were unavailable in this session, so **`npm run blend-rules` and `npm test` need to be run locally** to refresh the registry fingerprint and confirm the suite.
+
+### Plan (signals from rule anchor)
+
+From `docs/design/ux-audit/deterministic-design-rules.md#det-prose-length` and `forge-enterprise-ai-website-standard.md`:
+
+| Signal | Threshold | Source |
+|--------|-----------|--------|
+| Paragraph word count | ≤ **85** words | Legacy `readability-structure` + enterprise “1–2 paragraphs per section” |
+| Card list items | ≤ **3** direct `li` | Enterprise “Bullets per card: 3 maximum” |
+| Main prose lists | ≤ **12** direct `li` | Scannability cap for non-nav lists |
+
+Platform handbook inner pages are skipped (same as legacy readability checks).
+
+### Do — `det-prose-length.check.js`
+
+- **`longParagraphViolations()`** — uses existing `metrics.paragraphs` from DOM metrics (no extra crawl cost).
+- **`collectProseLengthReport()`** — Playwright `page.evaluate` for `ul`/`ol` in `main`, excluding nav/TOC/sidebar; separate card vs prose caps.
+- **`findingsFromLongParagraphs()` / `findingsFromListLengthReport()`** — testable pure helpers.
+- **`run({ metrics, page, url, ctx })`** — merges metrics + optional live list scan; thresholds overridable via `ctx.maxParagraphWords`, `ctx.maxCardListItems`, `ctx.maxProseListItems`.
+- Finding shape preserved: `severity`, `area: 'readability'`, `message`, `evidence`, `remediation`.
+
+### Register — `rule-mappings.js`
+
+`DET.PROSE.LENGTH` is registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented**:
+
+- `area`: `readability`
+- `scoreDimension`: `depthAndTechnicalDisclosure` (matches legacy `technical-depth` / `readability-structure` adapters)
+- `priorityWeight`: `7`
+- `defaultSeverity`: `minor`
+
+### Check — tests added
+
+New file: `auditor-tests/det-prose-length.test.js` covering constants, paragraph/list violations, handbook skip, aggregation, and `run()`.
+
+### Run locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will move `DET.PROSE.LENGTH` from **stub** → **implemented** in `registry.generated.json` (currently still shows stub at line 601) and refresh the fingerprint.
+
+### Scope note
+
+Only this rule was touched. Legacy `checks/readability-structure.js` still flags long paragraphs independently until those checks are fully migrated to the design-rule runtime.

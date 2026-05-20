@@ -1,0 +1,32 @@
+Here’s what was completed for phase **05** (only the gaps; earlier governance/coverage work was left as-is).
+
+### 1. Deterministic weak-contract / duplicate detection (`contract-specificity.mjs` + `check-visual-catalog.mjs`)
+- Flags the old **“Calm Forge enterprise atmosphere…”** slab under **Expected look** for **`layout` / `page` / `chrome-region` / `layout-preview`**.
+- After scanning contracts, clusters **normalized** Expected look bodies (length ≥ 90) and **errors** when the same body appears on **≥2** contracts for those types (stops future copy-paste slabs).
+
+### 2. Element-specific **Expected look** + **Responsive behavior** (bulk)
+- New **`tools/design-catalog/lib/contract-element-blurbs.mjs`** (slug-keyed bullets) and **`tools/design-catalog/apply-element-specific-blurbs.mjs`** (safe replace of the known slab + generic responsive pair).
+- **`--write`** updated **44** own contracts; **`layout-showcase` (`Shw`)** responsive text aligned with the showcase shell (expected look for **Shw** was already good).
+
+### 3. Family / roll-up contracts (specific, not fluff)
+- **`Ksc`**, **`Kpr`**, **`Ksj`**, **`Ksv`**, **`Msm`**: **Expected look** rewritten into concrete family roles ( **`Rpf` / `FAM-react-primitives.md`** was already strong—unchanged).
+- Repo-wide: **no** remaining **`Calm Forge enterprise`** boilerplate under `docs/design/catalog/`.
+
+### 4. Docs + phase evidence
+- **`docs/design/catalog/README.md`**: documents **`apply-element-specific-blurbs.mjs`**.
+- **`.cursor/plans/ks-ux-component-rules/05-contract-specificity-visual-analysis.md`**: refreshed with the new tooling, family edits, and verification commands.
+
+### 5. Verification (re-run)
+```bash
+node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase --refresh-inventory --strict-contract-governance
+# exit 0 — wrote docs/design/catalog/visual-registry-coverage.md
+
+bash tools/design-catalog/verify-bad-fixture.sh
+# exit 0 — bad fixture still fails checker with exit 1
+```
+
+**Intentional family-covered rows** remain documented in **`docs/design/catalog/visual-registry-coverage.md`** (still **37** rows in the appendix).
+
+To refresh blurbs after registry changes, regenerate JSON (via a successful check or your generator), then:
+
+`node tools/design-catalog/apply-element-specific-blurbs.mjs --repo . --registry-json docs/design/catalog/visual-registry.generated.json --write`

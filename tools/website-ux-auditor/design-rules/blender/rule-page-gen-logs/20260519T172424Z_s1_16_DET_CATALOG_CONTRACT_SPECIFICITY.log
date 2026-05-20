@@ -1,0 +1,37 @@
+## Report
+
+Wrote the **DET.CATALOG.CONTRACT_SPECIFICITY** handbook page at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-catalog-contract-specificity.md`
+
+The Cursor workspace root is the auditor tool folder, so writes to `docs/design/ux-audit/rule-pages/` under Kitchen Sink were blocked. A repo helper already exists to place the file at the canonical path.
+
+### `page_version` (confirmed)
+
+`0cff2731e516d39b0134050ba1d240fe3f5fccf45a7cae0c5854e1c9ec3c6a96`
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | PDCA for registry-linked contracts; repo scan via `det-catalog-contract-specificity.check.js` + `contract-specificity.mjs` |
+| **Passing signals** | Required headings (`Expected look`, `Anatomy`, `Forbidden patterns`, `Deterministic checks`), concrete selectors, `States` for stateful types, no duplicate slabs |
+| **Failing signals** | Missing sections, thin/generic Expected look, atmosphere slab, cross-contract duplication, States gaps (minor), 12-finding cap |
+| **Before** | Generic Bootstrap cards + stock marketing copy (fails specificity) |
+| **After** | **Idx** showcase home: `forge-card breathe-link`, `card-label`, `forge-support`, `bento-grid`, `glass forge-stat`, hash markers on `main#main` |
+| **Evidence** | `metrics.contractSpecificityReport`, `check-visual-catalog.mjs`, remediation steps |
+| **Related rules** | `DET.CONTRACT.*`, `DET.HASH.*`, `AI.CONTRACT.*` |
+
+Front matter uses `registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba`, `registry_status: implemented`, and `source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-catalog-contract-specificity`.
+
+### Move to canonical path
+
+Run from the Kitchen Sink repo root:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-catalog-contract-specificity.mjs
+```
+
+That copies to `docs/design/ux-audit/rule-pages/det-catalog-contract-specificity.md` and removes the tools-path staging copy. Expected stdout includes `canonical_exists: true`, `tools_exists: false`, and the same `page_version` as above.
+
+No check modules, `rule-mappings.js`, or registry files were edited.

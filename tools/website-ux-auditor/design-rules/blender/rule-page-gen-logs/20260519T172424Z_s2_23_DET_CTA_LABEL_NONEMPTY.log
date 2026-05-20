@@ -1,0 +1,46 @@
+## Report: `DET.CTA.LABEL_NONEMPTY` rule page
+
+### What was written
+
+A full PDCA handbook page for **`DET.CTA.LABEL_NONEMPTY`** (deterministic lane) with all required `RULE_PAGE_SCHEMA.md` sections:
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Visible controls must expose ≥1 trimmed accessible-name character; ties to `collectCtaLabelNonemptyReport` / `MIN_CTA_LABEL_CHARS = 1` |
+| **Passing / Failing signals** | Hero `landing-hero-actions__buttons`, doc nav `btn btn-forge`, card CTAs, `metrics.ctaLabelNonemptyReport` |
+| **Before** | Failing hero: empty `btn-forge` link, whitespace-only `btn-cyan-outline`, icon-only offcanvas button (Bootstrap hamburger SVG, no `aria-label`) |
+| **After** | Passing: `aria-label="Open navigation"` + visible “Start quickstart” / “Read docs” + `landing-hero-secondary-link` |
+| **Evidence & remediation** | `empty_accessible_name`, generator label fields, `analyze-website-ux.mjs` metrics |
+| **Related rules** | `DET.CTA.HIERARCHY`, `DET.BUTTON.GROUP.MAX`, `DET.CARD.ACTION_LIMIT`, `DET.LANDMARKS.REQUIRED`, `AI.CREDIBILITY.NO_OVERCLAIM` |
+
+**Sources used:** `deterministic-design-rules.md#det-cta-label_nonempty`, `registry.generated.json` (`registry_fingerprint: 6773fda5…`, `implemented`), `det-cta-label-nonempty.check.js`, `components/components.py` / `layouts.py` (real classes: `landing-hero`, `btn-forge`, `btn-cyan-outline`, `forge-support`, `product-landing-title`, offcanvas SVG).
+
+### `page_version` (confirmed)
+
+```text
+page_version: c1fec213f1e4fe30dae16656019259037d7301d5b562d51489d35f33105b5de9
+```
+
+Matches `rule-pages.manifest.json` `contentVersion` exactly.
+
+### File location (action needed)
+
+The Cursor workspace root is `tools/website-ux-auditor`, so the page was written under the in-repo KS mirror:
+
+`tools/website-ux-auditor/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-cta-label-nonempty.md`
+
+Writes to the canonical path you specified were blocked from this session:
+
+`docs/design/ux-audit/rule-pages/det-cta-label-nonempty.md` (Kitchen Sink repo root)
+
+**To install the canonical file**, from the Kitchen Sink repo root run:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-cta-label-nonempty.mjs
+```
+
+(or `bash tools/website-ux-auditor/.copy-det-cta-label-nonempty-pending.sh`)
+
+That copies the mirror page to `docs/design/ux-audit/rule-pages/det-cta-label-nonempty.md` and removes the staging copy under `tools/website-ux-auditor/docs/`.
+
+No check modules, `rule-mappings.js`, or registry files were edited.

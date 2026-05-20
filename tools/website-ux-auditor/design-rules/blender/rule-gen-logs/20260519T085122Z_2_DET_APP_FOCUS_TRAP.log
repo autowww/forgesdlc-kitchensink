@@ -1,0 +1,56 @@
+## Summary
+
+Implemented **`DET.APP.FOCUS_TRAP`** as a deterministic overlay focus-trap check, aligned with the source rule: modals/panels should keep keyboard focus until dismissed.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-app-focus-trap.check.js`**
+
+Replaced the stub with a check that:
+
+- Collects evidence via `page.evaluate()` (live crawl) or `metrics.appFocusTrapReport` (precomputed).
+- Scans overlay shells: Bootstrap `.modal` / `.offcanvas`, KS `#diagramModal` / `#topicPreviewModal`, and `[role="dialog"]` / `aria-modal` surfaces.
+- **Closed-state contract checks:** missing dismiss control; Bootstrap shell without a visible `data-bs-target` opener.
+- **Open-state probes (up to 2 per page):** opens via trigger click or `forgeApplyDiagramModalOpen()`, then:
+  - Cycles focus through tabbables and flags **trap-escape** if focus leaves the shell.
+  - Tries to focus `<main>` and flags **background-tabbable** if that succeeds while open.
+  - Flags **missing-aria-modal** on open `role="dialog"` without `aria-modal="true"`.
+  - Flags **no-focusable** when the open shell has no tabbables.
+
+Exports: `rule`, `run`, `findingsFromAppFocusTrapReport`, `collectAppFocusTrapReport` (same pattern as `DET.AMBIENT.Z_INDEX`).
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Already registers `DET.APP.FOCUS_TRAP` under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|--------|--------|
+| status | `implemented` |
+| area | `accessibility` |
+| scoreDimension | `accessibilitySemanticsMeta` |
+| priorityWeight | `9` |
+| defaultSeverity | `major` |
+
+**3. `design-rules/registry.generated.json`**
+
+`DET.APP.FOCUS_TRAP` entry already shows `implemented` with matching metadata.
+
+**4. `auditor-tests/det-app-focus-trap.test.js`**
+
+Unit tests for `findingsFromAppFocusTrapReport` and `run()` (metrics path + no-op without evidence).
+
+### Why
+
+The rule targets **keyboard focus containment** in modals/panels—measurable via dismiss/trigger markup and tab-focus probes, not AI judgment. That matches the Kco offcanvas contract (Bootstrap focus trap + dismiss) and KS diagram/topic preview modals.
+
+### Verify locally
+
+Shell was not available in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` refreshes the registry fingerprint after the mapping change. On Playwright crawls (`lib/crawl.js`), the check runs with a live `page`; static-only analyze no-ops unless `metrics.appFocusTrapReport` is supplied.

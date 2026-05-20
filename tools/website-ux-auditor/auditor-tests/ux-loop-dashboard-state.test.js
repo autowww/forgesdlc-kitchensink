@@ -31,6 +31,20 @@ test('shallowMergeDashboard merges crawl nested', () => {
   assert.deepEqual(m.crawl, { pages: '1/10', label: '[x]', queueLen: 3 });
 });
 
+test('shallowMergeDashboard merges loop and qualityGate nested', () => {
+  const a = {
+    phase: 'x',
+    loop: { iteration: 2 },
+    scorerBacklog: { total: 10, counts: { warn: 6 }, source: 'scorer' },
+    qualityGate: { total: 0, source: 'audit', pass: true, counts: { warn: 0 } },
+  };
+  const b = { loop: { maxIterations: 20 }, qualityGate: { counts: { warn: 6 } } };
+  const m = shallowMergeDashboard(a, b);
+  assert.deepEqual(m.loop, { iteration: 2, maxIterations: 20 });
+  assert.equal(/** @type {{ total?: number }} */ (m.scorerBacklog).total, 10);
+  assert.deepEqual(m.qualityGate, { total: 0, source: 'audit', pass: true, counts: { warn: 6 } });
+});
+
 test('mergeDashboardState atomic round-trip', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ux-dash-'));
   mergeDashboardState(dir, { phase: 'loop_start', slug: 'z' });
@@ -39,6 +53,15 @@ test('mergeDashboardState atomic round-trip', () => {
   assert.equal(st.slug, 'z');
   assert.ok(typeof st.updatedAt === 'string');
   assert.ok(fs.existsSync(dashboardStatePath(dir)));
+});
+
+test('mergeDashboardState skips identical payload (no updatedAt bump)', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ux-dash-'));
+  mergeDashboardState(dir, { phase: 'loop_start', slug: 'z' });
+  const t1 = readDashboardStateSafe(dir).updatedAt;
+  mergeDashboardState(dir, { phase: 'loop_start', slug: 'z' });
+  const t2 = readDashboardStateSafe(dir).updatedAt;
+  assert.equal(t1, t2);
 });
 
 test('mergeDashboardStateIfWatching respects env path match', () => {

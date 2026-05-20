@@ -1,0 +1,179 @@
+The implementation could not be completed in this session: every filesystem tool (`Read`, `Write`, `Grep`, `Glob`) and shell invocation returned **“Service temporarily unavailable”** or empty output with **0 ms** runtime, so I could not read the spec anchor, mirror `det-theme-contrast-min.check.js`, write files, or run `npm run blend-rules` / `npm test`.
+
+Please **retry this task in a follow-up turn** (or run the steps below locally). Below is the intended change set aligned with your plan and the usual KS auditor pattern (`export const rule`, `export function run(ctx) { return findings[]; }`).
+
+---
+
+### 1. Spec signals (to verify against `#det-theme-font_stack`)
+
+After you can read the doc, confirm these match the anchor. Intended measurable signals:
+
+| Signal | Check |
+|--------|--------|
+| Primary text nodes (`body`, `main`, `article`, headings, `p`) | `getComputedStyle(el).fontFamily` |
+| Allowed stacks | `var(--ks-font-family-*)` / `var(--forge-font-family-*)` plus approved generic/named fallbacks |
+| Failure | Any sampled element whose parsed stack includes a non-token face (e.g. `Comic Sans MS`) |
+
+---
+
+### 2. New check — `design-rules/deterministic/generated/det-theme-font-stack.check.js`
+
+```javascript
+/**
+ * DET.THEME.FONT_STACK — body and primary content use KS theme font stacks.
+ * @see docs/design/ux-audit/deterministic-design-rules.md#det-theme-font_stack
+ */
+
+const KS_FONT_VAR_RE =
+  /^var\(\s*--(?:ks|forge)-font-family-(?:sans|serif|mono)\s*(?:,[^)]+)?\)$/i;
+
+const ALLOWED_GENERIC = new Set([
+  'system-ui',
+  'ui-sans-serif',
+  'ui-serif',
+  'ui-monospace',
+  'sans-serif',
+  'serif',
+  'monospace',
+]);
+
+const ALLOWED_NAMED = new Set([
+  'inter',
+  'jetbrains mono',
+  'source serif 4',
+  'segoe ui',
+  'roboto',
+  'helvetica neue',
+  'arial',
+  'noto sans',
+  'noto serif',
+  'noto sans mono',
+]);
+
+const SAMPLE_SELECTORS = ['body', 'main', '[role="main"]', 'article', 'h1', 'p'];
+
+export const rule = {
+  id: 'DET.THEME.FONT_STACK',
+  title: 'Theme font stacks match Kitchen Sink tokens',
+  severity: 'major',
+  area: 'theme',
+  scoreDimension: 'visual_consistency',
+  priorityWeight: 0.85,
+  docsAnchor: 'det-theme-font_stack',
+};
+
+function normalizePart(part) {
+  return String(part || '')
+    .trim()
+    .replace(/^['"]|['"]$/g, '')
+    .toLowerCase();
+}
+
+function parseFontFamily(fontFamily) {
+  if (!fontFamily || typeof fontFamily !== 'string') return [];
+  return fontFamily.split(',').map(normalizePart).filter(Boolean);
+}
+
+function partAllowed(part) {
+  if (!part) return false;
+  if (KS_FONT_VAR_RE.test(part)) return true;
+  if (part.startsWith('var(') && /--(?:ks|forge)-font-family-(?:sans|serif|mono)/i.test(part)) {
+    return true;
+  }
+  if (ALLOWED_GENERIC.has(part)) return true;
+  if (ALLOWED_NAMED.has(part)) return true;
+  return false;
+}
+
+function stackAllowed(fontFamily) {
+  const parts = parseFontFamily(fontFamily);
+  if (parts.length === 0) return false;
+  return parts.every(partAllowed);
+}
+
+function sampleElements(document) {
+  const seen = new Set();
+  const out = [];
+  for (const selector of SAMPLE_SELECTORS) {
+    for (const el of document.querySelectorAll(selector)) {
+      if (seen.has(el)) continue;
+      seen.add(el);
+      out.push({ el, selector });
+      if (out.length >= 10) return out;
+    }
+  }
+  return out;
+}
+
+export function run(ctx) {
+  const document = ctx?.document;
+  const getComputedStyle = ctx?.getComputedStyle;
+  if (!document || typeof getComputedStyle !== 'function') return [];
+
+  const findings = [];
+  for (const { el, selector } of sampleElements(document)) {
+    const fontFamily = getComputedStyle(el).fontFamily;
+    if (stackAllowed(fontFamily)) continue;
+    findings.push({
+      ruleId: rule.id,
+      severity: rule.severity,
+      area: rule.area,
+      message:
+        'Computed font-family is not a Kitchen Sink theme stack (use --ks-font-family-* / --forge-font-family-* tokens with approved fallbacks).',
+      evidence: { selector, fontFamily, parsed: parseFontFamily(fontFamily) },
+      remediation: {
+        summary: 'Set font-family via KS theme CSS variables on body and content roots.',
+        docsAnchor: rule.docsAnchor,
+      },
+    });
+  }
+  return findings;
+}
+```
+
+**After read access works:** align `rule` metadata, allowlists, and finding field names with `det-theme-contrast-min.check.js` and the exact token names in `#det-theme-font_stack`.
+
+---
+
+### 3. `rule-mappings.js` — register under `DETERMINISTIC_IMPLEMENTATIONS`
+
+Add next to `DET.THEME.CONTRAST_MIN` (mirror its `area` / `scoreDimension` / `priorityWeight` if they differ from the sketch):
+
+```javascript
+'DET.THEME.FONT_STACK': {
+  status: 'implemented',
+  module: () => import('../deterministic/generated/det-theme-font-stack.check.js'),
+  area: 'theme',
+  scoreDimension: 'visual_consistency',
+  priorityWeight: 0.85,
+},
+```
+
+Use the **same object shape** as other `implemented` entries in that file (field names may be `load` / `path` instead of `module` — copy from `DET.THEME.CONTRAST_MIN`).
+
+---
+
+### 4. Verify (not run here)
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+If `design-rules-blender.test.js` or runtime tests expect a dedicated `auditor-tests/det-theme-font-stack.test.js`, add one by cloning `det-theme-contrast-min.test.js` (only if the suite requires it).
+
+---
+
+### Summary
+
+| Step | Status |
+|------|--------|
+| Read spec + contrast-min template | Blocked (tools) |
+| Implement `det-theme-font-stack.check.js` | Draft above (not written) |
+| Register in `rule-mappings.js` | Patch above (not applied) |
+| `npm run blend-rules` / `npm test` | Not run |
+
+**Why:** Infrastructure failure, not a design decision.
+
+**Next:** Ask me to **“retry DET.THEME.FONT_STACK”** when file tools work; I will read the real spec and contrast-min check, apply a minimal diff, and run blend + tests before reporting completion.

@@ -17,9 +17,12 @@ tools/design-catalog/node_modules/
 # Forge Website UX auditor/scorer dimension history (local analysis)
 ux-scoring.csv
 
-# UX remediation loop outputs (ephemeral audit runs from tools/website-ux-auditor)
+# UX remediation loop outputs (legacy; default campaigns use Code/workbench/ux-auditor — see run-website-ux-remediation-loop.sh)
 workbench/
 
 # Ember / Versona session exports (local-only)
 ember-logs/
 forge-logs/
+
+# Local-only evidence exports (never a source artifact)
+forge/evidence/

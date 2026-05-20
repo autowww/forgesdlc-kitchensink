@@ -27,7 +27,9 @@ Govern client-side behaviors shipped under `js/`. Child registry rows (**`LJa`**
 
 ## Expected look
 
-Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md).
+- Progressive enhancement on KS pages: expanded nav/dropdowns keep visible focus paths; modal/chart surfaces use restrained status coloring ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- Motion-backed scripts (**`TNH`**, ambient companions) honor reduction prefs—static layouts remain credible when animation is off.
+- Presentation and roadmap interactions expose explicit affordances (fullscreen exit, edit handles) suitable for operator tooling.
 
 ## Anatomy
 

@@ -1,0 +1,37 @@
+## Handbook page written
+
+Created **`AI.DATA.INSIGHT_LEGIBILITY`** (Data insight legibility) following `RULE_PAGE_SCHEMA.md` and the same promote pattern as other AI rule pages (`ai-app-density-balance`, etc.).
+
+### Content (PDCA)
+
+| Section | Focus |
+|--------|--------|
+| **Purpose** | Judgment layer on top of `DET.CHART.ALT_SUMMARY`, `DET.DATA.TABLE_HEADERS`, `DET.DATA.COLOR_ONLY` — charts must answer “so what?”, not only render correct bars/slices. |
+| **Passing / failing signals** | Takeaway titles, `forge-support` summaries, emphasis/annotation, redundant encoding (`lenses-overview-donut-swatch`), vs kind-only captions and tooltip-only insight. |
+| **Before / after HTML** | `ks-chart-mount` / `commit_weekly` on `Dcs` (`data-charts-static`): failing = generic label only; passing = `forge-card`, insight headline, `aria-describedby`, amber peak bar + callout. |
+| **Evidence & remediation** | Screenshot/DOM capture + ordered fix list. |
+| **Related rules** | `DET.CHART.ALT_SUMMARY`, `DET.DATA.COLOR_ONLY`, `DET.DATA.TABLE_HEADERS`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`, `AI.DIAGRAM.SEMANTIC_ACCURACY`. |
+
+### `page_version` (confirmed)
+
+```text
+page_version: c69353b3b095b3fa60b8c45e28d7ef8d6b10020381010ffacac998cb8319b7f7
+```
+
+This matches manifest `contentVersion` for this rule (registry/prompt fingerprint from `rule-page-version.mjs`, not a hash of the markdown file body).
+
+### Paths and promotion
+
+The page is at the auditor staging path (workspace is `tools/website-ux-auditor`):
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-data-insight-legibility.md`
+
+Canonical KS path (your target) still needs promotion. Run:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-ai-data-insight-legibility-pending.sh
+```
+
+That script copies to `docs/design/ux-audit/rule-pages/ai-data-insight-legibility.md` and runs `node rule-page-version.mjs --write-manifest` so manifest status becomes **`current`**.
+
+Shell was blocked in this session, so step 7–8 could not be executed here; the copy script is ready for you to run locally.

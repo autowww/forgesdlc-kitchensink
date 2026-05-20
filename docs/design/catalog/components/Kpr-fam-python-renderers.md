@@ -27,7 +27,9 @@ Govern Python modules that emit HTML fragments for KS generators and consumers. 
 
 ## Expected look
 
-Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md).
+- Emitted fragments inherit **`Ksc`** tokens—readable body type, disciplined accents, no orphaned bespoke hex stacks ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- Builders favor semantic sections sized for handbook/product shells inside existing layouts—not alternate mastheads that fight **Kpn**/**Hbk** landmarks.
+- **`Khx`** helpers keep hash markers deterministic in DOM; other modules bias toward quiet separators and evidence-first density.
 
 ## Anatomy
 

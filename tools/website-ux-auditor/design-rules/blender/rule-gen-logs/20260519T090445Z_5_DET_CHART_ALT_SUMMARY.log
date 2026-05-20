@@ -1,0 +1,42 @@
+Implemented **DET.CHART.ALT_SUMMARY** as a deterministic accessibility check for charts and graphs.
+
+## Rule signal (from source)
+
+Pass when a chart/graph has at least one of:
+- Text summary (`aria-label`, `alt`, `title`, sr-only summary)
+- `aria-describedby` / `aria-labelledby` pointing to substantive text
+- Nearby caption (`figcaption`, preceding KS `<p class="forge-support">`, etc.)
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-chart-alt-summary.check.js`
+Replaced the stub with a full check following the `det-card-title` pattern:
+
+- **`MIN_CHART_SUMMARY_CHARS = 8`** — minimum summary length
+- **Chart roots:** `[data-ks-chart]`, `.ks-chart-mount`, `[data-chart]`, chart containers, sized `canvas`/`svg[role="img"]` inside chart contexts
+- **Exclusions:** ambient layers (`.forge-ambient-bg`, `.forge-aurora`, etc.), `aria-hidden`, tiny/decorative canvases
+- **Summary detection:** aria attributes, hidden summaries, `figure > figcaption`, adjacent caption paragraphs (matches KS chart mount pattern)
+- **Exports:** `rule`, `findingsFromChartAltSummaryReport`, `collectChartAltSummaryReport`, `run(ctx)`
+
+Metadata: `area: accessibility`, `scoreDimension: accessibilitySemanticsMeta`, `defaultSeverity: major`, `priorityWeight: 7`.
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS` with `status: 'implemented'`.
+
+### 3. `auditor-tests/det-chart-alt-summary.test.js`
+Unit tests for constants, finding shape, empty report, and `metrics.chartAltSummaryReport` wiring.
+
+### 4. `design-rules/registry.generated.json`
+Already reflects `status: "implemented"` with the correct metadata for this rule.
+
+## Verification
+
+Shell commands were blocked in this environment, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`npm run blend-rules` will refresh the registry fingerprint after the `rule-mappings.js` change. The new tests in `det-chart-alt-summary.test.js` should pass along with the existing suite.

@@ -28,7 +28,8 @@ Figure-first browse experience for thumbnails, screenshots, or catalog tiles wit
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- **Gallery** frame emphasizes tile grids and previews—more visual rhythm than handbook layouts.
+- Controls for filtering/sorting (when present) align with dense museum interactions ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
 
@@ -49,8 +50,8 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Tile grids reflow from dense desktop columns to 1–2 columns on phones.
+- Captions truncate with expansion affordances when necessary.
 
 ## Accessibility contract
 
@@ -69,6 +70,19 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Gly** markers: emitted roots include both `hash="Gly"` and `data-ks-hash="Gly"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: div.container-fluid.px-0: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- `gallery_page` card grid aligns to a predictable column count per breakpoint; card media keeps aspect cues without cropping critical labels.
+- Right-rail ToC (when enabled) mirrors `showcase_page` affordances and does not occlude thumbnail focus rings.
+
+## AI-enabled review cues
+
+- Does **Gallery layout** read as the correct *role* for consumers (handbook vs museum vs landing) rather than an accidental mash-up of two layouts?
+- Under studio lighting (screenshots at ~1440px), does vertical rhythm reinforce scan-friendly hierarchy (not cramped headings or orphaned whitespace bands)?
+- When paired with diagrams or dense tables, does chrome stay visually subordinate while remaining discoverable?
 
 ## Forbidden patterns
 

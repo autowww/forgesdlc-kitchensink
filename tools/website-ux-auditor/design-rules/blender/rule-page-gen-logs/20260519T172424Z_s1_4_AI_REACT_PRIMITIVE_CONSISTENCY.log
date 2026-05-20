@@ -1,0 +1,52 @@
+## Report: `AI.REACT.PRIMITIVE_CONSISTENCY` rule page
+
+Wrote the full PDCA handbook page with all required schema sections. Because the Cursor workspace is scoped to `tools/website-ux-auditor/`, the file landed in staging first; the canonical KS path still needs a one-line copy (see below).
+
+### File location
+
+| Path | Status |
+|------|--------|
+| **Canonical (requested):** `docs/design/ux-audit/rule-pages/ai-react-primitive-consistency.md` | Not on disk yet (sandbox cannot write outside workspace) |
+| **Staging (complete):** `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-react-primitive-consistency.md` | Written and verified |
+
+**Promote to canonical path** (from KS repo root):
+
+```bash
+bash tools/website-ux-auditor/.copy-ai-react-primitive-consistency-pending.sh
+```
+
+### `page_version` confirmed
+
+```yaml
+page_version: a8fc1f6189cc2753343c4c952614d91f8d4c22febaf51d040bc907cf2f8c5529
+```
+
+### Page contents
+
+- **Title:** React primitive consistency  
+- **Summary:** KS React primitives on a run console must share one token-driven system for states, focus, density, and severity—not mixed Bootstrap one-offs.  
+- **Source:** `docs/design/ux-audit/ai-enabled-design-principles.md#ai-react-primitive-consistency`  
+- **Registry:** `registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba`, `registry_status: generated`  
+- **Sections:** Purpose (PDCA), Passing signals, Failing signals, Before example, After example, Evidence and remediation, Related rules  
+
+### Before / after examples (real KS patterns)
+
+Grounded in `FAM-react-primitives.md`, `css/forge-react-primitives.css`, and `react/*.tsx`:
+
+| Primitive | Hash | Classes used |
+|-----------|------|--------------|
+| Run header | `Frh` | `ks-fe-run-header`, `ks-fe-run-header__title`, `ks-fe-badge--warning` |
+| Status banner | `Fsb` | `ks-fe-banner`, `ks-fe-banner--failed`, `ks-fe-banner__body` |
+| Workflow stage bar | `Fwb` | `ks-fe-stagebar`, `ks-fe-stagebar--nav`, `ks-fe-stagebar__node--*` |
+| Decision action bar | `Fda` | `ks-fe-actionbar`, `ks-fe-actionbar--sticky`, `ks-fe-actionbar__inner` |
+| Container | — | `forge-card`, `btn btn-sm` |
+
+**Before (failing):** Bootstrap `alert alert-danger`, `badge bg-warning`, ad-hoc inline-colored stage pills, mixed `btn-lg` / `btn-xs`, no `data-ks-react-root` markers.
+
+**After (passing):** Four governed primitive roots with `ksReactPrimitiveAttrs()` markers (`hash`, `data-ks-hash`, `data-ks-type`, `data-ks-name`, `data-ks-react-root`), shared `ks-fe-*` state vocabulary, consistent `btn btn-sm` density.
+
+### Related rules linked
+
+`DET.REACT.KS_ATTRS`, `DET.REACT.A11Y_ROLE`, `DET.HASH.MARKERS`, `AI.CONTRACT.IMPLEMENTATION_USEFULNESS`, `AI.PREMIUM.ENTERPRISE_FEEL`
+
+No Mermaid, no Fleet-specific profiles, no check modules or registry edits. Run the copy script above to place the file at the canonical path for the orchestrator to pick up in `rule-pages.manifest.json`.

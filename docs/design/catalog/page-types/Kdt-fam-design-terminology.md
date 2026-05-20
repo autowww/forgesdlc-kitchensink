@@ -10,6 +10,12 @@ source_paths:
   - docs/design/lenses-studio-shell.md
   - docs/design/wizard-flow-studio.md
   - docs/PAGE-LAYOUT-TAXONOMY.md
+  - docs/design/ux-audit/README.md
+  - docs/design/ux-audit/ai-enabled-design-principles.md
+  - docs/design/ux-audit/component-design-ruleset-taxonomy.md
+  - docs/design/ux-audit/deterministic-design-rules.md
+  - docs/design/ux-audit/element-level-ruleset-matrix.md
+  - docs/design/ux-audit/industry-standard-page-quality.md
 showcase_url: null
 screenshot_url: null
 screenshot_status: "not-applicable"
@@ -40,6 +46,7 @@ This family does not enumerate three-letter DOM hashes; it **covers the source d
 - `docs/design/lenses-studio-shell.md` — desktop studio framing for Lenses metaphors.
 - `docs/design/wizard-flow-studio.md` — guided-flow expectations.
 - `docs/PAGE-LAYOUT-TAXONOMY.md` — mapping from marketing patterns to KS layouts.
+- `docs/design/ux-audit/` — deterministic vs AI-review principles, element ruleset matrix, taxonomy crosswalks authored with Website UX Auditor runs.
 
 **Follow-up:** When a new long-lived design doc under `docs/design/` materially affects visuals, **forge-ks** maintainer adds its path to this row’s `source_paths` in `visual-registry.yaml` in the same PR as the doc lands.
 
@@ -97,4 +104,5 @@ N/A for source files; authored preview must read well at handbook line lengths (
 
 ## Changelog
 
+- 2026-05-19 — Phase 05: registered `docs/design/ux-audit/*` under **Kdt** + inventory alignment.
 - 2026-05-18 — Phase 04: authored family contract; listed covered source docs; removed stubs.

@@ -1,0 +1,49 @@
+Implemented **`DET.HASH.REGISTRY_ROW`** as a focused registry crosswalk (separate from **`DET.HASH.MARKERS`** marker pairing and **`DET.CONTRACT.PATH`** contract files).
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-hash-registry-row.check.js`**
+
+Deterministic checks per emitted hash (from `metrics.ksVisualHashReport.instances`, or live `page.evaluate` when Playwright is available):
+
+| Signal | Severity | Condition |
+|--------|----------|-----------|
+| `registry-missing` | minor | DOM has valid hashes but `visual-registry.generated.json` is missing/unreadable |
+| `registry-duplicate` | warn | Duplicate hash keys in generated registry (once per crawl via `ctx`) |
+| `unknown-hash` | warn | Hash not in registry |
+| `deprecated` | minor | Registry row `status: deprecated` |
+| `type-mismatch` | minor | `data-ks-type` present and ≠ registry `type` |
+
+Findings keep the usual shape: `severity`, `area`, `message`, `evidence`, `remediation`, plus `hash` / `selector` when applicable.
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `status: implemented`
+- `area: visual-catalog`, `scoreDimension: visualCatalogGovernance`
+- `defaultSeverity: warn`, `priorityWeight: 8`
+
+**3. `auditor-tests/det-hash-registry-row.test.js`**
+
+10 unit tests covering unknown hash, type match/mismatch, missing registry, duplicate-registry dedupe, and `run()` wiring.
+
+### Why
+
+The rule anchor requires: **hash exists in the generated registry with the expected `type`**. That is a registry lookup + optional DOM `data-ks-type` crosswalk—aligned with `check-visual-catalog.mjs` and the legacy `visual-catalog-awareness` slice, but isolated so **`DET.HASH.MARKERS`** stays DOM-marker-only.
+
+### Checks not run here
+
+Shell commands were rejected in this session. Please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should move **`DET.HASH.REGISTRY_ROW`** from `stub` → `implemented` in `design-rules/registry.generated.json` and refresh the fingerprint (implemented count **23 → 24**). Focused test:
+
+```bash
+node --test auditor-tests/det-hash-registry-row.test.js
+```

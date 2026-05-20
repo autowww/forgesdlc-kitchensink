@@ -1,0 +1,54 @@
+## Report: `AI.NARRATIVE.COHERENCE` handbook page
+
+### File written
+
+**Workspace path (complete):**  
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-narrative-coherence.md`
+
+**Requested KS root path (still missing):**  
+`docs/design/ux-audit/rule-pages/ai-narrative-coherence.md`  
+(absolute: `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-narrative-coherence.md`)
+
+This Cursor workspace is scoped to `tools/website-ux-auditor`, so writes and shell commands to the parent `docs/` tree were blocked. A copy helper was added (same pattern as other rule pages):
+
+```bash
+bash tools/website-ux-auditor/.copy-ai-narrative-coherence-pending.sh
+```
+
+Run that from the **Kitchen Sink repo root** to place the canonical file and refresh the manifest.
+
+### `page_version` confirmed
+
+```yaml
+page_version: 3e1187c7e66cb94ddb158cf40e3b1769a235a7e9f8c8c875ff6cdbb1041dc4e1
+```
+
+Matches `rule-pages.manifest.json` `contentVersion` for `AI.NARRATIVE.COHERENCE`.
+
+### Front matter (summary)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.NARRATIVE.COHERENCE` |
+| `lane` | `ai` |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-narrative-coherence` |
+| `agent_model` | `composer-2.5-fast` |
+
+### Page content
+
+- **Purpose:** PDCA framing for one ordered story (problem → outcome → mechanism → next step) on `landing_page` / `product_page` shells; complements `DET.PAGE.MODE`, `DET.SECTION.HEADING`, `DET.SECTION.SINGLE_JOB`.
+- **Passing / failing signals:** Section sequencing, CTA timing, cross-band contradictions (e.g. local-first vs hosted), reference dumps interrupting the arc.
+- **Before example:** Failing hero with premature cloud CTAs, reference band before outcomes, trust band contradicting “local-only” hero.
+- **After example:** Passing arc—problem/outcome hero → outcomes (`forge-card card-amber`) → `#how-it-works` mechanism steps → aligned trust + deferred primary CTA.
+- **Evidence and remediation:** Screenshot + H1–H3 beat map + paraphrase test; seven-step reordering checklist.
+- **Related rules:** Updated to canonical `AI.VISUAL.HIERARCHY_CONFIDENCE` (was `AI.VISUAL.HIERARCHY` in the draft).
+
+### Real KS classes used in examples
+
+Verified against `components/layouts.py`, `components/components.py`, and `css/forge-theme.css` / `forgesdlc-theme.css`:
+
+`landing-hero`, `fs-landing-hero-band`, `forge-section`, `landing-hero-wide`, `landing-hero-grid`, `landing-hero-copy`, `landing-hero-kicker`, `product-landing-title`, `forge-gradient-text`, `landing-hero-tagline`, `landing-hero-clarification`, `landing-hero-actions`, `btn-forge`, `btn-cyan-outline`, `section-label`, `forge-card`, `card-amber`, `card-label`, `forge-support`, plus hash governance attributes (`hash`, `data-ks-hash`, `data-ks-type`, `data-ks-name`).
+
+No Mermaid, no Fleet-specific profiles. Check modules and registry were not edited.

@@ -1,0 +1,39 @@
+## Summary
+
+Implemented **`DET.CONTRACT.PATH`** as a repo-wide catalog check: active registry rows that require a contract (`contract_status: own` | `family-covered`) must have a non-empty path and an on-disk `.md` file.
+
+### Rule signals (from `deterministic-design-rules.md`)
+
+| Signal | Pass | Fail |
+|--------|------|------|
+| Row scope | `status === 'active'` | deprecated / other statuses skipped |
+| Policy | `contract_status` is `own` or `family-covered` | `not-applicable`, `missing`, etc. skipped |
+| Path | `contract` / `contract_path` non-empty | empty path |
+| File | `repoRoot + contract` exists | missing file |
+
+Aligned with `check-visual-catalog.mjs` and the per-page logic in `visual-catalog-awareness.js`, but scoped to the full registry (not DOM hashes).
+
+### Files changed
+
+1. **`design-rules/deterministic/generated/det-contract-path.check.js`** — `scanContractPaths`, `findingsFromContractPathReport`, `run()`; uses `loadGeneratedRegistry` / `contractPathFromRegistryEntry`; caps at 12 findings per pass.
+
+2. **`design-rules/blender/rule-mappings.js`** — registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+   - `area: 'visual-catalog'`
+   - `scoreDimension: 'visualCatalogGovernance'`
+   - `priorityWeight: 8`
+   - `defaultSeverity: 'minor'`
+
+3. **`auditor-tests/det-contract-path.test.js`** — unit tests for policy helpers, scan, finding mapping, and `run()`.
+
+4. **`design-rules/registry.generated.json`** — synced so `DET.CONTRACT.PATH` is `implemented` with `explicit-map` (same outcome as `npm run blend-rules`).
+
+### Verification (please run locally)
+
+Shell execution was blocked in this session. From `tools/website-ux-auditor`:
+
+```bash
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should leave `DET.CONTRACT.PATH` as `implemented` and bump `deterministicCoverage.implementedCount` to **14**. The new tests in `auditor-tests/det-contract-path.test.js` should pass.

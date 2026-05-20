@@ -1,0 +1,41 @@
+## Report: `DET.APP.PERSISTENT_CHROME` rule page
+
+Wrote the handbook page from:
+- Source rule: `docs/design/ux-audit/deterministic-design-rules.md#det-app-persistent-chrome`
+- Implementation: `design-rules/deterministic/generated/det-app-persistent-chrome.check.js`
+- Schema: `RULE_PAGE_SCHEMA.md`
+- KS patterns: `Msm` museum studio shell, `data-shell-region`, `nav-section-label`, `forge-card`, `ks-wizard-flow__session-list`, etc.
+
+### Page contents
+
+| Section | Summary |
+|---------|---------|
+| **Purpose** | Route-crawl check: fingerprint `header`/`nav`/`aside`/`footer` and `[data-shell-region]` outside `main`; compare across routes when persistence is promised |
+| **Passing signals** | Stable regions, ids, `data-ks-hash`, global nav link sets; only `main` swaps |
+| **Failing signals** | `missing-region`, `nav-drift`, `hash-drift`, `promised-no-regions` |
+| **Before example** | `/settings` route with route-local header nav + missing side rail (nav-drift + missing-region) |
+| **After example** | Stable `Msm` shell with `data-shell-regions`, persistent `header`/`nav`, route content only in `main` |
+| **Evidence and remediation** | `appPersistentChromeReport.violations[]`, paired screenshots, 5-step fix order |
+| **Related rules** | 7 linked rules (landmarks, chrome boundary, breadcrumb, dedup, focus trap, AI workflow/density) |
+
+### `page_version` confirmed
+
+```
+f5a18d2e84b4ae7ae74b1d76e889661ddb5b3a3d117f6e48814e59f6960102aa
+```
+
+### File location (sandbox note)
+
+Content is written and verified at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-app-persistent-chrome.md`
+
+The target repo-root path was blocked by sandbox write limits. To promote to the canonical path, run from the Kitchen Sink repo root:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-app-persistent-chrome.mjs
+```
+
+That copies to `docs/design/ux-audit/rule-pages/det-app-persistent-chrome.md` and removes the tools copy.
+
+No check modules, registry, or rule-mappings were edited. No Mermaid; no Fleet-specific profiles. Before/after examples use real KS class names and contract attributes.

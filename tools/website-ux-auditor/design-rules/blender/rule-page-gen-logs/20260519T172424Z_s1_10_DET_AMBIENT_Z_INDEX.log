@@ -1,0 +1,51 @@
+## Report: `DET.AMBIENT.Z_INDEX` rule page
+
+Wrote the handbook page at the workspace staging path (sandbox blocks writes outside `tools/website-ux-auditor/`):
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-ambient-z-index.md`
+
+**Promote to the canonical KS path** (your specified target):
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-det-ambient-z-index-pending.sh
+```
+
+That copies to `docs/design/ux-audit/rule-pages/det-ambient-z-index.md` and updates `rule-pages.manifest.json`.
+
+### `page_version` confirmed
+
+```
+page_version: c85b9d27a8f29b758a41bb53c76bfb4ec754f10bf5d2ec9e8eafeebd799ea335
+```
+
+### Page contents (PDCA)
+
+| Section | Summary |
+|---|---|
+| **Purpose** | KS ambient stacking contract: bg `z-index: 0`, scrim `1`, content `2`; `pointer-events: none` on decorative planes. Covers Forge ambient, animated backgrounds, and living background. |
+| **Passing signals** | Correct slot classes, living scene at z-index 0, canvases non-interactive |
+| **Failing signals** | Elevated z-index, `pointer-events: auto`, stack inversions, missing content wrapper |
+| **Before example** | Failing hero: `<canvas>` at z-index 3 + `.forge-ambient-bg` at z-index 2 with pointer events, prose in bare `<div>` |
+| **After example** | Passing Forge ambient stack from `generator/pages/forge_ambient.py`; plus `.ks-has-ambient-bg` / `.ks-content` variant |
+| **Evidence & remediation** | Maps to `ambientZIndexReport.violations[]` kinds from `det-ambient-z-index.check.js` |
+| **Related rules** | `AI.AMBIENT.READABILITY_CONFLICT`, `DET.MOTION.PREFERS_REDUCED`, `AI.MOTION.INTENTIONALITY` |
+
+### Real KS class names used
+
+From `css/forge-ambient.css`, `css/ks-animated-backgrounds.css`, `css/ks-living-background.css`, and `generator/pages/forge_ambient.py`:
+
+- `.forge-section`, `.forge-ambient`, `.forge-ambient--mesh-bloom`, `.forge-ambient--hero` / `--medium`, `.forge-ambient--on-dark`
+- `.forge-ambient-bg`, `.ks-ambient-bg`, `.forge-ambient-scrim`, `.forge-ambient-content`
+- `.ks-has-ambient-bg`, `.ks-bg-overlay--soft`, `.ks-ambient-bg-overlay`, `.ks-content`
+- `.forge-support`, `.btn`, `.btn-primary`, `.btn-outline-primary`
+- Hash attrs: `hash`, `data-ks-hash`, `data-ks-type`, `data-ks-name`
+- Asset path: `assets/svg/ambient/mesh-bloom.svg` (showcase ambient asset)
+
+### Front matter metadata
+
+- `registry_fingerprint`: `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba`
+- `registry_status`: `implemented`
+- `source_rule`: `docs/design/ux-audit/deterministic-design-rules.md#det-ambient-z-index`
+- `agent_model`: `composer-2.5-fast`
+
+No check modules, registry, or rule-mappings were edited. No Mermaid, no Fleet-specific profiles.

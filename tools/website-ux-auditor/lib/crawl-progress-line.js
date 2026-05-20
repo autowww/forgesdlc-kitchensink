@@ -21,6 +21,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { buildScorerBacklogPatch } from './loop-watch-phase-source.js';
 import { mergeDashboardState } from './ux-loop-dashboard-state.js';
 
 /**
@@ -47,7 +48,7 @@ export function fixedRightTruncate(s, w) {
 }
 
 /** Column widths — tuned for scorer (≤9999 pages, large queues). */
-const COL = {
+export const COL = {
   LABEL: 14,
   RUN: 11,
   CLOCK: 18,
@@ -56,7 +57,7 @@ const COL = {
 };
 
 /** Single ETA field `cur/run/script` (compact slashes, no padded cells). */
-const ETA_BLOCK_LEN = 22;
+export const ETA_BLOCK_LEN = 22;
 
 /** Core columns + spaces between six gaps */
 const FIXED_CORE_LEN = COL.LABEL + COL.RUN + COL.CLOCK + COL.PAGES + COL.QUEUE + ETA_BLOCK_LEN + 6;
@@ -106,6 +107,76 @@ function truncateUrl(u, max = 52) {
 }
 
 /**
+ * Remove crawl-style `Ns/~…` clocks and slash-separated ETA triples from free-form `[ux-* ]` text
+ * (used when a line is not a strict fixed-width progress row).
+ *
+ * @param {string} sIn
+ */
+export function stripLooseCrawlTimingForWatch(sIn) {
+  let s = String(sIn).replace(/\s+/g, ' ').trim();
+  if (!s.length || !/\[(?:ux-score|ux-audit|ux-audit-pre)\]/.test(s)) return s;
+  s = s.replace(/\b\d+[smh]\/~[^\s]+/g, '');
+  const etaSeg = '[-–—0-9smN/A~.]+';
+  for (let n = 0; n < 4; n += 1) {
+    const next = s.replace(new RegExp(`\\s${etaSeg}/${etaSeg}/${etaSeg}(?=\\s|$)`, 'g'), ' ').replace(/\s+/g, ' ').trim();
+    if (next === s) break;
+    s = next;
+  }
+  return s;
+}
+
+/**
+ * Crawl progress log line for loop-watch activity “live”: strip optional ISO+tab stamp,
+ * drop elapsed / ETA columns on fixed-width progress rows; keep label, run, pages, queue, phase/URL.
+ * Other lines (e.g. `phase=page_done`) are returned single-spaced without column surgery.
+ *
+ * @param {string} line
+ */
+export function stripCrawlProgressLineForWatchDisplay(line) {
+  const raw = String(line ?? '').trim();
+  if (!raw.length) return '';
+  const iso = /^(\d{4}-\d{2}-\d{2}T[0-9:.-]+Z?)\t(.*)$/s.exec(raw);
+  const work = (iso ? iso[2] : raw).replace(/\r\n/g, '\n').trimEnd();
+
+  const collapsed = () => stripLooseCrawlTimingForWatch(work.replace(/\s+/g, ' ').trim());
+
+  if (/\bphase=page_done\b/.test(work)) return collapsed();
+
+  if (work.length < COL.LABEL + 1 + COL.RUN) return collapsed();
+
+  const afterLabel = work.slice(COL.LABEL);
+  if (afterLabel.trimStart().startsWith('phase=page_done')) return collapsed();
+
+  if (!afterLabel.startsWith(' ')) return collapsed();
+
+  let i = COL.LABEL + 1;
+  if (work.length < i + COL.RUN + 1 + COL.CLOCK + 1 + COL.PAGES + 1 + COL.QUEUE + 1 + ETA_BLOCK_LEN) {
+    return collapsed();
+  }
+  const label = work.slice(0, COL.LABEL).trimEnd();
+  const run = work.slice(i, i + COL.RUN).trimEnd();
+  i += COL.RUN;
+  if (work[i] !== ' ') return collapsed();
+  i += 1;
+  i += COL.CLOCK;
+  if (work[i] !== ' ') return collapsed();
+  i += 1;
+  const pages = work.slice(i, i + COL.PAGES).trimEnd();
+  i += COL.PAGES;
+  if (work[i] !== ' ') return collapsed();
+  i += 1;
+  const queue = work.slice(i, i + COL.QUEUE).trimEnd();
+  i += COL.QUEUE;
+  if (work[i] !== ' ') return collapsed();
+  i += 1;
+  i += ETA_BLOCK_LEN;
+  if (i < work.length && work[i] === ' ') i += 1;
+  const phase = work.slice(i).trim();
+  const pieces = [label, run, pages, queue, phase].filter((p) => p.length > 0);
+  return stripLooseCrawlTimingForWatch(pieces.join(' · '));
+}
+
+/**
  * @param {{
  *   stream?: import('node:stream').Writable,
  *   label?: string,
@@ -147,6 +218,11 @@ export function createCrawlProgressReporter(opts) {
   let lastQueueLen = 0;
   /** @type {ReturnType<typeof setInterval> | null} */
   let heartbeatTimer = null;
+  /** Dashboard-only: cumulative severity counts this crawl (from page_end). */
+  /** @type {Record<string, number>} */
+  let dashSeverityRun = {};
+  /** Short tag for loop-watch canvas (no URLs). */
+  let crawlPhaseTag = 'idle';
 
   const hbRaw = process.env.FORGE_UX_CRAWL_PROGRESS_HEARTBEAT_SEC;
   const heartbeatSec =
@@ -301,11 +377,19 @@ export function createCrawlProgressReporter(opts) {
     }
   }
 
-  function pushDashboardSnapshot(now, queueLen, etaScriptMs) {
+  /** @type {Record<string, unknown> | null} */
+  let lastAuditProgress = null;
+
+  function pushDashboardSnapshot(now, queueLen, etaScriptMs, auditProgressPatch = null) {
     if (!dashboardWatch) return;
     try {
       const m = computeProgressMetrics(now, queueLen, etaScriptMs);
-      mergeDashboardState(watchOutDir, {
+      if (auditProgressPatch && typeof auditProgressPatch === 'object') {
+        lastAuditProgress = { ...lastAuditProgress, ...auditProgressPatch };
+      }
+      const isScorerCrawl = String(label || '').toLowerCase().includes('ux-score');
+      /** @type {Record<string, unknown>} */
+      const patch = {
         crawl: {
           component: 'crawl',
           label,
@@ -314,10 +398,19 @@ export function createCrawlProgressReporter(opts) {
           pages: m.pgStr,
           queueLen: m.q,
           etaTriple: m.etaTripleRaw,
-          phaseDetail: String(m.phaseDetail || '').slice(0, 240),
+          crawlPhase: crawlPhaseTag,
+          phaseDetail: phaseDetail || '',
+          severityCounts: isScorerCrawl ? {} : { ...dashSeverityRun },
           ts: now,
         },
-      });
+      };
+      if (isScorerCrawl && Object.keys(dashSeverityRun).length) {
+        Object.assign(patch, buildScorerBacklogPatch(dashSeverityRun, { source: 'scorer_crawl' }));
+      }
+      if (lastAuditProgress && !isScorerCrawl) {
+        patch.auditProgress = lastAuditProgress;
+      }
+      mergeDashboardState(watchOutDir, patch);
     } catch {
       /* ignore dashboard merge errors */
     }
@@ -332,8 +425,8 @@ export function createCrawlProgressReporter(opts) {
    * @param {{ now: number, queueLen: number, etaScriptMs?: number | null }} ctx
    * @param {{ skipPaint?: boolean }} [paintOpts]
    */
-  function render(ctx, paintOpts = {}) {
-    pushDashboardSnapshot(ctx.now, ctx.queueLen, ctx.etaScriptMs);
+  function render(ctx, paintOpts = {}, auditProgressPatch = null) {
+    pushDashboardSnapshot(ctx.now, ctx.queueLen, ctx.etaScriptMs, auditProgressPatch);
     const line = formatProgressRow(ctx.now, ctx.queueLen, ctx.etaScriptMs);
     appendProgressLog(line);
     if (!paintOpts.skipPaint) paint(line);
@@ -373,6 +466,8 @@ export function createCrawlProgressReporter(opts) {
 
     if (ev.phase === 'launch_start') {
       phaseDetail = 'launch Chromium';
+      crawlPhaseTag = 'launch';
+      dashSeverityRun = {};
       pageStartMs = null;
       pageInFlight = false;
       completedPages = 0;
@@ -384,7 +479,19 @@ export function createCrawlProgressReporter(opts) {
       pageStartMs = null;
       pageInFlight = false;
       phaseDetail = 'browser ready';
+      crawlPhaseTag = 'ready';
       render({ queueLen: ev.queueLen ?? 0, now });
+      return;
+    }
+
+    if (ev.phase === 'rule_progress') {
+      if (dashboardWatch || progressLogPath) {
+        render(
+          { queueLen: lastQueueLen, now },
+          { skipPaint: true },
+          ev.auditProgress && typeof ev.auditProgress === 'object' ? ev.auditProgress : null,
+        );
+      }
       return;
     }
 
@@ -394,11 +501,20 @@ export function createCrawlProgressReporter(opts) {
       pageStartMs = now;
       workingOrdinal = completedPages + 1;
       phaseDetail = truncateUrl(ev.href || '', Math.max(phaseColumnWidth(), 44));
-      render({ queueLen: ev.queueLen ?? 0, now });
+      crawlPhaseTag = 'page';
+      render(
+        { queueLen: ev.queueLen ?? 0, now },
+        {},
+        ev.auditProgress && typeof ev.auditProgress === 'object' ? ev.auditProgress : null,
+      );
       return;
     }
 
     if (ev.phase === 'page_end') {
+      if (ev.severityRunTotal && typeof ev.severityRunTotal === 'object') {
+        dashSeverityRun = { ...ev.severityRunTotal };
+      }
+      crawlPhaseTag = 'idle';
       appendPageDoneLine(ev);
       recordSample(ev.durationMs ?? now - (pageStartMs ?? now));
       pageStartMs = null;
@@ -409,7 +525,11 @@ export function createCrawlProgressReporter(opts) {
       /* No stderr line for the idle between pages ("queued" was noisy); next page_begin refreshes metrics.
          Loop-watch dashboard + optional auditor progress log still get updates (skipPaint avoids stderr spam). */
       if (dashboardWatch || progressLogPath) {
-        render({ queueLen: lastQueueLen, now }, { skipPaint: true });
+        render(
+          { queueLen: lastQueueLen, now },
+          { skipPaint: true },
+          ev.auditProgress && typeof ev.auditProgress === 'object' ? ev.auditProgress : null,
+        );
       }
       return;
     }
@@ -419,6 +539,7 @@ export function createCrawlProgressReporter(opts) {
       pageInFlight = false;
       pageStartMs = null;
       phaseDetail = 'closing browser';
+      crawlPhaseTag = 'close';
       render({ queueLen: ev.queueLen ?? 0, now });
     }
   }

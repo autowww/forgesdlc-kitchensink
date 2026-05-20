@@ -1,0 +1,74 @@
+Connection lost, reconnecting (attempt 1)...
+Retry attempt 1...
+Connection lost, reconnecting (attempt 2)...
+Retry attempt 2...
+Connection lost, reconnecting (attempt 3)...
+Retry attempt 3...
+## Report: `AI.CONTEXT.COGNITIVE_CLARITY` rule page
+
+### What was written
+
+A full PDCA handbook page for **`AI.CONTEXT.COGNITIVE_CLARITY`** was authored with:
+
+| Field | Value |
+|--------|--------|
+| **Title** | Cognitive clarity |
+| **Summary** | First-time readers can form a correct mental model in one pass—jargon explained before reuse, headings match substance, depth staged |
+| **Source** | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-context-cognitive-clarity` |
+| **Prompt** | `design-rules/ai/prompts/ai-context-cognitive-clarity.md` (PDCA: isolate ambiguous terms → recommend IA/copy → verifiable checks → candidate `DET.*`) |
+
+**Sections (per `RULE_PAGE_SCHEMA.md`):**
+
+1. **Purpose** — AI judgment on mental-model clarity vs `DET.SECTION.HEADING`, `DET.CONTEXT.BURDEN`, `DET.PROSE.LENGTH`
+2. **Passing / Failing signals** — plain-language hero first, terms defined on first use, `section-label` matches body, progressive disclosure
+3. **Before / After HTML** — real KS landing patterns: `landing-hero`, `product-landing-title`, `landing-hero-tagline`, `landing-hero-clarification`, `btn btn-forge`, `forge-section`, `section-label`, `forge-card card-amber`, `card-label`, `forge-support`
+4. **Evidence and remediation** — paraphrase test, staged depth, promotion to deterministic checks
+5. **Related rules** — `DET.SECTION.HEADING`, `DET.SECTION.SINGLE_JOB`, `DET.CONTEXT.BURDEN`, `DET.PROSE.LENGTH`, `DET.NAV.IN_PAGE_TOC`, `AI.NARRATIVE.COHERENCE`, `AI.CONTEXT.BURDEN_SUBJECTIVE`
+
+**Before example (fails):** Hero headline stacks “LCDL, Fleet, and Lenses” with API/endpoint tagline; “Outcomes” section contains endpoint reference cards.
+
+**After example (passes):** Outcome-first headline, `landing-hero-clarification` glosses each product name, CTAs point to story not schemas; outcome cards match labels (Trust / Speed / Depth).
+
+No Fleet-specific profile. No Mermaid.
+
+### `page_version` (confirmed in source front matter)
+
+```yaml
+page_version: 147f28c00ed45941c1315962642216c8aa994bc2dbb23cf8c520b91f309b0a2a
+```
+
+This matches the manifest `contentVersion` for this rule (registry + implemented prompt fingerprint)—not a hash of the markdown body.
+
+### File location (important)
+
+The Cursor workspace root is `tools/website-ux-auditor`, so the page was written here first:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-context-cognitive-clarity.md`
+
+The **canonical** path your task specified is:
+
+`docs/design/ux-audit/rule-pages/ai-context-cognitive-clarity.md` (Kitchen Sink repo root)
+
+Automated copy to that path and `rule-page-version.mjs --write-manifest` could not be completed in this session (sandbox / service limits). Sync with:
+
+```bash
+mkdir -p /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-context-cognitive-clarity.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-context-cognitive-clarity.md
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node rule-page-version.mjs --write-manifest
+```
+
+Or, if present:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-cognitive-clarity-pending.sh
+```
+
+After sync, manifest entry for `AI.CONTEXT.COGNITIVE_CLARITY` should show **`status: "current"`** with `pageVersion` equal to `147f28c00ed45941c1315962642216c8aa994bc2dbb23cf8c520b91f309b0a2a`.
+
+### Check modules / registry
+
+Per your instructions: **no** changes to check modules, `rule-mappings.js`, or registry.
+
+If you run the copy + manifest commands locally, I can confirm manifest status on a follow-up turn.

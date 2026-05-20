@@ -1,0 +1,59 @@
+## Report: `AI.CREDIBILITY.NO_OVERCLAIM` handbook page
+
+### Written content
+
+The full PDCA rule page is at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-credibility-no-overclaim.md`
+
+It follows `RULE_PAGE_SCHEMA.md` with:
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.CREDIBILITY.NO_OVERCLAIM` |
+| `lane` | `ai` |
+| `title` | Credibility without overclaim |
+| **`page_version`** | **`b6ac8bcdc1ace2f7490170e0cacd3998d65907b6706a1567725aef7d4629a357`** |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-credibility-no-overclaim` |
+
+Sections: Purpose (PDCA), Passing signals, Failing signals, Before/After HTML examples, Evidence and remediation, Related rules.
+
+**Source alignment:** Extended principle from `ai-enabled-design-principles.md` — bounded, verifiable capabilities; no invented certifications, metrics, or logos.
+
+**KS markup:** Real classes (`landing-hero`, `forge-section`, `section-label`, `forge-card`, `card-amber`, `breathe-link`, `btn-forge`, `landing-hero-clarification`, hash attrs). Before = SOC 2 hero, fake logo wall, unsourced metrics; After = bounded trust model cards with real routes.
+
+### Canonical path + manifest (blocked here)
+
+The required target:
+
+`docs/design/ux-audit/rule-pages/ai-credibility-no-overclaim.md`
+
+(under Kitchen Sink root)
+
+was **not** created in this session — writes and shell outside the Cursor workspace (`tools/website-ux-auditor`) were blocked. Manifest still lists `AI.CREDIBILITY.NO_OVERCLAIM` as **`missing`** with empty `pageVersion`.
+
+A copy helper is ready (same pattern as other rule pages):
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-credibility-no-overclaim-pending.sh
+```
+
+That copies the file unchanged to the canonical path and runs:
+
+```bash
+node rule-page-version.mjs --write-manifest
+```
+
+from `tools/website-ux-auditor/design-rules/blender/`.
+
+### `page_version` confirmation
+
+In the written file, front matter **`page_version` is exactly:**
+
+`b6ac8bcdc1ace2f7490170e0cacd3998d65907b6706a1567725aef7d4629a357`
+
+That matches manifest `contentVersion` for this rule, so after you run the copy script the manifest entry should flip to **`status: current`**.
+
+Run the script above from your machine (or open the **forgesdlc-kitchensink** repo root in Cursor) if you want the canonical file and manifest updated in one step.

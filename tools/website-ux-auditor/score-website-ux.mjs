@@ -22,7 +22,11 @@ import {
   formatUxScoreLoopDeltaMarkdownTables,
   formatUxScoreLoopDeltaVerbalParagraph,
 } from './lib/design-ux-score.js';
-import { mergeDashboardStateIfWatching } from './lib/ux-loop-dashboard-state.js';
+import {
+  buildScorerBacklogPatch,
+  emptyAuditGatePlaceholder,
+} from './lib/loop-watch-phase-source.js';
+import { appendDashboardLog, mergeDashboardStateIfWatching } from './lib/ux-loop-dashboard-state.js';
 import { ensureDir, writeFile, fileExists } from './lib/files.js';
 import { appendUxScoringCsv, UX_SCORING_CSV_FILENAME } from './lib/ux-scoring-csv.js';
 import { ensureBlockingStdio } from './lib/piped-stdio-flush.js';
@@ -31,6 +35,8 @@ import { importPlaywright } from './lib/playwright-import.js';
 import { inventoryRepo } from './lib/repo-inventory.js';
 import { startServer, stopStartedServer, waitForReady } from './lib/site-bootstrap.js';
 import { summarizeVisualCatalogCoverage } from './lib/visual-catalog.js';
+import { countBySeverity, evaluateQualityGate, loadQualityGateThresholdsFromEnv } from './lib/quality-gate.js';
+import { DEFAULT_DESIGN_THEME_ID, loadDesignTheme, summarizeDesignTheme } from './lib/design-theme.js';
 
 ensureBlockingStdio();
 
@@ -61,11 +67,13 @@ Usage:
   node score-website-ux.mjs \\
     --repo . \\
     --site http://localhost:3000 \\
+    --theme default \\
     --standard docs/design/forge-enterprise-ai-website-standard.md
 
 Optional:
   --start "npm run dev"     Start server before crawling
   --ready-url URL          Probe URL when --start is used (default: --site)
+  --theme THEME            Design theme id under docs/design/themes/<id>. Default: ${DEFAULT_DESIGN_THEME_ID}
   --site-kind KIND         lenses | lcdl | fleet | platform | forgesdlc | generic | auto
   --max-pages N            Default ${SCORER_DEFAULT_MAX_PAGES}; hard cap prevents runaway crawl
   --max-link-depth N       Link hops from \`--site\` (start = 0). Default ${SCORER_DEFAULT_MAX_LINK_DEPTH}
@@ -92,6 +100,7 @@ function parseScoreArgs(argv) {
     repo: process.cwd(),
     site: null,
     standard: null,
+    theme: DEFAULT_DESIGN_THEME_ID,
     siteKind: 'auto',
     out: null,
     start: null,
@@ -121,7 +130,7 @@ function parseScoreArgs(argv) {
     if (!raw.startsWith('--')) throw new Error(`Unexpected positional argument: ${raw}`);
     const [flag, inlineValue] = raw.includes('=') ? raw.split(/=(.*)/s, 2) : [raw, null];
     const key = flag.slice(2).replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-    const needsValue = ['repo', 'site', 'url', 'standard', 'siteKind', 'out', 'start', 'readyUrl', 'maxPages', 'maxLinkDepth', 'timeoutMs'];
+    const needsValue = ['repo', 'site', 'url', 'standard', 'theme', 'siteKind', 'out', 'start', 'readyUrl', 'maxPages', 'maxLinkDepth', 'timeoutMs'];
     if (!needsValue.includes(key)) throw new Error(`Unknown flag: ${flag}`);
     const value = inlineValue ?? argv[++i];
     if (value === undefined) throw new Error(`Missing value for ${flag}`);
@@ -146,7 +155,23 @@ async function main() {
   const args = parseScoreArgs(process.argv);
   if (args.readyUrl && !args.site) args.site = args.readyUrl;
   if (!args.site && !args.start) throw new Error('Provide --site URL or --start with --site / --ready-url.');
+  const designTheme = await loadDesignTheme(args.theme || DEFAULT_DESIGN_THEME_ID);
+  if (!args.standard && designTheme.designStandardAbsPath) args.standard = designTheme.designStandardAbsPath;
   await applyDefaultForgeStandard(args);
+
+  const watchDashboardLogDir = (() => {
+    const w = String(process.env.FORGE_UX_LOOP_WATCH_OUT_DIR || '').trim();
+    if (!w) return '';
+    return path.resolve(w) === path.resolve(args.out) ? path.resolve(args.out) : '';
+  })();
+  const scoreDiagStderr = (line) => {
+    if (watchDashboardLogDir) appendDashboardLog(watchDashboardLogDir, line);
+    else console.error(line);
+  };
+  const scoreWatchEmit = (line) => {
+    if (watchDashboardLogDir) appendDashboardLog(watchDashboardLogDir, line);
+    else console.log(line);
+  };
 
   const runMeta = newRunMeta();
   const designStdMeta = await loadDesignStandard(args.standard ?? '');
@@ -162,8 +187,13 @@ async function main() {
   try {
     await ensureDir(args.out);
     const scorerCrawlProgressLog = path.resolve(args.out, 'scorer-crawl-progress.log');
-    console.error(`[ux-score] diag · scorerCrawlProgressLog=${scorerCrawlProgressLog}`);
-    mergeDashboardStateIfWatching(args.out, { phase: 'scorer_crawl' });
+    scoreDiagStderr(`[ux-score] diag · scorerCrawlProgressLog=${scorerCrawlProgressLog}`);
+    mergeDashboardStateIfWatching(args.out, {
+      phase: 'scorer_crawl',
+      qualityGate: emptyAuditGatePlaceholder(),
+      auditProgress: { findingAccum: 0, majorPlusAccum: 0 },
+      ...buildScorerBacklogPatch({}, { source: 'scorer_crawl', phase: 'scorer_crawl' }),
+    });
     if (await fileExists(jsonPath)) {
       await fsp.copyFile(jsonPath, prevPath);
     }
@@ -201,6 +231,7 @@ async function main() {
         onProgress: crawlProgress.onProgress,
         maxLinkDepth: args.maxLinkDepth,
         repoRoot: path.resolve(args.repo),
+        designTheme,
       });
     } finally {
       crawlProgress.finish();
@@ -231,11 +262,13 @@ async function main() {
       crawlSummary: crawled.crawlSummary,
       profile: { name: profile.name, siteKindKey: siteKind },
       designStandard: designPinned,
+      designTheme: summarizeDesignTheme(designTheme),
       visualCatalogCoverage,
       args: {
         repo: args.repo,
         site: args.site,
         standard: args.standard,
+        theme: args.theme,
         siteKind: args.siteKind,
         maxPages: args.maxPages,
         maxLinkDepth: args.maxLinkDepth,
@@ -256,7 +289,7 @@ async function main() {
       designStandard: designStdMeta || designPinned || {},
       uxScores,
       argsSummary:
-        `- \`--repo\` \`${args.repo}\`\n- \`--site\` \`${args.site || ''}\`\n- **max-pages** \`${args.maxPages}\`\n- **max-link-depth** \`${args.maxLinkDepth}\` (link hops from start URL; **0** = start page only)\n- **Scorer crawl mode:** \`${crawled.crawlSummary.crawlMode}\` (${crawled.crawlSummary.stopReason})`,
+        `- \`--repo\` \`${args.repo}\`\n- \`--site\` \`${args.site || ''}\`\n- \`--theme\` \`${designTheme.id || DEFAULT_DESIGN_THEME_ID}\`\n- **max-pages** \`${args.maxPages}\`\n- **max-link-depth** \`${args.maxLinkDepth}\` (link hops from start URL; **0** = start page only)\n- **Scorer crawl mode:** \`${crawled.crawlSummary.crawlMode}\` (${crawled.crawlSummary.stopReason})`,
       crawlSummary: crawled.crawlSummary,
       visualCatalogCoverage,
     });
@@ -273,7 +306,7 @@ async function main() {
         loopDelta = compareUxScores(priorUx, uxScores);
         verbalSummary = formatUxScoreLoopDeltaVerbalParagraph(loopDelta);
         if (verbalSummary) {
-          console.error(`[ux-scorer-loop] ${verbalSummary}`);
+          scoreDiagStderr(`[ux-scorer-loop] ${verbalSummary}`);
         }
         const tbl = formatUxScoreLoopDeltaMarkdownTables(loopDelta);
         if (tbl) {
@@ -288,9 +321,16 @@ async function main() {
     await writeFile(jsonPath, `${JSON.stringify(jsonPayload, null, 2)}\n`);
     await writeFile(mdPath, `${md}`);
 
+    const flatForProcess = crawled.pages.flatMap((p) => p?.findings || []);
+    const qgScorer = evaluateQualityGate(countBySeverity(flatForProcess), loadQualityGateThresholdsFromEnv());
     mergeDashboardStateIfWatching(args.out, {
       phase: 'post_scorer',
       scoresPreview: { overall: uxScores.overall },
+      qualityGate: emptyAuditGatePlaceholder(qgScorer.thresholds),
+      ...buildScorerBacklogPatch(qgScorer.counts, {
+        source: 'scorer',
+        phase: 'post_scorer',
+      }),
     });
 
     const loopDeltaPayload = {
@@ -320,12 +360,12 @@ async function main() {
     }
 
     const deltaRel = path.relative(args.repo, path.join(args.out, LOOP_DELTA_FILENAME));
-    console.log(
+    scoreWatchEmit(
       `[ux-score] complete · run=${runMeta.runId} · score=${formatUxScoreDisplay(uxScores.overall)}/${formatUxScoreDisplay(100)} · `
       + `${crawled.pages.length}p · ${crawled.crawlSummary.crawlMode} · findingsEff=${uxScores.coverage.effectiveFindingCount} · `
       + `perfectEligible=${uxScores.coverage.perfectScoreEligible}`,
     );
-    console.log(
+    scoreWatchEmit(
       `[ux-score] wrote ${path.relative(args.repo, jsonPath)} · ${path.relative(args.repo, mdPath)} · ${deltaRel}`,
     );
   } finally {

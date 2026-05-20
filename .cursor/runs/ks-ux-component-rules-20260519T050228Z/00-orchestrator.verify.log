@@ -1,0 +1,16 @@
+VERDICT: PASS
+
+**Evidence (in-repo)**  
+- Deliverable exists: `.cursor/plans/ks-ux-component-rules/00-master-sequence.md` sequences the pack and explicitly covers **Fleet as regression/fixture only, not a profile** (lines 6–8); **combined source of truth** (registry YAML/JSON, contracts, showcase, screenshots, `hash` / `data-ks-hash`) (lines 10–17); **deterministic covers most repeatable issues** vs **AI for judgment + proposing candidate deterministic rules** (lines 19–22).  
+- **Pre-edit inspection**: table lists every path named in your phase prompt (`visual-registry.yaml`, `**/*.md`, `screenshots/`, `tools/design-catalog/*`, `tools/website-ux-auditor/*`, `components/`, `css/`, `js/`, `generator/pages/`, `react/`, `assets/svg/`) (lines 31–40).  
+- **Plan tree** `00`–`07` with filenames and short focuses is present (lines 46–56). Only `00` exists under `.cursor/plans/ks-ux-component-rules/`, which matches phase 00 scope.  
+- **Execution-log spot-check**: `buildWatchFrameLines` in `tools/website-ux-auditor/auditor-tests/loop-watch-dashboard-frame.test.js` passes **five trailing arguments**, including arrays before `meta` (lines 40–61), consistent with fixing a mis-ordered **`crawlLogTail`**.
+
+**Missing / not independently verified here**  
+- `INITIATING_PROMPT.md` and `ks-ux-component-rules-governor-pack/` are **not in this repo** (search returned zero files); the written plan tree cannot be byte-compared to the governor pack inside this verification.  
+- **89/89 tests** and **check-visual-catalog** exit/results were **not re-run** in this session (Ask mode limits change; also no repeat execution was requested).
+
+**Exact next actions**  
+1. If you need airtight traceability for “plan tree matches pack,” drop a **canonical copy or link** of `INITIATING_PROMPT.md` somewhere under the ks repo or paste the authoritative tree once into governance docs—then reconcile any deltas in `00-master-sequence.md`.  
+2. Proceed with **`01-showcase-and-catalog-inventory.md`** as the doc itself states (line 102).  
+3. If unintended, **discard or selectively revert** churn from `npm test`/catalog tooling (coverage MD/JSON); if intended, fold into whatever commit convention you want when you flip out of Ask mode.

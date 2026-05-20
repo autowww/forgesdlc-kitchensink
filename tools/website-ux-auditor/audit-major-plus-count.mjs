@@ -3,6 +3,9 @@
  * Print the count of Blocker + Critical + Major findings on visited pages
  * (flattened from audit-data.json `pages[].findings`), matching crawl governor semantics.
  *
+ * Remediation loop sign-off uses **audit-quality-gate.mjs** (per-severity thresholds).
+ * This script remains for crawl governors and legacy tooling.
+ *
  * Usage: node audit-major-plus-count.mjs <audit-data.json>
  * Exit: 0 (stdout is a decimal integer). Exit 2 if args/path wrong; exit 1 if read/parse fails.
  */

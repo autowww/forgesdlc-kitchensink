@@ -2738,6 +2738,12 @@ entries:
       - docs/design/lenses-studio-shell.md
       - docs/design/wizard-flow-studio.md
       - docs/PAGE-LAYOUT-TAXONOMY.md
+      - docs/design/ux-audit/README.md
+      - docs/design/ux-audit/ai-enabled-design-principles.md
+      - docs/design/ux-audit/component-design-ruleset-taxonomy.md
+      - docs/design/ux-audit/deterministic-design-rules.md
+      - docs/design/ux-audit/element-level-ruleset-matrix.md
+      - docs/design/ux-audit/industry-standard-page-quality.md
     source_symbols: []
     root_selector: null
     contract: docs/design/catalog/page-types/Kdt-fam-design-terminology.md

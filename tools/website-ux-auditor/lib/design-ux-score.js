@@ -424,6 +424,16 @@ export function buildUxQualityScoreMarkdown(opts) {
       lines.push(`**Unknown hashes:** \`${vc.unknownHashesEmitted.join('`, `')}\`.`);
       lines.push('');
     }
+    if (Array.isArray(vc.knownHashContracts) && vc.knownHashContracts.length) {
+      lines.push('### Known emitted hashes → design contracts');
+      lines.push('');
+      lines.push('| Hash | Contract |');
+      lines.push('|------|----------|');
+      for (const row of vc.knownHashContracts) {
+        lines.push(`| \`${row.hash}\` | \`${String(row.contract)}\` |`);
+      }
+      lines.push('');
+    }
   }
   lines.push('## Machine-readable blob');
   lines.push('');

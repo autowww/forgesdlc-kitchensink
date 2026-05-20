@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-18",
+  "generatedAt": "2026-05-19",
   "repoRoot": "/home/lzvyahin/Code/forgesdlc-kitchensink",
   "summary": {
-    "total": 363,
+    "total": 369,
     "byType": {
       "layout": 9,
       "chrome-region": 6,
@@ -17,7 +17,7 @@
       "visual-style": 22,
       "interaction-module": 18,
       "diagram-or-asset": 79,
-      "design-terminology": 70,
+      "design-terminology": 76,
       "generated-showcase-page": 29,
       "museum-surface-asset": 23,
       "desktop-interface": 1,
@@ -4004,6 +4004,84 @@
       "notes": "Reference for ontology"
     },
     {
+      "proposed_name": "Design doc docs/design/ux-audit/README.md",
+      "proposed_slug": "README",
+      "proposed_type": "design-terminology",
+      "source_path": "docs/design/ux-audit/README.md",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "n/a",
+      "needs_own_contract": false,
+      "family_group": "docs-terminology",
+      "confidence": "medium",
+      "notes": "Reference for ontology"
+    },
+    {
+      "proposed_name": "Design doc docs/design/ux-audit/ai-enabled-design-principles.md",
+      "proposed_slug": "ai-enabled-design-principles",
+      "proposed_type": "design-terminology",
+      "source_path": "docs/design/ux-audit/ai-enabled-design-principles.md",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "n/a",
+      "needs_own_contract": false,
+      "family_group": "docs-terminology",
+      "confidence": "medium",
+      "notes": "Reference for ontology"
+    },
+    {
+      "proposed_name": "Design doc docs/design/ux-audit/component-design-ruleset-taxonomy.md",
+      "proposed_slug": "component-design-ruleset-taxonomy",
+      "proposed_type": "design-terminology",
+      "source_path": "docs/design/ux-audit/component-design-ruleset-taxonomy.md",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "n/a",
+      "needs_own_contract": false,
+      "family_group": "docs-terminology",
+      "confidence": "medium",
+      "notes": "Reference for ontology"
+    },
+    {
+      "proposed_name": "Design doc docs/design/ux-audit/deterministic-design-rules.md",
+      "proposed_slug": "deterministic-design-rules",
+      "proposed_type": "design-terminology",
+      "source_path": "docs/design/ux-audit/deterministic-design-rules.md",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "n/a",
+      "needs_own_contract": false,
+      "family_group": "docs-terminology",
+      "confidence": "medium",
+      "notes": "Reference for ontology"
+    },
+    {
+      "proposed_name": "Design doc docs/design/ux-audit/element-level-ruleset-matrix.md",
+      "proposed_slug": "element-level-ruleset-matrix",
+      "proposed_type": "design-terminology",
+      "source_path": "docs/design/ux-audit/element-level-ruleset-matrix.md",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "n/a",
+      "needs_own_contract": false,
+      "family_group": "docs-terminology",
+      "confidence": "medium",
+      "notes": "Reference for ontology"
+    },
+    {
+      "proposed_name": "Design doc docs/design/ux-audit/industry-standard-page-quality.md",
+      "proposed_slug": "industry-standard-page-quality",
+      "proposed_type": "design-terminology",
+      "source_path": "docs/design/ux-audit/industry-standard-page-quality.md",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "n/a",
+      "needs_own_contract": false,
+      "family_group": "docs-terminology",
+      "confidence": "medium",
+      "notes": "Reference for ontology"
+    },
+    {
       "proposed_name": "Design doc docs/design/wizard-flow-studio.md",
       "proposed_slug": "wizard-flow-studio",
       "proposed_type": "design-terminology",
@@ -4744,5 +4822,807 @@
       "confidence": "high",
       "notes": "Registry slug handbook-chapter; ks_page_attrs from page_main_attrs"
     }
-  ]
+  ],
+  "catalogCrosswalk": {
+    "registry": {
+      "row_count": 91,
+      "generatedAt": "2026-05-19T05:25:02.416Z",
+      "by_type": {
+        "layout": 9,
+        "page": 23,
+        "layout-preview": 7,
+        "chrome-region": 6,
+        "react-primitive": 10,
+        "primitive-family": 1,
+        "style-family": 1,
+        "visual-style": 5,
+        "script-family": 1,
+        "interaction-script": 5,
+        "diagram-family": 1,
+        "diagram-asset-group": 5,
+        "python-renderer-family": 1,
+        "python-component-module": 11,
+        "docs-family": 1,
+        "showcase-app-family": 1,
+        "desktop-interface": 1,
+        "museum-chrome-asset": 1,
+        "library-consumer": 1
+      },
+      "active_rows": 91
+    },
+    "showcase_dir": "showcase",
+    "emitted_hash_count": 54,
+    "emitted_hashes": [
+      "Chp",
+      "Ctr",
+      "Dca",
+      "Dce",
+      "Dcs",
+      "Dgm",
+      "Enm",
+      "Fag",
+      "Fam",
+      "Fda",
+      "Fdg",
+      "Fen",
+      "Fkg",
+      "Frh",
+      "Frp",
+      "Fsb",
+      "Fvw",
+      "Fwb",
+      "Gly",
+      "Hbk",
+      "Idx",
+      "Kbc",
+      "Kcm",
+      "Kco",
+      "Kpn",
+      "Ksf",
+      "Ksr",
+      "Ktx",
+      "Ldg",
+      "Lst",
+      "Lvg",
+      "Lyt",
+      "Mkt",
+      "Mtn",
+      "Nav",
+      "Ndr",
+      "Pnz",
+      "Prd",
+      "Rpl",
+      "Sgb",
+      "Shw",
+      "Slt",
+      "Spl",
+      "Srf",
+      "Tdc",
+      "Tkn",
+      "Vcp",
+      "Vhb",
+      "Vlg",
+      "Vln",
+      "Vmk",
+      "Vpd",
+      "Vsp",
+      "Wlc"
+    ],
+    "registry_hash_count": 91,
+    "registry_hashes_not_in_showcase_scan": [
+      "ARv",
+      "Bru",
+      "DVN",
+      "Ech",
+      "FXK",
+      "Fad",
+      "Gtf",
+      "Hdc",
+      "KEm",
+      "Kdt",
+      "Kfr",
+      "Khx",
+      "Kpr",
+      "Kra",
+      "Ksc",
+      "Ksj",
+      "Ksv",
+      "LJa",
+      "LkY",
+      "Mar",
+      "Msm",
+      "Rpf",
+      "TNH",
+      "TXK",
+      "VPc",
+      "VtQ",
+      "Zmg",
+      "Zxd",
+      "bNG",
+      "hMR",
+      "nzA",
+      "pUW",
+      "pvx",
+      "qrv",
+      "rJd",
+      "vYA",
+      "vZr"
+    ],
+    "showcase_hashes_not_in_registry": [],
+    "emit_marker_gaps": [],
+    "contracts": {
+      "missing_or_empty": [],
+      "stub_warnings_by_contract": []
+    },
+    "screenshots": {
+      "catalog_dir": "docs/design/catalog/screenshots",
+      "showcase_dir_rel": "showcase/screenshots",
+      "rows_Expecting_png_but_no_local_file": [],
+      "summary": {
+        "registry_rows_with_hash": 91,
+        "with_catalog_png": 48,
+        "with_showcase_png": 0,
+        "expecting_but_missing_both": 0
+      }
+    },
+    "family": {
+      "parents_with_children": [
+        {
+          "hash": "Rpf",
+          "name": "React primitives family",
+          "type": "primitive-family",
+          "slug": "fam-react-primitives",
+          "child_hashes": [
+            "Tdc",
+            "Fkg",
+            "Fsb",
+            "Fvw",
+            "Fdg",
+            "Fwb",
+            "Fen",
+            "Frh",
+            "Fda",
+            "Wlc"
+          ],
+          "child_labels": [
+            "TileDropdownControl (Tdc)",
+            "ForgeKeyValueGrid (Fkg)",
+            "ForgeStatusBanner (Fsb)",
+            "ForgeReviewPanel (Fvw)",
+            "ForgeDiagnosticPanel (Fdg)",
+            "ForgeWorkflowStageBar (Fwb)",
+            "ForgeEventTimeline (Fen)",
+            "ForgeRunHeader (Frh)",
+            "ForgeDecisionActionBar (Fda)",
+            "WorkspaceLensControl (Wlc)"
+          ],
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Ksc",
+          "name": "Kitchen Sink stylesheets",
+          "type": "style-family",
+          "slug": "fam-styles",
+          "child_hashes": [
+            "Ech",
+            "Mar",
+            "DVN",
+            "FXK",
+            "KEm"
+          ],
+          "child_labels": [
+            "Core site themes (Ech)",
+            "Theme packs and light theme (Mar)",
+            "Shared UI and diagram surfaces (DVN)",
+            "Desktop app chrome styles (FXK)",
+            "Ambient and atmospheric styles (KEm)"
+          ],
+          "contract": "docs/design/catalog/styles/Ksc-fam-styles.md"
+        },
+        {
+          "hash": "Ksj",
+          "name": "Kitchen Sink interaction scripts",
+          "type": "script-family",
+          "slug": "fam-scripts",
+          "child_hashes": [
+            "LJa",
+            "TNH",
+            "Kfr",
+            "pUW",
+            "Bru"
+          ],
+          "child_labels": [
+            "Portal, docs, and nav interactions (LJa)",
+            "Theme, ambient, and motion (TNH)",
+            "Diagram and chart interactions (Kfr)",
+            "Roadmap interactions (pUW)",
+            "Tiles and presentation (Bru)"
+          ],
+          "contract": "docs/design/catalog/interactions/Ksj-fam-scripts.md"
+        },
+        {
+          "hash": "Ksv",
+          "name": "Kitchen Sink SVG diagram & schematic assets",
+          "type": "diagram-family",
+          "slug": "fam-svg",
+          "child_hashes": [
+            "hMR",
+            "TXK",
+            "LkY",
+            "Zmg",
+            "Zxd"
+          ],
+          "child_labels": [
+            "Ambient SVG motifs (hMR)",
+            "Background SVG library (TXK)",
+            "Layout schematic SVGs (LkY)",
+            "Living background SVGs (Zmg)",
+            "Diagram template SVGs (Zxd)"
+          ],
+          "contract": "docs/design/catalog/diagrams/Ksv-fam-svg.md"
+        },
+        {
+          "hash": "Kpr",
+          "name": "Python HTML renderer helpers",
+          "type": "python-renderer-family",
+          "slug": "fam-python-renderers",
+          "child_hashes": [
+            "VtQ",
+            "pvx",
+            "rJd",
+            "VPc",
+            "ARv",
+            "Gtf",
+            "qrv",
+            "vZr",
+            "bNG",
+            "nzA",
+            "Khx"
+          ],
+          "child_labels": [
+            "Python module components (VtQ)",
+            "Python module presentation (pvx)",
+            "Python module enterprise_marketing (rJd)",
+            "Python module marketing_sections (VPc)",
+            "Python module nested_roadmap (ARv)",
+            "Python module diagram_catalog (Gtf)",
+            "Python module transforms (qrv)",
+            "Python module living_background (vZr)",
+            "Python module roadmap_date_editor (bNG)",
+            "Python module diagram_modal_fragment (nzA)",
+            "KS hash and catalog attribute helpers (Khx)"
+          ],
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "Msm",
+          "name": "Museum studio desktop shell",
+          "type": "desktop-interface",
+          "slug": "museum-studio",
+          "child_hashes": [
+            "vYA"
+          ],
+          "child_labels": [
+            "Museum studio chrome graphics (vYA)"
+          ],
+          "contract": "docs/design/catalog/desktop-interfaces/Msm-museum-studio.md"
+        }
+      ],
+      "family_covered_rows": [
+        {
+          "hash": "Tdc",
+          "name": "TileDropdownControl",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Fkg",
+          "name": "ForgeKeyValueGrid",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Fsb",
+          "name": "ForgeStatusBanner",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Fvw",
+          "name": "ForgeReviewPanel",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Fdg",
+          "name": "ForgeDiagnosticPanel",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Fwb",
+          "name": "ForgeWorkflowStageBar",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Fen",
+          "name": "ForgeEventTimeline",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Frh",
+          "name": "ForgeRunHeader",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Fda",
+          "name": "ForgeDecisionActionBar",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Wlc",
+          "name": "WorkspaceLensControl",
+          "type": "react-primitive",
+          "family": "react-primitives",
+          "parent_hash": null,
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md"
+        },
+        {
+          "hash": "Ech",
+          "name": "Core site themes",
+          "type": "visual-style",
+          "family": "css-styles",
+          "parent_hash": "Ksc",
+          "contract": "docs/design/catalog/styles/Ksc-fam-styles.md"
+        },
+        {
+          "hash": "Mar",
+          "name": "Theme packs and light theme",
+          "type": "visual-style",
+          "family": "css-styles",
+          "parent_hash": "Ksc",
+          "contract": "docs/design/catalog/styles/Ksc-fam-styles.md"
+        },
+        {
+          "hash": "DVN",
+          "name": "Shared UI and diagram surfaces",
+          "type": "visual-style",
+          "family": "css-styles",
+          "parent_hash": "Ksc",
+          "contract": "docs/design/catalog/styles/Ksc-fam-styles.md"
+        },
+        {
+          "hash": "FXK",
+          "name": "Desktop app chrome styles",
+          "type": "visual-style",
+          "family": "css-styles",
+          "parent_hash": "Ksc",
+          "contract": "docs/design/catalog/styles/Ksc-fam-styles.md"
+        },
+        {
+          "hash": "KEm",
+          "name": "Ambient and atmospheric styles",
+          "type": "visual-style",
+          "family": "css-styles",
+          "parent_hash": "Ksc",
+          "contract": "docs/design/catalog/styles/Ksc-fam-styles.md"
+        },
+        {
+          "hash": "LJa",
+          "name": "Portal, docs, and nav interactions",
+          "type": "interaction-script",
+          "family": "js-modules",
+          "parent_hash": "Ksj",
+          "contract": "docs/design/catalog/interactions/Ksj-fam-scripts.md"
+        },
+        {
+          "hash": "TNH",
+          "name": "Theme, ambient, and motion",
+          "type": "interaction-script",
+          "family": "js-modules",
+          "parent_hash": "Ksj",
+          "contract": "docs/design/catalog/interactions/Ksj-fam-scripts.md"
+        },
+        {
+          "hash": "Kfr",
+          "name": "Diagram and chart interactions",
+          "type": "interaction-script",
+          "family": "js-modules",
+          "parent_hash": "Ksj",
+          "contract": "docs/design/catalog/interactions/Ksj-fam-scripts.md"
+        },
+        {
+          "hash": "pUW",
+          "name": "Roadmap interactions",
+          "type": "interaction-script",
+          "family": "js-modules",
+          "parent_hash": "Ksj",
+          "contract": "docs/design/catalog/interactions/Ksj-fam-scripts.md"
+        },
+        {
+          "hash": "Bru",
+          "name": "Tiles and presentation",
+          "type": "interaction-script",
+          "family": "js-modules",
+          "parent_hash": "Ksj",
+          "contract": "docs/design/catalog/interactions/Ksj-fam-scripts.md"
+        },
+        {
+          "hash": "hMR",
+          "name": "Ambient SVG motifs",
+          "type": "diagram-asset-group",
+          "family": "svg-assets",
+          "parent_hash": "Ksv",
+          "contract": "docs/design/catalog/diagrams/Ksv-fam-svg.md"
+        },
+        {
+          "hash": "TXK",
+          "name": "Background SVG library",
+          "type": "diagram-asset-group",
+          "family": "svg-assets",
+          "parent_hash": "Ksv",
+          "contract": "docs/design/catalog/diagrams/Ksv-fam-svg.md"
+        },
+        {
+          "hash": "LkY",
+          "name": "Layout schematic SVGs",
+          "type": "diagram-asset-group",
+          "family": "svg-assets",
+          "parent_hash": "Ksv",
+          "contract": "docs/design/catalog/diagrams/Ksv-fam-svg.md"
+        },
+        {
+          "hash": "Zmg",
+          "name": "Living background SVGs",
+          "type": "diagram-asset-group",
+          "family": "svg-assets",
+          "parent_hash": "Ksv",
+          "contract": "docs/design/catalog/diagrams/Ksv-fam-svg.md"
+        },
+        {
+          "hash": "Zxd",
+          "name": "Diagram template SVGs",
+          "type": "diagram-asset-group",
+          "family": "svg-assets",
+          "parent_hash": "Ksv",
+          "contract": "docs/design/catalog/diagrams/Ksv-fam-svg.md"
+        },
+        {
+          "hash": "VtQ",
+          "name": "Python module components",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "pvx",
+          "name": "Python module presentation",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "rJd",
+          "name": "Python module enterprise_marketing",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "VPc",
+          "name": "Python module marketing_sections",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "ARv",
+          "name": "Python module nested_roadmap",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "Gtf",
+          "name": "Python module diagram_catalog",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "qrv",
+          "name": "Python module transforms",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "vZr",
+          "name": "Python module living_background",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "bNG",
+          "name": "Python module roadmap_date_editor",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "nzA",
+          "name": "Python module diagram_modal_fragment",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "Khx",
+          "name": "KS hash and catalog attribute helpers",
+          "type": "python-component-module",
+          "family": "python-components",
+          "parent_hash": "Kpr",
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md"
+        },
+        {
+          "hash": "vYA",
+          "name": "Museum studio chrome graphics",
+          "type": "museum-chrome-asset",
+          "family": "museum",
+          "parent_hash": "Msm",
+          "contract": "docs/design/catalog/desktop-interfaces/Msm-museum-studio.md"
+        }
+      ],
+      "broad_family_candidates": [
+        {
+          "hash": "Kpr",
+          "name": "Python HTML renderer helpers",
+          "type": "python-renderer-family",
+          "slug": "fam-python-renderers",
+          "child_hashes": [
+            "VtQ",
+            "pvx",
+            "rJd",
+            "VPc",
+            "ARv",
+            "Gtf",
+            "qrv",
+            "vZr",
+            "bNG",
+            "nzA",
+            "Khx"
+          ],
+          "child_labels": [
+            "Python module components (VtQ)",
+            "Python module presentation (pvx)",
+            "Python module enterprise_marketing (rJd)",
+            "Python module marketing_sections (VPc)",
+            "Python module nested_roadmap (ARv)",
+            "Python module diagram_catalog (Gtf)",
+            "Python module transforms (qrv)",
+            "Python module living_background (vZr)",
+            "Python module roadmap_date_editor (bNG)",
+            "Python module diagram_modal_fragment (nzA)",
+            "KS hash and catalog attribute helpers (Khx)"
+          ],
+          "contract": "docs/design/catalog/components/Kpr-fam-python-renderers.md",
+          "child_count": 11,
+          "risk": "high"
+        },
+        {
+          "hash": "Rpf",
+          "name": "React primitives family",
+          "type": "primitive-family",
+          "slug": "fam-react-primitives",
+          "child_hashes": [
+            "Tdc",
+            "Fkg",
+            "Fsb",
+            "Fvw",
+            "Fdg",
+            "Fwb",
+            "Fen",
+            "Frh",
+            "Fda",
+            "Wlc"
+          ],
+          "child_labels": [
+            "TileDropdownControl (Tdc)",
+            "ForgeKeyValueGrid (Fkg)",
+            "ForgeStatusBanner (Fsb)",
+            "ForgeReviewPanel (Fvw)",
+            "ForgeDiagnosticPanel (Fdg)",
+            "ForgeWorkflowStageBar (Fwb)",
+            "ForgeEventTimeline (Fen)",
+            "ForgeRunHeader (Frh)",
+            "ForgeDecisionActionBar (Fda)",
+            "WorkspaceLensControl (Wlc)"
+          ],
+          "contract": "docs/design/catalog/primitives/FAM-react-primitives.md",
+          "child_count": 10,
+          "risk": "high"
+        },
+        {
+          "hash": "Ksc",
+          "name": "Kitchen Sink stylesheets",
+          "type": "style-family",
+          "slug": "fam-styles",
+          "child_hashes": [
+            "Ech",
+            "Mar",
+            "DVN",
+            "FXK",
+            "KEm"
+          ],
+          "child_labels": [
+            "Core site themes (Ech)",
+            "Theme packs and light theme (Mar)",
+            "Shared UI and diagram surfaces (DVN)",
+            "Desktop app chrome styles (FXK)",
+            "Ambient and atmospheric styles (KEm)"
+          ],
+          "contract": "docs/design/catalog/styles/Ksc-fam-styles.md",
+          "child_count": 5,
+          "risk": "medium"
+        },
+        {
+          "hash": "Ksj",
+          "name": "Kitchen Sink interaction scripts",
+          "type": "script-family",
+          "slug": "fam-scripts",
+          "child_hashes": [
+            "LJa",
+            "TNH",
+            "Kfr",
+            "pUW",
+            "Bru"
+          ],
+          "child_labels": [
+            "Portal, docs, and nav interactions (LJa)",
+            "Theme, ambient, and motion (TNH)",
+            "Diagram and chart interactions (Kfr)",
+            "Roadmap interactions (pUW)",
+            "Tiles and presentation (Bru)"
+          ],
+          "contract": "docs/design/catalog/interactions/Ksj-fam-scripts.md",
+          "child_count": 5,
+          "risk": "medium"
+        },
+        {
+          "hash": "Ksv",
+          "name": "Kitchen Sink SVG diagram & schematic assets",
+          "type": "diagram-family",
+          "slug": "fam-svg",
+          "child_hashes": [
+            "hMR",
+            "TXK",
+            "LkY",
+            "Zmg",
+            "Zxd"
+          ],
+          "child_labels": [
+            "Ambient SVG motifs (hMR)",
+            "Background SVG library (TXK)",
+            "Layout schematic SVGs (LkY)",
+            "Living background SVGs (Zmg)",
+            "Diagram template SVGs (Zxd)"
+          ],
+          "contract": "docs/design/catalog/diagrams/Ksv-fam-svg.md",
+          "child_count": 5,
+          "risk": "medium"
+        }
+      ]
+    },
+    "governance": {
+      "contracts_covering_many_hashes": [
+        {
+          "contractPath": "docs/design/catalog/components/Kpr-fam-python-renderers.md",
+          "member_count": 12,
+          "hashes": [
+            "ARv",
+            "Gtf",
+            "Khx",
+            "Kpr",
+            "VPc",
+            "VtQ",
+            "bNG",
+            "nzA",
+            "pvx",
+            "qrv",
+            "rJd",
+            "vZr"
+          ]
+        },
+        {
+          "contractPath": "docs/design/catalog/primitives/FAM-react-primitives.md",
+          "member_count": 11,
+          "hashes": [
+            "Fda",
+            "Fdg",
+            "Fen",
+            "Fkg",
+            "Frh",
+            "Fsb",
+            "Fvw",
+            "Fwb",
+            "Rpf",
+            "Tdc",
+            "Wlc"
+          ]
+        },
+        {
+          "contractPath": "docs/design/catalog/styles/Ksc-fam-styles.md",
+          "member_count": 6,
+          "hashes": [
+            "DVN",
+            "Ech",
+            "FXK",
+            "KEm",
+            "Ksc",
+            "Mar"
+          ]
+        },
+        {
+          "contractPath": "docs/design/catalog/interactions/Ksj-fam-scripts.md",
+          "member_count": 6,
+          "hashes": [
+            "Bru",
+            "Kfr",
+            "Ksj",
+            "LJa",
+            "TNH",
+            "pUW"
+          ]
+        },
+        {
+          "contractPath": "docs/design/catalog/diagrams/Ksv-fam-svg.md",
+          "member_count": 6,
+          "hashes": [
+            "Ksv",
+            "LkY",
+            "TXK",
+            "Zmg",
+            "Zxd",
+            "hMR"
+          ]
+        }
+      ]
+    },
+    "source_inventory": {
+      "distinct_source_paths_in_inventory": 296
+    }
+  }
 }

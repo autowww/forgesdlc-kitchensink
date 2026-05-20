@@ -1,0 +1,59 @@
+## Summary
+
+Implemented **`DET.CONTRACT.PLACEHOLDERS`** as a repo-level visual-catalog check, aligned with `tools/design-catalog/lib/contract-placeholders.mjs` and `check-visual-catalog.mjs`.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-contract-placeholders.check.js`**
+
+Replaced the blender stub with a real check that:
+
+- Loads registry-linked contracts (`contract_status` `own` | `family-covered`), skips `contract-template.md` and missing files.
+- Reuses **`analyzeContractPlaceholders()`** from the design-catalog linter (no AI).
+- **Always** reports hard placeholder markers as **minor** findings (lorem ipsum, `[placeholder]`, `example-visual`, `XYZ` headings, etc.).
+- Reports **TBD / TODO / FIXME** stub bullets only when **`ctx.strictContractPlaceholders === true`** (same strict semantics as `--strict-contract-placeholders` on the catalog script).
+- Exposes `scanContractPlaceholders`, `findingsFromContractPlaceholderReport`, and `run` with the usual finding shape (`severity`, `area`, `message`, `evidence`, `remediation`).
+- Caps output at 12 findings per pass (same pattern as `DET.CONTRACT.PATH` / `DET.CATALOG.CONTRACT_SPECIFICITY`).
+- Accepts precomputed `metrics.contractPlaceholderReport` for tests and batch pipelines.
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|--------|--------|
+| `status` | `implemented` |
+| `area` | `visual-catalog` |
+| `scoreDimension` | `visualCatalogGovernance` |
+| `priorityWeight` | `8` |
+| `defaultSeverity` | `minor` |
+
+**3. `auditor-tests/det-contract-placeholders.test.js`**
+
+Unit tests for scan strict/non-strict behavior, finding mapping, and `run()` wiring.
+
+### Why
+
+The rule anchor requires deterministic detection of unresolved contract placeholder language. The catalog already encodes that logic; this check wires it into the UX auditor with the same strict/non-strict split for stub bullets.
+
+### Verify locally
+
+Shell execution was blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should mark `DET.CONTRACT.PLACEHOLDERS` as **implemented** in `design-rules/registry.generated.json` and bump coverage counts.
+
+### Strict mode
+
+To treat stub bullets as failures during an audit:
+
+```javascript
+ctx: { strictContractPlaceholders: true }
+```
+
+Without that, only non-stub placeholder markers (e.g. lorem ipsum) are reported—matching the rule doc’s “when strict mode enabled” wording for TBD/TODO/FIXME.

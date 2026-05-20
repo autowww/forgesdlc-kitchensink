@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-19T17:52:48.602Z",
+  "generator": "tools/design-themes/build-design-theme.mjs",
+  "id": "softserve",
+  "name": "SoftServe",
+  "status": "draft",
+  "description": "Draft theme scrubbed from SoftServe public homepage content and protected-shell fixture evidence.",
+  "source": "captured-fixture",
+  "sourceUrl": "https://softserveinc.com/",
+  "themeRoot": "docs/design/themes/softserve",
+  "designStandardPath": "docs/design/themes/softserve/design-standard.md",
+  "tokensPath": "docs/design/themes/softserve/tokens.json",
+  "deterministicRulesPath": "docs/design/themes/softserve/deterministic-rules.md",
+  "aiPrinciplesPath": "docs/design/themes/softserve/ai-principles.md",
+  "contractOverlaysDir": "docs/design/themes/softserve/contracts",
+  "cssFiles": [],
+  "rulePacks": [
+    "docs/design/ux-audit/deterministic-design-rules.md",
+    "docs/design/ux-audit/ai-enabled-design-principles.md"
+  ],
+  "sourceFiles": [
+    "docs/design/themes/softserve/theme.yaml"
+  ],
+  "sources": [
+    {
+      "path": "docs/design/themes/softserve/design-standard.md",
+      "sha256": "57f33b6694ed315ceced53fca2e37ba5f96881e93d0e4a43762046e81679a686",
+      "byteLength": 1999
+    },
+    {
+      "path": "docs/design/themes/softserve/tokens.json",
+      "sha256": "6bd2e985201c36a4e83b1d25b0bcf4eda25d7a3af5bacf1ac9a3ff085514a8ca",
+      "byteLength": 1734
+    },
+    {
+      "path": "docs/design/themes/softserve/deterministic-rules.md",
+      "sha256": "5c0f1702d323c034e6ddf2f59a0afd5a73c5727c66b3a96fa5f292ae6e86c7d8",
+      "byteLength": 1572
+    },
+    {
+      "path": "docs/design/themes/softserve/ai-principles.md",
+      "sha256": "96f46127e8736badfb988b8fab1ebaa4d99a587f62803608874d6ec4e9dbbe15",
+      "byteLength": 1817
+    },
+    {
+      "path": "docs/design/ux-audit/deterministic-design-rules.md",
+      "sha256": "0b6bb5ccc94c32713b0e1cd247f2653c3d4e7188e9a4234b5a3f60b5f32acf9e",
+      "byteLength": 9173
+    },
+    {
+      "path": "docs/design/ux-audit/ai-enabled-design-principles.md",
+      "sha256": "34934de9425d206bc852f9f47e4f5470cbb2f02f61a9fe6e7eebef03650649ce",
+      "byteLength": 7654
+    }
+  ],
+  "fingerprint": "fda0646253712b4250bfe6645f20c5d15c15a448b779bd82ec3659d010859aeb"
+}

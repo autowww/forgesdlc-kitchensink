@@ -1,0 +1,55 @@
+## Summary
+
+Implemented **`DET.AMBIENT.Z_INDEX`** as a deterministic check aligned with the KS ambient plane contract (`forge-ambient.css`, `ks-animated-backgrounds.css`, `ks-living-background.css`).
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-ambient-z-index.check.js`**
+
+Replaced the stub with a real check that:
+
+- Collects DOM evidence via `page.evaluate()` (live crawl) or accepts `metrics.ambientZIndexReport` (precomputed metrics).
+- Targets KS ambient selectors: `.forge-ambient-bg`, `.ks-ambient-bg`, `.ks-section-bg.ks-ambient-bg`, `.ks-living-scene__global.ks-ambient-bg`, plus `.ks-living-scene` and ambient `canvas` elements.
+- Flags four measurable violation kinds:
+  - **`pointer-events`** — ambient plane accepts clicks (should be `none`)
+  - **`z-index-high`** — ambient bg z-index > 1 (contract: bg 0, scrim 1, content 2)
+  - **`stack-inversion`** — ambient z-index ≥ content wrapper z-index in the same container
+  - **`canvas-layer`** — canvas inside ambient container with z-index > 1 or non-`none` pointer-events
+
+Findings use standard fields: `severity`, `area`, `message`, `evidence`, `remediation`.
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|-------|-------|
+| status | `implemented` |
+| area | `first-screen` |
+| scoreDimension | `visualRhythmFirstScreen` |
+| priorityWeight | `8` |
+| defaultSeverity | `warn` |
+
+**3. `design-rules/registry.generated.json`**
+
+Updated the `DET.AMBIENT.Z_INDEX` entry to match (status/area/score metadata). **Re-run `npm run blend-rules`** to refresh the registry fingerprint — shell was unavailable in this session.
+
+**4. `auditor-tests/det-ambient-z-index.test.js`**
+
+Unit tests for `parseZIndex`, `findingsFromAmbientZIndexReport`, and `run()` (metrics path + no-op when no evidence).
+
+### Why
+
+The source rule requires ambient canvases to sit **beneath** interactive layers per the CSS z-index contract. The check uses computed `z-index` and `pointer-events` — deterministic DOM/CSS signals, not AI heuristics.
+
+### Verify locally
+
+Shell was blocked here; please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+During Playwright crawls (`lib/crawl.js`), the check runs with a live `page`. In static-only analyze mode it no-ops unless `metrics.ambientZIndexReport` is supplied.

@@ -1,0 +1,494 @@
+
+> forge-website-ux-auditor@0.1.0 rulegen
+> bash design-rules/blender/cursor-agent-generate-rule-library.sh --lane deterministic --max-rules 10
+
+[rule-gen] repo=/home/lzvyahin/Code/forgesdlc-kitchensink
+[rule-gen] lane=deterministic model=composer-2.5-fast max_rules=10
+[rule-gen] selected targets=8
+[rule-gen] (1/8) lane=deterministic rule=DET.SCREENSHOT.STATUS
+## Summary
+
+Implemented **`DET.SCREENSHOT.STATUS`** as a repo-wide deterministic check aligned with `check-visual-catalog.mjs` and the rule spec in `deterministic-design-rules.md`.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-screenshot-status.check.js`**
+   - Scans `docs/design/catalog/visual-registry.generated.json`.
+   - **`captured`**: requires `docs/design/catalog/screenshots/{HASH}.png` and a non-empty `screenshot_url`.
+   - **`blocked` / `planned` / `missing`**: requires at least one of `screenshot_url`, `notes`, or `screenshot_reason`.
+   - Flags unknown `screenshot_status` values.
+   - Exports `scanScreenshotStatus`, `findingsFromScreenshotStatusReport`, and `run` (supports `metrics.screenshotStatusReport` for tests/preflight).
+   - Findings use the usual shape: `severity`, `area`, `message`, `evidence`, `remediation`, optional `hash`.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`** with `area: visual-catalog`, `scoreDimension: visualCatalogGovernance`, `defaultSeverity: warn`, `priorityWeight: 7`.
+
+3. **`auditor-tests/det-screenshot-status.test.js`**
+   - Unit tests for documentation helpers, scan logic, and `run()`.
+
+### Why
+
+The rule is about **screenshot manifest integrity** (registry status vs on-disk catalog PNGs and documented blocked/deferred rows), not crawl screenshots. That matches `inventory-ks-visuals.mjs` / `check-visual-catalog.mjs` and stays fully deterministic.
+
+### Commands to run locally
+
+Shell was not available in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should move **`DET.SCREENSHOT.STATUS`** from `stub` → **`implemented`** in `registry.generated.json` (43 implemented / 7 stub) and refresh the fingerprint. Against the current kitchensink catalog, the check should pass: captured rows have catalog PNGs; blocked rows (`Kra`, `Msm`) have `screenshot_reason`.
+
+If anything fails after `blend-rules`, paste the output and I can adjust.
+[rule-gen] ok rule=DET.SCREENSHOT.STATUS log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T141039Z_1_DET_SCREENSHOT_STATUS.log
+[rule-gen] (2/8) lane=deterministic rule=DET.SECTION.HEADING
+## Summary
+
+Implemented **`DET.SECTION.HEADING`** as a deterministic check aligned with the doc anchor: *each major section has one heading; order matches outline*.
+
+### Signals (deterministic)
+
+| Violation | Condition |
+|-----------|-----------|
+| `missing-section-heading` | Major `section`/`article` in `main` (≥45 words or ≥48px tall) has **no** primary heading (h1–h6 / `role="heading"` at section root, or `aria-labelledby`) |
+| `duplicate-section-heading` | Same section has **2+** primary headings |
+| `skipped-heading-level` | Main-column outline jumps a rank (e.g. h2 → h4) in DOM order |
+
+Chrome/TOC/nav/footer regions are excluded from the outline walk.
+
+### Files changed
+
+1. **`design-rules/deterministic/generated/det-section-heading.check.js`** — Full implementation: `collectSectionHeadingReport`, pure helpers, `findingsFromSectionHeadingReport`, `run`. Skips platform handbook inner pages (same pattern as `hero-headings` / `DET.PROSE.LENGTH`).
+
+2. **`design-rules/blender/rule-mappings.js`** — Registered under `DETERMINISTIC_IMPLEMENTATIONS` as `implemented` with `area: semantics`, `scoreDimension: narrativeHero`, `priorityWeight: 10` (matches the `hero-headings` legacy adapter).
+
+3. **`auditor-tests/det-section-heading.test.js`** — Unit tests for helpers and `run`.
+
+4. **`design-rules/registry.generated.json`** — Marked rule `implemented` and updated coverage counts (43 implemented / 7 stubs).
+
+### Relationship to legacy `hero-headings`
+
+- Legacy check still handles **H1** hero semantics.
+- **`DET.SECTION.HEADING`** handles **section-level** titles and **h1–h6 outline** continuity in `main`.
+
+### Verification
+
+Shell was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules   # refreshes fingerprint + generatedAt
+npm test
+```
+
+`blend-rules` will reconcile `registry.generated.json` fully (including fingerprint) from `rule-mappings.js`.
+[rule-gen] ok rule=DET.SECTION.HEADING log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T141243Z_2_DET_SECTION_HEADING.log
+[rule-gen] (3/8) lane=deterministic rule=DET.SECTION.SINGLE_JOB
+## Summary
+
+Implemented **`DET.SECTION.SINGLE_JOB`** as a deterministic section-coherence check (one topic per major section), registered it in the blender map, added unit tests, and aligned the generated registry.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-section-single-job.check.js`**  
+   Replaced the no-op stub with a real check that:
+   - Scans major `section` / `article` blocks (same 45-word / 48px thresholds as `DET.SECTION.HEADING`)
+   - Flags four violation kinds:
+     - **`multi-topic-buckets`** — more than 2 intent buckets (workflow, trust, outcome, ecosystem, reference, pricing, onboarding) in one section
+     - **`divergent-subheadings`** — peer h3+ titles with very low token overlap with each other and the primary heading
+     - **`heading-body-drift`** — primary heading tokens barely overlap top body keywords
+     - **`card-title-sprawl`** — 3+ cards whose titles look unrelated
+   - Exposes `collectSectionSingleJobReport(page)` for live crawls and `run({ metrics, page, url, ctx })` for precomputed metrics
+   - Skips platform handbook inner pages (same pattern as section-heading)
+
+2. **`design-rules/blender/rule-mappings.js`**  
+   Added `DETERMINISTIC_IMPLEMENTATIONS['DET.SECTION.SINGLE_JOB']`:
+   - `status: 'implemented'`
+   - `area: 'informationArchitecture'`
+   - `scoreDimension: 'narrativeHero'`
+   - `priorityWeight: 8` (matches legacy `storyline-flow` adapter)
+
+3. **`auditor-tests/det-section-single-job.test.js`**  
+   Unit tests for token helpers, violation detection, finding shape, and `run()`.
+
+4. **`design-rules/registry.generated.json`**  
+   Updated so the rule is **implemented** (44 explicit-map rules, 6 stubs). Re-run `npm run blend-rules` to refresh fingerprint/timestamp when shell is available.
+
+### Why this approach
+
+The catalog allows “heading + keyword clustering heuristic” without NLP. The check uses:
+- A small **intent lexicon** (regex buckets)
+- **Jaccard overlap** on heading/subheading/body tokens
+
+That stays deterministic, cheap, and aligned with “each section has a single job” from the Forge landing QA rules.
+
+### Checks not run here
+
+Shell was rejected in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will reconcile `registry.generated.json` from `rule-mappings.js`; tests should include the new `det-section-single-job.test.js` file.
+[rule-gen] ok rule=DET.SECTION.SINGLE_JOB log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T141502Z_3_DET_SECTION_SINGLE_JOB.log
+[rule-gen] (4/8) lane=deterministic rule=DET.SURFACE.ELEVATION_TOKEN
+Implemented **DET.SURFACE.ELEVATION_TOKEN** as a deterministic CSS token scan aligned with the spec: elevated surfaces should use theme elevation tokens, not ad-hoc `box-shadow` literals outside theme packs.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-surface-elevation-token.check.js`**
+   - **`isSanctionedBoxShadowValue` / `splitBoxShadowLayers`** — treats `none`, sanctioned `var(--forge-*| --ks-*| --bs-*| --le-surface*)`, thin border rings (`0 0 0 Npx …`), and zero shadows as OK.
+   - **`isSurfaceSelector`** — targets cards, dialogs, modals, panels, popovers, tooltips, `data-card`, etc.; skips card chrome (`.card-title`, etc.).
+   - **`scanCssTextForElevationViolations`** — static scan of `box-shadow` on surface selectors; skips `@keyframes`.
+   - **`scanRepoSurfaceElevation`** — scans `css/*.css` except theme packs (`forge-theme.css`, `docs-theme.css`, …).
+   - **`collectSurfaceElevationReport(page)`** — Playwright pass for inline styles and same-origin stylesheet rules on surfaces.
+   - **`run(ctx)`** — merges page report + repo scan (capped at 12 findings) into standard finding shape (`severity` / `area` / `message` / `evidence` / `remediation`).
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `area: readability`, `scoreDimension: visualRhythmFirstScreen`, `defaultSeverity: warn`, `priorityWeight: 7`.
+
+3. **`auditor-tests/det-surface-elevation-token.test.js`**
+   - Unit tests for sanction logic, CSS scan, findings mapping, and `run()` with injected metrics.
+
+`registry.generated.json` already lists this rule as **implemented** (46 explicit-map rules). Re-run **`npm run blend-rules`** after the mapping edit so the fingerprint stays in sync.
+
+### Why this approach
+
+- Matches **“CSS token scan”** in `deterministic-design-rules.md`.
+- Theme packs may define raw shadows; feature CSS and live pages must reference tokens on elevated surfaces.
+- Repo scan on kitchensink will surface real drift (e.g. `.ks-nrm-dialog` in `nested-roadmap.css`) until those use `var(--forge-glow-*)` or a local `--*-shadow` token.
+
+### Verify locally
+
+Shell was unavailable in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+If anything fails, paste the output and we can adjust (e.g. ring-layer rules or surface selector scope).
+[rule-gen] ok rule=DET.SURFACE.ELEVATION_TOKEN log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T141659Z_4_DET_SURFACE_ELEVATION_TOKEN.log
+[rule-gen] (5/8) lane=deterministic rule=DET.THEME.CONTRAST_MIN
+Implemented **DET.THEME.CONTRAST_MIN** as a deterministic WCAG AA contrast check.
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-theme-contrast-min.check.js`
+Replaced the no-op stub with a real check that:
+
+- Uses **WCAG AA thresholds**: 4.5:1 for normal text, 3:1 for large text (≥ 24px)
+- Reads **`metrics.lowContrast`** or **`metrics.contrastReport.lowContrast`** from the existing crawl (`lib/dom-metrics.js`)
+- Falls back to **`collectContrastReport(page)`** when metrics are missing (same color-extraction algorithm as dom-metrics)
+- Emits up to **12** findings with per-sample evidence: tag, ratio, font size, threshold, text snippet
+- Uses **`severity: major`**, **`area: accessibility`**, and standard remediation copy
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|-------|-------|
+| status | `implemented` |
+| area | `accessibility` |
+| scoreDimension | `accessibilitySemanticsMeta` |
+| defaultSeverity | `major` |
+| priorityWeight | `8` |
+
+### 3. `auditor-tests/det-theme-contrast-min.test.js`
+Unit tests for thresholds, sample filtering, finding shape, metrics wiring, and empty `run()`.
+
+### 4. `design-rules/registry.generated.json`
+Promoted the rule from **stub → implemented** (47 implemented / 3 stub). Re-run `blend-rules` to refresh `fingerprint` and `generatedAt`.
+
+## Why this approach
+
+The rule doc says: *“Text/background pairs meet configured contrast minimum for body UI (WCAG AA heuristic). Evidence: Color extraction.”* The check reuses crawl metrics where possible and only runs in-page color extraction as a fallback — no AI heuristics.
+
+## Verification (not run here)
+
+Shell commands were blocked in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh the registry fingerprint; `npm test` includes the new `det-theme-contrast-min.test.js` and the blender integration test.
+[rule-gen] ok rule=DET.THEME.CONTRAST_MIN log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T141944Z_5_DET_THEME_CONTRAST_MIN.log
+[rule-gen] (6/8) lane=deterministic rule=DET.THEME.FONT_STACK
+The implementation could not be completed in this session: every filesystem tool (`Read`, `Write`, `Grep`, `Glob`) and shell invocation returned **“Service temporarily unavailable”** or empty output with **0 ms** runtime, so I could not read the spec anchor, mirror `det-theme-contrast-min.check.js`, write files, or run `npm run blend-rules` / `npm test`.
+
+Please **retry this task in a follow-up turn** (or run the steps below locally). Below is the intended change set aligned with your plan and the usual KS auditor pattern (`export const rule`, `export function run(ctx) { return findings[]; }`).
+
+---
+
+### 1. Spec signals (to verify against `#det-theme-font_stack`)
+
+After you can read the doc, confirm these match the anchor. Intended measurable signals:
+
+| Signal | Check |
+|--------|--------|
+| Primary text nodes (`body`, `main`, `article`, headings, `p`) | `getComputedStyle(el).fontFamily` |
+| Allowed stacks | `var(--ks-font-family-*)` / `var(--forge-font-family-*)` plus approved generic/named fallbacks |
+| Failure | Any sampled element whose parsed stack includes a non-token face (e.g. `Comic Sans MS`) |
+
+---
+
+### 2. New check — `design-rules/deterministic/generated/det-theme-font-stack.check.js`
+
+```javascript
+/**
+ * DET.THEME.FONT_STACK — body and primary content use KS theme font stacks.
+ * @see docs/design/ux-audit/deterministic-design-rules.md#det-theme-font_stack
+ */
+
+const KS_FONT_VAR_RE =
+  /^var\(\s*--(?:ks|forge)-font-family-(?:sans|serif|mono)\s*(?:,[^)]+)?\)$/i;
+
+const ALLOWED_GENERIC = new Set([
+  'system-ui',
+  'ui-sans-serif',
+  'ui-serif',
+  'ui-monospace',
+  'sans-serif',
+  'serif',
+  'monospace',
+]);
+
+const ALLOWED_NAMED = new Set([
+  'inter',
+  'jetbrains mono',
+  'source serif 4',
+  'segoe ui',
+  'roboto',
+  'helvetica neue',
+  'arial',
+  'noto sans',
+  'noto serif',
+  'noto sans mono',
+]);
+
+const SAMPLE_SELECTORS = ['body', 'main', '[role="main"]', 'article', 'h1', 'p'];
+
+export const rule = {
+  id: 'DET.THEME.FONT_STACK',
+  title: 'Theme font stacks match Kitchen Sink tokens',
+  severity: 'major',
+  area: 'theme',
+  scoreDimension: 'visual_consistency',
+  priorityWeight: 0.85,
+  docsAnchor: 'det-theme-font_stack',
+};
+
+function normalizePart(part) {
+  return String(part || '')
+    .trim()
+    .replace(/^['"]|['"]$/g, '')
+    .toLowerCase();
+}
+
+function parseFontFamily(fontFamily) {
+  if (!fontFamily || typeof fontFamily !== 'string') return [];
+  return fontFamily.split(',').map(normalizePart).filter(Boolean);
+}
+
+function partAllowed(part) {
+  if (!part) return false;
+  if (KS_FONT_VAR_RE.test(part)) return true;
+  if (part.startsWith('var(') && /--(?:ks|forge)-font-family-(?:sans|serif|mono)/i.test(part)) {
+    return true;
+  }
+  if (ALLOWED_GENERIC.has(part)) return true;
+  if (ALLOWED_NAMED.has(part)) return true;
+  return false;
+}
+
+function stackAllowed(fontFamily) {
+  const parts = parseFontFamily(fontFamily);
+  if (parts.length === 0) return false;
+  return parts.every(partAllowed);
+}
+
+function sampleElements(document) {
+  const seen = new Set();
+  const out = [];
+  for (const selector of SAMPLE_SELECTORS) {
+    for (const el of document.querySelectorAll(selector)) {
+      if (seen.has(el)) continue;
+      seen.add(el);
+      out.push({ el, selector });
+      if (out.length >= 10) return out;
+    }
+  }
+  return out;
+}
+
+export function run(ctx) {
+  const document = ctx?.document;
+  const getComputedStyle = ctx?.getComputedStyle;
+  if (!document || typeof getComputedStyle !== 'function') return [];
+
+  const findings = [];
+  for (const { el, selector } of sampleElements(document)) {
+    const fontFamily = getComputedStyle(el).fontFamily;
+    if (stackAllowed(fontFamily)) continue;
+    findings.push({
+      ruleId: rule.id,
+      severity: rule.severity,
+      area: rule.area,
+      message:
+        'Computed font-family is not a Kitchen Sink theme stack (use --ks-font-family-* / --forge-font-family-* tokens with approved fallbacks).',
+      evidence: { selector, fontFamily, parsed: parseFontFamily(fontFamily) },
+      remediation: {
+        summary: 'Set font-family via KS theme CSS variables on body and content roots.',
+        docsAnchor: rule.docsAnchor,
+      },
+    });
+  }
+  return findings;
+}
+```
+
+**After read access works:** align `rule` metadata, allowlists, and finding field names with `det-theme-contrast-min.check.js` and the exact token names in `#det-theme-font_stack`.
+
+---
+
+### 3. `rule-mappings.js` — register under `DETERMINISTIC_IMPLEMENTATIONS`
+
+Add next to `DET.THEME.CONTRAST_MIN` (mirror its `area` / `scoreDimension` / `priorityWeight` if they differ from the sketch):
+
+```javascript
+'DET.THEME.FONT_STACK': {
+  status: 'implemented',
+  module: () => import('../deterministic/generated/det-theme-font-stack.check.js'),
+  area: 'theme',
+  scoreDimension: 'visual_consistency',
+  priorityWeight: 0.85,
+},
+```
+
+Use the **same object shape** as other `implemented` entries in that file (field names may be `load` / `path` instead of `module` — copy from `DET.THEME.CONTRAST_MIN`).
+
+---
+
+### 4. Verify (not run here)
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+If `design-rules-blender.test.js` or runtime tests expect a dedicated `auditor-tests/det-theme-font-stack.test.js`, add one by cloning `det-theme-contrast-min.test.js` (only if the suite requires it).
+
+---
+
+### Summary
+
+| Step | Status |
+|------|--------|
+| Read spec + contrast-min template | Blocked (tools) |
+| Implement `det-theme-font-stack.check.js` | Draft above (not written) |
+| Register in `rule-mappings.js` | Patch above (not applied) |
+| `npm run blend-rules` / `npm test` | Not run |
+
+**Why:** Infrastructure failure, not a design decision.
+
+**Next:** Ask me to **“retry DET.THEME.FONT_STACK”** when file tools work; I will read the real spec and contrast-min check, apply a minimal diff, and run blend + tests before reporting completion.
+[rule-gen] ok rule=DET.THEME.FONT_STACK log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T142110Z_6_DET_THEME_FONT_STACK.log
+[rule-gen] (7/8) lane=deterministic rule=DET.TOKEN.NO_DRIFT
+**DET.TOKEN.NO_DRIFT** is implemented as a deterministic CSS token drift check.
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-token-no-drift.check.js`
+Implements the spec: *forbidden raw hex outside token allowlist for consumer-bound surfaces (when policy enabled) via CSS static scan*.
+
+- **`buildThemeHexAllowlist(repoRoot)`** — collects hex values from theme pack files (`forge-theme.css`, `docs-theme.css`, etc.).
+- **`scanCssTextForTokenDrift()`** — scans declarations for raw `#hex` literals.
+- **Sanctioned contexts** (not flagged):
+  - Theme pack files (token definitions)
+  - Local custom properties (`--name: #hex`)
+  - `var(--token, #fallback)` fallbacks
+  - Hex values on the theme allowlist
+  - `@keyframes` blocks
+- **`isTokenDriftPolicyEnabled()`** — policy is on when `ctx.tokenNoDriftPolicy` / `metrics.tokenNoDriftPolicy` is true, or when the repo has a `css/` directory (kitchensink-style repos).
+- **`run(ctx)`** — merges optional `metrics.tokenDriftReport` with repo CSS scan (max 12 findings), returns standard findings (`severity` / `area` / `message` / `evidence` / `remediation`).
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented**:
+- `area: readability`
+- `scoreDimension: visualRhythmFirstScreen`
+- `defaultSeverity: warn`
+- `priorityWeight: 7`
+
+### 3. `auditor-tests/det-token-no-drift.test.js`
+Unit tests for hex normalization, var-fallback detection, sanction logic, CSS scan, policy gating, and `run()`.
+
+### 4. `design-rules/registry.generated.json`
+Updated `DET.TOKEN.NO_DRIFT` to **implemented** (48 implemented / 2 stubs). Re-run `blend-rules` to refresh the fingerprint.
+
+## Why this approach
+
+Matches **`DET.SURFACE.ELEVATION_TOKEN`**: theme packs define tokens; feature CSS should use `var(--forge-*)` instead of ad-hoc hex. On kitchensink this will surface real drift (e.g. `#86efac` in `forge-react-primitives.css`, gradient stops in `nested-roadmap.css`).
+
+## Verify locally
+
+Shell was unavailable in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+If anything fails, paste the output and I can adjust.
+[rule-gen] ok rule=DET.TOKEN.NO_DRIFT log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T142946Z_7_DET_TOKEN_NO_DRIFT.log
+[rule-gen] (8/8) lane=deterministic rule=DET.VISUAL.RHYTHM
+## Summary
+
+Implemented **DET.VISUAL.RHYTHM** as a deterministic check for repeated vertical section spacing (aligned with `docs/design/ux-audit/deterministic-design-rules.md#det-visual-rhythm`).
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-visual-rhythm.check.js`**
+   - **Cramped rhythm:** `sectionMedianGapPx < 32` with ≥4 sections (same signal as `first-screen-density`, but page-wide).
+   - **Gap inconsistency:** spread between section top gaps exceeds 55% of the median (ad hoc spacing).
+   - **Ad hoc spacing:** sections with inline `margin`/`padding` styles or computed vertical spacing not on the 8px grid / `var(--*)` / rem, unless spacing utility classes apply.
+   - Exports `rule`, `run`, testable helpers, and `collectVisualRhythmReport(page)` for live crawls.
+   - `run()` uses crawl `metrics` and optional Playwright collection.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `area: readability`, `scoreDimension: visualRhythmFirstScreen`, `defaultSeverity: warn`, `priorityWeight: 7`.
+
+3. **`auditor-tests/det-visual-rhythm.test.js`**
+   - Unit tests for helpers, finding mapping, and `run()` with metrics-only paths.
+
+4. **`design-rules/registry.generated.json`**
+   - Updated coverage counts and rule row to `implemented` (49 implemented / 1 stub).
+
+### Why this approach
+
+The rule calls for **computed-style / token** checks, not AI. The check reuses `sectionMedianGapPx` from `dom-metrics.js`, adds gap spread and margin/padding token sampling in the browser, and matches patterns used by `det-layout-grid-consistency` and `det-context-burden`.
+
+### Verify locally
+
+Shell was not available in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` refreshes the registry **fingerprint**; `npm test` should include the new `det-visual-rhythm.test.js` cases. If anything fails, share the output and I can adjust.
+[rule-gen] ok rule=DET.VISUAL.RHYTHM log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T143141Z_8_DET_VISUAL_RHYTHM.log
+[rule-gen] done targets=8 failures=0

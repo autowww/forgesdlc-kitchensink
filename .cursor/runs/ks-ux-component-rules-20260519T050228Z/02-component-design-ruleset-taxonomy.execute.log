@@ -1,0 +1,26 @@
+Phase **02 — Component design ruleset taxonomy** is done. Here is what was added and how it meets the acceptance criteria.
+
+## Created under `docs/design/ux-audit/`
+
+| File | Contents |
+|------|----------|
+| [`README.md`](docs/design/ux-audit/README.md) | Index, deterministic vs AI split, tooling boundaries, **no Fleet profile** note, links to catalog + enterprise standard + auditor doc |
+| [`deterministic-design-rules.md`](docs/design/ux-audit/deterministic-design-rules.md) | **`DET.*`** tables by area (governance, pages, layouts, chrome, sections, cards, nav, CTAs, data/charts, diagrams, motion, desktop, React, Python, themes, scripts), including **`DET.PAGE.MODE`**, **`DET.CONTEXT.BURDEN`**, **`DET.VISUAL.RHYTHM`**, **`DET.CATALOG.CONTRACT_SPECIFICITY`** |
+| [`ai-enabled-design-principles.md`](docs/design/ux-audit/ai-enabled-design-principles.md) | **`AI.*`** tables + requirement for **`candidateDeterministicRule`**; includes **`AI.PREMIUM.ENTERPRISE_FEEL`**, **`AI.CONTEXT.COGNITIVE_CLARITY`**, **`AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`** (and related IDs) |
+| [`element-level-ruleset-matrix.md`](docs/design/ux-audit/element-level-ruleset-matrix.md) | Matrix: each taxonomy level → primary **`DET.*`** / **`AI.*`** → **contract fields** |
+| [`component-design-ruleset-taxonomy.md`](docs/design/ux-audit/component-design-ruleset-taxonomy.md) | **15 levels** with purpose, visual role, deterministic checks, AI principles, forbidden patterns, contract fields |
+| [`industry-standard-page-quality.md`](docs/design/ux-audit/industry-standard-page-quality.md) | A11y / landing / handbook / dashboard expectations mapped to **`DET.*`** / **`AI.*`**; explicit non-goals (no Fleet profile, no certification claims) |
+
+## Plan evidence
+
+Updated [`.cursor/plans/ks-ux-component-rules/02-component-design-ruleset-taxonomy.md`](.cursor/plans/ks-ux-component-rules/02-component-design-ruleset-taxonomy.md) with deliverables, acceptance table, and validation commands.
+
+## Checks run
+
+- `python3 generator/build-showcase.py` — exit **0**
+- `npm test` in `tools/website-ux-auditor` — **91/91** pass
+- `node tools/design-catalog/check-visual-catalog.mjs …` — exit **0**, `check-visual-catalog OK (91 entries)`
+
+`visual-registry-coverage.md` only picked up timestamp churn from that script; it was **checked out again** so this phase stays limited to the new UX-audit docs and the plan file.
+
+If you want phase 03 next, the taxonomy doc already points at wiring selected **`DET.*`** IDs into the auditor/scorer without merging the two CLIs.

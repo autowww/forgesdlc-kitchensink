@@ -28,7 +28,9 @@ Reusable chrome region **Doc breadcrumb** (`slug: doc-breadcrumb`) embedded by l
 
 ## Expected look
 
-Calm Forge enterprise atmosphere: deep slate backgrounds, disciplined amber/cyan accents, Proxima display hierarchy, Open Sans body rhythm—consistent with [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md). Surfaces feel spacious, monitor-grade, and suitable for AI-assisted delivery storytelling without gimmick effects.
+- Horizontal **breadcrumb** strip (`.ks-doc-breadcrumb`): muted secondary text, chevron or slash separators read as decoration only.
+- Terminal crumb reads as current location; upstream crumbs are compact links with visible focus rings ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- Stays visually lighter than **Kpn** and narrower than handbook rails (**Ksr**/**Ktx**) so IA reads as orientation, not navigation chrome.
 
 ## Anatomy
 
@@ -49,8 +51,8 @@ Registry **root_selector:** `.ks-doc-breadcrumb`.
 
 ## Responsive behavior
 
-- Breakpoints follow Bootstrap 5 patterns used across KS: stacks at `md`/`lg`, sidebars collapse into offcanvas or toggles, tables and diagrams get regional scroll instead of page-wide horizontal pan.
-- Tap targets remain at least 44×44px where interactive density is high (showcase controls, gallery tiles).
+- Below `md`, allow wrapping with aligned crumbs; truncate ultra-deep paths with ellipsis + accessible title text rather than horizontal scroll.
+- Maintain ≥44×44px hit areas on crumb links where touch applies.
 
 ## Accessibility contract
 
@@ -69,6 +71,19 @@ Registry **root_selector:** `.ks-doc-breadcrumb`.
 - Page titles and hero copy match slug intent; internal museum pages may use instructive tone.
 - Code samples and diagrams cite stable paths; when content is illustrative, label it as demo data (see page-type guidelines).
 - Cross-link to `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` when auditing IA-level decisions.
+
+## Deterministic checks
+
+- Showcase/build output honors **Kbc** markers: emitted roots include both `hash="Kbc"` and `data-ks-hash="Kbc"` where `emit_marker_in_showcase` / museum rules apply.
+- Structural root for audits: .ks-doc-breadcrumb: DOM snapshots and screenshot acceptance anchor here or at an explicitly documented child.
+- Breadcrumb items reflect the path to the current page; intermediate crumbs are links, terminal crumb is text or marked current.
+- Separator glyphs are decorative (`aria-hidden`) when implemented as typographic separators.
+
+## AI-enabled review cues
+
+- For **Doc breadcrumb** (`doc-breadcrumb`), does the chrome read as purposeful product IA rather than decorative Bootstrap filler?
+- At condensed widths, collapsed affordances remain obvious (motion, affordance cues, labeling); no mystery-meat menus.
+- Credibility check: typography and spacing match Forge enterprise tone ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)) without looking like a generic template swap.
 
 ## Forbidden patterns
 

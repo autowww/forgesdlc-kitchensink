@@ -65,20 +65,57 @@ By default the Playwright crawler **stops enqueueing further URLs once the cumul
 
 Reuse one **`--out`** directory across verification passes so **`forge-ux-remediation.plan.md`** YAML **`status:`** merges stay coherent (**`--refresh-plan-status`** remains default).
 
-**Remediation loop shell (`run-website-ux-remediation-loop.sh`):** runs **`score-website-ux.mjs`** first (sitewide scorer under the same **`--out`**), then **`analyze-website-ux.mjs`**. The auditor **does not** spawn the scorer; it reads **`ux-quality-score-loop-delta.json`** when present and mirrors sitewide-vs-prior deltas into **`audit-report.md`** / **`audit-data.json`**. The scorer archives **`ux-quality-score.json` → `ux-quality-score.previous.json`**, prints **`[ux-scorer-loop]`** verbal deltas on stderr, and appends the same summary to **`ux-quality-score.md`**. Skip with **`UX_AUDIT_SKIP_SCORER=1`**; tune breadth via **`UX_AUDIT_SCORER_MAX_PAGES`**.
+**Remediation loop shell (`run-website-ux-remediation-loop.sh`):** runs **`score-website-ux.mjs`** first (sitewide scorer under the same **`--out`**), then **`analyze-website-ux.mjs`**. The auditor **does not** spawn the scorer; it reads **`ux-quality-score-loop-delta.json`** when present and mirrors sitewide-vs-prior deltas into **`audit-report.md`** / **`audit-data.json`**. The scorer archives **`ux-quality-score.json` → `ux-quality-score.previous.json`**, prints **`[ux-scorer-loop]`** verbal deltas on stderr, and appends the same summary to **`ux-quality-score.md`**. Skip with **`UX_AUDIT_SKIP_SCORER=1`**; tune breadth via **`UX_AUDIT_SCORER_MAX_PAGES`** / **`UX_AUDIT_SCORER_MAX_LINK_DEPTH`**. Unless overridden, the loop defaults to **`UX_AUDIT_SCORER_MAX_PAGES=500`**, **`UX_AUDIT_SCORER_MAX_LINK_DEPTH=50`**, **`MAX_PAGES=500`**, **`UX_AUDIT_BREADTH_CRAWL=0`** (governed auditor crawl; set to `1` for breadth), and **`FORGE_UX_ENABLE_AI_AUDIT=1`**.
 1. Each live run copies **`audit-data.json` → `audit-data.previous.json`** when **`audit-data.json`** already exists (baseline for the **next** invocation’s regression wave).
 2. **`--incremental`** reads **`audit-data.previous.json`** and **`crawl-session.json`** when present:
    - **Regression wave:** revisit URLs that previously had Major+ findings (cap **`--incremental-regression-max-pages`**, default **40**); summaries land in **`audit-data.json`** **`regressionWave`** and **`audit-report.md`** (**Previously Major+ URLs re-checked**).
    - **Resume wave:** restore **`visitedUrls`** / **`queuedUrls`** after a **`major_plus_threshold`** halt so BFS continues instead of restarting only from **`/`**.
 3. **`crawl-session.json`** is rewritten each live run: **`completed: false`** while the crawl halted early with queued URLs remaining; **`completed: true`** when the crawl completes normally within **`--max-pages`**.
 
-Kitchen Sink **`tools/website-ux-auditor/run-website-ux-remediation-loop.sh`** accepts **`UX_AUDIT_OUT_DIR`** for a stable campaign folder and auto-adds **`--incremental`** when that folder already contains **`audit-data.json`**, unless **`UX_AUDIT_FORCE_FULL=1`**. The auditor is **quiet** by default (omit **`UX_AUDIT_VERBOSE`** or set **`UX_AUDIT_VERBOSE=0`**); set **`UX_AUDIT_VERBOSE=1`** or **`2`** for stderr breadcrumbs. The Cursor **`agent`** step defaults to **plain text** output; set **`FORGE_UX_CURSOR_AGENT_VERBOSE=1`** for **`stream-json`** (by default piped through **`agent-stream-summary.mjs`** so **`remediation-agent.log`** and the terminal get **one `[ux-agent] …` line per tool/system event**, not megabyte **`tool_call` result** payloads). Use **`FORGE_UX_AGENT_STREAM_SUMMARY=0`** for raw NDJSON, and **`FORGE_UX_AGENT_RAW_JSONL=/path/to/file.jsonl`** to retain a full raw transcript alongside the summary. Disable the transcript file with **`FORGE_UX_REMEDIATION_AGENT_LOG=`** before the loop, or override the path with **`FORGE_UX_REMEDIATION_AGENT_LOG`**.
+Kitchen Sink **`tools/website-ux-auditor/run-website-ux-remediation-loop.sh`** accepts **`UX_AUDIT_OUT_DIR`** for a stable campaign folder and auto-adds **`--incremental`** when that folder already contains **`audit-data.json`**, unless **`UX_AUDIT_FORCE_FULL=1`**. When **`UX_AUDIT_OUT_DIR`** is unset, each run uses **`FORGE_UX_AUDIT_WORKBENCH_ROOT/ux-audit/<repo-basename>/<UTC>_<random>/`** so artifacts stay **outside** the kitchensink clone: by default the script walks up from **`tools/website-ux-auditor/`** until it finds a directory named **`Code`**, then uses **`<that-hub>/workbench/ux-auditor/`** (override with **`FORGE_UX_AUDIT_WORKBENCH_ROOT`** if your hub folder is not named `Code`). The auditor is **quiet** by default (omit **`UX_AUDIT_VERBOSE`** or set **`UX_AUDIT_VERBOSE=0`**); set **`UX_AUDIT_VERBOSE=1`** or **`2`** for stderr breadcrumbs. The Cursor **`agent`** step defaults to **plain text** output; set **`FORGE_UX_CURSOR_AGENT_VERBOSE=1`** for **`stream-json`** (by default piped through **`agent-stream-summary.mjs`** so **`remediation-agent.log`** and the terminal get **one `[ux-agent] …` line per tool/system event**, not megabyte **`tool_call` result** payloads). Use **`FORGE_UX_AGENT_STREAM_SUMMARY=0`** for raw NDJSON, and **`FORGE_UX_AGENT_RAW_JSONL=/path/to/file.jsonl`** to retain a full raw transcript alongside the summary. Disable the transcript file with **`FORGE_UX_REMEDIATION_AGENT_LOG=`** before the loop, or override the path with **`FORGE_UX_REMEDIATION_AGENT_LOG`**.
 
-**Optional post-clean AI audit:** set **`FORGE_UX_ENABLE_AI_AUDIT=1`** to run a second, **advisory** Cursor-agent audit only after the deterministic pass records **zero Major+**. It reuses the deterministic pass’s visited URLs, batches them into small prompt groups, and writes separate artifacts under **`<out>/ai-audit/`** such as **`ai-audit-report.md`**, **`ai-audit-data.json`**, batch transcripts, and a combined AI transcript. This AI phase does **not** change deterministic gating, does **not** rewrite **`audit-data.json`**, and is skipped entirely while deterministic Major+ findings still exist.
+**Post-clean AI audit (on by default):** **`FORGE_UX_ENABLE_AI_AUDIT=1`** (set **`0`** to disable) allows a second, **advisory** Cursor-agent pass only when **`audit-ai-audit-eligibility.mjs`** reports **PASS**: the **quality gate** on visited pages, **crawl complete** within budget (no queued URLs; not an early backlog/Major+ stop), and **every implemented DET rule** satisfied on each page (`ran` or `skipped_no_findings_cache`). Override with **`FORGE_UX_FORCE_AI_AUDIT=1`** or **`--force-ai-audit`** on the remediation loop. It reuses visited URLs, groups them into prompts (**`FORGE_UX_AI_AUDIT_BATCH_SIZE`**, default **1**), and writes **`<out>/ai-audit/`** artifacts. **`FORGE_UX_AI_AUDIT_CONCURRENCY`** (default **3**, max **3**) runs batch agents in parallel. After each batch, **`[ux-ai-audit] phase=batch_cumulative …`** logs cumulative Major+; **`FORGE_UX_AI_AUDIT_STOP_AFTER_MAJOR_PLUS`** (default **10**) skips remaining batches. AI output does **not** rewrite **`audit-data.json`**; skipped when **`SKIP_CURSOR_AGENT=1`**.
 
-**Done crawl URLs (session budget):** after each audit pass, **`merge-done-crawl-urls-from-audit.mjs`** **rewrites** **`ux-audit-done-crawl-urls.txt`** to the URLs **visited in that audit** with **zero** Blocker/Critical/Major (same Major+ batch as early-stop). Entries from older runs that were **not** re-audited as clean in this pass are **removed**, so a narrow crawl (for example only `/`) does not leave a stale full-site exclude list. The next auditor invocation receives **`--exclude-crawl-urls-file`** (see **`analyze-website-ux.mjs`**) so listed URLs are treated as already visited: they are **not** re-fetched and do **not** consume **`--max-pages`** slots. The **`--site`** URL is never excluded. Disable merging with **`FORGE_UX_SKIP_DONE_CRAWL_MERGE=1`** on the remediation loop shell.
+**Done crawl URLs (session budget):** after each audit pass, **`merge-done-crawl-urls-from-audit.mjs`** **rewrites** **`ux-audit-done-crawl-urls.txt`** to the URLs **visited in that audit** with **zero** Blocker/Critical/Major (same Major+ batch as early-stop). Entries from older runs that were **not** re-audited as clean in this pass are **removed**, so a narrow crawl (for example only `/`) does not leave a stale full-site exclude list. The next auditor invocation receives **`--exclude-crawl-urls-file`** (see **`analyze-website-ux.mjs`**) only when the file fingerprint matches the current design-rule registry (`design-rules/registry.generated.json`), so updated rule packs can re-audit previously clean URLs. The **`--site`** URL is never excluded. Disable merging with **`FORGE_UX_SKIP_DONE_CRAWL_MERGE=1`** on the remediation loop shell.
 
 Diagnostics: **`--verbose`** / **`UX_AUDIT_VERBOSE`** emit **`[incremental]`**, **`[crawl]`**, **`[archive]`**, **`[session]`**, **`[plans]`** markers on stderr only (stdout stays pipe-safe). During live crawls, stderr crawl rows are followed by **`phase=page_done`** lines: **`mj_page`** = Major+ findings on that URL, **`mj_run`** = cumulative Major+ findings so far; when the governor is on (default cap **10**), **`halt_expand=1`** means link expansion stopped so **`audit-report.md`** / **`.cursor/plans/…`** can drive Cursor remediation before a breadth crawl. The remediation loop does **not** turn verbose on by default.
+
+## Loop watch: TUI vs. external `watch(1)` (snapshot file)
+
+**In-terminal dashboard:** **`--watch`** / **`FORGE_UX_LOOP_WATCH=1`** runs **`loop-watch-dashboard.mjs`** (alternate screen). See env knobs on **`run-website-ux-remediation-loop.sh`** (`FORGE_UX_LOOP_WATCH_REFRESH_MS`, incremental redraw options). The canvas shows **Audit** and **Remediation** phase bars (audit fills toward the issue cap that triggers remediation; remediation fills by plan todos done/total), **per-page slot bars** (up to **5** during deterministic crawl, **3** during AI audit — live `done/total` DET rules from `auditProgress.pageRuleProgress`), a **defrag-style ruleset map** (page index fragments across columns × **DET `area` rulesets** then **AI family** rulesets; all registry rules roll up into those rows; `~` = scoring in progress), plus **Process / Run / Now / Activity** summary rows. **Log · milestones** tails **`ux-loop-dashboard.log`**; **Log · recent crawl** shows **Last done** plus crawl log tail. Live state is mirrored in **`ux-loop-progress-map.json`** and **`ux-loop-dashboard-state.json`** (`auditProgress` counts during crawl). Legacy **`[ISO] `** prefixes and crawl **elapsed / ETA** columns are stripped for display (files on disk unchanged). **`run-meta.json`** records **`generatedAt`** for campaign wall-clock.
+
+**Remediation loop quality gate (default):** sitewide counts on visited pages must be **≤** `blocker,critical,major,warn,minor,trivial,cosmetic` → **`0,0,0,5,10,15,100`**. Override with **`FORGE_UX_QUALITY_GATE`** or **`FORGE_UX_QUALITY_GATE_JSON`**. Sign-off check: **`node audit-quality-gate.mjs <out>/audit-data.json --check`**. Legacy Major+-only loop: **`--until-major-clean`** or **`FORGE_UX_QUALITY_GATE_LEGACY_MAJOR_ONLY=1`**.
+
+**Watch progress bars (four rows):** With **`FORGE_UX_LOOP_WATCH=1`**, the dashboard shows **Runs** (dynamic expected iterations + `SARB` cycle lights), **Pages** (compressed crawl budget: dim=unvisited, green=clean, red=issues, yellow=load error), **Gate** (seven severity segments), and **Rules** (DET trace coverage per page). When **`FORGE_UX_LOOP_ALL_BARS=1`** (default with watch), the loop exits only after **all four** bars complete — use **`node audit-loop-completion.mjs <out>/audit-data.json --check-all-bars`**. Override expected runs with **`--target-iterations N`** / **`FORGE_UX_LOOP_TARGET_ITERATIONS`**. All-bars mode enables **`UX_AUDIT_BREADTH_CRAWL=1`** so the page budget can finish.
+
+**Watch + stderr:** With loop watch on, informational shell lines append to **`ux-loop-dashboard.log`** as plain lines (no per-line ISO timestamps) instead of stderr so the alternate-screen buffer is not torn; crawl detail rows remain in the `*-crawl-progress.log` files. **AI audit** / **remediation agent** subprocesses may still print to stderr; **`loop-watch-dashboard.mjs`** uses incremental row updates with ANSI-aware clipping and line padding (default), **full-buffer redraw** on **`phase`** transitions, and a periodic full repaint during chatty child phases so row addressing does not drift after interleaved stderr lines.
+
+**External `watch(1)` / second terminal:** run a small poller that **materializes the same frame as plain text** (atomic temp + rename), then point GNU **`watch`** at that file. This is mentally calmer for some operators; the tradeoff is **one extra Node process** and **up to one poll interval** of staleness vs. live JSON/log appends.
+
+1. Use a **stable** output dir (e.g. **`UX_AUDIT_OUT_DIR`**) so the path stays fixed for the whole campaign.
+2. **Terminal A — remediation** (example):
+
+   ```bash
+   export UX_AUDIT_OUT_DIR="$PWD/workbench/my-campaign"
+   ./run-website-ux-remediation-loop.sh /path/to/repo ./website
+   ```
+
+3. **Terminal B — snapshot writer** (polls state + log tail, writes **`ux-loop-dashboard-snapshot.txt`**):
+
+   ```bash
+   cd tools/website-ux-auditor
+   node write-ux-loop-dashboard-snapshot.mjs "$UX_AUDIT_OUT_DIR"
+   ```
+
+   Optional env: **`FORGE_UX_LOOP_WATCH_REFRESH_MS`** (default **500** in the writer), **`FORGE_UX_LOOP_WATCH_SNAPSHOT_COLS`** (default **120**), **`FORGE_UX_LOOP_WATCH_SNAPSHOT_SKIP_UNCHANGED=0`** to rewrite the snapshot file every tick even when the text is unchanged.
+
+4. **Terminal C — `watch`**:
+
+   ```bash
+   watch -n 0.5 cat "$UX_AUDIT_OUT_DIR/ux-loop-dashboard-snapshot.txt"
+   ```
+
+   Or **`tail -f`** on the same path (note: `tail -f` shows grow-only; the snapshot is **rewritten whole**, so `watch cat` is the better match).
 
 ## Design-standard UX scores (dimensions + logarithmic curve)
 
@@ -117,6 +154,22 @@ This uses Node’s built-in test runner (`node --test auditor-tests/*.test.js`).
 After changing **`lib/crawl.js`**, **`lib/dom-metrics.js`**, **`checks/`**, shared CLI libs, or either entry script, run **`npm test`** before committing.
 
 The script requires Node 18+. Playwright is required only for browser inspection; tests do not launch Chromium.
+
+### Design rules blender and PDCA generator
+
+From **`tools/website-ux-auditor/`**:
+
+```bash
+npm run blend-rules
+npm run rulegen -- --lane deterministic
+```
+
+- `blend-rules` regenerates `design-rules/registry.generated.json` and generated rule libraries.
+- Generated rule files carry embedded `rules-version`; `blend-rules` skips rewriting files when version matches.
+- Use `node design-rules/blender/design-rules-blender.mjs --override-version` to force regeneration on the same rule version.
+- `rulegen` runs Cursor CLI `agent` in one-rule-per-run PDCA prompts.
+- default `rulegen` lane is deterministic-only to avoid spending AI tokens on deterministic checks.
+- default model is `composer-2.5-fast` (override with `--model ...`).
 
 ## Placement in Kitchen Sink
 

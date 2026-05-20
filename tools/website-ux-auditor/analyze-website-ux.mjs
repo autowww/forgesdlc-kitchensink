@@ -31,21 +31,38 @@ import {
   severityDefinitionsMarkdownTable,
   summarizeBySeverity,
 } from './lib/severity.js';
+import { countBySeverity, evaluateQualityGate, loadQualityGateThresholdsFromEnv } from './lib/quality-gate.js';
 import { scorePage } from './lib/scoring.js';
 import { crawlAndAnalyze, normalizeCrawlHref } from './lib/crawl.js';
 import { createCrawlProgressReporter } from './lib/crawl-progress-line.js';
 import { createLogger } from './lib/logger.js';
 import {
+  RulePageTraceStore,
+  extractBacklogUrlsAndRulesFromPriorAudit,
+  extractMajorPlusUrlsFromPriorAudit,
+  mergeRegressionUrls,
+} from './lib/audit-backlog-trace.js';
+import { computeAdaptiveRuleOrder, planAuditorPagePriority } from './lib/audit-priority.js';
+import {
   archiveAuditDataToPrevious,
   readAuditDataPrevious,
   readCrawlSession,
   writeCrawlSession,
-  extractMajorPlusUrlsFromPriorAudit,
   buildRegressionWaveSummary,
 } from './lib/incremental-audit.js';
+import {
+  createDesignRuleRuntime,
+  DEFAULT_DETERMINISTIC_CONCURRENCY,
+  MAX_DETERMINISTIC_CONCURRENCY,
+  listImplementedDeterministicRules,
+  loadDesignRuleRegistry,
+} from './lib/design-rule-runtime.js';
+import { clampInt } from './lib/map-limit.js';
 import { loadDesignStandard, warnIfDesignStandardChanged } from './lib/design-standard.js';
 import { writeRcaPromptBatch } from './lib/rca.js';
-import { runAllChecks } from './checks/index.js';
+import { runAllChecksWithTrace } from './checks/index.js';
+import { formatExecutionCoverageMarkdown, rollupRuleExecution } from './lib/rule-execution-rollup.js';
+import { runDeterministicPreflight } from './lib/preflight-deterministic.js';
 import {
   computeUxScores,
   buildUxScoresAuditSnippet,
@@ -58,10 +75,11 @@ import { applyDefaultForgeStandard, inferSiteKind, PRODUCT_PROFILES } from './li
 import { inventoryRepo } from './lib/repo-inventory.js';
 import { startServer, stopStartedServer, waitForReady } from './lib/site-bootstrap.js';
 import { ensureDir, writeFile, fileExists, readMaybe } from './lib/files.js';
-import { mergeDashboardStateIfWatching } from './lib/ux-loop-dashboard-state.js';
+import { appendDashboardLog, mergeDashboardStateIfWatching } from './lib/ux-loop-dashboard-state.js';
 import { appendUxScoringCsv, UX_SCORING_CSV_FILENAME } from './lib/ux-scoring-csv.js';
 import { ensureBlockingStdio } from './lib/piped-stdio-flush.js';
 import { DEFAULT_DEFECT_PLAN_LIMIT, buildRankedDefectClusters } from './lib/defect-remediation-plans.js';
+import { DEFAULT_DESIGN_THEME_ID, loadDesignTheme, summarizeDesignTheme } from './lib/design-theme.js';
 
 ensureBlockingStdio();
 
@@ -95,6 +113,7 @@ Usage:
   node tools/website-ux-auditor/analyze-website-ux.mjs \\
     --repo . \\
     --site http://localhost:3000 \\
+    --theme default \\
     --standard docs/design/forge-enterprise-ai-website-standard.md \\
     --site-kind lenses \\
     --out .cursor/plans/forge-ux-remediation
@@ -111,6 +130,7 @@ Optional:
   --start "npm run dev"        Start the local site before analysis.
   --ready-url URL              URL to probe when --start is used. Defaults to --site.
   --url URL                    Alias for --site.
+  --theme THEME                Design theme id under docs/design/themes/<id>. Default: ${DEFAULT_DESIGN_THEME_ID}.
   --static-only                Generate repo-only plans without Playwright/browser inspection.
   --no-browser                 Alias for --static-only.
   --max-pages 6                Crawl same-origin pages. Default: 5.
@@ -121,6 +141,9 @@ Optional:
   --no-refresh-plan-status     Reset all YAML todos in forge-ux-remediation.plan.md to pending (default is to merge statuses from the previous plan file in --out when present)
   --remediation-plan-limit N   Number of defect remediation plans to generate (default: ${DEFAULT_DEFECT_PLAN_LIMIT}; ordered by estimated UX score impact).
   --stop-after-major-plus N    Stop expanding crawl queue after N blocker/critical/major findings accumulate total (default: 10; live crawl only; ignored with breadth flags below).
+  --stop-after-backlog N       Stop expanding crawl after total finding count exceeds N (default: 10; separate from Major+ governor).
+  --deterministic-rule-concurrency N  Parallel DET rules per page (default: 5, max: 5).
+  --no-rule-page-trace         Disable rule/page no-finding trace cache (skip unchanged zero-finding pairs).
   --stop-disable               Full breadth within --max-pages: disable Major+ queue stop (--full-crawl, --breadth-crawl aliases).
   --full-crawl                 Alias for --stop-disable.
   --breadth-crawl              Alias for --stop-disable.
@@ -138,6 +161,12 @@ Incremental campaign (reuse one --out folder across runs):
   --verbose, --verbose=N       Stderr diagnostics ([incremental], [crawl], …); level 2 via N=2. Alias: --debug-log.
                                Env mirror: UX_AUDIT_VERBOSE=1|2.
 
+Deterministic rule coverage:
+  --skip-preflight-deterministic   Skip import preflight for registry-implemented DET rules (default: run preflight).
+  --preflight-deterministic-strict Exit before audit when any implemented DET module fails to import.
+                                   Env: FORGE_UX_SKIP_DETERMINISTIC_PREFLIGHT=1 · FORGE_UX_PREFLIGHT_STRICT=1
+                                   Env: FORGE_UX_DETERMINISTIC_RULE_CONCURRENCY · FORGE_UX_AUDIT_STOP_AFTER_BACKLOG · FORGE_UX_AUDIT_TRACE_DISABLE=1
+
 Site kinds:
   forgesdlc | lcdl | fleet | lenses | platform | generic | auto
 `;
@@ -148,6 +177,7 @@ function parseArgs(argv) {
     repo: process.cwd(),
     site: null,
     standard: null,
+    theme: DEFAULT_DESIGN_THEME_ID,
     siteKind: 'auto',
     out: null,
     start: null,
@@ -161,7 +191,10 @@ function parseArgs(argv) {
     /** When true (default), carry forward todo status from existing forge-ux-remediation.plan.md in --out. */
     refreshPlanStatus: true,
     stopAfterMajorPlus: 10,
+    stopAfterBacklog: 10,
     stopDisabled: false,
+    deterministicRuleConcurrency: DEFAULT_DETERMINISTIC_CONCURRENCY,
+    rulePageTraceDisabled: false,
     scoresFirst: false,
     scoresFirstMaxPages: 120,
     priorUxScoresPath: null,
@@ -171,6 +204,8 @@ function parseArgs(argv) {
     excludeCrawlUrlsFile: null,
     verbose: 0,
     remediationPlanLimit: DEFAULT_DEFECT_PLAN_LIMIT,
+    skipPreflightDeterministic: false,
+    preflightDeterministicStrict: false,
   };
   for (let i = 2; i < argv.length; i += 1) {
     const raw = argv[i];
@@ -226,6 +261,18 @@ function parseArgs(argv) {
       args.staticOnly = true;
       continue;
     }
+    if (raw === '--skip-preflight-deterministic') {
+      args.skipPreflightDeterministic = true;
+      continue;
+    }
+    if (raw === '--preflight-deterministic-strict') {
+      args.preflightDeterministicStrict = true;
+      continue;
+    }
+    if (raw === '--no-rule-page-trace') {
+      args.rulePageTraceDisabled = true;
+      continue;
+    }
     if (!raw.startsWith('--')) {
       throw new Error(`Unexpected positional argument: ${raw}`);
     }
@@ -236,6 +283,7 @@ function parseArgs(argv) {
       'site',
       'url',
       'standard',
+      'theme',
       'siteKind',
       'out',
       'start',
@@ -243,6 +291,8 @@ function parseArgs(argv) {
       'maxPages',
       'timeoutMs',
       'stopAfterMajorPlus',
+      'stopAfterBacklog',
+      'deterministicRuleConcurrency',
       'priorUxScoresPath',
       'scoresFirstMaxPages',
       'incrementalRegressionMaxPages',
@@ -264,8 +314,19 @@ function parseArgs(argv) {
   args.timeoutMs = Number(args.timeoutMs);
   if (!Number.isFinite(args.maxPages) || args.maxPages < 1) args.maxPages = 5;
   if (!Number.isFinite(args.timeoutMs) || args.timeoutMs < 5000) args.timeoutMs = 45000;
-  args.stopAfterMajorPlus = Number(args.stopAfterMajorPlus);
+  args.stopAfterMajorPlus = Number(args.stopAfterMajorPlus ?? process.env.STOP_AFTER_MAJOR_PLUS ?? 10);
   if (!Number.isFinite(args.stopAfterMajorPlus) || args.stopAfterMajorPlus < 1) args.stopAfterMajorPlus = 10;
+  args.stopAfterBacklog = Number(
+    args.stopAfterBacklog ?? process.env.FORGE_UX_AUDIT_STOP_AFTER_BACKLOG ?? 10,
+  );
+  if (!Number.isFinite(args.stopAfterBacklog) || args.stopAfterBacklog < 0) args.stopAfterBacklog = 10;
+  args.deterministicRuleConcurrency = clampInt(
+    args.deterministicRuleConcurrency ?? process.env.FORGE_UX_DETERMINISTIC_RULE_CONCURRENCY,
+    1,
+    MAX_DETERMINISTIC_CONCURRENCY,
+    DEFAULT_DETERMINISTIC_CONCURRENCY,
+  );
+  if (process.env.FORGE_UX_AUDIT_TRACE_DISABLE === '1') args.rulePageTraceDisabled = true;
   args.scoresFirstMaxPages = Number(args.scoresFirstMaxPages);
   if (!Number.isFinite(args.scoresFirstMaxPages) || args.scoresFirstMaxPages < 1) args.scoresFirstMaxPages = 120;
   args.incrementalRegressionMaxPages = Number(args.incrementalRegressionMaxPages);
@@ -559,6 +620,7 @@ function buildAuditReport({
   standardText,
   runMeta,
   designStandard,
+  designTheme,
   crawlSummary,
   uxScores,
   uxScoreSnippetExtras,
@@ -616,6 +678,10 @@ function buildAuditReport({
         .join('\n')
     : '';
 
+  const executionCoverageSection = crawl.ruleExecutionCoverage
+    ? `### Deterministic rule execution coverage\n\n${formatExecutionCoverageMarkdown(crawl.ruleExecutionCoverage)}\n\nImplemented DET rules: \`${(crawl.deterministicImplementedRuleIds || []).join('`, `')}\`\n`
+    : '';
+
   const crawlGovernorBullet = args.staticOnly
     ? '- **Crawl governor:** not applicable (static-only). Re-run with `--site` for a governed live crawl.'
     : crawl.stopDisabled
@@ -654,6 +720,7 @@ function buildAuditReport({
   const homepage = pages[0];
   const screenshots = pages.flatMap((p) => [p.screenshot, p.mobileScreenshot].filter(Boolean)).map((s) => `- ${s}`).join('\n') || 'None captured.';
   const ds = designStandard || {};
+  const theme = summarizeDesignTheme(designTheme);
   const standardExcerpt = (ds.rawSnippet || standardText || '').split('\n').slice(0, 80).join('\n') || 'Standard file not provided.';
 
   return `---
@@ -664,6 +731,7 @@ schema_version: ${SCHEMA_VERSION}
 generated_at: ${runMeta.generatedAt}
 audit_run_id: ${runMeta.auditRunId}
 design_standard_sha256: ${markdownEscape(ds.sha256 || '')}
+design_theme: ${markdownEscape(theme?.id || DEFAULT_DESIGN_THEME_ID)}
 crawl_stop_reason: ${markdownEscape(String(crawl.stopReason || ''))}
 ---
 
@@ -681,11 +749,13 @@ crawl_stop_reason: ${markdownEscape(String(crawl.stopReason || ''))}
 ${crawlGovernorBullet}
 - **Audit run id:** \`${runMeta.auditRunId}\` — **schema:** \`${SCHEMA_VERSION}\` (see \`audit-data.json\`)
 - **Generated at (UTC):** \`${runMeta.generatedAt}\`
+- **Design theme:** \`${markdownEscape(theme?.id || DEFAULT_DESIGN_THEME_ID)}\`${theme?.fingerprint ? ` · fingerprint \`${markdownEscape(theme.fingerprint)}\`` : ''}
 - **Design standard pin:** ${ds.path ? `\`${markdownEscape(ds.path)}\`` : '_not pinned_'} · id \`${markdownEscape(ds.id || '—')}\` · sha256 \`${markdownEscape(ds.sha256 || '—')}\`
 
 ## Crawl mode
 
 ${crawlModeSection}
+${executionCoverageSection}
 
 ## Severity ladder (schema v${SCHEMA_VERSION})
 
@@ -987,7 +1057,7 @@ Many findings repeat across URLs because they share one **upstream lever**: a st
 
 ## Plan–Do–Check–Adjust until acceptance
 
-Each defect plan (\`01-defect-*.md\`) is one **Plan** slice. **Do** the smallest coherent root-cause change set for that defect cluster. **Check** with local build/serve and a fresh scorer+audit pass. **Adjust**: if checks fail, Major+ remains, or acceptance criteria below are not met, revisit that same defect plan with an updated root-cause hypothesis and repeat **Do→Check→Adjust** before moving forward. Automated **\`run-website-ux-remediation-loop.sh\`** (scorer→audit→agent until Major+ is clean on **visited** pages) is an extra **Check** pass—it does not replace product acceptance or fixes on URLs the crawl never reached.
+Each defect plan (\`01-defect-*.md\`) is one **Plan** slice. **Do** the smallest coherent root-cause change set for that defect cluster. **Check** with local build/serve and a fresh scorer+audit pass. **Adjust**: if checks fail, Major+ remains, or acceptance criteria below are not met, revisit that same defect plan with an updated root-cause hypothesis and repeat **Do→Check→Adjust** before moving forward. Automated **\`run-website-ux-remediation-loop.sh\`** (scorer→audit→agent until the default **quality gate** passes on **visited** pages—default caps **0/0/0/5/10/15/100** per severity) is an extra **Check** pass—it does not replace product acceptance or fixes on URLs the crawl never reached.
 
 ### Controlled workflow
 
@@ -1027,6 +1097,30 @@ function formatSeverityInline(bySeverity = {}) {
     .join(', ') || 'none';
 }
 
+/**
+ * Remediation-plan block: maps DOM / finding `hash` markers to KS design contracts via generated registry JSON.
+ * @param {{ visualCatalogRefs?: { hash: string, contract: string }[] }} defect
+ */
+function buildKsVisualCatalogRemediationBlock(defect) {
+  const refs = defect.visualCatalogRefs || [];
+  const header = '## KS visual catalog pointers (from DOM markers on affected URLs)';
+  if (!refs.length) {
+    return `${header}\n\n_No KS visual hash markers were recorded in page metrics for URLs in this cluster, and findings did not carry a three-letter \`hash\` field._\n\n`;
+  }
+  const chunks = refs.map((r) => {
+    const lines = [`Affected visual hash: ${r.hash}`];
+    if (r.contract) lines.push(`Contract: ${r.contract}`);
+    else {
+      lines.push(
+        'Contract: _(unresolved — register the hash in the visual catalog and emit visual-registry.generated.json, or run the auditor with `--repo` pointing at that checkout)_',
+      );
+    }
+    return lines.join('\n');
+  });
+  const textBlock = chunks.join('\n\n');
+  return `${header}\n\n\`\`\`text\n${textBlock}\n\`\`\`\n\n_When \`hash\` / \`data-ks-hash\` appears in DOM metrics for an affected URL, or a finding carries \`hash\`, use the matching contract as the implementation spec for that visual root._\n\n`;
+}
+
 function buildDefectPlan({ defect, inventory, profile, runMeta, siteKind = 'generic', rcaRefs = [] }) {
   const dimensionRows = Object.entries(defect.dimensionDamage || {})
     .map(([id, row]) => `- \`${id}\`: rawDamage ${Number(row.rawDamage || 0).toFixed(2)} (${row.findingCount} finding(s))`)
@@ -1034,7 +1128,17 @@ function buildDefectPlan({ defect, inventory, profile, runMeta, siteKind = 'gene
   const topFindings = (defect.findings || [])
     .slice(0, 8)
     .sort(compareFindingSeverity)
-    .map((f) => `- **${String(f.severity).toUpperCase()}** ${f.message} (${f.url || 'n/a'})\n  - Evidence: ${f.evidence}\n  - Remediation hint: ${f.remediation}`)
+    .map((f) => {
+      const bits = [
+        `- **${String(f.severity).toUpperCase()}** ${f.message} (${f.url || 'n/a'})`,
+        `  - Evidence: ${f.evidence}`,
+        `  - Remediation hint: ${f.remediation}`,
+      ];
+      const rule = f.deterministicRule || f.candidateDeterministicRule;
+      if (rule) bits.push(`  - Rule: \`${String(rule)}\``);
+      if (f.principleId) bits.push(`  - AI principle: \`${String(f.principleId)}\``);
+      return bits.join('\n');
+    })
     .join('\n') || '- none';
   const rcaBlock = rcaRefs.length
     ? rcaRefs.map((r) => `- \`${r.relPath}\` · ${r.severity} · ${r.url}`).join('\n')
@@ -1053,6 +1157,7 @@ function buildDefectPlan({ defect, inventory, profile, runMeta, siteKind = 'gene
 - **primary scorer dimension:** ${defect.dimensionLabel}
 - **homepage-cap gate involved:** ${defect.hasHomepageGate ? 'yes' : 'no'}
 
+${buildKsVisualCatalogRemediationBlock(defect)}
 ## Why this is prioritized
 
 - This cluster ranks #${defect.order} by scorer impact model (homepage cap gates first, then estimated overall score delta, severity weight, and URL coverage).
@@ -1565,6 +1670,7 @@ function countIncludedTerms(terms, text) {
 
 async function analyzeStaticRepoOnly({ args, inventory }) {
   const siteKindResolved = inferSiteKind(args, inventory);
+  const designRuleRuntime = await createDesignRuleRuntime();
   const candidateFiles = inventory.pageFiles.slice(0, 80);
   const chunks = [];
   let firstH1 = '';
@@ -1619,9 +1725,18 @@ async function analyzeStaticRepoOnly({ args, inventory }) {
     lowContrast: [],
     ksVisualHashes: [],
   };
-  const findings = [
-    ...runAllChecks(metrics, metrics.url, { siteKind: siteKindResolved, repoRoot: path.resolve(args.repo) }),
-  ];
+  const ctx = { siteKind: siteKindResolved, repoRoot: path.resolve(args.repo) };
+  const { findings: legacyRaw, trace: legacyTrace } = runAllChecksWithTrace(metrics, metrics.url, ctx);
+  const { findings: deterministicRaw, trace: deterministicTrace } =
+    await designRuleRuntime.runDeterministicRulesWithTrace({
+      metrics,
+      url: metrics.url,
+      page: null,
+      repoRoot: path.resolve(args.repo),
+      ctx,
+    });
+  const findings = designRuleRuntime.enrichLegacyFindings(legacyRaw).concat(deterministicRaw);
+  const ruleExecution = { legacy: legacyTrace, deterministic: deterministicTrace };
   findings.unshift(
     makeFinding({
       checkId: 'static-only',
@@ -1645,7 +1760,7 @@ async function analyzeStaticRepoOnly({ args, inventory }) {
     );
   }
   const score = scorePage(metrics, findings);
-  return { url: metrics.url, metrics, findings, score, staticOnly: true };
+  return { url: metrics.url, metrics, findings, score, staticOnly: true, ruleExecution };
 }
 
 async function readUxQualityScoreLoopDelta(outDir) {
@@ -1666,6 +1781,7 @@ async function writePlans({
   pages,
   standardText,
   designStandard,
+  designTheme,
   crawlSummary,
   runMeta,
   siteKind,
@@ -1730,6 +1846,7 @@ async function writePlans({
       byteLength: designStandard.byteLength,
     }
     : null;
+  const designThemePinned = summarizeDesignTheme(designTheme);
 
   await ensureDir(args.out);
   if (precrawlUxScores && precrawlCrawlSummary) {
@@ -1751,6 +1868,7 @@ async function writePlans({
     standardText,
     runMeta,
     designStandard,
+    designTheme,
     crawlSummary,
     uxScores,
     uxScoreSnippetExtras,
@@ -1767,7 +1885,9 @@ async function writePlans({
         generatedAt: runMeta.generatedAt,
         auditRunId: runMeta.auditRunId,
         designStandard: designStandardPinned,
+        designTheme: designThemePinned,
         crawlSummary,
+        deterministicPreflight: crawlSummary?.deterministicPreflight ?? null,
         uxScores,
         uxScoreDeltaVsPrior,
         precrawlUxScores: precrawlUxScores ?? null,
@@ -1786,6 +1906,19 @@ async function writePlans({
     ),
   );
 
+  const flatForProcess = pages.flatMap((p) => p?.findings || []);
+  const qgAudit = evaluateQualityGate(countBySeverity(flatForProcess), loadQualityGateThresholdsFromEnv());
+  mergeDashboardStateIfWatching(args.out, {
+    qualityGate: {
+      pass: qgAudit.pass,
+      counts: qgAudit.counts,
+      thresholds: qgAudit.thresholds,
+      total: qgAudit.total,
+      majorPlus: qgAudit.majorPlus,
+      source: 'audit',
+    },
+  });
+
   const rca = await writeRcaPromptBatch({
     outDir: args.out,
     pages,
@@ -1801,6 +1934,7 @@ async function writePlans({
     crawlSummary,
     siteKind,
     limit: args.remediationPlanLimit,
+    repoRoot: args.repo,
   });
   const defectPlans = rankedDefects.clusters.map((c) => ({
     ...c,
@@ -1911,11 +2045,6 @@ async function writePlans({
   };
 }
 
-/** UX audit phase breadcrumbs on stderr so they appear live next to `[ux-score]` / crawl rows (piped stdout can block-buffer). */
-function uxAuditPhase(line) {
-  console.error(line);
-}
-
 async function main() {
   const args = parseArgs(process.argv);
   if (!args.site && args.readyUrl) args.site = args.readyUrl;
@@ -1924,7 +2053,49 @@ async function main() {
   }
   if (!args.staticOnly && !args.site) throw new Error('Provide --site URL to inspect, or use --static-only.');
 
+  const watchDashboardLogDir = (() => {
+    const w = String(process.env.FORGE_UX_LOOP_WATCH_OUT_DIR || '').trim();
+    if (!w) return '';
+    return path.resolve(w) === path.resolve(args.out) ? path.resolve(args.out) : '';
+  })();
+  /** Phase breadcrumbs: stderr when not in loop-watch (TTY-friendly); dashboard log only when watch OUT_DIR matches (avoids tearing the alternate-screen UI). */
+  const uxAuditPhase = (line) => {
+    if (watchDashboardLogDir) appendDashboardLog(watchDashboardLogDir, line);
+    else console.error(line);
+  };
+  const auditDiagStderr = (line) => {
+    if (watchDashboardLogDir) appendDashboardLog(watchDashboardLogDir, line);
+    else console.error(line);
+  };
+  const auditWatchEmit = (line) => {
+    if (watchDashboardLogDir) appendDashboardLog(watchDashboardLogDir, line);
+    else console.log(line);
+  };
+
   uxAuditPhase('[ux-audit] phase=startup · loading Forge standard + repo inventory (large repos can sit here tens of seconds before [ux-audit] phase=run)');
+  const skipPreflight =
+    args.skipPreflightDeterministic || String(process.env.FORGE_UX_SKIP_DETERMINISTIC_PREFLIGHT || '') === '1';
+  const preflightStrict =
+    args.preflightDeterministicStrict || String(process.env.FORGE_UX_PREFLIGHT_STRICT || '') === '1';
+  /** @type {Awaited<ReturnType<typeof runDeterministicPreflight>>|null} */
+  let deterministicPreflight = null;
+  if (!skipPreflight) {
+    uxAuditPhase('[ux-audit] phase=preflight · deterministic rule imports');
+    deterministicPreflight = await runDeterministicPreflight({ strict: preflightStrict });
+    uxAuditPhase(
+      `[ux-audit] phase=preflight · ok=${deterministicPreflight.ok ? '1' : '0'}`
+        + ` implemented=${deterministicPreflight.registryImplementedCount}`
+        + ` stub=${deterministicPreflight.registryStubCount}`
+        + ` importable=${deterministicPreflight.importOk}`,
+    );
+    if (!deterministicPreflight.ok && !preflightStrict) {
+      auditDiagStderr(
+        '[ux-audit] preflight warning: some implemented DET modules failed import — audit continues; use --preflight-deterministic-strict to fail fast.',
+      );
+    }
+  }
+  const designTheme = await loadDesignTheme(args.theme || DEFAULT_DESIGN_THEME_ID);
+  if (!args.standard && designTheme.designStandardAbsPath) args.standard = designTheme.designStandardAbsPath;
   await applyDefaultForgeStandard(args);
   const designStdMeta = await loadDesignStandard(args.standard ?? '');
   const standardText = designStdMeta.rawFull;
@@ -1956,6 +2127,12 @@ async function main() {
     let resumeQueuedUrls = [];
     /** @type {object|null} */
     let priorParsedForIncremental = null;
+    /** @type {string[]} */
+    let priorityRuleIds = [];
+    /** @type {string[]} */
+    let deprioritizedRuleIds = [];
+    /** @type {Record<string, number>} */
+    let pagePriorityByUrl = {};
 
     const runMeta = newAuditRunMeta();
     const envRunNo = String(process.env.FORGE_UX_PROGRESS_RUN_NO || '').trim();
@@ -1974,6 +2151,7 @@ async function main() {
 
     uxAuditPhase(
       `[ux-audit] phase=run · auditRunId=${runMeta.auditRunId} · site=${args.site} · siteKind=${siteKind}`
+      + ` · theme=${designTheme.id || DEFAULT_DESIGN_THEME_ID}`
       + ` · incremental=${args.incremental ? '1' : '0'} · staticOnly=${args.staticOnly ? '1' : '0'}`
       + ` · maxPages=${args.maxPages} · out=${relativeFromRepo(args.repo, args.out)}`
       + `${args.scoresFirst ? ` · scoresFirstMaxPages=${args.scoresFirstMaxPages}` : ''}`
@@ -1997,8 +2175,21 @@ async function main() {
         crawlSessionSnap?.completed === true ? 'completed marker' : crawlSessionSnap ? 'resume snapshot' : 'absent',
       );
       if (priorParsedForIncremental) {
-        regressionUrls = extractMajorPlusUrlsFromPriorAudit(priorParsedForIncremental, args.incrementalRegressionMaxPages);
-        logger.verbose('[incremental]', 'regression wave candidate URLs', `${regressionUrls.length} (cap ${args.incrementalRegressionMaxPages})`);
+        const backlog = extractBacklogUrlsAndRulesFromPriorAudit(
+          priorParsedForIncremental,
+          args.incrementalRegressionMaxPages,
+        );
+        const majorPlus = extractMajorPlusUrlsFromPriorAudit(
+          priorParsedForIncremental,
+          args.incrementalRegressionMaxPages,
+        );
+        regressionUrls = mergeRegressionUrls(backlog.urls, majorPlus);
+        priorityRuleIds = backlog.priorityRuleIds;
+        logger.verbose(
+          '[incremental]',
+          'regression wave candidate URLs',
+          `${regressionUrls.length} (cap ${args.incrementalRegressionMaxPages}) · priorityRules=${priorityRuleIds.length}`,
+        );
       }
       if (crawlSessionSnap && crawlSessionSnap.completed !== true) {
         resumeVisitedUrls = crawlSessionSnap.visitedUrls || [];
@@ -2008,6 +2199,46 @@ async function main() {
     }
 
     const excludeCrawlHrefs = loadExcludeCrawlHrefsFromFile(args.excludeCrawlUrlsFile);
+    const traceStore = new RulePageTraceStore({
+      outDir: args.out,
+      disabled: args.rulePageTraceDisabled,
+    });
+    await traceStore.load();
+
+    let scoreJsonForPriority = null;
+    try {
+      scoreJsonForPriority = JSON.parse(
+        await fsp.readFile(path.join(args.out, 'ux-quality-score.json'), 'utf8'),
+      );
+    } catch {
+      scoreJsonForPriority = null;
+    }
+    const pagePlan = planAuditorPagePriority(
+      priorParsedForIncremental,
+      scoreJsonForPriority,
+      excludeCrawlHrefs,
+    );
+    if (pagePlan.orderedUrls.length) {
+      regressionUrls = mergeRegressionUrls(pagePlan.orderedUrls, regressionUrls);
+      pagePriorityByUrl = Object.fromEntries(
+        pagePlan.orderedUrls.map((u, idx) => [u, pagePlan.orderedUrls.length - idx]),
+      );
+    }
+    priorityRuleIds = [...new Set([...priorityRuleIds, ...(pagePlan.priorityRuleIds || [])])];
+    try {
+      const registry = await loadDesignRuleRegistry();
+      const implIds = listImplementedDeterministicRules(registry).map((r) => r.id);
+      const adaptive = computeAdaptiveRuleOrder(traceStore, priorityRuleIds, implIds);
+      deprioritizedRuleIds = adaptive.deprioritizedRuleIds;
+      logger.verbose(
+        '[crawl]',
+        'adaptive rule order',
+        `deprioritized=${deprioritizedRuleIds.length} priority=${priorityRuleIds.length}`,
+      );
+    } catch {
+      deprioritizedRuleIds = [];
+    }
+
     if (excludeCrawlHrefs.length) {
       uxAuditPhase(
         `[ux-audit] phase=diag · excludeCrawlUrls=${excludeCrawlHrefs.length} · file=${args.excludeCrawlUrlsFile ? relativeFromRepo(args.repo, args.excludeCrawlUrlsFile) : '—'}`,
@@ -2018,9 +2249,13 @@ async function main() {
     if (args.staticOnly) {
       mergeDashboardStateIfWatching(args.out, { phase: 'auditor_static_only' });
       uxAuditPhase('[ux-audit] phase=static_only · no Playwright crawl; generating repo-only analysis');
-      if (args.scoresFirst) console.error('Note: --scores-first is ignored for static-only runs (no Playwright precrawl).');
+      if (args.scoresFirst) auditDiagStderr('Note: --scores-first is ignored for static-only runs (no Playwright precrawl).');
+      const designRuleRuntime = await createDesignRuleRuntime();
       pages = [await analyzeStaticRepoOnly({ args, inventory })];
       const flat = pages.flatMap((p) => p.findings || []);
+      const ruleExecutionCoverage = rollupRuleExecution(pages, {
+        implementedRuleIds: designRuleRuntime.implementedRuleIds,
+      });
       crawlSummary = {
         crawlMode: 'static_only',
         stopReason: 'static_only',
@@ -2030,6 +2265,12 @@ async function main() {
         stopAfterMajorPlus: null,
         pagesPlannedBudget: args.maxPages,
         stopDisabled: true,
+        designRuleRegistryFingerprint: designRuleRuntime.registryFingerprint,
+        designRuleRegistryPath: designRuleRuntime.registryPath,
+        deterministicImplementedRuleIds: designRuleRuntime.implementedRuleIds,
+        ruleExecutionCoverage,
+        deterministicPreflight,
+        designTheme: summarizeDesignTheme(designTheme),
       };
     } else {
       if (args.start) {
@@ -2049,7 +2290,7 @@ async function main() {
         uxAuditPhase(
           `[ux-audit-pre] phase=precrawl · maxPages=${args.scoresFirstMaxPages} · label=[ux-audit-pre] · run=${precrawlRunDisplay}`,
         );
-        console.error('[scores-first] Sitewide precrawl UX score crawl (design-standard rollup)...');
+        auditDiagStderr('[scores-first] Sitewide precrawl UX score crawl (design-standard rollup)...');
         const precrawlProg = createCrawlProgressReporter({
           label: '[ux-audit-pre]',
           runDisplay: precrawlRunDisplay,
@@ -2071,6 +2312,7 @@ async function main() {
             onProgress: precrawlProg.onProgress,
             repoRoot: path.resolve(args.repo),
             excludeCrawlHrefs,
+            designTheme,
           });
         } finally {
           precrawlProg.finish();
@@ -2082,14 +2324,19 @@ async function main() {
           staticOnly: false,
           siteKind,
         });
-        console.error(
+        auditDiagStderr(
           `[scores-first] Precrawl done: overall ${precrawlUxScores.overall}/100 · pages ${precrawled.pages.length} · effective findings ${precrawlUxScores.coverage.effectiveFindingCount}`,
         );
       }
 
       mergeDashboardStateIfWatching(args.out, { phase: 'auditor_main' });
+      const qualityGateThresholds = loadQualityGateThresholdsFromEnv();
+      const haltOnQualityGate =
+        !args.stopDisabled && String(process.env.FORGE_UX_AUDIT_HALT_ON_QUALITY_GATE ?? '1') !== '0';
       uxAuditPhase(
         `[ux-audit] phase=main_crawl · maxPages=${args.maxPages} · stopAfterMajorPlus=${args.stopAfterMajorPlus ?? '—'}`
+        + ` · stopAfterBacklog=${args.stopAfterBacklog ?? '—'} · haltOnQualityGate=${haltOnQualityGate ? '1' : '0'}`
+        + ` · detConcurrency=${args.deterministicRuleConcurrency}`
         + ` · stopDisabled=${args.stopDisabled ? '1' : '0'} · label=[ux-audit] · run=${mainCrawlRunDisplay}`,
       );
       uxAuditPhase('[ux-audit] phase=main_crawl · action=launch_browser (next lines use crawl progress format)');
@@ -2111,7 +2358,15 @@ async function main() {
           screenshots: args.screenshots,
           siteKind,
           stopAfterMajorPlus: args.stopAfterMajorPlus,
+          stopAfterBacklog: args.stopAfterBacklog,
           stopDisabled: args.stopDisabled,
+          haltOnQualityGate,
+          qualityGateThresholds,
+          deterministicConcurrency: args.deterministicRuleConcurrency,
+          traceStore,
+          priorityRuleIds,
+          deprioritizedRuleIds,
+          pagePriorityByUrl,
           regressionUrls,
           resumeVisitedUrls,
           resumeQueuedUrls,
@@ -2119,12 +2374,13 @@ async function main() {
           onProgress: crawlProg.onProgress,
           repoRoot: path.resolve(args.repo),
           excludeCrawlHrefs,
+          designTheme,
         });
       } finally {
         crawlProg.finish();
       }
       pages = crawled.pages;
-      crawlSummary = crawled.crawlSummary;
+      crawlSummary = { ...crawled.crawlSummary, deterministicPreflight };
 
       if (priorParsedForIncremental && regressionUrls.length) {
         regressionWave = buildRegressionWaveSummary(
@@ -2136,7 +2392,9 @@ async function main() {
 
       const originUrl = new URL(args.site).origin;
       const sessionPayload =
-        crawlSummary.stopReason === 'major_plus_threshold'
+        crawlSummary.stopReason === 'major_plus_threshold' ||
+        crawlSummary.stopReason === 'backlog_threshold' ||
+        crawlSummary.stopReason === 'quality_gate_threshold'
           ? {
               completed: false,
               origin: originUrl,
@@ -2172,6 +2430,7 @@ async function main() {
       pages,
       standardText,
       designStandard: designStdMeta,
+      designTheme,
       crawlSummary,
       runMeta,
       siteKind,
@@ -2187,51 +2446,61 @@ async function main() {
       phase: 'audit_complete',
       auditRunId: written.auditRunId,
     });
-    console.log('\nForge UX audit complete.');
-    console.log(`Audit run id: ${written.auditRunId}`);
-    console.log(`Generated at (UTC): ${written.generatedAt}`);
+    auditWatchEmit('\nForge UX audit complete.');
+    auditWatchEmit(`Audit run id: ${written.auditRunId}`);
+    auditWatchEmit(`Generated at (UTC): ${written.generatedAt}`);
+    if (!args.staticOnly && crawlSummary?.stopReason === 'quality_gate_threshold') {
+      auditWatchEmit(
+        `Crawl: stopped early after a quality-gate severity segment filled (${String(crawlSummary.qualityGateHaltSeverity || 'gate')}); ${String(crawlSummary.queuedRemainingAtStop)} queued URL(s) not visited — remediation next.`,
+      );
+    }
     if (!args.staticOnly && crawlSummary?.stopReason === 'major_plus_threshold') {
-      console.log(
+      auditWatchEmit(
         `Crawl: stopped early after Major+ backlog reached threshold (${String(crawlSummary.stopAfterMajorPlus)}); ${String(crawlSummary.queuedRemainingAtStop)} queued URL(s) not visited — queue expansion frozen for remediation (Cursor plans / agent).`,
       );
     }
-    if (written.rcaPromptCount) console.log(`RCA prompts: ${written.rcaPromptCount} in ${relativeFromRepo(args.repo, path.join(args.out, 'rca-prompts'))}/`);
-    console.log(`Report: ${relativeFromRepo(args.repo, written.reportPath)}`);
-    console.log(`Data:   ${relativeFromRepo(args.repo, written.jsonPath)}`);
+    if (!args.staticOnly && crawlSummary?.stopReason === 'backlog_threshold') {
+      auditWatchEmit(
+        `Crawl: stopped early after finding backlog exceeded ${String(crawlSummary.stopAfterBacklog)} (total ${String(crawlSummary.backlogFindingCountTotal)}); ${String(crawlSummary.queuedRemainingAtStop)} queued URL(s) not visited — remediation then re-audit prioritized URLs.`,
+      );
+    }
+    if (written.rcaPromptCount) auditWatchEmit(`RCA prompts: ${written.rcaPromptCount} in ${relativeFromRepo(args.repo, path.join(args.out, 'rca-prompts'))}/`);
+    auditWatchEmit(`Report: ${relativeFromRepo(args.repo, written.reportPath)}`);
+    auditWatchEmit(`Data:   ${relativeFromRepo(args.repo, written.jsonPath)}`);
     if (!args.staticOnly) {
-      console.log(`Session: ${relativeFromRepo(args.repo, path.join(args.out, 'crawl-session.json'))}`);
+      auditWatchEmit(`Session: ${relativeFromRepo(args.repo, path.join(args.out, 'crawl-session.json'))}`);
       if (args.incremental) {
-        console.log(`Prior snapshot (incremental baseline): ${relativeFromRepo(args.repo, path.join(args.out, 'audit-data.previous.json'))}`);
+        auditWatchEmit(`Prior snapshot (incremental baseline): ${relativeFromRepo(args.repo, path.join(args.out, 'audit-data.previous.json'))}`);
       }
     }
     if (written.precrawlJsonRel && written.precrawlMdRel) {
-      console.log(`Precrawl score (scores-first): ${written.precrawlJsonRel}`);
-      console.log(`Precrawl score (scores-first): ${written.precrawlMdRel}`);
+      auditWatchEmit(`Precrawl score (scores-first): ${written.precrawlJsonRel}`);
+      auditWatchEmit(`Precrawl score (scores-first): ${written.precrawlMdRel}`);
     }
     if (args.priorUxScoresPath && priorUxScoresSourceDisplay) {
-      console.log(`Prior UX baseline (for deltas): ${priorUxScoresSourceDisplay}`);
+      auditWatchEmit(`Prior UX baseline (for deltas): ${priorUxScoresSourceDisplay}`);
     }
     if (uxQualityScoreLoopDelta?.verbalSummary) {
-      console.log(`Sitewide scorer vs prior loop: ${uxQualityScoreLoopDelta.verbalSummary}`);
+      auditWatchEmit(`Sitewide scorer vs prior loop: ${uxQualityScoreLoopDelta.verbalSummary}`);
     }
     if (uxQualityScoreLoopDelta) {
-      console.log(`Scorer loop sidecar: ${relativeFromRepo(args.repo, path.join(args.out, 'ux-quality-score-loop-delta.json'))}`);
+      auditWatchEmit(`Scorer loop sidecar: ${relativeFromRepo(args.repo, path.join(args.out, 'ux-quality-score-loop-delta.json'))}`);
     }
     if (written.buildPlanPath) {
-      console.log(`Cursor Build: ${relativeFromRepo(args.repo, written.buildPlanPath)}`);
+      auditWatchEmit(`Cursor Build: ${relativeFromRepo(args.repo, written.buildPlanPath)}`);
     }
     if (args.refreshPlanStatus && written.mergedNonPendingTodos > 0) {
-      console.log(`Plan status: merged ${written.mergedNonPendingTodos} non-pending todo(s) from previous forge-ux-remediation.plan.md (--refresh-plan-status is default; use --no-refresh-plan-status to reset)`);
+      auditWatchEmit(`Plan status: merged ${written.mergedNonPendingTodos} non-pending todo(s) from previous forge-ux-remediation.plan.md (--refresh-plan-status is default; use --no-refresh-plan-status to reset)`);
     } else if (!args.refreshPlanStatus) {
-      console.log('Plan status: all todos written as pending (--no-refresh-plan-status)');
+      auditWatchEmit('Plan status: all todos written as pending (--no-refresh-plan-status)');
     }
     if (written.rootMirrorPlanPath) {
-      console.log(`Root plan mirror (dated): ${relativeFromRepo(args.repo, written.rootMirrorPlanPath)}`);
+      auditWatchEmit(`Root plan mirror (dated): ${relativeFromRepo(args.repo, written.rootMirrorPlanPath)}`);
     }
-    console.log('Plans:');
-    for (const plan of written.planFiles) console.log(`  - ${relativeFromRepo(args.repo, plan)}`);
-    if (args.staticOnly) console.log('Mode: static-only repo analysis. Re-run with --site for Playwright evidence.');
-    if (args.installRule) console.log('Cursor rule: .cursor/rules/forge-ux-remediation-plan-runner.mdc');
+    auditWatchEmit('Plans:');
+    for (const plan of written.planFiles) auditWatchEmit(`  - ${relativeFromRepo(args.repo, plan)}`);
+    if (args.staticOnly) auditWatchEmit('Mode: static-only repo analysis. Re-run with --site for Playwright evidence.');
+    if (args.installRule) auditWatchEmit('Cursor rule: .cursor/rules/forge-ux-remediation-plan-runner.mdc');
   } finally {
     await stopStartedServer(server);
   }

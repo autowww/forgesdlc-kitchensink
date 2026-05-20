@@ -1,0 +1,47 @@
+## Handbook page written
+
+Created **`AI.AMBIENT.READABILITY_CONFLICT`** per `RULE_PAGE_SCHEMA.md` with PDCA in **Purpose**, all required sections, and before/after `html` examples using real Forge ambient markup (`forge-section`, `forge-ambient--mesh-bloom`, `forge-ambient--hero` / `--expressive` vs `--subtle`, `forge-ambient-bg`, `ks-ambient-bg`, `forge-ambient-scrim`, `forge-ambient-content`, `forge-support`, `forge-card`, `btn btn-primary`).
+
+**Source alignment**
+
+- Anchor: `docs/design/ux-audit/ai-enabled-design-principles.md#ai-ambient-readability-conflict` — review question: ambient layers reducing text readability or affordance clarity.
+- Prompt: `design-rules/ai/prompts/generated/ai-ambient-readability-conflict.md` (AI judgment overlay).
+- Related rules: `DET.AMBIENT.Z_INDEX`, `DET.THEME.CONTRAST_MIN`, `DET.MOTION.PREFERS_REDUCED`, `AI.MOTION.INTENTIONALITY`.
+
+**`page_version` (confirmed in front matter)**
+
+`b57d41c04c058844ed2078a8c6d7d7c371c12771c57c68fe8ae70e719a110e9b`
+
+Matches manifest `contentVersion` for this rule.
+
+## Install path (sandbox blocked KS `docs/` writes)
+
+Content is ready here (complete):
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-ambient-readability-conflict.md`
+
+Copy to the canonical path and refresh the manifest:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+node write-rule-page-temp.mjs
+cd design-rules/blender
+node rule-page-version.mjs --write-manifest
+```
+
+That writes:
+
+`docs/design/ux-audit/rule-pages/ai-ambient-readability-conflict.md`
+
+After step 2, manifest should show **`status: "current"`** with `pageVersion` = `contentVersion` = `b57d41c04c058844ed2078a8c6d7d7c371c12771c57c68fe8ae70e719a110e9b`.
+
+## Example contrast (before vs after)
+
+| | Before (fails) | After (passes) |
+|---|----------------|----------------|
+| Intensity | `forge-ambient--hero` + `forge-ambient--expressive` | `forge-ambient--subtle` |
+| Scrim | Missing | `.forge-ambient-scrim` present |
+| Copy | `forge-support opacity-50` on mesh | Full-contrast `forge-support` on `forge-card` surface |
+| CTAs | Directly on ambient stack | On card-backed surface |
+
+No check modules, `rule-mappings.js`, or registry files were edited. Step 7 (`rule-page-version.mjs --write-manifest`) needs to run locally after the copy (shell was blocked in this session).

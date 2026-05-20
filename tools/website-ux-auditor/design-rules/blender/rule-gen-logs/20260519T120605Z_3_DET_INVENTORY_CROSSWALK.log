@@ -1,0 +1,39 @@
+## Summary
+
+Implemented **`DET.INVENTORY.CROSSWALK`** as a repo-wide, deterministic catalog check aligned with the rule anchor: showcase-emitted hashes must be in the registry, with no invalid-format hash tokens.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-inventory-crosswalk.check.js`**
+   - Reads `docs/design/catalog/visual-inventory.generated.json` → `catalogCrosswalk.showcase_hashes_not_in_registry`.
+   - Scans showcase HTML/JS for **stray** `hash` / `data-ks-hash` values (non-empty, not exactly three ASCII letters).
+   - Falls back to a live showcase ↔ registry scan when `catalogCrosswalk` is missing (but inventory exists).
+   - Skips cleanly when the inventory file is absent (typical consumer sites).
+   - Exports `rule`, `run`, and testable helpers; caps at 12 findings with standard `severity` / `area` / `message` / `evidence` / `remediation`.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS`: `status: implemented`, `area: visual-catalog`, `scoreDimension: visualCatalogGovernance`, `priorityWeight: 8`, `defaultSeverity: warn`.
+
+3. **`design-rules/registry.generated.json`**
+   - Updated `DET.INVENTORY.CROSSWALK` to `implemented` and adjusted coverage counts/lists (fingerprint will refresh on the next blend).
+
+4. **`auditor-tests/det-inventory-crosswalk.test.js`**
+   - Unit tests for stray tokens, crosswalk JSON, findings mapping, and `run()` wiring.
+
+### Separation from related rules
+
+| Rule | Scope |
+|------|--------|
+| **`DET.HASH.MARKERS`** | Per-page DOM marker pairing / invalid values |
+| **`DET.HASH.REGISTRY_ROW`** | Per-page emitted hash vs registry row + `data-ks-type` |
+| **`DET.INVENTORY.CROSSWALK`** | Repo showcase inventory vs registry (`visual-inventory.generated.json` + showcase scan) |
+
+### Verify locally
+
+Shell was not available in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor && npm run blend-rules && npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` (fingerprint, `generatedAt`). All tests should pass, including the new `det-inventory-crosswalk.test.js`.

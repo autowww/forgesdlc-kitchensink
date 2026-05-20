@@ -1,0 +1,50 @@
+Implemented **DET.PY.OPTIONAL_REGIONS** as a DOM-based deterministic check for optional Python-rendered slots that leak visible empty wrappers or “ghost” headings.
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-py-optional-regions.check.js`
+Replaced the auto-generated stub with a full implementation:
+
+- **Signals (from rule anchor):** optional slots must omit or collapse when empty; no ghost headings.
+- **DOM scan targets** known KS optional slot wrappers:
+  - `[data-ks-optional]`, `.fs-site-announcement`, `.ks-doc-breadcrumb`, `.fs-listing-shell__sidebar`, `.fs-mega-footer__{brand,legal,bottom}`
+  - Mega-footer columns with a title but no links
+- **Violation kinds:**
+  - `ghost-heading` — visible heading/label, no substantive body (≥3 chars or body nodes)
+  - `empty-visible-slot` — visible wrapper with no content and height ≥ 8px
+- **Pass:** slots at zero height (≤8px) are treated as correctly collapsed
+- Exports: `rule`, `run`, `collectOptionalRegionsReport`, `classifyOptionalSlotViolation`, `findingsFromOptionalRegionsReport`
+- Findings use standard fields: `severity`, `area`, `message`, `evidence`, `remediation`
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|-------|-------|
+| status | `implemented` |
+| area | `informationArchitecture` |
+| scoreDimension | `informationArchitecture` |
+| defaultSeverity | `warn` |
+| priorityWeight | `6` |
+
+### 3. `auditor-tests/det-py-optional-regions.test.js`
+Unit tests for classification, finding mapping, and `run()` with precomputed metrics.
+
+### 4. `design-rules/registry.generated.json`
+Updated coverage counts and moved `DET.PY.OPTIONAL_REGIONS` from stub → implemented (39 implemented / 11 stub).
+
+## Verification
+
+Shell/npm was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`npm run blend-rules` will refresh the registry fingerprint; `design-rules-blender.test.js` also runs the blender during the test suite.
+
+## Design rationale
+
+The check mirrors KS Python guard patterns (`if not sidebar_html.strip(): return …`, `if breadcrumb_html.strip():`, etc.) by inspecting the rendered DOM for optional regions that should have been omitted or collapsed. It stays deterministic—bounding-box height, heading vs body character counts, and presence of substantive body nodes—without AI heuristics.

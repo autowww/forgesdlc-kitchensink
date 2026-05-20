@@ -1,0 +1,52 @@
+## Summary
+
+Implemented **`DET.HASH.MARKERS`** as a deterministic DOM marker check, registered it in the blender map, and added unit tests. Shell commands were not available in this session, so you should run verification locally (below).
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-hash-markers.check.js`**
+
+Replaced the no-op stub with a check that reads `metrics.ksVisualHashReport` (from `lib/dom-metrics.js` crawl) via `ksVisualHashReportFromMetrics()`. It flags:
+
+| Signal | Severity | Meaning |
+|--------|----------|---------|
+| `invalidRaw` | minor | Value is not exactly three ASCII letters |
+| `mismatches` | minor | `hash` and `data-ks-hash` differ on the same node |
+| `incompleteMarkers` | warn | Only one of the two attributes is present |
+| `instanceCountByHash` > 1 | warn | Same hash on multiple elements (may be intentional) |
+
+Findings use the usual fields (`severity`, `area`, `message`, `evidence`, `remediation`, plus `hash` / `selector` where useful). Output is capped at **`MAX_HASH_MARKER_FINDINGS` (10)** per page.
+
+Registry crosswalk (`DET.HASH.REGISTRY_ROW`) is intentionally **not** included here.
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `area`: `visual-catalog`
+- `scoreDimension`: `visualCatalogGovernance`
+- `priorityWeight`: `9`
+- `defaultSeverity`: `minor`
+- `status`: `implemented`
+
+**3. `auditor-tests/det-hash-markers.test.js`**
+
+Covers invalid format, mismatch, incomplete pair, empty report, and `run()` with injected metrics.
+
+**4. `design-rules/registry.generated.json`**
+
+Updated `DET.HASH.MARKERS` to **implemented** and adjusted coverage counts (23 / 27). **`fingerprint` and `generatedAt` are stale** until you run `blend-rules`.
+
+### Why this design
+
+The rule anchor requires measurable pass/fail on **`hash="XYZ"`** and **`data-ks-hash="XYZ"`** (3-letter ASCII). That logic already exists in the crawl (`ksVisualHashReport` in `dom-metrics.js`); this rule exposes it as a standalone deterministic module aligned with the legacy `visual-catalog-awareness` check’s marker slice, without registry lookups.
+
+### Verify locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `registry.generated.json` fingerprint/timestamp. `npm test` includes `auditor-tests/det-hash-markers.test.js` and re-runs the blender in `design-rules-blender.test.js`.

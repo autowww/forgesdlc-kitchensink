@@ -1,0 +1,66 @@
+VERDICT: PASS
+
+**Evidence (code matches the phase goal)**
+
+- **Clusters carry hashes + contract refs:** `collectClusterKsHashes` pulls three-letter hashes from each finding’s `hash` and from `ksVisualHashReport` on affected page URLs (`metrics`), then resolves contracts via **`docs/design/catalog/visual-registry.generated.json`** only (`resolveRegistryContractsForHashes` → `visualCatalogRefs` / `ksVisualHashes`).
+
+```118:235:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/lib/defect-remediation-plans.js
+function collectClusterKsHashes(findings, pages, affectedUrls) {
+  // ...
+    const rep = ksVisualHashReportFromMetrics(p.metrics);
+    for (const h of rep.validUnique || []) {
+      if (/^[A-Za-z]{3}$/.test(h)) hashes.add(h);
+    }
+  // ...
+}
+// ...
+    const ksVisualHashes = collectClusterKsHashes(findings, pages, affectedUrls);
+    const visualCatalogRefs = resolveRegistryContractsForHashes(repoRoot, ksVisualHashes);
+```
+
+- **Analyzer wires `repoRoot` and emits the requested plan shape:** `buildRankedDefectClusters({ …, repoRoot: args.repo })` and remediation markdown includes fenced `text` with `Affected visual hash:` / `Contract:`, plus finding lines for `Rule:` / `AI principle:` when metadata exists.
+
+```1034:1071:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/analyze-website-ux.mjs
+function buildKsVisualCatalogRemediationBlock(defect) {
+  // ...
+  const chunks = refs.map((r) => {
+    const lines = [`Affected visual hash: ${r.hash}`];
+    if (r.contract) lines.push(`Contract: ${r.contract}`);
+    // ...
+  });
+  const textBlock = chunks.join('\n\n');
+  return `${header}\n\n\`\`\`text\n${textBlock}\n\`\`\`\n\n`;
+}
+// ...
+      const rule = f.deterministicRule || f.candidateDeterministicRule;
+      if (rule) bits.push(`  - Rule: \`${String(rule)}\``);
+      if (f.principleId) bits.push(`  - AI principle: \`${String(f.principleId)}\``);
+```
+
+- **DOM `hash` / `data-ks-hash` are what feed metrics:** extraction is centralized in `ksVisualHashReportFromHtmlBlob` (used in the crawl/metrics pipeline; cluster math reads `ksVisualHashReportFromMetrics`).
+
+- **Scorer/analyzer separation:** `score-website-ux.mjs` does not import `analyze-website-ux.mjs`; both use shared `lib/design-ux-score.js` + `lib/visual-catalog.js`. Scorer Markdown adds **`### Known emitted hashes → design contracts`** when `summarizeVisualCatalogCoverage` fills `knownHashContracts`.
+
+```427:435:/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/lib/design-ux-score.js
+    if (Array.isArray(vc.knownHashContracts) && vc.knownHashContracts.length) {
+      lines.push('### Known emitted hashes → design contracts');
+      // ...
+      for (const row of vc.knownHashContracts) {
+        lines.push(`| \`${row.hash}\` | \`${String(row.contract)}\` |`);
+```
+
+- **Deterministic-rule examples present:** `first-screen-density.js` → `DET.VISUAL.RHYTHM`; `visual-catalog-awareness.js` → `DET.CATALOG.HASH_REGISTRY_UNKNOWN` (confirmed via grep).
+
+- **Regression test for contract resolution:** `auditor-tests/defect-remediation-plans.test.js` asserts `Hbk` → handbook contract path when `repoRoot` is the ks tree.
+
+**Missing work / caveats**
+
+- **`npm test` not re-run here** (Ask mode: no terminal execution). The log’s “103 passed” is plausible but unverified this session — you should run `cd …/tools/website-ux-auditor && npm test` locally to close that acceptance formally.
+- **`repoRoot` on clusters uses `args.repo` as-is** (not always `path.resolve` like crawl), so if the CLI ever passes a non-normalized relative `--repo`, registry resolution might be fragile depending on cwd.
+- The phase example **`AI.PREMIUM.ENTERPRISE_FEEL`** is illustrative; bullets only print an AI principle when a finding carries **`principleId`** — not every check sets that yet.
+
+**Exact next actions**
+
+1. Run **`npm test`** under `tools/website-ux-auditor/` and confirm all green.  
+2. Optionally normalize **`repoRoot`** in **`buildRankedDefectClusters`** call site to **`path.resolve(args.repo)`** for parity with crawl.  
+3. When you want the example narrative end-to-end, add **`principleId: 'AI.PREMIUM.ENTERPRISE_FEEL'`** (or equivalent) on the relevant premium-feel heuristic findings — today the plumbing is there; coverage is selective.

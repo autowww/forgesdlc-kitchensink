@@ -27,7 +27,9 @@ Govern reusable SVG motifs and templates consumed by generators, backgrounds, an
 
 ## Expected look
 
-Calm Forge enterprise surface; follows [forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md).
+- Stroke/fill palettes stay diagram-legible on slate canvases—muted neutrals with disciplined cyan/amber semantic accents ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- **`template-*`** archetypes reserve generous label gutters for localized copy; decorative motifs (**`hMR`**, **`TXK`**) remain visually recessive behind foreground text.
+- Layout schematics (**`LkY`**) read as thin-weight silhouettes—structure without faux illustration clutter.
 
 ## Anatomy
 

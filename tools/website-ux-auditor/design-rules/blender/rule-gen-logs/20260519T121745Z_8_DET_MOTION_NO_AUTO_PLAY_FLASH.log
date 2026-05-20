@@ -1,0 +1,41 @@
+## Summary
+
+Implemented **`DET.MOTION.NO_AUTO_PLAY_FLASH`** as a deterministic accessibility check aligned with WCAG 2.3.1’s general flash limit (more than **3 flashes per second** for a simple on/off cycle).
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-motion-no-auto-play-flash.check.js`**
+   - Exports `rule` and `run(ctx)` (findings array).
+   - **`collectMotionNoAutoPlayFlashReport(page)`** scans the live DOM for:
+     - **Fast infinite animations** — cycle &lt; ~0.67s (estimated &gt; 3 Hz for a 0↔1 toggle).
+     - **Risky names** — `blink`, `flash`, `strobe`, `seizure`, `flicker` on computed `animation-name` or `@keyframes`.
+     - **Autoplay video** — visible `video[autoplay]` (warn; may include rapid luminance change).
+   - Skips near-zero durations when `prefers-reduced-motion: reduce` is active (KS-style overrides).
+   - **`findingsFromMotionNoAutoPlayFlashReport`** maps violations to standard finding fields (`severity`, `area`, `message`, `evidence`, `remediation`).
+   - Supports precomputed `metrics.motionNoAutoPlayFlashReport` or on-demand Playwright collection.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under **`DETERMINISTIC_IMPLEMENTATIONS`** as `implemented`:
+     - `area`: `accessibility`
+     - `scoreDimension`: `accessibilitySemanticsMeta`
+     - `defaultSeverity`: `major`
+     - `priorityWeight`: `9`
+
+3. **`auditor-tests/det-motion-no-auto-play-flash.test.js`**
+   - Unit tests for parsers, flash-rate math, finding mapping, and `run()`.
+
+### Why this approach
+
+The source rule allows **pixel sampling** with a manual fallback. This implementation uses **measurable CSS/DOM signals** (animation timing, keyframe names, autoplay video) so the check stays deterministic and cheap. Full luminance flash detection would need screenshot sampling and is left as a future extension.
+
+### Verify locally
+
+Shell was not available in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` should move **`DET.MOTION.NO_AUTO_PLAY_FLASH`** from stub to **implemented** in `design-rules/registry.generated.json` (count **27** implemented). The new test file should pass with the rest of the suite.

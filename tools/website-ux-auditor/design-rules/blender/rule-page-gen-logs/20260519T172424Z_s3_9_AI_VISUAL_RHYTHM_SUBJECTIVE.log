@@ -1,0 +1,49 @@
+## Report: `AI.VISUAL.RHYTHM_SUBJECTIVE` rule page
+
+Wrote the handbook page at the staging path (workspace sandbox blocks direct writes outside `tools/website-ux-auditor/`):
+
+**Staging (complete):**  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-visual-rhythm-subjective.md`
+
+**Canonical target (copy pending):**  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-visual-rhythm-subjective.md`
+
+Run the existing copy script to place it at the canonical path:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-ai-visual-rhythm-subjective-pending.sh
+```
+
+### `page_version` confirmed
+
+```
+page_version: 9a851787584568a259e62976e032bb67cd92f6ea87b1ab2857cffe41f939ef30
+```
+
+Matches the required value exactly.
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.VISUAL.RHYTHM_SUBJECTIVE` |
+| `lane` | `ai` |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-rhythm-subjective` |
+
+### Page content summary
+
+- **Purpose:** Subjective “felt rhythm” overlay on top of `DET.VISUAL.RHYTHM` and `DET.LAYOUT.GRID_CONSISTENCY`—catches accidental grouping when numeric checks pass.
+- **Passing signals:** Repeated section motif (`forge-section py-5`, `section-label text-cyan` → heading → grid), stable gutters (`g-3 g-lg-4`), uniform `forge-card` shells, stable container width.
+- **Failing signals:** Accidental pile-up (`py-2` → `py-5` → `py-3`), grid drift (`col-md-4` + `col-md-6` + `col-md-2`), motif breaks, in-row card inconsistency, width whiplash.
+- **Before example:** Failing HTML with cramped hero (`py-2 g-1`), mismatched outcome row (`forge-card` + `glass` + odd spans), broken “How it works” band.
+- **After example:** Passing HTML with `landing-hero fs-landing-hero-band`, aligned three-up `forge-card card-amber breathe-link`, consistent `forge-section py-5` bands, `fs-marketing-stat-band` stat row.
+- **Evidence and remediation:** Screenshot capture checklist + 6-step remediation with `DET.*` promotion guidance.
+- **Related rules:** `DET.VISUAL.RHYTHM`, `DET.LAYOUT.GRID_CONSISTENCY`, `DET.SECTION.HEADING`, `AI.VISUAL.HIERARCHY_CONFIDENCE`, `AI.PREMIUM.ENTERPRISE_FEEL`, `AI.CONTEXT.BURDEN_SUBJECTIVE`.
+
+### KS class verification
+
+Before/after examples use real Kitchen Sink classes from `components/`, `css/`, and `marketing_sections.py`: `landing-hero`, `fs-landing-hero-band`, `forge-section`, `landing-hero-wide`, `landing-hero-grid-wrap`, `landing-hero-kicker`, `product-landing-title`, `forge-support`, `landing-hero-tagline`, `landing-hero-actions`, `btn-forge`, `btn-cyan-outline`, `section-label`, `forge-card`, `card-amber`, `card-label`, `breathe-link`, `breathe-static`, `fs-landing-section`, `fs-marketing-stat-band`, `glass`, plus hash/`data-ks-*` attributes.
+
+No Mermaid, no Fleet-specific profiles, no check modules or registry edits.

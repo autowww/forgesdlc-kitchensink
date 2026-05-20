@@ -1,0 +1,44 @@
+## Report: `DET.DATA.TABLE_HEADERS` rule page
+
+Wrote the PDCA handbook page for **`DET.DATA.TABLE_HEADERS`** (deterministic lane). The environment only allows writes under `tools/website-ux-auditor/`, so the full page lives here:
+
+**`/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-data-table-headers.md`**
+
+Promote it to the canonical KS path (required by the manifest) with:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink && node tools/website-ux-auditor/_run-copy-det-data-table-headers.mjs
+```
+
+That copies to **`docs/design/ux-audit/rule-pages/det-data-table-headers.md`** at the repo root.
+
+### `page_version` (confirmed)
+
+`c7bf5ba070b6cf5956699b142b0ff07574630b940eec46477fb9ab7891e2f04e`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.DATA.TABLE_HEADERS` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-data-table_headers` |
+| `related_rules` | `DET.CHART.ALT_SUMMARY`, `DET.DATA.COLOR_ONLY`, `AI.DATA.INSIGHT_LEGIBILITY`, `DET.LANDMARKS.REQUIRED`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` |
+
+### Content (aligned with check + KS)
+
+- **Purpose:** Visible data tables need `<th scope>` or per-cell `headers` associations; `tableHeadersReport` in metrics phase; layout tables (`role="presentation"`) excluded.
+- **Passing / failing signals:** From `det-data-table-headers.check.js` (`no-header-cells`, `th-missing-scope`, major severity).
+- **Before example:** `Srf` / `surfaces.py` pattern — `.forge-table-wrap`, `.table.table-striped`, `<th>` without `scope` (fails).
+- **After example:** Same block with `scope="col"` on headers (matches `render_table` / `controls.py`).
+- **Alternative after:** `Dcs` section with `.ks-chart-mount` + table using `headers="cw-week"` / `headers="cw-count"`.
+- **Evidence and remediation:** `tableHeadersReport`, `missing_table_headers`, remediation via `render_table` or scoped `<th>`.
+- **Related rules:** Cross-links to chart alt, color-only, AI legibility, landmarks.
+
+### Real KS class names used
+
+`ks-section`, `ks-section-title`, `forge-support`, `forge-table-wrap`, `table`, `table-striped`, `table-sm`, `mb-0`, `ks-chart-mount`, `data-ks-chart`, `data-ks-chart-kind`, `data-ks-chart-state`, `hash` / `data-ks-hash` / `data-ks-type` / `data-ks-name`.
+
+No Mermaid, no Fleet-specific profiles. Check modules, registry, and mappings were not edited.

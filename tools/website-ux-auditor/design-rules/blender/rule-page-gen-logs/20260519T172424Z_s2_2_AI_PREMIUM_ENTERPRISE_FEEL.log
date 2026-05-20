@@ -1,0 +1,42 @@
+## Report: `AI.PREMIUM.ENTERPRISE_FEEL` rule page
+
+Wrote the handbook page at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/ai-premium-enterprise-feel.md`
+
+The Cursor workspace is scoped to `tools/website-ux-auditor/`, so writes to the canonical KS path (`docs/design/ux-audit/rule-pages/…` at repo root) were blocked. To promote to the canonical location, run:
+
+```bash
+bash tools/website-ux-auditor/.copy-ai-premium-enterprise-feel-pending.sh
+```
+
+### `page_version` confirmed
+
+```
+page_version: 62a825ef8a474ad3d6a27eaa8e2951bdd7016fa9785ce2fb9d93814753652098
+```
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.PREMIUM.ENTERPRISE_FEEL` |
+| `lane` | `ai` |
+| `registry_status` | `implemented` |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-premium-enterprise-feel` |
+
+### Content summary
+
+- **Purpose** — Holistic polish judgment (calm, deliberate, confident) with PDCA framing aligned to the AI prompt.
+- **Passing / failing signals** — Spacing, typography, card consistency, accent restraint, purposeful imagery vs template soup.
+- **Before example** — Failing markup: cramped `landing-hero`, inline styles, mixed `forge-card` / `glass` / Bootstrap `card`, non-Forge buttons.
+- **After example** — Passing markup using real KS classes: `fs-landing-hero-band`, `landing-hero-kicker`, `product-landing-title`, `btn-forge`, `forge-card card-amber breathe-link`, `fs-marketing-stat-band`, `forge-stat`, `landing-forge-visual__img`.
+- **Evidence and remediation** — Screenshot/DOM capture steps and ordered fix list with `DET.*` promotion path.
+- **Related rules** — 8 linked rules from taxonomy and sibling pages.
+
+### KS class verification
+
+Before/after examples use classes from `components/components.py`, `components/layouts.py`, `components/marketing_sections.py`, and `css/forgesdlc-theme.css` — including `landing-hero-wide`, `landing-hero-grid-wrap`, `section-label`, `card-label`, `forge-stat--amber`, and `landing-forge-visual__img`.
+
+No Mermaid, no Fleet-specific profiles, no check/registry edits.

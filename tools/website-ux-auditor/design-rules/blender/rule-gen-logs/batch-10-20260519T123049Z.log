@@ -1,0 +1,501 @@
+
+> forge-website-ux-auditor@0.1.0 rulegen
+> bash design-rules/blender/cursor-agent-generate-rule-library.sh --lane deterministic --max-rules 10
+
+[rule-gen] repo=/home/lzvyahin/Code/forgesdlc-kitchensink
+[rule-gen] lane=deterministic model=composer-2.5-fast max_rules=10
+[rule-gen] selected targets=10
+[rule-gen] (1/10) lane=deterministic rule=DET.NAV.DEDUP
+## Summary
+
+Implemented **DET.NAV.DEDUP** as a deterministic link-graph check: same-origin destinations must not repeat across **conflicting** chrome bands without hierarchy.
+
+### Rule signal (from spec)
+
+- **Pass:** No redundant same-destination links across peer nav bands (primary ↔ sidebar ↔ offcanvas).
+- **Allow:** Breadcrumb-only duplicates (hierarchy), footer utility repeats, fragment-only TOC links.
+- **Evidence:** Normalized pathname link graph per band (Kpn primary, Ksr sidebar, offcanvas, Kbc breadcrumb, etc.).
+
+### Files changed
+
+| File | Change |
+|------|--------|
+| `design-rules/deterministic/generated/det-nav-dedup.check.js` | Full implementation: `normalizeNavDestination`, `violationsFromNavLinkEntries`, `collectNavDedupReport` (Playwright), `findingsFromNavDedupReport`, `run` |
+| `design-rules/blender/rule-mappings.js` | `DETERMINISTIC_IMPLEMENTATIONS['DET.NAV.DEDUP']` — `implemented`, `informationArchitecture`, `warn`, weight `7` |
+| `design-rules/registry.generated.json` | Promoted rule from `stub` → `implemented` (counts 33/17) |
+| `auditor-tests/det-nav-dedup.test.js` | Unit tests for normalization, band conflicts, exemptions, findings, `run` |
+
+### Check behavior
+
+1. Classifies visible chrome links outside `main` into bands: **primary**, **sidebar**, **offcanvas**, **breadcrumb**, **toc**, **footer**.
+2. Normalizes `href` to same-origin `pathname` (+ hash when present).
+3. Flags:
+   - **`duplicate-destination`** — same path in conflicting pairs (`primary+sidebar`, `primary+offcanvas`, `sidebar+offcanvas`).
+   - **`duplicate-primary-roots`** — same path in two separate primary nav roots (nested mastheads per Kpn).
+4. Skips breadcrumb-only duplicates and footer-only peer pairs.
+5. Accepts precomputed `metrics.navDedupReport` or collects via `page.evaluate`.
+
+Findings use the standard shape: `severity`, `area`, `message`, `evidence`, `remediation` (aligned with `det-nav-breadcrumb` / `det-chrome-boundary`).
+
+### Verification
+
+Shell was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh the registry fingerprint; the registry entry was updated manually to match the explicit map so the runtime will execute the rule before you blend.
+
+### Relation to existing checks
+
+- **`duplicateNavLinkTextCount`** (dom-metrics / `homepage-shell`) — duplicate **labels** across chrome.
+- **DET.NAV.DEDUP** — duplicate **destinations** across conflicting **bands** (link graph), which matches the spec’s “Link graph” evidence type.
+[rule-gen] ok rule=DET.NAV.DEDUP log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T123050Z_1_DET_NAV_DEDUP.log
+[rule-gen] (2/10) lane=deterministic rule=DET.NAV.DEPTH
+Implemented **DET.NAV.DEPTH** as a deterministic global-nav depth check. Summary:
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-nav-depth.check.js`
+Replaced the stub with a full check that:
+
+- **Scopes** global primary nav only (Kpn / `.fs-primary-nav-global`, `.landing-nav`, landing header nav) — not doc sidebars or handbook trees
+- **Measures** max nested `<ul>`/`<ol>`/menu depth containing nav links (DOM tree depth)
+- **Treats** `fs-nav-dropdown` / Bootstrap dropdown panels as one flyout tier (+1 depth)
+- **Enforces**:
+  - `MAX_GLOBAL_NAV_DEPTH = 2` (top level + one flyout) without mega-menu
+  - `MAX_GLOBAL_NAV_DEPTH_WITH_MEGA = 4` when mega-menu markers are present
+- **Excludes** theme dropdown chrome from depth measurement
+- **Exports** testable helpers: `allowedNavDepth`, `violationsFromNavDepthMetrics`, `findingsFromNavDepthReport`, `collectNavDepthReport`, `run`
+- **Accepts** precomputed `metrics.navDepthReport` or collects via Playwright `page.evaluate`
+
+Findings use the standard shape: `severity`, `area`, `message`, `evidence`, `remediation`.
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|-------|-------|
+| status | `implemented` |
+| area | `informationArchitecture` |
+| scoreDimension | `informationArchitecture` |
+| defaultSeverity | `warn` |
+| priorityWeight | `7` |
+
+### 3. `auditor-tests/det-nav-depth.test.js`
+Unit tests for depth caps, violation mapping, findings shape, and `run()` with `metrics.navDepthReport`.
+
+### 4. `design-rules/registry.generated.json`
+Updated `DET.NAV.DEPTH` to `implemented` and adjusted coverage counts (34 implemented / 16 stub).
+
+## Rule logic (from spec)
+
+Per `docs/design/ux-audit/deterministic-design-rules.md#det-nav-depth`:
+
+> Global nav depth ≤ configured max; no excessive nested flyouts without mega-menu pattern.
+
+The check flags triple-nested flyouts in global chrome while allowing flat nav, single-tier dropdowns (`fs-nav-dropdown`), and deeper structures only when explicit mega-menu markers exist.
+
+## Verification (not run here)
+
+Shell commands were rejected in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules   # refreshes fingerprint + generatedAt
+npm test
+```
+
+`npm run blend-rules` will re-sync the registry fingerprint after the `rule-mappings.js` change.
+[rule-gen] ok rule=DET.NAV.DEPTH log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T123322Z_2_DET_NAV_DEPTH.log
+[rule-gen] (3/10) lane=deterministic rule=DET.NAV.FOCUS_ORDER
+## Summary
+
+Implemented **`DET.NAV.FOCUS_ORDER`** as a deterministic keyboard focus-order check aligned with the source rule: tab order should follow visual reading order on sampled paths.
+
+### Rule signals (from spec)
+
+- **Pass:** Tab order matches top-to-bottom / left-to-right visual order.
+- **Evidence:** Automated tab order (no AI).
+
+### Implementation
+
+**`design-rules/deterministic/generated/det-nav-focus-order.check.js`**
+
+- Builds a browser tab sequence (positive `tabindex` first, then DOM order) for up to **48** visible tab stops.
+- Flags:
+  - **`positive-tabindex`** — any `tabindex > 0` (minor)
+  - **`reverse-vertical`** — next stop jumps **>72px** upward (warn)
+  - **`reverse-horizontal`** — same-row LTR move **>96px** left (warn; skipped when `dir=rtl`)
+- Exports: `rule`, `run`, `collectNavFocusOrderReport`, `findingsFromNavFocusOrderReport`, `violationsFromFocusOrderSequence` (unit-testable).
+- `run` uses `metrics.navFocusOrderReport` or live `page.evaluate()`.
+
+**`design-rules/blender/rule-mappings.js`**
+
+- Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `area: accessibility`, `scoreDimension: accessibilitySemanticsMeta`, `priorityWeight: 8`.
+
+**`auditor-tests/det-nav-focus-order.test.js`**
+
+- Covers violation detection, finding mapping, and `run()` with precomputed metrics.
+
+**`design-rules/registry.generated.json`**
+
+- Updated so `DET.NAV.FOCUS_ORDER` is **`implemented`** (coverage counts 35/15). Re-run blend to refresh **`fingerprint`** and **`generatedAt`**.
+
+### What you should run locally
+
+Shell was unavailable in this session, so please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will reconcile the registry fingerprint with `rule-mappings.js`; `npm test` should include the new `det-nav-focus-order` tests plus the existing suite.
+[rule-gen] ok rule=DET.NAV.FOCUS_ORDER log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T123509Z_3_DET_NAV_FOCUS_ORDER.log
+[rule-gen] (4/10) lane=deterministic rule=DET.NAV.IN_PAGE_TOC
+## Summary
+
+Implemented **DET.NAV.IN_PAGE_TOC** as a deterministic check aligned with the source rule: handbook/doc pages should expose an in-page TOC when content is long enough, and TOC links must resolve to in-main heading targets.
+
+### What changed
+
+**1. `design-rules/deterministic/generated/det-nav-in-page-toc.check.js`**
+
+Replaced the auto-generated stub with a full check that:
+
+- **Requires TOC** when the page is a doc hub (handbook/chapter/showcase/etc. layout, doc sidebar, or showcase header) **and** content exceeds thresholds:
+  - ≥ 4 `h2`/`h3` headings in `main`, or
+  - ≥ 900 words in `main`
+- **Detects TOC** via Ktx markers (`.forge-toc`, `[data-ks-hash="Ktx"]`, `nav[aria-label="On this page"]`, etc.)
+- **Validates anchor map**: each TOC `#fragment` must resolve to an element inside `main`
+- Exports testable helpers: `pageRequiresTocFromSignals`, `findingsFromNavInPageTocReport`, `collectNavInPageTocReport`, `run`
+- Accepts precomputed `metrics.navInPageTocReport` or collects via Playwright `page.evaluate`
+
+**2. `design-rules/blender/rule-mappings.js`**
+
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+- `status: implemented`
+- `area: informationArchitecture`
+- `scoreDimension: informationArchitecture`
+- `defaultSeverity: warn`
+- `priorityWeight: 7`
+
+**3. `design-rules/registry.generated.json`**
+
+Updated coverage counts and the rule entry to `implemented` (36 implemented / 14 stub).
+
+**4. `auditor-tests/det-nav-in-page-toc.test.js`**
+
+Unit tests for threshold logic, finding shape, and `run()` with `metrics.navInPageTocReport` (same pattern as other nav checks).
+
+### Why these signals
+
+From `deterministic-design-rules.md` and the **Ktx** contract:
+
+| Signal | Rationale |
+|--------|-----------|
+| Doc-hub page detection | Rule applies to handbook/doc pages, not landing/marketing |
+| Heading/word thresholds | “when length exceeds threshold” |
+| Ktx / `.forge-toc` selectors | Matches KS chrome contract |
+| Broken `#` anchor check | “links skip correctly” via anchor map validation |
+
+### Verification
+
+Shell was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will refresh `fingerprint` and `generatedAt` in the registry. All tests should pass, including the new `det-nav-in-page-toc.test.js`.
+[rule-gen] ok rule=DET.NAV.IN_PAGE_TOC log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T123710Z_4_DET_NAV_IN_PAGE_TOC.log
+[rule-gen] (5/10) lane=deterministic rule=DET.PAGE.MODE
+Implemented **DET.PAGE.MODE** as a deterministic page-mode check. Shell commands could not be run in this environment (all invocations were rejected), so please run verification locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-page-mode.check.js`
+Replaced the auto-generated stub with a full implementation that:
+
+- **Declares mode** from KS layout (`[data-ks-type="layout"][data-ks-name]`), `meta[name="forge-page-mode"]`, or `data-page-mode` on `html`/`body`.
+- **Infers structural modes** above the fold: doc sidebar, showcase header, app shell, handbook chrome metrics.
+- **Maps layouts** to canonical modes (`layout-marketing` → `marketing`, `layout-handbook` → `handbook`, etc.).
+- **Flags violations**:
+  - `competing-modes` — e.g. marketing + handbook (landing layout with doc sidebar / handbook chrome).
+  - `home-handbook-shell` — `/` reads as handbook/docs instead of public landing.
+  - `undeclared-mode` — KS page with content but no layout/mode metadata.
+- Exports testable helpers (`detectPageModes`, `violationsFromPageModeSignals`, `collectPageModeReport`, `mergePageModeMetrics`, …) and `run({ metrics, page, url, ctx })` returning standard findings (`severity` / `area` / `message` / `evidence` / `remediation`).
+- Skips **platform handbook inner** routes (same pattern as `DET.CONTEXT.BURDEN`).
+- Merges live crawl metrics (`handbookChromeTermHits`, `sidebarOffcanvasLinkCount`, `hasHandbookChromeOnHome`) when `pageModeReport` is built from Playwright.
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|--------|--------|
+| status | `implemented` |
+| area | `informationArchitecture` |
+| scoreDimension | `informationArchitecture` |
+| defaultSeverity | `major` |
+| priorityWeight | `10` |
+
+(Aligns with the `homepage-shell` legacy adapter mapping for this rule.)
+
+### 3. `auditor-tests/det-page-mode.test.js`
+Unit tests for mode detection, incompatibility pairs, violation → finding mapping, metrics merge, and `run()` behavior.
+
+### 4. `design-rules/registry.generated.json`
+Updated **DET.PAGE.MODE** from `stub` → `implemented` and adjusted coverage counts (`37` implemented / `13` stub). **`npm run blend-rules`** will refresh `fingerprint` and `generatedAt` to match `rule-mappings.js`.
+
+## Why
+
+The rule requires a **single primary page mode** with no competing handbook vs marketing signals above the fold. That is measurable from layout metadata and DOM shell patterns (layout slug, doc sidebar, handbook chrome metrics on `/`) without AI heuristics—matching `docs/design/ux-audit/deterministic-design-rules.md#det-page-mode` and the Page mode taxonomy in `docs/design/forge-enterprise-ai-website-standard.md`.
+
+`homepage-shell` remains the stricter homepage-specific blocker; **DET.PAGE.MODE** generalizes mode clarity for all routes and integrates with the design-rule runtime alongside other deterministic checks.
+[rule-gen] ok rule=DET.PAGE.MODE log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T123846Z_5_DET_PAGE_MODE.log
+[rule-gen] (6/10) lane=deterministic rule=DET.PROSE.LENGTH
+## DET.PROSE.LENGTH implemented
+
+Implemented the deterministic prose-length check. Shell commands were unavailable in this session, so **`npm run blend-rules` and `npm test` need to be run locally** to refresh the registry fingerprint and confirm the suite.
+
+### Plan (signals from rule anchor)
+
+From `docs/design/ux-audit/deterministic-design-rules.md#det-prose-length` and `forge-enterprise-ai-website-standard.md`:
+
+| Signal | Threshold | Source |
+|--------|-----------|--------|
+| Paragraph word count | ≤ **85** words | Legacy `readability-structure` + enterprise “1–2 paragraphs per section” |
+| Card list items | ≤ **3** direct `li` | Enterprise “Bullets per card: 3 maximum” |
+| Main prose lists | ≤ **12** direct `li` | Scannability cap for non-nav lists |
+
+Platform handbook inner pages are skipped (same as legacy readability checks).
+
+### Do — `det-prose-length.check.js`
+
+- **`longParagraphViolations()`** — uses existing `metrics.paragraphs` from DOM metrics (no extra crawl cost).
+- **`collectProseLengthReport()`** — Playwright `page.evaluate` for `ul`/`ol` in `main`, excluding nav/TOC/sidebar; separate card vs prose caps.
+- **`findingsFromLongParagraphs()` / `findingsFromListLengthReport()`** — testable pure helpers.
+- **`run({ metrics, page, url, ctx })`** — merges metrics + optional live list scan; thresholds overridable via `ctx.maxParagraphWords`, `ctx.maxCardListItems`, `ctx.maxProseListItems`.
+- Finding shape preserved: `severity`, `area: 'readability'`, `message`, `evidence`, `remediation`.
+
+### Register — `rule-mappings.js`
+
+`DET.PROSE.LENGTH` is registered under `DETERMINISTIC_IMPLEMENTATIONS` as **implemented**:
+
+- `area`: `readability`
+- `scoreDimension`: `depthAndTechnicalDisclosure` (matches legacy `technical-depth` / `readability-structure` adapters)
+- `priorityWeight`: `7`
+- `defaultSeverity`: `minor`
+
+### Check — tests added
+
+New file: `auditor-tests/det-prose-length.test.js` covering constants, paragraph/list violations, handbook skip, aggregation, and `run()`.
+
+### Run locally
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`blend-rules` will move `DET.PROSE.LENGTH` from **stub** → **implemented** in `registry.generated.json` (currently still shows stub at line 601) and refresh the fingerprint.
+
+### Scope note
+
+Only this rule was touched. Legacy `checks/readability-structure.js` still flags long paragraphs independently until those checks are fully migrated to the design-rule runtime.
+[rule-gen] ok rule=DET.PROSE.LENGTH log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T124105Z_6_DET_PROSE_LENGTH.log
+[rule-gen] (7/10) lane=deterministic rule=DET.PY.KS_HASH_ATTRS
+## Summary
+
+Implemented **`DET.PY.KS_HASH_ATTRS`** as a repo-level Python source check (evidence: generated HTML is already covered by `DET.HASH.MARKERS` on the DOM).
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-py-ks-hash-attrs.check.js`**
+   - **`scanPyKsHashAttrs(repoRoot)`**:
+     - Requires marker-emitter modules (`layouts.py`, `components.py`, `ks_catalog_hashes.py`, `build-showcase.py`, `layout_previews.py`, `forge_autodoc/page.py`, plus registry `layout` / `chrome-region` / `layout-preview` sources) to call `ks_hash_attrs` or `ks_catalog_hashes` helpers.
+     - Scans `components/`, `generator/`, and `forge-autodoc/` for **inline** `hash` / `data-ks-*` literals (only `components/ks_hash_attrs.py` is exempt).
+   - Exports `rule`, `run(ctx)`, and test helpers; findings use `severity` / `area` / `message` / `evidence` / `remediation`.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as **`implemented`**: `visual-catalog` / `visualCatalogGovernance` / `minor` / weight **8**.
+
+3. **`auditor-tests/det-py-ks-hash-attrs.test.js`**
+   - Unit tests plus a pass against the real kitchensink tree.
+
+4. **`design-rules/registry.generated.json`**
+   - Updated `DET.PY.KS_HASH_ATTRS` to `implemented` (coverage counts adjusted). **Re-run `npm run blend-rules`** to refresh `fingerprint` / `generatedAt`.
+
+### Why this design
+
+The rule doc says renderers must use **`ks_hash_attrs` (or equivalent)**. Equivalents are the catalog wrappers (`layout_shell_attrs`, `page_main_attrs`, `chrome_region_attrs`). `generator/pages/*.py` are excluded from the emitter list because markers are applied in `build-showcase.py` / layouts, not in page content modules.
+
+### Verification
+
+Shell was unavailable in this session. Please run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+The kitchensink integration test expects **zero issues** on the current tree. If anything fails, paste the output and we can adjust.
+[rule-gen] ok rule=DET.PY.KS_HASH_ATTRS log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T124229Z_7_DET_PY_KS_HASH_ATTRS.log
+[rule-gen] (8/10) lane=deterministic rule=DET.PY.OPTIONAL_REGIONS
+Implemented **DET.PY.OPTIONAL_REGIONS** as a DOM-based deterministic check for optional Python-rendered slots that leak visible empty wrappers or “ghost” headings.
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-py-optional-regions.check.js`
+Replaced the auto-generated stub with a full implementation:
+
+- **Signals (from rule anchor):** optional slots must omit or collapse when empty; no ghost headings.
+- **DOM scan targets** known KS optional slot wrappers:
+  - `[data-ks-optional]`, `.fs-site-announcement`, `.ks-doc-breadcrumb`, `.fs-listing-shell__sidebar`, `.fs-mega-footer__{brand,legal,bottom}`
+  - Mega-footer columns with a title but no links
+- **Violation kinds:**
+  - `ghost-heading` — visible heading/label, no substantive body (≥3 chars or body nodes)
+  - `empty-visible-slot` — visible wrapper with no content and height ≥ 8px
+- **Pass:** slots at zero height (≤8px) are treated as correctly collapsed
+- Exports: `rule`, `run`, `collectOptionalRegionsReport`, `classifyOptionalSlotViolation`, `findingsFromOptionalRegionsReport`
+- Findings use standard fields: `severity`, `area`, `message`, `evidence`, `remediation`
+
+### 2. `design-rules/blender/rule-mappings.js`
+Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+
+| Field | Value |
+|-------|-------|
+| status | `implemented` |
+| area | `informationArchitecture` |
+| scoreDimension | `informationArchitecture` |
+| defaultSeverity | `warn` |
+| priorityWeight | `6` |
+
+### 3. `auditor-tests/det-py-optional-regions.test.js`
+Unit tests for classification, finding mapping, and `run()` with precomputed metrics.
+
+### 4. `design-rules/registry.generated.json`
+Updated coverage counts and moved `DET.PY.OPTIONAL_REGIONS` from stub → implemented (39 implemented / 11 stub).
+
+## Verification
+
+Shell/npm was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+`npm run blend-rules` will refresh the registry fingerprint; `design-rules-blender.test.js` also runs the blender during the test suite.
+
+## Design rationale
+
+The check mirrors KS Python guard patterns (`if not sidebar_html.strip(): return …`, `if breadcrumb_html.strip():`, etc.) by inspecting the rendered DOM for optional regions that should have been omitted or collapsed. It stays deterministic—bounding-box height, heading vs body character counts, and presence of substantive body nodes—without AI heuristics.
+[rule-gen] ok rule=DET.PY.OPTIONAL_REGIONS log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T124440Z_8_DET_PY_OPTIONAL_REGIONS.log
+[rule-gen] (9/10) lane=deterministic rule=DET.REACT.A11Y_ROLE
+## Summary
+
+Implemented **DET.REACT.A11Y_ROLE** as a deterministic DOM check scoped to KS React primitive roots (`[data-ks-react-root="true"]` and `[data-ks-type="react-primitive"][data-ks-hash]`), aligned with `FAM-react-primitives.md` and the source rule: *interactive primitives expose correct ARIA roles/states for keyboard/screen readers*.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-react-a11y-role.check.js`**
+   - Replaced the auto-generated stub with a full check.
+   - Scans each primitive root for:
+     - **missing-accessible-name** — interactive controls without a name (major)
+     - **missing-aria-expanded** — disclosure/listbox triggers with `aria-haspopup`/`aria-controls` but no `aria-expanded` (warn)
+     - **option-missing-selected** — `role="option"` without `aria-selected` (minor)
+     - **listbox-missing-label** / **toolbar-missing-label** — named regions missing labels (minor)
+     - **banner-missing-live-role** — `Fsb` / `forge-status-banner` without `role="status"|"alert"` (minor)
+     - **focusable-without-role** — `div`/`span` with `tabindex≥0` and no widget role (major)
+   - Exports: `rule`, `run`, `collectReactA11yRoleReport`, `findingsFromReactA11yRoleReport`.
+   - Uses `metrics.reactA11yRoleReport` or live `page.evaluate()`.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS`:
+     - `area`: `accessibility`
+     - `scoreDimension`: `accessibilitySemanticsMeta`
+     - `priorityWeight`: `8`
+     - `defaultSeverity`: `minor`
+
+3. **`auditor-tests/det-react-a11y-role.test.js`**
+   - Unit tests for `findingsFromReactA11yRoleReport` and `run` (metrics path).
+
+4. **`design-rules/registry.generated.json`**
+   - Updated `DET.REACT.A11Y_ROLE` to `status: "implemented"` and refreshed coverage counts (40 implemented / 10 stubs).
+
+### Why these signals
+
+They map directly to measurable ARIA patterns in the React source (`TileDropdownControl`, `WorkspaceLensControl`, `ForgeDecisionActionBar`, `ForgeStatusBanner`, etc.) without AI heuristics — the same class of checks axe/DOM would surface for listbox, toolbar, and live-region semantics.
+
+### Verification
+
+Shell execution was unavailable in this session. Please run locally:
+
+```bash
+cd tools/website-ux-auditor && npm run blend-rules && npm test
+```
+
+`blend-rules` should confirm the registry stays in sync; `npm test` should pick up `auditor-tests/det-react-a11y-role.test.js`. If anything fails, share the output and I can adjust.
+[rule-gen] ok rule=DET.REACT.A11Y_ROLE log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T124705Z_9_DET_REACT_A11Y_ROLE.log
+[rule-gen] (10/10) lane=deterministic rule=DET.REACT.KS_ATTRS
+## Summary
+
+Implemented **DET.REACT.KS_ATTRS** as a DOM deterministic check aligned with `react/ksVisualAttrs.ts` and `docs/design/catalog/primitives/FAM-react-primitives.md`.
+
+### What changed
+
+1. **`design-rules/deterministic/generated/det-react-ks-attrs.check.js`**
+   - Scans visible KS React primitive roots (`data-ks-react-root="true"` or `data-ks-type="react-primitive"`).
+   - Verifies `data-ks-hash` (three distinct ASCII letters), `data-ks-type="react-primitive"`, `data-ks-name` (non-empty), paired `hash` / `data-ks-hash`, and `data-ks-react-root="true"`.
+   - Exports `findingsFromReactKsAttrsReport`, `collectReactKsAttrsReport`, and `run` (uses `metrics.reactKsAttrsReport` or live `page.evaluate()`).
+   - Findings use `area: visual-catalog`, standard severity/evidence/remediation fields, cap at 10 per page.
+
+2. **`design-rules/blender/rule-mappings.js`**
+   - Registered under `DETERMINISTIC_IMPLEMENTATIONS` as `implemented` with `visualCatalogGovernance`, `priorityWeight: 8`.
+
+3. **`auditor-tests/det-react-ks-attrs.test.js`**
+   - Unit tests for hash validation, findings mapping, and `run()` behavior.
+
+4. **`design-rules/registry.generated.json`**
+   - Coverage updated: **41 implemented**, **9 stubs**, `DET.REACT.KS_ATTRS` marked implemented (fingerprint/`generatedAt` still from the prior blend — re-run blender to refresh).
+
+### Why
+
+The rule requires React primitives to emit the same governed marker trio as `ksReactPrimitiveAttrs()` — the DOM-side complement to **DET.PY.KS_HASH_ATTRS** for Python renderers and separate from **DET.HASH.MARKERS** (global hash pairs) and **DET.REACT.A11Y_ROLE** (ARIA behavior).
+
+### Verification (please run locally)
+
+Terminal access was blocked in this session. From `tools/website-ux-auditor`:
+
+```bash
+npm run blend-rules
+npm test
+```
+
+Or only this rule’s tests:
+
+```bash
+node --test auditor-tests/det-react-ks-attrs.test.js
+```
+
+`blend-rules` will refresh `registry.generated.json` fingerprint after the mapping change. If anything fails, paste the output and I can adjust.
+[rule-gen] ok rule=DET.REACT.KS_ATTRS log=/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/rule-gen-logs/20260519T124832Z_10_DET_REACT_KS_ATTRS.log
+[rule-gen] done targets=10 failures=0

@@ -40,6 +40,7 @@ export UX_AUDIT_OUT_DIR="${campaign}"
 export UX_AUDIT_SCORER_MAX_PAGES=2
 export MAX_PAGES=2
 export STOP_AFTER_MAJOR_PLUS=99
+export FORGE_UX_AUDIT_STOP_AFTER_BACKLOG=0
 export UX_AUDIT_BREADTH_CRAWL=1
 export TIMEOUT_MS=90000
 # During crawl idle windows, emit a progress row at least every 30s so the log-line watchdog

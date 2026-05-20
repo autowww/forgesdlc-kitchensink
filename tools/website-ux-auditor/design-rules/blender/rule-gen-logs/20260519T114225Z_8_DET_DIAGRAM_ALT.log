@@ -1,0 +1,53 @@
+Implemented **DET.DIAGRAM.ALT** as a deterministic accessibility check for diagram decorative/informative classification.
+
+## Rule signal
+
+From `docs/design/ux-audit/deterministic-design-rules.md#det-diagram-alt`:
+
+- **Decorative** diagrams should use `aria-hidden`, `role="presentation"`, and/or empty `alt`.
+- **Informative** diagrams should use `role="figure"` / `role="img"` with text alternatives (`alt`, `aria-label`, `figcaption`).
+- Violations are **conflicting signals**, not semantic accuracy (that stays AI-side).
+
+## What changed
+
+### 1. `design-rules/deterministic/generated/det-diagram-alt.check.js`
+
+Replaced the stub with a full check (pattern aligned with `det-chart-alt-summary`):
+
+- **`MIN_DIAGRAM_ALT_CHARS = 3`**
+- **Diagram roots:** `.forge-diagram`, `.ks-diagram-tile`, `[data-diagram-key]`, ASCII figure variants, embedded diagram `img`/`svg`
+- **Exclusions:** chart mounts, ambient/background layers, nav/toolbar chrome
+- **Violation kinds:**
+  - `diagram-alt-conflicting-role` — `aria-hidden` + `role="img"`
+  - `diagram-alt-informative-hidden` — caption/alt present but hidden via `aria-hidden` or `role="presentation"`
+  - `diagram-alt-decorative-named` — empty `alt` on img but accessible name elsewhere without hide markers
+  - `diagram-alt-missing-summary` — catalog-linked or `role="figure"`/`role="img"` without text alternative
+- **Exports:** `rule`, `findingsFromDiagramAltReport`, `collectDiagramAltReport`, `run(ctx)`
+
+Metadata: `area: accessibility`, `scoreDimension: accessibilitySemanticsMeta`, `defaultSeverity: major`, `priorityWeight: 7`.
+
+### 2. `design-rules/blender/rule-mappings.js`
+
+Registered `DET.DIAGRAM.ALT` under `DETERMINISTIC_IMPLEMENTATIONS` with `status: 'implemented'`.
+
+### 3. `auditor-tests/det-diagram-alt.test.js`
+
+Unit tests for constants, finding shapes, empty report, and `metrics.diagramAltReport` wiring.
+
+## Verification
+
+Shell was unavailable in this session, so please run locally:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+npm run blend-rules
+npm test
+```
+
+Targeted test:
+
+```bash
+node --test auditor-tests/det-diagram-alt.test.js
+```
+
+`blend-rules` will refresh `registry.generated.json` so `DET.DIAGRAM.ALT` shows `status: "implemented"` with the mapped metadata. Scope was limited to this single rule only.

@@ -1,0 +1,19 @@
+VERDICT: PASS
+
+**Evidence**
+- **Plan artifact:** `.cursor/plans/ks-ux-component-rules/01-showcase-and-catalog-inventory.md` exists and documents live URL outcomes, local showcase fallback, inventory commands, totals, contracts, screenshots, family coverage, follow-on rule targets, and explicit **no Fleet-specific UX profile** (aligned with `00-master-sequence.md`).
+- **Generated inventory:** `docs/design/catalog/visual-inventory.generated.json` matches the plan’s core numbers: `summary.total` **363**, `catalogCrosswalk.registry.row_count` **91**, `emitted_hash_count` **54**, `emit_marker_gaps` **[]**, `showcase_hashes_not_in_registry` **[]**, `contracts.missing_or_empty` **[]**, `stub_warnings_by_contract` **[]**, screenshot summary **48** catalog PNGs / **91** rows, `source_inventory.distinct_source_paths_in_inventory` **290** (see ```4748:4897:/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/catalog/visual-inventory.generated.json``` and ```5545:5548:/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/catalog/visual-inventory.generated.json```).
+- **Tooling:** `tools/design-catalog/inventory-ks-visuals.mjs` defines `catalogCrosswalk`, `--showcase`, `--registry-json`, `--no-registry` (verified via grep).
+- **Markdown output:** `docs/design/catalog/visual-inventory.generated.md` includes **Catalog crosswalk** (```390:403:/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/catalog/visual-inventory.generated.md```).
+- **Showcase tree:** **29** top-level `showcase/*.html` files; **7** are `preview-*.html`, so **22** non-preview pages matches the log’s “22 pages + previews.”
+- **Fleet profile:** No `fleet` + `profile`-style markers under `tools/website-ux-auditor/` in a quick search.
+
+**Missing / weak points**
+- **Parent row count narrative:** The plan states **5** parents (`Kpr`, `Rpf`, `Ksc`, `Ksj`, `Ksv`), but the generated crosswalk lists **6** parents because **`Msm`** also has `child_hashes` (museum studio → `vYA`). The generated `.md` correctly says **6** (`Parent rows listing children: 6`). The plan should either say **6** or state a deliberate exclusion (e.g. only “family” `type`s).
+- **Live URL claims:** Not re-checked from this environment (Ask mode, no HTTP); treat as **operator-provided** unless you re-run `curl`.
+- **`build-showcase.py` / `check-visual-catalog`:** Not re-run here; artifacts on disk are consistent with a successful recent run (**2026-05-19** timestamps in JSON).
+
+**Exact next actions**
+1. Edit **only** `.cursor/plans/ks-ux-component-rules/01-showcase-and-catalog-inventory.md`: fix the **parent row count** to **6** or add one line explaining why `Msm` is excluded from the “5” list, so the plan matches `visual-inventory.generated.{json,md}`.
+2. Optionally re-run `python3 generator/build-showcase.py` and `node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase` after any catalog/showcase change to keep artifacts fresh.
+3. Proceed to the next phase items already called out in the plan: screenshot URL alignment vs committed PNGs, and tighter rules for **`Kpr` / `Rpf` / `Ksc` / `Ksj` / `Ksv`** as planned.

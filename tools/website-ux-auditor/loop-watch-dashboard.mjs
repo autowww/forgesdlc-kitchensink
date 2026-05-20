@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
  * Alternate-screen dashboard for FORGE_UX_LOOP_WATCH (polls ux-loop-dashboard-state.json + log tail).
+ * Updates only changed screen rows by default (low flicker, still live). Set FORGE_UX_LOOP_WATCH_FULL_REDRAW=1 for legacy full clears.
  *
  * Usage: node loop-watch-dashboard.mjs OUT_DIR
  */
@@ -9,8 +10,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 
-import { buildWatchFrameLines } from './lib/loop-watch-dashboard-frame.js';
-import { dashboardLogPath, readDashboardStateSafe } from './lib/ux-loop-dashboard-state.js';
+import { buildWatchFrameRedrawSequence } from './lib/loop-watch-redraw.js';
+import { stripAnsi } from './lib/terminal-ansi.js';
+import { readDashboardStateSafe } from './lib/ux-loop-dashboard-state.js';
+import { buildUxLoopDashboardSnapshotLines } from './lib/ux-loop-dashboard-snapshot-text.js';
 
 const ALT_SCREEN_ON = '\x1b[?1049h';
 const ALT_SCREEN_OFF = '\x1b[?1049l';
@@ -18,64 +21,6 @@ const HIDE_CURSOR = '\x1b[?25l';
 const SHOW_CURSOR = '\x1b[?25h';
 const HOME = '\x1b[H';
 const CLEAR_FROM_CURSOR = '\x1b[J';
-
-/**
- * @param {string} logFile
- * @param {number} maxLines
- * @param {number} maxBytes
- */
-export function tailLogLines(logFile, maxLines = 10, maxBytes = 8192) {
-  try {
-    const st = fs.statSync(logFile);
-    const start = Math.max(0, st.size - maxBytes);
-    const buf = Buffer.alloc(st.size - start);
-    const fd = fs.openSync(logFile, 'r');
-    try {
-      fs.readSync(fd, buf, 0, buf.length, start);
-    } finally {
-      fs.closeSync(fd);
-    }
-    const lines = buf.toString('utf8').split(/\r?\n/).filter((x) => x.trim().length > 0);
-    return lines.slice(-maxLines);
-  } catch {
-    return [];
-  }
-}
-
-/** @param {string} outDir */
-function readRunMetaSafe(outDir) {
-  try {
-    const raw = fs.readFileSync(path.join(outDir, 'run-meta.json'), 'utf8');
-    const j = JSON.parse(raw);
-    return j && typeof j === 'object' ? j : {};
-  } catch {
-    return {};
-  }
-}
-
-/** @param {string} outDir */
-function readScoreOverallSafe(outDir) {
-  try {
-    const raw = fs.readFileSync(path.join(outDir, 'ux-quality-score.json'), 'utf8');
-    const j = JSON.parse(raw);
-    const o = j?.uxScores?.overall;
-    return o != null && Number.isFinite(Number(o)) ? String(o) : '';
-  } catch {
-    return '';
-  }
-}
-
-/** @param {string} outDir */
-function readDeltaVerbalSafe(outDir) {
-  try {
-    const raw = fs.readFileSync(path.join(outDir, 'ux-quality-score-loop-delta.json'), 'utf8');
-    const j = JSON.parse(raw);
-    const v = j?.verbalSummary;
-    return typeof v === 'string' ? v : '';
-  } catch {
-    return '';
-  }
-}
 
 function main() {
   const outDir = path.resolve(process.argv[2] || '');
@@ -108,32 +53,91 @@ function main() {
   stdout.write(ALT_SCREEN_ON + HIDE_CURSOR);
 
   const tickMs = Number(process.env.FORGE_UX_LOOP_WATCH_REFRESH_MS || '') || 350;
+  /** When the merged frame text is unchanged (common between crawl events), skip writing: avoids idle full-screen flicker. */
+  const skipIdleRedraw =
+    process.env.FORGE_UX_LOOP_WATCH_SKIP_IDLE_REDRAW === '0' ? false : true;
+  /** Every tick: HOME + clear entire frame (legacy; more flicker). Default: incremental row updates only. */
+  const forceFullRedraw = process.env.FORGE_UX_LOOP_WATCH_FULL_REDRAW === '1';
+  let lastFrameText = '';
+  let lastFrameCompare = '';
+  /** @type {string[]} */
+  let lastFrameLines = [];
+  /** Last `state.phase` from disk — used to force a full redraw when phases change (stderr from child steps otherwise desyncs row-addressed updates). */
+  let lastDashboardPhase = '';
+  let volatileRepaintTick = 0;
+  process.on('SIGWINCH', () => {
+    lastFrameLines = [];
+    lastFrameText = '';
+    lastFrameCompare = '';
+    lastDashboardPhase = '';
+    volatileRepaintTick = 0;
+  });
+
+  const frameCols = () => {
+    const w = stdout.columns;
+    if (!w || !Number.isFinite(w) || w < 40) return 100;
+    /** Avoid huge widths (wrapping glitches) while tracking real terminal size. */
+    return Math.min(w, 200);
+  };
+
   const interval = setInterval(() => {
-    const cols = stdout.columns || 100;
-    const state = readDashboardStateSafe(outDir);
-    const meta = readRunMetaSafe(outDir);
-    const websiteRepo = typeof meta.website_repo === 'string' ? meta.website_repo : '';
-    const siteUrl = typeof meta.site_url === 'string' ? meta.site_url : '';
-    const outDisp = typeof meta.output_directory === 'string' ? meta.output_directory : outDir;
+    const dashState = readDashboardStateSafe(outDir);
+    const phaseNow = typeof dashState.phase === 'string' ? dashState.phase : '';
+    const phaseTransitioned = lastDashboardPhase !== '' && phaseNow !== lastDashboardPhase;
+    lastDashboardPhase = phaseNow;
+    /** Child scripts (AI audit, remediation agent) write to stderr; incremental CSI row updates then paint the wrong rows. */
+    const volatileChildPhase = /ai_audit|remediation_agent/i.test(phaseNow);
+    if (volatileChildPhase) volatileRepaintTick += 1;
+    else volatileRepaintTick = 0;
+    const volatileFullInterval = Math.max(
+      4,
+      Math.floor(3000 / Math.max(100, tickMs)),
+    );
+    const forceFullThisTick =
+      forceFullRedraw
+      || phaseTransitioned
+      || (volatileChildPhase && volatileRepaintTick % volatileFullInterval === 1);
 
-    const scoreOverall = readScoreOverallSafe(outDir);
-    const deltaVerbal = readDeltaVerbalSafe(outDir);
+    const frame = buildUxLoopDashboardSnapshotLines(outDir, frameCols());
 
-    const logTail = tailLogLines(dashboardLogPath(outDir));
+    const frameText = `${frame.join('\n')}\n`;
+    const ap =
+      dashState.auditProgress && typeof dashState.auditProgress === 'object'
+        ? /** @type {Record<string, unknown>} */ (dashState.auditProgress)
+        : {};
+    const prp =
+      ap.pageRuleProgress && typeof ap.pageRuleProgress === 'object'
+        ? /** @type {Record<string, unknown>} */ (ap.pageRuleProgress)
+        : {};
+    const rulesetPulseActive = Boolean(String(prp.ruleId || '').trim());
+    const frameCompare = rulesetPulseActive ? frameText : frame.map(stripAnsi).join('\n');
+    if (skipIdleRedraw && frameCompare === lastFrameCompare) {
+      return;
+    }
 
-    const frame = buildWatchFrameLines(cols, state, logTail, {
-      websiteRepo,
-      siteUrl,
-      outDir: outDisp,
-      scoreOverall,
-      deltaVerbal,
-    });
+    const redraw = buildWatchFrameRedrawSequence(lastFrameLines, frame, forceFullThisTick);
+    if (redraw.mode === 'none') {
+      if (!skipIdleRedraw) {
+        try {
+          stdout.write(HOME + CLEAR_FROM_CURSOR + frameText);
+        } catch {
+          cleanupAndExit(1);
+        }
+      }
+      lastFrameText = frameText;
+      lastFrameCompare = frameCompare;
+      lastFrameLines = frame.slice();
+      return;
+    }
 
     try {
-      stdout.write(HOME + CLEAR_FROM_CURSOR + `${frame.join('\n')}\n`);
+      stdout.write(redraw.seq);
     } catch {
       cleanupAndExit(1);
     }
+    lastFrameText = frameText;
+    lastFrameCompare = frameCompare;
+    lastFrameLines = frame.slice();
   }, tickMs);
 }
 
