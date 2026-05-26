@@ -1,0 +1,45 @@
+## Report: `det-nav-focus-order.md`
+
+Wrote/refined the PDCA handbook page for **`DET.NAV.FOCUS_ORDER`** from:
+
+- Source anchor: `docs/design/ux-audit/deterministic-design-rules.md#det-nav-focus_order`
+- Check module: `tools/website-ux-auditor/design-rules/deterministic/generated/det-nav-focus-order.check.js`
+- Schema: `RULE_PAGE_SCHEMA.md`
+- KS patterns: `components/layouts.py`, `components/components.py`, `css/forgesdlc-theme.css`
+
+### `page_version` confirmed
+
+```
+84636f49a8af2c9595b613d075ec4f5c84d25ca7537f8b8fc84b43684a3d0210
+```
+
+### Page contents
+
+| Section | Coverage |
+|---------|----------|
+| **Purpose** | Tab-order vs visual reading order; Playwright samples up to 48 stops; four violation kinds with thresholds (72px vertical, 96px horizontal, 40px same-row band, 16 suppressed chrome links) |
+| **Passing signals** | Header → Kpn/landing-nav → main → footer flow; no positive tabindex; dropdown panels in DOM order |
+| **Failing signals** | `positive-tabindex`, `reverse-vertical`, `reverse-horizontal`, `handbook-chrome-tab-suppressed` with evidence shapes |
+| **Before example** | Failing: `flex-row-reverse` on `fs-primary-nav-global-inner` + `tabindex="3"` on hero CTA |
+| **After example** | Passing: skip link, LTR Kpn, `fs-nav-dropdown` with `data-fs-nav-dropdown`, default tabindex, footer |
+| **Evidence and remediation** | `navFocusOrderReport` fields + 6-step fix order + harness re-run commands |
+| **Related rules** | `DET.LANDMARKS.REQUIRED`, `DET.NAV.DEPTH`, `DET.NAV.BREADCRUMB`, `DET.NAV.IN_PAGE_TOC`, `DET.APP.FOCUS_TRAP` |
+
+### Real KS classes used in examples
+
+`site-header`, `site-header-brand`, `site-header-content`, `forge-brand`, `fs-primary-nav-global`, `fs-primary-nav-global-inner`, `landing-nav-link`, `fs-nav-dropdown`, `data-fs-nav-dropdown`, `fs-nav-dropdown__trigger`, `fs-nav-dropdown__panel`, `fs-nav-dropdown__panel-inner`, `fs-nav-dropdown__link`, `doc-main`, `font-display`, `forge-gradient-text`, `forge-support`, `btn btn-forge`, `landing-nav-cta`, `ks-site-footer-region`, plus hash attrs for **Kpn** / **Ksf**.
+
+### File locations
+
+- **Canonical target** (already present, complete):  
+  `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-focus-order.md`
+- **Updated copy** (refreshed `generated_at`, minor handbook-topnav wording):  
+  `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-nav-focus-order.md`
+
+The repo-root file already had the full page with the correct `page_version`. The auditor-tool copy has a refreshed timestamp (`2026-05-25T21:15:00.000Z`). If you want that sync’d to repo root, run:
+
+```bash
+node tools/website-ux-auditor/.copy-det-nav-focus-order-dest.mjs
+```
+
+No check modules, `rule-mappings.js`, or registry files were modified.

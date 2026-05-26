@@ -1,0 +1,53 @@
+## Report: `DET.MOTION.PREFERS_REDUCED` handbook page
+
+The full PDCA handbook page is written and verified at the **staging path** (inside the auditor workspace):
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-motion-prefers-reduced.md`
+
+Writes to the **canonical path** you specified (`docs/design/ux-audit/rule-pages/det-motion-prefers-reduced.md`) were blocked by the sandbox (workspace root is `tools/website-ux-auditor`). The canonical file still has the old bootstrap stub.
+
+**To finalize**, run from the KS repo root:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-motion-prefers-reduced.mjs
+```
+
+### `page_version` confirmed
+
+```yaml
+page_version: 49a23233fa7dbc7d7d980dd0891b238b19c782633c1e748896a0c6aeeac33ba5
+```
+
+Matches the required hash exactly.
+
+### What the page covers
+
+Replaced the bootstrap stub with a full handbook page aligned to `det-motion-prefers-reduced.check.js` and sibling page `det-motion-no-auto-play-flash.md`:
+
+| Section | Content |
+|---------|---------|
+| **Purpose** | PDCA framing; Playwright emulates `prefers-reduced-motion: reduce`; four violation kinds; essential-motion exceptions (`spinner`, `loading`, `skeleton`, `progress`, `aria-busy`, `role="status"`/`progressbar`) |
+| **Passing signals** | Theme `@media` blocks in `forge-theme.css`, `forge-ambient.css`, `ks-living-background.css`, `script-assembly.css`; static pulses/breathe/tilt; no autoplay video/SMIL |
+| **Failing signals** | Active `.pulse-amber`, `.breathe-*` transitions, `.forge-card` transitions, autoplay video, SMIL, missing media queries |
+| **Before example** | Failing: `.pulse-amber`, `.breathe-link`, `.breathe-static`, custom `ks-float` animation, `<video autoplay>` — no reduced-motion override |
+| **After example** | Passing: `@media (prefers-reduced-motion: reduce)` disables decorative motion; static `.glass` / `.forge-card`; essential `.spinner-border` with `aria-busy="true"`; static poster `<img>` |
+| **Evidence and remediation** | `motionPrefersReducedReport` fields; violation kind table; six-step remediation; harness commands |
+| **Related rules** | `DET.MOTION.NO_AUTO_PLAY_FLASH`, `AI.MOTION.INTENTIONALITY`, `AI.AMBIENT.READABILITY_CONFLICT` |
+
+### Real KS class names in examples
+
+Before/after HTML uses verified KS patterns from `css/forge-theme.css` and handbook layouts:
+
+- Layout: `doc-main`, `forge-section`, `bento-grid`, `bento-2`
+- Surfaces: `glass-amber`, `glass`, `forge-card`, `forge-support`, `section-label`, `card-label`
+- Motion: `pulse-amber`, `breathe-link`, `breathe-static`, `stat-value`, `stat-label`
+- Essential exception: Bootstrap `spinner-border` with `aria-busy="true"` / `role="status"`
+
+### Front matter
+
+- `registry_fingerprint`: `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c`
+- `registry_status`: `implemented`
+- `generated_at`: `2026-05-25T15:45:00.000Z`
+- `agent_model`: `composer-2.5-fast`
+
+No check modules, `rule-mappings.js`, or registry files were edited. No Mermaid or Fleet-specific profiles.

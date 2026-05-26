@@ -24,9 +24,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 
-import { buildUxLoopDashboardSnapshotLines } from './lib/ux-loop-dashboard-snapshot-text.js';
+import {
+  UX_LOOP_DASHBOARD_SNAPSHOT_FILE,
+  writeUxLoopDashboardSnapshotFile,
+} from './lib/ux-loop-dashboard-snapshot-text.js';
 
-const SNAPSHOT_NAME = 'ux-loop-dashboard-snapshot.txt';
+const SNAPSHOT_NAME = UX_LOOP_DASHBOARD_SNAPSHOT_FILE;
 
 function main() {
   const outDir = path.resolve(process.argv[2] || '');
@@ -60,15 +63,11 @@ function main() {
 
   const tick = () => {
     try {
-      const lines = buildUxLoopDashboardSnapshotLines(outDir, cols);
-      const text = `${lines.join('\n')}\n`;
+      const { text } = writeUxLoopDashboardSnapshotFile(outDir, cols);
       if (skipUnchanged && text === lastText) {
         return;
       }
       lastText = text;
-      const tmp = `${dest}.${process.pid}.${Date.now()}.tmp`;
-      fs.writeFileSync(tmp, text, 'utf8');
-      fs.renameSync(tmp, dest);
     } catch (e) {
       console.error(`write-ux-loop-dashboard-snapshot: ${e?.message ?? e}`);
     }

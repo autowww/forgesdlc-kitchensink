@@ -31,7 +31,12 @@ import {
   severityDefinitionsMarkdownTable,
   summarizeBySeverity,
 } from './lib/severity.js';
-import { countBySeverity, evaluateQualityGate, loadQualityGateThresholdsFromEnv } from './lib/quality-gate.js';
+import {
+  countBySeverity,
+  DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS,
+  evaluateQualityGate,
+  loadQualityGateThresholdsFromEnv,
+} from './lib/quality-gate.js';
 import { scorePage } from './lib/scoring.js';
 import { crawlAndAnalyze, normalizeCrawlHref } from './lib/crawl.js';
 import { createCrawlProgressReporter } from './lib/crawl-progress-line.js';
@@ -106,6 +111,16 @@ function rootMirrorPlanFilename(runMeta) {
   return `forge-ux-remediation__${utcStampForFilename(runMeta.generatedAt)}__${runMeta.auditRunId}.plan.md`;
 }
 
+/** Comma-separated DET rule ids from FORGE_UX_ONLY_DETERMINISTIC_RULE_IDS (pilot fixer scope). */
+function onlyDeterministicRuleIdsFromEnv() {
+  const raw = process.env.FORGE_UX_ONLY_DETERMINISTIC_RULE_IDS || '';
+  const ids = raw
+    .split(/[,\s]+/)
+    .map((s) => s.trim())
+    .filter((id) => id.startsWith('DET.'));
+  return ids.length ? ids : null;
+}
+
 function usage() {
   return `Forge Website UX Auditor
 
@@ -141,7 +156,8 @@ Optional:
   --no-refresh-plan-status     Reset all YAML todos in forge-ux-remediation.plan.md to pending (default is to merge statuses from the previous plan file in --out when present)
   --remediation-plan-limit N   Number of defect remediation plans to generate (default: ${DEFAULT_DEFECT_PLAN_LIMIT}; ordered by estimated UX score impact).
   --stop-after-major-plus N    Stop expanding crawl queue after N blocker/critical/major findings accumulate total (default: 10; live crawl only; ignored with breadth flags below).
-  --stop-after-backlog N       Stop expanding crawl after total finding count exceeds N (default: 10; separate from Major+ governor).
+  --stop-after-backlog N       Stop expanding crawl after total finding count exceeds N (default: 0 = off; use gate/Major+ governors instead).
+  --stop-after-gate-violations N  Stop auditing when sitewide gate overage (sum of counts above thresholds) exceeds N (default: ${DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS}; live crawl; env FORGE_UX_AUDIT_STOP_AFTER_GATE_VIOLATIONS).
   --deterministic-rule-concurrency N  Parallel DET rules per page (default: 5, max: 5).
   --no-rule-page-trace         Disable rule/page no-finding trace cache (skip unchanged zero-finding pairs).
   --stop-disable               Full breadth within --max-pages: disable Major+ queue stop (--full-crawl, --breadth-crawl aliases).
@@ -158,6 +174,7 @@ Incremental campaign (reuse one --out folder across runs):
   --incremental                After archiving audit-data.json → audit-data.previous.json, re-check URLs that had Major+ in the prior snapshot and resume crawl-session.json queue when present (see README).
   --incremental-regression-max-pages N   Cap URLs pulled from audit-data.previous.json for the regression wave (default: 40).
   --exclude-crawl-urls-file PATH   Same-origin URLs (one per line, # comments) treated as already visited: skip re-audit and link expansion from those URLs so --max-pages budget can reach other pages. The --site URL is never excluded.
+  --seed-crawl-urls-file PATH    Pre-seed the crawl queue with every URL/path (one per line) so unlinked static HTML is still audited (full site disk coverage).
   --verbose, --verbose=N       Stderr diagnostics ([incremental], [crawl], …); level 2 via N=2. Alias: --debug-log.
                                Env mirror: UX_AUDIT_VERBOSE=1|2.
 
@@ -191,7 +208,8 @@ function parseArgs(argv) {
     /** When true (default), carry forward todo status from existing forge-ux-remediation.plan.md in --out. */
     refreshPlanStatus: true,
     stopAfterMajorPlus: 10,
-    stopAfterBacklog: 10,
+    stopAfterBacklog: 0,
+    stopAfterGateViolationUnits: DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS,
     stopDisabled: false,
     deterministicRuleConcurrency: DEFAULT_DETERMINISTIC_CONCURRENCY,
     rulePageTraceDisabled: false,
@@ -202,6 +220,7 @@ function parseArgs(argv) {
     incremental: false,
     incrementalRegressionMaxPages: 40,
     excludeCrawlUrlsFile: null,
+    seedCrawlUrlsFile: null,
     verbose: 0,
     remediationPlanLimit: DEFAULT_DEFECT_PLAN_LIMIT,
     skipPreflightDeterministic: false,
@@ -292,11 +311,13 @@ function parseArgs(argv) {
       'timeoutMs',
       'stopAfterMajorPlus',
       'stopAfterBacklog',
+      'stopAfterGateViolations',
       'deterministicRuleConcurrency',
       'priorUxScoresPath',
       'scoresFirstMaxPages',
       'incrementalRegressionMaxPages',
       'excludeCrawlUrlsFile',
+      'seedCrawlUrlsFile',
       'remediationPlanLimit',
     ];
     if (!needsValue.includes(key)) {
@@ -317,9 +338,18 @@ function parseArgs(argv) {
   args.stopAfterMajorPlus = Number(args.stopAfterMajorPlus ?? process.env.STOP_AFTER_MAJOR_PLUS ?? 10);
   if (!Number.isFinite(args.stopAfterMajorPlus) || args.stopAfterMajorPlus < 1) args.stopAfterMajorPlus = 10;
   args.stopAfterBacklog = Number(
-    args.stopAfterBacklog ?? process.env.FORGE_UX_AUDIT_STOP_AFTER_BACKLOG ?? 10,
+    args.stopAfterBacklog ?? process.env.FORGE_UX_AUDIT_STOP_AFTER_BACKLOG ?? 0,
   );
-  if (!Number.isFinite(args.stopAfterBacklog) || args.stopAfterBacklog < 0) args.stopAfterBacklog = 10;
+  if (!Number.isFinite(args.stopAfterBacklog) || args.stopAfterBacklog < 0) args.stopAfterBacklog = 0;
+  args.stopAfterGateViolationUnits = Number(
+    args.stopAfterGateViolations
+      ?? args.stopAfterGateViolationUnits
+      ?? process.env.FORGE_UX_AUDIT_STOP_AFTER_GATE_VIOLATIONS
+      ?? DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS,
+  );
+  if (!Number.isFinite(args.stopAfterGateViolationUnits) || args.stopAfterGateViolationUnits < 0) {
+    args.stopAfterGateViolationUnits = DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS;
+  }
   args.deterministicRuleConcurrency = clampInt(
     args.deterministicRuleConcurrency ?? process.env.FORGE_UX_DETERMINISTIC_RULE_CONCURRENCY,
     1,
@@ -346,6 +376,11 @@ function parseArgs(argv) {
     args.excludeCrawlUrlsFile = path.isAbsolute(args.excludeCrawlUrlsFile)
       ? path.normalize(args.excludeCrawlUrlsFile)
       : path.resolve(args.repo, args.excludeCrawlUrlsFile);
+  }
+  if (args.seedCrawlUrlsFile) {
+    args.seedCrawlUrlsFile = path.isAbsolute(args.seedCrawlUrlsFile)
+      ? path.normalize(args.seedCrawlUrlsFile)
+      : path.resolve(args.repo, args.seedCrawlUrlsFile);
   }
   return args;
 }
@@ -1670,7 +1705,9 @@ function countIncludedTerms(terms, text) {
 
 async function analyzeStaticRepoOnly({ args, inventory }) {
   const siteKindResolved = inferSiteKind(args, inventory);
-  const designRuleRuntime = await createDesignRuleRuntime();
+  const designRuleRuntime = await createDesignRuleRuntime({
+    onlyDeterministicRuleIds: onlyDeterministicRuleIdsFromEnv(),
+  });
   const candidateFiles = inventory.pageFiles.slice(0, 80);
   const chunks = [];
   let firstH1 = '';
@@ -2199,6 +2236,7 @@ async function main() {
     }
 
     const excludeCrawlHrefs = loadExcludeCrawlHrefsFromFile(args.excludeCrawlUrlsFile);
+    const seedCrawlHrefs = loadExcludeCrawlHrefsFromFile(args.seedCrawlUrlsFile);
     const traceStore = new RulePageTraceStore({
       outDir: args.out,
       disabled: args.rulePageTraceDisabled,
@@ -2244,6 +2282,9 @@ async function main() {
         `[ux-audit] phase=diag · excludeCrawlUrls=${excludeCrawlHrefs.length} · file=${args.excludeCrawlUrlsFile ? relativeFromRepo(args.repo, args.excludeCrawlUrlsFile) : '—'}`,
       );
       logger.verbose('[crawl]', 'exclude-crawl-urls preseed', String(excludeCrawlHrefs.length));
+      if (seedCrawlHrefs.length) {
+        uxAuditPhase(`[ux-audit] phase=diag · seedCrawlUrls=${seedCrawlHrefs.length} · file=${args.seedCrawlUrlsFile ? relativeFromRepo(args.repo, args.seedCrawlUrlsFile) : '—'}`);
+      }
     }
 
     if (args.staticOnly) {
@@ -2312,6 +2353,7 @@ async function main() {
             onProgress: precrawlProg.onProgress,
             repoRoot: path.resolve(args.repo),
             excludeCrawlHrefs,
+            seedCrawlHrefs,
             designTheme,
           });
         } finally {
@@ -2335,7 +2377,8 @@ async function main() {
         !args.stopDisabled && String(process.env.FORGE_UX_AUDIT_HALT_ON_QUALITY_GATE ?? '1') !== '0';
       uxAuditPhase(
         `[ux-audit] phase=main_crawl · maxPages=${args.maxPages} · stopAfterMajorPlus=${args.stopAfterMajorPlus ?? '—'}`
-        + ` · stopAfterBacklog=${args.stopAfterBacklog ?? '—'} · haltOnQualityGate=${haltOnQualityGate ? '1' : '0'}`
+        + ` · stopAfterBacklog=${args.stopAfterBacklog ?? '—'} · stopAfterGateViolations=${args.stopAfterGateViolationUnits ?? '—'}`
+        + ` · haltOnQualityGate=${haltOnQualityGate ? '1' : '0'}`
         + ` · detConcurrency=${args.deterministicRuleConcurrency}`
         + ` · stopDisabled=${args.stopDisabled ? '1' : '0'} · label=[ux-audit] · run=${mainCrawlRunDisplay}`,
       );
@@ -2359,6 +2402,7 @@ async function main() {
           siteKind,
           stopAfterMajorPlus: args.stopAfterMajorPlus,
           stopAfterBacklog: args.stopAfterBacklog,
+          stopAfterGateViolationUnits: haltOnQualityGate ? args.stopAfterGateViolationUnits : null,
           stopDisabled: args.stopDisabled,
           haltOnQualityGate,
           qualityGateThresholds,
@@ -2370,10 +2414,12 @@ async function main() {
           regressionUrls,
           resumeVisitedUrls,
           resumeQueuedUrls,
+          onlyDeterministicRuleIds: onlyDeterministicRuleIdsFromEnv(),
           logger,
           onProgress: crawlProg.onProgress,
           repoRoot: path.resolve(args.repo),
           excludeCrawlHrefs,
+          seedCrawlHrefs,
           designTheme,
         });
       } finally {
@@ -2451,7 +2497,7 @@ async function main() {
     auditWatchEmit(`Generated at (UTC): ${written.generatedAt}`);
     if (!args.staticOnly && crawlSummary?.stopReason === 'quality_gate_threshold') {
       auditWatchEmit(
-        `Crawl: stopped early after a quality-gate severity segment filled (${String(crawlSummary.qualityGateHaltSeverity || 'gate')}); ${String(crawlSummary.queuedRemainingAtStop)} queued URL(s) not visited — remediation next.`,
+        `Crawl: stopped early after gate overage exceeded ${String(crawlSummary.stopAfterGateViolationUnits ?? args.stopAfterGateViolationUnits ?? DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS)} issue(s) above thresholds (${String(crawlSummary.qualityGateHaltSeverity || 'gate')}); ${String(crawlSummary.queuedRemainingAtStop)} queued URL(s) not visited — remediation next.`,
       );
     }
     if (!args.staticOnly && crawlSummary?.stopReason === 'major_plus_threshold') {

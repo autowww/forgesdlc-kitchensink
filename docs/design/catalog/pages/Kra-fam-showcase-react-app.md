@@ -59,6 +59,12 @@ Matches **Rpf** primitive family: studio-grade dark UI, readable data dens enoug
 
 - Treat as internal lab: factual labels, no fake enterprise logos or customer narratives.
 
+## Deterministic checks
+
+- React roots use `data-ks-hash` / `hash` via `ksReactPrimitiveAttrs` on governed components (`DET.REACT.KS_ATTRS`, `DET.HASH.MARKERS`).
+- Interactive controls expose roles and accessible names in showcase snapshots (`DET.REACT.A11Y_ROLE`).
+- Elevated panels and cards use theme elevation tokens, not ad-hoc shadows (`DET.SURFACE.ELEVATION_TOKEN`).
+
 ## Content rules
 
 - Demo data is obviously synthetic (“Sample workspace”, “Example run id”).

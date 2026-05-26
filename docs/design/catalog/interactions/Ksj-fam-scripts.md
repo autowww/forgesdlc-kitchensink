@@ -65,6 +65,12 @@ Govern client-side behaviors shipped under `js/`. Child registry rows (**`LJa`**
 
 - Motion accents reinforce hierarchy rather than distract; keep durations moderate.
 
+## Deterministic checks
+
+- Scripts respect `prefers-reduced-motion` for decorative transitions tied to KS surfaces (`DET.MOTION.PREFERS_REDUCED`).
+- No autoplay flash or seizure-risk loops on public pages (`DET.MOTION.NO_AUTO_PLAY_FLASH`).
+- Progressive enhancement: core navigation and modals work without script errors in auditor smoke (`DET.JS.PROGRESSIVE`, `DET.JS.NO_CONSOLE_ERROR`).
+
 ## Forbidden patterns
 
 - Hijacking global shortcuts without documented affordances.

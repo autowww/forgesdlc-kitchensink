@@ -1,0 +1,45 @@
+## Report: `DET.NAV.IN_PAGE_TOC` handbook page
+
+Replaced the harness bootstrap stub with a full PDCA handbook page aligned to `det-nav-in-page-toc.check.js`, `Ktx-doc-toc-sidebar.md`, and KS component patterns (`render_toc_sidebar()`, `showcase_page()`).
+
+### Front matter
+
+| Field | Value |
+|-------|-------|
+| `rule_id` | `DET.NAV.IN_PAGE_TOC` |
+| `lane` | `deterministic` |
+| `title` | In-page table of contents for long doc pages |
+| `page_version` | **`73ca82c130c0f8d8ea17f8412cab30621bfb8fabd1924a6a943a3653e9680f47`** ✓ |
+| `generated_at` | `2026-05-25T20:30:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` |
+| `registry_status` | `implemented` |
+
+### Content highlights
+
+- **Purpose:** Doc-hub pages require **Ktx** when outline ≥ 4 `h2`/`h3` or main ≥ 900 words; checks missing TOC, broken anchors, and cramped rails (140 px / 100 px thresholds at ≥ 992 px).
+- **Before example (failing):** Handbook with **Ksr** sidebar + six `h2` sections, **no** `nav.forge-toc` / **Ktx** → `missing_in_page_toc`.
+- **After example (passing):** Same page with **`.ks-doc-toc-flow`**, **`.ks-doc-toc-prose`**, **`.ks-doc-toc-rail`** (**Ktx**), **`nav.forge-toc`**, **`.toc-title`**, **`.nav-link`** anchors matching `h2` ids in `main`.
+- **Real KS classes used:** `site-header`, `forge-sidebar`, `doc-main`, `doc-content`, `font-display`, `forge-support`, `ks-doc-toc-flow`, `ks-doc-toc-prose`, `ks-doc-toc-rail`, `forge-toc`, `toc-title`, `nav-link`.
+
+### Files written (workspace)
+
+- `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-nav-in-page-toc.md` — **authoritative draft**
+- `tools/website-ux-auditor/.staging-det-nav-in-page-toc.md` — staging copy
+- `tools/website-ux-auditor/.copy-det-nav-in-page-toc-dest.mjs` — copy helper
+- `tools/website-ux-auditor/.copy-det-nav-in-page-toc-pending.sh` — bash copy helper
+
+### Canonical path — needs one copy step
+
+Direct writes to `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-in-page-toc.md` were blocked in this session. The KS root file still has the old bootstrap stub. Run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+node .copy-det-nav-in-page-toc-dest.mjs
+```
+
+Expected output: `SUCCESS` with `page_version=73ca82c130c0f8d8ea17f8412cab30621bfb8fabd1924a6a943a3653e9680f47`.
+
+### `page_version` confirmation
+
+The draft sets `page_version` exactly to **`73ca82c130c0f8d8ea17f8412cab30621bfb8fabd1924a6a943a3653e9680f47`** as required. No check modules, registry, or rule-mappings were modified.

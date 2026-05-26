@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-19T17:59:47.892Z",
+  "generatedAt": "2026-05-25T14:48:23.167Z",
   "blender": {
     "version": 1,
     "entry": "design-rules/blender/design-rules-blender.mjs"
   },
-  "fingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+  "fingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
   "sources": {
     "deterministicRulesDoc": {
       "path": "docs/design/ux-audit/deterministic-design-rules.md",
-      "sha256": "0b6bb5ccc94c32713b0e1cd247f2653c3d4e7188e9a4234b5a3f60b5f32acf9e"
+      "sha256": "b381ea52060962c833a75553b28158e6faa2de8487a50c8cb339b39e28491653"
     },
     "aiRulesDoc": {
       "path": "docs/design/ux-audit/ai-enabled-design-principles.md",
@@ -36,7 +36,7 @@
     "selectedCount": 20
   },
   "versioning": {
-    "deterministicRulesVersion": "0b6bb5ccc94c32713b0e1cd247f2653c3d4e7188e9a4234b5a3f60b5f32acf9e",
+    "deterministicRulesVersion": "b381ea52060962c833a75553b28158e6faa2de8487a50c8cb339b39e28491653",
     "aiRulesVersion": "013774a62681d79900e635229d43808d94a49557290e5701b90b755754a8afcd",
     "overrideVersionApplied": false,
     "policy": "Generated files are not rewritten when embedded rules-version matches, unless --override-version is passed."
@@ -46,8 +46,8 @@
     "aiPromptsGenerated": 0
   },
   "deterministicCoverage": {
-    "documentedRuleCount": 50,
-    "implementedCount": 49,
+    "documentedRuleCount": 51,
+    "implementedCount": 50,
     "stubCount": 1,
     "implementedRuleIds": [
       "DET.AMBIENT.Z_INDEX",
@@ -71,6 +71,7 @@
       "DET.DIAGRAM.LABELS",
       "DET.HASH.MARKERS",
       "DET.HASH.REGISTRY_ROW",
+      "DET.HTML.EMPTY_INLINE",
       "DET.INVENTORY.CROSSWALK",
       "DET.JS.NO_CONSOLE_ERROR",
       "DET.JS.PROGRESSIVE",
@@ -104,7 +105,7 @@
       "DET.THEME.FONT_STACK"
     ],
     "byImplementationSource": {
-      "explicit-map": 49
+      "explicit-map": 50
     }
   },
   "requiredAiFindingMetadata": [
@@ -387,6 +388,19 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-hash-registry-row.check.js",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-hash-registry-row",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.HTML.EMPTY_INLINE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "minor",
+      "priorityWeight": 6,
+      "modulePath": "design-rules/deterministic/generated/det-html-empty-inline.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-html-empty-inline",
       "implementationSource": "explicit-map"
     },
     {

@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import {
   findingsFromLayoutGridReport,
+  handbookHasDeadGutter,
   isFullBleedProseRiver,
   MAX_PROSE_MEASURE_PX,
   run,
@@ -52,6 +53,21 @@ test('sectionHasGutterDrift flags inconsistent left edges', () => {
   assert.equal(sectionHasGutterDrift([120, 200]), true);
 });
 
+test('handbookHasDeadGutter flags centered doc-content with large sidebar gap', () => {
+  assert.equal(handbookHasDeadGutter({
+    hasDocSidebar: true,
+    gapSidebarToProsePx: 152,
+    docContentUsesMxAuto: true,
+    viewportWidthPx: 1440,
+  }), true);
+  assert.equal(handbookHasDeadGutter({
+    hasDocSidebar: true,
+    gapSidebarToProsePx: 40,
+    docContentUsesMxAuto: true,
+    viewportWidthPx: 1440,
+  }), false);
+});
+
 test('findingsFromLayoutGridReport maps violation kinds', () => {
   const findings = findingsFromLayoutGridReport({
     violations: [
@@ -71,10 +87,15 @@ test('findingsFromLayoutGridReport maps violation kinds', () => {
         selectorHint: 'p.body',
         paragraphWidthPx: MAX_PROSE_MEASURE_PX + 40,
       },
+      {
+        kind: 'handbook-dead-gutter',
+        gapSidebarToProsePx: 152,
+        docContentUsesMxAuto: true,
+      },
     ],
   }, 'https://example.test/landing');
 
-  assert.equal(findings.length, 3);
+  assert.equal(findings.length, 4);
   assert.equal(findings[0].severity, 'warn');
   assert.ok(findings[0].message.includes('text river'));
   assert.ok(findings[1].evidence.includes('gutter_drift'));

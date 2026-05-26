@@ -1,0 +1,59 @@
+## Report: `DET.PAGE.TITLE` handbook page
+
+### Target file
+
+**Canonical path:** `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-page-title.md`
+
+That file is already present and schema-complete with the required sections, KS before/after HTML examples, and registry front matter. Direct writes to paths outside the auditor workspace were blocked in this session, so a refreshed copy was written under the auditor tree (same relative path).
+
+**Staging copy (updated):** `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-page-title.md`
+
+To sync staging → canonical KS docs, run from the Kitchen Sink repo root:
+
+```bash
+node tools/website-ux-auditor/.copy-det-page-title-dest.mjs
+```
+
+### `page_version` confirmed
+
+```yaml
+page_version: 4040ca340c20e070ac3646e7875cf98f539cdb90d66b4145dd5874f55ad35dfd
+```
+
+Matches `rule-pages.manifest.json` and `.copy-det-page-title-dest.mjs`.
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | `<title>` as document label; KS layout patterns (`handbook_page`, `chapter_page`, `product_page`); metrics-phase check via `metrics.title`; PDCA plan/do/check/adjust |
+| **Passing signals** | Non-empty title, handbook `{handbook_name} — {browser_title}` pattern, alignment with `<h1>`, no generic placeholders |
+| **Failing signals** | Missing (**major**), generic `Home`/`index`/`document`/`page` (**minor**), scaffold drift, title/body mismatch |
+| **Before example** | `handbook_page`-style shell with `<title>Home</title>` (fails) |
+| **After example** | Same shell with `<title>Forge SDLC &mdash; Governed delivery handbook</title>` (passes) |
+| **Evidence and remediation** | Table keyed to crawl evidence + fix paths in layouts/generators/harness |
+| **Related rules** | `DET.PAGE.LANG`, `DET.PAGE.VIEWPORT`, `DET.LANDMARKS.REQUIRED`, `DET.PAGE.MODE` |
+
+### Implementation alignment
+
+Checked against `tools/website-ux-auditor/design-rules/deterministic/page/title.check.js`:
+
+- Empty title → **major**, *"Page title is missing."*
+- `GENERIC_TITLES`: `index`, `home`, `document`, `page` (case-insensitive) → **minor**, *"Page title is too generic."*
+
+### Real KS class names in examples
+
+Verified in `components/layouts.py` and `css/forge-theme.css`:
+
+`forge-aurora`, `skip-link`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `doc-content`, `section-label`, `text-cyan`, `font-display`, `forge-support`, `forge-card`, `card-label`, `forge-border`
+
+Title pattern matches `handbook_page` line 736: `<title>{handbook_name} &mdash; {browser_title}</title>`.
+
+### Front matter (registry)
+
+- `registry_fingerprint`: `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c`
+- `registry_status`: `implemented`
+- `source_rule`: `docs/design/ux-audit/deterministic-design-rules.md#det-page-title`
+- `agent_model`: `composer-2.5-fast`
+
+Staging copy sets `generated_at: 2026-05-25T16:45:00.000Z`; canonical file still has `2026-05-25T15:12:00.000Z` until you run the copy script.

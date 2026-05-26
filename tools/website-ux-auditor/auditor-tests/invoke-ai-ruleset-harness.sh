@@ -14,6 +14,8 @@
 #   --watch                 Campaign watch board (TTY)
 #   --no-watch
 #   --skip-agent            Mark rules blocked (no Cursor CLI)
+#   --llm                   Use forge-workcells local_llm_worker (LCDL) instead of Cursor agent
+#   --llm-env=FILE          LLM_* profile file for --llm (gateway_probe_lcdl.py uses same file)
 #
 # Default: AI agent on per rule (judgment detection). No remediation loop in v1.
 
@@ -30,6 +32,11 @@ BUILD_FIXTURES="${KS_ROOT}/generator/build_rule_defect_fixtures.py"
 REGISTRY="${AUDITOR_ROOT}/design-rules/registry.generated.json"
 MERGE_STATE="${AUDITOR_ROOT}/merge-harness-dashboard-state.mjs"
 WATCH_DASH="${TESTS_ROOT}/harness-watch-dashboard.mjs"
+ANALYZE="${AUDITOR_ROOT}/analyze-website-ux.mjs"
+UX_SLICE="${AUDITOR_ROOT}/ux-audit-slice.mjs"
+UX_PW="${AUDITOR_ROOT}/ux-playwright-evidence.mjs"
+UX_ASSEMBLE="${AUDITOR_ROOT}/ux-assemble-context.mjs"
+GATEWAY_PROBE="${KS_ROOT}/../forge-lcdl/scripts/gateway_probe_lcdl.py"
 
 ONLY_RULE=""
 RESUME=0
@@ -40,6 +47,8 @@ VERBOSE=0
 HARNESS_WATCH=0
 NO_WATCH=0
 SKIP_AGENT=0
+USE_LLM=0
+LLM_ENV_FILE=""
 
 log() {
   local msg="[ai-harness $(date -u +%H:%M:%S)] $*"
@@ -121,6 +130,12 @@ while [[ $# -gt 0 ]]; do
     --watch) HARNESS_WATCH=1 ;;
     --no-watch) NO_WATCH=1 ;;
     --skip-agent) SKIP_AGENT=1 ;;
+    --llm) USE_LLM=1 ;;
+    --llm-env=*) LLM_ENV_FILE="${1#*=}" ;;
+    --llm-env)
+      LLM_ENV_FILE="${2:-}"
+      shift
+      ;;
     -h|--help)
       sed -n '1,24p' "$0"
       exit 0
@@ -141,9 +156,36 @@ if [[ ! -f "${RUN_AI_RULE}" ]]; then
 fi
 
 _agent_available=1
-if [[ "${SKIP_AGENT}" -eq 0 ]] && ! command -v agent >/dev/null 2>&1; then
+if [[ "${USE_LLM}" -eq 1 ]]; then
+  _agent_available=1
+  SKIP_AGENT=0
+  if [[ -z "${LLM_ENV_FILE}" ]]; then
+    for _cand in \
+      "${KS_ROOT}/../forge-certificators/example-banks/forge-certificator-secrets.env" \
+      "${HOME}/Code/forge-certificators/example-banks/forge-certificator-secrets.env"; do
+      if [[ -f "${_cand}" ]]; then
+        LLM_ENV_FILE="${_cand}"
+        break
+      fi
+    done
+  fi
+  if [[ -n "${FORGE_WORKCELLS_MOCK_FINDINGS_JSON:-}" ]]; then
+    log "ai-harness --llm: mock findings ${FORGE_WORKCELLS_MOCK_FINDINGS_JSON}"
+  elif [[ -n "${LLM_ENV_FILE}" && -f "${GATEWAY_PROBE}" && -f "${LLM_ENV_FILE}" ]]; then
+    if ! python3 "${GATEWAY_PROBE}" --env-file "${LLM_ENV_FILE}" --minimal-only 2>/dev/null; then
+      log "LCDL gateway probe failed for ${LLM_ENV_FILE} — rules may be blocked"
+      _agent_available=0
+    fi
+  elif [[ -z "${LLM_ENV_FILE}" ]]; then
+    log "ai-harness --llm: no --llm-env= and no default secrets file found"
+    _agent_available=0
+  fi
+  if [[ -x "${KS_ROOT}/../forge-workcells/.venv/bin/forge-workcells" ]]; then
+    export FORGE_WORKCELLS_BIN="${KS_ROOT}/../forge-workcells/.venv/bin/forge-workcells"
+  fi
+elif [[ "${SKIP_AGENT}" -eq 0 ]] && ! command -v agent >/dev/null 2>&1; then
   _agent_available=0
-  log "Cursor CLI agent not on PATH — rules will be marked blocked (use --skip-agent to silence)"
+  log "Cursor CLI agent not on PATH — rules will be marked blocked (use --skip-agent or --llm)"
 fi
 
 FORGE_UX_AUDIT_WORKBENCH_ROOT="${FORGE_UX_AUDIT_WORKBENCH_ROOT:-}"
@@ -311,7 +353,11 @@ for rule_id in "${REMAINING[@]}"; do
     '{phase:"rule_audit",currentRule:{ruleId:$rid,step:$step,index:$idx,total:$total}}')"
 
   ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  mode_label="ai-agent"
+  if [[ "${USE_LLM}" -eq 1 ]]; then
+    mode_label="local-llm"
+  else
+    mode_label="ai-agent"
+  fi
 
   if [[ "${manifest_status}" != "ready" ]]; then
     RULE_STATUS_SYM["${rule_id}"]="missing_fixture"
@@ -359,13 +405,51 @@ for rule_id in "${REMAINING[@]}"; do
     continue
   fi
 
-  harness_merge "$(jq -nc --arg rid "${rule_id}" '{phase:"rule_audit",currentRule:{ruleId:$rid,step:"ai-agent"}}')"
+  harness_merge "$(jq -nc --arg rid "${rule_id}" --arg step "$([[ "${USE_LLM}" -eq 1 ]] && echo local-llm || echo ai-agent)" '{phase:"rule_audit",currentRule:{ruleId:$rid,step:$step}}')"
 
   start_fixture_server "${rule_fixture}"
   agent_log="${rule_dir}/ai-agent.log"
   agent_attempts=1
   set +e
-  if [[ "${VERBOSE}" -eq 1 ]]; then
+  if [[ "${USE_LLM}" -eq 1 ]]; then
+    audit_out="${rule_dir}/audit-out"
+    rm -rf "${audit_out}"
+    mkdir -p "${audit_out}"
+    node "${ANALYZE}" \
+      --repo "${KS_ROOT}" \
+      --site "${FIXTURE_URL}" \
+      --out "${audit_out}" \
+      --max-pages 1 \
+      --breadth-crawl \
+      --no-refresh-plan-status >/dev/null 2>&1 || true
+    slice_json="${rule_dir}/audit-slice.json"
+    pw_json="${rule_dir}/playwright-evidence.json"
+    context_json="${rule_dir}/context.json"
+    node "${UX_SLICE}" \
+      --audit "${audit_out}/audit-data.json" \
+      --rule-id "${rule_id}" \
+      --url "${FIXTURE_URL}" \
+      --out "${slice_json}" 2>/dev/null || echo '{"findings":[]}' >"${slice_json}"
+    node "${UX_PW}" --url "${FIXTURE_URL}" --out "${pw_json}" 2>/dev/null || echo '{}' >"${pw_json}"
+    node "${UX_ASSEMBLE}" \
+      --rule-id "${rule_id}" \
+      --url "${FIXTURE_URL}" \
+      --rule-prompt "${PROMPT_FILE}" \
+      --audit-slice "${slice_json}" \
+      --playwright "${pw_json}" \
+      --out "${context_json}"
+    RUN_ARGS=(--llm --rule-id "${rule_id}" --context "${context_json}" --out-dir "${rule_dir}/workcells-out")
+    if [[ -n "${LLM_ENV_FILE}" ]]; then
+      RUN_ARGS+=(--llm-env "${LLM_ENV_FILE}")
+    fi
+    if [[ "${VERBOSE}" -eq 1 ]]; then
+      bash "${RUN_AI_RULE}" "${RUN_ARGS[@]}" "${KS_ROOT}" "${PROMPT_FILE}" "${FIXTURE_URL}" 2>&1 | tee "${agent_log}"
+      agent_rc="${PIPESTATUS[0]}"
+    else
+      bash "${RUN_AI_RULE}" "${RUN_ARGS[@]}" "${KS_ROOT}" "${PROMPT_FILE}" "${FIXTURE_URL}" >"${agent_log}" 2>&1
+      agent_rc=$?
+    fi
+  elif [[ "${VERBOSE}" -eq 1 ]]; then
     bash "${RUN_AI_RULE}" "${KS_ROOT}" "${PROMPT_FILE}" "${FIXTURE_URL}" 2>&1 | tee "${agent_log}"
     agent_rc="${PIPESTATUS[0]}"
   else

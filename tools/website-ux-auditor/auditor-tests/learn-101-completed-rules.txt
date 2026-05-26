@@ -1,0 +1,11 @@
+# Rules already run in Learn 101 per-rule campaigns (skip with --use-completed-list).
+# One DET rule id per line; lines starting with # are ignored.
+DET.LAYOUT.GRID_CONSISTENCY
+DET.NAV.IN_PAGE_TOC
+DET.NAV.FOCUS_ORDER
+DET.VISUAL.RHYTHM
+DET.CONTEXT.BURDEN
+DET.PAGE.LANG
+DET.PAGE.MODE
+DET.SECTION.HEADING
+DET.APP.FOCUS_TRAP

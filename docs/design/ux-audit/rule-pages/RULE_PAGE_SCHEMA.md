@@ -32,7 +32,7 @@ Use these exact `##` headings (case-insensitive match):
 4. `## Before example` — include a fenced `html` block with KS markup that **fails** the rule
 5. `## After example` — include a fenced `html` block with KS markup that **passes**
 6. `## Evidence and remediation`
-7. `## Related rules`
+7. `## Related rules` — list related rule IDs in backticks (e.g. `` `DET.NAV.DEDUP` ``). The showcase build turns each known ID into a link to `ux-audit-rules/<kebab-slug>.html`. Mirror IDs in front matter `related_rules:` so any list-only entries still appear when the body section is sparse.
 
 ## Example HTML blocks
 
@@ -43,3 +43,7 @@ Use these exact `##` headings (case-insensitive match):
 ```
 
 Do **not** use Mermaid. Use real KS classes from `css/` and `components/`.
+
+## Showcase embed (Before/After on handbook HTML)
+
+Fenced HTML is rendered inside `.ux-rule-example` on the public showcase. Theme CSS resets viewport scroll/sticky on embedded `.forge-sidebar .nav-scroll` and `.site-header` so the card shows only the rule under test — not incidental scrollbars from production handbook chrome. Keep realistic markup (`nav-scroll`, `flex-grow-1`); do not strip classes for “simplicity.”

@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import {
   MAX_FIRST_VIEWPORT_LINKS,
+  MAX_HANDBOOK_FIRST_VIEWPORT_LINKS,
   MAX_HEADER_NAV_LINKS,
   MAX_HERO_INTERACTIVE_CONTROLS,
   MAX_PRE_MAIN_FIRST_H1_LINKS,
@@ -44,13 +45,24 @@ test('findingsFromContextBurdenSnapshot flags crowded header nav and hero contro
   assert.ok(findings.some((f) => f.message.includes('first viewport')));
 });
 
-test('findingsFromContextBurdenSnapshot skips first-viewport cap when not home', () => {
+test('findingsFromContextBurdenSnapshot skips homepage first-viewport cap when not home', () => {
   const findings = findingsFromContextBurdenSnapshot(
     { firstViewportLinkCount: 40 },
     'https://example.test/docs/guide',
     { isHome: false },
   );
   assert.equal(findings.length, 0);
+});
+
+test('findingsFromContextBurdenSnapshot flags handbook inner first-viewport link density', () => {
+  const findings = findingsFromContextBurdenSnapshot(
+    { firstViewportLinkCount: 27 },
+    'https://example.test/docs-learn-101-01-what-is-fleet.html',
+    { isHome: false, isPlatformHandbookInner: true },
+  );
+  assert.equal(findings.length, 1);
+  assert.ok(findings[0].message.includes('Handbook chapter first viewport'));
+  assert.ok(findings[0].evidence.includes(`max=${MAX_HANDBOOK_FIRST_VIEWPORT_LINKS}`));
 });
 
 test('findingsFromContextBurdenMetrics returns empty for compliant metrics', () => {
@@ -67,11 +79,16 @@ test('findingsFromContextBurdenMetrics returns empty for compliant metrics', () 
   assert.deepEqual(findings, []);
 });
 
-test('findingsFromContextBurdenMetrics skips platform handbook inner pages', () => {
+test('findingsFromContextBurdenMetrics allows compliant fleet handbook inner pages', () => {
   const findings = findingsFromContextBurdenMetrics(
-    { preMainFirstH1LinkCount: 20, firstViewportLinkCount: 40 },
-    'https://platform.example/docs/architecture',
-    { siteKind: 'platform' },
+    {
+      preMainFirstH1LinkCount: 9,
+      outsideMainHeaderNavLinkCount: 7,
+      navChromeContainerCount: 3,
+      firstViewportLinkCount: 20,
+    },
+    'https://fleet.example/docs-learn-101-01-what-is-fleet.html',
+    { siteKind: 'fleet' },
   );
   assert.deepEqual(findings, []);
 });

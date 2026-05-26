@@ -1,0 +1,19 @@
+{
+  "summary": "Mock finding for pipeline smoke (FORGE_WORKCELLS_MOCK_FINDINGS_JSON).",
+  "findings": [
+    {
+      "url": "http://127.0.0.1/",
+      "severity": "major",
+      "principleId": "AI.VISUAL.HIERARCHY",
+      "deterministicCoverage": "not-covered",
+      "candidateDeterministicRule": "AI-only",
+      "title": "Weak visual hierarchy on defect fixture",
+      "evidence": "Headings and CTAs do not establish a clear primary focus (mock).",
+      "screenshotOrDomEvidence": "playwright: multiple h1-weight elements",
+      "hashesOrContractsAffected": [],
+      "sourceFiles": [],
+      "confidence": 0.75,
+      "remediation": "Establish one primary heading and subordinate sections."
+    }
+  ]
+}

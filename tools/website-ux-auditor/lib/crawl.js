@@ -4,12 +4,22 @@ import { ensureDir } from './files.js';
 import { collectDomMetrics } from './dom-metrics.js';
 import { runAllChecksWithTrace } from '../checks/index.js';
 import { countMajorPlus } from './severity.js';
-import { countBySeverity, evaluateQualityGateCrawlHalt } from './quality-gate.js';
+import {
+  countBySeverity,
+  DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS,
+  evaluateQualityGateCrawlHalt,
+  sumQualityGateViolationUnits,
+} from './quality-gate.js';
 import { scorePage } from './scoring.js';
 import { pickHighestPriorityQueueItem } from './audit-priority.js';
 import { RulePageTraceStore } from './audit-backlog-trace.js';
 import { createDesignRuleRuntime } from './design-rule-runtime.js';
+import { clampInt } from './map-limit.js';
 import { rollupRuleExecution } from './rule-execution-rollup.js';
+
+/** Parallel Playwright pages during BFS crawl (auditor default 1; scorer passes 5). */
+export const DEFAULT_PAGE_CONCURRENCY = 1;
+export const MAX_PAGE_CONCURRENCY = 10;
 
 function safeSlug(input) {
   return String(input)
@@ -39,31 +49,38 @@ export function normalizeCrawlHref(raw) {
  *   stopAfterMajorPlus?: number | null,
  *   stopDisabled?: boolean,
  *   haltOnQualityGate?: boolean,
+ *   stopAfterGateViolationUnits?: number | null,
  *   severityCounts?: Record<string, number>,
  *   qualityGateThresholds?: Record<string, number>,
  * }} state
- * @returns {{ halt: boolean, reason: 'quality_gate_threshold' | 'backlog_threshold' | 'major_plus_threshold' | null, gateSeverity?: string | null }}
+ * @returns {{ halt: boolean, reason: 'quality_gate_threshold' | 'backlog_threshold' | 'major_plus_threshold' | null, gateSeverity?: string | null, gateViolationUnits?: number }}
  */
 export function evaluateCrawlHalt(state) {
   const {
     findingAccum,
     majorPlusAccum,
-    stopAfterBacklog = 10,
+    stopAfterBacklog = 0,
     stopAfterMajorPlus,
     stopDisabled = false,
     haltOnQualityGate = true,
+    stopAfterGateViolationUnits = DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS,
     severityCounts,
     qualityGateThresholds,
   } = state;
   if (stopDisabled) return { halt: false, reason: null, gateSeverity: null };
 
   if (haltOnQualityGate && severityCounts && qualityGateThresholds) {
-    const qg = evaluateQualityGateCrawlHalt(severityCounts, qualityGateThresholds);
+    const qg = evaluateQualityGateCrawlHalt(
+      severityCounts,
+      qualityGateThresholds,
+      stopAfterGateViolationUnits,
+    );
     if (qg.halt) {
       return {
         halt: true,
         reason: 'quality_gate_threshold',
         gateSeverity: qg.severity,
+        gateViolationUnits: qg.violationUnits,
       };
     }
   }
@@ -155,19 +172,23 @@ function dequeueItem(raw, fallbackDepth = 0) {
  *   stopAfterBacklog?: number | null,
  *   stopDisabled?: boolean,
  *   haltOnQualityGate?: boolean,
+ *   stopAfterGateViolationUnits?: number | null,
  *   qualityGateThresholds?: Record<string, number>,
  *   deterministicConcurrency?: number,
  *   traceStore?: RulePageTraceStore | null,
  *   priorityRuleIds?: string[],
  *   deprioritizedRuleIds?: string[],
+ *   onlyDeterministicRuleIds?: string[] | null,
  *   pagePriorityByUrl?: Record<string, number>,
  *   regressionUrls?: string[],
  *   resumeVisitedUrls?: string[],
  *   resumeQueuedUrls?: string[],
  *   excludeCrawlHrefs?: string[],
+ *   seedCrawlHrefs?: string[],
  *   logger?: { verbose?: (tag: string, message?: string, detail?: string) => void },
  *   onProgress?: (ev: CrawlProgressEvent) => void,
  *   maxLinkDepth?: number | null,
+ *   pageConcurrency?: number,
  *   repoRoot?: string | null,
  *   designTheme?: object | null,
  * }} opts
@@ -182,25 +203,36 @@ export async function crawlAndAnalyze(opts) {
     screenshots,
     siteKind,
     stopAfterMajorPlus = 10,
-    stopAfterBacklog = 10,
+    stopAfterBacklog = 0,
     stopDisabled = false,
     haltOnQualityGate = true,
+    stopAfterGateViolationUnits = DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS,
     qualityGateThresholds = null,
     deterministicConcurrency,
     traceStore: traceStoreOpt = null,
     priorityRuleIds = [],
     deprioritizedRuleIds = [],
+    onlyDeterministicRuleIds = null,
     pagePriorityByUrl = {},
     regressionUrls = [],
     resumeVisitedUrls = [],
     resumeQueuedUrls = [],
     excludeCrawlHrefs = [],
+    seedCrawlHrefs = [],
     logger,
     onProgress,
     maxLinkDepth: maxLinkDepthOpt = null,
+    pageConcurrency: pageConcurrencyOpt,
     repoRoot = null,
     designTheme = null,
   } = opts;
+
+  const pageConcurrency = clampInt(
+    pageConcurrencyOpt,
+    1,
+    MAX_PAGE_CONCURRENCY,
+    DEFAULT_PAGE_CONCURRENCY,
+  );
 
   const maxLinkDepth =
     maxLinkDepthOpt != null && Number.isFinite(Number(maxLinkDepthOpt))
@@ -247,6 +279,13 @@ export async function crawlAndAnalyze(opts) {
     queue = [{ href: startNorm, depth: 0 }];
   }
 
+  const seedDeduped = dedupeHrefQueue(seedCrawlHrefs, origin);
+  for (const href of seedDeduped) {
+    if (!href || !isCrawlableUrl(href, origin)) continue;
+    const alreadyQueued = queue.some((item) => dequeueItem(item, 0)?.href === href);
+    if (!alreadyQueued) queue.push({ href, depth: 0 });
+  }
+
   onProgress?.({
     phase: 'launch_end',
     durationMs: Date.now() - launchT0,
@@ -267,6 +306,7 @@ export async function crawlAndAnalyze(opts) {
     traceStore,
     priorityRuleIds,
     deprioritizedRuleIds,
+    onlyDeterministicRuleIds,
     onDeterministicRuleProgress: (progress) => {
       onProgress?.({
         phase: 'rule_progress',
@@ -308,6 +348,7 @@ export async function crawlAndAnalyze(opts) {
       stopAfterMajorPlus,
       stopDisabled,
       haltOnQualityGate,
+      stopAfterGateViolationUnits,
       severityCounts: severityRunTotal,
       qualityGateThresholds: qualityGateThresholds || undefined,
     });
@@ -425,6 +466,7 @@ export async function crawlAndAnalyze(opts) {
     onProgress?.({
       phase: 'page_end',
       href,
+      completedPage: analyzed,
       waveLabel,
       durationMs: Date.now() - tPage,
       pagesCompletedAfter: pages.length,
@@ -446,6 +488,11 @@ export async function crawlAndAnalyze(opts) {
         majorPlusAccum,
         stopAfterBacklog: stopDisabled ? null : stopAfterBacklog,
         stopAfterMajorPlus: stopDisabled ? null : stopAfterMajorPlus,
+        stopAfterGateViolationUnits: stopDisabled ? null : stopAfterGateViolationUnits,
+        gateViolationUnits: sumQualityGateViolationUnits(
+          severityRunTotal,
+          qualityGateThresholds || {},
+        ),
         pageRuleProgress: {
           url: href,
           done: detRuleTotal,
@@ -478,28 +525,70 @@ export async function crawlAndAnalyze(opts) {
 
   const priorityByUrl = pagePriorityByUrl && typeof pagePriorityByUrl === 'object' ? pagePriorityByUrl : {};
 
-  while (
-    queue.length &&
-    pages.length < maxPages &&
-    stopReason !== 'major_plus_threshold' &&
-    stopReason !== 'backlog_threshold'
-  ) {
-    const rawItem =
-      Object.keys(priorityByUrl).length > 0
-        ? pickHighestPriorityQueueItem(queue, priorityByUrl)
-        : queue.shift();
-    const item = dequeueItem(rawItem, 0);
-    if (!item) continue;
-    const { href, depth: pageDepth } = item;
-    if (!href || seen.has(href) || !isCrawlableUrl(href, origin)) continue;
-    seen.add(href);
-    visitedOrder.push(href);
-    const haltReason = await analyzeOne(href, 'crawl', true, pageDepth);
-    if (haltReason) {
-      stopReason = haltReason;
-      break;
-    }
+  let crawlInFlight = 0;
+
+  /** @returns {{ href: string, pageDepth: number } | null} */
+  function crawlGovernorStopActive() {
+    return (
+      stopReason === 'quality_gate_threshold' ||
+      stopReason === 'major_plus_threshold' ||
+      stopReason === 'backlog_threshold'
+    );
   }
+
+  function takeNextCrawlItem() {
+    if (crawlGovernorStopActive() || pages.length + crawlInFlight >= maxPages) {
+      return null;
+    }
+    while (queue.length) {
+      const rawItem =
+        Object.keys(priorityByUrl).length > 0
+          ? pickHighestPriorityQueueItem(queue, priorityByUrl)
+          : queue.shift();
+      const item = dequeueItem(rawItem, 0);
+      if (!item) continue;
+      const { href, depth: pageDepth } = item;
+      if (!href || seen.has(href) || !isCrawlableUrl(href, origin)) continue;
+      if (pages.length + crawlInFlight >= maxPages) return null;
+      seen.add(href);
+      visitedOrder.push(href);
+      return { href, pageDepth };
+    }
+    return null;
+  }
+
+  /**
+   * @param {boolean} expandLinks
+   */
+  async function drainCrawlQueue(expandLinks) {
+    async function worker() {
+      while (true) {
+        if (crawlGovernorStopActive()) {
+          return;
+        }
+        const next = takeNextCrawlItem();
+        if (!next) {
+          if (crawlInFlight === 0) return;
+          await new Promise((resolve) => setTimeout(resolve, 10));
+          continue;
+        }
+        crawlInFlight += 1;
+        try {
+          const haltReason = await analyzeOne(next.href, 'crawl', expandLinks, next.pageDepth);
+          if (haltReason) {
+            stopReason = haltReason;
+          }
+        } finally {
+          crawlInFlight -= 1;
+        }
+      }
+    }
+
+    const workers = Math.min(pageConcurrency, Math.max(1, maxPages));
+    await Promise.all(Array.from({ length: workers }, () => worker()));
+  }
+
+  await drainCrawlQueue(true);
 
   await traceStore.save();
 
@@ -536,9 +625,15 @@ export async function crawlAndAnalyze(opts) {
     pagesPlannedBudget: maxPages,
     stopDisabled,
     haltOnQualityGate: stopDisabled ? false : haltOnQualityGate,
+    stopAfterGateViolationUnits: stopDisabled ? null : stopAfterGateViolationUnits,
     qualityGateThresholds: qualityGateThresholds || null,
     qualityGateHaltSeverity,
+    qualityGateViolationUnitsTotal: sumQualityGateViolationUnits(
+      severityRunTotal,
+      qualityGateThresholds || {},
+    ),
     deterministicConcurrency: designRuleRuntime.deterministicConcurrency,
+    pageConcurrency,
     maxLinkDepth,
     designTheme: designTheme
       ? {

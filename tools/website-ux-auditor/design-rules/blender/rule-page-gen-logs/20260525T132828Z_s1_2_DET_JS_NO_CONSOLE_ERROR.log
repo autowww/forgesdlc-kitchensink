@@ -1,0 +1,26 @@
+## Report: `det-js-no-console-error.md`
+
+Replaced the bootstrap stub at `docs/design/ux-audit/rule-pages/det-js-no-console-error.md` with a full PDCA handbook page aligned to `RULE_PAGE_SCHEMA.md` and `det-js-no-console-error.check.js`.
+
+### Front matter
+| Field | Value |
+|--------|--------|
+| **rule_id** | `DET.JS.NO_CONSOLE_ERROR` |
+| **page_version** | `01cb5ec00334415a9f9108a46f624c90a59e31b6735c536e0871f57174fd74e7` ✓ (exact match) |
+| **registry_fingerprint** | `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` |
+| **registry_status** | `implemented` |
+| **agent_model** | `composer-2.5-fast` |
+| **related_rules** | `DET.JS.PROGRESSIVE`, `DET.NAV.FOCUS_ORDER`, `DET.MOTION.PREFERS_REDUCED`, `AI.JS.BEHAVIOR_DISCOVERABILITY` |
+
+### Content highlights
+- **Purpose:** Golden-path Playwright smoke (up to 5 clicks on `SMOKE_SELECTORS`) must not emit `console` errors or `pageerror` exceptions; ties to **Ksj** script family and `metrics.jsConsoleErrorReport`.
+- **Passing / failing signals:** Mirror `findingsFromJsConsoleErrorReport`, `shouldIgnoreConsoleMessage`, and harness test cases.
+- **Before example (failing):** `doc-main`, `fs-tab-panel`, `fs-tab-panel__tabs`, `forge-card breathe-static`, `forge-theme-trigger`, inline script that `console.error`s and touches undefined `forgeAmbient` on tab click.
+- **After example (passing):** Same structure with valid tab panes, theme dropdown + `data-bs-theme-value`, and `forge-theme.js` loaded with `defer`.
+- **Evidence and remediation:** Documents `beginJsConsoleErrorCapture`, `runGoldenPathSmoke`, check module path, and re-verify steps (showcase build + auditor + harness).
+
+### Confirmations
+- **page_version** = `01cb5ec00334415a9f9108a46f624c90a59e31b6735c536e0871f57174fd74e7`
+- No Mermaid; no Fleet-specific profiles
+- Check modules, `rule-mappings.js`, and registry were not edited
+- Before/after blocks use real KS classes from `components/enterprise_marketing.py`, `components/layouts.py`, and `docs/design/catalog/interactions/Ksj-fam-scripts.md`

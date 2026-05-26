@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-25T10:11:02.710Z",
+  "generatedAt": "2026-05-25T14:48:20.474Z",
   "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
-  "registryGeneratedAt": "2026-05-25T10:11:02.634Z",
+  "registryGeneratedAt": "2026-05-25T14:06:37.789Z",
   "rulePagesDir": "docs/design/ux-audit/rule-pages",
   "showcaseHtmlDir": "ux-audit-rules",
   "summary": {
     "total": 71,
     "deterministic": 51,
     "ai": 20,
-    "current": 0,
-    "stale": 70,
-    "missing": 1
+    "current": 36,
+    "stale": 35,
+    "missing": 0
   },
   "rules": [
     {
@@ -417,16 +417,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-persistent-chrome.md",
       "htmlPath": "ux-audit-rules/det-app-persistent-chrome.html",
       "contentVersion": "1d09413b2bebf6089bc9f8253fdceea08b04c854b166747b11f65cf8badd4b94",
-      "pageVersion": "f5a18d2e84b4ae7ae74b1d76e889661ddb5b3a3d117f6e48814e59f6960102aa",
+      "pageVersion": "1d09413b2bebf6089bc9f8253fdceea08b04c854b166747b11f65cf8badd4b94",
       "generatedAt": "2026-05-19T18:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-persistent-chrome",
       "modulePath": "design-rules/deterministic/generated/det-app-persistent-chrome.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.BUTTON.GROUP.MAX",
@@ -435,16 +435,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-button-group-max.md",
       "htmlPath": "ux-audit-rules/det-button-group-max.html",
       "contentVersion": "50cb5164f8d3346edc5604d7ef0d000c38f94148be150fcdf0d962ccf3706b46",
-      "pageVersion": "4bf3b7d05427562278ec74fbec5c91f84219aa8c14c5a0a12a6ec9ebdea9590a",
+      "pageVersion": "50cb5164f8d3346edc5604d7ef0d000c38f94148be150fcdf0d962ccf3706b46",
       "generatedAt": "2026-05-19T20:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-button-group-max",
       "modulePath": "design-rules/deterministic/generated/det-button-group-max.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "conversion",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CARD.ACTION_LIMIT",
@@ -453,16 +453,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-card-action-limit.md",
       "htmlPath": "ux-audit-rules/det-card-action-limit.html",
       "contentVersion": "7f989d49b54debbbf250a24bc84c6bc5f9dedadedc654dd4e15989008004f934",
-      "pageVersion": "8b47ef1cec520e036dadd4f0ae3e9fb630d0f96e8be3c9728b373c131624629c",
+      "pageVersion": "7f989d49b54debbbf250a24bc84c6bc5f9dedadedc654dd4e15989008004f934",
       "generatedAt": "2026-05-19T20:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-card-action-limit",
       "modulePath": "design-rules/deterministic/generated/det-card-action-limit.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "conversion",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CARD.TITLE",
@@ -471,16 +471,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-card-title.md",
       "htmlPath": "ux-audit-rules/det-card-title.html",
       "contentVersion": "f4704f39e3fb8cee13da9d206f39568a52943390bd91ee4b895c74bd9a4a583f",
-      "pageVersion": "ee28367724421799c6bb05f9eddada3934bfdcfbdc953a16fcf32156ff285354",
+      "pageVersion": "f4704f39e3fb8cee13da9d206f39568a52943390bd91ee4b895c74bd9a4a583f",
       "generatedAt": "2026-05-19T19:12:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-card-title",
       "modulePath": "design-rules/deterministic/generated/det-card-title.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CATALOG.CONTRACT_SPECIFICITY",
@@ -489,16 +489,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-catalog-contract-specificity.md",
       "htmlPath": "ux-audit-rules/det-catalog-contract-specificity.html",
       "contentVersion": "e8dacd0a36432c1e8c3d908922b4458a6e67b752be16ff77592f90edfbda250f",
-      "pageVersion": "0cff2731e516d39b0134050ba1d240fe3f5fccf45a7cae0c5854e1c9ec3c6a96",
+      "pageVersion": "e8dacd0a36432c1e8c3d908922b4458a6e67b752be16ff77592f90edfbda250f",
       "generatedAt": "2026-05-19T21:18:42.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-catalog-contract-specificity",
       "modulePath": "design-rules/deterministic/generated/det-catalog-contract-specificity.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CHART.ALT_SUMMARY",
@@ -597,16 +597,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-cta-hierarchy.md",
       "htmlPath": "ux-audit-rules/det-cta-hierarchy.html",
       "contentVersion": "8790401c69d14712da45308df1105ae0d4fa1a29997485bbdebc1d9def6e474f",
-      "pageVersion": "96c734fbaeda694dfccadfe33c76c0e18ce82d905b6013754688a044463755af",
+      "pageVersion": "8790401c69d14712da45308df1105ae0d4fa1a29997485bbdebc1d9def6e474f",
       "generatedAt": "2026-05-19T22:00:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-cta-hierarchy",
       "modulePath": "design-rules/deterministic/generated/det-cta-hierarchy.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "conversion",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CTA.LABEL_NONEMPTY",
@@ -759,16 +759,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-html-empty-inline.md",
       "htmlPath": "ux-audit-rules/det-html-empty-inline.html",
       "contentVersion": "dbe79823bbc33762ff1359462db1ad4daa978530a36e767f1a280470a5945241",
-      "pageVersion": "c7195a9b294297c8ee7a06c29cd8d07d908f6afa770e2370984dc48b01402e26",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "dbe79823bbc33762ff1359462db1ad4daa978530a36e767f1a280470a5945241",
+      "generatedAt": "2026-05-25T11:30:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-html-empty-inline",
       "modulePath": "design-rules/deterministic/generated/det-html-empty-inline.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.INVENTORY.CROSSWALK",
@@ -777,16 +777,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md",
       "htmlPath": "ux-audit-rules/det-inventory-crosswalk.html",
       "contentVersion": "1ff85299f06dc68add4d86309b7e7f7baa939d1767e55cee5288b001d5d0c73b",
-      "pageVersion": "30545bbdc5a818afcd63addb77644aa4024a7d1ac43f281ecc516df8a1946c6d",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "1ff85299f06dc68add4d86309b7e7f7baa939d1767e55cee5288b001d5d0c73b",
+      "generatedAt": "2026-05-25T14:32:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-inventory-crosswalk",
       "modulePath": "design-rules/deterministic/generated/det-inventory-crosswalk.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.JS.NO_CONSOLE_ERROR",
@@ -795,16 +795,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-js-no-console-error.md",
       "htmlPath": "ux-audit-rules/det-js-no-console-error.html",
       "contentVersion": "01cb5ec00334415a9f9108a46f624c90a59e31b6735c536e0871f57174fd74e7",
-      "pageVersion": "3a388ec1fd4634daaabc8760c5cf8f447dcd1a931e2cc74d3e9107d3d4d3b401",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "01cb5ec00334415a9f9108a46f624c90a59e31b6735c536e0871f57174fd74e7",
+      "generatedAt": "2026-05-25T20:15:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-js-no_console_error",
       "modulePath": "design-rules/deterministic/generated/det-js-no-console-error.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "depthAndTechnicalDisclosure",
       "area": "interaction",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.JS.PROGRESSIVE",
@@ -813,16 +813,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-js-progressive.md",
       "htmlPath": "ux-audit-rules/det-js-progressive.html",
       "contentVersion": "31df03e4b4f2fd435ffcef983b6c03582c67c86305ec0b1919ac0f753600c7fe",
-      "pageVersion": "aef06682cf079bba2a99e339cbe286f76d9c95820ee47109650fd865e4ae91cf",
+      "pageVersion": "31df03e4b4f2fd435ffcef983b6c03582c67c86305ec0b1919ac0f753600c7fe",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-js-progressive",
       "modulePath": "design-rules/deterministic/generated/det-js-progressive.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "depthAndTechnicalDisclosure",
       "area": "interaction",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.LANDMARKS.REQUIRED",
@@ -831,16 +831,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-landmarks-required.md",
       "htmlPath": "ux-audit-rules/det-landmarks-required.html",
       "contentVersion": "c29f7f449fb7047c691e49d9eca95939fbfd12f1de92145468641f7c5150f192",
-      "pageVersion": "51297216607b12c57ee833bd45163f19e075b08342eb765435c5ec12058d4d9c",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "c29f7f449fb7047c691e49d9eca95939fbfd12f1de92145468641f7c5150f192",
+      "generatedAt": "2026-05-25T12:00:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-landmarks-required",
       "modulePath": "design-rules/deterministic/generated/det-landmarks-required.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.LAYOUT.GRID_CONSISTENCY",
@@ -849,16 +849,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-layout-grid-consistency.md",
       "htmlPath": "ux-audit-rules/det-layout-grid-consistency.html",
       "contentVersion": "c712bdd2575f6dc25d95725261f7cec1bcae2af0f85ce49b5bfaa02b2636a97d",
-      "pageVersion": "35628467615fe6c13c124c8bec16571065b3b46b09e9a3866e7a9ef1659e048c",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "c712bdd2575f6dc25d95725261f7cec1bcae2af0f85ce49b5bfaa02b2636a97d",
+      "generatedAt": "2026-05-25T14:00:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-layout-grid_consistency",
       "modulePath": "design-rules/deterministic/generated/det-layout-grid-consistency.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.MOTION.NO_AUTO_PLAY_FLASH",
@@ -867,16 +867,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-motion-no-auto-play-flash.md",
       "htmlPath": "ux-audit-rules/det-motion-no-auto-play-flash.html",
       "contentVersion": "f6716461755c5906686a586535661bb7dc3d022d186faaf718efbf89ed7070d3",
-      "pageVersion": "6d362dfebaa938ee2d52159a9935b5122d886612dc0347ad9ce3691cc7665594",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "f6716461755c5906686a586535661bb7dc3d022d186faaf718efbf89ed7070d3",
+      "generatedAt": "2026-05-25T14:30:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-motion-no_auto_play_flash",
       "modulePath": "design-rules/deterministic/generated/det-motion-no-auto-play-flash.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.MOTION.PREFERS_REDUCED",
@@ -885,16 +885,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-motion-prefers-reduced.md",
       "htmlPath": "ux-audit-rules/det-motion-prefers-reduced.html",
       "contentVersion": "49a23233fa7dbc7d7d980dd0891b238b19c782633c1e748896a0c6aeeac33ba5",
-      "pageVersion": "ffee4c3e5a22a542dcde4eb61650a5a74ffcf3f4fb3f4bbd0b6b1b2f58a66907",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "49a23233fa7dbc7d7d980dd0891b238b19c782633c1e748896a0c6aeeac33ba5",
+      "generatedAt": "2026-05-25T16:30:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-motion-prefers_reduced",
       "modulePath": "design-rules/deterministic/generated/det-motion-prefers-reduced.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.BREADCRUMB",
@@ -903,16 +903,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-breadcrumb.md",
       "htmlPath": "ux-audit-rules/det-nav-breadcrumb.html",
       "contentVersion": "d29db46cf5a6dfbe5acb196335691d0cb791e2dd6772b11ce191aa93713bb303",
-      "pageVersion": "6a69666312297289b01b2cfc0636983ebc28efaa97376a00e4063ea57cad56f4",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "d29db46cf5a6dfbe5acb196335691d0cb791e2dd6772b11ce191aa93713bb303",
+      "generatedAt": "2026-05-25T15:30:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-breadcrumb",
       "modulePath": "design-rules/deterministic/generated/det-nav-breadcrumb.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.DEDUP",
@@ -921,16 +921,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-dedup.md",
       "htmlPath": "ux-audit-rules/det-nav-dedup.html",
       "contentVersion": "c3ab59adb095d9ee61013db48b1e31c8d82b9fe44864b413efe78f18279abe2c",
-      "pageVersion": "643931944e23c3e1ccbf5359980f1fcd92bdb862280232080043c903409b5146",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "c3ab59adb095d9ee61013db48b1e31c8d82b9fe44864b413efe78f18279abe2c",
+      "generatedAt": "2026-05-25T17:00:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-dedup",
       "modulePath": "design-rules/deterministic/generated/det-nav-dedup.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.DEPTH",
@@ -939,16 +939,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-depth.md",
       "htmlPath": "ux-audit-rules/det-nav-depth.html",
       "contentVersion": "bd3562025ebc5525d93f3f5d235936a70a33683cf2056afc850e561df77f8aee",
-      "pageVersion": "6c9992a82595ddcfeb679163a84a7f1e5c1029afa94c102b83936be64244f5fb",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "bd3562025ebc5525d93f3f5d235936a70a33683cf2056afc850e561df77f8aee",
+      "generatedAt": "2026-05-25T18:00:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-depth",
       "modulePath": "design-rules/deterministic/generated/det-nav-depth.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.FOCUS_ORDER",
@@ -957,16 +957,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-focus-order.md",
       "htmlPath": "ux-audit-rules/det-nav-focus-order.html",
       "contentVersion": "84636f49a8af2c9595b613d075ec4f5c84d25ca7537f8b8fc84b43684a3d0210",
-      "pageVersion": "caf6e37b2bf33ac33e7bd439c20d3ae66fc4954ff028ad9dbb1df2fa25518bb0",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "84636f49a8af2c9595b613d075ec4f5c84d25ca7537f8b8fc84b43684a3d0210",
+      "generatedAt": "2026-05-25T19:15:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-focus_order",
       "modulePath": "design-rules/deterministic/generated/det-nav-focus-order.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.IN_PAGE_TOC",
@@ -975,16 +975,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-in-page-toc.md",
       "htmlPath": "ux-audit-rules/det-nav-in-page-toc.html",
       "contentVersion": "73ca82c130c0f8d8ea17f8412cab30621bfb8fabd1924a6a943a3653e9680f47",
-      "pageVersion": "86e0ec05e4a86f24c145fda0f5100744def35100ba63446364090bd5dececa4f",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "73ca82c130c0f8d8ea17f8412cab30621bfb8fabd1924a6a943a3653e9680f47",
+      "generatedAt": "2026-05-25T20:30:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-in_page_toc",
       "modulePath": "design-rules/deterministic/generated/det-nav-in-page-toc.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PAGE.LANG",
@@ -993,16 +993,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-page-lang.md",
       "htmlPath": "ux-audit-rules/det-page-lang.html",
       "contentVersion": "44c6f35dae6a383cc76fab9c0dca814bfe8c1309ffa6bd28a6473d44f81cad9e",
-      "pageVersion": "442adfa047af1bd765185104a6d6f9698ddb8c8f882055b063245dcd8eeddce0",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "44c6f35dae6a383cc76fab9c0dca814bfe8c1309ffa6bd28a6473d44f81cad9e",
+      "generatedAt": "2026-05-25T14:32:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-lang",
       "modulePath": "design-rules/deterministic/page/lang.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PAGE.MODE",
@@ -1011,16 +1011,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-page-mode.md",
       "htmlPath": "ux-audit-rules/det-page-mode.html",
       "contentVersion": "9ab49bfba4426e3217ba3f6c40b1a27e01ad37885da289c2e4c9ab4b8e6953e2",
-      "pageVersion": "dede42ab56e5555c9927d8a2039d05702d211c43675e5a43ad7ed6b2b738bbf2",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "9ab49bfba4426e3217ba3f6c40b1a27e01ad37885da289c2e4c9ab4b8e6953e2",
+      "generatedAt": "2026-05-25T18:45:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-mode",
       "modulePath": "design-rules/deterministic/generated/det-page-mode.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PAGE.TITLE",
@@ -1029,16 +1029,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-page-title.md",
       "htmlPath": "ux-audit-rules/det-page-title.html",
       "contentVersion": "4040ca340c20e070ac3646e7875cf98f539cdb90d66b4145dd5874f55ad35dfd",
-      "pageVersion": "4b00e7a048eddc2e3b0b44f2a4ae46fe17b045273abee7241b1753feb85b2596",
-      "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "pageVersion": "4040ca340c20e070ac3646e7875cf98f539cdb90d66b4145dd5874f55ad35dfd",
+      "generatedAt": "2026-05-25T15:12:00.000Z",
+      "agentModel": "composer-2.5-fast",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-title",
       "modulePath": "design-rules/deterministic/page/title.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "metadata",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PAGE.VIEWPORT",
@@ -1047,16 +1047,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-page-viewport.md",
       "htmlPath": "ux-audit-rules/det-page-viewport.html",
       "contentVersion": "e7575c6d91dfcdd8b116c46bf9d0e72834a96f8ba28aef18b49964474c7f0736",
-      "pageVersion": "dd0af00c344b04902548cde47c0a4b1ff924d78b01337602af39029a86bdbd70",
+      "pageVersion": "e7575c6d91dfcdd8b116c46bf9d0e72834a96f8ba28aef18b49964474c7f0736",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-viewport",
       "modulePath": "design-rules/deterministic/page/viewport.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PROSE.LENGTH",
@@ -1065,16 +1065,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-prose-length.md",
       "htmlPath": "ux-audit-rules/det-prose-length.html",
       "contentVersion": "b246000e8074dc2ec8325cca1ad2af3f39e46152d69d019a9536befacd6887f9",
-      "pageVersion": "7cb660d59d54b5098fd4e611214e94d48eedf661f023f61ee77a0d8e3ecc1bac",
+      "pageVersion": "b246000e8074dc2ec8325cca1ad2af3f39e46152d69d019a9536befacd6887f9",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-prose-length",
       "modulePath": "design-rules/deterministic/generated/det-prose-length.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "depthAndTechnicalDisclosure",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PY.KS_HASH_ATTRS",
@@ -1083,16 +1083,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-py-ks-hash-attrs.md",
       "htmlPath": "ux-audit-rules/det-py-ks-hash-attrs.html",
       "contentVersion": "2714cbe739f8cd59a730c408f5fd8b07d826fbff93b3ad3707bc7ff0aab86d03",
-      "pageVersion": "eb469ed4bed7e9d1f2929a2a0a01db1447f416e349992d6e61c6e277a98464a1",
+      "pageVersion": "2714cbe739f8cd59a730c408f5fd8b07d826fbff93b3ad3707bc7ff0aab86d03",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-py-ks_hash_attrs",
       "modulePath": "design-rules/deterministic/generated/det-py-ks-hash-attrs.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PY.OPTIONAL_REGIONS",
@@ -1101,16 +1101,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-py-optional-regions.md",
       "htmlPath": "ux-audit-rules/det-py-optional-regions.html",
       "contentVersion": "71766cb637ebd19d64f9e352322bff3857f7f79149387898b2d2c6e95be325df",
-      "pageVersion": "2808fb171d8b5b6a908fc2e11da5bc4036c55fb518cb2008350d62d60f45e880",
+      "pageVersion": "71766cb637ebd19d64f9e352322bff3857f7f79149387898b2d2c6e95be325df",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-py-optional_regions",
       "modulePath": "design-rules/deterministic/generated/det-py-optional-regions.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.REACT.A11Y_ROLE",
@@ -1119,16 +1119,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-react-a11y-role.md",
       "htmlPath": "ux-audit-rules/det-react-a11y-role.html",
       "contentVersion": "ff0b0c65b02fd5b179a0115612c24b1dd6493a03243d1208d1b8127f7aeab7bc",
-      "pageVersion": "e0f4f7afd99adb70f2e8dac7e98a974e0a016573516c11d8072ed8e09a8032b5",
+      "pageVersion": "ff0b0c65b02fd5b179a0115612c24b1dd6493a03243d1208d1b8127f7aeab7bc",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-react-a11y_role",
       "modulePath": "design-rules/deterministic/generated/det-react-a11y-role.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.REACT.KS_ATTRS",
@@ -1137,16 +1137,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-react-ks-attrs.md",
       "htmlPath": "ux-audit-rules/det-react-ks-attrs.html",
       "contentVersion": "7826ad876d4d13d37c737755120c5b0d7bda2d875e2305877fd89bf4c33f351a",
-      "pageVersion": "26e7bf7f3bcceb0f0350e4a906de03eb7463e0be102c445f2f3aacecd80f0484",
+      "pageVersion": "7826ad876d4d13d37c737755120c5b0d7bda2d875e2305877fd89bf4c33f351a",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-react-ks_attrs",
       "modulePath": "design-rules/deterministic/generated/det-react-ks-attrs.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.SCREENSHOT.STATUS",
@@ -1155,16 +1155,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-screenshot-status.md",
       "htmlPath": "ux-audit-rules/det-screenshot-status.html",
       "contentVersion": "c26222a9937dd2c39c4a8df01bf3d436948bd31675e0456d83a95e5aa31ef459",
-      "pageVersion": "ab2605459348b8a3f59b3ef5de9d813cd1314f09827c1b6fb74eec9fa57aaf6a",
+      "pageVersion": "c26222a9937dd2c39c4a8df01bf3d436948bd31675e0456d83a95e5aa31ef459",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-screenshot-status",
       "modulePath": "design-rules/deterministic/generated/det-screenshot-status.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.SECTION.HEADING",
@@ -1173,16 +1173,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-section-heading.md",
       "htmlPath": "ux-audit-rules/det-section-heading.html",
       "contentVersion": "2ff2b812e0500ea93c7a80ee609376e1d41b1bd16fb3663295dd87736c8c4226",
-      "pageVersion": "13c25cd37bcae20a20367589dda396d53f3a69cd855bd24e56bab3d586984e9f",
+      "pageVersion": "2ff2b812e0500ea93c7a80ee609376e1d41b1bd16fb3663295dd87736c8c4226",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-section-heading",
       "modulePath": "design-rules/deterministic/generated/det-section-heading.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "narrativeHero",
       "area": "semantics",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.SECTION.SINGLE_JOB",
@@ -1191,16 +1191,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-section-single-job.md",
       "htmlPath": "ux-audit-rules/det-section-single-job.html",
       "contentVersion": "8b04c87e89b47648fd12a520d01617c41da827d6f93546022a609b95d5238184",
-      "pageVersion": "5d90a3f28b8b05287bdb9fc72514f0f32b9471e9b8cb4fecb8cbeda4375cf18c",
+      "pageVersion": "8b04c87e89b47648fd12a520d01617c41da827d6f93546022a609b95d5238184",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-section-single-job",
       "modulePath": "design-rules/deterministic/generated/det-section-single-job.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "narrativeHero",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.SURFACE.ELEVATION_TOKEN",
@@ -1209,16 +1209,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-surface-elevation-token.md",
       "htmlPath": "ux-audit-rules/det-surface-elevation-token.html",
       "contentVersion": "aa7f0a4c0ff4aba8b16ed6191e023d1b65ad619cc02db92b03fb8c8ee846087a",
-      "pageVersion": "9afd92d4c6f1386db5d9f01c805b4352f9fc80ad5ea6a76d25c2b443b30fe0ce",
+      "pageVersion": "aa7f0a4c0ff4aba8b16ed6191e023d1b65ad619cc02db92b03fb8c8ee846087a",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-surface-elevation_token",
       "modulePath": "design-rules/deterministic/generated/det-surface-elevation-token.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.THEME.CONTRAST_MIN",
@@ -1227,16 +1227,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-theme-contrast-min.md",
       "htmlPath": "ux-audit-rules/det-theme-contrast-min.html",
       "contentVersion": "7a8a34f4cc175a633faed85bec20a7ff9a453984ccaef7d23910b454b28d8f08",
-      "pageVersion": "6ac8ba8806384adfbbbfe0fce41deebc5d215bbdc14c7c9013315e21f9534ff8",
+      "pageVersion": "7a8a34f4cc175a633faed85bec20a7ff9a453984ccaef7d23910b454b28d8f08",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-theme-contrast_min",
       "modulePath": "design-rules/deterministic/generated/det-theme-contrast-min.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.THEME.FONT_STACK",
@@ -1245,16 +1245,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-theme-font-stack.md",
       "htmlPath": "ux-audit-rules/det-theme-font-stack.html",
       "contentVersion": "c1e1ed0bc84d27c4a0d298f0237d5e132a29c3039df3f7c0b6083e24a63cb0c3",
-      "pageVersion": "",
-      "generatedAt": "",
-      "agentModel": "",
-      "registryFingerprint": "",
+      "pageVersion": "c1e1ed0bc84d27c4a0d298f0237d5e132a29c3039df3f7c0b6083e24a63cb0c3",
+      "generatedAt": "2026-05-25T13:41:26Z",
+      "agentModel": "handbook-version-sync",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-theme-font_stack",
       "modulePath": "design-rules/deterministic/generated/det-theme-font-stack.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "",
       "area": "",
-      "status": "missing"
+      "status": "current"
     },
     {
       "id": "DET.TOKEN.NO_DRIFT",
@@ -1263,16 +1263,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-token-no-drift.md",
       "htmlPath": "ux-audit-rules/det-token-no-drift.html",
       "contentVersion": "5ed128085a781532bd03395cf303b8346906ee1d32da4c60fd8028d754dabf15",
-      "pageVersion": "3d3488eaa376f4b255c5d44a0c671b4845ab2f6b48c438c665aa31849baa6e18",
+      "pageVersion": "5ed128085a781532bd03395cf303b8346906ee1d32da4c60fd8028d754dabf15",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-token-no_drift",
       "modulePath": "design-rules/deterministic/generated/det-token-no-drift.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.VISUAL.RHYTHM",
@@ -1281,16 +1281,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-visual-rhythm.md",
       "htmlPath": "ux-audit-rules/det-visual-rhythm.html",
       "contentVersion": "4d81d521833100426310b5ffc8ebc4816a8ec4125fc9c32312d6043d57e4e135",
-      "pageVersion": "faa9c8a86519d5225e9bfc6e09d05da20bd7e4fb8de953fe9f52e3132ca07184",
+      "pageVersion": "4d81d521833100426310b5ffc8ebc4816a8ec4125fc9c32312d6043d57e4e135",
       "generatedAt": "2026-05-23T13:24:10Z",
-      "agentModel": "bootstrap-missing-rule-pages.py",
+      "agentModel": "handbook-version-sync",
       "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-visual-rhythm",
       "modulePath": "design-rules/deterministic/generated/det-visual-rhythm.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     }
   ]
 }

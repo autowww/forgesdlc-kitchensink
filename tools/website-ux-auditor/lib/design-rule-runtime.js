@@ -71,6 +71,7 @@ export function listImplementedDeterministicRules(registry) {
  *   traceStore?: import('./audit-backlog-trace.js').RulePageTraceStore | null,
  *   priorityRuleIds?: string[],
  *   deprioritizedRuleIds?: string[],
+ *   onlyDeterministicRuleIds?: string[] | null,
  *   onDeterministicRuleProgress?: (payload: { url: string, done: number, total: number, ruleId?: string }) => void,
  * }} [opts]
  */
@@ -78,7 +79,12 @@ export async function createDesignRuleRuntime(opts = {}) {
   const registry = await loadDesignRuleRegistry();
   const legacyAdapterMap = buildLegacyAdapterMap(registry);
   const moduleCache = new Map();
-  const implementedRules = listImplementedDeterministicRules(registry);
+  const onlySet = opts.onlyDeterministicRuleIds?.length
+    ? new Set(opts.onlyDeterministicRuleIds)
+    : null;
+  const implementedRules = listImplementedDeterministicRules(registry).filter(
+    (r) => !onlySet || onlySet.has(r.id),
+  );
   const deterministicConcurrency = clampInt(
     opts.deterministicConcurrency,
     1,
@@ -219,7 +225,7 @@ export async function createDesignRuleRuntime(opts = {}) {
   }
 
   async function runDeterministicRulesWithTrace({ metrics, url, page, repoRoot, ctx }) {
-    const rules = registry.deterministicRules || [];
+    const rules = (registry.deterministicRules || []).filter((r) => !onlySet || onlySet.has(r.id));
     const prioSet = new Set(priorityRuleIds);
     const indexed = rules.map((ruleMeta, index) => ({ ruleMeta, index }));
     indexed.sort((a, b) => {
@@ -274,6 +280,7 @@ export async function createDesignRuleRuntime(opts = {}) {
     registryFingerprint: registry.fingerprint || null,
     registryPath: registry.path,
     implementedRuleIds: implementedRules.map((r) => r.id),
+    onlyDeterministicRuleIds: onlySet ? [...onlySet] : null,
     deterministicConcurrency,
     enrichLegacyFindings,
     runDeterministicRules,

@@ -1047,13 +1047,27 @@ def _showcase_header(
     page_title: str,
     breadcrumb_html: str,
 ) -> str:
-    bc_block = ""
-    if breadcrumb_html.strip():
+    trail = breadcrumb_html.strip()
+    if not trail:
+        _bc = chrome_region_attrs("doc-breadcrumb")
+        _bx = f" {_bc}" if _bc else ""
+        trail = (
+            f'<nav class="ks-doc-breadcrumb" aria-label="Breadcrumb"{_bx}>'
+            '<ol class="breadcrumb mb-1" style="font-size:0.75rem">'
+            '<li class="breadcrumb-item">'
+            '<a href="index.html" class="text-cyan" style="text-decoration:none">Home</a>'
+            "</li>"
+            f'<li class="breadcrumb-item active text-dim" aria-current="page">{e(page_title)}</li>'
+            "</ol></nav>"
+        )
+    if "ks-doc-breadcrumb" in trail:
+        bc_block = f"      {trail}\n"
+    else:
         _bc = chrome_region_attrs("doc-breadcrumb")
         _bx = f" {_bc}" if _bc else ""
         bc_block = (
             f'      <div class="ks-doc-breadcrumb"{_bx}>\n'
-            f"      {breadcrumb_html}\n"
+            f"      {trail}\n"
             f"      </div>\n"
         )
     return f"""\

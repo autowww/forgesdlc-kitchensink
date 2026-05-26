@@ -27,20 +27,21 @@ test('evaluateCrawlHalt does not stop at exactly backlog limit', () => {
   assert.equal(r.halt, false);
 });
 
-test('evaluateCrawlHalt stops on quality_gate_threshold when a segment is full', () => {
+test('evaluateCrawlHalt stops on quality_gate_threshold when gate violation units exceed budget', () => {
   const r = evaluateCrawlHalt({
     findingAccum: 3,
     majorPlusAccum: 0,
     stopAfterBacklog: 99,
     stopAfterMajorPlus: 99,
+    stopAfterGateViolationUnits: 10,
     stopDisabled: false,
     haltOnQualityGate: true,
-    severityCounts: { blocker: 0, critical: 0, major: 0, warn: 5, minor: 0, trivial: 0, cosmetic: 0 },
+    severityCounts: { blocker: 0, critical: 0, major: 3, warn: 16, minor: 0, trivial: 0, cosmetic: 0 },
     qualityGateThresholds: DEFAULT_QUALITY_GATE_THRESHOLDS,
   });
   assert.equal(r.halt, true);
   assert.equal(r.reason, 'quality_gate_threshold');
-  assert.equal(r.gateSeverity, 'warn');
+  assert.ok((r.gateViolationUnits ?? 0) > 10);
 });
 
 test('evaluateCrawlHalt prefers quality gate before backlog when both would fire', () => {
@@ -49,9 +50,10 @@ test('evaluateCrawlHalt prefers quality gate before backlog when both would fire
     majorPlusAccum: 0,
     stopAfterBacklog: 10,
     stopAfterMajorPlus: 99,
+    stopAfterGateViolationUnits: 10,
     stopDisabled: false,
     haltOnQualityGate: true,
-    severityCounts: { blocker: 0, critical: 0, major: 0, warn: 5, minor: 0, trivial: 0, cosmetic: 0 },
+    severityCounts: { blocker: 0, critical: 0, major: 3, warn: 16, minor: 0, trivial: 0, cosmetic: 0 },
     qualityGateThresholds: DEFAULT_QUALITY_GATE_THRESHOLDS,
   });
   assert.equal(r.reason, 'quality_gate_threshold');

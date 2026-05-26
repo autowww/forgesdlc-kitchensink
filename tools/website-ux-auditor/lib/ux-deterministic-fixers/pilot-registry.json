@@ -1,0 +1,407 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-26T06:45:48.990Z",
+  "ruleCount": 50,
+  "rules": [
+    {
+      "ruleId": "DET.AMBIENT.Z_INDEX",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.APP.FOCUS_TRAP",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.APP.PERSISTENT_CHROME",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "multi_page"
+      ]
+    },
+    {
+      "ruleId": "DET.BUTTON.GROUP.MAX",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.CARD.ACTION_LIMIT",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.CARD.TITLE",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.CATALOG.CONTRACT_SPECIFICITY",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.CHART.ALT_SUMMARY",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.CHROME.BOUNDARY",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.CONTEXT.BURDEN",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.CONTRACT.PATH",
+      "fixerId": "repo_overlay",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "repo_overlay"
+      ]
+    },
+    {
+      "ruleId": "DET.CONTRACT.PLACEHOLDERS",
+      "fixerId": "repo_overlay",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "repo_overlay"
+      ]
+    },
+    {
+      "ruleId": "DET.CTA.HIERARCHY",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.CTA.LABEL_NONEMPTY",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.DATA.COLOR_ONLY",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.DATA.TABLE_HEADERS",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.DIAGRAM.ALT",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.DIAGRAM.ASSET_REGISTRY",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.DIAGRAM.LABELS",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.HASH.MARKERS",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.HASH.REGISTRY_ROW",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.HTML.EMPTY_INLINE",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.INVENTORY.CROSSWALK",
+      "fixerId": "repo_overlay",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "repo_overlay"
+      ]
+    },
+    {
+      "ruleId": "DET.JS.NO_CONSOLE_ERROR",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.JS.PROGRESSIVE",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.LANDMARKS.REQUIRED",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.LAYOUT.GRID_CONSISTENCY",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.MOTION.NO_AUTO_PLAY_FLASH",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.MOTION.PREFERS_REDUCED",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.NAV.BREADCRUMB",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.NAV.DEDUP",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.NAV.DEPTH",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.NAV.FOCUS_ORDER",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.NAV.IN_PAGE_TOC",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.PAGE.LANG",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.PAGE.MODE",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.PAGE.TITLE",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.PAGE.VIEWPORT",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.PROSE.LENGTH",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.PY.KS_HASH_ATTRS",
+      "fixerId": "repo_overlay",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "repo_overlay"
+      ]
+    },
+    {
+      "ruleId": "DET.PY.OPTIONAL_REGIONS",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.REACT.A11Y_ROLE",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.REACT.KS_ATTRS",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.SCREENSHOT.STATUS",
+      "fixerId": "repo_overlay",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "repo_overlay"
+      ]
+    },
+    {
+      "ruleId": "DET.SECTION.HEADING",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.SECTION.SINGLE_JOB",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.SURFACE.ELEVATION_TOKEN",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.THEME.CONTRAST_MIN",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.TOKEN.NO_DRIFT",
+      "fixerId": "repo_overlay",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "repo_overlay"
+      ]
+    },
+    {
+      "ruleId": "DET.VISUAL.RHYTHM",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    }
+  ]
+}

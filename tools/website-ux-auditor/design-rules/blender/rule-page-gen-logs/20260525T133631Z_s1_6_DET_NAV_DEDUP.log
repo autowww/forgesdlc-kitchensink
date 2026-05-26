@@ -1,0 +1,46 @@
+## Report: `DET.NAV.DEDUP` handbook page
+
+Replaced the bootstrap stub with a full PDCA handbook page aligned to `det-nav-dedup.check.js` and KS layout patterns from `components/layouts.py`.
+
+**Written to (staging):** `tools/website-ux-auditor/.staging-det-nav-dedup.md`  
+**Target (pending copy):** `docs/design/ux-audit/rule-pages/det-nav-dedup.md`
+
+Direct writes to `docs/` were blocked in this session (sandbox). A copy helper is ready:
+
+```bash
+bash tools/website-ux-auditor/.copy-det-nav-dedup-pending.sh
+```
+
+### `page_version` confirmed
+
+```
+page_version: c3ab59adb095d9ee61013db48b1e31c8d82b9fe44864b413efe78f18279abe2c
+```
+
+Matches the required hash exactly.
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.NAV.DEDUP` |
+| `lane` | `deterministic` |
+| `title` | Navigation deduplication |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` |
+| `registry_status` | `implemented` |
+| `related_rules` | `DET.NAV.BREADCRUMB`, `DET.NAV.DEPTH`, `DET.CHROME.BOUNDARY`, `DET.APP.PERSISTENT_CHROME`, `DET.PAGE.MODE` |
+
+### Content summary
+
+- **Purpose:** PDCA framing for nav-band dedup — conflicting peers are primary ↔ sidebar, primary ↔ offcanvas, sidebar ↔ offcanvas; **`Kbc`** breadcrumb hierarchy is exempt; two violation kinds (`duplicate-destination`, `duplicate-primary-roots`).
+- **Passing / failing signals:** Mapped to `navDedupReport`, band selectors, and finding evidence shape from the check module.
+- **Before example (fails):** `.site-header nav` and **`Ksr`** `aside.forge-sidebar` both link to `/docs/start` — triggers `primary+sidebar`.
+- **After example (passes):** **`Kpn`** `nav.fs-primary-nav-global` owns site IA; **`Ksr`** owns section tree; **`Kbc`** `ks-doc-breadcrumb` orients without conflicting-band duplication.
+- **Evidence and remediation:** `navDedupReport` fields, five-step fix order, harness command.
+
+### Real KS classes used in examples
+
+`site-header`, `site-header-brand`, `site-header-content`, `forge-brand`, `font-display`, `forge-gradient-text`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `doc-main`, `forge-card`, `forge-support`, `fs-primary-nav-global`, `fs-primary-nav-global-inner`, `fs-brand`, `fs-accent`, `ks-doc-breadcrumb`, `breadcrumb`, plus hash attrs **`Kpn`**, **`Ksr`**, **`Kbc`**.
+
+No check modules, registry, or Mermaid were touched. After you run the copy script above, the destination file will be ~11 KB with the full page; the orchestrator can then sync `rule-pages.manifest.json` as usual.

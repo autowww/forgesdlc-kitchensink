@@ -1,0 +1,49 @@
+## Report
+
+Wrote the full **DET.HTML.EMPTY_INLINE** handbook page in PDCA form. Content is complete in the workspace-accessible staging copy; the **canonical KS path** you specified could not be updated from this session (writes outside `tools/website-ux-auditor/` were blocked).
+
+### `page_version` (confirmed in authored content)
+
+```
+page_version: dbe79823bbc33762ff1359462db1ad4daa978530a36e767f1a280470a5945241
+```
+
+Matches the required hash exactly.
+
+### Where the file lives
+
+| Path | Status |
+|------|--------|
+| `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-html-empty-inline.md` | **Updated** — full handbook page (145 lines) |
+| `docs/design/ux-audit/rule-pages/det-html-empty-inline.md` (KS repo root) | **Still bootstrap stub** — needs promotion |
+
+Promote with:
+
+```bash
+cp tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-html-empty-inline.md \
+   docs/design/ux-audit/rule-pages/det-html-empty-inline.md
+```
+
+### What was written
+
+**Front matter:** `rule_id`, `lane`, `title` (“Empty inline emphasis in main”), actionable `summary`, required `page_version`, `generated_at`, `agent_model: composer-2.5-fast`, `registry_fingerprint: 2ce40848…`, `registry_status: implemented`, `source_rule`, and `related_rules` (`DET.DATA.TABLE_HEADERS`, `DET.CTA.LABEL_NONEMPTY`, `DET.PY.OPTIONAL_REGIONS`, `DET.PROSE.LENGTH`).
+
+**Sections (per `RULE_PAGE_SCHEMA.md`):**
+
+1. **Purpose** — Scans `main#main` for empty `<strong>` / `<em>`; ties to autodoc table focus rows and `enhance_tables` / `render_table`; PDCA plan/check/adjust.
+2. **Passing signals** — Populated emphasis, zero `emptyInlineReport` counts.
+3. **Failing signals** — `empty_strong_count=N` (minor), `empty_em_count=N` (trivial), autodoc focus-column regressions.
+4. **Before example** — Failing handbook table with empty `<strong></strong>` and `<em></em>` in `.forge-table-wrap`.
+5. **After example** — Same layout with “Recommended” / “Primary path” labels.
+6. **Evidence and remediation** — `collectEmptyInlineReport`, evidence keys, 5-step fix order, harness re-run commands.
+7. **Related rules** — Four linked DET rules with one-line rationale.
+
+### Real KS class names in examples
+
+Verified against `components/layouts.py`, `components/components.py`, and `css/forge-theme.css`:
+
+- `doc-main`, `font-display`, `forge-support`
+- `forge-table-wrap`, `table table-sm table-striped mb-0`
+- `scope="col"` on `<th>` (matches `render_table`)
+
+No Mermaid, no Fleet-specific profiles. Check modules, registry, and `rule-mappings.js` were not edited.

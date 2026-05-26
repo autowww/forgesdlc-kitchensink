@@ -18,6 +18,12 @@ export const MAX_PROSE_MEASURE_PX = 920;
 /** Max left-edge spread (px) among prose in the same section before gutter drift fires. */
 export const SECTION_LEFT_EDGE_TOLERANCE_PX = 56;
 
+/** Handbook with left doc sidebar: max px between sidebar edge and prose start. */
+export const MAX_GAP_SIDEBAR_TO_PROSE_PX = 64;
+
+/** Viewport width (px) at which handbook sidebar + main layout checks apply. */
+export const HANDBOOK_LAYOUT_MIN_VIEWPORT_PX = 992;
+
 const GRID_CONTAINER_SELECTOR = [
   '.container',
   '.container-fluid',
@@ -86,6 +92,18 @@ export function sectionHasGutterDrift(leftEdgesPx, tolerancePx = SECTION_LEFT_ED
 }
 
 /**
+ * @param {{ hasDocSidebar?: boolean, gapSidebarToProsePx?: number, docContentUsesMxAuto?: boolean, viewportWidthPx?: number }} signals
+ */
+export function handbookHasDeadGutter(signals) {
+  if (!signals?.hasDocSidebar) return false;
+  const vw = Number(signals.viewportWidthPx ?? 0);
+  if (vw > 0 && vw < HANDBOOK_LAYOUT_MIN_VIEWPORT_PX) return false;
+  const gap = Number(signals.gapSidebarToProsePx);
+  if (!Number.isFinite(gap)) return false;
+  return gap > MAX_GAP_SIDEBAR_TO_PROSE_PX && Boolean(signals.docContentUsesMxAuto);
+}
+
+/**
  * @param {{ violations?: Array<Record<string, unknown>> } | null | undefined} report
  * @param {string} [url]
  */
@@ -132,6 +150,18 @@ export function findingsFromLayoutGridReport(report, url = '') {
         evidence: `excessive_measure hint="${hint}" width_px=${v.paragraphWidthPx ?? '?'} max=${MAX_PROSE_MEASURE_PX}`,
         remediation:
           'Constrain body copy with the documented max-width token (e.g. `doc-content` / ~56rem) so line length stays within the layout grid.',
+      });
+    } else if (kind === 'handbook-dead-gutter') {
+      findings.push({
+        severity: 'warn',
+        area: 'readability',
+        message:
+          'Handbook main column centers `.doc-content` away from the left doc sidebar, leaving a large empty gutter.',
+        evidence:
+          `handbook_dead_gutter gap_px=${v.gapSidebarToProsePx ?? '?'} `
+          + `mx_auto=${v.docContentUsesMxAuto ? 'yes' : 'no'}`,
+        remediation:
+          'When a handbook page has a left doc sidebar (Ksr), use full-width `main` content (`doc-content w-100` / no `mx-auto`) and constrain prose inside `.ks-doc-toc-prose` only; see `handbook_page` + `forge-theme.css` `.ks-doc-toc-flow`.',
       });
     }
   }
@@ -288,9 +318,50 @@ export async function collectLayoutGridConsistencyReport(page) {
         }
       }
 
+      const docSidebar = document.querySelector(
+        'aside[data-ks-hash="Ksr"], aside[data-ks-name="doc-sidebar"], .forge-sidebar',
+      );
+      let hasDocSidebar = false;
+      let sidebarRightPx = null;
+      if (docSidebar && visible(docSidebar)) {
+        hasDocSidebar = true;
+        sidebarRightPx = Math.round(docSidebar.getBoundingClientRect().right);
+      }
+
+      const docContent = main.querySelector('.doc-content');
+      let docContentUsesMxAuto = false;
+      let gapSidebarToProsePx = null;
+      if (hasDocSidebar && docContent && visible(docContent)) {
+        const cls = norm(docContent.className);
+        docContentUsesMxAuto = /\bmx-auto\b/.test(cls);
+        const proseEl = main.querySelector('.ks-doc-toc-prose') || docContent;
+        const proseLeft = Math.round((proseEl.getBoundingClientRect()).left);
+        if (Number.isFinite(sidebarRightPx)) {
+          gapSidebarToProsePx = proseLeft - sidebarRightPx;
+          if (
+            docContentUsesMxAuto
+            && gapSidebarToProsePx > MAX_GAP_SIDEBAR_TO_PROSE_PX
+            && window.innerWidth >= HANDBOOK_LAYOUT_MIN_VIEWPORT_PX
+          ) {
+            violations.push({
+              kind: 'handbook-dead-gutter',
+              selectorHint: '.doc-content.mx-auto',
+              gapSidebarToProsePx,
+              docContentUsesMxAuto: true,
+            });
+          }
+        }
+      }
+
       return {
         proseSampleCount: sectionLeftEdges.size,
         violations: violations.slice(0, 10),
+        handbookLayout: {
+          hasDocSidebar,
+          gapSidebarToProsePx,
+          docContentUsesMxAuto,
+          viewportWidthPx: window.innerWidth,
+        },
       };
     },
     {
@@ -299,6 +370,8 @@ export async function collectLayoutGridConsistencyReport(page) {
       VIEWPORT_WIDTH_BLEED_RATIO,
       MAX_PROSE_MEASURE_PX,
       SECTION_LEFT_EDGE_TOLERANCE_PX,
+      MAX_GAP_SIDEBAR_TO_PROSE_PX,
+      HANDBOOK_LAYOUT_MIN_VIEWPORT_PX,
       GRID_CONTAINER_SELECTOR,
       PROSE_EXCLUDE_SELECTOR,
     },

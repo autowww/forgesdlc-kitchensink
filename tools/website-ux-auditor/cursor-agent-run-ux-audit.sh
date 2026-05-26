@@ -59,6 +59,18 @@ if [[ -n "${FORGE_UX_AI_AUDIT_AGENT_EXTRA:-}" ]]; then
 elif [[ -n "${FORGE_UX_CURSOR_AGENT_EXTRA:-}" ]]; then
   read -r -a EXTRA_FLAGS <<< "${FORGE_UX_CURSOR_AGENT_EXTRA}"
 fi
+_agent_has_model_flag=0
+for ((i = 0; i < ${#EXTRA_FLAGS[@]}; i++)); do
+  if [[ "${EXTRA_FLAGS[i]}" == --model || "${EXTRA_FLAGS[i]}" == --model=* ]]; then
+    _agent_has_model_flag=1
+    break
+  fi
+done
+if [[ "${_agent_has_model_flag}" -eq 0 ]]; then
+  _agent_model="${FORGE_UX_CURSOR_AGENT_MODEL:-composer-2.5}"
+  EXTRA_FLAGS=(--model "${_agent_model}" "${EXTRA_FLAGS[@]}")
+  echo "cursor-agent-run-ux-audit: model=${_agent_model} (override: FORGE_UX_CURSOR_AGENT_MODEL or --model in FORGE_UX_AI_AUDIT_AGENT_EXTRA)" >&2
+fi
 
 echo "cursor-agent-run-ux-audit: repo=${REPO_ROOT}" >&2
 echo "cursor-agent-run-ux-audit: audit_out=${OUT_DIR}" >&2

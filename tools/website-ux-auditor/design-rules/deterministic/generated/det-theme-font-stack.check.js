@@ -1,6 +1,6 @@
 // generated-by: design-rules-blender
 // rule-id: DET.THEME.FONT_STACK
-// rules-version: 0b6bb5ccc94c32713b0e1cd247f2653c3d4e7188e9a4234b5a3f60b5f32acf9e
+// rules-version: b381ea52060962c833a75553b28158e6faa2de8487a50c8cb339b39e28491653
 export const rule = {
   id: 'DET.THEME.FONT_STACK',
   lane: 'deterministic',

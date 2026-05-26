@@ -1,0 +1,56 @@
+/* Minimal studio shell styles for DET.APP.PERSISTENT_CHROME agent-pilot fixture */
+:root {
+  --forge-text: #e2e8f0;
+  --forge-text-2: #cbd5e1;
+  --forge-text-3: #94a3b8;
+}
+
+body.museum-studio {
+  background: var(--forge-bg, #0f172a);
+  color: var(--forge-text);
+}
+
+.nav-section-label,
+.card-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--forge-text-3);
+  margin-bottom: 0.25rem;
+}
+
+.forge-support {
+  color: var(--forge-text);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--forge-text);
+  --bs-btn-border-color: #94a3b8;
+  --bs-btn-hover-color: var(--forge-bg, #0f172a);
+  --bs-btn-hover-bg: var(--forge-text);
+  --bs-btn-hover-border-color: var(--forge-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forge-card {
+    transition: none !important;
+  }
+}
+
+a.forge-support {
+  color: var(--forge-cyan, #06b6d4);
+  text-decoration: none;
+}
+
+a.forge-support:hover {
+  text-decoration: underline;
+}
+
+.ks-wizard-flow__session-item {
+  border: 0;
+  background: transparent;
+  color: var(--forge-text);
+  padding: 0.35rem 0;
+}

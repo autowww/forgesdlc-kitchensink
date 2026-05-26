@@ -1,0 +1,50 @@
+## Report: `DET.PAGE.TITLE` handbook page
+
+Replaced the bootstrap stub with a full PDCA handbook page aligned to `title.check.js`, `RULE_PAGE_SCHEMA.md`, and the `det-page-lang.md` pattern.
+
+### What was written
+
+**File (authored):** `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-page-title.md`
+
+**Canonical target (still bootstrap stub):** `docs/design/ux-audit/rule-pages/det-page-title.md` at the KS repo root — writes outside the auditor workspace were blocked from this session.
+
+**Sync to canonical path** (one command from KS repo root):
+
+```bash
+node tools/website-ux-auditor/.copy-det-page-title-dest.mjs
+```
+
+### Front matter
+
+| Field | Value |
+|-------|--------|
+| `rule_id` | `DET.PAGE.TITLE` |
+| `lane` | `deterministic` |
+| `title` | Document page title |
+| `page_version` | **`4040ca340c20e070ac3646e7875cf98f539cdb90d66b4145dd5874f55ad35dfd`** ✓ |
+| `generated_at` | `2026-05-25T15:12:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` |
+| `registry_status` | `implemented` |
+| `related_rules` | `DET.PAGE.LANG`, `DET.PAGE.VIEWPORT`, `DET.LANDMARKS.REQUIRED`, `DET.PAGE.MODE` |
+
+### Content highlights
+
+- **Purpose:** `<title>` as document label; KS layout patterns (`handbook_page` → `{handbook_name} &mdash; {browser_title}`); metrics-phase check on `document.title`; generic blocklist `{index, home, document, page}`.
+- **Passing / failing signals:** Empty title (major), generic placeholder (minor), scaffold drift, title/H1 mismatch — mapped to `title.check.js` messages.
+- **Before example:** Full `handbook_page`-style shell with `<title>Home</title>` (fails generic check).
+- **After example:** Same shell with `<title>Forge SDLC &mdash; Governed delivery handbook</title>` (matches `layouts.py` line 736 pattern).
+- **Evidence table:** `metrics.title`, finding text, remediation via `browser_title` / `handbook_page`, harness + fixer paths.
+- No Mermaid, no Fleet-specific profiles.
+
+### KS class names verified in examples
+
+Real classes from `components/layouts.py` and `css/forge-theme.css`: `forge-aurora`, `skip-link`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `doc-content`, `section-label`, `text-cyan`, `font-display`, `forge-support`, `forge-card`, `card-label`, `--forge-border`.
+
+### `page_version` confirmation
+
+Staging file front matter contains exactly:
+
+`page_version: 4040ca340c20e070ac3646e7875cf98f539cdb90d66b4145dd5874f55ad35dfd`
+
+Run the copy script above to land the same content on the canonical path before the orchestrator batch updates `rule-pages.manifest.json`.

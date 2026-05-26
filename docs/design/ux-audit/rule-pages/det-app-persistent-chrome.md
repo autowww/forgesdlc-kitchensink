@@ -3,20 +3,12 @@ rule_id: DET.APP.PERSISTENT_CHROME
 lane: deterministic
 title: Persistent app chrome across routes
 summary: When a desktop-interface contract promises a persistent shell, header, nav, aside, and footer regions outside main must stay mounted with stable KS hashes and global link sets across crawled routes.
-page_version: f5a18d2e84b4ae7ae74b1d76e889661ddb5b3a3d117f6e48814e59f6960102aa
+page_version: 1d09413b2bebf6089bc9f8253fdceea08b04c854b166747b11f65cf8badd4b94
 generated_at: 2026-05-19T18:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-persistent-chrome
-related_rules:
-  - DET.LANDMARKS.REQUIRED
-  - DET.CHROME.BOUNDARY
-  - DET.NAV.BREADCRUMB
-  - DET.NAV.DEDUP
-  - DET.APP.FOCUS_TRAP
-  - AI.APP.WORKFLOW_CONTINUITY
-  - AI.APP.DENSITY_BALANCE
 ---
 
 ## Purpose

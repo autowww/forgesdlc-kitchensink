@@ -1,0 +1,60 @@
+Connection lost, reconnecting (attempt 1)...
+Retry attempt 1...
+## Report: `DET.NAV.DEDUP` handbook page
+
+Replaced the harness bootstrap stub with a full PDCA handbook page aligned to `det-nav-dedup.check.js`, `RULE_PAGE_SCHEMA.md`, and KS layout patterns from `components/layouts.py`.
+
+### What was written
+
+**Primary content** (181 lines, all required sections):
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Chrome bands (**Kpn**, **Ksr**, **Kco**, **Kbc**, **Ktx**); `duplicate-destination` vs `duplicate-primary-roots`; breadcrumb exemption; PDCA workflow |
+| **Passing signals** | Split IA across bands; mobile offcanvas replaces (not stacks); single primary horizon |
+| **Failing signals** | `primary+sidebar` / `primary+offcanvas` / `sidebar+offcanvas` conflicts; nested mastheads |
+| **Before example** | `.site-header nav` + **`Ksr`** both link to `/docs/start` (fails) |
+| **After example** | **`Kpn`** site IA + **`Kbc`** breadcrumb + **`Ksr`** section tree (passes) |
+| **Evidence and remediation** | `navDedupReport` shape + 5-step fix order |
+| **Related rules** | BREADCRUMB, DEPTH, CHROME.BOUNDARY, PERSISTENT_CHROME, PAGE.MODE, CONTEXT.BURDEN, AI.WORKFLOW_CONTINUITY |
+
+**Real KS classes used:** `fs-primary-nav-global`, `fs-primary-nav-global-inner`, `fs-brand`, `fs-accent`, `site-header`, `site-header-brand`, `site-header-content`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `ks-doc-breadcrumb`, `breadcrumb`, `forge-card`, `doc-main`, `forge-brand`, `font-display`, `forge-gradient-text`, `forge-support`, `card-label`.
+
+### Front matter
+
+```yaml
+page_version: c3ab59adb095d9ee61013db48b1e31c8d82b9fe44864b413efe78f18279abe2c  ✓
+registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_status: implemented
+agent_model: composer-2.5-fast
+```
+
+**`page_version` confirmed:** `c3ab59adb095d9ee61013db48b1e31c8d82b9fe44864b413efe78f18279abe2c`
+
+### Files updated
+
+Written inside the auditor workspace (sandbox blocks direct writes to KS root):
+
+- `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-nav-dedup.md`
+- `tools/website-ux-auditor/.staging-det-nav-dedup.md`
+- `tools/website-ux-auditor/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-dedup.md`
+
+Added copy helper (same pattern as breadcrumb):
+
+- `tools/website-ux-auditor/.copy-det-nav-dedup-dest.mjs`
+
+### Promote to canonical path
+
+The canonical file at `docs/design/ux-audit/rule-pages/det-nav-dedup.md` still has the old bootstrap stub. Run:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-det-nav-dedup-dest.mjs
+```
+
+Or:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-det-nav-dedup-pending.sh
+```
+
+Both copy the full page to `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-dedup.md` with the correct `page_version`.

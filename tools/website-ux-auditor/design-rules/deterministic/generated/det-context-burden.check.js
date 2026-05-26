@@ -17,6 +17,9 @@ export const MAX_HERO_INTERACTIVE_CONTROLS = 3;
 /** First-viewport link cluster before link-wall dominates (homepage). */
 export const MAX_FIRST_VIEWPORT_LINKS = 28;
 
+/** Handbook inner chapter: max navigational links in the first viewport. */
+export const MAX_HANDBOOK_FIRST_VIEWPORT_LINKS = 24;
+
 /** Distinct chrome regions outside main (header/nav/sidebar/offcanvas). */
 export const MAX_NAV_CHROME_BANDS = 4;
 
@@ -68,6 +71,7 @@ export function findingsFromContextBurdenSnapshot(snapshot, url = '', ctx = {}) 
   if (!snapshot) return [];
 
   const isHome = ctx.isHome === true;
+  const isHandbookInner = ctx.isPlatformHandbookInner === true;
   const findings = [];
   const seen = new Set();
 
@@ -119,6 +123,19 @@ export function findingsFromContextBurdenSnapshot(snapshot, url = '', ctx = {}) 
         'The first viewport contains too many navigational links (link-cluster burden).',
         `first_viewport_link_count=${fvlc} max=${MAX_FIRST_VIEWPORT_LINKS}`,
         'Curate hero-adjacent navigation; move exhaustive indexes and trees to docs sidebars or dedicated pages.',
+      );
+    }
+  }
+
+  if (isHandbookInner) {
+    const fvlc = snapshot.firstViewportLinkCount;
+    if (fvlc != null && fvlc > MAX_HANDBOOK_FIRST_VIEWPORT_LINKS) {
+      push(
+        'handbook-first-viewport-links',
+        'warn',
+        'Handbook chapter first viewport stacks too many navigational links (sidebar, ToC, header, tables).',
+        `handbook_first_viewport_link_count=${fvlc} max=${MAX_HANDBOOK_FIRST_VIEWPORT_LINKS}`,
+        'Reduce link density above the fold: shorten early tables, collapse sidebar labels, or defer secondary links below the outcome block.',
       );
     }
   }
@@ -201,7 +218,6 @@ export async function collectContextBurdenReport(page) {
  */
 export function findingsFromContextBurdenMetrics(metrics, url = '', ctx = {}) {
   const burdenCtx = pageBurdenContext(url || String(metrics?.url || ''), ctx.siteKind || 'generic');
-  if (burdenCtx.isPlatformHandbookInner) return [];
   const snapshot = buildContextBurdenSnapshot(metrics);
   return findingsFromContextBurdenSnapshot(snapshot, url || String(metrics?.url || ''), {
     ...ctx,
@@ -213,7 +229,6 @@ export function findingsFromContextBurdenMetrics(metrics, url = '', ctx = {}) {
 export async function run({ metrics, page, url, ctx = {} }) {
   const pageUrl = url || String(metrics?.url || '');
   const burdenCtx = pageBurdenContext(pageUrl, ctx.siteKind || 'generic');
-  if (burdenCtx.isPlatformHandbookInner) return [];
 
   let heroInteractiveCount = metrics?.contextBurdenReport?.heroInteractiveCount;
   if (heroInteractiveCount == null && page) {

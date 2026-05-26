@@ -1,0 +1,53 @@
+## Report: `DET.PAGE.MODE` rule handbook page
+
+**Target:** `docs/design/ux-audit/rule-pages/det-page-mode.md`  
+**Refined staging:** `tools/website-ux-auditor/.staging-det-page-mode.md` (run `node _run-copy-det-page-mode.mjs` to sync if you want the latest refinements on the canonical path)
+
+### `page_version` confirmed
+
+```
+9ab49bfba4426e3217ba3f6c40b1a27e01ad37885da289c2e4c9ab4b8e6953e2
+```
+
+Matches the required value exactly (also validated by `_run-copy-det-page-mode.mjs`).
+
+### What was written
+
+Full handbook page per `RULE_PAGE_SCHEMA.md`:
+
+| Section | Content |
+|---------|---------|
+| **Front matter** | `rule_id`, `lane`, `title`, `summary`, `page_version`, `generated_at`, `agent_model`, `registry_fingerprint` (`2ce40848…`), `registry_status: implemented`, `source_rule`, 6 `related_rules` |
+| **Purpose** | Single primary page mode above the fold; PDCA loop; ties to `det-page-mode.check.js` and `forge-enterprise-ai-website-standard.md` |
+| **Passing signals** | `layout-landing` / `Ldg` on `/`, handbook-native layouts, optional `forge-page-mode` meta, clean `pageModeReport.modes` |
+| **Failing signals** | `competing-modes`, `home-handbook-shell`, `undeclared-mode`, showcase/app-shell conflicts |
+| **Before example** | Failing: `layout-landing` + `forge-sidebar` / `Ksr` doc-sidebar with 7 nav links outside `main` |
+| **After example** | Passing: `landing_page` shell — `landing-header`, collapsible `landing-nav`, `fs-landing-main`, `fs-landing-body-shell`, no sidebar |
+| **Evidence and remediation** | Evidence table + KS generator / consumer / harness paths |
+| **Related rules** | CONTEXT.BURDEN, NAV.DEDUP, NAV.DEPTH, LANDMARKS, PAGE.LANG, AI.NARRATIVE.COHERENCE |
+
+### KS class names verified
+
+Before/after examples use real Kitchen Sink patterns from `components/layouts.py` and `css/forge-theme.css`:
+
+- Layout: `data-ks-name="layout-landing"`, hash `Ldg`
+- Chrome: `landing-header`, `landing-nav`, `landing-hero fs-landing-hero-band`, `fs-landing-main`, `fs-landing-body-shell`
+- Handbook conflict: `forge-sidebar`, `#ks-sidebar-aside`, `nav-scroll`, `nav-section-label`, `data-ks-name="doc-sidebar"` (hash `Ksr`)
+- Components: `forge-aurora`, `forge-card`, `btn btn-forge`, `font-display`, `section-label text-cyan`
+
+### Check implementation alignment
+
+Mapped from `det-page-mode.check.js`:
+
+- Layout slug → mode table (`layout-landing` → marketing, etc.)
+- Incompatible pairs: `marketing↔handbook`, `marketing↔app`, `marketing↔dashboard`, `listing↔app`
+- Sidebar threshold: ≥ 6 links triggers handbook mode on marketing routes
+- Violation kinds: `competing-modes`, `home-handbook-shell`, `undeclared-mode`
+
+### Sync note
+
+The canonical file at `docs/design/ux-audit/rule-pages/det-page-mode.md` already meets schema requirements with the correct `page_version`. A refined copy with expanded layout-slug mapping and extra passing/failing bullets is in `.staging-det-page-mode.md`. To apply it:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-page-mode.mjs
+```

@@ -1,0 +1,51 @@
+---
+rule_id: AI.A11Y.KS.REGION_LABELING
+lane: ai
+scope: ks
+title: Region Labeling
+summary: AI judgment overlay (ks scope).
+page_version: ebae1267d4fe0098d54b74afc3a2adac78935e79f31ca0463cd6f8aa70a74640
+generated_at: 2026-05-26T08:51:23.000Z
+registry_fingerprint: e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46
+registry_status: implemented
+source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-ks-region-labeling
+related_rules:
+  - DET.A11Y.GENERIC.LANG
+---
+
+## Purpose
+
+AI judgment overlay (ks scope).
+
+## Passing signals
+
+- DOM and/or repo signals satisfy the rule implementation in `tools/website-a11y-auditor`.
+- For **axe**-backed WCAG criteria, use `--lanes axe,det` with an appropriate `--standard` preset.
+
+## Failing signals
+
+- Auditor emits a finding with `ruleId` `AI.A11Y.KS.REGION_LABELING` on the crawled URL.
+- Harness: `auditor-tests/invoke-a11y-ruleset-harness.sh AI.A11Y.KS.REGION_LABELING` expects ≥1 finding on the Before fixture.
+
+## Before example
+
+```html
+<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>AI.A11Y.KS.REGION_LABELING</code> (ks).</p></div>
+```
+
+## After example
+
+```html
+<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>AI.A11Y.KS.REGION_LABELING</code>.</p></div>
+```
+
+## Evidence and remediation
+
+1. Reproduce with `analyze-website-a11y.mjs --only-deterministic-rule-ids AI.A11Y.KS.REGION_LABELING` when lane is deterministic.
+2. Apply the After markup pattern (or fix generator source for KS rules).
+3. Re-run harness or audit until the rule is clean on the target URL.
+
+## Related rules
+
+- See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+

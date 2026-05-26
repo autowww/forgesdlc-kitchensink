@@ -443,6 +443,15 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     priorityWeight: 8,
     sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-hash-registry-row',
   },
+  'DET.HTML.EMPTY_INLINE': {
+    modulePath: 'design-rules/deterministic/generated/det-html-empty-inline.check.js',
+    status: 'implemented',
+    defaultSeverity: 'minor',
+    area: 'accessibility',
+    scoreDimension: 'accessibilitySemanticsMeta',
+    priorityWeight: 6,
+    sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-html-empty-inline',
+  },
   'DET.NAV.BREADCRUMB': {
     modulePath: 'design-rules/deterministic/generated/det-nav-breadcrumb.check.js',
     status: 'implemented',

@@ -1,0 +1,52 @@
+## Report: `DET.NAV.DEPTH` handbook page
+
+Replaced the harness bootstrap stub with a full PDCA handbook page aligned to `det-nav-depth.check.js` and sibling rule pages (`det-nav-dedup`, `det-nav-breadcrumb`).
+
+### Written content
+
+**Title:** Global navigation depth
+
+**Summary:** Global primary nav outside `main` stays at top level + one flyout tier (`list_depth ≤ 2`); deeper IA belongs in **Ksr** sidebar/offcanvas or an explicit mega-menu (≤ 4 tiers).
+
+**Sections:**
+- **Purpose** — PDCA framing; root selectors (`nav.fs-primary-nav-global`, `nav.landing-nav`, **Kpn**); depth caps (2 standard / 4 mega); exclusions (theme menus); **Ksr** is not a global-nav root
+- **Passing signals** — shallow **Kpn** / `landing-nav`, `fs-nav-dropdown` single tier, deep trees in **Ksr**
+- **Failing signals** — `nested-flyout-depth`, `mega-depth-exceeded`, co-fail patterns with dedup/context burden
+- **Before example** — `landing-header` + nested `<ul>` chain (depth 4) using `landing-nav-link`, `fs-brand`, `fs-landing-main`, `forge-support`
+- **After example** — **Kpn** with `fs-primary-nav-global-inner`, `fs-nav-dropdown` / `__trigger` / `__panel-inner` / `__link`, plus **Ksr** `forge-sidebar` with `nav-scroll`, `nav-section-label`, `nav-link`
+- **Evidence and remediation** — `collectNavDepthReport`, evidence tokens, 6-step fix order
+- **Related rules** — DEDUP, BREADCRUMB, FOCUS_ORDER, CONTEXT.BURDEN, PAGE.MODE, CHROME.BOUNDARY
+
+### `page_version` confirmation
+
+```
+page_version: bd3562025ebc5525d93f3f5d235936a70a33683cf2056afc850e561df77f8aee
+```
+
+Matches the required hash exactly.
+
+### File locations
+
+Full page written to (auditor workspace):
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-nav-depth.md`
+
+Also mirrored at:
+
+`tools/website-ux-auditor/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-depth.md`
+
+Copy helper added:
+
+`tools/website-ux-auditor/.copy-det-nav-depth-dest.mjs`
+
+### Sync needed for canonical KS path
+
+The target file at `docs/design/ux-audit/rule-pages/det-nav-depth.md` (KS repo root) still has the old bootstrap stub because writes outside the auditor workspace were blocked. Sync with:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor && node .copy-det-nav-depth-dest.mjs
+```
+
+That copies the new page to `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-depth.md` and verifies `page_version`.
+
+No check modules, `rule-mappings.js`, or registry files were modified.

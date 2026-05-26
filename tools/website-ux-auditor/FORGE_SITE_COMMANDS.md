@@ -27,13 +27,25 @@ The script requires Node 18+.
 
 ## Output location
 
-All commands write to:
+**Direct `analyze-website-ux.mjs` / `score-website-ux.mjs`** (default `--out` when omitted):
 
 ```text
 .cursor/plans/forge-ux-remediation/
 ```
 
-Use `--install-rule` to also write (under `--repo`):
+**Remediation loop** (`run-website-ux-remediation-loop.sh`) writes the campaign under the workspace hub unless **`UX_AUDIT_OUT_DIR`** is set:
+
+```text
+<workspace-hub>/workbench/ux-auditor/ux-audit/<website_slug>/<UTC>_<random>/
+```
+
+Plans and mirrors still land under **`--repo`**:
+
+```text
+.cursor/plans/forge-ux-remediation/
+```
+
+Use **`--install-rule`** on the auditor to also write (under **`--repo`**):
 
 ```text
 .cursor/rules/forge-ux-remediation-plan-runner.mdc
@@ -43,7 +55,25 @@ Use `--install-rule` to also write (under `--repo`):
 
 Keep one output folder across loops so **`audit-data.previous.json`**, **`crawl-session.json`**, **`ux-quality-score.previous.json`**, and YAML **`status:`** merges behave as intended.
 
-The KS **`run-website-ux-remediation-loop.sh`** runs **`score-website-ux.mjs`** then **`analyze-website-ux.mjs`** (auditor never invokes the scorer). Env: **`UX_AUDIT_SKIP_SCORER`**, **`UX_AUDIT_SCORER_MAX_PAGES`** (default **500**), **`UX_AUDIT_SCORER_MAX_LINK_DEPTH`** (default **50**), **`MAX_PAGES`** (default **500**), **`UX_AUDIT_BREADTH_CRAWL`** (default **1** = auditor **`--breadth-crawl`**), **`FORGE_UX_ENABLE_AI_AUDIT`** (default **1**; **`0`** disables post-clean AI audit), **`UX_AUDIT_SCORER_NO_CSV`**, plus **`UX_AUDIT_OUT_DIR`**, **`UX_AUDIT_INCREMENTAL`**, …
+The KS **`run-website-ux-remediation-loop.sh`** runs **`score-website-ux.mjs`** then **`analyze-website-ux.mjs`** by default (auditor never invokes the scorer). Env: **`UX_AUDIT_SCORER_MAX_PAGES`** (default **500**), **`UX_AUDIT_SCORER_MAX_LINK_DEPTH`** (unset = no depth cap), **`MAX_PAGES`** (default **500**), **`UX_AUDIT_BREADTH_CRAWL`** (default **0**; **`FORGE_UX_LOOP_ALL_BARS=1`** with **`--watch`** forces breadth), **`UX_AUDIT_SCORER_NO_CSV`**, **`UX_AUDIT_OUT_DIR`**, **`UX_AUDIT_INCREMENTAL`**, **`UX_AUDIT_FORCE_FULL`**, …
+
+**Scorer:** runs every iteration by default. Skip only with **`--no-scorer`** (or **`--ai`**, which implies **`--no-scorer`**).
+
+**AI audit (optional):**
+
+| Flags | Scorer | AI pass |
+|-------|--------|---------|
+| *(default)* | yes | no |
+| **`--ai`** | no | yes (forced) |
+| **`--enable-ai-audit`** | yes | yes when eligible |
+| **`--force-ai-audit`** | yes | yes (forced) |
+
+Example: `./run-website-ux-remediation-loop.sh "$PWD" ./website --watch`  
+Landing + AI only: `./run-website-ux-remediation-loop.sh "$PWD" ./website --ai --max-pages 1 --watch`
+
+Do **not** use **`UX_AUDIT_SKIP_SCORER=1`** — use **`--no-scorer`** or **`--ai`**.
+
+Auto **`--incremental`** on the auditor when **`audit-data.json`** already exists in **`OUT_DIR`** (unless **`UX_AUDIT_FORCE_FULL=1`**). Iteration 2+ may skip the scorer when **`ux-quality-score.json`** is present (incremental re-audit).
 
 ```bash
 export UX_AUDIT_OUT_DIR="$PWD/workbench/my-site-campaign"

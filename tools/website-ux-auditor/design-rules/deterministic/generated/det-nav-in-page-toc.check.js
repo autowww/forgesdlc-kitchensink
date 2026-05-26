@@ -30,6 +30,15 @@ export const MIN_TOC_OUTLINE_HEADINGS = 4;
 /** Minimum main-body words before TOC is required (sparse-heading fallback). */
 export const MIN_TOC_MAIN_WORDS = 900;
 
+/** Minimum visible width (px) for the in-page TOC rail at lg+ viewports. */
+export const MIN_TOC_RAIL_WIDTH_PX = 140;
+
+/** Minimum width (px) for a TOC nav link to be considered readable. */
+export const MIN_TOC_LINK_WIDTH_PX = 100;
+
+/** Viewport width (px) at which TOC rail width checks apply. */
+export const TOC_RAIL_MIN_VIEWPORT_PX = 992;
+
 const DOC_SIDEBAR_SELECTOR = [
   '.forge-sidebar',
   '#ks-sidebar-aside',
@@ -97,6 +106,20 @@ export function isInPageHashHref(href) {
 /**
  * @param {Array<{ href?: string, id?: string }>} brokenAnchors
  */
+/**
+ * @param {{ tocPresent?: boolean, tocRailWidthPx?: number, minTocLinkWidthPx?: number, viewportWidthPx?: number }} signals
+ */
+export function tocRailIsCramped(signals) {
+  if (!signals?.tocPresent) return false;
+  const vw = Number(signals.viewportWidthPx ?? 0);
+  if (vw > 0 && vw < TOC_RAIL_MIN_VIEWPORT_PX) return false;
+  const railW = Number(signals.tocRailWidthPx);
+  const linkW = Number(signals.minTocLinkWidthPx);
+  if (Number.isFinite(railW) && railW > 0 && railW < MIN_TOC_RAIL_WIDTH_PX) return true;
+  if (Number.isFinite(linkW) && linkW > 0 && linkW < MIN_TOC_LINK_WIDTH_PX) return true;
+  return false;
+}
+
 export function brokenAnchorFindings(brokenAnchors, url = '') {
   if (!Array.isArray(brokenAnchors) || !brokenAnchors.length) return [];
 
@@ -159,6 +182,23 @@ export function findingsFromNavInPageTocReport(report, url = '') {
   }
 
   findings.push(...brokenAnchorFindings(report.brokenAnchors, url));
+
+  if (tocRailIsCramped(report)) {
+    const finding = {
+      severity: 'warn',
+      area: 'informationArchitecture',
+      message:
+        'In-page table of contents rail is too narrow for readable link labels (crushed ToC column).',
+      evidence:
+        `toc_rail_cramped rail_width_px=${report.tocRailWidthPx ?? '?'} `
+        + `min_link_width_px=${report.minTocLinkWidthPx ?? '?'}`,
+      remediation:
+        'Use `.ks-doc-toc-flow` grid for prose + Ktx rail; remove Bootstrap `col-lg-*` from `.ks-doc-toc-rail` inside the flow so the rail receives `minmax(12rem, 16rem)` width (see forge-theme.css).',
+    };
+    if (url) finding.evidence += ` url=${url}`;
+    findings.push(finding);
+  }
+
   return findings;
 }
 
@@ -313,6 +353,19 @@ export async function collectNavInPageTocReport(page) {
         }
       }
 
+      let tocRailWidthPx = null;
+      let minTocLinkWidthPx = null;
+      if (tocRoot && visible(tocRoot)) {
+        const rail = tocRoot.closest('.ks-doc-toc-rail, [data-ks-hash="Ktx"]') || tocRoot;
+        tocRailWidthPx = Math.round(rail.getBoundingClientRect().width);
+        const linkWidths = [];
+        for (const a of rail.querySelectorAll('a[href^="#"]')) {
+          if (!visible(a)) continue;
+          linkWidths.push(Math.round(a.getBoundingClientRect().width));
+        }
+        if (linkWidths.length) minTocLinkWidthPx = Math.min(...linkWidths);
+      }
+
       return {
         isHome,
         layoutName,
@@ -323,6 +376,9 @@ export async function collectNavInPageTocReport(page) {
         outlineHeadingCount,
         mainWordCount,
         brokenAnchors: brokenAnchors.slice(0, 8),
+        tocRailWidthPx,
+        minTocLinkWidthPx,
+        viewportWidthPx: window.innerWidth,
       };
     },
     {
@@ -333,6 +389,9 @@ export async function collectNavInPageTocReport(page) {
       TOC_ROOT_SELECTOR,
       MIN_TOC_OUTLINE_HEADINGS,
       MIN_TOC_MAIN_WORDS,
+      MIN_TOC_RAIL_WIDTH_PX,
+      MIN_TOC_LINK_WIDTH_PX,
+      TOC_RAIL_MIN_VIEWPORT_PX,
     },
   );
 }
@@ -343,7 +402,8 @@ export async function run({ metrics, page, url }) {
   if (!report) return [];
 
   const hasIssue = (report.requiresToc && !report.tocPresent)
-    || (Array.isArray(report.brokenAnchors) && report.brokenAnchors.length);
+    || (Array.isArray(report.brokenAnchors) && report.brokenAnchors.length)
+    || tocRailIsCramped(report);
   if (!hasIssue) return [];
 
   return findingsFromNavInPageTocReport(report, url || metrics?.url || '');

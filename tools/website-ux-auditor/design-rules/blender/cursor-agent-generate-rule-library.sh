@@ -10,7 +10,7 @@
 #   ./design-rules/blender/cursor-agent-generate-rule-library.sh --lane ai --only-rule AI.CONTEXT.COGNITIVE_CLARITY
 #
 # Notes:
-# - Model defaults to composer-2.5-fast (Composer 2.5 fast lane).
+# - Model defaults to composer-2.5 (Composer 2.5 fast lane).
 # - Runs one agent invocation per rule id.
 # - Logs each run under design-rules/blender/rule-gen-logs/.
 set -euo pipefail
@@ -27,7 +27,7 @@ LANE="deterministic"
 MAX_RULES=0
 DRY_RUN=0
 CONTINUE_ON_ERROR=1
-MODEL="${FORGE_UX_RULE_GEN_MODEL:-composer-2.5-fast}"
+MODEL="${FORGE_UX_RULE_GEN_MODEL:-composer-2.5}"
 ONLY_RULES=()
 EXTRA_FLAGS=()
 OVERRIDE_VERSION=0
@@ -43,7 +43,7 @@ Options:
   --lane deterministic|ai|both   Rule lane to generate (default: deterministic)
   --max-rules N                  Limit number of rules (0 = all, default: 0)
   --only-rule RULE_ID            Restrict to specific rule id (repeatable)
-  --model MODEL                  Cursor agent model (default: composer-2.5-fast)
+  --model MODEL                  Cursor agent model (default: composer-2.5)
   --dry-run                      Print selected targets without running agent
   --override-version             Force blender regeneration even with same rules-version
   --stop-on-error                Stop if one rule generation fails
@@ -61,7 +61,7 @@ while [[ $# -gt 0 ]]; do
     --only-rule)
       ONLY_RULES+=("${2:-}"); shift 2 ;;
     --model)
-      MODEL="${2:-composer-2.5-fast}"; shift 2 ;;
+      MODEL="${2:-composer-2.5}"; shift 2 ;;
     --dry-run)
       DRY_RUN=1; shift ;;
     --override-version)

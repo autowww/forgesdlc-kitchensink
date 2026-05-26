@@ -42,11 +42,21 @@ test('isQualityGateSegmentFilled when count reaches threshold', () => {
   assert.equal(isQualityGateSegmentFilled(0, 0), false);
 });
 
-test('evaluateQualityGateCrawlHalt on filled warn segment', () => {
-  const counts = countBySeverity(Array.from({ length: 5 }, () => ({ severity: 'warn' })));
-  const r = evaluateQualityGateCrawlHalt(counts, DEFAULT_QUALITY_GATE_THRESHOLDS);
+test('evaluateQualityGateCrawlHalt when gate violation units exceed budget', () => {
+  const counts = countBySeverity([
+    ...Array.from({ length: 3 }, () => ({ severity: 'major' })),
+    ...Array.from({ length: 16 }, () => ({ severity: 'warn' })),
+  ]);
+  const r = evaluateQualityGateCrawlHalt(counts, DEFAULT_QUALITY_GATE_THRESHOLDS, 10);
   assert.equal(r.halt, true);
-  assert.equal(r.severity, 'warn');
+  assert.ok(r.violationUnits > 10);
+});
+
+test('evaluateQualityGateCrawlHalt does not halt at exactly violation budget', () => {
+  const counts = countBySeverity(Array.from({ length: 10 }, () => ({ severity: 'warn' })));
+  const r = evaluateQualityGateCrawlHalt(counts, DEFAULT_QUALITY_GATE_THRESHOLDS, 10);
+  assert.equal(r.halt, false);
+  assert.equal(r.violationUnits, 5);
 });
 
 test('evaluateQualityGate fails when warn exceeds threshold', () => {

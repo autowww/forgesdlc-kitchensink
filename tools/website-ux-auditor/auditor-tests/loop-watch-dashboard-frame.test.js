@@ -83,7 +83,7 @@ test('buildWatchFrameLines stable pane labels', () => {
   );
   assert.ok(lines.length > 12);
   assert.ok(lines.some((l) => l.includes('Forge UX loop watch')));
-  assert.ok(lines.some((l) => l.includes('Auditor crawl')));
+  assert.ok(lines.some((l) => l.includes('Agents') && l.includes('Cursor')));
   assert.ok(lines.some((l) => l.includes('[ux-audit]')));
   assert.ok(lines.some((l) => stripAnsi(l).includes('█')));
   assert.ok(lines.some((l) => l.includes('Scored 10/100')));
@@ -145,7 +145,7 @@ test('buildWatchFrameLines uses glyph header without legacy Scores row', () => {
     campaignElapsedSec: 1,
   });
   assert.ok(!lines.some((l) => l.includes('Scores  :')));
-  assert.ok(lines.some((l) => l.includes('Repo : /r')));
+  assert.ok(lines.some((l) => l.includes('Repo /r')));
   const plain = lines.map(stripAnsi).join('\n');
   assert.ok(!plain.includes('0,0'));
 });

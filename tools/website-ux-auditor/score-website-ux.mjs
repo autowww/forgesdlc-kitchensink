@@ -11,7 +11,7 @@ import path from 'node:path';
 import process from 'node:process';
 
 import { createCrawlProgressReporter } from './lib/crawl-progress-line.js';
-import { crawlAndAnalyze } from './lib/crawl.js';
+import { crawlAndAnalyze, DEFAULT_PAGE_CONCURRENCY, MAX_PAGE_CONCURRENCY } from './lib/crawl.js';
 import { loadDesignStandard } from './lib/design-standard.js';
 import {
   buildUxQualityScoreMarkdown,
@@ -40,11 +40,14 @@ import { DEFAULT_DESIGN_THEME_ID, loadDesignTheme, summarizeDesignTheme } from '
 
 ensureBlockingStdio();
 
-/** Default breadth for same-origin BFS; always bounded — there is no unbounded crawl. */
-const SCORER_DEFAULT_MAX_PAGES = 120;
+/** Sitewide scorer page budget (same-origin BFS cap). */
+const SCORER_DEFAULT_MAX_PAGES = 500;
 
-/** Default link-hop depth from `--site` (start URL = 0; **+2** ⇒ depths 0–2 inclusive). */
-const SCORER_DEFAULT_MAX_LINK_DEPTH = 2;
+/** Parallel Playwright pages during scorer crawl. */
+const SCORER_DEFAULT_PAGE_CONCURRENCY = 5;
+
+/** `null` = no link-depth cap (full same-origin frontier up to --max-pages). */
+const SCORER_DEFAULT_MAX_LINK_DEPTH = null;
 
 const LOOP_DELTA_FILENAME = 'ux-quality-score-loop-delta.json';
 
@@ -61,7 +64,7 @@ function usage() {
 
 Loads the Forge enterprise AI website standard, crawls **same-origin** pages up to
 --max-pages with **no** Major+ early-stop (${SCORER_DEFAULT_MAX_PAGES} pages default —
-still a safety budget, not infinite).
+still a safety budget, not infinite). Crawls **${SCORER_DEFAULT_PAGE_CONCURRENCY}** pages in parallel by default.
 
 Usage:
   node score-website-ux.mjs \\
@@ -76,8 +79,9 @@ Optional:
   --theme THEME            Design theme id under docs/design/themes/<id>. Default: ${DEFAULT_DESIGN_THEME_ID}
   --site-kind KIND         lenses | lcdl | fleet | platform | forgesdlc | generic | auto
   --max-pages N            Default ${SCORER_DEFAULT_MAX_PAGES}; hard cap prevents runaway crawl
-  --max-link-depth N       Link hops from \`--site\` (start = 0). Default ${SCORER_DEFAULT_MAX_LINK_DEPTH}
-                           (**root + 2 hops**). Use a large N for practical “no depth limit”.
+  --max-link-depth N       Link hops from \`--site\` (start = 0). Omit for **no depth limit** (full site within --max-pages)
+  --page-concurrency N     Parallel pages during crawl (default ${SCORER_DEFAULT_PAGE_CONCURRENCY}, max ${MAX_PAGE_CONCURRENCY})
+                           Env: FORGE_UX_PAGE_CONCURRENCY
   --timeout-ms MS          Navigation timeout (default 45000)
   --screenshots           Capture screenshots (default: off — faster scorer runs)
   --no-ux-csv             Skip appending repo-root ux-scoring.csv (default: append)
@@ -106,6 +110,7 @@ function parseScoreArgs(argv) {
     start: null,
     readyUrl: null,
     maxPages: SCORER_DEFAULT_MAX_PAGES,
+    pageConcurrency: SCORER_DEFAULT_PAGE_CONCURRENCY,
     timeoutMs: 45000,
     screenshots: false,
     url: null,
@@ -130,7 +135,21 @@ function parseScoreArgs(argv) {
     if (!raw.startsWith('--')) throw new Error(`Unexpected positional argument: ${raw}`);
     const [flag, inlineValue] = raw.includes('=') ? raw.split(/=(.*)/s, 2) : [raw, null];
     const key = flag.slice(2).replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-    const needsValue = ['repo', 'site', 'url', 'standard', 'theme', 'siteKind', 'out', 'start', 'readyUrl', 'maxPages', 'maxLinkDepth', 'timeoutMs'];
+    const needsValue = [
+      'repo',
+      'site',
+      'url',
+      'standard',
+      'theme',
+      'siteKind',
+      'out',
+      'start',
+      'readyUrl',
+      'maxPages',
+      'maxLinkDepth',
+      'pageConcurrency',
+      'timeoutMs',
+    ];
     if (!needsValue.includes(key)) throw new Error(`Unknown flag: ${flag}`);
     const value = inlineValue ?? argv[++i];
     if (value === undefined) throw new Error(`Missing value for ${flag}`);
@@ -141,13 +160,22 @@ function parseScoreArgs(argv) {
   args.out = path.resolve(args.repo, args.out || '.cursor/reports/forge-ux-quality');
   if (args.standard) args.standard = path.resolve(args.repo, args.standard);
   args.maxPages = Number(args.maxPages);
+  args.pageConcurrency = Number(args.pageConcurrency);
   args.timeoutMs = Number(args.timeoutMs);
-  args.maxLinkDepth = Number(args.maxLinkDepth);
-  if (!Number.isFinite(args.maxPages) || args.maxPages < 1) args.maxPages = SCORER_DEFAULT_MAX_PAGES;
-  if (!Number.isFinite(args.timeoutMs) || args.timeoutMs < 5000) args.timeoutMs = 45000;
-  if (!Number.isFinite(args.maxLinkDepth) || args.maxLinkDepth < 0) {
+  if (args.maxLinkDepth != null && args.maxLinkDepth !== '') {
+    args.maxLinkDepth = Number(args.maxLinkDepth);
+    if (!Number.isFinite(args.maxLinkDepth) || args.maxLinkDepth < 0) args.maxLinkDepth = SCORER_DEFAULT_MAX_LINK_DEPTH;
+  } else {
     args.maxLinkDepth = SCORER_DEFAULT_MAX_LINK_DEPTH;
   }
+  if (!Number.isFinite(args.maxPages) || args.maxPages < 1) args.maxPages = SCORER_DEFAULT_MAX_PAGES;
+  if (!Number.isFinite(args.pageConcurrency) || args.pageConcurrency < 1) {
+    const envPc = Number(process.env.FORGE_UX_PAGE_CONCURRENCY);
+    args.pageConcurrency =
+      Number.isFinite(envPc) && envPc >= 1 ? envPc : SCORER_DEFAULT_PAGE_CONCURRENCY;
+  }
+  if (args.pageConcurrency > MAX_PAGE_CONCURRENCY) args.pageConcurrency = MAX_PAGE_CONCURRENCY;
+  if (!Number.isFinite(args.timeoutMs) || args.timeoutMs < 5000) args.timeoutMs = 45000;
   return args;
 }
 
@@ -230,6 +258,7 @@ async function main() {
         stopDisabled: true,
         onProgress: crawlProgress.onProgress,
         maxLinkDepth: args.maxLinkDepth,
+        pageConcurrency: args.pageConcurrency,
         repoRoot: path.resolve(args.repo),
         designTheme,
       });

@@ -1,0 +1,12 @@
+{
+  "completed": true,
+  "generatedAt": "2026-05-25T13:42:45.704Z",
+  "auditRunId": "f51744cf3c6f00e2",
+  "origin": "http://127.0.0.1:60536",
+  "startUrl": "http://127.0.0.1:60536/",
+  "visitedUrls": [
+    "http://127.0.0.1:60536/"
+  ],
+  "queuedUrls": [],
+  "crawlStopReason": "normal_completion"
+}

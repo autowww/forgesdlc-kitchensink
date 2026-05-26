@@ -380,24 +380,36 @@ export function buildPageGroupPlan(scorerUrls, opts = {}) {
 
   while (named.length > maxCategories) {
     const otherIdx = named.findIndex((c) => c.key === 'other');
-    const mergeIdx =
-      otherIdx >= 0
-        ? named.length - 1 === otherIdx
-          ? named.length - 2
-          : named.length - 1
-        : named.length - 1;
+    let mergeIdx = -1;
+    let minCount = Infinity;
+    for (let i = 0; i < named.length; i += 1) {
+      if (i === otherIdx) continue;
+      const c = named[i];
+      const n = c?.count ?? (c?.urls instanceof Set ? c.urls.size : 0);
+      if (n < minCount) {
+        minCount = n;
+        mergeIdx = i;
+      }
+    }
     if (mergeIdx < 0) break;
     const [smallest] = named.splice(mergeIdx, 1);
+    if (!smallest) break;
+    const urlsToMerge =
+      smallest.urls instanceof Set
+        ? smallest.urls
+        : new Set(Array.isArray(smallest.paths) ? smallest.paths : []);
     if (otherIdx >= 0) {
       const other = named[otherIdx];
-      for (const p of smallest.urls) other.urls.add(p);
-      other.count = other.urls.size;
+      if (other?.urls instanceof Set) {
+        for (const p of urlsToMerge) other.urls.add(p);
+        other.count = other.urls.size;
+      }
     } else {
       named.push({
         key: 'other',
         label: 'oth',
-        urls: new Set(smallest.urls),
-        count: smallest.count,
+        urls: new Set(urlsToMerge),
+        count: urlsToMerge.size,
       });
     }
   }

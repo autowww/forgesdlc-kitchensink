@@ -57,6 +57,12 @@ Rendered HTML mirrors handbook layout contracts (`Hbk`, `Chp`) when consumers ap
 
 - Handbook tone stays instructional, calm, and precise—no retail promo components in default templates.
 
+## Deterministic checks
+
+- Autodoc pages emit handbook landmarks (`main`, nav, optional aside) and a single primary `h1` per chapter (`DET.LANDMARKS.REQUIRED`, `DET.SECTION.HEADING`).
+- Generated HTML includes `lang`, viewport meta, and non-empty titles on publishable routes (`DET.PAGE.LANG`, `DET.PAGE.VIEWPORT`, `DET.PAGE.TITLE`).
+- Hash markers on layout roots when autodoc wraps KS chrome (`DET.HASH.MARKERS`).
+
 ## Content rules
 
 - Authors write Markdown; generators must not silently drop semantic elements (admonitions, code fences) without documenting the limitation.

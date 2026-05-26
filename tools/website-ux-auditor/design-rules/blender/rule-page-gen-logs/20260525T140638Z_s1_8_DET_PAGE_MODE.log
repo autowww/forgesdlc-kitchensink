@@ -1,0 +1,46 @@
+## Report: `DET.PAGE.MODE` handbook page
+
+The full PDCA handbook page is drafted and aligned with `RULE_PAGE_SCHEMA.md`, `det-page-mode.check.js`, and sibling pages like `det-page-lang.md`. **Writes to `docs/design/ux-audit/rule-pages/` were blocked in this session** (sandbox allows `tools/website-ux-auditor/` only), so the canonical target still has the old harness bootstrap stub.
+
+### `page_version` (confirmed in staging)
+
+```
+9ab49bfba4426e3217ba3f6c40b1a27e01ad37885da289c2e4c9ab4b8e6953e2
+```
+
+### What was written
+
+| Location | Status |
+|----------|--------|
+| `tools/website-ux-auditor/.staging-det-page-mode.md` | **Complete** (~223 lines) |
+| `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-page-mode.md` | **Complete** (mirror) |
+| `docs/design/ux-audit/rule-pages/det-page-mode.md` | **Still bootstrap stub** — needs copy |
+
+### Page content summary
+
+- **Title:** Page primary mode  
+- **Purpose:** PDCA; one primary mode above the fold; `layout_shell_attrs` + optional `forge-page-mode` meta  
+- **Passing:** `landing_page` on `/` with `layout-landing` / **`Ldg`**, `landing-header`, `fs-landing-main`, no `forge-sidebar` outside `main`  
+- **Failing:** `competing-modes` (marketing+handbook), `home-handbook-shell`, `undeclared-mode`  
+- **Before:** `layout-landing` + **`Ksr`** `forge-sidebar` with **7** handbook links + `landing-hero` / `landing-hero-actions`  
+- **After:** `landing_page` only, `<meta name="forge-page-mode" content="marketing">`, collapsible `landing-header-navbar`, `fs-landing-body-shell`  
+- **Related rules:** DET.CONTEXT.BURDEN, DET.NAV.DEDUP, DET.NAV.DEPTH, DET.LANDMARKS.REQUIRED, DET.PAGE.LANG, AI.NARRATIVE.COHERENCE  
+
+### One command to finish
+
+Run from your machine (full repo write access):
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.staging-det-page-mode.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-page-mode.md
+```
+
+Or:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/_run-copy-det-page-mode.mjs
+```
+
+After copy, `head -n 5` on the canonical file should show `title: Page primary mode` and the long summary (not `Harness bootstrap`).
+
+If you want me to retry the canonical write in a turn with broader file permissions, say **write the file** and I will apply the same content directly to `docs/design/ux-audit/rule-pages/det-page-mode.md`.

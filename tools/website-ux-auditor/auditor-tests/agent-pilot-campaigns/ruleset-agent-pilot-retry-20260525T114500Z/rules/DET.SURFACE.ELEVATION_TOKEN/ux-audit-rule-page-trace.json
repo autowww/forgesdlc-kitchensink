@@ -1,0 +1,1007 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-25T13:42:43.804Z",
+  "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+  "entries": [
+    {
+      "key": "66a922a6e5239b8faa4a0ac6d2a8fb08971dec67465d2635063c11f2f87c7dba",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.AMBIENT.Z_INDEX",
+      "lastRunAt": "2026-05-25T13:42:42.403Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "377a2458240d8b6cf4876aba04bf919c046b88551d2f84d17daa79e5cb295ae7",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "71e5e471f2ebb7fd4dd75613afe01c71f349836dd1769c6dabe9a683f9d1533c",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.APP.FOCUS_TRAP",
+      "lastRunAt": "2026-05-25T13:42:42.406Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "84b8180fc0249802ac83435794d26d6234a9b922401b12d764f0e2e3c808e9de",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "4af4a716b6b2d41bd5718e406d3c97001957bc95abab9cad6bb5e64b5fa2fec0",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.APP.PERSISTENT_CHROME",
+      "lastRunAt": "2026-05-25T13:42:42.418Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "ae0d7504e71ea1e1e83078a65c1f45be2111d81353922112a6834467a70561d5",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "309c95f48842dd3a91dc5fd5c67142e3e7f997a44b8a6e47b18e3da4edd03c9e",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.BUTTON.GROUP.MAX",
+      "lastRunAt": "2026-05-25T13:42:42.419Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "c3ab64c2dd4b0c7e7bd1c05b7c90dbb28c9235cf0dba231bdbd0c959c2a37888",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "a8e15f7edf2a06ebee0425e1b644784cc7947e8cd81e055887530e0a7f5da87b",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CARD.ACTION_LIMIT",
+      "lastRunAt": "2026-05-25T13:42:42.421Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "3ac03ff50ac80125feeb1ef7f54068a730b079c36e203d0ce97348ebdcc74502",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "bde2b5d3e20f16879d3b154e8c0fd3c85ce9cc137ce8939ae1c7f5a364e3f018",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CARD.TITLE",
+      "lastRunAt": "2026-05-25T13:42:42.447Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "72d445d9dda9303b0716d8fffb5f16f4ac3595b9d427e66bfe9d249d87331638",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "42b16184d02b65c9dcc439b3aa4634131027d23350948c029021d3a12d97e2b9",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CATALOG.CONTRACT_SPECIFICITY",
+      "lastRunAt": "2026-05-25T13:42:42.414Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "2dcd3fc41de0fe926e76dc848fe78faf20560c6f903088c4a137bcfbe91a4ce3",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "5f06ef8ed53274e47376f93252095e192c58b26576693b4326f13ebcfec2cba9",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CHART.ALT_SUMMARY",
+      "lastRunAt": "2026-05-25T13:42:42.451Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "8ea46b6d48b6c6dcfd614b3ab3373ad51b824f4108296bb88a01f028715c748b",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "6a7a94df7c5b7ec00af59db188bc7283a18e7eab29930dc57c3fd75788e5bd84",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CHROME.BOUNDARY",
+      "lastRunAt": "2026-05-25T13:42:42.455Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "f88df04ce954abadd5cede2d0825e73b4fc3458b6f26ce419347fb7663759120",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "9e02fe64f0a7760d77180e2989f7d38752d0e282c6c8163efe6d5eccc37a26c4",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CONTEXT.BURDEN",
+      "lastRunAt": "2026-05-25T13:42:42.457Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "bf23e34ff2e8d9713cb66eaa06b1924099b504b3b3502903cea9096aa125c5b1",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "93483827dea6f109d6a6b6e5d90b9f2c42ca7b88d33ac72de467b0c901e3dc06",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CONTRACT.PATH",
+      "lastRunAt": "2026-05-25T13:42:42.424Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "57989a5a3538f88d220b87e8d18e23e310d7aab866404cc77aae3a04402933e2",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "02675ddc19875e33737fffb6e9cd7f6c70bc38188c2f7205b0250df2d783ef2a",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CONTRACT.PLACEHOLDERS",
+      "lastRunAt": "2026-05-25T13:42:42.431Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "6522ddb7292d3efcbff15a4f0d1eed2808c83d70f377bdcae0d54ed8508f385a",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "1b37f432af99702518857606b0c9aafc0085ed30d8e68865ca1b562a5084a4d7",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CTA.HIERARCHY",
+      "lastRunAt": "2026-05-25T13:42:42.458Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "9c052726c2074616224c5794d5b7d21152619792f423aa7dd9ac9766c6d83f75",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "767d6988cc8f48778f89fee672ebb52966aa82b11334d6a3ac4972b52a2c46bb",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.CTA.LABEL_NONEMPTY",
+      "lastRunAt": "2026-05-25T13:42:42.464Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "3974dc28176285661a05116ce32ef63c17808242add31e0bea305bd04ebc6be1",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "a123aa289c7994fb54d9fd8d2c09ba3898de352af83d7bd119a658d88f2bc529",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.DATA.COLOR_ONLY",
+      "lastRunAt": "2026-05-25T13:42:42.487Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "2ce056a25b00a9ba76e3adf1288380cef50fb0998570b6de38b95f6bc5d77d75",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "c2a2ea338dd30e7995e8a695857cdd70c6b545cff7ff689b1070d228c79cab03",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.DATA.TABLE_HEADERS",
+      "lastRunAt": "2026-05-25T13:42:42.499Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "9765979c2079894b7129080e22aa9fbd5fc65cf6220446c880b6ec44589b92bf",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "083bd0ee3a642dacfa63ed7bff933fd0df573e61951a4a583181c64edc17f96e",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.DIAGRAM.ALT",
+      "lastRunAt": "2026-05-25T13:42:42.502Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "3cbf7a64e11f34a183cca0ca9d07fc19821e052d8e20b79095dd17ba9c370626",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "85fd3e9a1d4ea73656a10265f4481abad51d9634c903c0c31cd42ee010fe3b96",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.DIAGRAM.ASSET_REGISTRY",
+      "lastRunAt": "2026-05-25T13:42:42.569Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "f7d765975bb161a89417a743def379808641f35b80b40b7703b5ff6df111ac24",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "ce766a7464a92b4e26be127870394e724e5cabf67de1b332318c0660ef9725a6",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.DIAGRAM.LABELS",
+      "lastRunAt": "2026-05-25T13:42:42.596Z",
+      "status": "ran",
+      "findingsCount": 4,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 4,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "258ac15f93fda451897bae784ee1baa201e2fbe9cb6d37143fb6c0617597458a",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "112cae08c2a0e9d94bebca4cbe6291286fc328f1d895c72f1461c862f83cb6ce",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.HASH.MARKERS",
+      "lastRunAt": "2026-05-25T13:42:42.491Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "c5353f73a946b7a3cc99fdb0dc8e645f39495f992c0de570669bc903ef025cb8",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "011e4c3de2558631a0909b0e93a99013da35156b5c4e6438cfb1ea56f35c6f97",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.HASH.REGISTRY_ROW",
+      "lastRunAt": "2026-05-25T13:42:42.606Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "7372837e758e5c7f991b8edabef0d30bb5efa41dd770387c87ca9971751daa25",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "6a1e1a2e1b37a2d0f12a6906d92b67db5006e594970686e439162967576e0040",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.HTML.EMPTY_INLINE",
+      "lastRunAt": "2026-05-25T13:42:42.611Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "c3b717370d77051b0ec1acf6e84c2c75112d78895f8ee7cc0ed11062df2b3e7d",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "abe6b65a72d3e0fe53895f9c77aa3081413def2c327b9db0982b547b40bed0d3",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.INVENTORY.CROSSWALK",
+      "lastRunAt": "2026-05-25T13:42:42.561Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "395b817e29a17dbfc9868d2f285a49042c65a39e332ec13d33a3ed61accedf8c",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "7d7b3ddeb8c705825a9f4a78cc4b7f856785ceec95fc8159e313f31604f4035b",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.JS.NO_CONSOLE_ERROR",
+      "lastRunAt": "2026-05-25T13:42:43.013Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "31742d0aff6dcfa253983a59357c0113646c51dabc8a84b9e88e386d29bfa6c3",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "1f93fde7fdd9819d1d3a60cc34f2fb709b99978384d516777bc2b3537e2f966e",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.JS.PROGRESSIVE",
+      "lastRunAt": "2026-05-25T13:42:43.092Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "b80f309b79b65030dbc710ea99d5eee738862900297a75e08b0b8a360274c38b",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "1475dbfdadd70073daa3c3e6d3299490a8e5cfc5ecf36fad4efe4510d215eb40",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.LANDMARKS.REQUIRED",
+      "lastRunAt": "2026-05-25T13:42:42.660Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "ca43525c7ee820724ea1fad32b6c04a1f2770ec80eb72bda1adb083e6634cc9d",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "67a7e7a433a5410916e2259dd5c2c17b51b7b1e2d777358a17762a263018b404",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.LAYOUT.GRID_CONSISTENCY",
+      "lastRunAt": "2026-05-25T13:42:42.669Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "c0dd53ccb91b4ec9483a7fe1c7453f03ebddd048776f0664a0aacbbb6db96747",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "a148d8017239bdb90ec2a2695ff5cfdc1578242c9c455178c8915437011c5aa0",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.MOTION.NO_AUTO_PLAY_FLASH",
+      "lastRunAt": "2026-05-25T13:42:42.676Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "41ca020268b033052224ff8663119ac52e988df9d7d2c4905bde61f5740541e7",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "60899f94f067a98a3d220f0908c04c17bb81dfe2d9bee2a20d2cd1a0cfd0dc2d",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.MOTION.PREFERS_REDUCED",
+      "lastRunAt": "2026-05-25T13:42:42.783Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "f8e656ffa75d7a2b3c0ec3c796fea043e24489079b89b9b95ee9d070ebe82c9b",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "1498d2269816d27431834a2d3832f8291ab60793587b36e4c719c203be858f3d",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.NAV.BREADCRUMB",
+      "lastRunAt": "2026-05-25T13:42:42.689Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "63aa37df2ad8245705bdc877123c79036e10f423a2cf4b3b7ea51539fe4a63e1",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "f18b7e85647a6d726fe07ad204a5fe038ef98aa05372bff65ebcec0088cddcf9",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.NAV.DEDUP",
+      "lastRunAt": "2026-05-25T13:42:42.705Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "bf471fac053fda0c7d2f1eb130d4fb36585aaadfb5abfa7d3bf645404ed5e476",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "956f754e1a80e50a17d74ccd8a944785e0da57f831fb5a9f261f4a1d34f2c955",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.NAV.DEPTH",
+      "lastRunAt": "2026-05-25T13:42:42.746Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "85423dbfb453ceb16484435af4b6f2d5317473aaac77fb901b7193972ee94d16",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "b9b9db2b76e940d4137a9763c7559299e23865a2d16762220675fae1877227ed",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.NAV.FOCUS_ORDER",
+      "lastRunAt": "2026-05-25T13:42:42.765Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "d2a6e09e68592e5dafa0f35e38669385a0bed9cfadbec583c003049d44b97c22",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "4cf92bcf97c9850919fe55da5f390680613394da0dc70c593240fc696381f984",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.NAV.IN_PAGE_TOC",
+      "lastRunAt": "2026-05-25T13:42:42.838Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "f234427627c1868a81d14a22e588c2510b7ac054c41665ad625f40c60c3c0f2a",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "abc707578bc10818fc20be6d82e94477a08013b6cfe5a89731773f8f014cfbc4",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.PAGE.LANG",
+      "lastRunAt": "2026-05-25T13:42:42.768Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "f8642d9fedb2389aa685eff650476aed3d9e0283eb4bb0ea5d73e258b2125498",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "242357b49dcf6c33d784ae7a3036604184dbfab0e6a16dfa91ddefadd9b7be1a",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.PAGE.MODE",
+      "lastRunAt": "2026-05-25T13:42:42.900Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "a086d5b279c523ad624c4286193b90c66803c30df50c17510cad420e2953b828",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "0403d6c7ca295e4b64319a6c026335e27d236a0826c35e1cb23ea9862382e256",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.PAGE.TITLE",
+      "lastRunAt": "2026-05-25T13:42:42.787Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "417bab5523782b1a5e8c341292df0222a353cc136f5f6c6465ba2dc9e099242e",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "82ddf19ae3c4198b91b827b700fd3b2a24727178ebc26a76e694fbc1dc7604cf",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.PAGE.VIEWPORT",
+      "lastRunAt": "2026-05-25T13:42:42.792Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "e6df337dfb5287840cdaedd3ef873d9c8cb79493d1a2d9bcd689eda999716a93",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "7c333b492b48adc6e2dfd0952670927d6c58c84260a151e6d98e3d22a06e4bd3",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.PROSE.LENGTH",
+      "lastRunAt": "2026-05-25T13:42:42.904Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "ced00fed2a369624755b3b990aa7790c02de486bf21c1c9ade83cb40a18c3b2f",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "fdcf52fa24b6215ae59fe618bc06bee9261b3be28216d5a5f36790bd5afdf328",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.PY.KS_HASH_ATTRS",
+      "lastRunAt": "2026-05-25T13:42:42.876Z",
+      "status": "ran",
+      "findingsCount": 2,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 2,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "1809d46cd22f5807cdd221e9a8fa221b566015ef11ebd95288e219b82f757188",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "996bb8696fc4e288cd3e85e2ac63965b9bc7c594e0fc263baca85f70e53b7997",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.PY.OPTIONAL_REGIONS",
+      "lastRunAt": "2026-05-25T13:42:42.914Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "01ff49ee44a69d7cfebd9f46987ac466a148ff36464230506d89e1ea34d0d86d",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "30a909f1c0705b13955c121c8a1de5363975636b0970d4eb0e7fb148ff25aac1",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.REACT.A11Y_ROLE",
+      "lastRunAt": "2026-05-25T13:42:42.930Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "2b73a08d00494027b3f57989cbd22e920f75555b8004e8403317bffa14d5119e",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "dc16e395a7217452f38b734c90569737a5cb23de679db8ca77d52e5f445c4433",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.REACT.KS_ATTRS",
+      "lastRunAt": "2026-05-25T13:42:42.936Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "aa2d9adc7079f1c1d04df89c8ea540bf7a5dc6a2d7bad08dc56b6778d4b570b3",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "5bcdc1183c84dfba6f2bb90ec742edbad0537d18f92035e40b22c4b15912657f",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.SCREENSHOT.STATUS",
+      "lastRunAt": "2026-05-25T13:42:42.919Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "c3baac5607b80484e20b1911bc06cf9c91fee41759e91d4ee2a183a8633d1e98",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "1e1a629b80b56850e896bc6d53665d531490c55fc69d90c0acdbadf78389858e",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.SECTION.HEADING",
+      "lastRunAt": "2026-05-25T13:42:42.948Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "17a5ebb4d773318da122f4a6b7f261f5b7102b6b7cfba725baedef5d784990e9",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "954d9af1d891b0bac65da868dc9d0cc63003b9414966b2a494b83d4ba8e9c6ad",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.SECTION.SINGLE_JOB",
+      "lastRunAt": "2026-05-25T13:42:42.987Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "2a80626790da730be3e7efada49c838c5b6eac1fca419cc2db7b3feb8335df10",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "284111e0235efd76912df33292ddc5178466d39d0fc136b5c3b60e7afadda9bf",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.SURFACE.ELEVATION_TOKEN",
+      "lastRunAt": "2026-05-25T13:42:43.006Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "4ed86fc2dfae457d0c1373e1552365f7af10e33b6b845878a6e21936023a50b6",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "0a4cb7b695af931d79bdfec12b087ffb5cf3eb47d60e2369ce21989fb9a5b1c7",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.THEME.CONTRAST_MIN",
+      "lastRunAt": "2026-05-25T13:42:42.951Z",
+      "status": "ran",
+      "findingsCount": 1,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 1,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "786d6ce6019a048ce11f382f163ab16be95bb471bd4a8c9584ecd79efd4e898b",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "cf970897effcc12e0c65489af3ae193baf34f2250a730043a564461ce2eb62e3",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.TOKEN.NO_DRIFT",
+      "lastRunAt": "2026-05-25T13:42:42.973Z",
+      "status": "ran",
+      "findingsCount": 12,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 12,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "80a132d25943fa60dfdaf285a0a50da0e1fd0fb568ddf5fba23acb986e5f03d4",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    },
+    {
+      "key": "379a729d645ac6f94911c5cfb9ccdebf5485691be882c71fa5210679243a835c",
+      "url": "http://127.0.0.1:60577/",
+      "ruleId": "DET.VISUAL.RHYTHM",
+      "lastRunAt": "2026-05-25T13:42:43.010Z",
+      "status": "ran",
+      "findingsCount": 0,
+      "severityCounts": {
+        "blocker": 0,
+        "critical": 0,
+        "major": 0,
+        "warn": 0,
+        "minor": 0,
+        "trivial": 0,
+        "cosmetic": 0
+      },
+      "pageContentFingerprint": "e70a4e4b1db4d1c523c7484086e45a562ab3d4d95668abcf537a0fc009a9d6e4",
+      "ruleModuleFingerprint": "276b4392ef99a706a2d43fe6def4a7d67ad50356f5c9a58c5b768b91149b5e5b",
+      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c"
+    }
+  ]
+}

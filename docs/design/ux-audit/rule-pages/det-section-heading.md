@@ -3,9 +3,9 @@ rule_id: DET.SECTION.HEADING
 lane: deterministic
 title: Section Heading
 summary: Harness bootstrap handbook page for DET.SECTION.HEADING.
-page_version: 13c25cd37bcae20a20367589dda396d53f3a69cd855bd24e56bab3d586984e9f
+page_version: 2ff2b812e0500ea93c7a80ee609376e1d41b1bd16fb3663295dd87736c8c4226
 generated_at: 2026-05-23T13:24:10Z
-agent_model: bootstrap-missing-rule-pages.py
+agent_model: handbook-version-sync
 registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-section-heading
@@ -38,7 +38,7 @@ Bootstrap page for the DET ruleset harness. Examples are minimal Kitchen Sink ma
 
 ```html
 <main id="main" class="doc-main px-4 py-4">
-<h1 class="font-display">Page title</h1>
+<h1 class="font-display">Forge UX rule handbook for section headings</h1>
 <h2 class="h4">Section</h2>
 <p class="forge-support">Sequential heading levels.</p>
 </main>

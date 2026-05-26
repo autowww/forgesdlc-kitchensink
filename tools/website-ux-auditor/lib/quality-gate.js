@@ -7,6 +7,9 @@ import { SEVERITY_LEVELS } from './severity.js';
 
 /** @typedef {'blocker'|'critical'|'major'|'warn'|'minor'|'trivial'|'cosmetic'} SeverityId */
 
+/** Default crawl halt: stop auditing when sitewide gate overage exceeds this (sum of over-threshold counts). */
+export const DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS = 10;
+
 /** Default remediation loop gate (counts must be <= threshold). */
 export const DEFAULT_QUALITY_GATE_THRESHOLDS = {
   blocker: 0,
@@ -148,25 +151,45 @@ export function isQualityGateSegmentFilled(count, threshold) {
 }
 
 /**
- * Halt crawl expansion when any severity segment is filled (sitewide counts).
+ * Sum sitewide counts over each gate threshold (issues "above" the quality gate).
  * @param {Record<string, number>} counts
  * @param {Record<string, number>} thresholds
  */
-export function evaluateQualityGateCrawlHalt(counts, thresholds) {
+export function sumQualityGateViolationUnits(counts, thresholds) {
+  const ev = evaluateQualityGate(counts, thresholds);
+  if (ev.pass) return 0;
+  return ev.violations.reduce((acc, v) => acc + v.overBy, 0);
+}
+
+/**
+ * Halt crawl when sitewide gate overage exceeds the violation budget (default 10).
+ * @param {Record<string, number>} counts
+ * @param {Record<string, number>} thresholds
+ * @param {number} [stopAfterViolationUnits]
+ */
+export function evaluateQualityGateCrawlHalt(
+  counts,
+  thresholds,
+  stopAfterViolationUnits = DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS,
+) {
   const thr = normalizeThresholds(thresholds);
-  /** @type {Record<SeverityId, number>} */
-  const cnt = {};
-  for (const id of SEVERITY_LEVELS) {
-    cnt[id] = Math.max(0, Number(counts?.[id] || 0));
+  const limit = Number(stopAfterViolationUnits);
+  if (!Number.isFinite(limit) || limit <= 0) {
+    return { halt: false, severity: null, count: 0, threshold: 0, violationUnits: 0 };
   }
-  for (const id of SEVERITY_LEVELS) {
-    const c = cnt[id];
-    const t = thr[id] ?? DEFAULT_QUALITY_GATE_THRESHOLDS[id];
-    if (isQualityGateSegmentFilled(c, t)) {
-      return { halt: true, severity: id, count: c, threshold: t };
-    }
+  const violationUnits = sumQualityGateViolationUnits(counts, thr);
+  if (violationUnits <= limit) {
+    return { halt: false, severity: null, count: 0, threshold: limit, violationUnits };
   }
-  return { halt: false, severity: null, count: 0, threshold: 0 };
+  const ev = evaluateQualityGate(counts, thr);
+  const top = ev.violations.sort((a, b) => b.overBy - a.overBy)[0];
+  return {
+    halt: true,
+    severity: top?.severity || 'warn',
+    count: top?.count ?? violationUnits,
+    threshold: limit,
+    violationUnits,
+  };
 }
 
 export function evaluateQualityGate(counts, thresholds) {

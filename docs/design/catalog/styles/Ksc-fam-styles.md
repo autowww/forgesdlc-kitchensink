@@ -64,6 +64,12 @@ Roll-up contract for Kitchen Sink CSS. Concrete visuals are attributed per **chi
 
 - Typography and color ramps stay consistent with Forge marketing and handbook consumers; avoid novelty gradients that break trust-heavy tone.
 
+## Deterministic checks
+
+- Theme packs define elevation custom properties at `:root` and reference them on elevated surfaces (`DET.SURFACE.ELEVATION_TOKEN`).
+- Font stacks resolve to documented KS families without drift (`DET.THEME.FONT_STACK`, `DET.TOKEN.NO_DRIFT`).
+- Contrast of primary text and controls meets minimum AA thresholds in default theme (`DET.THEME.CONTRAST_MIN`).
+
 ## Forbidden patterns
 
 - Shipping unreadable contrast for primary actions solely for aesthetic effect.

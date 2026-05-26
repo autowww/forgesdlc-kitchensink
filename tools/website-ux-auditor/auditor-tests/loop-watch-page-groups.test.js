@@ -102,3 +102,16 @@ test('shortCategoryLabel compresses docs chapter keys', () => {
   assert.equal(shortCategoryLabel('docs-learn-101'), 'L101');
   assert.equal(shortCategoryLabel('other'), 'oth');
 });
+
+test('buildPageGroupPlan merges overflow without throwing on many depth buckets', () => {
+  const urls = Array.from(
+    { length: 80 },
+    (_, i) => `http://127.0.0.1:40777/docs/page-${i}.html`,
+  );
+  const plan = buildPageGroupPlan(urls);
+  assert.ok(plan.categories.length > 0);
+  assert.ok(plan.categories.length <= 12);
+  for (const cat of plan.categories) {
+    assert.ok(cat.urls instanceof Set);
+  }
+});

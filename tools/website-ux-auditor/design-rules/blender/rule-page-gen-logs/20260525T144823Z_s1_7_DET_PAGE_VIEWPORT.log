@@ -1,0 +1,52 @@
+## DET.PAGE.VIEWPORT handbook page
+
+Replaced the bootstrap stub with a full PDCA rule page aligned with `det-page-lang.md` / `det-page-title.md` and `viewport.check.js`.
+
+**Written to:** `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-page-viewport.md`  
+(mirror also at `forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-page-viewport.md` inside the auditor workspace)
+
+**Copy helper:** `_run-copy-det-page-viewport.mjs` — syncs to the KS repo root target. The sandbox blocked direct writes to `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-page-viewport.md`; run from the KS root:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-page-viewport.mjs
+```
+
+### Front matter
+
+| Field | Value |
+|-------|-------|
+| `page_version` | **`e7575c6d91dfcdd8b116c46bf9d0e72834a96f8ba28aef18b49964474c7f0736`** ✓ |
+| `registry_fingerprint` | `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` |
+| `registry_status` | `implemented` |
+| `related_rules` | `DET.PAGE.LANG`, `DET.PAGE.TITLE`, `DET.LANDMARKS.REQUIRED`, `DET.PAGE.MODE` |
+
+### Content summary
+
+- **Purpose:** Mobile browsers default to ~980px width without viewport meta; KS layouts emit `<meta name="viewport" content="width=device-width, initial-scale=1" />` in `handbook_page` and siblings (`layouts.py` line 735). Check reads `metrics.metaViewport` from `meta[name="viewport"]` content.
+- **Passing:** Non-empty viewport meta in `<head>`; `metaViewport` populated in audit JSON.
+- **Failing:** Missing tag, empty `content`, wrong `name` attribute; evidence matches `viewport.check.js` message.
+- **Before/After:** Full `handbook_page` shells — before omits viewport meta; after adds the KS-standard tag. Only difference between examples is the meta line.
+
+### Real KS classes in examples
+
+`forge-aurora`, `skip-link`, `container-fluid`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `doc-content`, `section-label`, `text-cyan`, `font-display`, `forge-support`, `forge-card`, `card-label`, `var(--forge-border)`, Bootstrap grid utilities (`col-lg-*`, `d-lg-flex`, `min-vh-100`).
+
+### Check implementation (unchanged)
+
+```12:23:tools/website-ux-auditor/design-rules/deterministic/page/viewport.check.js
+export function run({ metrics }) {
+  const viewport = String(metrics?.metaViewport || '').trim();
+  if (viewport) return [];
+  return [
+    {
+      severity: 'minor',
+      area: 'accessibility',
+      message: 'Responsive viewport meta tag is missing.',
+      evidence: '<meta name="viewport"> not found.',
+      remediation: 'Add `<meta name="viewport" content="width=device-width, initial-scale=1">`.',
+    },
+  ];
+}
+```
+
+**page_version confirmed:** `e7575c6d91dfcdd8b116c46bf9d0e72834a96f8ba28aef18b49964474c7f0736`

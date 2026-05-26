@@ -3,9 +3,9 @@ rule_id: DET.VISUAL.RHYTHM
 lane: deterministic
 title: Visual Rhythm
 summary: Harness bootstrap handbook page for DET.VISUAL.RHYTHM.
-page_version: faa9c8a86519d5225e9bfc6e09d05da20bd7e4fb8de953fe9f52e3132ca07184
+page_version: 4d81d521833100426310b5ffc8ebc4816a8ec4125fc9c32312d6043d57e4e135
 generated_at: 2026-05-23T13:24:10Z
-agent_model: bootstrap-missing-rule-pages.py
+agent_model: handbook-version-sync
 registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-visual-rhythm

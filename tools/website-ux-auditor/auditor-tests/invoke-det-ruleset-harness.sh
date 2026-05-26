@@ -169,6 +169,9 @@ touch "${STATE_JSONL}"
 
 CAMPAIGN_ID="$(basename "${OUT_DIR}")"
 FIXTURE_ROOT="${FORGE_UX_AUDIT_WORKBENCH_ROOT}/rule-defect-fixtures/${CAMPAIGN_ID}"
+if [[ -n "${FORGE_UX_RULESET_FIXTURE_ROOT:-}" && -f "${FORGE_UX_RULESET_FIXTURE_ROOT}/manifest.json" ]]; then
+  FIXTURE_ROOT="${FORGE_UX_RULESET_FIXTURE_ROOT}"
+fi
 HARNESS_LOG="${OUT_DIR}/harness-dashboard.log"
 : >>"${HARNESS_LOG}"
 

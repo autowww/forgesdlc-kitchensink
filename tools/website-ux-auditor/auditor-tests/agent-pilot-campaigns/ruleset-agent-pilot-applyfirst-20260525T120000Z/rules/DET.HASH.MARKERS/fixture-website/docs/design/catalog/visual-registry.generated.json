@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "repoRoot": "fixture-website",
+  "entries": [
+    {
+      "hash": "Ldg",
+      "name": "layout-landing",
+      "type": "layout",
+      "status": "active",
+      "contract_status": "family-covered"
+    },
+    {
+      "hash": "Vln",
+      "name": "preview-landing",
+      "type": "layout-preview",
+      "status": "active",
+      "contract_status": "family-covered"
+    },
+    {
+      "hash": "Kpn",
+      "name": "product-primary-nav",
+      "type": "chrome-region",
+      "status": "active",
+      "contract_status": "family-covered"
+    },
+    {
+      "hash": "Ksf",
+      "name": "site-footer",
+      "type": "chrome-region",
+      "status": "active",
+      "contract_status": "family-covered"
+    }
+  ]
+}

@@ -60,6 +60,7 @@ Rules in this catalog are intended for **automated or scripted** evaluation (DOM
 | `DET.NAV.IN_PAGE_TOC` | Handbook/doc pages expose TOC when length exceeds threshold; links skip correctly. | Anchor map |
 | `DET.NAV.FOCUS_ORDER` | Focus order matches visual order for keyboard traversal sample paths. | Automated tab order |
 | `DET.NAV.BREADCRUMB` | Product/doc hubs include breadcrumb where registry marks `chrome-region` breadcrumb contract. | DOM presence |
+| `DET.HTML.EMPTY_INLINE` | No empty `<strong>` / `<em>` in `main` (autodoc table focus rows). | DOM text |
 
 ## CTAs & button groups
 

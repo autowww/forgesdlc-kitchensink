@@ -1,0 +1,51 @@
+## Report: `DET.NAV.IN_PAGE_TOC` rule page
+
+The target file **`docs/design/ux-audit/rule-pages/det-nav-in-page-toc.md`** is already present and matches the required schema. File writes were blocked in this session, so no on-disk changes were applied; the content below reflects what is on disk and what was verified against source.
+
+### `page_version` confirmation
+
+Front matter **`page_version`** equals the required hash exactly:
+
+`73ca82c130c0f8d8ea17f8412cab30621bfb8fabd1924a6a943a3653e9680f47`
+
+This also matches `rule-pages.manifest.json` (`pageVersion` / `contentVersion`).
+
+### What the page documents
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | PDCA framing for **Ktx** in-page ToC on long doc-hub pages; thresholds from `det-nav-in-page-toc.check.js` (≥4 `h2`/`h3` or ≥900 words; doc-hub signals; landing/home exempt) |
+| **Passing signals** | Visible `nav.forge-toc` / `[data-ks-hash="Ktx"]` with ≥2 hash links; anchors resolve inside `main`; rail ≥140px / links ≥100px at ≥992px viewport |
+| **Failing signals** | `missing_in_page_toc`, `broken_toc_anchor` (major), `toc_rail_cramped`, hidden/inert shells |
+| **Before example** | Handbook layout + **Ksr** sidebar + 6 `h2` sections in `main` — **no Ktx** → `missing_in_page_toc` |
+| **After example** | Same page with **`.ks-doc-toc-flow`**, **`.ks-doc-toc-prose`**, **`.ks-doc-toc-rail`** + `nav.forge-toc` listing all section anchors |
+| **Evidence and remediation** | 5-step loop: confirm requirement → emit via `render_toc_sidebar()` → fix anchors → fix cramped rails → re-run auditor/harness |
+| **Related rules** | 8 linked rules (FOCUS_ORDER, BREADCRUMB, DEPTH, DEDUP, SECTION.HEADING, GRID_CONSISTENCY, LANDMARKS.REQUIRED, AI.CONTEXT.COGNITIVE_CLARITY) |
+
+### Real KS class names verified
+
+Before/after HTML uses classes and patterns found in Kitchen Sink source:
+
+- **`components/components.py`** — `render_toc_sidebar()` emits `aside.ks-doc-toc-rail` + `nav.forge-toc` + `p.toc-title` + `a.nav-link`
+- **`components/layouts.py`** — showcase ToC column uses `.col-lg-4.col-xl-3.order-1.order-lg-2`
+- **`css/forge-theme.css`** — `.ks-doc-toc-flow`, `.ks-doc-toc-prose`, `.ks-doc-toc-rail`, `.forge-toc .nav-link`
+- Chrome hashes **Ksr** / **Ktx** with `data-ks-type="chrome-region"` match `ks_catalog_hashes.py` / visual registry
+
+### Registry metadata (front matter)
+
+- **`registry_fingerprint`:** `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` (matches `registry.generated.json`)
+- **`registry_status`:** `implemented`
+- **`source_rule`:** `docs/design/ux-audit/deterministic-design-rules.md#det-nav-in_page_toc`
+- **`generated_at`:** `2026-05-25T20:30:00.000Z` (only field that could be refreshed to “UTC now” if you want a timestamp bump)
+
+### Check module alignment
+
+The page accurately reflects `det-nav-in-page-toc.check.js`:
+
+- Doc-hub layout slugs, landing exemptions, word/heading thresholds
+- TOC selectors (`.col-lg-4.col-xl-3.order-1.order-lg-2`, `[data-ks-hash="Ktx"]`, `nav.forge-toc`, etc.)
+- Three finding types with evidence string shapes
+
+No edits were made to check modules, `rule-mappings.js`, or registry.
+
+If you want the `generated_at` timestamp refreshed or any content tweak, switch to Agent mode with write access and I can apply it.

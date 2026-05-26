@@ -76,6 +76,13 @@ Chrome SVG assets ship under child **`vYA`**; hashed JavaScript bundles under `m
 
 - Build outputs under `museum/studio/assets/*` consumed by the shell (content-hashed filenames deferred per registry coverage notes).
 
+## Deterministic checks
+
+- Emitted roots include both `hash="Msm"` and `data-ks-hash="Msm"` on the studio shell wrapper (`data-ks-type="desktop-interface"`).
+- When `data-persistent-chrome="true"` or `data-route-contract="persistent-shell"`, contracted regions (`header`, `nav`/`aside`, `main`) mount outside the workspace swap pane with stable `id` and `data-shell-region` markers across crawled routes.
+- Global shell navigation link signatures stay identical between routes; route-local tabs and breadcrumbs live inside `main` only.
+- Chrome SVG assets under **`vYA`** resolve from bundled paths—no undocumented remote chrome URLs in production shells.
+
 ## Implementation notes
 
 - Rebuild studio after structural edits; keep registry **`notes`** on the `Msm` row synchronized when deferring hashed chunk files.

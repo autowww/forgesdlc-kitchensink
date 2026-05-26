@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-26T14:25:31.873Z",
+  "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
+  "profiles": [
+    {
+      "id": "wcag21a",
+      "label": "WCAG 2.1 Level A",
+      "wcagVersion": "2.1",
+      "level": "A",
+      "axePresetKey": "wcag21a",
+      "axeTags": [
+        "wcag2a",
+        "wcag21a"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag21a",
+        "wcag2aa"
+      ],
+      "jurisdictionNotes": "Deque axe tag mapping for WCAG 2.1 Level A.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "wcag21aa",
+      "label": "WCAG 2.1 Level AA",
+      "wcagVersion": "2.1",
+      "level": "AA",
+      "axePresetKey": "wcag21aa",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa"
+      ],
+      "jurisdictionNotes": "Common procurement baseline; aligns with many ADA web references.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "wcag22aa",
+      "label": "WCAG 2.2 Level AA",
+      "wcagVersion": "2.2",
+      "level": "AA",
+      "axePresetKey": "wcag22aa",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "jurisdictionNotes": "Forge default profile; includes WCAG 2.2 AA axe tags.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "wcag22aaa",
+      "label": "WCAG 2.2 Level AAA",
+      "wcagVersion": "2.2",
+      "level": "AAA",
+      "axePresetKey": "wcag22aaa",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa",
+        "wcag22aaa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa",
+        "wcag22aaa"
+      ],
+      "jurisdictionNotes": "AAA campaigns; axe tag set includes wcag22aaa where supported.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "ada-title-ii-wcag21aa",
+      "label": "ADA Title II — WCAG 2.1 AA (axe mapping)",
+      "wcagVersion": "2.1",
+      "level": "AA",
+      "axePresetKey": "wcag21aa",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa"
+      ],
+      "jurisdictionNotes": "US state/local government web accessibility commonly references WCAG 2.1 Level AA. This profile uses the same axe and DET tag bundle as wcag21aa — not a separate automated ruleset.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "ada-title-iii-wcag21aa",
+      "label": "ADA Title III — WCAG 2.1 AA (axe mapping)",
+      "wcagVersion": "2.1",
+      "level": "AA",
+      "axePresetKey": "wcag21aa",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa"
+      ],
+      "jurisdictionNotes": "US public accommodations web rules reference WCAG 2.1 Level AA for many sites. Same automation bundle as wcag21aa; confirm tender-specific requirements.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "section508",
+      "label": "US Section 508 (axe tag mapping)",
+      "wcagVersion": "2.0+",
+      "level": "AA",
+      "axePresetKey": "section508",
+      "axeTags": [
+        "section508",
+        "wcag2aa"
+      ],
+      "detStandardsTags": [
+        "section508",
+        "wcag2aa",
+        "wcag21aa"
+      ],
+      "jurisdictionNotes": "Federal ICT refresh; axe section508 tag plus WCAG 2.x AA tags.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "en301549",
+      "label": "EN 301 549 (EU ICT, axe tag mapping)",
+      "wcagVersion": "2.1",
+      "level": "AA",
+      "axePresetKey": "en301549",
+      "axeTags": [
+        "wcag2aa",
+        "wcag21aa"
+      ],
+      "detStandardsTags": [
+        "wcag2aa",
+        "wcag21aa"
+      ],
+      "jurisdictionNotes": "EU procurement baseline; verify EN 301 549 revision in tender.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "best-practice",
+      "label": "Deque best-practice",
+      "wcagVersion": "—",
+      "level": "—",
+      "axePresetKey": "best-practice",
+      "axeTags": [
+        "best-practice"
+      ],
+      "detStandardsTags": [
+        "wcag2aa",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "jurisdictionNotes": "Extra Deque rules beyond WCAG; not a legal conformance claim.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    }
+  ]
+}

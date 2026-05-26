@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="400" height="260" role="img" aria-labelledby="lt">
+  <title id="lt">landing_page layout schematic</title>
+  <rect width="100%" height="100%" fill="#111827"/>
+  <text x="200" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#94A3B8">Full-width page (no sidebar)</text>
+  <g data-node="Top nav" pointer-events="all">
+    <rect x="24" y="36" width="352" height="36" rx="4" fill="rgba(6,182,212,0.12)" stroke="rgba(6,182,212,0.55)" stroke-width="1.5"/>
+    <text x="200" y="58" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#06B6D4" font-weight="600">Top nav</text>
+    <text x="200" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#708090">brand, nav_links_html, sticky</text>
+  </g>
+  <g data-node="Hero" pointer-events="all">
+    <rect x="24" y="84" width="352" height="72" rx="4" fill="rgba(245,158,11,0.1)" stroke="rgba(245,158,11,0.5)" stroke-width="1.2"/>
+    <text x="200" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#F59E0B" font-weight="600">Hero</text>
+    <text x="200" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#708090">hero_html, centered, full width</text>
+  </g>
+  <g data-node="Body" pointer-events="all">
+    <rect x="24" y="168" width="352" height="56" rx="4" fill="rgba(16,185,129,0.08)" stroke="rgba(16,185,129,0.4)" stroke-width="1.2"/>
+    <text x="200" y="194" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#10B981" font-weight="600">Body</text>
+    <text x="200" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#708090">body_html below hero</text>
+  </g>
+  <g data-node="Footer" pointer-events="all">
+    <rect x="24" y="232" width="352" height="20" rx="2" fill="rgba(100,116,139,0.15)" stroke="rgba(100,116,139,0.35)" stroke-width="1"/>
+    <text x="200" y="246" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#94A3B8">Footer (optional) footer_html</text>
+  </g>
+</svg>

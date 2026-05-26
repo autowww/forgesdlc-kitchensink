@@ -1,0 +1,47 @@
+## Report: `DET.MOTION.NO_AUTO_PLAY_FLASH` handbook page
+
+The full PDCA handbook page is written and verified at the staging path (sandbox blocks direct writes to the canonical KS `docs/` tree):
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-motion-no-auto-play-flash.md`
+
+Also mirrored at `.staging-det-motion-no-auto-play-flash.md`.
+
+**Promote to canonical path** (still the bootstrap stub):
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor && node _run-copy-det-motion-no-auto-play-flash.mjs
+```
+
+### `page_version` confirmed
+
+`f6716461755c5906686a586535661bb7dc3d022d186faaf718efbf89ed7070d3` (exact match in front matter)
+
+### What changed (bootstrap → full handbook)
+
+| Field | New value |
+|-------|-----------|
+| **title** | No auto-play flash patterns |
+| **summary** | WCAG flash threshold + risky keyframe names |
+| **agent_model** | composer-2.5-fast |
+| **generated_at** | 2026-05-25T14:30:00.000Z |
+| **related_rules** | `DET.MOTION.PREFERS_REDUCED`, `AI.MOTION.INTENTIONALITY` |
+
+### Content aligned with check module
+
+Based on `det-motion-no-auto-play-flash.check.js`:
+
+- **WCAG 2.3.1 threshold:** ≤3 flashes/sec (~0.67s minimum infinite toggle cycle)
+- **Violation kinds:** `fast-infinite-animation`, `risky-animation-name`, `risky-keyframes-name`, `autoplay-video`
+- **Risky keywords:** `blink`, `flash`, `strobe`, `seizure`, `flicker`
+
+### Real KS classes in examples
+
+**Before (failing):** `doc-main`, `forge-section`, `glass`, `section-label`, `forge-support`, `forge-card`, `stat-value`, `stat-label`, `text-cyan` — plus custom `@keyframes blink` at 0.2s infinite and `<video autoplay>`.
+
+**After (passing):** `glass-amber`, `pulse-amber` (3s theme glow from `forge-theme.css`), `bento-grid`, `bento-3`, `breathe-static`, `forge-card`, `stat-value`, `stat-label`, `text-amber`, `text-cyan`, with `@media (prefers-reduced-motion: reduce)` override.
+
+### Sections included
+
+Purpose (PDCA), Passing signals, Failing signals, Before example, After example, Evidence and remediation (violation table + harness commands), Related rules (`DET.MOTION.PREFERS_REDUCED`, `AI.MOTION.INTENTIONALITY`, `AI.AMBIENT.READABILITY_CONFLICT`).
+
+No Mermaid, no Fleet-specific profiles, no check/registry edits.

@@ -65,6 +65,12 @@ Govern Python modules that emit HTML fragments for KS generators and consumers. 
 
 - Dense data displays (roadmaps, catalogs) prioritize scanability—consistent typography scale and muted chrome.
 
+## Deterministic checks
+
+- Showcase/build output honors family hashes under **Kpr** (`hash` / `data-ks-hash` on governed roots per child contract).
+- Python renderers emit expected landmarks and card titles; elevated surfaces use `var(--forge-*)` elevation tokens, not raw `box-shadow` literals (`DET.SURFACE.ELEVATION_TOKEN`).
+- Inventory crosswalk lists each child hash with `source_paths` and registry status (`DET.INVENTORY.CROSSWALK`, `DET.HASH.REGISTRY_ROW`).
+
 ## Forbidden patterns
 
 - Emitting anonymous `<div>` soup without landmarks for primary sections.

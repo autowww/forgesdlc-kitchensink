@@ -58,6 +58,15 @@
   --forge-text-4:      #4E5D6E;
   --forge-glow-amber:  0 0 20px rgba(245,158,11,0.15), 0 0 3px rgba(245,158,11,0.1);
   --forge-glow-cyan:   0 0 20px rgba(6,182,212,0.15), 0 0 3px rgba(6,182,212,0.1);
+  --forge-elevation-dropdown: 0 14px 40px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(6, 182, 212, 0.06);
+  --forge-elevation-panel: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 10px 36px rgba(0, 0, 0, 0.38);
+  --forge-elevation-panel-light: 0 8px 28px rgba(15, 23, 42, 0.08);
+  --forge-elevation-modal: 0 0 60px rgba(6, 182, 212, 0.08), 0 0 2px rgba(6, 182, 212, 0.15);
+  --forge-elevation-detail-item: 0 1px 2px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.02);
+  --forge-elevation-detail-item-hover: 0 0 0 1px rgba(6, 182, 212, 0.12), 0 4px 16px rgba(0, 0, 0, 0.18);
+  --forge-elevation-sticker: 0 4px 14px rgba(0, 0, 0, 0.35);
+  --forge-elevation-sticker-hover: 0 6px 18px rgba(245, 158, 11, 0.12);
+  --forge-elevation-tooltip: 0 8px 28px rgba(0, 0, 0, 0.45);
 
   --bs-body-bg:        var(--forge-bg);
   --bs-body-color:     var(--forge-text);
@@ -176,7 +185,7 @@ strong { color: var(--forge-text); }
 .text-muted-4 { color: var(--forge-text-4) !important; }
 
 .forge-support {
-  color: var(--forge-text-3);
+  color: var(--forge-text-2);
   font-size: 0.8125rem;
   line-height: 1.5;
 }
@@ -715,6 +724,37 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   overflow-y: auto;
 }
 
+/* UX rule handbook fixtures (embedded in .ux-rule-example on rule detail / gallery pages).
+   Production chrome uses viewport scroll/sticky; miniatures must not inherit that behavior. */
+.ux-rule-example {
+  overflow: hidden;
+}
+.ux-rule-example .ux-rule-example-scene {
+  display: block;
+}
+.ux-rule-example .forge-sidebar {
+  position: relative !important;
+  top: auto !important;
+  height: auto !important;
+  overflow: visible;
+}
+.ux-rule-example .forge-sidebar .nav-scroll {
+  max-height: none;
+  overflow-x: visible;
+  overflow-y: visible;
+  flex-grow: 0;
+}
+.ux-rule-example .site-header {
+  position: relative !important;
+  top: auto !important;
+}
+.ux-rule-example .forge-toc {
+  position: relative;
+  top: auto;
+  max-height: none;
+  overflow-y: visible;
+}
+
 /* =================================================================
    6. IN-PAGE TOC (right rail)
    ================================================================= */
@@ -761,6 +801,11 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   text-decoration: none;
   color: var(--forge-text);
   display: block;
+}
+@media (prefers-reduced-motion: reduce) {
+  .forge-card {
+    transition: none;
+  }
 }
 .forge-card:hover { color: var(--forge-text); }
 .forge-card .card-label {
@@ -1107,7 +1152,7 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   background: rgba(17, 24, 39, 0.94) !important;
   backdrop-filter: blur(18px) saturate(1.25);
   -webkit-backdrop-filter: blur(18px) saturate(1.25);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(6, 182, 212, 0.06);
+  box-shadow: var(--forge-elevation-dropdown);
 }
 
 .forge-dropdown-menu .dropdown-item {
@@ -1201,14 +1246,12 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   background: color-mix(in srgb, var(--forge-surface-2) 82%, var(--forge-bg));
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.045),
-    0 10px 36px rgba(0, 0, 0, 0.38);
+  box-shadow: var(--forge-elevation-panel);
 }
 html[data-bs-theme="light"] .ks-sticky-panel {
   background: color-mix(in srgb, var(--forge-surface) 90%, #fff);
   border-color: color-mix(in srgb, var(--forge-border) 80%, #cbd5e1);
-  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--forge-elevation-panel-light);
 }
 
 /* =================================================================
@@ -2116,7 +2159,7 @@ code {
   margin: 0;
   flex-shrink: 0;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(6,182,212,0.08), 0 0 2px rgba(6,182,212,0.15);
+  box-shadow: var(--forge-elevation-modal);
   display: flex;
   flex-direction: column;
 }
@@ -2367,7 +2410,7 @@ code {
   border-radius: 10px;
   border: 1px solid var(--forge-border);
   background: var(--forge-surface);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.02);
+  box-shadow: var(--forge-elevation-detail-item);
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
@@ -2376,7 +2419,7 @@ code {
 }
 .diagram-modal-detail .detail-item:hover {
   border-color: rgba(6,182,212,0.35);
-  box-shadow: 0 0 0 1px rgba(6,182,212,0.12), 0 4px 16px rgba(0,0,0,0.18);
+  box-shadow: var(--forge-elevation-detail-item-hover);
 }
 .diagram-modal-detail .detail-item .detail-term {
   font-family: var(--font-label);
@@ -2740,5 +2783,34 @@ code {
 
   .forge-sidebar .doc-sidebar-group--manifest .doc-sidebar-more summary {
     font-size: 0.8rem;
+  }
+}
+
+/* Handbook: full main width when left doc sidebar is present; prose measure inside flow column */
+.doc-content.doc-content--with-sidebar {
+  max-width: none;
+}
+@media (min-width: 992px) {
+  .ks-doc-toc-flow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 16rem);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .ks-doc-toc-flow > .ks-doc-toc-prose {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    max-width: 56rem;
+  }
+  .ks-doc-toc-flow > .ks-doc-toc-rail {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    min-width: 12rem;
+  }
+  .ks-doc-toc-flow > .ks-doc-toc-rail .forge-toc .nav-link {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 }

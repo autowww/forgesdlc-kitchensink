@@ -695,6 +695,36 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   overflow-y: auto;
 }
 
+/* UX rule handbook fixtures (embedded in .ux-rule-example on rule detail / gallery pages). */
+.ux-rule-example {
+  overflow: hidden;
+}
+.ux-rule-example .ux-rule-example-scene {
+  display: block;
+}
+.ux-rule-example .forge-sidebar {
+  position: relative !important;
+  top: auto !important;
+  height: auto !important;
+  overflow: visible;
+}
+.ux-rule-example .forge-sidebar .nav-scroll {
+  max-height: none;
+  overflow-x: visible;
+  overflow-y: visible;
+  flex-grow: 0;
+}
+.ux-rule-example .site-header {
+  position: relative !important;
+  top: auto !important;
+}
+.ux-rule-example .forge-toc {
+  position: relative;
+  top: auto;
+  max-height: none;
+  overflow-y: visible;
+}
+
 /* =================================================================
    6. IN-PAGE TOC (right rail)
    ================================================================= */

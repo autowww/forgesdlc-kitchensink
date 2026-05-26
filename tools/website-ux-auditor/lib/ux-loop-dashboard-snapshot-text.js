@@ -10,6 +10,8 @@ import { buildWatchFrameLines } from './loop-watch-dashboard-frame.js';
 import { colorEnabled, renderPhaseAndMapLines, renderProgressBarLines } from './loop-watch-ansi-bars.js';
 import { buildLoopWatchProgressMap, refreshProgressMapArtifact } from './loop-watch-progress-map.js';
 import { computeLoopWatchProgress } from './loop-watch-progress.js';
+import { collectAgentMetricsFromOutDir, formatWatchAgentMetricsLines } from './loop-watch-agent-metrics.js';
+import { buildRemediationWatchContext } from './remediation-watch-progress.js';
 import { dashboardLogPath, readDashboardStateSafe } from './ux-loop-dashboard-state.js';
 
 /**
@@ -143,7 +145,28 @@ export function pickActiveCrawlProgressLogPath(outDir, phase) {
  * @returns {string[]} frame lines (no trailing newline array element)
  */
 export function buildUxLoopDashboardSnapshotLines(outDir, cols) {
-  const state = readDashboardStateSafe(outDir);
+  let state = readDashboardStateSafe(outDir);
+  const phaseForRem = typeof state.phase === 'string' ? state.phase : '';
+  if (phaseForRem.toLowerCase().includes('remediation_agent')) {
+    try {
+      const rem = buildRemediationWatchContext(outDir, state, []);
+      const prevRem =
+        state.remediationProgress && typeof state.remediationProgress === 'object'
+          ? /** @type {Record<string, unknown>} */ (state.remediationProgress)
+          : {};
+      state = {
+        ...state,
+        remediationProgress: {
+          ...prevRem,
+          activeTodoId: rem.activeTodoId,
+          activePath: rem.activePath,
+          activeKind: rem.activeKind,
+        },
+      };
+    } catch {
+      /* display-only enrichment */
+    }
+  }
   const meta = readRunMetaSafe(outDir);
   const websiteRepo = typeof meta.website_repo === 'string' ? meta.website_repo : '';
   const siteUrl = typeof meta.site_url === 'string' ? meta.site_url : '';
@@ -203,9 +226,14 @@ export function buildUxLoopDashboardSnapshotLines(outDir, cols) {
     if (mapLines.length) {
       progressLines = [...mapLines, '', ...progressLines];
     }
-  } catch {
-    mapLines = [];
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    mapLines = [` Map    (render error: ${msg.slice(0, 72)})`];
+    progressLines = [...mapLines, '', ...progressLines];
   }
+
+  const agentMetrics = collectAgentMetricsFromOutDir(outDir, { state, dashboardLogTail: logTail });
+  const agentMetricsLines = formatWatchAgentMetricsLines(agentMetrics, Math.max(24, c - 28));
 
   return buildWatchFrameLines(c, state, logTail, crawlLogTail, {
     websiteRepo,
@@ -217,5 +245,55 @@ export function buildUxLoopDashboardSnapshotLines(outDir, cols) {
     generatedAt,
     progressLines,
     campaignStatsLines,
+    agentMetricsLines,
   });
+}
+
+export const UX_LOOP_DASHBOARD_SNAPSHOT_FILE = 'ux-loop-dashboard-snapshot.txt';
+
+/**
+ * @param {string} outDir
+ * @param {number} cols
+ */
+export function buildUxLoopDashboardSnapshotText(outDir, cols) {
+  return `${buildUxLoopDashboardSnapshotLines(outDir, cols).join('\n')}\n`;
+}
+
+/**
+ * @param {string} outDir
+ * @param {number} cols
+ */
+export function writeUxLoopDashboardSnapshotFile(outDir, cols) {
+  const text = buildUxLoopDashboardSnapshotText(outDir, cols);
+  const dest = path.join(outDir, UX_LOOP_DASHBOARD_SNAPSHOT_FILE);
+  fs.mkdirSync(outDir, { recursive: true });
+  const tmp = `${dest}.${process.pid}.${Date.now()}.tmp`;
+  fs.writeFileSync(tmp, text, 'utf8');
+  fs.renameSync(tmp, dest);
+  return { path: dest, text };
+}
+
+/** Banner printed on the main screen after leaving the alternate-screen dashboard. */
+export function uxLoopDashboardFinalBanner() {
+  return '\n\x1b[0m── Forge UX loop watch (final) ──\x1b[0m\n';
+}
+
+/**
+ * Leave alternate screen (if any), then print the final frame on the main terminal buffer.
+ * @param {NodeJS.WritableStream} stream
+ * @param {string} outDir
+ * @param {{ cols?: number, leaveAltScreen?: boolean, showCursor?: boolean }} [opts]
+ */
+export function printUxLoopDashboardFinalToStream(stream, outDir, opts = {}) {
+  const cols = Math.max(40, Math.min(200, Number(opts.cols) || 120));
+  const { text } = writeUxLoopDashboardSnapshotFile(outDir, cols);
+  if (opts.leaveAltScreen !== false) {
+    stream.write('\x1b[?1049l');
+  }
+  if (opts.showCursor !== false) {
+    stream.write('\x1b[?25h');
+  }
+  stream.write(uxLoopDashboardFinalBanner());
+  stream.write(text);
+  return { path: path.join(outDir, UX_LOOP_DASHBOARD_SNAPSHOT_FILE), text };
 }

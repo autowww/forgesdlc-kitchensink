@@ -53,6 +53,15 @@ test('run returns empty when no focus-order report or page', async () => {
   assert.deepEqual(findings, []);
 });
 
+test('findingsFromNavFocusOrderReport maps handbook chrome tab suppression', () => {
+  const findings = findingsFromNavFocusOrderReport({
+    violations: [{ kind: 'handbook-chrome-tab-suppressed', suppressedCount: 18 }],
+  }, 'https://example.test/chapter');
+  assert.equal(findings.length, 1);
+  assert.ok(findings[0].message.includes('tabindex="-1"'));
+  assert.ok(findings[0].evidence.includes('handbook_chrome_tab_suppressed'));
+});
+
 test('run uses metrics.navFocusOrderReport when provided', async () => {
   const findings = await run({
     metrics: {

@@ -147,10 +147,10 @@ RULE_EXAMPLES: dict[str, tuple[str, str]] = {
 <nav><a href="/docs" class="nav-link active">Docs</a></nav></aside>
 <main id="main" class="px-4 py-4"><p class="forge-support">Doc hub without Kbc breadcrumb chrome.</p></main>""",
         """<header class="site-header px-3 py-2">
-<nav class="ks-doc-breadcrumb" aria-label="Breadcrumb" data-ks-hash="Kbc" data-ks-type="chrome-region" data-ks-name="doc-breadcrumb">
-<a href="/" class="forge-support">Home</a><span aria-hidden="true"> / </span><span aria-current="page">Page</span>
+<nav class="ks-doc-breadcrumb" aria-label="Breadcrumb" hash="Kbc" data-ks-hash="Kbc" data-ks-type="chrome-region" data-ks-name="doc-breadcrumb">
+<a href="/" class="forge-support text-cyan" style="text-decoration:none">Home</a><span aria-hidden="true"> / </span><span aria-current="page">Page</span>
 </nav></header>
-<aside class="forge-sidebar col-lg-3 d-flex flex-column p-3" data-ks-hash="Ksr"><nav><a href="/docs" class="nav-link active">Docs</a></nav></aside>
+<aside class="forge-sidebar col-lg-3 d-flex flex-column p-3" hash="Ksr" data-ks-hash="Ksr" data-ks-type="chrome-region" data-ks-name="doc-sidebar"><nav><a href="/docs" class="nav-link active text-cyan">Docs</a></nav></aside>
 <main id="main" class="px-4 py-4"><p class="forge-support">Kbc breadcrumb present on doc hub.</p></main>""",
     ),
     "DET.NAV.DEDUP": (
@@ -208,6 +208,39 @@ RULE_EXAMPLES: dict[str, tuple[str, str]] = {
 <p style="color:#5a5a5a;background:#606060" class="forge-support">Low contrast body text on muted panel.</p>
 {MAIN_CLOSE}""",
         f"""{MAIN_OPEN}<p class="forge-support" style="color:var(--forge-text-1);background:var(--forge-bg)">Token-backed contrast.</p>{MAIN_CLOSE}""",
+    ),
+    "DET.THEME.FONT_STACK": (
+        """<!DOCTYPE html>
+<html lang="en" data-forge-theme="forge">
+<head>
+  <meta charset="utf-8">
+  <title>Font stack drift</title>
+  <style>
+    .drift-title { font-family: "Comic Sans MS", cursive; }
+    .drift-body { font-family: Georgia, serif; }
+  </style>
+</head>
+<body>
+<main id="main" class="doc-main px-4 py-4">
+  <h1 class="drift-title font-display mb-2">Wrong display stack</h1>
+  <p class="drift-body forge-support mb-0">Body uses non-token font-family.</p>
+</main>
+</body>
+</html>""",
+        """<!DOCTYPE html>
+<html lang="en" data-forge-theme="forge">
+<head>
+  <meta charset="utf-8">
+  <title>Approved font stacks</title>
+  <link rel="stylesheet" href="/assets/forge-theme.css">
+</head>
+<body>
+<main id="main" class="doc-main px-4 py-4">
+  <h1 class="font-display mb-2">Display uses Forge stack</h1>
+  <p class="forge-support mb-0">Body and labels use theme token stacks only.</p>
+</main>
+</body>
+</html>""",
     ),
     "DET.VISUAL.RHYTHM": (
         f"""{MAIN_OPEN}
@@ -372,12 +405,23 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path, help="Fixture manifest.json (missing_fixture rules)")
     parser.add_argument("--all-missing", action="store_true", help="All RULE_EXAMPLES keys")
+    parser.add_argument(
+        "--only-rule",
+        action="append",
+        default=[],
+        help="Write handbook page for rule id(s) in RULE_EXAMPLES (e.g. DET.THEME.FONT_STACK)",
+    )
     args = parser.parse_args()
 
     registry = load_registry() or json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
     by_id = {r["id"]: r for r in registry.get("deterministicRules") or [] if r.get("id")}
 
-    if args.manifest and args.manifest.is_file():
+    if args.only_rule:
+        rule_ids = [rid for rid in args.only_rule if rid in RULE_EXAMPLES]
+        if len(rule_ids) != len(args.only_rule):
+            unknown = [rid for rid in args.only_rule if rid not in RULE_EXAMPLES]
+            print(f"bootstrap_missing_rule_pages: no examples for {unknown}", file=sys.stderr)
+    elif args.manifest and args.manifest.is_file():
         rule_ids = [
             r["ruleId"]
             for r in json.loads(args.manifest.read_text(encoding="utf-8")).get("rules") or []
@@ -386,7 +430,7 @@ def main() -> None:
     elif args.all_missing:
         rule_ids = sorted(RULE_EXAMPLES.keys())
     else:
-        parser.error("Provide --manifest or --all-missing")
+        parser.error("Provide --manifest, --all-missing, or --only-rule")
 
     written = 0
     for rule_id in rule_ids:

@@ -3,9 +3,9 @@ rule_id: DET.JS.PROGRESSIVE
 lane: deterministic
 title: Js Progressive
 summary: Harness bootstrap handbook page for DET.JS.PROGRESSIVE.
-page_version: aef06682cf079bba2a99e339cbe286f76d9c95820ee47109650fd865e4ae91cf
+page_version: 31df03e4b4f2fd435ffcef983b6c03582c67c86305ec0b1919ac0f753600c7fe
 generated_at: 2026-05-23T13:24:10Z
-agent_model: bootstrap-missing-rule-pages.py
+agent_model: handbook-version-sync
 registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-js-progressive

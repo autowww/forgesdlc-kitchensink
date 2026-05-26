@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ux-ai-rule-v1 context",
+  "type": "object",
+  "required": ["ruleId", "urls", "auditSlice", "playwrightEvidence", "rulePromptExcerpt"],
+  "properties": {
+    "ruleId": { "type": "string" },
+    "urls": { "type": "array", "items": { "type": "string" } },
+    "rulePromptExcerpt": { "type": "string" },
+    "auditSlice": { "type": "object" },
+    "playwrightEvidence": { "type": "object" }
+  }
+}

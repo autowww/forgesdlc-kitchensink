@@ -64,6 +64,12 @@ Govern reusable SVG motifs and templates consumed by generators, backgrounds, an
 
 - Palettes align with Forge tokens when layered behind KS pages; avoid neon extremes inconsistent with enterprise tone unless scoped to experimental demos.
 
+## Deterministic checks
+
+- SVG diagram roots carry paired `hash` / `data-ks-hash` markers when emitted through KS builders (`DET.HASH.MARKERS`).
+- Informative diagrams include text labels or `aria-labelledby`; decorative backgrounds stay `aria-hidden` (`DET.DIAGRAM.ALT`, `DET.DIAGRAM.LABELS`).
+- Modal zoom surfaces reference sanctioned elevation tokens in theme CSS (`DET.SURFACE.ELEVATION_TOKEN`).
+
 ## Forbidden patterns
 
 - Embedding raster snapshots inside SVG solely to bypass vector scaling benefits without documenting rationale.

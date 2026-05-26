@@ -15,6 +15,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import readline from 'node:readline';
 
+import { appendAgentUsageEvent } from './lib/loop-watch-agent-metrics.js';
+import { mergeRemediationToolProgress } from './lib/remediation-watch-progress.js';
+
 const rawPath = (process.env.FORGE_UX_AGENT_RAW_JSONL || '').trim();
 let rawFd = null;
 if (rawPath) {
@@ -105,6 +108,14 @@ for await (const line of rl) {
     const { kind, hint } = toolKindAndHint(tc);
     if (st === 'started') {
       out(`[ux-agent] → ${kind}${hint ? ` ${hint}` : ''}`);
+      const watchOut = (process.env.FORGE_UX_LOOP_WATCH_OUT_DIR || '').trim();
+      if (watchOut && (process.env.FORGE_UX_AGENT_METRICS_KIND || '') === 'remediation') {
+        try {
+          mergeRemediationToolProgress(watchOut, { activeKind: kind, activePath: hint });
+        } catch {
+          /* best-effort */
+        }
+      }
     } else if (st === 'completed') {
       const oc = toolOutcomeShort(j);
       out(`[ux-agent] ✓ ${kind} ${oc}`);
@@ -116,6 +127,29 @@ for await (const line of rl) {
 
   if (t === 'result' && j.subtype === 'error') {
     out(`[ux-agent] error ${trunc(JSON.stringify(j), 200)}`);
+    continue;
+  }
+
+  if (t === 'result' && j.usage && typeof j.usage === 'object') {
+    const u = j.usage;
+    const inT = Number(u.inputTokens) || 0;
+    const outT = Number(u.outputTokens) || 0;
+    const cr = Number(u.cacheReadTokens) || 0;
+    const cw = Number(u.cacheWriteTokens) || 0;
+    out(`[ux-agent] usage in=${inT} out=${outT} cacheR=${cr} cacheW=${cw}`);
+    const metricsOut = (process.env.FORGE_UX_LOOP_WATCH_OUT_DIR || process.env.FORGE_UX_AGENT_METRICS_OUT_DIR || '').trim();
+    if (metricsOut) {
+      try {
+        appendAgentUsageEvent(metricsOut, {
+          kind: process.env.FORGE_UX_AGENT_METRICS_KIND || 'remediation',
+          ok: j.subtype === 'success' && j.is_error !== true,
+          usage: u,
+          requestId: typeof j.request_id === 'string' ? j.request_id : undefined,
+        });
+      } catch {
+        /* best-effort */
+      }
+    }
     continue;
   }
 

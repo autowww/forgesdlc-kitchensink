@@ -1,0 +1,53 @@
+/* Minimal theme for ruleset harness fixtures (no elevation/surface violations). */
+:root {
+  --forge-cyan: #06b6d4;
+  --forge-emerald: #10b981;
+  --forge-border: rgba(255, 255, 255, 0.22);
+  --forge-bg: #0f172a;
+  --forge-text-4: rgba(255, 255, 255, 0.55);
+}
+
+body {
+  font-family: "Open Sans", system-ui, sans-serif;
+  background: var(--forge-bg);
+  color: #e2e8f0;
+}
+
+.forge-card {
+  border-radius: 0.5rem;
+  border: 1px solid var(--forge-border);
+}
+
+.forge-support {
+  opacity: 0.85;
+  font-size: 0.9rem;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--forge-border);
+}
+
+.text-cyan {
+  color: var(--forge-cyan);
+}
+
+.font-display {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.landing-hero figure {
+  margin: 0;
+}
+
+.card-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forge-card {
+    transition: none;
+  }
+}

@@ -1,0 +1,45 @@
+## Report: `DET.PROSE.LENGTH` handbook page
+
+The full PDCA rule page is written at the auditor staging path (same pattern as `det-page-title`, `det-page-lang`, etc.):
+
+**`/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-prose-length.md`**
+
+Writes to the canonical target **`docs/design/ux-audit/rule-pages/det-prose-length.md`** (repo root) were blocked in this session; sync with:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/_run-copy-det-prose-length.mjs
+```
+
+### `page_version` (confirmed)
+
+`b246000e8074dc2ec8325cca1ad2af3f39e46152d69d019a9536befacd6887f9` — set exactly in front matter.
+
+### What the page covers
+
+| Area | Content |
+|------|---------|
+| **Budgets** | 85 words/paragraph, 3 bullets/card, 12 items/main-column list (from `det-prose-length.check.js`) |
+| **Phase** | Metrics — `metrics.paragraphs` + `collectProseLengthReport` / `proseLengthReport` |
+| **Exclusions** | Nav, TOC, sidebar, cookie chrome; platform handbook inner pages skipped |
+| **Violation kinds** | `long-paragraph`, `card-list` (major), `prose-list` (minor) |
+| **Front matter** | `registry_fingerprint: 2ce40848…`, `registry_status: implemented`, 8 `related_rules` |
+
+### Real KS classes in before/after examples
+
+- `doc-main`, `forge-section`, `ks-section`, `section-label`, `text-cyan`, `font-display`
+- `forge-support`, `forge-card`, `breathe-static`, `card-label`
+- `row`, `col-md-4`, `btn-forge-outline`
+- `mx-auto`, `doc-content` (56rem measure in passing example)
+- Hash attrs: `hash`, `data-ks-hash`, `data-ks-type`, `data-ks-name`
+
+**Before (fails):** one long `forge-support` paragraph, five `li` items in a `forge-card`, fourteen-step `ol` in `main`.
+
+**After (passes):** two short paragraphs, three card bullets + outline CTA, long checklist replaced by a two-item pointer `ul` inside `doc-content`.
+
+### Sections (per `RULE_PAGE_SCHEMA.md`)
+
+Purpose · Passing signals · Failing signals · Before example · After example · Evidence and remediation · Related rules
+
+No Mermaid; no Fleet-specific profile.
+
+After you run the copy script, the canonical file at `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-prose-length.md` should show **title:** `Prose length and list caps` and the Enterprise Forge Purpose lead (replacing the harness bootstrap). The orchestrator can then update `rule-pages.manifest.json` for this batch.

@@ -107,6 +107,26 @@ export function findingsFromNavBreadcrumbReport(report, url = '') {
   return [finding];
 }
 
+/**
+ * @param {{ requiresBreadcrumb?: boolean, breadcrumbPresent?: boolean, kbcMarkerPresent?: boolean }} report
+ * @param {string} [url]
+ */
+export function findingsFromKbcMarkerReport(report, url = '') {
+  if (!report?.requiresBreadcrumb || !report.breadcrumbPresent || report.kbcMarkerPresent) return [];
+
+  const finding = {
+    severity: 'warn',
+    area: 'visual-catalog',
+    message:
+      'Visible doc breadcrumb chrome lacks Kbc catalog markers (hash/data-ks-hash="Kbc" on .ks-doc-breadcrumb or equivalent).',
+    evidence: 'breadcrumb_present kbc_marker_missing',
+    remediation:
+      'Emit Kbc on the breadcrumb root per docs/design/catalog/chrome/Kbc-doc-breadcrumb.md (hash="Kbc" data-ks-hash="Kbc").',
+  };
+  if (url) finding.evidence += ` url=${url}`;
+  return [finding];
+}
+
 /** @param {import('playwright').Page} page */
 export async function collectNavBreadcrumbReport(page) {
   return page.evaluate(
@@ -211,11 +231,21 @@ export async function collectNavBreadcrumbReport(page) {
         }
       }
 
+      let kbcMarkerPresent = false;
+      for (const el of document.querySelectorAll(
+        '.ks-doc-breadcrumb, [data-ks-hash="Kbc"], [hash="Kbc"]',
+      )) {
+        if (!visible(el)) continue;
+        kbcMarkerPresent = true;
+        break;
+      }
+
       return {
         isHome,
         layoutName,
         requiresBreadcrumb,
         breadcrumbPresent,
+        kbcMarkerPresent,
         docHubSignals,
         breadcrumbHint,
       };
@@ -233,6 +263,12 @@ export async function collectNavBreadcrumbReport(page) {
 export async function run({ metrics, page, url }) {
   const report = metrics?.navBreadcrumbReport
     ?? (page ? await collectNavBreadcrumbReport(page) : null);
-  if (!report || !report.requiresBreadcrumb || report.breadcrumbPresent) return [];
-  return findingsFromNavBreadcrumbReport(report, url || metrics?.url || '');
+  if (!report || !report.requiresBreadcrumb) return [];
+  const pageUrl = url || metrics?.url || '';
+  const findings = [];
+  if (!report.breadcrumbPresent) {
+    findings.push(...findingsFromNavBreadcrumbReport(report, pageUrl));
+  }
+  findings.push(...findingsFromKbcMarkerReport(report, pageUrl));
+  return findings;
 }

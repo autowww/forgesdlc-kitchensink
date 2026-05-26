@@ -2,6 +2,7 @@
  * Pure layout helpers for loop-watch-dashboard.mjs (unit-testable).
  */
 
+import { formatWatchAgentMetricsLines } from './loop-watch-agent-metrics.js';
 import { formatElapsedMs, stripCrawlProgressLineForWatchDisplay } from './crawl-progress-line.js';
 import { isScorerSourcedQualityGate, isScorerWatchPhase } from './loop-watch-phase-source.js';
 import { formatQualityGateSlashPairs } from './quality-gate.js';
@@ -273,9 +274,25 @@ function humanizeWatchCrawlPhase(crawlPhase) {
  * @param {Record<string, unknown>} crawl
  * @param {string} [dashboardPhase]
  */
-export function formatWatchNowLine(crawl, dashboardPhase = '') {
+export function formatWatchNowLine(crawl, dashboardPhase = '', state = {}) {
   const ph = String(dashboardPhase || '').toLowerCase();
   if (ph.includes('remediation_agent')) {
+    const rem =
+      state.remediationProgress && typeof state.remediationProgress === 'object'
+        ? /** @type {Record<string, unknown>} */ (state.remediationProgress)
+        : {};
+    const path = String(rem.activePath || '').trim();
+    const kind = String(rem.activeKind || '').trim();
+    const todo = String(rem.activeTodoId || '').trim();
+    const parts = [];
+    if (todo) parts.push(todo);
+    if (kind && path) parts.push(`${kind} ${path}`);
+    else if (path) parts.push(path);
+    else if (kind) parts.push(kind);
+    if (parts.length) {
+      const tail = parts.join(' · ');
+      return `Now     : Remediation · ${tail.length > 52 ? `…${tail.slice(-51)}` : tail}`;
+    }
     return 'Now     : Remediation agent — applying plan in repo';
   }
   if (ph.includes('ai_audit')) {
@@ -363,6 +380,7 @@ export function extractLastPageDoneFromCrawlTail(rawCrawlTail) {
  *   generatedAt?: string,
  *   progressLines?: string[],
  *   campaignStatsLines?: string[],
+ *   agentMetricsLines?: string[],
  * }} meta
  */
 export function buildWatchFrameLines(cols, state, dashboardLogTail, crawlLogTail, meta) {
@@ -387,14 +405,26 @@ export function buildWatchFrameLines(cols, state, dashboardLogTail, crawlLogTail
   const deltaClip =
     deltaShort.length > 48 ? `…${deltaShort.slice(-47)}` : deltaShort || '—';
 
+  const metricsFromMeta = Array.isArray(meta.agentMetricsLines) ? meta.agentMetricsLines : [];
+  const innerRight = Math.max(24, c - panelW - 4);
+  const metricsLines =
+    metricsFromMeta.length >= 2
+      ? metricsFromMeta.slice(0, 2)
+      : formatWatchAgentMetricsLines(
+          state.agentMetrics && typeof state.agentMetrics === 'object' ? state.agentMetrics : {},
+          innerRight,
+        );
+
+  const repoShort = String(meta.websiteRepo ?? '—');
+  const siteShort = String(meta.siteUrl ?? '—');
   const headerRight = [
-    ` Repo : ${meta.websiteRepo ?? '—'}`,
-    ` Site : ${meta.siteUrl ?? '—'}`,
-    ` OUT  : ${meta.outDir ?? '—'}`,
+    metricsLines[0] || ' Agents — · Cursor —',
+    metricsLines[1] || ' LLM local — · cloud —',
+    ` Repo ${repoShort} · Site ${siteShort}`,
+    ` OUT  ${meta.outDir ?? '—'}`,
     formatWatchProcessLine(state, meta),
     formatWatchRunLine(crawl, phase),
-    formatWatchNowLine(crawl, phase),
-    formatWatchActivityLine(phase, String(crawl.crawlPhase ?? '')),
+    formatWatchNowLine(crawl, phase, state),
   ];
 
   for (let i = 0; i < scoreArt.height; i += 1) {

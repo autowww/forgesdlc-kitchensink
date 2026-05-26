@@ -166,7 +166,24 @@ cd tools/website-ux-auditor/auditor-tests
 
 Legacy Learn 101 Fleet handbook campaigns: **`invoke-learn-101-remaining-rules.sh`** now delegates to the harness (deprecated).
 
-Bootstrap verified with **`DET.HASH.MARKERS`** (`--only-rule`, detection-only). Artifacts under **`workbench/ux-auditor/`** (`rule-defect-fixtures/`, `ux-audit/ruleset-harness-*`).
+Bootstrap verified with **`DET.HASH.MARKERS`** (`--only-rule`, detection-only). Artifacts under **`workbench/ux-auditor/`** (`rule-defect-fixtures/`, `ux-audit/ruleset-harness-*`). Linked index: **`auditor-tests/DET-RULESET-HARNESS-INDEX.md`**.
+
+**Remediation verify** (After example → expect **0** `design-rule-runtime` findings for that rule):
+
+```bash
+./invoke-det-ruleset-remediation-verify.sh --rebuild-fixtures
+./invoke-det-ruleset-remediation-verify.test.sh   # DET.HASH.MARKERS smoke
+```
+
+Uses **`apply-harness-fixture-remediation.py`**, **`expect-rule-clean.sh`**, minimal **`harness-minimal-assets/`**, and **`LOOP_REPO=fixture-website`** (overlay path for repo-scoped rules). Campaign dirs: **`ux-audit/ruleset-remediation-verify-*`**.
+
+**Handbook upgrade** (29 bootstrap pages → pagegen):
+
+```bash
+./invoke-det-ruleset-handbook-upgrade.sh --batch-size 5
+```
+
+Closure checklist: **`auditor-tests/RULESET-HARNESS-CLOSURE.md`**.
 
 ### AI ruleset harness (synthetic defect fixtures + Cursor agent)
 
@@ -199,7 +216,7 @@ npm run rulegen -- --lane deterministic
 - Use `node design-rules/blender/design-rules-blender.mjs --override-version` to force regeneration on the same rule version.
 - `rulegen` runs Cursor CLI `agent` in one-rule-per-run PDCA prompts.
 - default `rulegen` lane is deterministic-only to avoid spending AI tokens on deterministic checks.
-- default model is `composer-2.5-fast` (override with `--model ...`).
+- Forge UX scripts pass `--model composer-2.5` by default (override with `FORGE_UX_CURSOR_AGENT_MODEL` or `--model` in `FORGE_UX_CURSOR_AGENT_EXTRA`). Bare `agent` CLI default is `composer-2.5-fast`.
 
 ## Placement in Kitchen Sink
 

@@ -15,6 +15,9 @@ export const REVERSE_HORIZONTAL_PX = 96;
 /** Same-row band for horizontal inversion checks. */
 export const SAME_ROW_BAND_PX = 40;
 
+/** Fleet handbook: max sidebar/TOC/breadcrumb links removed from tab order when top nav is present. */
+export const MAX_HANDBOOK_SUPPRESSED_CHROME_LINKS = 16;
+
 const TABBABLE_SELECTOR = [
   'a[href]',
   'area[href]',
@@ -149,6 +152,19 @@ export function findingsFromNavFocusOrderReport(report, url = '') {
         remediation:
           'Align DOM order with visual placement in nav/toolbars, or use a single logical row container so Tab follows left-to-right order.',
       });
+      continue;
+    }
+
+    if (kind === 'handbook-chrome-tab-suppressed') {
+      findings.push({
+        severity: 'minor',
+        area: 'accessibility',
+        message:
+          'Many handbook chrome links (sidebar, breadcrumb, in-page ToC) use tabindex="-1" while curated top nav is present — keyboard users rely on the header nav only.',
+        evidence: `handbook_chrome_tab_suppressed count=${v.suppressedCount ?? '?'} max=${MAX_HANDBOOK_SUPPRESSED_CHROME_LINKS}`,
+        remediation:
+          'Ensure curated top nav lists every in-page section, or restore natural tab order for complementary nav when top nav does not duplicate those destinations.',
+      });
     }
   }
 
@@ -170,6 +186,7 @@ export async function collectNavFocusOrderReport(page) {
       REVERSE_VERTICAL_PX,
       REVERSE_HORIZONTAL_PX,
       SAME_ROW_BAND_PX,
+      MAX_HANDBOOK_SUPPRESSED_CHROME_LINKS,
     }) => {
       const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
       const rtl = (document.documentElement.getAttribute('dir') || '').toLowerCase() === 'rtl';
@@ -286,10 +303,27 @@ export async function collectNavFocusOrderReport(page) {
         }
       }
 
+      const hasTopnav = Boolean(document.querySelector('.fleet-handbook-topnav'));
+      let suppressedChromeTabCount = 0;
+      if (hasTopnav) {
+        for (const anchor of document.querySelectorAll(
+          'aside.forge-sidebar a[tabindex="-1"], .ks-doc-toc-rail a[tabindex="-1"], .fleet-handbook-breadcrumb a[tabindex="-1"]',
+        )) {
+          if (visible(anchor)) suppressedChromeTabCount += 1;
+        }
+        if (suppressedChromeTabCount > MAX_HANDBOOK_SUPPRESSED_CHROME_LINKS) {
+          violations.push({
+            kind: 'handbook-chrome-tab-suppressed',
+            suppressedCount: suppressedChromeTabCount,
+          });
+        }
+      }
+
       return {
         tabStopCount: sequence.length,
         rtl,
         violations: violations.slice(0, 12),
+        handbookFocus: { hasTopnav, suppressedChromeTabCount },
       };
     },
     {
@@ -298,6 +332,7 @@ export async function collectNavFocusOrderReport(page) {
       REVERSE_VERTICAL_PX,
       REVERSE_HORIZONTAL_PX,
       SAME_ROW_BAND_PX,
+      MAX_HANDBOOK_SUPPRESSED_CHROME_LINKS,
     },
   );
 }

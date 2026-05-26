@@ -1,0 +1,51 @@
+## Report: `DET.NAV.BREADCRUMB` handbook page
+
+The full PDCA handbook page is authored and ready. Direct writes to the canonical path (`docs/design/ux-audit/rule-pages/det-nav-breadcrumb.md`) were blocked from this session’s workspace sandbox (writes under `tools/website-ux-auditor/` succeed). The complete content lives in:
+
+- `tools/website-ux-auditor/.staging-det-nav-breadcrumb.md` (staging source)
+- `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-nav-breadcrumb.md` (mirror copy)
+
+**Finalize with one command from the KS repo root:**
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-nav-breadcrumb.mjs
+```
+
+### `page_version` confirmation
+
+**Exact value in staging/mirror:** `d29db46cf5a6dfbe5acb196335691d0cb791e2dd6772b11ce191aa93713bb303`
+
+The canonical file still has the old bootstrap stub but already carries the correct `page_version`; it needs the body replaced via the copy step above.
+
+### What was written
+
+| Field | Value |
+|-------|-------|
+| **Title** | Doc hub breadcrumb orientation |
+| **Summary** | Handbook/product/showcase hubs expose visible **Kbc** breadcrumb when doc-sidebar or showcase masthead signals deep IA; home and marketing layouts exempt |
+| **Lane** | deterministic |
+| **Registry status** | implemented |
+| **Registry fingerprint** | `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` |
+| **Agent model** | composer-2.5-fast |
+| **Generated at** | 2026-05-25T15:30:00.000Z |
+
+### Sections (all required headings present)
+
+1. **Purpose** — PDCA framing aligned with `det-nav-breadcrumb.check.js`: doc-hub triggers (`layout-handbook`, `forge-sidebar`/`Ksr`, `.site-header-content`), landing exemptions, pass criteria (`breadcrumbPresent` + `kbcMarkerPresent`).
+2. **Passing signals** — `nav.ks-doc-breadcrumb` with Kbc markers, `ol.breadcrumb` / `.breadcrumb-item`, `_showcase_header` default, home/landing skip.
+3. **Failing signals** — `missing_breadcrumb`, empty/hidden strips, `kbc_marker_missing`, misapplied landing exemption.
+4. **Before example** — Failing handbook shell: `layout-handbook`, `site-header`, `forge-sidebar`, `nav-scroll`, `doc-main` — **no** `.ks-doc-breadcrumb`.
+5. **After example** — Same anatomy plus contracted **Kbc** trail matching `_showcase_header()` / `render_breadcrumbs()` output from `components/layouts.py` and `components/components.py`.
+6. **Evidence and remediation** — Six-step fix path (signals → Python emit → catalog markers → rebuild → harness).
+7. **Related rules** — `DET.LANDMARKS.REQUIRED`, `DET.CHROME.BOUNDARY`, `DET.APP.PERSISTENT_CHROME`, `DET.NAV.DEPTH`, `DET.NAV.DEDUP`, `DET.HASH.MARKERS`, `AI.APP.WORKFLOW_CONTINUITY`.
+
+### Real KS class names verified in examples
+
+Before/after blocks use classes and patterns from live KS sources:
+
+- Layout/chrome: `container-fluid`, `site-header`, `site-header-brand`, `site-header-content`, `forge-brand`, `brand-icon`, `text-amber`, `font-display`, `forge-gradient-text`
+- Sidebar: `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `doc-main`
+- Breadcrumb (Kbc): `ks-doc-breadcrumb`, `breadcrumb`, `breadcrumb-item`, `text-cyan`, `text-dim`
+- Catalog markers: `hash="Kbc"`, `data-ks-hash="Kbc"`, `data-ks-type="chrome-region"`, `data-ks-name="doc-breadcrumb"` (and `Ksr` on sidebar)
+
+No Mermaid, no Fleet-specific profiles, no check-module edits.

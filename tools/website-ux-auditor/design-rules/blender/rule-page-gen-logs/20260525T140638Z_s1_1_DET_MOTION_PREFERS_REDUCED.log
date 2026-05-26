@@ -1,0 +1,38 @@
+## Report: `DET.MOTION.PREFERS_REDUCED` handbook page
+
+Wrote the rule page following `RULE_PAGE_SCHEMA.md` and the check module behavior. Content is at:
+
+- `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-motion-prefers-reduced.md` (copy-script source)
+- `tools/website-ux-auditor/.staging-det-motion-prefers-reduced.md` (staging copy)
+
+**`page_version` confirmed:** `49a23233fa7dbc7d7d980dd0891b238b19c782633c1e748896a0c6aeeac33ba5`
+
+If the KS canonical file is still on the older body (`generated_at: 15:45`), sync it with:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-motion-prefers-reduced.mjs
+```
+
+### Front matter
+
+| Field | Value |
+|-------|-------|
+| `rule_id` | `DET.MOTION.PREFERS_REDUCED` |
+| `lane` | `deterministic` |
+| `page_version` | `49a23233fa7dbc7d7d980dd0891b238b19c782633c1e748896a0c6aeeac33ba5` |
+| `registry_fingerprint` | `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-motion-prefers_reduced` |
+
+### Content highlights
+
+- **Purpose:** PDCA framing tied to `det-motion-prefers-reduced.check.js` — emulates `prefers-reduced-motion: reduce`, scans for active animations (>0.02s), transitions, autoplay video, and SVG SMIL; documents essential-motion exceptions (`spinner`, `loading`, `aria-busy`, etc.).
+- **KS-specific gap called out:** `.pulse` / `.breathe-*` do **not** ship with built-in reduce blocks in `forge-theme.css` (unlike `.forge-card`, `.ks-tilt-inner`, ambient/living/script-assembly overrides).
+- **Before example (failing):** `glass-amber pulse-amber`, `breathe-link` / `breathe-static` on `forge-card`, custom `ks-float` keyframes, SVG `<animate>` SMIL, `<video autoplay>` — no reduce media query.
+- **After example (passing):** `@media (prefers-reduced-motion: reduce)` overrides, static `glass` / plain `forge-card`, essential `spinner-border` with `aria-busy="true"`, static SVG, poster `<img>` instead of video.
+
+### Verified KS class names in examples
+
+`doc-main`, `forge-section`, `glass`, `glass-amber`, `pulse-amber`, `section-label`, `forge-support`, `bento-grid`, `bento-2`, `forge-card`, `breathe-link`, `breathe-static`, `card-label`, `stat-value`, `stat-label`, `text-cyan`, `forge-diagram`, `ks-diagram-card`, `spinner-border`, Bootstrap utility classes — all from `css/forge-theme.css`, `components/layouts.py`, or generator pages.
+
+No check modules, registry, or manifest files were edited.

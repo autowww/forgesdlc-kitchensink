@@ -17,6 +17,8 @@
     "pagegen": "bash design-rules/blender/cursor-agent-generate-rule-pages.sh",
     "pagegen:manifest": "node design-rules/blender/rule-page-version.mjs --write-manifest",
     "test": "node --test auditor-tests/*.test.js",
+    "fixers": "node lib/ux-deterministic-fixers/run-deterministic-fixers.mjs",
+    "fixers:generate-pilot-registry": "node lib/ux-deterministic-fixers/generate-pilot-registry.mjs",
     "test:e2e-loop": "bash auditor-tests/run-remediation-loop-e2e.sh",
     "install-browsers": "playwright install chromium",
     "ux-write-loop-snapshot": "node write-ux-loop-dashboard-snapshot.mjs"

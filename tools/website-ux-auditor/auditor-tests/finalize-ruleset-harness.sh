@@ -43,6 +43,9 @@ harness_lane="$(jq -s -r '[.[] | select(.lane != null)] | .[0].lane // "determin
 if [[ "${harness_lane}" == "ai" ]]; then
   harness_label="AI"
   harness_invoke="invoke-ai-ruleset-harness.sh"
+elif [[ "${mode}" == "remediate-verify" ]]; then
+  harness_label="DET remediation-verify"
+  harness_invoke="invoke-det-ruleset-remediation-verify.sh"
 else
   harness_label="DET"
   harness_invoke="invoke-det-ruleset-harness.sh"

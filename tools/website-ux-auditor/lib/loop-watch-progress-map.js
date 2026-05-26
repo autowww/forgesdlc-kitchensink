@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 import {
   countBySeverity,
+  DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS,
   evaluateAuditQualityGate,
   evaluateQualityGate,
   flattenAuditFindings,
@@ -17,8 +18,15 @@ import {
 } from './quality-gate.js';
 import { countMajorPlus, isMajorPlus, SEVERITY_LEVELS } from './severity.js';
 import { scorePage } from './scoring.js';
+import { buildOverlayMatrix, toMapCellBaseStatus } from './loop-watch-map-cell-model.js';
+import { readLiveAuditPages } from './audit-live-snapshot.js';
+import {
+  buildRemediationWatchContext,
+  syncRemediationProgressFromAgentLog,
+} from './remediation-watch-progress.js';
 import {
   buildPageFragments,
+  buildPageFragmentsEven,
   buildPageGroupPlan,
   collectMapUrlCatalog,
 } from './loop-watch-page-groups.js';
@@ -55,13 +63,14 @@ export const MAP_SLOT_SCORER = 5;
 
 /**
  * Map grid cell lifecycle (ruleset × page fragment).
- * @typedef {'unseen'|'scored'|'auditing'|'auditing-dim'|'audited-clean'|'audited-major'|'audited-minor'|'fixing'|'fixing-dim'|'fixed'|'error'|'pending-ai'} MapCellStatus
+ * @typedef {'unseen'|'scored'|'scoring'|'auditing'|'auditing-dim'|'audited-clean'|'audited-major'|'audited-minor'|'fixing'|'fixing-dim'|'fixed'|'error'|'pending-ai'} MapCellStatus
  */
 
 /** Worst status wins when aggregating fragments. */
 const MAP_STATUS_RANK = {
   unseen: 0,
   scored: 1,
+  scoring: 2,
   'pending-ai': 2,
   auditing: 3,
   'auditing-dim': 3,
@@ -82,7 +91,7 @@ export function normalizeLegacyMapStatus(st) {
     case 'scoring':
       return 'auditing';
     case 'clean':
-      return 'audited-clean';
+      return 'scored';
     case 'issue':
       return 'audited-major';
     case 'fixed':
@@ -119,6 +128,247 @@ export function aggregateMapStatus(statuses) {
     }
   }
   return best;
+}
+
+/**
+ * Least-progressed status (keeps fragment columns gray until every page in the column is audited).
+ * @param {MapCellStatus[]} statuses
+ */
+export function aggregateMapStatusByMinProgress(statuses) {
+  if (!statuses?.length) return 'unseen';
+  let best = 'unseen';
+  let rank = 999;
+  for (const st of statuses) {
+    const r = mapCellProgressRank(st);
+    if (r < rank) {
+      rank = r;
+      best = /** @type {MapCellStatus} */ (st);
+    }
+  }
+  return best;
+}
+
+const MAP_CELL_IN_FLIGHT = new Set(['auditing', 'auditing-dim', 'scoring', 'fixing', 'fixing-dim']);
+
+/**
+ * Collapse per-page statuses into one fragment column (coverage-aware).
+ * @param {MapCellStatus[]} statuses
+ * @param {{ activeUrl?: string, fragmentUrls?: string[] }} [opts]
+ */
+export function aggregateFragmentMapStatus(statuses, opts = {}) {
+  if (!statuses?.length) return 'unseen';
+  const activeUrl = String(opts.activeUrl || '').trim();
+  const fragUrls = (opts.fragmentUrls || []).map((u) => String(u || '').trim()).filter(Boolean);
+  if (activeUrl && fragUrls.includes(activeUrl)) {
+    const idx = fragUrls.indexOf(activeUrl);
+    if (idx >= 0 && statuses[idx]) {
+      const one = statuses[idx];
+      if (MAP_CELL_IN_FLIGHT.has(one)) return one;
+    }
+  }
+  const allAudited = statuses.every((s) => mapCellProgressRank(s) >= MAP_PROGRESS_RANK['audited-clean']);
+  if (!allAudited) return aggregateMapStatusByMinProgress(statuses);
+  return aggregateMapStatus(statuses);
+}
+
+/** Higher = more audit coverage (for cross-iteration merge; not worst-case aggregation). */
+const MAP_PROGRESS_RANK = {
+  unseen: 0,
+  scored: 1,
+  scoring: 2,
+  'pending-ai': 2,
+  auditing: 3,
+  'auditing-dim': 3,
+  fixing: 4,
+  'fixing-dim': 4,
+  'audited-clean': 5,
+  'audited-minor': 6,
+  'audited-major': 7,
+  fixed: 8,
+  error: 9,
+};
+
+/**
+ * @param {MapCellStatus | string} st
+ */
+export function mapCellProgressRank(st) {
+  const s = String(st || 'unseen');
+  if (s === 'auditing-dim') return MAP_PROGRESS_RANK.auditing;
+  if (s === 'fixing-dim') return MAP_PROGRESS_RANK.fixing;
+  return MAP_PROGRESS_RANK[/** @type {keyof typeof MAP_PROGRESS_RANK} */ (s)] ?? 0;
+}
+
+const MAP_CELL_ACTIVE = new Set(['auditing', 'auditing-dim', 'fixing', 'fixing-dim']);
+
+/**
+ * Preserve prior coverage when a new iteration rebuilds from a partial audit snapshot.
+ * @param {MapCellStatus | string} prior
+ * @param {MapCellStatus | string} current
+ * @returns {MapCellStatus}
+ */
+const MAP_AI_PRE_AUDIT = new Set(['audited-clean', 'audited-minor', 'audited-major']);
+
+/**
+ * @param {MapCellStatus | string} prior
+ * @param {MapCellStatus | string} current
+ * @param {{ aiLane?: boolean, urlAiDone?: boolean }} [opts]
+ */
+export function mergeMapCellProgress(prior, current, opts = {}) {
+  const p = toMapCellBaseStatus(String(prior || 'unseen'));
+  const c = toMapCellBaseStatus(String(current || 'unseen'));
+  if (opts.scoringInFlight || opts.auditMapActive === false) {
+    const scoringLane = new Set(['unseen', 'scored', 'scoring']);
+    const pRank = mapCellProgressRank(/** @type {MapCellStatus} */ (p));
+    const cRank = mapCellProgressRank(/** @type {MapCellStatus} */ (c));
+    if (scoringLane.has(c) && pRank > MAP_PROGRESS_RANK.scoring) {
+      return /** @type {MapCellStatus} */ (c);
+    }
+    if (scoringLane.has(p) && cRank > MAP_PROGRESS_RANK.scoring) {
+      return /** @type {MapCellStatus} */ (p);
+    }
+    return cRank >= pRank ? /** @type {MapCellStatus} */ (c) : /** @type {MapCellStatus} */ (p);
+  }
+  if (opts.aiLane && !opts.urlAiDone) {
+    if (c === 'pending-ai' || p === 'pending-ai') return 'pending-ai';
+    if (MAP_AI_PRE_AUDIT.has(p) || MAP_AI_PRE_AUDIT.has(c)) return 'pending-ai';
+  }
+  return mapCellProgressRank(c) >= mapCellProgressRank(p)
+    ? /** @type {MapCellStatus} */ (c)
+    : /** @type {MapCellStatus} */ (p);
+}
+
+/**
+ * Ephemeral process overlay for one ruleset × page (see docs/LOOP-WATCH-MAP-CELLS.md).
+ * @param {Parameters<typeof classifyRulesetPageCell>[0]} ctx
+ * @param {{ ruleIds?: string[], lane?: string, id?: string }} ruleset
+ * @param {string} pageUrl
+ * @param {{ url?: string } | null} page
+ */
+export function resolveMapCellOverlay(ctx, ruleset, pageUrl, page) {
+  const url = String(pageUrl || '').trim();
+  if (!url || !page) return null;
+  const activeUrl = String(ctx.activeUrl || '').trim();
+  const onActivePage = activeUrl && (activeUrl === url || activeUrl.includes(url) || url.includes(activeUrl));
+  if (!onActivePage) return null;
+  const activeRule = String(ctx.activeRuleId || '');
+  const ruleInSet = (ruleset.ruleIds || []).includes(activeRule);
+  const activeRuleset = isCtxActiveRuleset(ctx, ruleset, activeRule);
+
+  if (ctx.isRemediation && ctx.remediationActive) {
+    const hot =
+      ctx.remediationActiveUrls?.has(url) || ctx.remediationPathMatchUrls?.has(url);
+    if (!hot) return null;
+    const pathRule = guessRuleIdFromRepoPath(String(ctx.remediationActivePath || ''));
+    const pathRsId = pathRule ? resolveActiveRulesetId([ruleset], pathRule) : null;
+    if ((activeRule && ruleInSet) || (pathRsId && ruleset.id === pathRsId)) return 'fixing';
+    return null;
+  }
+
+  if (ruleset.lane === 'ai') {
+    const phase = String(ctx.phase || '').toLowerCase();
+    const aiPhase =
+      ctx.aiAuditInFlight || phase.includes('ai_audit') || phase.includes('ai-audit');
+    if (aiPhase && activeRuleset) return 'auditing';
+    return null;
+  }
+
+  if (ctx.scoringInFlight && activeRuleset) return 'scoring';
+  if (ctx.auditInFlight && activeRuleset && activeRule && ruleInSet) return 'auditing';
+  return null;
+}
+
+/** @param {MapCellStatus} a @param {MapCellStatus} b */
+export function mergeCellStatuses(a, b) {
+  const left = /** @type {MapCellStatus} */ (a || 'unseen');
+  const right = /** @type {MapCellStatus} */ (b || 'unseen');
+  const fresh = right !== 'unseen' && right !== 'scored' ? right : left;
+  const stale = left !== 'unseen' && left !== 'scored' ? left : right;
+  if (mapStatusRank(fresh) >= mapStatusRank(stale)) return fresh;
+  return stale;
+}
+
+/**
+ * @param {string} phase
+ */
+export function isAiAuditPhaseComplete(phase) {
+  const p = String(phase || '').toLowerCase();
+  return (
+    p.includes('ai_audit_done')
+    || p.includes('ai_audit_pass')
+    || p.includes('ai_audit_complete')
+    || p.includes('until_quality_gate_pass')
+    || p.includes('until_all_bars_pass')
+  );
+}
+
+/**
+ * Merge prior-iteration audit pages with the live snapshot (current wins per URL).
+ * @param {object | null} audit
+ * @param {string} outDir
+ */
+export function mergeAuditPagesForMap(audit, outDir) {
+  /** @type {Map<string, object>} */
+  const byUrl = new Map();
+  for (const [, p] of readPriorAuditPagesByUrl(outDir)) {
+    const u = String(p.url || '').trim();
+    if (u) byUrl.set(u, p);
+  }
+  const priorMap = readProgressMapSafe(outDir);
+  for (const p of priorMap?.accumulatedPages || []) {
+    const u = String(p?.url || '').trim();
+    if (u && !byUrl.has(u)) byUrl.set(u, p);
+  }
+  for (const p of readLiveAuditPages(outDir)) {
+    const u = String(p.url || '').trim();
+    if (u) byUrl.set(u, p);
+  }
+  for (const p of audit?.pages || []) {
+    const u = String(p?.url || '').trim();
+    if (u) byUrl.set(u, p);
+  }
+  return [...byUrl.values()];
+}
+
+/**
+ * @param {MapCellStatus[][] | null | undefined} priorMatrix
+ * @param {Array<{ col?: number, label?: string, urls?: string[] }>} priorFragments
+ * @param {Array<{ col?: number, label?: string, urls?: string[] }>} fragments
+ * @param {Array<{ id?: string }>} rulesets
+ * @param {MapCellStatus[][]} nextMatrix
+ */
+export function mergeAccumulatedRulesetMatrix(
+  priorMatrix,
+  priorFragments,
+  fragments,
+  rulesets,
+  nextMatrix,
+  aiAuditedUrls = new Set(),
+  mergeOpts = {},
+) {
+  if (!priorMatrix?.length || !priorFragments?.length) return nextMatrix;
+  const fragKey = (frag) => String(frag?.label ?? frag?.col ?? '');
+  const priorColByKey = new Map(priorFragments.map((f, i) => [fragKey(f), i]));
+  return (rulesets || []).map((rs, ri) =>
+    fragments.map((frag, ci) => {
+      const key = fragKey(frag);
+      const priorCol = priorColByKey.get(key);
+      const priorSt =
+        priorCol != null && priorMatrix[ri] ? priorMatrix[ri][priorCol] : 'unseen';
+      const nextSt = nextMatrix[ri]?.[ci] || 'unseen';
+      const urls = (frag.urls || []).map((u) => String(u || '').trim()).filter(Boolean);
+      const urlAiDone = urls.length > 0 && urls.every((u) => aiAuditedUrls.has(u));
+      return mergeMapCellProgress(
+        /** @type {MapCellStatus} */ (priorSt),
+        /** @type {MapCellStatus} */ (nextSt),
+        {
+          aiLane: rs.lane === 'ai',
+          urlAiDone,
+          scoringInFlight: Boolean(mergeOpts.scoringInFlight),
+          auditMapActive: mergeOpts.auditMapActive !== false,
+        },
+      );
+    }),
+  );
 }
 
 /**
@@ -286,6 +536,24 @@ export function buildRulesetGroups(registry) {
  * @param {Array<{ id?: string, ruleIds?: string[] }>} rulesets
  * @param {string} ruleId
  */
+/**
+ * Best-effort DET rule hint from a repo-relative path the agent is touching.
+ * @param {string} repoPath
+ */
+export function guessRuleIdFromRepoPath(repoPath) {
+  const p = String(repoPath || '').toLowerCase();
+  if (!p) return '';
+  if (/a11y|accessib|axe/.test(p)) return 'DET.A11Y';
+  if (/hash|registry|visual-catalog|catalog/.test(p)) return 'DET.HASH';
+  if (/contract|design/.test(p)) return 'DET.CONTRACT';
+  if (/nav|menu|breadcrumb/.test(p)) return 'DET.NAV';
+  if (/cta|button|conversion/.test(p)) return 'DET.CTA';
+  if (/hero|first-screen|landing/.test(p)) return 'DET.FIRST';
+  if (/readab|typography|font/.test(p)) return 'DET.READ';
+  if (/metadata|seo|title/.test(p)) return 'DET.META';
+  return '';
+}
+
 export function resolveActiveRulesetId(rulesets, ruleId) {
   const rid = String(ruleId || '').trim();
   if (!rid) return null;
@@ -293,6 +561,34 @@ export function resolveActiveRulesetId(rulesets, ruleId) {
     if (rs.ruleIds?.includes(rid)) return rs.id || null;
   }
   return null;
+}
+
+/**
+ * Ruleset row that should show the sole in-flight map animation for this tick.
+ * @param {Parameters<typeof classifyRulesetPageCell>[0]} ctx
+ * @param {{ id?: string, ruleIds?: string[] }} ruleset
+ * @param {string} [activeRule]
+ */
+export function resolveCtxActiveRulesetId(ctx, ruleset, activeRule = '') {
+  const rid = String(activeRule || ctx.activeRuleId || '').trim();
+  if (rid) return resolveActiveRulesetId(ctx.rulesets || [ruleset], rid);
+  if (ctx.scoringInFlight && ctx.defaultScoringRulesetId) {
+    return String(ctx.defaultScoringRulesetId);
+  }
+  if (ctx.aiAuditInFlight && ctx.defaultAiRulesetId) {
+    return String(ctx.defaultAiRulesetId);
+  }
+  return null;
+}
+
+/**
+ * @param {Parameters<typeof classifyRulesetPageCell>[0]} ctx
+ * @param {{ id?: string, ruleIds?: string[] }} ruleset
+ * @param {string} [activeRule]
+ */
+export function isCtxActiveRuleset(ctx, ruleset, activeRule = '') {
+  const rsId = resolveCtxActiveRulesetId(ctx, ruleset, activeRule);
+  return Boolean(rsId && ruleset?.id && rsId === ruleset.id);
 }
 
 /**
@@ -307,6 +603,20 @@ export function resolveActiveRulesetId(rulesets, ruleId) {
  * @param {unknown[]} findings
  * @param {Record<string, number>} thresholds
  */
+/**
+ * Findings that belong to an AI ruleset (AI rule ids only — never DET/warn rows).
+ * @param {{ ruleIds?: string[], lane?: string }} ruleset
+ * @param {{ findings?: unknown[] }} page
+ */
+export function rulesetAiFindingsOnPage(ruleset, page) {
+  if (ruleset.lane !== 'ai') return [];
+  return (page?.findings || []).filter((f) => {
+    const rid = String(/** @type {{ ruleId?: string }} */ (f).ruleId || '').trim();
+    if (!rid.startsWith('AI.')) return false;
+    return findingMatchesRuleset(f, ruleset);
+  });
+}
+
 export function findingMatchesRuleset(finding, ruleset) {
   const rid = String(/** @type {{ ruleId?: string }} */ (finding).ruleId || '').trim();
   const ruleIds = ruleset.ruleIds || [];
@@ -329,9 +639,16 @@ export function findingMatchesRuleset(finding, ruleset) {
  * @param {unknown[]} findings
  * @param {Record<string, number>} thresholds
  */
-export function formatRulesetDefectCell(ruleset, findings, thresholds) {
-  const related = (findings || []).filter((f) => findingMatchesRuleset(f, ruleset));
-  if (!related.length) return '  -';
+export function formatRulesetDefectCell(ruleset, findings, thresholds, opts = {}) {
+  const pool =
+    ruleset.lane === 'ai'
+      ? (findings || []).filter((f) => String(/** @type {{ ruleId?: string }} */ (f).ruleId || '').startsWith('AI.'))
+      : findings || [];
+  const related = pool.filter((f) => findingMatchesRuleset(f, ruleset));
+  if (!related.length) {
+    if (ruleset.lane === 'ai' && !opts.aiAuditComplete) return ' ○';
+    return '  -';
+  }
   const counts = countBySeverity(related);
   const order = ['blocker', 'critical', 'major', 'warn', 'minor', 'trivial', 'cosmetic'];
   for (const id of order) {
@@ -356,13 +673,59 @@ export function formatRulesetDefectCell(ruleset, findings, thresholds) {
  * @param {object | null} audit
  * @param {Record<string, number>} thresholds
  */
-export function buildRulesetDefectColumns(rulesets, audit, thresholds) {
-  const flat = flattenAuditFindings(audit || {});
-  return (rulesets || []).map((rs) => ({
-    id: rs.id,
-    label: String(rs.label || rs.short || ''),
-    cell: formatRulesetDefectCell(rs, flat, thresholds),
-  }));
+export function buildRulesetDefectColumns(rulesets, audit, thresholds, opts = {}) {
+  const pages = audit?.pages || [];
+  return (rulesets || []).map((rs) => {
+    const related = pages.flatMap((p) => rulesetFindingsOnPage(rs, p));
+    return {
+      id: rs.id,
+      label: String(rs.label || rs.short || ''),
+      cell: formatRulesetDefectCell(rs, related, thresholds, opts),
+    };
+  });
+}
+
+/**
+ * Per-ruleset sitewide gate segments (same shape as header gate strip).
+ * @param {Array<{ id?: string, lane?: string, label?: string, ruleIds?: string[] }>} rulesets
+ * @param {object | null} audit
+ * @param {Record<string, number>} thresholds
+ */
+export function buildRulesetGateSegmentRows(rulesets, audit, thresholds) {
+  const pages = audit?.pages || [];
+  return (rulesets || []).map((rs) => {
+    const related =
+      rs.lane === 'ai'
+        ? pages.flatMap((p) => rulesetAiFindingsOnPage(rs, p))
+        : pages.flatMap((p) => rulesetFindingsOnPage(rs, p));
+    return computeGateProgressFromCounts(countBySeverity(related), thresholds).segments;
+  });
+}
+
+/**
+ * URLs that finished a deterministic audit pass (excludes the page currently crawling).
+ * @param {Array<{ url?: string, findings?: unknown[], ruleExecution?: object }>} pages
+ * @param {{ activeUrl?: string, auditInFlight?: boolean }} [opts]
+ */
+export function buildAuditedUrlSet(pages, opts = {}) {
+  const activeUrl = String(opts.activeUrl || '').trim();
+  const auditInFlight = Boolean(opts.auditInFlight);
+  const out = new Set();
+  for (const p of pages || []) {
+    const u = String(p.url || '').trim();
+    if (!u) continue;
+    if (auditInFlight && activeUrl) {
+      if (u === activeUrl || activeUrl.includes(u) || u.includes(activeUrl)) continue;
+    }
+    const det = p?.ruleExecution?.deterministic;
+    const hasFindings = (p.findings || []).length > 0;
+    if (Array.isArray(det) && det.length > 0) {
+      out.add(u);
+      continue;
+    }
+    if (hasFindings) out.add(u);
+  }
+  return out;
 }
 
 /**
@@ -555,6 +918,179 @@ export function readPriorAuditPagesByUrl(outDir) {
 }
 
 /**
+ * URLs that completed a post-deterministic AI audit batch (manifest / aggregate output).
+ * @param {string} outDir
+ */
+export function readAiAuditedUrlSet(outDir) {
+  /** @type {Set<string>} */
+  const urls = new Set();
+  const add = (u) => {
+    const s = String(u || '').trim();
+    if (s) urls.add(s);
+  };
+  const aiDir = path.join(outDir, 'ai-audit');
+  try {
+    const data = JSON.parse(fs.readFileSync(path.join(aiDir, 'ai-audit-data.json'), 'utf8'));
+    for (const b of data.batches || []) {
+      if (b && b.ok === false) continue;
+      for (const u of b.urls || []) add(u);
+    }
+  } catch {
+    /* optional */
+  }
+  /** @type {Map<string, string>} */
+  let statusByBatchId = new Map();
+  try {
+    const st = JSON.parse(fs.readFileSync(path.join(aiDir, 'batch-status.json'), 'utf8'));
+    for (const b of st.batches || []) {
+      const id = String(b.batchId || '').trim();
+      if (id) statusByBatchId.set(id, String(b.status || '').toLowerCase());
+    }
+  } catch {
+    /* optional */
+  }
+  try {
+    const manifest = JSON.parse(fs.readFileSync(path.join(aiDir, 'manifest.json'), 'utf8'));
+    for (const b of manifest.batches || []) {
+      const id = String(b.batchId || path.basename(String(b.path || ''), '.json')).trim();
+      const st = statusByBatchId.get(id) || String(b.status || '').toLowerCase();
+      if (st === 'error' || st === 'failed') continue;
+      if (st === 'done' || st === 'complete' || st === 'running' || st === 'in_progress' || !st) {
+        for (const u of b.urls || []) add(u);
+      }
+    }
+  } catch {
+    /* optional */
+  }
+  return urls;
+}
+
+/**
+ * @param {object | null | undefined} priorModel
+ */
+export function extractRulesetUrlStatusMap(priorModel) {
+  /** @type {Map<string, MapCellStatus>} */
+  const out = new Map();
+  if (!priorModel) return out;
+  const rulesets = priorModel.rulesets || priorModel.ruleRows || [];
+  const fragments = priorModel.pageFragments || [];
+  const matrix = priorModel.rulesetMatrix || priorModel.matrix || [];
+  for (let ri = 0; ri < rulesets.length; ri += 1) {
+    const rsId = String(rulesets[ri]?.id || ri);
+    const row = matrix[ri] || [];
+    for (let fi = 0; fi < fragments.length; fi += 1) {
+      const frag = fragments[fi];
+      const st = /** @type {MapCellStatus} */ (row[fi] ?? row[frag.col] ?? 'unseen');
+      for (const url of frag.urls || []) {
+        const u = String(url || '').trim();
+        if (!u) continue;
+        const key = `${rsId}\0${u}`;
+        const prev = out.get(key);
+        out.set(key, prev ? mergeMapCellProgress(prev, st) : st);
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * @param {object | null | undefined} priorModel
+ * @param {Array<{ id?: string }>} rulesets
+ * @param {Array<{ col?: number, label?: string, urls?: string[] }>} pageFragments
+ * @param {MapCellStatus[][]} currentMatrix
+ */
+export function mergeRulesetMatricesWithPrior(
+  priorModel,
+  rulesets,
+  pageFragments,
+  currentMatrix,
+  aiAuditedUrls = new Set(),
+) {
+  if (!priorModel) return currentMatrix;
+  const priorByUrl = extractRulesetUrlStatusMap(priorModel);
+  if (!priorByUrl.size) return currentMatrix;
+  const priorFrags = priorModel.pageFragments || [];
+  const priorMatrix = priorModel.rulesetMatrix || priorModel.matrix || [];
+  return (currentMatrix || []).map((row, ri) => {
+    const rs = rulesets[ri];
+    const rsId = String(rs?.id || ri);
+    const aiLane = rs?.lane === 'ai';
+    const priorRow = priorMatrix[ri];
+    return (row || []).map((cell, fi) => {
+      const frag = pageFragments[fi];
+      let merged = /** @type {MapCellStatus} */ (cell || 'unseen');
+      for (const url of frag?.urls || []) {
+        const u = String(url || '').trim();
+        if (!u) continue;
+        const prev = priorByUrl.get(`${rsId}\0${u}`);
+        if (prev) {
+          merged = mergeMapCellProgress(prev, merged, {
+            aiLane,
+            urlAiDone: aiAuditedUrls.has(u),
+            auditMapActive: priorModel.auditMapActive !== false,
+          });
+        }
+      }
+      if (!frag?.urls?.length) {
+        const priorFrag = priorFrags.find(
+          (f) => f.col === frag?.col || (f.label && f.label === frag?.label),
+        );
+        if (priorFrag) {
+          const pfi = priorFrags.indexOf(priorFrag);
+          const prev = priorRow?.[pfi] ?? priorRow?.[priorFrag.col];
+          if (prev) merged = mergeMapCellProgress(prev, merged, { aiLane, urlAiDone: false });
+        }
+      }
+      return merged;
+    });
+  });
+}
+
+/**
+ * @param {Array<{ url?: string }>} auditPages
+ * @param {Map<string, object>} priorPagesByUrl
+ * @param {object | null | undefined} priorMap
+ */
+export function mergePagesForProgressMap(auditPages, priorPagesByUrl, priorMap) {
+  /** @type {Map<string, object>} */
+  const byUrl = new Map();
+  for (const p of auditPages || []) {
+    const u = String(p?.url || '').trim();
+    if (u) byUrl.set(u, p);
+  }
+  for (const [u, p] of priorPagesByUrl || []) {
+    if (!byUrl.has(u)) byUrl.set(u, p);
+  }
+  for (const ps of priorMap?.pageSets || []) {
+    const u = String(ps?.url || '').trim();
+    if (!u || byUrl.has(u)) continue;
+    const priorPage = priorPagesByUrl?.get(u);
+    if (priorPage) byUrl.set(u, priorPage);
+  }
+  return [...byUrl.values()];
+}
+
+/**
+ * @param {Array<{ url: string, order?: number }>} pageSets
+ * @param {object | null | undefined} priorMap
+ */
+export function augmentPageSetsFromPriorMap(pageSets, priorMap) {
+  const byUrl = new Map((pageSets || []).map((p) => [p.url, p]));
+  for (const ps of priorMap?.pageSets || []) {
+    const u = String(ps?.url || '').trim();
+    if (!u || byUrl.has(u)) continue;
+    byUrl.set(u, {
+      url: u,
+      order: byUrl.size,
+      score: Number(ps.score) || 0,
+      status: ps.status === 'issue' ? 'issue' : 'clean',
+      majorPlus: Number(ps.majorPlus) || 0,
+    });
+  }
+  return [...byUrl.values()];
+}
+
+/**
  * @param {Set<string>} scoredUrls
  * @param {string} outDir
  */
@@ -579,10 +1115,20 @@ export function loadScoredUrlSet(outDir, scoredUrls = new Set()) {
  *   crawlPhase?: string,
  *   phase?: string,
  *   auditInFlight?: boolean,
+ *   aiAuditInFlight?: boolean,
+ *   rulesets?: Array<{ id?: string, ruleIds?: string[] }>,
+ *   defaultScoringRulesetId?: string,
+ *   defaultAiRulesetId?: string,
  *   isRemediation?: boolean,
  *   remediationActive?: boolean,
+ *   remediationActiveUrls?: Set<string>,
+ *   remediationDoneUrls?: Set<string>,
+ *   remediationPathMatchUrls?: Set<string>,
+ *   activeTodoId?: string,
+ *   remediationActivePath?: string,
  *   priorPagesByUrl?: Map<string, object>,
  *   scoredUrls?: Set<string>,
+ *   aiAuditedUrls?: Set<string>,
  * }} ctx
  * @param {{ ruleIds?: string[], lane?: string }} ruleset
  * @param {string} pageUrl
@@ -606,31 +1152,70 @@ export function classifyRulesetPageCell(ctx, ruleset, pageUrl, page, thresholds)
   const onActivePage = activeUrl && (activeUrl === url || activeUrl.includes(url) || url.includes(activeUrl));
   const activeRule = String(ctx.activeRuleId || '');
   const ruleInSet = (ruleset.ruleIds || []).includes(activeRule);
+  const activeRuleset = isCtxActiveRuleset(ctx, ruleset, activeRule);
 
   if (ctx.isRemediation) {
-    const prior = ctx.priorPagesByUrl?.get(url);
+    const prior = ctx.priorPagesByUrl?.get(url) || page;
     const priorFindings = prior ? rulesetFindingsOnPage(ruleset, prior) : [];
     const hadIssue =
       priorFindings.length > 0 && !pagePassesQualityGate(priorFindings, thresholds);
-    const nowClean = findings.length === 0 || pagePassesQualityGate(findings, thresholds);
-    if (hadIssue && nowClean) {
-      return ctx.remediationActive ? 'fixing' : 'fixed';
+    if (!hadIssue) {
+      return 'audited-clean';
     }
+    if (ctx.remediationDoneUrls?.has(url)) {
+      return 'fixed';
+    }
+    if (ctx.remediationActive) {
+      const hot =
+        ctx.remediationActiveUrls?.has(url) || ctx.remediationPathMatchUrls?.has(url);
+      if (hot) {
+        const pathRule = guessRuleIdFromRepoPath(String(ctx.remediationActivePath || ''));
+        const pathRulesetId = pathRule ? resolveActiveRulesetId([ruleset], pathRule) : null;
+        return 'audited-major';
+      }
+      return 'audited-major';
+    }
+    const nowClean = findings.length === 0 || pagePassesQualityGate(findings, thresholds);
+    if (nowClean) return 'fixed';
+    return 'audited-major';
   }
 
   if (ruleset.lane === 'ai') {
-    if (onActivePage && ctx.auditInFlight && String(ctx.phase || '').includes('ai')) return 'auditing';
-    if (!findings.length) return 'audited-clean';
-    if (countMajorPlus(findings) > 0) return 'audited-major';
+    const phase = String(ctx.phase || '').toLowerCase();
+    const aiPhase =
+      ctx.aiAuditInFlight
+      || phase.includes('ai_audit')
+      || phase.includes('ai-audit');
+    if (onActivePage && aiPhase && !activeRuleset) {
+      return 'pending-ai';
+    }
+    const urlAiDone = ctx.aiAuditedUrls?.has(url) === true;
+    const aiFindings = rulesetAiFindingsOnPage(ruleset, page);
+    if (!urlAiDone) return 'pending-ai';
+    if (!aiFindings.length) return 'audited-clean';
+    if (countMajorPlus(aiFindings) > 0) return 'audited-major';
     return 'audited-minor';
   }
 
+  if (ctx.auditMapActive === false && ruleset.lane !== 'ai') {
+    return ctx.scoredUrls?.has(url) ? 'scored' : 'unseen';
+  }
+
   if (onActivePage && ctx.auditInFlight) {
-    if (ruleInSet || ran < total) return 'auditing';
+    if (activeRuleset && activeRule && ruleInSet) return 'scored';
+    return ctx.scoredUrls?.has(url) ? 'scored' : 'unseen';
+  }
+
+  const urlAudited =
+    ctx.auditedUrls?.has(url) === true
+    || (ruleset.lane !== 'ai' && (findings.length > 0 || ran > 0));
+
+  if (!urlAudited) {
+    return ctx.scoredUrls?.has(url) ? 'scored' : 'unseen';
   }
 
   if (ran <= 0) {
-    return 'scored';
+    return ctx.scoredUrls?.has(url) ? 'scored' : 'unseen';
   }
 
   if (findings.length === 0) {
@@ -665,8 +1250,10 @@ export function computeRulesetPageMatrix(pageSets, rulesets, pages, thresholds, 
  * @param {Array<{ col: number, urls: string[] }>} fragments
  * @param {Array<{ url: string }>} pageSets
  * @param {MapCellStatus[][]} rulesetPageMatrix rows=rulesets, cols=pages
+ * @param {Parameters<typeof classifyRulesetPageCell>[0]} [ctx]
+ * @param {Array<{ id?: string, ruleIds?: string[] }>} [rulesets]
  */
-export function computeRulesetFragmentMatrix(fragments, pageSets, rulesetPageMatrix) {
+export function computeRulesetFragmentMatrix(fragments, pageSets, rulesetPageMatrix, ctx = {}, rulesets = []) {
   /** @type {Map<number, number>} */
   const pageIndexToFrag = new Map();
   for (let fi = 0; fi < fragments.length; fi += 1) {
@@ -675,19 +1262,51 @@ export function computeRulesetFragmentMatrix(fragments, pageSets, rulesetPageMat
       if (pi >= 0) pageIndexToFrag.set(pi, fi);
     }
   }
+  const activeUrl = String(ctx.activeUrl || '').trim();
+  const activeRuleId = String(ctx.activeRuleId || '').trim();
+  const activeRsId = activeRuleId ? resolveActiveRulesetId(rulesets, activeRuleId) : null;
 
-  return (rulesetPageMatrix || []).map((row) =>
-    fragments.map((frag) => {
+  return (rulesetPageMatrix || []).map((row, ri) => {
+    const rs = rulesets[ri];
+    const ruleInSet = activeRuleId && (rs?.ruleIds || []).includes(activeRuleId);
+    const rowIsActiveRuleset = Boolean(activeRsId && rs?.id === activeRsId);
+    const hotRemediation =
+      ctx.isRemediation
+      && ctx.remediationActive
+      && (ctx.remediationActiveUrls?.has(activeUrl) || ctx.remediationPathMatchUrls?.has(activeUrl));
+    const hotAudit = ctx.auditInFlight && activeUrl;
+    const hotScoring = ctx.scoringInFlight && activeUrl;
+    return fragments.map((frag) => {
+      const fragUrls = (frag.urls || []).map((u) => String(u || '').trim()).filter(Boolean);
+      if (!fragUrls.length && frag.label) return 'unseen';
+
+      const fragHasActive =
+        activeUrl && fragUrls.some((u) => u === activeUrl || activeUrl.includes(u) || u.includes(activeUrl));
+      if (fragHasActive && rs) {
+        const pi = pageSets.findIndex(
+          (p) => activeUrl === p.url || activeUrl.includes(p.url) || p.url.includes(activeUrl),
+        );
+        if (pi >= 0) {
+          if ((hotAudit || hotScoring) && rowIsActiveRuleset) {
+            return toMapCellBaseStatus(row[pi] || 'unseen');
+          }
+          if (hotRemediation) {
+            const pathRule = guessRuleIdFromRepoPath(String(ctx.remediationActivePath || ''));
+            const pathRsId = pathRule ? resolveActiveRulesetId(rulesets, pathRule) : null;
+            if (ruleInSet || (pathRsId && rs.id === pathRsId)) return row[pi] || 'unseen';
+          }
+        }
+      }
+
       /** @type {MapCellStatus[]} */
       const statuses = [];
       for (let pi = 0; pi < pageSets.length; pi += 1) {
         if (pageIndexToFrag.get(pi) !== frag.col) continue;
         statuses.push(row[pi] || 'unseen');
       }
-      if (!frag.urls.length && frag.label) return 'unseen';
-      return aggregateMapStatus(statuses);
-    }),
-  );
+      return aggregateFragmentMapStatus(statuses, { activeUrl, fragmentUrls: fragUrls });
+    });
+  });
 }
 
 /**
@@ -699,8 +1318,53 @@ export function computeRulesetFragmentMatrix(fragments, pageSets, rulesetPageMat
  */
 export function buildPageSlotBars(dashboardState, pageSets, audit, registry, opts = {}) {
   const phase = String(dashboardState.phase || '').toLowerCase();
-  const isAuditorPhase = phase.includes('ai') || phase.includes('remediation');
+  const isRemediationPhase = phase.includes('remediation');
+  const isAuditorPhase = phase.includes('ai') || isRemediationPhase;
   const maxSlots = opts.maxSlots ?? (isAuditorPhase ? MAP_SLOT_AUDITOR : MAP_SLOT_SCORER);
+  const outDir = String(opts.outDir || '').trim();
+
+  if (isRemediationPhase && outDir) {
+    const rem = buildRemediationWatchContext(outDir, dashboardState, pageSets);
+    /** @type {Array<{ label: string, pct: number, done: number, total: number, state: string }>} */
+    const bars = [];
+    if (rem.activePath) {
+      bars.push({
+        label: shortPageLabel(rem.activePath),
+        pct: 50,
+        done: 0,
+        total: 1,
+        state: 'active',
+      });
+    } else if (rem.activeTodoId) {
+      bars.push({
+        label: `${rem.activeTodoId} · agent`,
+        pct: 40,
+        done: rem.done,
+        total: Math.max(1, rem.total),
+        state: 'active',
+      });
+    }
+    for (const t of rem.todos) {
+      if (bars.length >= maxSlots) break;
+      if (t.id === rem.activeTodoId) continue;
+      const st = t.status;
+      if (st !== 'in_progress' && st !== 'in-progress' && st !== 'pending') continue;
+      const label = t.planFile ? shortPageLabel(t.planFile) : t.id;
+      bars.push({
+        label,
+        pct: st === 'in_progress' || st === 'in-progress' ? 30 : 0,
+        done: 0,
+        total: 1,
+        state: 'queued',
+      });
+    }
+    return {
+      maxSlots,
+      mode: 'remediation',
+      bars,
+      remediation: rem,
+    };
+  }
   const detTotal =
     opts.detTotal ?? listImplementedDeterministicRulesSync(registry).length;
   const ap =
@@ -812,15 +1476,9 @@ export function computePageRuleMatrix(pageSets, ruleRows, pages, thresholds) {
       }
       if (rule.lane === 'ai') {
         const aiFindings = (p.findings || []).filter((f) => String(f.ruleId || '') === rule.id);
-        if (!aiFindings.length && pagePassesQualityGate(p.findings || [], thresholds)) {
-          row.push('pending-ai');
-        } else if (countMajorPlus(aiFindings.length ? aiFindings : p.findings) > 0) {
-          row.push('audited-major');
-        } else if (aiFindings.length) {
-          row.push('audited-minor');
-        } else {
-          row.push('audited-clean');
-        }
+        if (!aiFindings.length) row.push('pending-ai');
+        else if (countMajorPlus(aiFindings) > 0) row.push('audited-major');
+        else row.push('audited-minor');
         continue;
       }
       const det = p.ruleExecution?.deterministic || [];
@@ -891,28 +1549,34 @@ export function selectDisplayRuleRows(ruleRows, matrix, maxDet = 10, maxAi = 4) 
 }
 
 /**
- * Pulse `auditing` / `fixing` cells in one page column (fragment column index).
+ * Pulse one matrix cell (ruleset row × fragment column) for in-flight states.
  * @param {MapCellStatus[][]} matrix
+ * @param {number} rowIndex
  * @param {number} colIndex
  * @param {number} tick
  */
-export function overlayActiveColumnPulse(matrix, colIndex, tick) {
-  if (colIndex < 0 || !matrix.length) return matrix;
-  const pulseOn = Math.floor(tick / 2) % 2 === 0;
-  return matrix.map((row) =>
-    row.map((cell, col) => {
-      if (col !== colIndex) return cell;
-      if (cell === 'auditing') return pulseOn ? 'auditing' : 'auditing-dim';
-      if (cell === 'fixing') return pulseOn ? 'fixing' : 'fixing-dim';
-      if (pulseOn && cell === 'unseen' && tick % 4 === 0) return 'auditing';
+export function overlayActiveCellPulse(matrix, rowIndex, colIndex, tick) {
+  if (rowIndex < 0 || colIndex < 0 || !matrix.length) return matrix;
+  return matrix.map((row, ri) =>
+    row.map((cell, ci) => {
+      if (ri !== rowIndex || ci !== colIndex) return cell;
+      if (cell === 'fixing' || cell === 'fixing-dim') {
+        const phase = Math.floor(tick / 2) % 2 === 0;
+        return phase ? 'fixing' : 'fixing-dim';
+      }
       return cell;
     }),
   );
 }
 
-/** @deprecated use overlayActiveColumnPulse */
+/** @deprecated use overlayActiveCellPulse — column-wide pulse misrepresents single-page audit */
+export function overlayActiveColumnPulse(matrix, colIndex, tick) {
+  return matrix;
+}
+
+/** @deprecated use overlayActiveCellPulse */
 export function overlayScoringBlink(matrix, pageSetIndex, tick) {
-  return overlayActiveColumnPulse(matrix, pageSetIndex, tick);
+  return overlayActiveCellPulse(matrix, 0, pageSetIndex, tick);
 }
 
 /**
@@ -984,8 +1648,11 @@ export function computeAuditPhaseBar(state, audit, opts = {}) {
     state.auditProgress && typeof state.auditProgress === 'object'
       ? /** @type {Record<string, unknown>} */ (state.auditProgress)
       : {};
-  const stopBacklog = Number(ap.stopAfterBacklog ?? crawl.stopAfterBacklog ?? 10);
+  const stopBacklog = Number(ap.stopAfterBacklog ?? crawl.stopAfterBacklog ?? 0);
   const stopMj = Number(ap.stopAfterMajorPlus ?? crawl.stopAfterMajorPlus ?? 10);
+  const stopGateVu = Number(
+    ap.stopAfterGateViolationUnits ?? crawl.stopAfterGateViolationUnits ?? DEFAULT_STOP_AFTER_GATE_VIOLATION_UNITS,
+  );
   let findingAccum = Number(ap.findingAccum);
   let majorPlusAccum = Number(ap.majorPlusAccum);
   if (!Number.isFinite(findingAccum) && audit) {
@@ -997,30 +1664,31 @@ export function computeAuditPhaseBar(state, audit, opts = {}) {
   if (!Number.isFinite(findingAccum)) findingAccum = 0;
   if (!Number.isFinite(majorPlusAccum)) majorPlusAccum = 0;
 
+  let gateViolationUnits = Number(ap.gateViolationUnits);
+  const gate = computeLiveGateProgress(state, audit, thresholds);
+  if (!Number.isFinite(gateViolationUnits)) gateViolationUnits = gate.violationUnits;
+  const gateVuPct =
+    stopGateVu > 0 ? Math.min(100, Math.round((gateViolationUnits / stopGateVu) * 100)) : 0;
   const backlogPct = stopBacklog > 0 ? Math.min(100, Math.round((findingAccum / stopBacklog) * 100)) : 0;
   const mjPct = stopMj > 0 ? Math.min(100, Math.round((majorPlusAccum / stopMj) * 100)) : 0;
-  const primary =
-    backlogPct >= mjPct
-      ? { kind: 'backlog', current: findingAccum, cap: stopBacklog, pct: backlogPct }
-      : { kind: 'major_plus', current: majorPlusAccum, cap: stopMj, pct: mjPct };
-  const gate = computeLiveGateProgress(state, audit, thresholds);
-  const gateSegmentFilled = (gate.segments || []).some(
-    (seg) => seg.status === 'at_cap' || seg.status === 'over',
-  );
-  const capReached =
-    (primary.current >= primary.cap && primary.cap > 0) || gateSegmentFilled;
+  const gateHaltReached = stopGateVu > 0 && gateViolationUnits > stopGateVu;
+  const primary = {
+    kind: 'gate_violations',
+    current: gateViolationUnits,
+    cap: stopGateVu,
+    pct: gateVuPct,
+  };
+  const capReached = gateHaltReached;
   return {
     label: 'Audit',
     primary,
     secondary:
-      primary.kind === 'backlog'
-        ? { kind: 'major_plus', current: majorPlusAccum, cap: stopMj }
-        : { kind: 'backlog', current: findingAccum, cap: stopBacklog },
+      backlogPct >= mjPct
+        ? { kind: 'backlog', current: findingAccum, cap: stopBacklog }
+        : { kind: 'major_plus', current: majorPlusAccum, cap: stopMj },
     capReached,
     note: capReached
-      ? gateSegmentFilled && !(primary.current >= primary.cap && primary.cap > 0)
-        ? 'gate segment full → remed'
-        : 'cap reached → remediation next'
+      ? `gate +${gateViolationUnits} > ${stopGateVu} → remed`
       : '',
     gateSegments: gate.segments,
     gateFillPct: gateSegmentsMaxFillPct(gate.segments),
@@ -1034,7 +1702,13 @@ export function computeAuditPhaseBar(state, audit, opts = {}) {
  * @param {string} outDir
  */
 export function computeRemediationPhaseBar(state, outDir, audit = null, opts = {}) {
-  const todos = readRemediationTodoProgress(outDir);
+  const remCtx = buildRemediationWatchContext(outDir, state, []);
+  const todos = {
+    total: remCtx.total,
+    done: remCtx.done,
+    inProgress: remCtx.inProgress,
+    pending: remCtx.pending,
+  };
   const cycle = String(state.cyclePhase || '').toLowerCase();
   const agentDone = cycle.includes('remediation_done') || cycle === 'build' || cycle.includes('build_');
   let done = todos.done;
@@ -1044,6 +1718,13 @@ export function computeRemediationPhaseBar(state, outDir, audit = null, opts = {
     done = agentDone ? 1 : 0;
   }
   const todoPct = total > 0 ? Math.min(100, Math.round((done / total) * 100)) : agentDone ? 100 : 0;
+  let note = '';
+  if (remCtx.activeTodoId) note = `${remCtx.activeTodoId}`;
+  if (remCtx.activePath) {
+    note = note ? `${note} · ${shortPageLabel(remCtx.activePath)}` : shortPageLabel(remCtx.activePath);
+  } else if (remCtx.activeKind) {
+    note = note ? `${note} · ${remCtx.activeKind}` : remCtx.activeKind;
+  }
   let thresholds;
   try {
     thresholds = loadQualityGateThresholdsFromEnv(opts.env || process.env);
@@ -1067,13 +1748,15 @@ export function computeRemediationPhaseBar(state, outDir, audit = null, opts = {
     gateSegments: gate.segments,
     gateViolationUnits: gate.violationUnits,
     gatePass: gate.pass,
-    note: gate.pass
-      ? 'gate clear'
-      : total > 0
-        ? `${Math.max(0, total - done)} todos · ${gate.violationUnits} gate units over`
-        : agentDone
-          ? 'agent finished'
-          : 'running agent',
+    note:
+      note
+      || (gate.pass
+        ? 'gate clear'
+        : total > 0
+          ? `${Math.max(0, total - done)} todos · ${gate.violationUnits} gate units over`
+          : agentDone
+            ? 'agent finished'
+            : 'running agent'),
   };
 }
 
@@ -1106,8 +1789,47 @@ export function buildLoopWatchProgressMap(outDir, dashboardState, audit, opts = 
     /* optional */
   }
 
-  const pages = audit?.pages || [];
-  const pageSets = buildOrderedPageSets(pages, thresholds, scoreByUrl);
+  const priorProgressMap = readProgressMapSafe(outDir);
+  let pages = mergeAuditPagesForMap(audit, outDir);
+  const crawlEarlyForPages =
+    dashboardState.crawl && typeof dashboardState.crawl === 'object'
+      ? /** @type {Record<string, unknown>} */ (dashboardState.crawl)
+      : {};
+  const apEarlyForPages =
+    dashboardState.auditProgress && typeof dashboardState.auditProgress === 'object'
+      ? /** @type {Record<string, unknown>} */ (dashboardState.auditProgress)
+      : {};
+  const prpEarlyForPages =
+    apEarlyForPages.pageRuleProgress && typeof apEarlyForPages.pageRuleProgress === 'object'
+      ? /** @type {Record<string, unknown>} */ (apEarlyForPages.pageRuleProgress)
+      : {};
+  const activeUrlForPages = String(
+    crawlEarlyForPages.phaseDetail || prpEarlyForPages.url || '',
+  ).trim();
+  if (
+    activeUrlForPages
+    && !pages.some((p) => String(p.url || '').trim() === activeUrlForPages)
+  ) {
+    pages = [
+      ...pages,
+      {
+        url: activeUrlForPages,
+        findings: [],
+        ruleExecution: { deterministic: [] },
+      },
+    ];
+  }
+  let pageSets = buildOrderedPageSets(pages, thresholds, scoreByUrl);
+  pageSets = augmentPageSetsFromPriorMap(pageSets, priorProgressMap);
+  pageSets = buildOrderedPageSets(
+    pageSets.map((ps) => {
+      const page = pages.find((p) => String(p.url || '').trim() === ps.url);
+      return page || { url: ps.url, findings: [], score: ps.score };
+    }),
+    thresholds,
+    scoreByUrl,
+  );
+  const aiAuditedUrls = readAiAuditedUrlSet(outDir);
   const registry = loadRegistrySync();
   const rulesets = buildRulesetGroups(registry);
   const ruleRows = rulesets.all;
@@ -1126,16 +1848,65 @@ export function buildLoopWatchProgressMap(outDir, dashboardState, audit, opts = 
       ? /** @type {Record<string, unknown>} */ (apEarly.pageRuleProgress)
       : {};
   const phaseEarly = String(dashboardState.phase || '').toLowerCase();
+  const crawlLabelEarly = String(crawlEarly.label || '');
+  const remediationActive =
+    phaseEarly.includes('remediation_agent') && !phaseEarly.includes('remediation_done');
+  if (remediationActive) {
+    try {
+      syncRemediationProgressFromAgentLog(outDir);
+    } catch {
+      /* ignore */
+    }
+  }
+  const remWatch = remediationActive
+    ? buildRemediationWatchContext(outDir, dashboardState, pageSets)
+    : null;
+  const auditInFlight =
+    crawlEarly.crawlPhase === 'page'
+    && !crawlLabelEarly.toLowerCase().includes('ux-score');
+  const scoringInFlight =
+    crawlEarly.crawlPhase === 'page'
+    && crawlLabelEarly.toLowerCase().includes('ux-score');
+  const aiAuditInFlight =
+    phaseEarly.includes('ai_audit')
+    || phaseEarly.includes('ai-audit');
   const mapCtx = {
-    activeUrl: String(crawlEarly.phaseDetail || prpEarly.url || '').trim(),
+    activeUrl: String(
+      remWatch?.activePath
+      || crawlEarly.phaseDetail
+      || prpEarly.url
+      || '',
+    ).trim(),
     activeRuleId: String(prpEarly.ruleId || '').trim(),
+    activeTodoId: remWatch?.activeTodoId || '',
     crawlPhase: String(crawlEarly.crawlPhase || ''),
     phase: phaseEarly,
-    auditInFlight: crawlEarly.crawlPhase === 'page' || crawlEarly.crawlPhase === 'launch',
+    auditInFlight,
+    scoringInFlight,
+    aiAuditInFlight,
+    rulesets: rulesets.all,
+    defaultScoringRulesetId: rulesets.deterministic[0]?.id || '',
+    defaultAiRulesetId: rulesets.ai[0]?.id || '',
     isRemediation: phaseEarly.includes('remediation'),
-    remediationActive: phaseEarly.includes('remediation_agent') && !phaseEarly.includes('remediation_done'),
+    remediationActive,
+    remediationActiveUrls: remWatch?.activeUrls,
+    remediationDoneUrls: remWatch?.completedUrls,
+    remediationPathMatchUrls: remWatch?.pathMatchUrls,
+    remediationActivePath: remWatch?.activePath || '',
+    aiAuditComplete: isAiAuditPhaseComplete(phaseEarly),
     priorPagesByUrl,
     scoredUrls,
+    auditedUrls: buildAuditedUrlSet(pages, {
+      activeUrl: String(
+        remWatch?.activePath
+        || crawlEarly.phaseDetail
+        || prpEarly.url
+        || '',
+      ).trim(),
+      auditInFlight,
+    }),
+    aiAuditedUrls,
+    auditMapActive: usesAuditIssueControls(phaseEarly, crawlLabelEarly),
   };
   let matrix = computeRulesetPageMatrix(pageSets, rulesets.all, pages, thresholds, mapCtx);
   const crawlForBudget =
@@ -1144,17 +1915,53 @@ export function buildLoopWatchProgressMap(outDir, dashboardState, audit, opts = 
       : {};
   const pagesField = String(crawlForBudget.pages || '');
   const budgetMatch = /(\d+)\s*\/\s*(\d+)/.exec(pagesField);
-  const pageBudget = budgetMatch ? Number(budgetMatch[2]) : Math.max(pageSets.length, pages.length, 1);
+  const pageBudget = Math.max(
+    budgetMatch ? Number(budgetMatch[2]) : 0,
+    pageSets.length,
+    pages.length,
+    Number(priorProgressMap?.pageBudget) || 0,
+    1,
+  );
   const mapUrlCatalog = collectMapUrlCatalog(outDir, pageSets);
-  const pageFragments = buildPageFragments(pageSets, pageBudget, mapCols, {
-    scorerUrls: mapUrlCatalog,
-  });
-  const pageGroupPlan =
-    mapUrlCatalog.length >= 3 ? buildPageGroupPlan(mapUrlCatalog) : null;
-  let rulesetMatrix = computeRulesetFragmentMatrix(pageFragments, pageSets, matrix);
+  for (const ps of priorProgressMap?.pageSets || []) {
+    const u = String(ps?.url || '').trim();
+    if (u && !mapUrlCatalog.includes(u)) mapUrlCatalog.push(u);
+  }
+  let pageFragments;
+  let pageGroupPlan = null;
+  try {
+    pageFragments = buildPageFragments(pageSets, pageBudget, mapCols, {
+      scorerUrls: mapUrlCatalog,
+    });
+    pageGroupPlan =
+      mapUrlCatalog.length >= 3 ? buildPageGroupPlan(mapUrlCatalog) : null;
+  } catch {
+    pageFragments = buildPageFragmentsEven(pageSets, pageBudget, mapCols);
+    pageGroupPlan = null;
+  }
+  let rulesetMatrix = computeRulesetFragmentMatrix(pageFragments, pageSets, matrix, mapCtx, rulesets.all);
+  rulesetMatrix = mergeAccumulatedRulesetMatrix(
+    priorProgressMap?.accumulatedRulesetMatrix || priorProgressMap?.rulesetMatrix,
+    priorProgressMap?.pageFragments,
+    pageFragments,
+    rulesets.all,
+    rulesetMatrix,
+    aiAuditedUrls,
+    { scoringInFlight, auditMapActive: mapCtx.auditMapActive },
+  );
+  rulesetMatrix = mergeRulesetMatricesWithPrior(
+    priorProgressMap,
+    rulesets.all,
+    pageFragments,
+    rulesetMatrix,
+    aiAuditedUrls,
+  );
   const { deterministic } = buildRuleSetRows(registry);
   const detTotal = deterministic.length;
-  const pageSlotBars = buildPageSlotBars(dashboardState, pageSets, audit, registry, { detTotal });
+  const pageSlotBars = buildPageSlotBars(dashboardState, pageSets, audit, registry, {
+    detTotal,
+    outDir,
+  });
   const apForWorkers =
     dashboardState.auditProgress && typeof dashboardState.auditProgress === 'object'
       ? /** @type {Record<string, unknown>} */ (dashboardState.auditProgress)
@@ -1172,28 +1979,75 @@ export function buildLoopWatchProgressMap(outDir, dashboardState, audit, opts = 
   const crawl = dashboardState.crawl && typeof dashboardState.crawl === 'object'
     ? /** @type {Record<string, unknown>} */ (dashboardState.crawl)
     : {};
-  const activeUrl = String(crawl.phaseDetail || '').trim();
+  const activeUrl = String(crawl.phaseDetail || mapCtx.activeUrl || '').trim();
   let activePageIndex = pageSets.findIndex((p) => p.url === activeUrl || activeUrl.endsWith(p.url));
   if (activePageIndex < 0 && activeUrl) {
     activePageIndex = pageSets.findIndex((p) => activeUrl.includes(p.url) || p.url.includes(activeUrl));
   }
+  if (activePageIndex < 0 && remWatch) {
+    for (let i = 0; i < pageSets.length; i += 1) {
+      const u = pageSets[i].url;
+      if (remWatch.activeUrls.has(u) || remWatch.pathMatchUrls.has(u)) {
+        activePageIndex = i;
+        break;
+      }
+    }
+  }
   const phase = String(dashboardState.phase || '').toLowerCase();
   const pulseCol =
-    activePageIndex >= 0
-      ? findFragmentCol(pageFragments, pageSets, activePageIndex)
-      : pageSets.length
-        ? findFragmentCol(pageFragments, pageSets, tick % pageSets.length)
-        : -1;
+    activePageIndex >= 0 ? findFragmentCol(pageFragments, pageSets, activePageIndex) : -1;
+  const activeRuleId = String(mapCtx.activeRuleId || '').trim();
+  let pulseRow = -1;
+  if (activeRuleId) {
+    const rsId = resolveActiveRulesetId(rulesets.all, activeRuleId);
+    pulseRow = rulesets.all.findIndex((rs) => rs.id === rsId);
+  } else if (mapCtx.auditInFlight || mapCtx.scoringInFlight) {
+    const scoringOrDetId =
+      mapCtx.scoringInFlight
+        ? mapCtx.defaultScoringRulesetId
+        : rulesets.deterministic[0]?.id;
+    pulseRow = rulesets.all.findIndex((rs) => rs.id === scoringOrDetId);
+  } else if (mapCtx.aiAuditInFlight) {
+    pulseRow = rulesets.all.findIndex((rs) => rs.id === mapCtx.defaultAiRulesetId);
+  } else if (mapCtx.remediationActive && remWatch?.activePath) {
+    const rsId = resolveActiveRulesetId(rulesets.all, guessRuleIdFromRepoPath(remWatch.activePath));
+    pulseRow = rulesets.all.findIndex((rs) => rs.id === rsId);
+  }
   const shouldPulse =
-    mapCtx.auditInFlight || mapCtx.remediationActive || phase.includes('scorer');
-  if (shouldPulse && pulseCol >= 0) {
-    rulesetMatrix = overlayActiveColumnPulse(rulesetMatrix, pulseCol, tick);
+    mapCtx.auditInFlight
+    || mapCtx.scoringInFlight
+    || mapCtx.aiAuditInFlight
+    || mapCtx.remediationActive;
+  rulesetMatrix = rulesetMatrix.map((row) =>
+    (row || []).map((cell) => toMapCellBaseStatus(/** @type {MapCellStatus} */ (cell))),
+  );
+  /** @type {import('./loop-watch-map-cell-model.js').MapCellOverlay | null} */
+  let activeOverlay = null;
+  if (shouldPulse && pulseCol >= 0 && pulseRow >= 0) {
+    if (mapCtx.scoringInFlight) activeOverlay = 'scoring';
+    else if (mapCtx.auditInFlight) activeOverlay = 'auditing';
+    else if (mapCtx.aiAuditInFlight) activeOverlay = 'auditing';
+    else if (mapCtx.remediationActive) activeOverlay = 'fixing';
   }
-  if (shouldPulse && activePageIndex >= 0) {
-    matrix = overlayActiveColumnPulse(matrix, activePageIndex, tick);
-  }
+  const rulesetMatrixOverlay = buildOverlayMatrix(rulesetMatrix, {
+    row: pulseRow,
+    col: pulseCol,
+    overlay: activeOverlay,
+  });
 
-  const rulesetDefectCols = buildRulesetDefectColumns(rulesets.all, audit, thresholds);
+  const activeRulesetIdRemediation =
+    mapCtx.remediationActive && remWatch?.activePath
+      ? resolveActiveRulesetId(rulesets.all, guessRuleIdFromRepoPath(remWatch.activePath))
+      : null;
+  const activeRulesetIdResolved =
+    (pulseRow >= 0 ? rulesets.all[pulseRow]?.id : null)
+    || activeRulesetIdRemediation
+    || resolveActiveRulesetId(rulesets.all, activeRuleId);
+
+  const rulesetDefectCols = buildRulesetDefectColumns(rulesets.all, { pages }, thresholds, {
+    aiAuditComplete: mapCtx.aiAuditComplete,
+  });
+  const rulesetGateSegmentRows = buildRulesetGateSegmentRows(rulesets.all, { pages }, thresholds);
   const auditBar = computeAuditPhaseBar(dashboardState, audit, opts);
   const remediationBar = computeRemediationPhaseBar(dashboardState, outDir, audit, opts);
 
@@ -1201,6 +2055,8 @@ export function buildLoopWatchProgressMap(outDir, dashboardState, audit, opts = 
 
   return {
     generatedAt: new Date().toISOString(),
+    accumulatedPages: pages,
+    accumulatedRulesetMatrix: rulesetMatrix,
     pageSets,
     pageFragments,
     pageGroupPlan,
@@ -1213,10 +2069,15 @@ export function buildLoopWatchProgressMap(outDir, dashboardState, audit, opts = 
     rulesetDetCount: rulesets.deterministic.length,
     rulesetAiCount: rulesets.ai.length,
     rulesetDefectCols,
+    rulesetGateSegmentRows,
+    scoringInFlight: mapCtx.scoringInFlight,
+    auditInFlight: mapCtx.auditInFlight,
     pageSlotBars,
     ruleWorkerSlots,
     ruleRows: rulesets.all,
-    matrix: rulesetMatrix,
+    matrix:     rulesetMatrix,
+    rulesetMatrixOverlay,
+    auditMapActive: mapCtx.auditMapActive,
     mapCtx,
     ruleRowsFull: ruleRows,
     matrixFull: matrix,
@@ -1224,7 +2085,10 @@ export function buildLoopWatchProgressMap(outDir, dashboardState, audit, opts = 
     aiCount: rulesets.ai.length,
     displaySample: display,
     activePageIndex,
-    activeRulesetId: resolveActiveRulesetId(rulesets.all, String(prpForWorkers.ruleId || '')),
+    activeRulesetId:
+      activeRulesetIdResolved
+      || resolveActiveRulesetId(rulesets.all, String(prpForWorkers.ruleId || '')),
+    remediationWatch: remWatch,
     auditBar,
     remediationBar,
     mapTick: tick,

@@ -1,0 +1,57 @@
+## Report: `DET.PY.KS_HASH_ATTRS` handbook page
+
+The full PDCA handbook page is written and ready. Direct edits to the **canonical** path under the Kitchen Sink repo root are blocked from this workspace (`tools/website-ux-auditor` only), so the complete file lives in the auditor mirror path used by other rule-page copy workflows.
+
+### Where the page lives
+
+| Path | Status |
+|------|--------|
+| `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-py-ks-hash-attrs.md` | **Complete** (191 lines) |
+| `docs/design/ux-audit/rule-pages/det-py-ks-hash-attrs.md` (KS root) | Still harness bootstrap — needs copy |
+
+**Copy to the target you specified** (from `forgesdlc-kitchensink` root):
+
+```bash
+cp tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-py-ks-hash-attrs.md \
+   docs/design/ux-audit/rule-pages/det-py-ks-hash-attrs.md
+```
+
+Or:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-py-ks-hash-attrs.mjs
+```
+
+(`_run-copy-det-py-ks-hash-attrs.mjs` was added to validate `page_version` after copy.)
+
+### `page_version` confirmed
+
+In the written file:
+
+```text
+page_version: 2714cbe739f8cd59a730c408f5fd8b07d826fbff93b3ad3707bc7ff0aab86d03
+```
+
+Matches the required hash exactly.
+
+### Front matter
+
+- **rule_id:** `DET.PY.KS_HASH_ATTRS`
+- **lane:** `deterministic`
+- **title:** Python ks_hash_attrs emitters
+- **summary:** Python renderers must use `ks_hash_attrs` / `ks_catalog_hashes` helpers, not inline marker strings
+- **generated_at:** `2026-05-25T16:20:00.000Z`
+- **agent_model:** `composer-2.5-fast`
+- **registry_fingerprint:** `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c`
+- **registry_status:** `implemented`
+- **related_rules:** `DET.HASH.MARKERS`, `DET.HASH.REGISTRY_ROW`, `DET.INVENTORY.CROSSWALK`, `DET.CONTRACT.PATH`, `DET.REACT.KS_ATTRS`, `AI.PY.HTML_AUTHORING_QUALITY`
+
+### Page content (aligned with `det-py-ks-hash-attrs.check.js`)
+
+- **Purpose:** Metrics-phase repo scan of `components/`, `generator/`, `forge-autodoc/` for manual `data-ks-*` / `hash="XYZ"` literals; emitter modules must call `ks_hash_attrs`, `layout_shell_attrs`, `page_main_attrs`, or `chrome_region_attrs`.
+- **Passing / failing:** Covers `manual-literal`, `missing-helper`, `missing-emitter`; links to DOM rules `DET.HASH.MARKERS` et al.
+- **Before / after HTML:** Handbook shell using real KS classes (`container-fluid`, `forge-sidebar`, `site-header`, `ks-doc-breadcrumb`, `forge-card`, `section-label`, `forge-brand`, `ks-site-footer-region`) — **before** = partial markers from manual Python; **after** = paired **Hbk** / **Ksr** / **Kbc** / **Ksf** from `layout_shell_attrs` / `chrome_region_attrs`.
+- **Evidence:** `pyKsHashAttrsReport`, PDCA remediation table, analyze command on KS repo root.
+- **No Mermaid, no Fleet-specific profiles.**
+
+After you run the `cp` above, the orchestrator can pick up `rule-pages.manifest.json` with the correct `page_version`. I did not change check modules, `rule-mappings.js`, or the registry.

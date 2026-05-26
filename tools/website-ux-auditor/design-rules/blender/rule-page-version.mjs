@@ -62,6 +62,47 @@ function parseFrontMatter(raw) {
   return { front, body: text.slice(m[0].length) };
 }
 
+function serializeFrontMatter(front) {
+  const lines = ['---'];
+  for (const [key, val] of Object.entries(front)) {
+    if (val === undefined || val === null || val === '') continue;
+    lines.push(`${key}: ${val}`);
+  }
+  lines.push('---', '');
+  return `${lines.join('\n')}`;
+}
+
+/** Bump page_version to contentVersion for stale/missing handbook pages (no agent). */
+export async function syncStaleRulePages(registry, { onlyBootstrap = false } = {}) {
+  const updated = [];
+  for (const row of registryRuleRows(registry)) {
+    const evaluated = await evaluateRulePage(row, registry);
+    if (evaluated.status === 'current') continue;
+    if (evaluated.status === 'missing' && !onlyBootstrap) continue;
+    if (onlyBootstrap && evaluated.agentModel !== 'bootstrap-missing-rule-pages.py') continue;
+    if (!evaluated.mdPath) continue;
+    const mdPath = path.resolve(KS_ROOT, evaluated.mdPath);
+    let raw;
+    try {
+      raw = await fs.readFile(mdPath, 'utf8');
+    } catch {
+      continue;
+    }
+    const { front, body } = parseFrontMatter(raw);
+    front.page_version = evaluated.contentVersion;
+    front.registry_fingerprint = registry.fingerprint || front.registry_fingerprint || '';
+    if (front.agent_model === 'bootstrap-missing-rule-pages.py') {
+      front.agent_model = 'handbook-version-sync';
+    }
+    if (!front.generated_at) {
+      front.generated_at = new Date().toISOString();
+    }
+    await fs.writeFile(mdPath, `${serializeFrontMatter(front)}${body}`, 'utf8');
+    updated.push(evaluated.id);
+  }
+  return updated;
+}
+
 export function registryRuleRows(registry) {
   const det = (registry.deterministicRules || []).map((r) => ({
     id: r.id,
@@ -244,6 +285,8 @@ export async function selectPagegenTargets({
 async function main() {
   const args = process.argv.slice(2);
   let writeManifestFlag = false;
+  let syncStaleFlag = false;
+  let syncBootstrapOnly = false;
   let listTargets = false;
   let lane = 'both';
   let maxRules = 0;
@@ -253,6 +296,8 @@ async function main() {
   for (let i = 0; i < args.length; i += 1) {
     const raw = args[i];
     if (raw === '--write-manifest') writeManifestFlag = true;
+    else if (raw === '--sync-stale') syncStaleFlag = true;
+    else if (raw === '--sync-bootstrap-only') syncBootstrapOnly = true;
     else if (raw === '--list-targets') listTargets = true;
     else if (raw === '--lane') {
       lane = args[++i] || 'both';
@@ -271,6 +316,12 @@ async function main() {
   }
 
   const registry = JSON.parse(await fs.readFile(REGISTRY_PATH, 'utf8'));
+
+  if (syncStaleFlag || syncBootstrapOnly) {
+    const updated = await syncStaleRulePages(registry, { onlyBootstrap: syncBootstrapOnly });
+    process.stdout.write(`synced ${updated.length} rule page(s): ${updated.join(', ')}\n`);
+    await writeManifest(registry);
+  }
 
   if (writeManifestFlag) {
     const manifest = await writeManifest(registry);

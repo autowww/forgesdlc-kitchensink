@@ -24,6 +24,7 @@
 #   FORGE_UX_AGENT_STREAM_SUMMARY=1  — default when stream-json: one `[ux-agent] …` line per tool/system event (no tool payloads). Set **0** to tee raw NDJSON instead.
 #   FORGE_UX_AGENT_RAW_JSONL=/path    — optional: append every raw NDJSON line from the agent (forensics) while the summary still prints compact lines.
 #   FORGE_UX_CURSOR_AGENT_EXTRA='…'   — space-separated extra flags (wins over VERBOSE; quoted chunks not supported).
+#   FORGE_UX_CURSOR_AGENT_MODEL       — Cursor model (default **composer-2.5**, not fast). Bare `agent` CLI default is composer-2.5-fast.
 
 set -euo pipefail
 
@@ -88,6 +89,19 @@ if [[ -n "${FORGE_UX_CURSOR_AGENT_EXTRA:-}" ]]; then
 elif [[ "${FORGE_UX_CURSOR_AGENT_VERBOSE:-0}" == "1" ]]; then
   EXTRA_FLAGS=(--output-format stream-json --stream-partial-output)
   echo "cursor-agent-run-ux-plan: FORGE_UX_CURSOR_AGENT_VERBOSE=1 → stream-json (summary lines default ON; raw NDJSON: FORGE_UX_AGENT_STREAM_SUMMARY=0 and/or FORGE_UX_AGENT_RAW_JSONL=…)" >&2
+fi
+
+_agent_has_model_flag=0
+for ((i = 0; i < ${#EXTRA_FLAGS[@]}; i++)); do
+  if [[ "${EXTRA_FLAGS[i]}" == --model || "${EXTRA_FLAGS[i]}" == --model=* ]]; then
+    _agent_has_model_flag=1
+    break
+  fi
+done
+if [[ "${_agent_has_model_flag}" -eq 0 ]]; then
+  _agent_model="${FORGE_UX_CURSOR_AGENT_MODEL:-composer-2.5}"
+  EXTRA_FLAGS=(--model "${_agent_model}" "${EXTRA_FLAGS[@]}")
+  echo "cursor-agent-run-ux-plan: model=${_agent_model} (override: FORGE_UX_CURSOR_AGENT_MODEL or --model in FORGE_UX_CURSOR_AGENT_EXTRA)" >&2
 fi
 
 _agent_stream_json=0

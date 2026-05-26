@@ -33,7 +33,16 @@ sys.path.insert(0, str(REPO_ROOT / "generator"))
 
 from components import e  # noqa: E402
 from layout_previews import write_layout_preview_pages  # noqa: E402
-from ux_audit_rule_pages import write_ux_audit_rule_pages  # noqa: E402
+from ux_audit_ecosystem import write_ux_audit_ecosystem_pages  # noqa: E402
+from ux_audit_rule_pages import (  # noqa: E402
+    verify_ux_audit_rule_pages,
+    write_ux_audit_rule_pages,
+)
+from a11y_audit_ecosystem import write_a11y_audit_ecosystem_pages  # noqa: E402
+from a11y_audit_rule_pages import (  # noqa: E402
+    verify_a11y_audit_rule_pages,
+    write_a11y_audit_rule_pages,
+)
 from ks_catalog_hashes import page_main_attrs  # noqa: E402
 from layouts import (  # noqa: E402
     gallery_page,
@@ -400,15 +409,35 @@ def main():
     print("[showcase] Assets copied")
     _copy_react_primitives_built()
 
+    _ECOSYSTEM_SLUGS = frozenset({
+        "ux-audit-ecosystem",
+        "ux-audit-ecosystem-examples",
+        "a11y-audit-ecosystem",
+        "a11y-audit-ecosystem-examples",
+    })
+
     for page in pages:
         slug = page["slug"]
+        if slug in _ECOSYSTEM_SLUGS:
+            continue
         filename = f"{slug}.html"
         html = _render_page(page, pages)
         (OUTPUT_DIR / filename).write_text(html, encoding="utf-8")
         print(f"  ✓ {filename}")
 
+    eco_count = write_ux_audit_ecosystem_pages(OUTPUT_DIR)
+    print(f"  ✓ ux-audit-ecosystem.html + ux-audit-ecosystem-examples.html ({eco_count} pages)")
+
     rule_count = write_ux_audit_rule_pages(OUTPUT_DIR)
     print(f"  ✓ ux-audit-rules/ ({rule_count} detail pages)")
+    verify_ux_audit_rule_pages(OUTPUT_DIR)
+
+    a11y_eco_count = write_a11y_audit_ecosystem_pages(OUTPUT_DIR)
+    print(f"  ✓ a11y-audit-ecosystem.html + a11y-audit-ecosystem-examples.html ({a11y_eco_count} pages)")
+
+    a11y_rule_count = write_a11y_audit_rule_pages(OUTPUT_DIR)
+    print(f"  ✓ a11y-audit-rules/ ({a11y_rule_count} detail pages)")
+    verify_a11y_audit_rule_pages(OUTPUT_DIR)
 
     write_layout_preview_pages(OUTPUT_DIR)
     for name in (

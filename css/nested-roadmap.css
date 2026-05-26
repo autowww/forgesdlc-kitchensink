@@ -220,7 +220,7 @@
   margin: auto;
   flex-shrink: 0;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(6, 182, 212, 0.08), 0 0 2px rgba(6, 182, 212, 0.15);
+  box-shadow: var(--forge-elevation-modal);
   display: flex;
   flex-direction: column;
 }
@@ -294,7 +294,7 @@
   background: var(--forge-surface-2, #1f2937);
   border: 1px solid rgba(6, 182, 212, 0.35);
   border-radius: 8px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--forge-elevation-tooltip);
   pointer-events: none;
 }
 

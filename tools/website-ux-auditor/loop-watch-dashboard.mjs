@@ -3,7 +3,9 @@
  * Alternate-screen dashboard for FORGE_UX_LOOP_WATCH (polls ux-loop-dashboard-state.json + log tail).
  * Updates only changed screen rows by default (low flicker, still live). Set FORGE_UX_LOOP_WATCH_FULL_REDRAW=1 for legacy full clears.
  *
- * Usage: node loop-watch-dashboard.mjs OUT_DIR
+ * Usage:
+ *   node loop-watch-dashboard.mjs OUT_DIR
+ *   node loop-watch-dashboard.mjs OUT_DIR --print-final-only   # one-shot: snapshot file + main-screen frame
  */
 
 import fs from 'node:fs';
@@ -12,6 +14,7 @@ import process from 'node:process';
 
 import { buildWatchFrameRedrawSequence } from './lib/loop-watch-redraw.js';
 import { stripAnsi } from './lib/terminal-ansi.js';
+import { printUxLoopDashboardFinalToStream } from './lib/ux-loop-dashboard-snapshot-text.js';
 import { readDashboardStateSafe } from './lib/ux-loop-dashboard-state.js';
 import { buildUxLoopDashboardSnapshotLines } from './lib/ux-loop-dashboard-snapshot-text.js';
 
@@ -22,27 +25,75 @@ const SHOW_CURSOR = '\x1b[?25h';
 const HOME = '\x1b[H';
 const CLEAR_FROM_CURSOR = '\x1b[J';
 
+/** @param {string[]} argv */
+function parseArgs(argv) {
+  const flags = new Set(argv.filter((a) => a.startsWith('--')));
+  const positional = argv.filter((a) => !a.startsWith('--'));
+  return {
+    printFinalOnly: flags.has('--print-final-only'),
+    outDir: path.resolve(positional[0] || ''),
+  };
+}
+
+/** @returns {import('node:stream').WritableStream} */
+function pickWatchStream() {
+  if (process.stdout.isTTY) return process.stdout;
+  if (process.stderr.isTTY) return process.stderr;
+  return process.stdout;
+}
+
+/**
+ * @param {import('node:stream').WritableStream} stream
+ * @param {string} outDir
+ * @param {number} cols
+ */
+function finalizeDashboardOnMainScreen(stream, outDir, cols) {
+  printUxLoopDashboardFinalToStream(stream, outDir, { cols, leaveAltScreen: true, showCursor: true });
+}
+
 function main() {
-  const outDir = path.resolve(process.argv[2] || '');
+  const { printFinalOnly, outDir } = parseArgs(process.argv.slice(2));
   if (!outDir || !fs.existsSync(outDir)) {
-    console.error('usage: loop-watch-dashboard.mjs OUT_DIR');
+    console.error('usage: loop-watch-dashboard.mjs OUT_DIR [--print-final-only]');
     process.exit(2);
   }
 
-  const stdout = process.stdout;
-  if (!stdout.isTTY) {
+  const stream = pickWatchStream();
+  const frameCols = () => {
+    const w = stream.columns || process.stdout.columns || process.stderr.columns;
+    if (!w || !Number.isFinite(w) || w < 40) return 100;
+    return Math.min(w, 200);
+  };
+
+  if (printFinalOnly) {
+    finalizeDashboardOnMainScreen(stream, outDir, frameCols());
+    process.exit(0);
+  }
+
+  if (!stream.isTTY) {
     console.error('loop-watch-dashboard: stdout must be a TTY');
     process.exit(1);
   }
 
   let cleaned = false;
+  /** @type {ReturnType<typeof setInterval> | null} */
+  let interval = null;
+
   function cleanupAndExit(code) {
     if (cleaned) return;
     cleaned = true;
+    if (interval) {
+      clearInterval(interval);
+      interval = null;
+    }
     try {
-      stdout.write(SHOW_CURSOR + ALT_SCREEN_OFF);
+      finalizeDashboardOnMainScreen(stream, outDir, frameCols());
     } catch {
-      /* ignore */
+      try {
+        stream.write(SHOW_CURSOR + ALT_SCREEN_OFF);
+      } catch {
+        /* ignore */
+      }
     }
     process.exit(code);
   }
@@ -50,19 +101,16 @@ function main() {
   process.on('SIGINT', () => cleanupAndExit(130));
   process.on('SIGTERM', () => cleanupAndExit(143));
 
-  stdout.write(ALT_SCREEN_ON + HIDE_CURSOR);
+  stream.write(ALT_SCREEN_ON + HIDE_CURSOR);
 
   const tickMs = Number(process.env.FORGE_UX_LOOP_WATCH_REFRESH_MS || '') || 350;
-  /** When the merged frame text is unchanged (common between crawl events), skip writing: avoids idle full-screen flicker. */
   const skipIdleRedraw =
     process.env.FORGE_UX_LOOP_WATCH_SKIP_IDLE_REDRAW === '0' ? false : true;
-  /** Every tick: HOME + clear entire frame (legacy; more flicker). Default: incremental row updates only. */
   const forceFullRedraw = process.env.FORGE_UX_LOOP_WATCH_FULL_REDRAW === '1';
   let lastFrameText = '';
   let lastFrameCompare = '';
   /** @type {string[]} */
   let lastFrameLines = [];
-  /** Last `state.phase` from disk — used to force a full redraw when phases change (stderr from child steps otherwise desyncs row-addressed updates). */
   let lastDashboardPhase = '';
   let volatileRepaintTick = 0;
   process.on('SIGWINCH', () => {
@@ -73,19 +121,11 @@ function main() {
     volatileRepaintTick = 0;
   });
 
-  const frameCols = () => {
-    const w = stdout.columns;
-    if (!w || !Number.isFinite(w) || w < 40) return 100;
-    /** Avoid huge widths (wrapping glitches) while tracking real terminal size. */
-    return Math.min(w, 200);
-  };
-
-  const interval = setInterval(() => {
+  interval = setInterval(() => {
     const dashState = readDashboardStateSafe(outDir);
     const phaseNow = typeof dashState.phase === 'string' ? dashState.phase : '';
     const phaseTransitioned = lastDashboardPhase !== '' && phaseNow !== lastDashboardPhase;
     lastDashboardPhase = phaseNow;
-    /** Child scripts (AI audit, remediation agent) write to stderr; incremental CSI row updates then paint the wrong rows. */
     const volatileChildPhase = /ai_audit|remediation_agent/i.test(phaseNow);
     if (volatileChildPhase) volatileRepaintTick += 1;
     else volatileRepaintTick = 0;
@@ -119,7 +159,7 @@ function main() {
     if (redraw.mode === 'none') {
       if (!skipIdleRedraw) {
         try {
-          stdout.write(HOME + CLEAR_FROM_CURSOR + frameText);
+          stream.write(HOME + CLEAR_FROM_CURSOR + frameText);
         } catch {
           cleanupAndExit(1);
         }
@@ -131,7 +171,7 @@ function main() {
     }
 
     try {
-      stdout.write(redraw.seq);
+      stream.write(redraw.seq);
     } catch {
       cleanupAndExit(1);
     }

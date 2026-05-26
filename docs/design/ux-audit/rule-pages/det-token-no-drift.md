@@ -3,9 +3,9 @@ rule_id: DET.TOKEN.NO_DRIFT
 lane: deterministic
 title: Token No Drift
 summary: Harness bootstrap handbook page for DET.TOKEN.NO_DRIFT.
-page_version: 3d3488eaa376f4b255c5d44a0c671b4845ab2f6b48c438c665aa31849baa6e18
+page_version: 5ed128085a781532bd03395cf303b8346906ee1d32da4c60fd8028d754dabf15
 generated_at: 2026-05-23T13:24:10Z
-agent_model: bootstrap-missing-rule-pages.py
+agent_model: handbook-version-sync
 registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-token-no_drift

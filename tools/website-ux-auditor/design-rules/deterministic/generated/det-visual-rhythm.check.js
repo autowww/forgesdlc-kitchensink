@@ -18,6 +18,15 @@ export const MIN_MEDIAN_FOR_SPREAD_CHECK_PX = 24;
 /** Max ad hoc spacing findings per pass. */
 export const MAX_ADHOC_SPACING_FINDINGS = 6;
 
+/** Handbook first viewport: max tables before the page feels like a data wall. */
+export const MAX_TABLES_IN_FIRST_VIEWPORT = 1;
+
+/** Handbook first viewport: max in-main h2 blocks with dense copy above the fold. */
+export const MAX_H2_ABOVE_FOLD_DENSE = 3;
+
+/** Word count (auditor above-fold metric) paired with h2 density. */
+export const MIN_ABOVE_FOLD_WORDS_DENSE = 300;
+
 const SECTION_SELECTOR = [
   'section',
   'article',
@@ -142,6 +151,34 @@ export function buildVisualRhythmViolations(snapshot) {
 }
 
 /**
+ * @param {{ isHandbook?: boolean, tablesInFirstViewport?: number, h2AboveFoldCount?: number, aboveFoldWordCount?: number }} handbook
+ */
+export function buildHandbookFirstScreenViolations(handbook) {
+  if (!handbook?.isHandbook) return [];
+  const violations = [];
+  const tables = Number(handbook.tablesInFirstViewport ?? 0);
+  const h2s = Number(handbook.h2AboveFoldCount ?? 0);
+  const words = Number(handbook.aboveFoldWordCount ?? 0);
+
+  if (tables > MAX_TABLES_IN_FIRST_VIEWPORT) {
+    violations.push({
+      kind: 'handbook-table-heavy-first-screen',
+      tablesInFirstViewport: tables,
+    });
+  }
+
+  if (h2s >= MAX_H2_ABOVE_FOLD_DENSE && words >= MIN_ABOVE_FOLD_WORDS_DENSE) {
+    violations.push({
+      kind: 'handbook-dense-first-screen',
+      h2AboveFoldCount: h2s,
+      aboveFoldWordCount: words,
+    });
+  }
+
+  return violations;
+}
+
+/**
  * @param {Record<string, unknown> | null | undefined} metrics
  * @param {{ sectionGapsPx?: number[]; adhocSpacingHints?: string[] } | null | undefined} report
  */
@@ -215,6 +252,28 @@ export function findingsFromVisualRhythmReport(report, url = '') {
         evidence: `adhoc_section_spacing hint="${hint}"`,
         remediation:
           'Replace inline or arbitrary px margins with theme spacing tokens (`var(--*)`) or documented section utility classes.',
+      });
+    } else if (kind === 'handbook-table-heavy-first-screen') {
+      findings.push({
+        severity: 'warn',
+        area: 'first-screen',
+        message:
+          'Handbook chapter shows multiple tables in the first viewport before the reader finishes the outcome story.',
+        evidence: `handbook_tables_first_viewport=${v.tablesInFirstViewport ?? '?'} max=${MAX_TABLES_IN_FIRST_VIEWPORT}`,
+        remediation:
+          'Move comparison tables below the outcome paragraph, collapse early tables, or split into a follow-on page so the first screen stays narrative-led.',
+      });
+    } else if (kind === 'handbook-dense-first-screen') {
+      findings.push({
+        severity: 'warn',
+        area: 'first-screen',
+        message:
+          'Handbook first viewport stacks many h2-level sections with heavy copy (dense chapter opener).',
+        evidence:
+          `handbook_dense_first_screen h2_above_fold=${v.h2AboveFoldCount ?? '?'} `
+          + `above_fold_words=${v.aboveFoldWordCount ?? '?'}`,
+        remediation:
+          'Shorten the hero/outcome block, defer secondary h2 sections below the fold, or use a summary card before tables and reference sections.',
       });
     }
   }
@@ -325,10 +384,29 @@ export async function collectVisualRhythmReport(page) {
         }
       }
 
+      const layoutName = document.querySelector('[data-ks-type="layout"]')?.getAttribute('data-ks-name') || '';
+      const isHandbook = layoutName === 'layout-handbook';
+      let handbook = { isHandbook: false };
+      if (isHandbook) {
+        const vh = window.innerHeight;
+        let tablesInFirstViewport = 0;
+        for (const table of main.querySelectorAll('table')) {
+          const rect = table.getBoundingClientRect();
+          if (rect.top < vh && rect.bottom > 0) tablesInFirstViewport += 1;
+        }
+        let h2AboveFoldCount = 0;
+        for (const h2 of main.querySelectorAll('h2')) {
+          if (!visible(h2)) continue;
+          if (h2.getBoundingClientRect().top < vh) h2AboveFoldCount += 1;
+        }
+        handbook = { isHandbook: true, tablesInFirstViewport, h2AboveFoldCount };
+      }
+
       return {
         sectionCount: sections.length,
         sectionGapsPx,
         adhocSpacingHints: adhocSpacingHints.slice(0, 6),
+        handbook,
       };
     },
     {
@@ -359,13 +437,25 @@ export async function run({ metrics, page, url }) {
   }
 
   const snapshot = buildVisualRhythmSnapshot(metrics || {}, reportExtras);
+  const handbook = reportExtras?.handbook || {};
+  const isHandbook = handbook.isHandbook
+    || String(metrics?.layoutName || '').trim() === 'layout-handbook';
+
+  const handbookViolations = buildHandbookFirstScreenViolations({
+    isHandbook,
+    tablesInFirstViewport: handbook.tablesInFirstViewport,
+    h2AboveFoldCount: handbook.h2AboveFoldCount,
+    aboveFoldWordCount: metrics?.aboveFoldWordCount,
+  });
+
   const hasGapSignals = snapshot.sectionCount >= MIN_SECTIONS_FOR_RHYTHM
     || (snapshot.sectionGapsPx?.length ?? 0) > 0;
   const hasAdhoc = (snapshot.adhocSpacingHints?.length ?? 0) > 0;
 
-  if (!hasGapSignals && !hasAdhoc) return [];
-
-  const violations = buildVisualRhythmViolations(snapshot);
+  const violations = [
+    ...(hasGapSignals || hasAdhoc ? buildVisualRhythmViolations(snapshot) : []),
+    ...handbookViolations,
+  ];
   if (!violations.length) return [];
 
   return findingsFromVisualRhythmReport({ violations }, pageUrl);

@@ -21,6 +21,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { appendLiveAuditPage, clearLiveAuditSnapshot } from './audit-live-snapshot.js';
 import { buildScorerBacklogPatch } from './loop-watch-phase-source.js';
 import { mergeDashboardState } from './ux-loop-dashboard-state.js';
 
@@ -468,6 +469,13 @@ export function createCrawlProgressReporter(opts) {
       phaseDetail = 'launch Chromium';
       crawlPhaseTag = 'launch';
       dashSeverityRun = {};
+      if (dashboardWatch) {
+        try {
+          clearLiveAuditSnapshot(watchOutDir);
+        } catch {
+          /* ignore */
+        }
+      }
       pageStartMs = null;
       pageInFlight = false;
       completedPages = 0;
@@ -485,6 +493,19 @@ export function createCrawlProgressReporter(opts) {
     }
 
     if (ev.phase === 'rule_progress') {
+      const prp =
+        ev.auditProgress
+        && typeof ev.auditProgress === 'object'
+        && ev.auditProgress.pageRuleProgress
+        && typeof ev.auditProgress.pageRuleProgress === 'object'
+          ? /** @type {{ url?: string }} */ (ev.auditProgress.pageRuleProgress)
+          : null;
+      const ruleUrl = String(ev.href || prp?.url || '').trim();
+      if (ruleUrl) {
+        phaseDetail = truncateUrl(ruleUrl, Math.max(phaseColumnWidth(), 44));
+        crawlPhaseTag = 'page';
+        pageInFlight = true;
+      }
       if (dashboardWatch || progressLogPath) {
         render(
           { queueLen: lastQueueLen, now },
@@ -513,6 +534,13 @@ export function createCrawlProgressReporter(opts) {
     if (ev.phase === 'page_end') {
       if (ev.severityRunTotal && typeof ev.severityRunTotal === 'object') {
         dashSeverityRun = { ...ev.severityRunTotal };
+      }
+      if (dashboardWatch && ev.completedPage && typeof ev.completedPage === 'object') {
+        try {
+          appendLiveAuditPage(watchOutDir, ev.completedPage);
+        } catch {
+          /* ignore */
+        }
       }
       crawlPhaseTag = 'idle';
       appendPageDoneLine(ev);

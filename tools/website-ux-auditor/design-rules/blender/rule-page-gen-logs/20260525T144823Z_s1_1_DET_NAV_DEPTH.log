@@ -1,0 +1,52 @@
+## Report: `det-nav-depth.md`
+
+The handbook page at `docs/design/ux-audit/rule-pages/det-nav-depth.md` is already present and matches `RULE_PAGE_SCHEMA.md`. Edits from this session were blocked (write/shell rejected), so the on-disk file is unchanged except for the content described below.
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: bd3562025ebc5525d93f3f5d235936a70a33683cf2056afc850e561df77f8aee
+```
+
+Matches the required hash and `rule-pages.manifest.json` (`contentVersion` / `pageVersion`).
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.NAV.DEPTH` |
+| `lane` | `deterministic` |
+| `title` | Global navigation depth |
+| `registry_fingerprint` | `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-nav-depth` |
+| `agent_model` | `composer-2.5-fast` |
+| `generated_at` | `2026-05-25T18:00:00.000Z` (orchestrator may refresh on batch finalize) |
+
+### Body (PDCA + schema sections)
+
+1. **Purpose** — Shallow global chrome (`Kpn`, `landing-nav`); Playwright roots outside `main`; depth caps **2** / **4** with mega-menu; theme menus excluded; deep IA belongs in `Ksr` / offcanvas.
+2. **Passing signals** — Flat `fs-primary-nav-global`, one `fs-nav-dropdown` tier, `.landing-nav-link` horizon, depth in `forge-sidebar` / `#fsNav`.
+3. **Failing signals** — `nested-flyout-depth`, `mega-depth-exceeded`, co-failures with dedup/context burden.
+4. **Before example** — `landing-header` + nested `<ul>` in `landing-nav` (list_depth 4).
+5. **After example** — `Kpn` + `fs-nav-dropdown__*` + `Ksr` `forge-sidebar` with `nav-link` depth in sidebar only.
+6. **Evidence and remediation** — `collectNavDepthReport`, violation kinds, six-step remediate path.
+7. **Related rules** — DEDUP, BREADCRUMB, FOCUS_ORDER, CONTEXT.BURDEN, PAGE.MODE, CHROME.BOUNDARY.
+
+### Grounding (sources used)
+
+- **Source rule:** `deterministic-design-rules.md` — global nav depth ≤ configured max; DOM tree depth.
+- **Check:** `det-nav-depth.check.js` — `MAX_GLOBAL_NAV_DEPTH = 2`, `MAX_GLOBAL_NAV_DEPTH_WITH_MEGA = 4`, selectors for `fs-primary-nav-global`, `landing-nav`, mega-menu markers, theme exclusions.
+- **KS markup:** `components/layouts.py` (`landing-header`, `landing-nav`, `fs-primary-nav-global`, `forge-sidebar`, `#fsNav`); `css/forgesdlc-theme.css` (`fs-nav-dropdown__*`).
+
+### Real KS class names in examples
+
+**Before (failing):** `landing-header`, `landing-header-inner`, `fs-brand`, `fs-accent`, `landing-nav`, `landing-nav-link`, `fs-landing-main`, `forge-support`
+
+**After (passing):** `fs-primary-nav-global`, `fs-primary-nav-global-inner`, `fs-nav-dropdown`, `data-fs-nav-dropdown`, `fs-nav-dropdown__trigger`, `fs-nav-dropdown__panel`, `fs-nav-dropdown__panel-inner`, `fs-nav-dropdown__link`, `landing-nav-link`, `landing-nav-cta`, `btn-forge`, `container-fluid`, `fs-layout`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `fs-main`, hash attrs for `Kpn` / `Ksr`
+
+### Optional tweak (if you want a fresher batch stamp)
+
+Bump `generated_at` to current UTC; the orchestrator can also set this when it updates `rule-pages.manifest.json`.
+
+**Summary:** The page is complete, schema-compliant, uses real KS patterns, and **`page_version` is exactly `bd3562025ebc5525d93f3f5d235936a70a33683cf2056afc850e561df77f8aee`**. No check modules, registry, or manifest were modified per your constraints.

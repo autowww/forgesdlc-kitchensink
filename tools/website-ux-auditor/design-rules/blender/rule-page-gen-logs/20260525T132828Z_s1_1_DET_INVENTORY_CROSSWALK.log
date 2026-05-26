@@ -1,0 +1,53 @@
+## Report: `DET.INVENTORY.CROSSWALK` handbook page
+
+Replaced the bootstrap stub with a full PDCA handbook page aligned to `RULE_PAGE_SCHEMA.md`, `det-inventory-crosswalk.check.js`, and sibling pages like `det-hash-markers.md`.
+
+### What was written
+
+**Primary (complete page):**  
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md`
+
+**Also added (harness sync helpers):**
+- `.staging-det-inventory-crosswalk.md` — staging copy (same content)
+- `auditor-tests/copy-det-inventory-crosswalk-dest.test.js` — copies staging → canonical KS path (same pattern as other rule pages)
+
+**Canonical path status:**  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md` still has the old bootstrap stub — writes outside the auditor workspace were blocked. Sync with:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor
+node --test auditor-tests/copy-det-inventory-crosswalk-dest.test.js
+```
+
+Or:
+
+```bash
+cp tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md \
+   docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md
+```
+
+(from KS repo root)
+
+### `page_version` confirmation
+
+In the written source file:
+
+`page_version: 1ff85299f06dc68add4d86309b7e7f7baa939d1767e55cee5288b001d5d0c73b` ✓
+
+### Page content summary
+
+| Section | Content |
+|---------|---------|
+| **Purpose** | Repo-wide showcase ↔ registry crosswalk via `visual-inventory.generated.json` → `catalogCrosswalk`; flags unregistered hashes and invalid token shapes |
+| **Passing signals** | Empty `showcase_hashes_not_in_registry`; registered hashes (**Hbk**, **Ksr**, **Ksf**, etc.); no stray tokens |
+| **Failing signals** | `unregistered-emitted` (Zzz), `stray-token` (ABCD), `crosswalk-missing/error` |
+| **Before example** | Unregistered **Zzz** layout + `hash="ABCD"` stray token on `forge-sidebar` |
+| **After example** | Registered **Hbk**/**Ksr**/**Ksf** handbook shell from `showcase/preview-handbook.html` patterns |
+| **Evidence & remediation** | Finding table + PDCA workflow + harness commands |
+| **Related rules** | `DET.HASH.MARKERS`, `DET.HASH.REGISTRY_ROW`, `DET.CONTRACT.PATH`, `DET.DIAGRAM.ASSET_REGISTRY`, `DET.PY.KS_HASH_ATTRS` |
+
+### Real KS class names used
+
+Before/after examples use real showcase markup: `container-fluid`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-rail`, `nav-link`, `doc-content`, `section-label`, `font-display`, `forge-support`, `forge-card`, `card-label`, `forge-brand`, `brand-icon`, `text-amber`, `ks-site-footer-region`.
+
+No Mermaid, no Fleet-specific profiles. Check modules and registry were not edited.

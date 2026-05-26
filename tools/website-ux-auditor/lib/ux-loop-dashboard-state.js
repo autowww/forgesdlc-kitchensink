@@ -52,7 +52,9 @@ export function shallowMergeDashboard(prev, patch) {
         || k === 'qualityGate'
         || k === 'scorerBacklog'
         || k === 'progress'
-        || k === 'auditProgress')
+        || k === 'auditProgress'
+        || k === 'remediationProgress'
+        || k === 'agentMetrics')
       && v
       && typeof v === 'object'
       && !Array.isArray(v)
@@ -60,7 +62,32 @@ export function shallowMergeDashboard(prev, patch) {
       const prevObj = next[k] && typeof next[k] === 'object' && !Array.isArray(next[k])
         ? /** @type {Record<string, unknown>} */ ({ .../** @type {Record<string, unknown>} */ (next[k]) })
         : {};
-      next = { ...next, [k]: { ...prevObj, .../** @type {Record<string, unknown>} */ (v) } };
+      if (k === 'agentMetrics') {
+        const patch = /** @type {Record<string, unknown>} */ (v);
+        const prevRuns =
+          prevObj.runs && typeof prevObj.runs === 'object' ? /** @type {Record<string, unknown>} */ (prevObj.runs) : {};
+        const prevTok =
+          prevObj.tokens && typeof prevObj.tokens === 'object'
+            ? /** @type {Record<string, unknown>} */ (prevObj.tokens)
+            : {};
+        const patchRuns =
+          patch.runs && typeof patch.runs === 'object' ? /** @type {Record<string, unknown>} */ (patch.runs) : {};
+        const patchTok =
+          patch.tokens && typeof patch.tokens === 'object'
+            ? /** @type {Record<string, unknown>} */ (patch.tokens)
+            : {};
+        next = {
+          ...next,
+          agentMetrics: {
+            ...prevObj,
+            ...patch,
+            runs: { ...prevRuns, ...patchRuns },
+            tokens: { ...prevTok, ...patchTok },
+          },
+        };
+      } else {
+        next = { ...next, [k]: { ...prevObj, .../** @type {Record<string, unknown>} */ (v) } };
+      }
     } else {
       next[k] = v;
     }

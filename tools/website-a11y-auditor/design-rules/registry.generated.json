@@ -1,0 +1,451 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-26T14:25:31.873Z",
+  "fingerprint": "95c3e1df58d77ef550804f7b6419b5bbbfef09f51378aee652fbfdfdb46be5e5",
+  "sources": {
+    "deterministicRulesDoc": {
+      "path": "docs/design/a11y-audit/deterministic-a11y-rules.md",
+      "sha256": "6869509ff77e8aa5504ea04f68fbbbaa01a785a04f4a07891d3a3aa7525d271a"
+    },
+    "aiRulesDoc": {
+      "path": "docs/design/a11y-audit/ai-enabled-a11y-principles.md",
+      "sha256": "6cee67e0a33ecba59750aea939b4b330d4d88cc60b41eb62355f5123ac4f690a"
+    },
+    "mappingFile": {
+      "path": "tools/website-a11y-auditor/design-rules/blender/rule-mappings.js"
+    }
+  },
+  "deterministicCoverage": {
+    "documentedRuleCount": 17,
+    "implementedCount": 17,
+    "implementedRuleIds": [
+      "DET.A11Y.GENERIC.LANG",
+      "DET.A11Y.GENERIC.TITLE",
+      "DET.A11Y.GENERIC.VIEWPORT",
+      "DET.A11Y.GENERIC.LANDMARKS",
+      "DET.A11Y.GENERIC.IMAGES_ALT",
+      "DET.A11Y.GENERIC.CONTRAST",
+      "DET.A11Y.GENERIC.MOTION_REDUCED",
+      "DET.A11Y.GENERIC.MOTION_FLASH",
+      "DET.A11Y.GENERIC.FOCUS_ORDER",
+      "DET.A11Y.GENERIC.DATA_TABLE_HEADERS",
+      "DET.A11Y.GENERIC.DIAGRAM_ALT",
+      "DET.A11Y.GENERIC.APP_FOCUS_TRAP",
+      "DET.A11Y.KS.HASH_MARKERS",
+      "DET.A11Y.KS.BREADCRUMB",
+      "DET.A11Y.KS.REACT_A11Y_ROLE",
+      "DET.A11Y.KS.PY_HASH_ATTRS",
+      "DET.A11Y.KS.HANDBOOK_SINGLE_H1"
+    ]
+  },
+  "requiredAiFindingMetadata": [
+    "principleId",
+    "deterministicCoverage",
+    "candidateDeterministicRule",
+    "screenshotOrDomEvidence",
+    "confidence"
+  ],
+  "deterministicRules": [
+    {
+      "id": "DET.A11Y.GENERIC.LANG",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa",
+        "wcag21aa"
+      ],
+      "wcagCriteria": [
+        "3.1.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "minor",
+      "priorityWeight": 10,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-lang.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-lang",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.TITLE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "2.4.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-title.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-title",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.VIEWPORT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "1.4.10"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "minor",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-viewport.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-viewport",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.LANDMARKS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa",
+        "wcag21aa"
+      ],
+      "wcagCriteria": [
+        "1.3.1",
+        "2.4.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-landmarks.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-landmarks",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.IMAGES_ALT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 10,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-images-alt.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-images-alt",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.CONTRAST",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "1.4.3"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-contrast.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-contrast",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.MOTION_REDUCED",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "wcagCriteria": [
+        "2.3.3"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-motion-reduced.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-motion-reduced",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.MOTION_FLASH",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "2.3.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-motion-flash.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-motion-flash",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.FOCUS_ORDER",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "2.4.3"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-focus-order.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-order",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.DATA_TABLE_HEADERS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-data-table-headers.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-data-table-headers",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.DIAGRAM_ALT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-diagram-alt.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-diagram-alt",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.APP_FOCUS_TRAP",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "2.1.2",
+        "2.4.3"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-app-focus-trap.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-app-focus-trap",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.KS.HASH_MARKERS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "ks",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "traceabilityRole": "forge_only",
+      "area": "accessibility",
+      "defaultSeverity": "minor",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-ks-hash-markers.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-hash-markers",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.KS.BREADCRUMB",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "ks",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "2.4.8"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-ks-breadcrumb.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-breadcrumb",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.KS.REACT_A11Y_ROLE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "ks",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-ks-react-a11y-role.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-react-a11y-role",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.KS.PY_HASH_ATTRS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "ks",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "traceabilityRole": "forge_only",
+      "area": "accessibility",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-ks-py-hash-attrs.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-py-hash-attrs",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.KS.HANDBOOK_SINGLE_H1",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "ks",
+      "standards": [
+        "wcag2aa"
+      ],
+      "wcagCriteria": [
+        "2.4.6"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-ks-handbook-single-h1.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-handbook-single-h1",
+      "implementationSource": "explicit-map"
+    }
+  ],
+  "aiRules": [
+    {
+      "id": "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW",
+      "lane": "ai",
+      "status": "implemented",
+      "scope": "generic",
+      "promptPath": "design-rules/ai/prompts/generated/ai-a11y-generic-keyboard-task-flow.md",
+      "sourceRule": "docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-keyboard-task-flow",
+      "wcagCriteria": [
+        "2.1.1",
+        "2.1.2",
+        "2.4.3",
+        "2.4.7"
+      ],
+      "traceabilityRole": null
+    },
+    {
+      "id": "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION",
+      "lane": "ai",
+      "status": "implemented",
+      "scope": "generic",
+      "promptPath": "design-rules/ai/prompts/generated/ai-a11y-generic-form-error-association.md",
+      "sourceRule": "docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-form-error-association",
+      "wcagCriteria": [
+        "3.3.1",
+        "3.3.3"
+      ],
+      "traceabilityRole": null
+    },
+    {
+      "id": "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS",
+      "lane": "ai",
+      "status": "implemented",
+      "scope": "ks",
+      "promptPath": "design-rules/ai/prompts/generated/ai-a11y-ks-handbook-sidebar-labels.md",
+      "sourceRule": "docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-ks-handbook-sidebar-labels",
+      "wcagCriteria": [
+        "2.4.4",
+        "4.1.2"
+      ],
+      "traceabilityRole": null
+    },
+    {
+      "id": "AI.A11Y.KS.REGION_LABELING",
+      "lane": "ai",
+      "status": "implemented",
+      "scope": "ks",
+      "promptPath": "design-rules/ai/prompts/generated/ai-a11y-ks-region-labeling.md",
+      "sourceRule": "docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-ks-region-labeling",
+      "wcagCriteria": [
+        "1.3.1",
+        "4.1.2"
+      ],
+      "traceabilityRole": null
+    }
+  ]
+}

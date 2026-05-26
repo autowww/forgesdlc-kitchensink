@@ -1,0 +1,49 @@
+## Report: `DET.LANDMARKS.REQUIRED` handbook page
+
+Replaced the bootstrap stub with a full PDCA handbook page aligned to `det-landmarks-required.check.js`, `RULE_PAGE_SCHEMA.md`, and KS layout patterns from `components/layouts.py`.
+
+### What was written
+
+**Complete page (168 lines)** at:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-landmarks-required.md`
+
+Also staged at:
+
+`tools/website-ux-auditor/.staging-det-landmarks-required.md`
+
+**Canonical target** (still bootstrap body; `page_version` already synced by orchestrator):
+
+`docs/design/ux-audit/rule-pages/det-landmarks-required.md`
+
+This environment cannot write outside the auditor workspace root, so finalize with:
+
+```bash
+bash tools/website-ux-auditor/.copy-det-landmarks-required-pending.sh
+```
+
+### `page_version` confirmation
+
+```yaml
+page_version: c29f7f449fb7047c691e49d9eca95939fbfd12f1de92145468641f7c5150f192
+```
+
+Matches the required value exactly.
+
+### Page contents
+
+| Section | Highlights |
+|--------|------------|
+| **Purpose** | PDCA framing; one `main`, conditional `nav` (≥2 outside-main links), semantic header/footer when chrome detected |
+| **Passing signals** | `main#main.doc-main`, `header.site-header`, `aside.forge-sidebar` + `nav.nav-scroll`, `footer.ks-site-footer-region` (**Ksf**) |
+| **Failing signals** | All seven violation kinds from the check: `missing-main`, `duplicate-main`, `missing-nav`, `missing-banner`, `duplicate-banner`, `missing-contentinfo`, `duplicate-contentinfo` |
+| **Before example** | Fails on `div.site-header`, `div.doc-main`, bare header links (no `nav`), `div.ks-site-footer-region` |
+| **After example** | Passes with `header.site-header`, `nav` in **Ksr** sidebar, `main#main.doc-main`, `footer.ks-site-footer-region` (**Ksf**) |
+| **Evidence & remediation** | `landmarksReport` metrics + ordered fix steps |
+| **Related rules** | `DET.CHROME.BOUNDARY`, `DET.APP.PERSISTENT_CHROME`, `DET.NAV.FOCUS_ORDER`, `DET.NAV.BREADCRUMB`, `DET.SECTION.HEADING`, `DET.PAGE.MODE` |
+
+### Real KS classes in examples
+
+Before/after blocks use production patterns: `site-header`, `site-header-brand`, `forge-brand`, `forge-sidebar`, `nav-section-label`, `nav-link`, `doc-main`, `forge-card`, `card-label`, `forge-support`, `ks-doc-breadcrumb`, `ks-site-footer-region`, `var(--forge-border)`, and **Ksr** / **Ksf** hash attrs.
+
+No check modules, registry, or rule-mappings were modified (only the copy helper script was aligned to the inventory-crosswalk mirror→canonical pattern).

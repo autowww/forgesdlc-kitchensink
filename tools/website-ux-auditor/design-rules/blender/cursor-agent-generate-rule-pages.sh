@@ -236,7 +236,7 @@ LANE="both"
 MAX_RULES=0
 DRY_RUN=0
 CONTINUE_ON_ERROR=1
-MODEL="${FORGE_UX_PAGE_GEN_MODEL:-composer-2.5-fast}"
+MODEL="${FORGE_UX_PAGE_GEN_MODEL:-composer-2.5}"
 CONCURRENCY="${FORGE_UX_PAGE_GEN_CONCURRENCY:-1}"
 ONLY_RULES=()
 EXTRA_FLAGS=()
@@ -255,7 +255,7 @@ Options:
   --max-rules N                Limit targets (0 = all stale/missing)
   --concurrency N              Parallel agent jobs (default: 1, max: 4)
   --only-rule RULE_ID          Restrict to one rule (repeatable)
-  --model MODEL                Cursor agent model (default: composer-2.5-fast)
+  --model MODEL                Cursor agent model (default: composer-2.5)
   --dry-run                    Print JSON targets only
   --override-version           Regenerate even when page_version is current
   --stop-on-error              Stop dequeuing on failure (drain in-flight jobs)
@@ -273,7 +273,7 @@ while [[ $# -gt 0 ]]; do
     --max-rules) MAX_RULES="${2:-0}"; shift 2 ;;
     --concurrency) CONCURRENCY="${2:-1}"; shift 2 ;;
     --only-rule) ONLY_RULES+=("${2:-}"); shift 2 ;;
-    --model) MODEL="${2:-composer-2.5-fast}"; shift 2 ;;
+    --model) MODEL="${2:-composer-2.5}"; shift 2 ;;
     --dry-run) DRY_RUN=1; shift ;;
     --override-version) OVERRIDE_VERSION=1; shift ;;
     --stop-on-error) CONTINUE_ON_ERROR=0; shift ;;

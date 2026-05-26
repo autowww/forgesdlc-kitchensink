@@ -1,0 +1,56 @@
+## Report: `DET.NAV.BREADCRUMB` handbook page
+
+### Status
+
+The full PDCA page is authored in staging. Direct writes to `docs/design/ux-audit/rule-pages/` were blocked in this session, so the target file still has the old bootstrap stub until you run the copy step below.
+
+### `page_version` (confirmed)
+
+```
+d29db46cf5a6dfbe5acb196335691d0cb791e2dd6772b11ce191aa93713bb303
+```
+
+Set exactly in staging front matter; matches `rule-pages.manifest.json`.
+
+### What was written
+
+**Staging (complete page):** `tools/website-ux-auditor/.staging-det-nav-breadcrumb.md`
+
+| Section | Content |
+|---|---|
+| **Purpose** | Doc/product hub pages need **Kbc** (`.ks-doc-breadcrumb`) when layout slugs, **Ksr** sidebar, or `.site-header-content` signal deep IA; home and `layout-landing` / `layout-marketing` exempt |
+| **Passing signals** | Visible `nav.ks-doc-breadcrumb` with Kbc markers, `ol.breadcrumb` / `.breadcrumb-item` trail, meaningful linked content |
+| **Failing signals** | `missing_breadcrumb`, empty/hidden chrome, `kbc_marker_missing` |
+| **Before example** | Handbook shell (`layout-handbook`, **Hbk**, **Ksr**, `.site-header-content`) with title only — no breadcrumb |
+| **After example** | Same shell plus **Kbc** in masthead matching `_showcase_header` / `render_breadcrumbs()` patterns from `layouts.py` and `components.py` |
+| **Evidence and remediation** | `navBreadcrumbReport` signals, Python emit paths, catalog contract, rebuild/re-audit commands |
+| **Related rules** | 7 linked rules (landmarks, chrome boundary, persistent chrome, nav depth/dedup, hash markers, AI workflow continuity) |
+
+**Real KS classes used:** `.site-header`, `.site-header-brand`, `.site-header-content`, `.forge-brand`, `.forge-sidebar`, `.nav-scroll`, `.nav-section-label`, `.nav-link`, `.doc-main`, `.ks-doc-breadcrumb`, `.breadcrumb`, `.breadcrumb-item`, `.forge-support`, `.font-display`, `.forge-gradient-text`, `.text-cyan`, `.text-dim`, `.text-amber`
+
+**Front matter:** `registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c`, `registry_status: implemented`, `agent_model: composer-2.5-fast`, `generated_at: 2026-05-25T14:30:00.000Z`
+
+### Apply to target path
+
+Run either:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-nav-breadcrumb.mjs
+```
+
+or:
+
+```bash
+bash tools/website-ux-auditor/.copy-det-nav-breadcrumb-pending.sh
+```
+
+That copies staging → `docs/design/ux-audit/rule-pages/det-nav-breadcrumb.md`.
+
+### Sources aligned
+
+- `deterministic-design-rules.md` — product/doc hubs include breadcrumb where registry marks chrome-region breadcrumb contract
+- `det-nav-breadcrumb.check.js` — hub layout slugs, sidebar/showcase-header detection, Kbc selectors, meaningful-content thresholds
+- `Kbc-doc-breadcrumb.md` — catalog contract for **Kbc**
+- `components/layouts.py` / `components/components.py` — emitted markup patterns
+
+No changes to check modules, `rule-mappings.js`, or registry. No Mermaid; no Fleet-specific profiles.

@@ -1,0 +1,47 @@
+## Report
+
+The full PDCA handbook page is **written and verified** in the workspace staging copy:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-layout-grid-consistency.md`
+
+The canonical target path could **not** be overwritten from this session (writes/shell outside `tools/website-ux-auditor/` were rejected). The file at `docs/design/ux-audit/rule-pages/det-layout-grid-consistency.md` is still the old harness bootstrap stub.
+
+### `page_version` confirmation
+
+Staging front matter has exactly:
+
+`page_version: c712bdd2575f6dc25d95725261f7cec1bcae2af0f85ce49b5bfaa02b2636a97d`
+
+### What the page covers
+
+Aligned with `det-layout-grid-consistency.check.js` and `deterministic-design-rules.md`:
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | PDCA loop; samples `p` in `main` (≥32 words); four violation kinds |
+| **Passing signals** | `.doc-content`, `.container`, `max-width:56rem`, aligned gutters, Ksr + `.ks-doc-toc-flow` / `.ks-doc-toc-prose`, hero exclusions |
+| **Failing signals** | `full-bleed-prose` (88%/82% thresholds), `gutter-drift` (>56px), `excessive-measure` (>920px), `handbook-dead-gutter` (>64px gap with `mx-auto`) |
+| **Before example** | Failing: prose in `main` without `.doc-content`, `margin-left:72px` gutter drift — uses `doc-main`, `forge-section`, `ks-section`, `section-label`, `font-display`, `forge-support` |
+| **After example** | Passing: `mx-auto doc-content` with `max-width:56rem`, shared grid track |
+| **Evidence and remediation** | `layoutGridConsistencyReport` fields, ordered fix steps, re-audit commands |
+| **Related rules** | `DET.VISUAL.RHYTHM`, `DET.CHROME.BOUNDARY`, `DET.PROSE.LENGTH`, `DET.SECTION.HEADING`, `AI.VISUAL.RHYTHM_SUBJECTIVE` |
+
+Front matter also sets `generated_at: 2026-05-25T14:00:00.000Z`, `agent_model: composer-2.5-fast`, `registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c`, `registry_status: implemented`.
+
+### Promote to canonical path
+
+Run from the Kitchen Sink repo root:
+
+```bash
+node tools/website-ux-auditor/_run-copy-det-layout-grid-consistency.mjs
+```
+
+Or run the harness copy test:
+
+```bash
+node --test tools/website-ux-auditor/auditor-tests/copy-det-layout-grid-consistency-dest.test.js
+```
+
+Both copy staging → `docs/design/ux-audit/rule-pages/det-layout-grid-consistency.md` and verify `page_version`.
+
+If you want this promoted in-session, allow writes outside the auditor tool root (or run the command above) and I can confirm the canonical file matches.

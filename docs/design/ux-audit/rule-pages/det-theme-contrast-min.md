@@ -3,9 +3,9 @@ rule_id: DET.THEME.CONTRAST_MIN
 lane: deterministic
 title: Theme Contrast Min
 summary: Harness bootstrap handbook page for DET.THEME.CONTRAST_MIN.
-page_version: 6ac8ba8806384adfbbbfe0fce41deebc5d215bbdc14c7c9013315e21f9534ff8
+page_version: 7a8a34f4cc175a633faed85bec20a7ff9a453984ccaef7d23910b454b28d8f08
 generated_at: 2026-05-23T13:24:10Z
-agent_model: bootstrap-missing-rule-pages.py
+agent_model: handbook-version-sync
 registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-theme-contrast_min

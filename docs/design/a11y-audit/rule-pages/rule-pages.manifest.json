@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-26T08:51:23.000Z",
+  "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46",
+  "summary": {
+    "total": 21,
+    "deterministic": 17,
+    "ai": 4,
+    "current": 21,
+    "stale": 0,
+    "missing": 0
+  },
+  "rules": [
+    {
+      "id": "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION",
+      "lane": "ai",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "582e390192f381d9432d06cd8f4968576cb82dd23e9aad761d97232228721228",
+      "pageVersion": "582e390192f381d9432d06cd8f4968576cb82dd23e9aad761d97232228721228",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW",
+      "lane": "ai",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "20f46566f24b6fbfb65367e8b20195671c54203384411a098e1d853290514d66",
+      "pageVersion": "20f46566f24b6fbfb65367e8b20195671c54203384411a098e1d853290514d66",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS",
+      "lane": "ai",
+      "scope": "ks",
+      "status": "current",
+      "contentVersion": "5163f7a66ce1e3e82edbe4357ee4d78e72b6c263739d2cb13ca052c815241768",
+      "pageVersion": "5163f7a66ce1e3e82edbe4357ee4d78e72b6c263739d2cb13ca052c815241768",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "AI.A11Y.KS.REGION_LABELING",
+      "lane": "ai",
+      "scope": "ks",
+      "status": "current",
+      "contentVersion": "2a585233d2919627661264e79a01a9989e32f1c7e4c342a23f486259eca5bdb5",
+      "pageVersion": "2a585233d2919627661264e79a01a9989e32f1c7e4c342a23f486259eca5bdb5",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.APP_FOCUS_TRAP",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "ed62020fda0d9290de853d7bb4a618eb6347d096dfd8caba44d506295e82962a",
+      "pageVersion": "ed62020fda0d9290de853d7bb4a618eb6347d096dfd8caba44d506295e82962a",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.CONTRAST",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "8ed903af615ebf4388f54bc5273f0fea6ace4f8c9351d748eb4a8a2501ec205a",
+      "pageVersion": "8ed903af615ebf4388f54bc5273f0fea6ace4f8c9351d748eb4a8a2501ec205a",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.DATA_TABLE_HEADERS",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "64080390a524a530d7e36cc31486a4a564aa071c740fc2b96777dc0440c8cfb4",
+      "pageVersion": "64080390a524a530d7e36cc31486a4a564aa071c740fc2b96777dc0440c8cfb4",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.DIAGRAM_ALT",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "eb838ccdaaf680275b9281d60334a8b27cad4362a288631ff01deaa3371a26f4",
+      "pageVersion": "eb838ccdaaf680275b9281d60334a8b27cad4362a288631ff01deaa3371a26f4",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.FOCUS_ORDER",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "44936278d85c62df305d92b13e44025a0b0800b6fa29f86251d98ec623c49703",
+      "pageVersion": "44936278d85c62df305d92b13e44025a0b0800b6fa29f86251d98ec623c49703",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.IMAGES_ALT",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "2ce573bdaa050e650f467148332a76fdb6a1a6670c21185a1dfe6b21c8bbcf2e",
+      "pageVersion": "2ce573bdaa050e650f467148332a76fdb6a1a6670c21185a1dfe6b21c8bbcf2e",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.LANDMARKS",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "36ff01dd77025e07c8dccd861a11c8b26497f46621699479c5d2b1208bf84d77",
+      "pageVersion": "36ff01dd77025e07c8dccd861a11c8b26497f46621699479c5d2b1208bf84d77",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.LANG",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "f92d2ee8965c8f2425a050a4aa19b1d9ea66b9a5df76cdad6f4e873f8452f142",
+      "pageVersion": "f92d2ee8965c8f2425a050a4aa19b1d9ea66b9a5df76cdad6f4e873f8452f142",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.MOTION_FLASH",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "28f7072901cb40f222bf82cb5b5264bf7b27b4e6f32da3ca3499cb51d7f3ddab",
+      "pageVersion": "28f7072901cb40f222bf82cb5b5264bf7b27b4e6f32da3ca3499cb51d7f3ddab",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.MOTION_REDUCED",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "17d4fb00543c55affde8a6f449ca710decb94d94acb205c41c15ef5af0fd3b14",
+      "pageVersion": "17d4fb00543c55affde8a6f449ca710decb94d94acb205c41c15ef5af0fd3b14",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.TITLE",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "2a43c27a03f27a2018283876d95430e291033bd389d5bb561b3b042a95762e4a",
+      "pageVersion": "2a43c27a03f27a2018283876d95430e291033bd389d5bb561b3b042a95762e4a",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.VIEWPORT",
+      "lane": "deterministic",
+      "scope": "generic",
+      "status": "current",
+      "contentVersion": "614b19bf8b99d9e1559edcf5a5a4a7688bf7068435a3ab59a9f6849ea33c3c5d",
+      "pageVersion": "614b19bf8b99d9e1559edcf5a5a4a7688bf7068435a3ab59a9f6849ea33c3c5d",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.KS.BREADCRUMB",
+      "lane": "deterministic",
+      "scope": "ks",
+      "status": "current",
+      "contentVersion": "e0fd3eddc2353ed0da528525e0fd1d27ffb0209b57e203e3c3b698cd143b38bd",
+      "pageVersion": "e0fd3eddc2353ed0da528525e0fd1d27ffb0209b57e203e3c3b698cd143b38bd",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.KS.HANDBOOK_SINGLE_H1",
+      "lane": "deterministic",
+      "scope": "ks",
+      "status": "current",
+      "contentVersion": "0c3e5929146bd5b96ac2ba884ed29c2ec5fc0d6d1f931f81b1e13c7eb44d2385",
+      "pageVersion": "0c3e5929146bd5b96ac2ba884ed29c2ec5fc0d6d1f931f81b1e13c7eb44d2385",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.KS.HASH_MARKERS",
+      "lane": "deterministic",
+      "scope": "ks",
+      "status": "current",
+      "contentVersion": "8e21f9744ee16916295e7b0a0ad7a511c8564008b785150d689ead6e74688bf0",
+      "pageVersion": "8e21f9744ee16916295e7b0a0ad7a511c8564008b785150d689ead6e74688bf0",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.KS.PY_HASH_ATTRS",
+      "lane": "deterministic",
+      "scope": "ks",
+      "status": "current",
+      "contentVersion": "1128509b954340a867c5a90a5d8c20ad2317806aa69ea8e03f13032ac34082e0",
+      "pageVersion": "1128509b954340a867c5a90a5d8c20ad2317806aa69ea8e03f13032ac34082e0",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    },
+    {
+      "id": "DET.A11Y.KS.REACT_A11Y_ROLE",
+      "lane": "deterministic",
+      "scope": "ks",
+      "status": "current",
+      "contentVersion": "ff5039f1cacde1f719e9b31586fdb12a4614a1d57a088e76e58d1a2bcb479092",
+      "pageVersion": "ff5039f1cacde1f719e9b31586fdb12a4614a1d57a088e76e58d1a2bcb479092",
+      "generatedAt": "2026-05-26T08:51:23.000Z",
+      "registryStatus": "implemented",
+      "registryFingerprint": "e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46"
+    }
+  ]
+}

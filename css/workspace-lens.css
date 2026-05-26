@@ -14,6 +14,7 @@
   --ks-lens-cyan: var(--forge-cyan, #06b6d4);
   --ks-lens-radius: 0.5rem;
   --ks-lens-focus: 0 0 0 2px var(--forge-bg, #0a0e17), 0 0 0 4px var(--forge-cyan, #06b6d4);
+  --ks-lens-panel-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 /* ------------------------------------------------------------------ root */
@@ -100,9 +101,7 @@ details[open] > .ks-workspace-lens__trigger::after {
   background: var(--ks-lens-bg);
   border: 1px solid var(--ks-lens-border);
   border-radius: calc(var(--ks-lens-radius) + 0.1rem);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: var(--ks-lens-panel-shadow);
 }
 
 .ks-workspace-lens__panel[hidden] {

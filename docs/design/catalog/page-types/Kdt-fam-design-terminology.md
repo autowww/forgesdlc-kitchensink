@@ -79,6 +79,12 @@ N/A for source files; authored preview must read well at handbook line lengths (
 
 - Terminology favors governed, reviewable, evidence-first language per Forge copy rules—no faux compliance claims.
 
+## Deterministic checks
+
+- Terminology pages cross-link to registry hashes and inventory rows without orphan slugs (`DET.INVENTORY.CROSSWALK`).
+- Contracts referenced from Kdt include `## Deterministic checks` sections when they govern emitted surfaces.
+- Prose length and heading order stay within handbook readability gates on generated previews (`DET.PROSE.LENGTH`, `DET.SECTION.HEADING`).
+
 ## Content rules
 
 - Define terms once and cross-link; do not duplicate full layout contracts—point to `docs/design/catalog/**` instead.

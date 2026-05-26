@@ -88,6 +88,12 @@ Dark Forge studio chrome: readable sans-serif body, monospace accents where data
 - Copy assumes operator literacy—short labels, no influencer tone.
 - Density is allowed (grids, timelines) but maintains alignment, zebra readability, and quiet separators.
 
+## Deterministic checks
+
+- Each primitive documents expected `data-ks-type` / `data-ks-name` pairs and hash emission at the root (`DET.REACT.KS_ATTRS`, `DET.HASH.MARKERS`).
+- Tables and data grids ship header cells and non-color-only status cues (`DET.DATA.TABLE_HEADERS`, `DET.DATA.COLOR_ONLY`).
+- Card and dialog surfaces use sanctioned `var(--forge-*)` / `var(--bs-*)` elevation tokens (`DET.SURFACE.ELEVATION_TOKEN`).
+
 ## Content rules
 
 - Props accept user-supplied strings; callers must avoid leaking secrets into banners. This contract does not validate data—only presentation expectations.

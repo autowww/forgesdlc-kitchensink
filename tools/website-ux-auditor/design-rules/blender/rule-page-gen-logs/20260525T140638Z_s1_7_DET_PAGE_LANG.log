@@ -1,0 +1,58 @@
+## Report: `DET.PAGE.LANG` handbook page
+
+The full PDCA handbook page is written and ready. This session could not update the Kitchen Sink canonical path directly (writes outside `tools/website-ux-auditor/` were blocked). The complete file lives in the auditor workspace mirror.
+
+### Sources used
+
+| Source | Finding |
+|--------|---------|
+| `deterministic-design-rules.md` | Pass: `<html lang>` set appropriately |
+| `lang.check.js` | Fails when `metrics.lang` is falsy; remediation: `<html lang="en">` |
+| `lib/dom-metrics.js` | `lang = document.documentElement.getAttribute('lang') \|\| ''` |
+| `layouts.py` | `handbook_page(..., html_lang="en")` → `<html lang="{html_lang}">` |
+
+### What was written
+
+**Title:** Document language declaration  
+
+**Sections:** Purpose (PDCA), Passing signals, Failing signals, Before/After with full `handbook_page`-style KS markup, Evidence and remediation table, Related rules  
+
+**Real KS classes in examples:** `forge-aurora`, `skip-link`, `container-fluid`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `main#main`, `doc-content`, `section-label`, `font-display`, `forge-support`, `forge-card`, `card-label`, `var(--forge-border)`, `assets/forge-theme.css`
+
+**Before:** `<html>` without `lang`  
+**After:** `<html lang="en">` (only difference at root; matches `handbook_page` output)
+
+### `page_version` confirmation
+
+```
+44c6f35dae6a383cc76fab9c0dca814bfe8c1309ffa6bd28a6473d44f81cad9e
+```
+
+Set exactly in front matter (unchanged from orchestrator requirement).
+
+### Files prepared (mirror)
+
+- `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-page-lang.md`
+- `tools/website-ux-auditor/.staging-det-page-lang.md`
+
+### Canonical path still needs copy
+
+`docs/design/ux-audit/rule-pages/det-page-lang.md` at the KS repo root still has the old bootstrap stub. Promote the mirror with:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/_run-copy-det-page-lang.mjs
+```
+
+or:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/.copy-det-page-lang-pending.sh
+```
+
+Then verify:
+
+```bash
+grep '^page_version:' /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-page-lang.md
+```
+
+No changes were made to `lang.check.js`, `rule-mappings.js`, or `registry.generated.json`. If you want the canonical file updated in this chat, run the copy command above (or widen the agent workspace to the full `forgesdlc-kitchensink` repo).

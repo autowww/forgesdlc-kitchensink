@@ -3,9 +3,9 @@ rule_id: DET.REACT.A11Y_ROLE
 lane: deterministic
 title: React A11Y Role
 summary: Harness bootstrap handbook page for DET.REACT.A11Y_ROLE.
-page_version: e0f4f7afd99adb70f2e8dac7e98a974e0a016573516c11d8072ed8e09a8032b5
+page_version: ff0b0c65b02fd5b179a0115612c24b1dd6493a03243d1208d1b8127f7aeab7bc
 generated_at: 2026-05-23T13:24:10Z
-agent_model: bootstrap-missing-rule-pages.py
+agent_model: handbook-version-sync
 registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-react-a11y_role

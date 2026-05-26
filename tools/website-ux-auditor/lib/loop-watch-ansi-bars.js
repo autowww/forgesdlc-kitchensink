@@ -7,6 +7,7 @@ import { computeDefragMapLayout } from './loop-watch-progress-map.js';
 import { loadQualityGateThresholdsFromEnv } from './quality-gate.js';
 import { SEVERITY_GATE_SHORT } from './quality-gate.js';
 import { SEVERITY_LEVELS } from './severity.js';
+import { renderMapCell } from './loop-watch-map-cell-model.js';
 import { clipPadAnsi, clipPadVisible, formatRulesetHeading, visibleLength } from './terminal-ansi.js';
 
 /** Fixed columns so Audit / Remed rows align (gate strip at same offset). */
@@ -216,6 +217,7 @@ function paintDefectCell(raw, useColor) {
     .slice(-3);
   let colAnsi = ANSI.dim;
   if (/\+/.test(text)) colAnsi = ANSI.red;
+  else if (/○/.test(text)) colAnsi = ANSI.blue;
   else if (!/^[\s\-—·0]+$/.test(text)) colAnsi = ANSI.yellow;
   return paint(text, colAnsi, colorEnabled(useColor));
 }
@@ -324,7 +326,8 @@ export function formatAuditPhaseBarLine(auditBar, barWidth = 24) {
     sec.kind === 'major_plus'
       ? `Mj ${sec.current}/${sec.cap}`
       : `all ${sec.current}/${sec.cap}`;
-  const haltLabel = p.kind === 'backlog' ? 'findings' : 'Major+';
+  const haltLabel =
+    p.kind === 'gate_violations' ? 'gate+' : p.kind === 'backlog' ? 'findings' : 'Major+';
   const countTxt = `${p.current}/${p.cap} ${haltLabel}`;
   const tailParts = [];
   if (auditBar.capReached) tailParts.push('halt cap→remed');
@@ -353,6 +356,9 @@ export function formatRemediationPhaseBarLine(remBar, barWidth = 24) {
   const gateStrip =
     remBar.gateSegments?.length ? renderGateThresholdStrip(remBar.gateSegments, true) : '';
   const tot = remBar.total > 0 ? `${remBar.done}/${remBar.total} todos` : remBar.note || '—';
+  const activeNote = String(remBar.note || '').trim();
+  const tailParts = [`${gateFixPct}%→pass`];
+  if (activeNote && !tot.includes(activeNote)) tailParts.unshift(activeNote);
   return formatPhaseBarRow({
     row: ' Remed',
     mode: 'plan',
@@ -360,24 +366,43 @@ export function formatRemediationPhaseBarLine(remBar, barWidth = 24) {
     count: tot,
     mid: `bugs [${bugsBar}]`,
     gateBox: gateStrip ? `gate [${gateStrip}]` : '',
-    tail: `· ${gateFixPct}%→pass`,
+    tail: `· ${tailParts.join(' · ')}`,
   });
+}
+
+/** Rotating dash cycle for in-flight map cells (matches legend colors). */
+const ROTATING_DASHES = ['─', '╲', '│', '╱'];
+
+/**
+ * @param {number} tick
+ * @param {string} bright
+ * @param {string} [dim]
+ */
+function rotatingDashChar(tick, bright, dim) {
+  const ch = ROTATING_DASHES[Math.abs(tick) % ROTATING_DASHES.length];
+  const col = dim && tick % 2 === 1 ? dim : bright;
+  return [ch, col];
 }
 
 /**
  * @param {string} status
  * @param {number} [tick]
  */
-export function mapCellChar(status, tick = 0) {
+export function mapCellChar(status, tick = 0, opts = {}) {
   switch (status) {
     case 'unseen':
       return ['░', ANSI.grayDark];
     case 'scored':
+      if (opts.scoringInFlight) {
+        return rotatingDashChar(tick, ANSI.grayMid, ANSI.grayDark);
+      }
       return ['▒', ANSI.grayMid];
+    case 'scoring':
+      return rotatingDashChar(tick, ANSI.blueBright, ANSI.blueDim);
     case 'auditing':
-      return ['~', ANSI.blueBright];
+      return rotatingDashChar(tick, ANSI.blueBright, ANSI.blueDim);
     case 'auditing-dim':
-      return ['~', ANSI.blueDim];
+      return rotatingDashChar(tick, ANSI.blueDim, ANSI.grayMid);
     case 'audited-clean':
       return ['█', ANSI.green];
     case 'audited-major':
@@ -385,17 +410,15 @@ export function mapCellChar(status, tick = 0) {
     case 'audited-minor':
       return ['█', ANSI.amber];
     case 'fixing':
-      return ['~', ANSI.blueBright];
+      return rotatingDashChar(tick, ANSI.blueBright, ANSI.blueDim);
     case 'fixing-dim':
-      return ['~', ANSI.blueDim];
+      return rotatingDashChar(tick, ANSI.blueDim, ANSI.grayMid);
     case 'fixed':
       return ['█', ANSI.greenDark];
     case 'error':
       return ['▒', ANSI.yellow];
     case 'pending-ai':
       return ['○', ANSI.blue];
-    case 'scoring':
-      return ['~', tick % 2 === 0 ? ANSI.blueBright : ANSI.blueDim];
     case 'clean':
       return ['█', ANSI.green];
     case 'issue':
@@ -411,14 +434,12 @@ export function mapCellChar(status, tick = 0) {
  */
 export function renderMapStatusLegendLines(opts = {}) {
   const uc = colorEnabled(opts.useColor);
-  const sw = (status, tick = 0) => {
-    const [ch, col] = mapCellChar(status, tick);
-    return paint(ch, col, uc);
-  };
+  const swBase = (base) => renderMapCell(base, null, 0, { useColor: uc });
+  const tick = 2;
   return [
-    ` ${sw('unseen')} unseen  ${sw('scored')} scored  ${sw('auditing')} auditing  ${sw('audited-clean')} ok`,
-    ` ${sw('audited-major')} Maj+  ${sw('audited-minor')} min/warn  ${sw('fixing')} fixing  ${sw('fixed')} fixed`,
-    ' bug col: sitewide defect count per ruleset (none, W3 warn x3, Mj+ over gate)',
+    ` ${swBase('unseen')} unseen  ${swBase('scored')} scored  ${renderMapCell('scored', 'scoring', tick, { useColor: uc })} scoring  ${renderMapCell('scored', 'auditing', tick, { useColor: uc })} auditing  ${swBase('audited-clean')} audited`,
+    ` ${swBase('audited-major')} Maj+  ${swBase('audited-minor')} min/warn  ${renderMapCell('audited-major', 'fixing', tick, { useColor: uc })} fixing  ${swBase('fixed')} fixed`,
+    ' bug: per-ruleset counts · per-row gate strip · overlay dash rotates on unchanged base (see LOOP-WATCH-MAP-CELLS.md)',
   ];
 }
 
@@ -435,7 +456,12 @@ export function renderPageSlotBarLines(pageSlotBars, ruleWorkerSlots, opts = {})
 
   const lines = [];
   const barW = Math.min(18, Math.max(8, innerW - 28));
-  const modeLabel = pageSlotBars?.mode === 'auditor' ? 'audit' : 'score';
+  const modeLabel =
+    pageSlotBars?.mode === 'remediation'
+      ? 'remed'
+      : pageSlotBars?.mode === 'auditor'
+        ? 'audit'
+        : 'score';
   lines.push(` Slots  ${modeLabel} · up to ${maxSlots} pages`);
 
   for (let i = 0; i < Math.min(maxSlots, bars.length); i += 1) {
@@ -444,12 +470,25 @@ export function renderPageSlotBarLines(pageSlotBars, ruleWorkerSlots, opts = {})
       b.state === 'issue' ? ANSI.red : b.state === 'active' ? ANSI.cyan : b.state === 'done' ? ANSI.green : ANSI.dim;
     const bar = renderPctBar(b.pct, barW, true, fill);
     const suffix =
-      b.total > 0 && b.state === 'active' ? `${b.done}/${b.total} rules` : b.state === 'done' ? 'done' : '';
+      b.state === 'queued'
+        ? 'queued'
+        : b.total > 0 && b.state === 'active'
+          ? pageSlotBars?.mode === 'remediation'
+            ? 'in flight'
+            : `${b.done}/${b.total} rules`
+          : b.state === 'done'
+            ? 'done'
+            : '';
     const label = String(b.label || '').slice(0, Math.max(8, innerW - barW - 16));
     lines.push(`  ${label.padEnd(14, ' ')} [${bar}] ${suffix}`.slice(0, innerW + 6));
   }
 
-  if (ruleWorkerSlots?.length && bars.some((b) => b.state === 'active')) {
+  if (pageSlotBars?.mode === 'remediation' && pageSlotBars?.remediation) {
+    const rem = pageSlotBars.remediation;
+    const todoTxt = `${rem.done}/${rem.total} todos`;
+    const ip = rem.inProgress > 0 ? ` · ${rem.inProgress} active` : '';
+    lines.push(` Plan   ${todoTxt}${ip}`.slice(0, innerW + 8));
+  } else if (ruleWorkerSlots?.length && bars.some((b) => b.state === 'active')) {
     let workers = '';
     for (const w of ruleWorkerSlots) {
       const ch = w.pct >= 100 ? '█' : w.pct > 0 ? '▓' : '░';
@@ -518,6 +557,9 @@ export function renderDefragMapLines(mapModel, opts = {}) {
     gateStripW > 0
       ? `${paint('│', ANSI.dim, uc)}${clipPadAnsi(gateStrip, gateStripW - 1)}`
       : '';
+  /** Sitewide gate strip is header-only; data rows pad so the bug column stays aligned. */
+  const rulesetGateRows = mapModel.rulesetGateSegmentRows || [];
+  const overlayMatrix = mapModel.rulesetMatrixOverlay || [];
   const headerGridBody = clipPadVisible(`pg ${fragLegend}${budgetNote}`.trim(), gridSlotW);
   const headerGridTailPad = Math.max(0, gridSlotW - visibleLength(headerGridBody));
   const lines = [`${mapLead}${gridPad}${headerGridBody}${' '.repeat(headerGridTailPad)}${defectHdr}${gateHdr}`];
@@ -542,17 +584,19 @@ export function renderDefragMapLines(mapModel, opts = {}) {
     const label = formatRulesetHeading(labelText, labelColW, { active: isActive, tick });
     let cells = '';
     for (let c = 0; c < cols; c += 1) {
-      const st = matrix[r]?.[c] || 'unseen';
-      const [ch, col] = mapCellChar(st, tick);
-      cells += paint(ch, col, uc);
+      const base = matrix[r]?.[c] || 'unseen';
+      const overlay = overlayMatrix[r]?.[c] || null;
+      cells += renderMapCell(base, overlay, tick, { useColor: uc });
     }
     const defectPart =
       defectCols.length > 0
         ? `${paint('│', ANSI.dim, uc)}${paintDefectCell(defectCols[r]?.cell, uc)}`
         : '';
+    const rowGateSegs = rulesetGateRows[r] || gateSegments;
+    const rowGateStrip = gateStripW > 0 ? renderGateThresholdStrip(rowGateSegs, uc) : '';
     const gatePart =
       gateStripW > 0
-        ? `${paint('│', ANSI.dim, uc)}${clipPadAnsi(gateStrip, gateStripW - 1)}`
+        ? `${paint('│', ANSI.dim, uc)}${clipPadAnsi(rowGateStrip, gateStripW - 1)}`
         : '';
     const cellPad = Math.max(0, gridSlotW - visibleLength(cells));
     lines.push(` ${label} ${cells}${' '.repeat(cellPad)}${defectPart}${gatePart}`);

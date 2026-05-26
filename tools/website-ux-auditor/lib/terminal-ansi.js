@@ -73,10 +73,13 @@ export function formatRulesetHeading(label, colW, opts = {}) {
   if (!opts.active) {
     return `\x1b[2m\x1b[90m${padded}\x1b[0m`;
   }
-  const wave = Math.floor((Number(opts.tick) || 0) / 3) % 6;
-  const bright = wave >= 2 && wave <= 4;
-  if (bright) {
+  const t = (Number(opts.tick) || 0) * 0.35;
+  const wave = 0.5 + 0.5 * Math.sin(t);
+  if (wave > 0.72) {
     return `\x1b[1m\x1b[97m${padded}\x1b[0m`;
+  }
+  if (wave > 0.45) {
+    return `\x1b[2m\x1b[37m${padded}\x1b[0m`;
   }
   return `\x1b[2m\x1b[90m${padded}\x1b[0m`;
 }

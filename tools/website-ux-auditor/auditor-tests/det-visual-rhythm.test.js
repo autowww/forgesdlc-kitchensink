@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  buildHandbookFirstScreenViolations,
   buildVisualRhythmSnapshot,
   buildVisualRhythmViolations,
   findingsFromVisualRhythmReport,
@@ -29,6 +30,29 @@ test('isCrampedSectionRhythm requires enough sections and low median gap', () =>
 test('hasInconsistentSectionGaps flags wide spread relative to median', () => {
   assert.equal(hasInconsistentSectionGaps([48, 52, 50], 50), false);
   assert.equal(hasInconsistentSectionGaps([32, 120, 40], 48), true);
+});
+
+test('buildHandbookFirstScreenViolations flags dense handbook openers', () => {
+  const violations = buildHandbookFirstScreenViolations({
+    isHandbook: true,
+    tablesInFirstViewport: 2,
+    h2AboveFoldCount: 3,
+    aboveFoldWordCount: 347,
+  });
+  assert.equal(violations.length, 2);
+  assert.ok(violations.some((v) => v.kind === 'handbook-table-heavy-first-screen'));
+  assert.ok(violations.some((v) => v.kind === 'handbook-dense-first-screen'));
+});
+
+test('findingsFromVisualRhythmReport maps handbook first-screen kinds', () => {
+  const findings = findingsFromVisualRhythmReport({
+    violations: [
+      { kind: 'handbook-table-heavy-first-screen', tablesInFirstViewport: 2 },
+      { kind: 'handbook-dense-first-screen', h2AboveFoldCount: 3, aboveFoldWordCount: 347 },
+    ],
+  }, 'https://example.test/learn');
+  assert.equal(findings.length, 2);
+  assert.ok(findings[0].message.includes('tables'));
 });
 
 test('buildVisualRhythmViolations maps cramped, spread, and adhoc kinds', () => {

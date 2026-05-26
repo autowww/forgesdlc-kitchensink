@@ -1,0 +1,58 @@
+## Report: `det-page-lang.md`
+
+The handbook page at `docs/design/ux-audit/rule-pages/det-page-lang.md` is present and matches the schema. File writes were blocked in this session, so the on-disk content was verified against the sources below.
+
+### `page_version` confirmation
+
+```yaml
+page_version: 44c6f35dae6a383cc76fab9c0dca814bfe8c1309ffa6bd28a6473d44f81cad9e
+```
+
+This matches the required value and `rule-pages.manifest.json` (`contentVersion` / `pageVersion`).
+
+### Sources used
+
+| Source | Finding |
+|--------|---------|
+| `deterministic-design-rules.md#det-page-lang` | Pass when `<html lang>` is set appropriately (DOM) |
+| `lang.check.js` | Fails when `metrics.lang` is falsy; **minor** severity; remediation: `<html lang="en">` |
+| `lib/dom-metrics.js` | `lang = document.documentElement.getAttribute('lang') \|\| ''` |
+| `components/layouts.py` | `handbook_page` emits `<html lang="{html_lang}">` (default `en`); landing/product shells hardcode `lang="en"` |
+| `registry.generated.json` | `registry_status: implemented`, fingerprint `2ce40848…` |
+
+### Page structure
+
+All required sections are present:
+
+1. **Purpose** — PDCA framing; explains why root `lang` matters and how the metrics-phase check works  
+2. **Passing signals** — non-empty root `lang`, `handbook_page` / layout patterns, truthy `metrics.lang`  
+3. **Failing signals** — missing/empty `lang`, wrong placement on inner elements, generator drift  
+4. **Before example** — bare `<html>` (no `lang`) in a full handbook shell  
+5. **After example** — same shell with `<html lang="en">`  
+6. **Evidence and remediation** — table + KS/consumer/harness paths  
+7. **Related rules** — `DET.PAGE.TITLE`, `DET.PAGE.VIEWPORT`, `DET.LANDMARKS.REQUIRED`, `DET.PAGE.MODE`
+
+### KS class names verified
+
+Before/after examples use real Kitchen Sink patterns from `layouts.py` and `css/forge-theme.css`:
+
+- `forge-aurora`, `skip-link`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`
+- `main#main`, `doc-content`, `section-label`, `text-cyan`, `font-display`, `forge-support`
+- `forge-card`, `card-label`, Bootstrap grid utilities (`container-fluid`, `row`, `col-lg-*`)
+
+The only intentional difference between before/after is `<html>` vs `<html lang="en">`.
+
+### Front matter snapshot
+
+| Field | Value |
+|-------|-------|
+| `rule_id` | `DET.PAGE.LANG` |
+| `lane` | `deterministic` |
+| `registry_status` | `implemented` |
+| `registry_fingerprint` | `2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c` |
+| `agent_model` | `composer-2.5-fast` |
+| `generated_at` | `2026-05-25T14:32:00.000Z` (stale vs “now”; refresh if the batch orchestrator requires a fresh timestamp) |
+
+No check modules, `rule-mappings.js`, or registry files were modified. No Mermaid or Fleet-specific profiles.
+
+If you want the `generated_at` bump or the small Purpose refinements (explicit `landing_page`/`product_page` notes, `lib/dom-metrics.js` reference, **minor** severity callout), switch to Agent mode and I can apply them.

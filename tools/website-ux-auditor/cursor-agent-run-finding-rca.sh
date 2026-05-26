@@ -29,7 +29,10 @@ fi
 ABS_PROMPT="$(cd "$(dirname "${PROMPT_ARG}")" && pwd)/$(basename "${PROMPT_ARG}")"
 ROOT="$(pwd)"
 
-exec agent -p --trust "Repository root: ${ROOT}
+_agent_model="${FORGE_UX_CURSOR_AGENT_MODEL:-composer-2.5}"
+echo "cursor-agent-run-finding-rca: model=${_agent_model}" >&2
+
+exec agent -p --trust --model "${_agent_model}" "Repository root: ${ROOT}
 
 Read and execute the root-cause remediation task documented in:
 

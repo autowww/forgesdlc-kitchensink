@@ -7,6 +7,7 @@ import {
   isInPageHashHref,
   pageRequiresTocFromSignals,
   run,
+  tocRailIsCramped,
 } from '../design-rules/deterministic/generated/det-nav-in-page-toc.check.js';
 
 test('pageRequiresTocFromSignals requires doc hub and length threshold', () => {
@@ -48,6 +49,34 @@ test('findingsFromNavInPageTocReport maps missing toc and broken anchors', () =>
   assert.ok(broken[0].evidence.includes('broken_toc_anchor'));
 });
 
+test('tocRailIsCramped flags narrow handbook ToC rails', () => {
+  assert.equal(tocRailIsCramped({
+    tocPresent: true,
+    tocRailWidthPx: 64,
+    minTocLinkWidthPx: 64,
+    viewportWidthPx: 1440,
+  }), true);
+  assert.equal(tocRailIsCramped({
+    tocPresent: true,
+    tocRailWidthPx: 200,
+    minTocLinkWidthPx: 180,
+    viewportWidthPx: 1440,
+  }), false);
+});
+
+test('findingsFromNavInPageTocReport maps cramped toc rail', () => {
+  const findings = findingsFromNavInPageTocReport({
+    requiresToc: true,
+    tocPresent: true,
+    brokenAnchors: [],
+    tocRailWidthPx: 64,
+    minTocLinkWidthPx: 64,
+    viewportWidthPx: 1440,
+  }, 'https://example.test/chapter');
+  assert.equal(findings.length, 1);
+  assert.ok(findings[0].message.includes('too narrow'));
+});
+
 test('brokenAnchorFindings deduplicates entries', () => {
   const findings = brokenAnchorFindings([
     { href: '#x', id: 'x' },
@@ -65,6 +94,9 @@ test('run returns empty without report or when toc requirements pass', async () 
         requiresToc: true,
         tocPresent: true,
         brokenAnchors: [],
+        tocRailWidthPx: 200,
+        minTocLinkWidthPx: 160,
+        viewportWidthPx: 1440,
       },
     },
     url: 'https://example.test/docs',

@@ -1,0 +1,24 @@
+{
+  "name": "forge-website-a11y-auditor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Forge Website Accessibility Auditor — WCAG/axe + scoped DET/AI rules for generic and KS-driven sites.",
+  "scripts": {
+    "audit": "node analyze-website-a11y.mjs",
+    "score": "node score-website-a11y.mjs",
+    "blend-rules": "node design-rules/blender/a11y-rules-blender.mjs",
+    "test": "node --test auditor-tests/*.test.js",
+    "install-browsers": "playwright install chromium",
+    "vendor:axe": "node -e \"const fs=require('fs');const p=require('path');const d=p.join('node_modules','axe-core','axe.min.js');const t=p.join('vendor','axe.min.js');if(fs.existsSync(d)){fs.mkdirSync('vendor',{recursive:true});fs.copyFileSync(d,t);}else process.exit(1);\""
+  },
+  "dependencies": {
+    "axe-core": "^4.11.3"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

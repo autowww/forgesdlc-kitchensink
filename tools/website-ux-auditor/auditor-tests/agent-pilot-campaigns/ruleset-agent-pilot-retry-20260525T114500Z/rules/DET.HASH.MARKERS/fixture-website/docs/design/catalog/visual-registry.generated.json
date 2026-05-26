@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "repoRoot": "/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/auditor-tests/agent-pilot-campaigns/ruleset-agent-pilot-retry-20260525T114500Z/rules/DET.HASH.MARKERS/fixture-website",
+  "entries": [
+    {
+      "hash": "Hbk",
+      "name": "layout-handbook",
+      "type": "layout",
+      "status": "active",
+      "contract_status": "family-covered"
+    },
+    {
+      "hash": "Ksr",
+      "name": "doc-sidebar",
+      "type": "chrome-region",
+      "status": "active",
+      "contract_status": "family-covered"
+    },
+    {
+      "hash": "Vhb",
+      "name": "preview-handbook",
+      "type": "layout-preview",
+      "status": "active",
+      "contract_status": "family-covered"
+    },
+    {
+      "hash": "Ksf",
+      "name": "site-footer",
+      "type": "chrome-region",
+      "status": "active",
+      "contract_status": "family-covered"
+    }
+  ]
+}

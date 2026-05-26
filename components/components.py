@@ -495,9 +495,10 @@ def render_canonical_note(
 def render_breadcrumbs(
     crumbs: list[tuple[str | None, str]],
 ) -> str:
-    """Forge-styled breadcrumb trail.
+    """Forge-styled breadcrumb trail (Kbc chrome region).
 
     Each entry is ``(href, label)``; use ``href=None`` for the active item.
+    Emits ``nav.ks-doc-breadcrumb`` with catalog hash markers per **Kbc**.
     """
     items: list[str] = []
     for href, label in crumbs:
@@ -511,7 +512,14 @@ def render_breadcrumbs(
                 f'<li class="breadcrumb-item">'
                 f'<a href="{e(href)}">{e(label)}</a></li>'
             )
-    return '<ol class="breadcrumb small mb-3">' + "".join(items) + "</ol>"
+    ol = '<ol class="breadcrumb small mb-3">' + "".join(items) + "</ol>"
+    _bc = chrome_region_attrs("doc-breadcrumb")
+    _bx = f" {_bc}" if _bc else ""
+    return (
+        f'<nav class="ks-doc-breadcrumb" aria-label="Breadcrumb"{_bx}>'
+        f"{ol}"
+        f"</nav>"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -620,7 +628,7 @@ def render_toc_sidebar(
     """Right-column "On this page" sticky navigation (Forge-themed).
 
     *toc* entries are ``(id, text, heading_level)``.
-    Returns the full ``<div class="col-lg-4 …">`` wrapper.
+    Returns the full ``<aside class="ks-doc-toc-rail">`` wrapper (width from ``.ks-doc-toc-flow`` grid).
     If *toc* is empty returns ``""`` (caller omits the column).
     """
     if not toc:
@@ -635,12 +643,12 @@ def render_toc_sidebar(
     _ktx = chrome_region_attrs("doc-toc-sidebar")
     _ktx_s = f" {_ktx}" if _ktx else ""
     return f"""
-            <div class="col-lg-4 col-xl-3 order-1 order-lg-2"{_ktx_s}>
+            <aside class="ks-doc-toc-rail"{_ktx_s}>
               <nav class="forge-toc" aria-label="{e(nav_aria_label)}">
                 <p class="toc-title mb-2">{e(nav_title)}</p>
 {links}
               </nav>
-            </div>"""
+            </aside>"""
 
 
 def render_toc_sidebar_simple(toc: list[tuple[str, str]]) -> str:
