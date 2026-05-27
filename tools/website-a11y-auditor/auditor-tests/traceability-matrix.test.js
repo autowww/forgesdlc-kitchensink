@@ -81,14 +81,39 @@ describe('traceability-matrix', () => {
       axeCatalog: buildAxeRuleCatalog(),
     });
     const s = matrix.profiles.wcag21aa.summary;
-    assert.ok(s.uncovered > 0);
-    assert.ok(s.uncovered < s.totalCriteria);
+    assert.ok(s.uncovered >= 0);
+    assert.ok(s.uncovered <= s.totalCriteria);
     assert.ok(s.covered > 0);
+    assert.equal(s.uncovered, 0, 'wcag21aa RTM should be closed after 2.1 DET rules');
   });
 
   it('resolveRtmProfileId maps ADA to wcag21aa', () => {
     assert.equal(resolveRtmProfileId('ada-title-ii-wcag21aa'), 'wcag21aa');
     assert.equal(resolveRtmProfileId('wcag22aa'), 'wcag22aa');
+    assert.equal(resolveRtmProfileId('wcag20aa'), 'wcag20aa');
+    assert.equal(resolveRtmProfileId('wcag20aaa'), 'wcag20aaa');
+    assert.equal(resolveRtmProfileId('wcag20a'), 'wcag20a');
+  });
+
+  it('wcag20aa excludes WCAG 2.1-only criteria', () => {
+    const criteria = resolveProfileCriteria(catalogJson, 'wcag20aa');
+    const ids = criteria.map((c) => c.id);
+    assert.equal(criteria.length, 38);
+    assert.ok(!ids.includes('1.4.12'));
+    assert.ok(!ids.includes('4.1.3'));
+    assert.ok(ids.includes('4.1.1'));
+  });
+
+  it('wcag20a is level A subset of wcag20aa', () => {
+    const a = resolveProfileCriteria(catalogJson, 'wcag20a');
+    assert.ok(a.length > 0);
+    assert.ok(a.every((c) => c.level === 'A'));
+  });
+
+  it('wcag20aaa includes AAA criteria', () => {
+    const criteria = resolveProfileCriteria(catalogJson, 'wcag20aaa');
+    assert.equal(criteria.length, 61);
+    assert.ok(criteria.some((c) => c.id === '1.4.6' && c.level === 'AAA'));
   });
 
   it('generated matrix file exists after blend', () => {

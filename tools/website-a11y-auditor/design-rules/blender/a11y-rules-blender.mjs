@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { A11Y_STANDARD_PRESETS } from '../../lib/a11y-standards.js';
 import { buildComplianceProfilesCrosswalk } from '../../lib/compliance-profiles.js';
 import { buildTraceabilityFromRegistry } from '../../lib/build-traceability-matrix.js';
+import { writeStandardsPacks } from './build-standards-packs.mjs';
 import {
   AI_PROMPT_IMPLEMENTATIONS,
   BLENDER_SCHEMA_VERSION,
@@ -89,6 +90,7 @@ function buildDeterministicRules() {
       priorityWeight: Number(impl.priorityWeight || 0),
       modulePath: impl.modulePath,
       sourceRule: impl.sourceRule,
+      sitewide: Boolean(impl.sitewide),
       implementationSource: 'explicit-map',
     };
   });
@@ -165,10 +167,12 @@ async function main() {
     );
     await fs.writeFile(TRACEABILITY_OUT, `${JSON.stringify(matrix, null, 2)}\n`, 'utf8');
     await fs.writeFile(TRACEABILITY_GAPS_MD, gapsMd, 'utf8');
+    const packs = await writeStandardsPacks(matrix);
     console.log(`wrote ${args.out} (${detRules.length} DET, ${aiRules.length} AI)`);
     console.log(`wrote ${COMPLIANCE_PROFILES_OUT} (${complianceCrosswalk.profiles.length} profiles)`);
     console.log(`wrote ${TRACEABILITY_OUT}`);
     console.log(`wrote ${TRACEABILITY_GAPS_MD}`);
+    console.log(`wrote ${Object.keys(packs).length} standards packs under design-rules/standards-packs/`);
   } else {
     console.log(JSON.stringify(registry, null, 2));
   }

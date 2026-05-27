@@ -79,10 +79,15 @@ export async function createA11yRuleRuntime(opts) {
   });
 
   const implementedRules = [];
+  const sitewideRules = [];
   const excludedByProfile = [];
   for (const rule of scopeAndOnlyFiltered) {
     if (ruleMatchesComplianceProfile(rule, detStandardsTags)) {
-      implementedRules.push(rule);
+      if (rule.sitewide) {
+        sitewideRules.push(rule);
+      } else {
+        implementedRules.push(rule);
+      }
     } else {
       excludedByProfile.push(rule);
     }
@@ -164,12 +169,9 @@ export async function createA11yRuleRuntime(opts) {
 
   async function runDeterministicRules(ctx) {
     const total = implementedRules.length;
-    let done = 0;
-    const outcomes = await mapLimit(implementedRules, deterministicConcurrency, async (ruleMeta) => {
-      const outcome = await evaluateRule(ruleMeta, ctx);
-      done += 1;
-      return outcome;
-    });
+    const outcomes = await mapLimit(implementedRules, deterministicConcurrency, async (ruleMeta) =>
+      evaluateRule(ruleMeta, ctx),
+    );
 
     return {
       findings: outcomes.flatMap((o) => o.findings),
@@ -177,6 +179,67 @@ export async function createA11yRuleRuntime(opts) {
       rulesRun: total,
       deterministicConcurrency,
       implementedRuleIds: implementedRules.map((r) => r.id),
+    };
+  }
+
+  async function evaluateSitewideRule(ruleMeta, ctx) {
+    const base = {
+      ruleId: ruleMeta.id,
+      scope: ruleMeta.scope,
+      status: ruleMeta.status,
+      modulePath: ruleMeta.modulePath,
+      findingsCount: 0,
+      phase: 'sitewide',
+    };
+
+    if (ruleMeta.status !== 'implemented' || !ruleMeta.modulePath) {
+      return { trace: { ...base, status: 'skipped_status' }, findings: [] };
+    }
+
+    const loaded = await importRuleModule(ruleMeta.modulePath);
+    if (!loaded || loaded.__importError) {
+      return {
+        trace: { ...base, status: 'import_error', error: loaded?.__importError || 'import failed' },
+        findings: [],
+      };
+    }
+    const runFn = loaded.runSitewide || loaded.run;
+    if (typeof runFn !== 'function') {
+      return { trace: { ...base, status: 'no_run' }, findings: [] };
+    }
+
+    try {
+      const rawFindings = await runFn(ctx);
+      const findings = (Array.isArray(rawFindings) ? rawFindings : []).map((raw) =>
+        normalizeRuleFinding(raw, {
+          checkId: 'a11y-rule-runtime',
+          ruleId: ruleMeta.id,
+          area: ruleMeta.area,
+          scope: ruleMeta.scope,
+          defaultSeverity: ruleMeta.defaultSeverity,
+          priorityWeight: ruleMeta.priorityWeight,
+          sourceRule: ruleMeta.sourceRule,
+        }),
+      );
+      return { trace: { ...base, status: 'ran', findingsCount: findings.length }, findings };
+    } catch (error) {
+      return {
+        trace: { ...base, status: 'threw', error: String(error?.message || error) },
+        findings: [],
+      };
+    }
+  }
+
+  async function runSitewideDeterministicRules(ctx) {
+    const outcomes = [];
+    for (const ruleMeta of sitewideRules) {
+      outcomes.push(await evaluateSitewideRule(ruleMeta, ctx));
+    }
+    return {
+      findings: outcomes.flatMap((o) => o.findings),
+      trace: outcomes.map((o) => o.trace),
+      rulesRun: sitewideRules.length,
+      sitewideRuleIds: sitewideRules.map((r) => r.id),
     };
   }
 
@@ -191,8 +254,10 @@ export async function createA11yRuleRuntime(opts) {
     registry,
     registryFingerprint: registry.fingerprint || null,
     runDeterministicRules,
+    runSitewideDeterministicRules,
     listAiRules,
     implementedRuleIds: implementedRules.map((r) => r.id),
+    sitewideRuleIds: sitewideRules.map((r) => r.id),
     excludedDeterministicRuleIds: excludedByProfile.map((r) => r.id),
     allScopeRuleIds: scopeAndOnlyFiltered.map((r) => r.id),
   };

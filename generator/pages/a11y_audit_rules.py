@@ -146,10 +146,12 @@ def _traceability_section() -> str:
         )
     lines = [
         f"<p class='forge-support'>{e(data.get('disclaimer') or '')}</p>",
-        "<p>See <code>docs/design/a11y-audit/standards-traceability.md</code> and "
-        "<code>standards-traceability-gaps.md</code> for full gap lists.</p>",
+        "<p>See <code>docs/design/a11y-audit/standards-traceability.md</code>, "
+        "<code>standards-traceability-gaps.md</code>, and "
+        "<code>standards-packs.md</code> (per-profile <code>*.pack.json</code> for "
+        "compliance scoring).</p>",
     ]
-    for pid in ("wcag21aa", "wcag22aa"):
+    for pid in ("wcag20aa", "wcag20aaa", "wcag21aa", "wcag22aa"):
         p = profiles.get(pid)
         if not p:
             continue

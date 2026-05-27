@@ -43,7 +43,8 @@ The rules blender **rejects** scope/filename mismatches.
 | [`compliance-profiles.md`](compliance-profiles.md) | Named bundles (ADA, Section 508, EN 301 549, WCAG) |
 | [`standards-traceability.md`](standards-traceability.md) | RTM: SC ↔ axe / DET / AI coverage |
 | [`standards-traceability-gaps.md`](standards-traceability-gaps.md) | Generated gap report (after `blend-rules`) |
-| [`wcag-criteria-catalog.json`](wcag-criteria-catalog.json) | Canonical WCAG 2.1 / 2.2 AA criteria |
+| [`standards-packs.md`](standards-packs.md) | Per-profile `*.pack.json` for compliance score + CI |
+| [`wcag-criteria-catalog.json`](wcag-criteria-catalog.json) | Canonical WCAG 2.0 / 2.1 / 2.2 criteria |
 | [`standards-matrix.md`](standards-matrix.md) | Profile → axe tags + DET standards tags |
 | [`auditor-ecosystem.md`](auditor-ecosystem.md) | Ecosystem narrative (compiled to showcase) |
 | [`rule-pages/`](rule-pages/) | Per-rule handbook Markdown + Before/After HTML |

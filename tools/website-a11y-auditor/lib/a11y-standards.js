@@ -12,6 +12,24 @@ import {
 
 /** @type {Record<string, { id: string, label: string, axeTags: string[], notes?: string }>} */
 export const A11Y_STANDARD_PRESETS = {
+  wcag20a: {
+    id: 'wcag20a',
+    label: 'WCAG 2.0 Level A',
+    axeTags: ['wcag2a'],
+    notes: 'Deque wcag2a tag set (WCAG 2.0 Level A).',
+  },
+  wcag20aa: {
+    id: 'wcag20aa',
+    label: 'WCAG 2.0 Level AA',
+    axeTags: ['wcag2a', 'wcag2aa'],
+    notes: 'WCAG 2.0 A+AA; excludes wcag21aa/wcag22aa axe tags.',
+  },
+  wcag20aaa: {
+    id: 'wcag20aaa',
+    label: 'WCAG 2.0 Level AAA',
+    axeTags: ['wcag2a', 'wcag2aa', 'wcag2aaa'],
+    notes: 'WCAG 2.0 AAA axe tag set where supported.',
+  },
   wcag21a: {
     id: 'wcag21a',
     label: 'WCAG 2.1 Level A',

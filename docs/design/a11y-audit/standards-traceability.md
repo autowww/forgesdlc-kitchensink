@@ -12,6 +12,9 @@ The RTM joins three sources:
 
 | RTM profile | Scope |
 |-------------|--------|
+| `wcag20a` | WCAG 2.0 Level A (26 criteria) |
+| `wcag20aa` | WCAG 2.0 Level A + AA (38 criteria) |
+| `wcag20aaa` | WCAG 2.0 through AAA (61 criteria) |
 | `wcag21aa` | WCAG 2.1 Level A + AA (50 criteria in catalog) |
 | `wcag22aa` | 2.1 AA + WCAG 2.2 AA additions (56 criteria) |
 

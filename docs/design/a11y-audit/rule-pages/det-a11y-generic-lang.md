@@ -5,8 +5,8 @@ scope: generic
 title: Document language
 summary: Root html must declare lang.
 page_version: 60f571c82ca663702dd2ee5b21455a0a1823ed29853fe146ca8c33ad4bbb1b9c
-generated_at: 2026-05-26T08:51:23.000Z
-registry_fingerprint: e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46
+generated_at: 2026-05-27T18:38:01.000Z
+registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-lang
 related_rules:

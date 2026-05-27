@@ -14,8 +14,10 @@ Deterministic accessibility campaigns for **any** website, with optional Kitchen
 |-----|------|
 | `analyze-website-a11y.mjs` / `npm run audit` | Crawl + axe + DET rules → `a11y-audit-data.json`, `a11y-audit-report.md` |
 | `score-website-a11y.mjs` / `npm run score` | Full-breadth crawl scorecard → `a11y-quality-score.json` |
+| `score-compliance-a11y.mjs` / `npm run score-compliance` | Compliance score vs a standards pack (per success criterion) |
+| `validate-standards-pack.mjs` / `npm run validate-pack` | CI check that a `*.pack.json` has no unexpected gaps |
 
-**Governance:** `analyze-website-a11y.mjs` does **not** call `score-website-a11y.mjs`.
+**Governance:** `analyze-website-a11y.mjs` does **not** call `score-website-a11y.mjs` or `score-compliance-a11y.mjs`.
 
 Design rule docs: [`docs/design/a11y-audit/README.md`](../../docs/design/a11y-audit/README.md).
 
@@ -67,6 +69,9 @@ Use **`--standard`** or **`--compliance-profile`** (alias) to select a named bun
 | Profile | Notes |
 |---------|--------|
 | `wcag22aa` | Default — WCAG 2.2 AA axe tags |
+| `wcag20aa` | WCAG 2.0 A+AA — `wcag2a` + `wcag2aa` only |
+| `wcag20a` | WCAG 2.0 Level A |
+| `wcag20aaa` | WCAG 2.0 AAA |
 | `wcag21aa` | WCAG 2.1 AA |
 | `wcag21a` | Level A |
 | `wcag22aaa` | AAA (includes `wcag22aaa` axe tag) |

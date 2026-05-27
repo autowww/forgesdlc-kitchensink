@@ -4,7 +4,13 @@ import { A11Y_STANDARD_PRESETS } from './a11y-standards.js';
 import { COMPLIANCE_PROFILES } from './compliance-profiles.js';
 import { axeRuleEligibleForProfile, wcagCriteriaFromAxeTags } from './wcag-tag-parse.js';
 
-export const RTM_PROFILE_IDS = ['wcag21aa', 'wcag22aa'];
+export const RTM_PROFILE_IDS = [
+  'wcag20a',
+  'wcag20aa',
+  'wcag20aaa',
+  'wcag21aa',
+  'wcag22aa',
+];
 
 /**
  * @param {string} profileId

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-26T14:25:31.873Z",
-  "fingerprint": "95c3e1df58d77ef550804f7b6419b5bbbfef09f51378aee652fbfdfdb46be5e5",
+  "generatedAt": "2026-05-27T18:37:25.010Z",
+  "fingerprint": "755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8",
   "sources": {
     "deterministicRulesDoc": {
       "path": "docs/design/a11y-audit/deterministic-a11y-rules.md",
-      "sha256": "6869509ff77e8aa5504ea04f68fbbbaa01a785a04f4a07891d3a3aa7525d271a"
+      "sha256": "78371b1d2a3e79949536a2882eef29d890bd75a49cf4a8cd92fbfafe4fd9369a"
     },
     "aiRulesDoc": {
       "path": "docs/design/a11y-audit/ai-enabled-a11y-principles.md",
@@ -16,8 +16,8 @@
     }
   },
   "deterministicCoverage": {
-    "documentedRuleCount": 17,
-    "implementedCount": 17,
+    "documentedRuleCount": 47,
+    "implementedCount": 47,
     "implementedRuleIds": [
       "DET.A11Y.GENERIC.LANG",
       "DET.A11Y.GENERIC.TITLE",
@@ -31,6 +31,36 @@
       "DET.A11Y.GENERIC.DATA_TABLE_HEADERS",
       "DET.A11Y.GENERIC.DIAGRAM_ALT",
       "DET.A11Y.GENERIC.APP_FOCUS_TRAP",
+      "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE",
+      "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE",
+      "DET.A11Y.GENERIC.READING_ORDER",
+      "DET.A11Y.GENERIC.IMAGES_OF_TEXT",
+      "DET.A11Y.GENERIC.SECTION_HEADINGS",
+      "DET.A11Y.GENERIC.FLASH_THRESHOLD",
+      "DET.A11Y.GENERIC.CONSISTENT_LABELS",
+      "DET.A11Y.GENERIC.USE_OF_COLOR",
+      "DET.A11Y.GENERIC.RESIZE_TEXT",
+      "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
+      "DET.A11Y.GENERIC.PAUSE_STOP_HIDE",
+      "DET.A11Y.GENERIC.LINK_PURPOSE",
+      "DET.A11Y.GENERIC.LANG_OF_PARTS",
+      "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS",
+      "DET.A11Y.GENERIC.MEDIA_TRACKS",
+      "DET.A11Y.GENERIC.AUTOPLAY_AUDIO",
+      "DET.A11Y.GENERIC.TIMING",
+      "DET.A11Y.GENERIC.SENSORY_CUES",
+      "DET.A11Y.GENERIC.ERROR_PREVENTION",
+      "DET.A11Y.GENERIC.MULTIPLE_WAYS",
+      "DET.A11Y.GENERIC.CONSISTENT_NAV",
+      "DET.A11Y.GENERIC.PAGE_LOCATION",
+      "DET.A11Y.GENERIC.CONTRAST_ENHANCED",
+      "DET.A11Y.GENERIC.NON_TEXT_CONTRAST",
+      "DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT",
+      "DET.A11Y.GENERIC.CHARACTER_SHORTCUTS",
+      "DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED",
+      "DET.A11Y.GENERIC.POINTER_CANCELLATION",
+      "DET.A11Y.GENERIC.MOTION_ACTUATION",
+      "DET.A11Y.GENERIC.STATUS_MESSAGES",
       "DET.A11Y.KS.HASH_MARKERS",
       "DET.A11Y.KS.BREADCRUMB",
       "DET.A11Y.KS.REACT_A11Y_ROLE",
@@ -65,6 +95,7 @@
       "priorityWeight": 10,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-lang.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-lang",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -85,6 +116,7 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-title.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-title",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -105,6 +137,7 @@
       "priorityWeight": 7,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-viewport.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-viewport",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -127,6 +160,7 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-landmarks.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-landmarks",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -147,6 +181,7 @@
       "priorityWeight": 10,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-images-alt.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-images-alt",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -167,6 +202,7 @@
       "priorityWeight": 9,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-contrast.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-contrast",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -188,6 +224,7 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-motion-reduced.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-motion-reduced",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -208,6 +245,7 @@
       "priorityWeight": 9,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-motion-flash.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-motion-flash",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -228,6 +266,7 @@
       "priorityWeight": 9,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-focus-order.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-order",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -248,6 +287,7 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-data-table-headers.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-data-table-headers",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -268,6 +308,7 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-diagram-alt.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-diagram-alt",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -289,6 +330,697 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-a11y-generic-app-focus-trap.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-app-focus-trap",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "3.2.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-focus-context-change.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-context-change",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "3.2.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-input-context-change.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-input-context-change",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.READING_ORDER",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "1.3.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-reading-order.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-reading-order",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.IMAGES_OF_TEXT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "1.4.5",
+        "1.4.9"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-images-of-text.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-images-of-text",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.SECTION_HEADINGS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "2.4.10"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-section-headings.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-section-headings",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.FLASH_THRESHOLD",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "2.3.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-flash-threshold.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-flash-threshold",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.CONSISTENT_LABELS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "3.2.4"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-consistent-labels.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-consistent-labels",
+      "sitewide": true,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.USE_OF_COLOR",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "1.4.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-use-of-color.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-use-of-color",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.RESIZE_TEXT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "1.4.4"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-resize-text.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-resize-text",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "2.1.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-keyboard-access.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-keyboard-access",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.PAUSE_STOP_HIDE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "2.2.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-pause-stop-hide.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-pause-stop-hide",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.LINK_PURPOSE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "2.4.4",
+        "2.4.9"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-link-purpose.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-link-purpose",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.LANG_OF_PARTS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "3.1.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-lang-of-parts.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-lang-of-parts",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "3.3.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-labels-instructions.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-labels-instructions",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.MEDIA_TRACKS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "1.2.1",
+        "1.2.2",
+        "1.2.3",
+        "1.2.4",
+        "1.2.5",
+        "1.2.6",
+        "1.2.7",
+        "1.2.8",
+        "1.2.9"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-media-tracks.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-media-tracks",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.AUTOPLAY_AUDIO",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "1.4.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-autoplay-audio.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-autoplay-audio",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.TIMING",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "2.2.1"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-timing.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-timing",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.SENSORY_CUES",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "1.3.3"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 6,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-sensory-cues.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-sensory-cues",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.ERROR_PREVENTION",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "3.3.4"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-error-prevention.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-error-prevention",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.MULTIPLE_WAYS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "2.4.5"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 6,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-multiple-ways.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-multiple-ways",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.CONSISTENT_NAV",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "3.2.3"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-consistent-nav.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-consistent-nav",
+      "sitewide": true,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.PAGE_LOCATION",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "2.4.8"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-page-location.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-page-location",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.CONTRAST_ENHANCED",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag2aaa"
+      ],
+      "wcagCriteria": [
+        "1.4.6"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-contrast-enhanced.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-contrast-enhanced",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.NON_TEXT_CONTRAST",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "wcagCriteria": [
+        "1.4.11"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-non-text-contrast.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-non-text-contrast",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "wcagCriteria": [
+        "1.4.13"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-hover-focus-content.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-hover-focus-content",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.CHARACTER_SHORTCUTS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "wcagCriteria": [
+        "2.1.4"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-character-shortcuts.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-character-shortcuts",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag22aa"
+      ],
+      "wcagCriteria": [
+        "2.4.11"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-focus-not-obscured.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-not-obscured",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.POINTER_CANCELLATION",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "wcagCriteria": [
+        "2.5.2"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-pointer-cancellation.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-pointer-cancellation",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.MOTION_ACTUATION",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "wcagCriteria": [
+        "2.5.4"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-motion-actuation.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-motion-actuation",
+      "sitewide": false,
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.A11Y.GENERIC.STATUS_MESSAGES",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "scope": "generic",
+      "standards": [
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "wcagCriteria": [
+        "4.1.3"
+      ],
+      "traceabilityRole": null,
+      "area": "accessibility",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-a11y-generic-status-messages.check.js",
+      "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-status-messages",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -309,6 +1041,7 @@
       "priorityWeight": 9,
       "modulePath": "design-rules/deterministic/generated/det-a11y-ks-hash-markers.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-hash-markers",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -329,6 +1062,7 @@
       "priorityWeight": 7,
       "modulePath": "design-rules/deterministic/generated/det-a11y-ks-breadcrumb.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-breadcrumb",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -349,6 +1083,7 @@
       "priorityWeight": 9,
       "modulePath": "design-rules/deterministic/generated/det-a11y-ks-react-a11y-role.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-react-a11y-role",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -369,6 +1104,7 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-a11y-ks-py-hash-attrs.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-py-hash-attrs",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     },
     {
@@ -389,6 +1125,7 @@
       "priorityWeight": 9,
       "modulePath": "design-rules/deterministic/generated/det-a11y-ks-handbook-single-h1.check.js",
       "sourceRule": "docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-handbook-single-h1",
+      "sitewide": false,
       "implementationSource": "explicit-map"
     }
   ],

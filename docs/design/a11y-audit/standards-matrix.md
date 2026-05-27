@@ -6,6 +6,9 @@ See [`compliance-profiles.md`](compliance-profiles.md) for ADA, procurement cont
 
 | Profile | WCAG | axe tags (default) | DET standards tags |
 |---------|------|-------------------|-------------------|
+| `wcag20a` | 2.0 A | `wcag2a` | `wcag2a`, `wcag2aa` |
+| `wcag20aa` | 2.0 AA | `wcag2a`, `wcag2aa` | `wcag2a`, `wcag2aa` |
+| `wcag20aaa` | 2.0 AAA | `wcag2a`, `wcag2aa`, `wcag2aaa` | `wcag2a`, `wcag2aa`, `wcag2aaa` |
 | `wcag21a` | 2.1 A | `wcag2a`, `wcag21a` | `wcag2a`, `wcag21a`, `wcag2aa` |
 | `wcag21aa` | 2.1 AA | `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa` | `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa` |
 | `wcag22aa` | 2.2 AA | above + `wcag22aa` | above + `wcag22aa` |

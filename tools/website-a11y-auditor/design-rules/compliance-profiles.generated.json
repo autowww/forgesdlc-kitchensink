@@ -1,8 +1,75 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-26T14:25:31.873Z",
+  "generatedAt": "2026-05-27T18:37:25.011Z",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
   "profiles": [
+    {
+      "id": "wcag20a",
+      "label": "WCAG 2.0 Level A",
+      "wcagVersion": "2.0",
+      "level": "A",
+      "axePresetKey": "wcag20a",
+      "axeTags": [
+        "wcag2a"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa"
+      ],
+      "jurisdictionNotes": "Legacy contracts referencing WCAG 2.0 Level A; axe uses wcag2a tags only (no WCAG 2.1/2.2 rule tags).",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "wcag20aa",
+      "label": "WCAG 2.0 Level AA",
+      "wcagVersion": "2.0",
+      "level": "AA",
+      "axePresetKey": "wcag20aa",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa"
+      ],
+      "jurisdictionNotes": "WCAG 2.0 Level A+AA per https://www.w3.org/TR/WCAG20/; axe wcag2a + wcag2aa tags (excludes wcag21*/wcag22*).",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "wcag20aaa",
+      "label": "WCAG 2.0 Level AAA",
+      "wcagVersion": "2.0",
+      "level": "AAA",
+      "axePresetKey": "wcag20aaa",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa"
+      ],
+      "jurisdictionNotes": "WCAG 2.0 full conformance target; axe adds wcag2aaa where Deque supports AAA rules.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
     {
       "id": "wcag21a",
       "label": "WCAG 2.1 Level A",

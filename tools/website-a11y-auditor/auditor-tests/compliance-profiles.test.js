@@ -18,6 +18,19 @@ describe('compliance-profiles', () => {
     assert.deepEqual(ada.detStandardsTags, wcag.detStandardsTags);
   });
 
+  it('wcag20aa uses only wcag2 axe tags', () => {
+    const s = resolveA11yStandard({ standard: 'wcag20aa' });
+    assert.deepEqual(s.axeTags, ['wcag2a', 'wcag2aa']);
+    assert.ok(!s.axeTags.includes('wcag21aa'));
+    assert.equal(s.complianceProfile.id, 'wcag20aa');
+  });
+
+  it('wcag20aaa includes wcag2aaa axe tag', () => {
+    const s = resolveA11yStandard({ standard: 'wcag20aaa' });
+    assert.ok(s.axeTags.includes('wcag2aaa'));
+    assert.ok(!s.axeTags.includes('wcag21aa'));
+  });
+
   it('wcag22aaa preset includes wcag22aaa axe tag', () => {
     const s = resolveA11yStandard({ standard: 'wcag22aaa' });
     assert.ok(s.axeTags.includes('wcag22aaa'));

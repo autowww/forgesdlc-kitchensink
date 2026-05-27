@@ -18,6 +18,11 @@ describe('a11y-standards', () => {
     assert.deepEqual(s.axeTags, ['wcag2a', 'best-practice']);
   });
 
+  it('resolves wcag20aa preset without wcag21 tags', () => {
+    const s = resolveA11yStandard({ standard: 'wcag20aa' });
+    assert.deepEqual(s.axeTags, ['wcag2a', 'wcag2aa']);
+  });
+
   it('derives level aa tags', () => {
     const s = resolveA11yStandard({ wcagLevel: 'aa' });
     assert.ok(s.axeTags.includes('wcag21aa'));

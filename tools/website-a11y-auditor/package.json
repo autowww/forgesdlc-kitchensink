@@ -7,6 +7,9 @@
   "scripts": {
     "audit": "node analyze-website-a11y.mjs",
     "score": "node score-website-a11y.mjs",
+    "score-compliance": "node score-compliance-a11y.mjs",
+    "build-standards-packs": "node design-rules/blender/build-standards-packs.mjs",
+    "validate-pack": "node validate-standards-pack.mjs",
     "blend-rules": "node design-rules/blender/a11y-rules-blender.mjs",
     "test": "node --test auditor-tests/*.test.js",
     "install-browsers": "playwright install chromium",

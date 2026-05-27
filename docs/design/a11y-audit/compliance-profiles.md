@@ -23,6 +23,9 @@ Profiles change **which axe tags run** and **which DET rules are in scope** — 
 | Profile | Use when |
 |---------|----------|
 | `wcag22aa` | Forge default (WCAG 2.2 AA axe tags) |
+| `wcag20aa` | Legacy WCAG 2.0 A+AA ([W3C WCAG 2.0](https://www.w3.org/TR/WCAG20/)); axe `wcag2a` + `wcag2aa` only |
+| `wcag20a` | WCAG 2.0 Level A only |
+| `wcag20aaa` | WCAG 2.0 AAA (adds `wcag2aaa` axe tag) |
 | `wcag21aa` | Procurement baseline; WCAG 2.1 AA |
 | `wcag21a` | Level A only |
 | `wcag22aaa` | AAA campaigns |
@@ -33,6 +36,8 @@ Profiles change **which axe tags run** and **which DET rules are in scope** — 
 | `best-practice` | Deque extras beyond WCAG |
 
 ADA profiles use the **same** axe and DET tag bundle as `wcag21aa` — ADA references WCAG; there is no separate Deque “ADA” ruleset.
+
+Per-profile **standards packs** (`*.pack.json`) for scriptable traceability and compliance scoring: see [standards-packs.md](standards-packs.md).
 
 ## CLI
 

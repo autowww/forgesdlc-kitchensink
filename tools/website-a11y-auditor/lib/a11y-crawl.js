@@ -11,6 +11,8 @@ import {
 import { collectA11yDomMetrics } from './a11y-dom-metrics.js';
 import { runAxeOnPage, findingsFromAxeResult } from './axe-lane.js';
 import { createA11yRuleRuntime } from './a11y-rule-runtime.js';
+import { collectLabelSamples } from './collect-label-samples.mjs';
+import { collectNavSamples } from './collect-nav-samples.mjs';
 
 /**
  * @param {{
@@ -56,6 +58,10 @@ export async function crawlAndAuditA11y(opts) {
       log(`page ${visited.size}/${opts.maxPages} ${href}`);
 
       let metrics = null;
+      /** @type {Array<{ key: string, label: string }>} */
+      let labelSamples = [];
+      /** @type {{ navLabel: string, linkPaths: string[] }} */
+      let navSample = { navLabel: '', linkPaths: [] };
       /** @type {object[]} */
       const pageFindings = [];
 
@@ -69,6 +75,18 @@ export async function crawlAndAuditA11y(opts) {
         }
 
         if (opts.lanes.has('det')) {
+          if (opts.runtime.sitewideRuleIds?.length) {
+            try {
+              labelSamples = await collectLabelSamples(page);
+            } catch {
+              labelSamples = [];
+            }
+            try {
+              navSample = await collectNavSamples(page);
+            } catch {
+              navSample = { navLabel: '', linkPaths: [] };
+            }
+          }
           const det = await opts.runtime.runDeterministicRules({
             metrics,
             url: href,
@@ -89,7 +107,7 @@ export async function crawlAndAuditA11y(opts) {
       }
 
       allFindings.push(...pageFindings);
-      pages.push({ url: href, metrics, findingsCount: pageFindings.length });
+      pages.push({ url: href, metrics, labelSamples, navSample, findingsCount: pageFindings.length });
       majorPlusAccum += countMajorPlus(pageFindings);
 
       if (!opts.stopDisabled && majorPlusAccum >= opts.stopAfterMajorPlus) {
@@ -124,6 +142,17 @@ export async function crawlAndAuditA11y(opts) {
   } finally {
     await context.close();
     await browser.close();
+  }
+
+  if (opts.lanes.has('det') && opts.runtime.runSitewideDeterministicRules) {
+    const sitewide = await opts.runtime.runSitewideDeterministicRules({
+      pages,
+      repoRoot: opts.repoRoot,
+    });
+    if (sitewide.findings.length) {
+      allFindings.push(...sitewide.findings);
+      log(`sitewide det findings=${sitewide.findings.length}`);
+    }
   }
 
   return {

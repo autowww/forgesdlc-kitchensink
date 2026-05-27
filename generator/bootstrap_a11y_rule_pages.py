@@ -89,6 +89,42 @@ _EXAMPLES: dict[str, tuple[str, str, str]] = {
             "<p class=\"mb-0\">Matching three-letter hash pair.</p></section></div>"
         ),
     ),
+    "DET.A11Y.GENERIC.RESIZE_TEXT": (
+        "Resize text",
+        "Viewport must allow zoom; avoid clipping enlarged text (1.4.4).",
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<p class="mb-0" style="font-size:8px">Tiny text may fail when zoomed.</p></div>'
+        ),
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<p class="mb-0" style="font-size:1rem">Readable base size using rem.</p></div>'
+        ),
+    ),
+    "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE": (
+        "Focus context change",
+        "Avoid navigation or submit on focus (3.2.1).",
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<input autofocus onfocus="location.href=\'/\'" aria-label="Jump on focus"></div>'
+        ),
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<button type="button">Explicit control — no focus handler</button></div>'
+        ),
+    ),
+    "DET.A11Y.GENERIC.STATUS_MESSAGES": (
+        "Status messages",
+        "Dynamic status needs role or aria-live (4.1.3).",
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<div class="alert alert-success">Saved — no live region.</div></div>'
+        ),
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<div role="status" aria-live="polite">Saved successfully.</div></div>'
+        ),
+    ),
     "DET.A11Y.KS.HANDBOOK_SINGLE_H1": (
         "Handbook single H1",
         "One primary h1 inside handbook chapter layout.",

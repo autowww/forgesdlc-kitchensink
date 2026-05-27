@@ -5,8 +5,8 @@ scope: generic
 title: Motion Flash
 summary: Deterministic accessibility check (generic scope).
 page_version: d9058405a28db06a5fd8d595780b9990cff574ad7c0784ce891c87391360c677
-generated_at: 2026-05-26T08:51:23.000Z
-registry_fingerprint: e11a2939d018a45bae7d6e23364aba2ae4e13f190d942f49891c89ea84c44c46
+generated_at: 2026-05-27T18:38:01.000Z
+registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-motion-flash
 related_rules:

@@ -1,0 +1,51 @@
+---
+rule_id: DET.A11Y.GENERIC.PAGE_LOCATION
+lane: deterministic
+scope: generic
+title: Page Location
+summary: Deterministic accessibility check (generic scope).
+page_version: 54adfbb4cb8bcf408a2fe27092f06b1e33ed4fc657abee1a84828a146fc8195c
+generated_at: 2026-05-27T18:38:01.000Z
+registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
+registry_status: implemented
+source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-page-location
+related_rules:
+  - DET.A11Y.GENERIC.LANG
+---
+
+## Purpose
+
+Deterministic accessibility check (generic scope).
+
+## Passing signals
+
+- DOM and/or repo signals satisfy the rule implementation in `tools/website-a11y-auditor`.
+- For **axe**-backed WCAG criteria, use `--lanes axe,det` with an appropriate `--standard` preset.
+
+## Failing signals
+
+- Auditor emits a finding with `ruleId` `DET.A11Y.GENERIC.PAGE_LOCATION` on the crawled URL.
+- Harness: `auditor-tests/invoke-a11y-ruleset-harness.sh DET.A11Y.GENERIC.PAGE_LOCATION` expects ≥1 finding on the Before fixture.
+
+## Before example
+
+```html
+<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.PAGE_LOCATION</code> (generic).</p></div>
+```
+
+## After example
+
+```html
+<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.PAGE_LOCATION</code>.</p></div>
+```
+
+## Evidence and remediation
+
+1. Reproduce with `analyze-website-a11y.mjs --only-deterministic-rule-ids DET.A11Y.GENERIC.PAGE_LOCATION` when lane is deterministic.
+2. Apply the After markup pattern (or fix generator source for KS rules).
+3. Re-run harness or audit until the rule is clean on the target URL.
+
+## Related rules
+
+- See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+

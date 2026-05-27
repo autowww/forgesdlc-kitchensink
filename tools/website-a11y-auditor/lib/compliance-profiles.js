@@ -23,6 +23,39 @@ const MANUAL_GAPS_COMMON = [
 
 /** @type {Record<string, ComplianceProfileDef>} */
 export const COMPLIANCE_PROFILES = {
+  wcag20a: {
+    id: 'wcag20a',
+    label: 'WCAG 2.0 Level A',
+    axePresetKey: 'wcag20a',
+    detStandardsTags: ['wcag2a', 'wcag2aa'],
+    wcagVersion: '2.0',
+    level: 'A',
+    jurisdictionNotes:
+      'Legacy contracts referencing WCAG 2.0 Level A; axe uses wcag2a tags only (no WCAG 2.1/2.2 rule tags).',
+    manualTestingRequired: MANUAL_GAPS_COMMON,
+  },
+  wcag20aa: {
+    id: 'wcag20aa',
+    label: 'WCAG 2.0 Level AA',
+    axePresetKey: 'wcag20aa',
+    detStandardsTags: ['wcag2a', 'wcag2aa'],
+    wcagVersion: '2.0',
+    level: 'AA',
+    jurisdictionNotes:
+      'WCAG 2.0 Level A+AA per https://www.w3.org/TR/WCAG20/; axe wcag2a + wcag2aa tags (excludes wcag21*/wcag22*).',
+    manualTestingRequired: MANUAL_GAPS_COMMON,
+  },
+  wcag20aaa: {
+    id: 'wcag20aaa',
+    label: 'WCAG 2.0 Level AAA',
+    axePresetKey: 'wcag20aaa',
+    detStandardsTags: ['wcag2a', 'wcag2aa', 'wcag2aaa'],
+    wcagVersion: '2.0',
+    level: 'AAA',
+    jurisdictionNotes:
+      'WCAG 2.0 full conformance target; axe adds wcag2aaa where Deque supports AAA rules.',
+    manualTestingRequired: MANUAL_GAPS_COMMON,
+  },
   wcag21a: {
     id: 'wcag21a',
     label: 'WCAG 2.1 Level A',

@@ -27,14 +27,18 @@ export function resolveProfileCriteria(catalogJson, profileId) {
     const additional = profile.additionalCriteria || [];
     const byId = new Map(base.map((c) => [c.id, c]));
     for (const c of additional) byId.set(c.id, c);
-    return [...byId.values()].sort((a, b) =>
-      a.id.localeCompare(b.id, undefined, { numeric: true }),
-    );
+    let merged = [...byId.values()];
+    if (profile.levelFilter) {
+      merged = merged.filter((c) => c.level === profile.levelFilter);
+    }
+    return merged.sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
   }
 
-  return [...(profile.criteria || [])].sort((a, b) =>
-    a.id.localeCompare(b.id, undefined, { numeric: true }),
-  );
+  let criteria = [...(profile.criteria || [])];
+  if (profile.levelFilter) {
+    criteria = criteria.filter((c) => c.level === profile.levelFilter);
+  }
+  return criteria.sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
 }
 
 /**
@@ -336,7 +340,9 @@ export function buildTraceabilityFromRegistry(registry) {
  */
 export function resolveRtmProfileId(complianceProfileId) {
   const id = String(complianceProfileId || 'wcag22aa').toLowerCase();
+  if (id === 'wcag20a' || id === 'wcag20aa' || id === 'wcag20aaa') return id;
   if (id.startsWith('ada-title-') || id === 'wcag21aa' || id === 'wcag21a') return 'wcag21aa';
+  if (id === 'wcag22aa' || id === 'wcag22aaa') return 'wcag22aa';
   return 'wcag22aa';
 }
 
