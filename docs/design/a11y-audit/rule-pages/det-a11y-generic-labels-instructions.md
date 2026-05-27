@@ -5,8 +5,8 @@ scope: generic
 title: Labels Instructions
 summary: Deterministic accessibility check (generic scope).
 page_version: ead5071a6b652e208f9a03544d3d089e5216a5eea3f44c254c420aafd7d701b0
-generated_at: 2026-05-27T18:38:01.000Z
-registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
+generated_at: 2026-05-27T18:51:09.000Z
+registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-labels-instructions
 related_rules:

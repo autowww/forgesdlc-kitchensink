@@ -40,6 +40,19 @@
 | `DET.A11Y.GENERIC.SENSORY_CUES` | Sensory-only instructions (**1.3.3**, supplemental) |
 | `DET.A11Y.GENERIC.ERROR_PREVENTION` | Legal/financial confirm steps (**3.3.4**, supplemental) |
 | `DET.A11Y.GENERIC.MULTIPLE_WAYS` | Nav/search/sitemap heuristics (**2.4.5**, supplemental) |
+| `DET.A11Y.GENERIC.ORIENTATION` | Orientation not locked (**1.3.4**, WCAG 2.1) |
+| `DET.A11Y.GENERIC.INPUT_PURPOSE` | `autocomplete` on common personal-data fields (**1.3.5**) |
+| `DET.A11Y.GENERIC.TEXT_SPACING` | Clipping / fixed spacing heuristics (**1.4.12**) |
+| `DET.A11Y.GENERIC.LABEL_IN_NAME` | Visible label substring in accessible name (**2.5.3**) |
+| `DET.A11Y.GENERIC.POINTER_GESTURES` | Touch-only handlers without click alt (**2.5.1**, supplemental) |
+| `DET.A11Y.GENERIC.CONCURRENT_INPUT` | Input modality restrictions (**2.5.6** AAA, supplemental) |
+| `DET.A11Y.GENERIC.NON_TEXT_CONTRAST` | Non-text UI contrast samples (**1.4.11**) |
+| `DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT` | Hover/focus content persistence (**1.4.13**) |
+| `DET.A11Y.GENERIC.CHARACTER_SHORTCUTS` | Single-character shortcuts (**2.1.4**) |
+| `DET.A11Y.GENERIC.POINTER_CANCELLATION` | Pointer cancellation (**2.5.2**) |
+| `DET.A11Y.GENERIC.MOTION_ACTUATION` | Motion actuation (**2.5.4**) |
+| `DET.A11Y.GENERIC.STATUS_MESSAGES` | Status message roles / live regions (**4.1.3**) |
+| `DET.A11Y.GENERIC.CONTRAST_ENHANCED` | Enhanced contrast samples (**1.4.6** AAA) |
 
 **WCAG 2.0 SC 4.1.1 Parsing** — obsolete for HTML5; catalog marks `manual_only`. Rely on axe and well-formed DOM; no dedicated DET rule.
 

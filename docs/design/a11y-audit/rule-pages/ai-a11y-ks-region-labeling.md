@@ -5,8 +5,8 @@ scope: ks
 title: Region Labeling
 summary: AI judgment overlay (ks scope).
 page_version: ebae1267d4fe0098d54b74afc3a2adac78935e79f31ca0463cd6f8aa70a74640
-generated_at: 2026-05-27T18:38:01.000Z
-registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
+generated_at: 2026-05-27T18:51:09.000Z
+registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-ks-region-labeling
 related_rules:

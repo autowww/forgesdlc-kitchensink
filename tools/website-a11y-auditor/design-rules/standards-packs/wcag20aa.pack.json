@@ -6,7 +6,7 @@
   "level": "AA",
   "specUrl": "https://www.w3.org/TR/WCAG20/",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
-  "generatedAt": "2026-05-27T18:37:25.024Z",
+  "generatedAt": "2026-05-27T18:50:56.226Z",
   "axeTags": [
     "wcag2a",
     "wcag2aa"
@@ -1690,6 +1690,54 @@
       "lane": "deterministic",
       "wcagCriteria": [
         "2.5.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.3.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.3.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.12"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.6"
       ],
       "inPack": false
     },

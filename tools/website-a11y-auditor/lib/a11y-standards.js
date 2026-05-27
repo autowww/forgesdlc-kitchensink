@@ -42,6 +42,12 @@ export const A11Y_STANDARD_PRESETS = {
     axeTags: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
     notes: 'Common procurement default.',
   },
+  wcag21aaa: {
+    id: 'wcag21aaa',
+    label: 'WCAG 2.1 Level AAA',
+    axeTags: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21a', 'wcag21aa'],
+    notes: 'WCAG 2.1 AAA; wcag2aaa + wcag21aa axe tags.',
+  },
   wcag22aa: {
     id: 'wcag22aa',
     label: 'WCAG 2.2 Level AA',

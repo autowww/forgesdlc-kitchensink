@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-27T18:37:25.024Z",
+  "generatedAt": "2026-05-27T18:50:56.226Z",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
   "catalogSource": "docs/design/a11y-audit/wcag-criteria-catalog.json",
   "profiles": {
@@ -1814,6 +1814,84 @@
           ]
         },
         {
+          "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.12"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
           "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES",
           "lane": "deterministic",
           "wcagCriteria": [
@@ -2009,7 +2087,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 61,
-        "detRuleCount": 47,
+        "detRuleCount": 53,
         "aiRuleCount": 4,
         "byPrinciple": {
           "1": {
@@ -4062,6 +4140,84 @@
           ]
         },
         {
+          "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.12"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
           "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES",
           "lane": "deterministic",
           "wcagCriteria": [
@@ -4269,7 +4425,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 64,
-        "detRuleCount": 47,
+        "detRuleCount": 53,
         "aiRuleCount": 4,
         "byPrinciple": {
           "1": {
@@ -6669,6 +6825,84 @@
           ]
         },
         {
+          "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.12"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
           "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES",
           "lane": "deterministic",
           "wcagCriteria": [
@@ -6899,7 +7133,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 67,
-        "detRuleCount": 47,
+        "detRuleCount": 53,
         "aiRuleCount": 4,
         "byPrinciple": {
           "1": {
@@ -6919,6 +7153,2209 @@
             "manualExpected": 9,
             "uncovered": 0,
             "total": 17
+          },
+          "4": {
+            "covered": 1,
+            "manualExpected": 1,
+            "uncovered": 0,
+            "total": 2
+          }
+        }
+      }
+    },
+    "wcag21a": {
+      "profileId": "wcag21a",
+      "criteriaCount": 31,
+      "criteria": [
+        {
+          "criterionId": "1.1.1",
+          "title": "Non-text Content",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.12",
+            "AXE.13",
+            "AXE.55",
+            "AXE.58",
+            "AXE.82",
+            "AXE.87",
+            "AXE.94"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.IMAGES_ALT",
+            "DET.A11Y.GENERIC.DIAGRAM_ALT"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.2.1",
+          "title": "Audio-only and Video-only (Prerecorded)",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.26"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.2",
+          "title": "Captions (Prerecorded)",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.103"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.3",
+          "title": "Audio Description or Media Alternative (Prerecorded)",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.4",
+          "title": "Captions (Live)",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.3.1",
+          "title": "Info and Relationships",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det+manual_ai",
+          "axeRules": [
+            "AXE.100",
+            "AXE.101",
+            "AXE.16",
+            "AXE.17",
+            "AXE.35",
+            "AXE.36",
+            "AXE.73",
+            "AXE.74",
+            "AXE.83",
+            "AXE.9",
+            "AXE.97",
+            "AXE.99"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LANDMARKS",
+            "DET.A11Y.GENERIC.DATA_TABLE_HEADERS"
+          ],
+          "aiRules": [
+            "AI.A11Y.KS.REGION_LABELING"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.3.2",
+          "title": "Meaningful Sequence",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.READING_ORDER"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.3.3",
+          "title": "Sensory Characteristics",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.SENSORY_CUES"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.4.1",
+          "title": "Use of Color",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.71"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.USE_OF_COLOR"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.2",
+          "title": "Audio Control",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.81"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.AUTOPLAY_AUDIO"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.1.1",
+          "title": "Keyboard",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det+manual_ai",
+          "axeRules": [
+            "AXE.45",
+            "AXE.89",
+            "AXE.91"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.KEYBOARD_ACCESS"
+          ],
+          "aiRules": [
+            "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.1.2",
+          "title": "No Keyboard Trap",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det+manual_ai",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.APP_FOCUS_TRAP"
+          ],
+          "aiRules": [
+            "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.1.4",
+          "title": "Character Key Shortcuts",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.CHARACTER_SHORTCUTS"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.2.1",
+          "title": "Timing Adjustable",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.77"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.TIMING"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.2.2",
+          "title": "Pause, Stop, Hide",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.29",
+            "AXE.75"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.PAUSE_STOP_HIDE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.3.1",
+          "title": "Three Flashes or Below Threshold",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MOTION_FLASH"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.1",
+          "title": "Bypass Blocks",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.31"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LANDMARKS"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.2",
+          "title": "Page Titled",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.37"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.TITLE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.3",
+          "title": "Focus Order",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det+manual_ai",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.FOCUS_ORDER",
+            "DET.A11Y.GENERIC.APP_FOCUS_TRAP"
+          ],
+          "aiRules": [
+            "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.4",
+          "title": "Link Purpose (In Context)",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det+manual_ai",
+          "axeRules": [
+            "AXE.1",
+            "AXE.72"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LINK_PURPOSE"
+          ],
+          "aiRules": [
+            "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.5.1",
+          "title": "Pointer Gestures",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.POINTER_GESTURES"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.5.2",
+          "title": "Pointer Cancellation",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.POINTER_CANCELLATION"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.5.3",
+          "title": "Label in Name",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.59"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LABEL_IN_NAME"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.5.4",
+          "title": "Motion Actuation",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MOTION_ACTUATION"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.1.1",
+          "title": "Language of Page",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.51",
+            "AXE.52",
+            "AXE.53"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LANG"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.2.1",
+          "title": "On Focus",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.2.2",
+          "title": "On Input",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.3.1",
+          "title": "Error Identification",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "manual_ai",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.3.2",
+          "title": "Labels or Instructions",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.44"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "4.1.1",
+          "title": "Parsing",
+          "level": "A",
+          "principle": 4,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "4.1.2",
+          "title": "Name, Role, Value",
+          "level": "A",
+          "principle": 4,
+          "defaultCoverage": null,
+          "coverage": "axe+det+manual_ai",
+          "axeRules": [
+            "AXE.1",
+            "AXE.10",
+            "AXE.11",
+            "AXE.14",
+            "AXE.15",
+            "AXE.18",
+            "AXE.19",
+            "AXE.2",
+            "AXE.21",
+            "AXE.22",
+            "AXE.24",
+            "AXE.25",
+            "AXE.30",
+            "AXE.39",
+            "AXE.4",
+            "AXE.47",
+            "AXE.48",
+            "AXE.5",
+            "AXE.57",
+            "AXE.58",
+            "AXE.6",
+            "AXE.61",
+            "AXE.7",
+            "AXE.72",
+            "AXE.80",
+            "AXE.9",
+            "AXE.90",
+            "AXE.93"
+          ],
+          "detRules": [
+            "DET.A11Y.KS.HASH_MARKERS",
+            "DET.A11Y.KS.REACT_A11Y_ROLE",
+            "DET.A11Y.KS.PY_HASH_ATTRS"
+          ],
+          "aiRules": [
+            "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS",
+            "AI.A11Y.KS.REGION_LABELING"
+          ],
+          "gap": "covered"
+        }
+      ],
+      "rules": [
+        {
+          "ruleId": "AXE.1",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.4.4",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "1"
+        },
+        {
+          "ruleId": "AXE.10",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "10"
+        },
+        {
+          "ruleId": "AXE.100",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "100"
+        },
+        {
+          "ruleId": "AXE.101",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "101"
+        },
+        {
+          "ruleId": "AXE.103",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "103"
+        },
+        {
+          "ruleId": "AXE.11",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "11"
+        },
+        {
+          "ruleId": "AXE.12",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "12"
+        },
+        {
+          "ruleId": "AXE.13",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "13"
+        },
+        {
+          "ruleId": "AXE.14",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "14"
+        },
+        {
+          "ruleId": "AXE.15",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "15"
+        },
+        {
+          "ruleId": "AXE.16",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "16"
+        },
+        {
+          "ruleId": "AXE.17",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "17"
+        },
+        {
+          "ruleId": "AXE.18",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "18"
+        },
+        {
+          "ruleId": "AXE.19",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "19"
+        },
+        {
+          "ruleId": "AXE.2",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "2"
+        },
+        {
+          "ruleId": "AXE.21",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "21"
+        },
+        {
+          "ruleId": "AXE.22",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "22"
+        },
+        {
+          "ruleId": "AXE.24",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "24"
+        },
+        {
+          "ruleId": "AXE.25",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "25"
+        },
+        {
+          "ruleId": "AXE.26",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.2.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "26"
+        },
+        {
+          "ruleId": "AXE.29",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "29"
+        },
+        {
+          "ruleId": "AXE.30",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "30"
+        },
+        {
+          "ruleId": "AXE.31",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.4.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "31"
+        },
+        {
+          "ruleId": "AXE.35",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "35"
+        },
+        {
+          "ruleId": "AXE.36",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "36"
+        },
+        {
+          "ruleId": "AXE.37",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.4.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "37"
+        },
+        {
+          "ruleId": "AXE.39",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "39"
+        },
+        {
+          "ruleId": "AXE.4",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "4"
+        },
+        {
+          "ruleId": "AXE.44",
+          "lane": "axe",
+          "wcagCriteria": [
+            "3.3.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "44"
+        },
+        {
+          "ruleId": "AXE.45",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "45"
+        },
+        {
+          "ruleId": "AXE.47",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "47"
+        },
+        {
+          "ruleId": "AXE.48",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "48"
+        },
+        {
+          "ruleId": "AXE.5",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "5"
+        },
+        {
+          "ruleId": "AXE.51",
+          "lane": "axe",
+          "wcagCriteria": [
+            "3.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "51"
+        },
+        {
+          "ruleId": "AXE.52",
+          "lane": "axe",
+          "wcagCriteria": [
+            "3.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "52"
+        },
+        {
+          "ruleId": "AXE.53",
+          "lane": "axe",
+          "wcagCriteria": [
+            "3.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "53"
+        },
+        {
+          "ruleId": "AXE.55",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "55"
+        },
+        {
+          "ruleId": "AXE.57",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "57"
+        },
+        {
+          "ruleId": "AXE.58",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "58"
+        },
+        {
+          "ruleId": "AXE.59",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.5.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "59"
+        },
+        {
+          "ruleId": "AXE.6",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "6"
+        },
+        {
+          "ruleId": "AXE.61",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "61"
+        },
+        {
+          "ruleId": "AXE.7",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "7"
+        },
+        {
+          "ruleId": "AXE.71",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.4.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "71"
+        },
+        {
+          "ruleId": "AXE.72",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.4.4",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "72"
+        },
+        {
+          "ruleId": "AXE.73",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "73"
+        },
+        {
+          "ruleId": "AXE.74",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "74"
+        },
+        {
+          "ruleId": "AXE.75",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "75"
+        },
+        {
+          "ruleId": "AXE.77",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.2.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "77"
+        },
+        {
+          "ruleId": "AXE.80",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "80"
+        },
+        {
+          "ruleId": "AXE.81",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.4.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "81"
+        },
+        {
+          "ruleId": "AXE.82",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "82"
+        },
+        {
+          "ruleId": "AXE.83",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "83"
+        },
+        {
+          "ruleId": "AXE.87",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "87"
+        },
+        {
+          "ruleId": "AXE.89",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.1.1",
+            "2.1.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "89"
+        },
+        {
+          "ruleId": "AXE.9",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "9"
+        },
+        {
+          "ruleId": "AXE.90",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "90"
+        },
+        {
+          "ruleId": "AXE.91",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "91"
+        },
+        {
+          "ruleId": "AXE.93",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "93"
+        },
+        {
+          "ruleId": "AXE.94",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "94"
+        },
+        {
+          "ruleId": "AXE.97",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "97"
+        },
+        {
+          "ruleId": "AXE.99",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21a"
+          ],
+          "axeRuleId": "99"
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LANG",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TITLE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.VIEWPORT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.10"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LANDMARKS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.1",
+            "2.4.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.IMAGES_ALT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTRAST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MOTION_REDUCED",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MOTION_FLASH",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.FOCUS_ORDER",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.DATA_TABLE_HEADERS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.DIAGRAM_ALT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.APP_FOCUS_TRAP",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.1.2",
+            "2.4.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.READING_ORDER",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.IMAGES_OF_TEXT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.5",
+            "1.4.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.SECTION_HEADINGS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.10"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.FLASH_THRESHOLD",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.3.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONSISTENT_LABELS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.USE_OF_COLOR",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.RESIZE_TEXT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.PAUSE_STOP_HIDE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LINK_PURPOSE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.4",
+            "2.4.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LANG_OF_PARTS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MEDIA_TRACKS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.2.1",
+            "1.2.2",
+            "1.2.3",
+            "1.2.4",
+            "1.2.5",
+            "1.2.6",
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.AUTOPLAY_AUDIO",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TIMING",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.SENSORY_CUES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MULTIPLE_WAYS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONSISTENT_NAV",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.PAGE_LOCATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTRAST_ENHANCED",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.NON_TEXT_CONTRAST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.11"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.13"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CHARACTER_SHORTCUTS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.1.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.11"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.POINTER_CANCELLATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MOTION_ACTUATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.12"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "4.1.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.HASH_MARKERS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": true,
+          "traceabilityRole": "forge_only",
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.BREADCRUMB",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.REACT_A11Y_ROLE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.PY_HASH_ATTRS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": true,
+          "traceabilityRole": "forge_only",
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.HANDBOOK_SINGLE_H1",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.1.1",
+            "2.1.2",
+            "2.4.3",
+            "2.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.1",
+            "3.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.4.4",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.KS.REGION_LABELING",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.3.1",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        }
+      ],
+      "gaps": {
+        "uncoveredCriteria": [],
+        "manualExpected": [
+          "1.2.1",
+          "1.2.2",
+          "1.2.3",
+          "1.2.4",
+          "1.3.3",
+          "1.4.2",
+          "2.2.1",
+          "2.5.1",
+          "4.1.1"
+        ],
+        "coveredCriteria": [
+          "1.1.1",
+          "1.3.1",
+          "1.3.2",
+          "1.4.1",
+          "2.1.1",
+          "2.1.2",
+          "2.1.4",
+          "2.2.2",
+          "2.3.1",
+          "2.4.1",
+          "2.4.2",
+          "2.4.3",
+          "2.4.4",
+          "2.5.2",
+          "2.5.3",
+          "2.5.4",
+          "3.1.1",
+          "3.2.1",
+          "3.2.2",
+          "3.3.1",
+          "3.3.2",
+          "4.1.2"
+        ],
+        "untiedRules": [],
+        "forgeOnlyRules": [
+          "DET.A11Y.KS.HASH_MARKERS",
+          "DET.A11Y.KS.PY_HASH_ATTRS"
+        ],
+        "overMappedCriteria": [
+          {
+            "criterionId": "1.1.1",
+            "ruleCount": 9
+          },
+          {
+            "criterionId": "1.3.1",
+            "ruleCount": 15
+          },
+          {
+            "criterionId": "4.1.2",
+            "ruleCount": 33
+          }
+        ]
+      },
+      "summary": {
+        "totalCriteria": 31,
+        "covered": 22,
+        "manualExpected": 9,
+        "uncovered": 0,
+        "untiedRuleCount": 0,
+        "axeRuleCount": 62,
+        "detRuleCount": 53,
+        "aiRuleCount": 4,
+        "byPrinciple": {
+          "1": {
+            "covered": 4,
+            "manualExpected": 6,
+            "uncovered": 0,
+            "total": 10
+          },
+          "2": {
+            "covered": 12,
+            "manualExpected": 2,
+            "uncovered": 0,
+            "total": 14
+          },
+          "3": {
+            "covered": 5,
+            "manualExpected": 0,
+            "uncovered": 0,
+            "total": 5
           },
           "4": {
             "covered": 1,
@@ -7094,11 +9531,13 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": null,
-          "coverage": "axe",
+          "coverage": "axe+det",
           "axeRules": [
             "AXE.34"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.ORIENTATION"
+          ],
           "aiRules": [],
           "gap": "covered"
         },
@@ -7108,11 +9547,13 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": null,
-          "coverage": "axe",
+          "coverage": "axe+det",
           "axeRules": [
             "AXE.27"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.INPUT_PURPOSE"
+          ],
           "aiRules": [],
           "gap": "covered"
         },
@@ -7228,11 +9669,13 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": null,
-          "coverage": "axe",
+          "coverage": "axe+det",
           "axeRules": [
             "AXE.28"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.TEXT_SPACING"
+          ],
           "aiRules": [],
           "gap": "covered"
         },
@@ -7463,9 +9906,11 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "det",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.POINTER_GESTURES"
+          ],
           "aiRules": [],
           "gap": "manual_expected"
         },
@@ -7489,11 +9934,13 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": null,
-          "coverage": "axe",
+          "coverage": "axe+det",
           "axeRules": [
             "AXE.59"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.LABEL_IN_NAME"
+          ],
           "aiRules": [],
           "gap": "covered"
         },
@@ -9170,6 +11617,84 @@
           ]
         },
         {
+          "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.12"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
           "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES",
           "lane": "deterministic",
           "wcagCriteria": [
@@ -9389,7 +11914,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 68,
-        "detRuleCount": 47,
+        "detRuleCount": 53,
         "aiRuleCount": 4,
         "byPrinciple": {
           "1": {
@@ -9409,6 +11934,2969 @@
             "manualExpected": 2,
             "uncovered": 0,
             "total": 10
+          },
+          "4": {
+            "covered": 2,
+            "manualExpected": 1,
+            "uncovered": 0,
+            "total": 3
+          }
+        }
+      }
+    },
+    "wcag21aaa": {
+      "profileId": "wcag21aaa",
+      "criteriaCount": 74,
+      "criteria": [
+        {
+          "criterionId": "1.1.1",
+          "title": "Non-text Content",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.12",
+            "AXE.13",
+            "AXE.55",
+            "AXE.58",
+            "AXE.82",
+            "AXE.87",
+            "AXE.94"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.IMAGES_ALT",
+            "DET.A11Y.GENERIC.DIAGRAM_ALT"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.2.1",
+          "title": "Audio-only and Video-only (Prerecorded)",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.26"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.2",
+          "title": "Captions (Prerecorded)",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.103"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.3",
+          "title": "Audio Description or Media Alternative (Prerecorded)",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.4",
+          "title": "Captions (Live)",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.5",
+          "title": "Audio Description (Prerecorded)",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.6",
+          "title": "Sign Language (Prerecorded)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.7",
+          "title": "Extended Audio Description (Prerecorded)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.8",
+          "title": "Media Alternative (Prerecorded)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.2.9",
+          "title": "Audio-only (Live)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MEDIA_TRACKS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.3.1",
+          "title": "Info and Relationships",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det+manual_ai",
+          "axeRules": [
+            "AXE.100",
+            "AXE.101",
+            "AXE.16",
+            "AXE.17",
+            "AXE.35",
+            "AXE.36",
+            "AXE.73",
+            "AXE.74",
+            "AXE.83",
+            "AXE.9",
+            "AXE.97",
+            "AXE.99"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LANDMARKS",
+            "DET.A11Y.GENERIC.DATA_TABLE_HEADERS"
+          ],
+          "aiRules": [
+            "AI.A11Y.KS.REGION_LABELING"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.3.2",
+          "title": "Meaningful Sequence",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.READING_ORDER"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.3.3",
+          "title": "Sensory Characteristics",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.SENSORY_CUES"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.3.4",
+          "title": "Orientation",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.34"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.ORIENTATION"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.3.5",
+          "title": "Identify Input Purpose",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.27"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.INPUT_PURPOSE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.1",
+          "title": "Use of Color",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.71"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.USE_OF_COLOR"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.2",
+          "title": "Audio Control",
+          "level": "A",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.81"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.AUTOPLAY_AUDIO"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.4.3",
+          "title": "Contrast (Minimum)",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.33"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.CONTRAST"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.4",
+          "title": "Resize Text",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.79"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.RESIZE_TEXT"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.5",
+          "title": "Images of Text",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.IMAGES_OF_TEXT"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.6",
+          "title": "Contrast (Enhanced)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.32"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.CONTRAST_ENHANCED"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.7",
+          "title": "Low or No Background Audio",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.4.8",
+          "title": "Visual Presentation",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "1.4.9",
+          "title": "Images of Text (No Exception)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.IMAGES_OF_TEXT"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.10",
+          "title": "Reflow",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.VIEWPORT"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.11",
+          "title": "Non-text Contrast",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.NON_TEXT_CONTRAST"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.12",
+          "title": "Text Spacing",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.28"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.TEXT_SPACING"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "1.4.13",
+          "title": "Content on Hover or Focus",
+          "level": "AA",
+          "principle": 1,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.1.1",
+          "title": "Keyboard",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det+manual_ai",
+          "axeRules": [
+            "AXE.45",
+            "AXE.89",
+            "AXE.91"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.KEYBOARD_ACCESS"
+          ],
+          "aiRules": [
+            "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.1.2",
+          "title": "No Keyboard Trap",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det+manual_ai",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.APP_FOCUS_TRAP"
+          ],
+          "aiRules": [
+            "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.1.3",
+          "title": "Keyboard (No Exception)",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe",
+          "axeRules": [
+            "AXE.89"
+          ],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.1.4",
+          "title": "Character Key Shortcuts",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.CHARACTER_SHORTCUTS"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.2.1",
+          "title": "Timing Adjustable",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.77"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.TIMING"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.2.2",
+          "title": "Pause, Stop, Hide",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.29",
+            "AXE.75"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.PAUSE_STOP_HIDE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.2.3",
+          "title": "No Timing",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.2.4",
+          "title": "Interruptions",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe",
+          "axeRules": [
+            "AXE.76"
+          ],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.2.5",
+          "title": "Re-authenticating",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.3.1",
+          "title": "Three Flashes or Below Threshold",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MOTION_FLASH"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.3.2",
+          "title": "Three Flashes",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.FLASH_THRESHOLD"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.1",
+          "title": "Bypass Blocks",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.31"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LANDMARKS"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.2",
+          "title": "Page Titled",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.37"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.TITLE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.3",
+          "title": "Focus Order",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det+manual_ai",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.FOCUS_ORDER",
+            "DET.A11Y.GENERIC.APP_FOCUS_TRAP"
+          ],
+          "aiRules": [
+            "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.4",
+          "title": "Link Purpose (In Context)",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det+manual_ai",
+          "axeRules": [
+            "AXE.1",
+            "AXE.72"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LINK_PURPOSE"
+          ],
+          "aiRules": [
+            "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.5",
+          "title": "Multiple Ways",
+          "level": "AA",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MULTIPLE_WAYS"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.4.6",
+          "title": "Headings and Labels",
+          "level": "AA",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.KS.HANDBOOK_SINGLE_H1"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.7",
+          "title": "Focus Visible",
+          "level": "AA",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "manual_ai",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.8",
+          "title": "Location",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.PAGE_LOCATION",
+            "DET.A11Y.KS.BREADCRUMB"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.4.9",
+          "title": "Link Purpose (Link Only)",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.54"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LINK_PURPOSE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.4.10",
+          "title": "Section Headings",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.SECTION_HEADINGS"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.5.1",
+          "title": "Pointer Gestures",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.POINTER_GESTURES"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "2.5.2",
+          "title": "Pointer Cancellation",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.POINTER_CANCELLATION"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.5.3",
+          "title": "Label in Name",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.59"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LABEL_IN_NAME"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.5.4",
+          "title": "Motion Actuation",
+          "level": "A",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.MOTION_ACTUATION"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "2.5.6",
+          "title": "Concurrent Input Mechanisms",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.CONCURRENT_INPUT"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.1.1",
+          "title": "Language of Page",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.51",
+            "AXE.52",
+            "AXE.53"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LANG"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.1.2",
+          "title": "Language of Parts",
+          "level": "AA",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.102"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LANG_OF_PARTS"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.1.3",
+          "title": "Unusual Words",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "3.1.4",
+          "title": "Abbreviations",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "3.1.5",
+          "title": "Reading Level",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "3.1.6",
+          "title": "Pronunciation",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "3.2.1",
+          "title": "On Focus",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.2.2",
+          "title": "On Input",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.2.3",
+          "title": "Consistent Navigation",
+          "level": "AA",
+          "principle": 3,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.CONSISTENT_NAV"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "3.2.4",
+          "title": "Consistent Identification",
+          "level": "AA",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.CONSISTENT_LABELS"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.2.5",
+          "title": "Change on Request",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only",
+          "coverage": "axe",
+          "axeRules": [
+            "AXE.76"
+          ],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "3.3.1",
+          "title": "Error Identification",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "manual_ai",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.3.2",
+          "title": "Labels or Instructions",
+          "level": "A",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "axe+det",
+          "axeRules": [
+            "AXE.44"
+          ],
+          "detRules": [
+            "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.3.3",
+          "title": "Error Suggestion",
+          "level": "AA",
+          "principle": 3,
+          "defaultCoverage": null,
+          "coverage": "manual_ai",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "3.3.4",
+          "title": "Error Prevention (Legal, Financial, Data)",
+          "level": "AA",
+          "principle": 3,
+          "defaultCoverage": "manual_only",
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "3.3.5",
+          "title": "Help",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "3.3.6",
+          "title": "Error Prevention (All)",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "4.1.1",
+          "title": "Parsing",
+          "level": "A",
+          "principle": 4,
+          "defaultCoverage": "manual_only",
+          "coverage": "manual_catalog",
+          "axeRules": [],
+          "detRules": [],
+          "aiRules": [],
+          "gap": "manual_expected"
+        },
+        {
+          "criterionId": "4.1.2",
+          "title": "Name, Role, Value",
+          "level": "A",
+          "principle": 4,
+          "defaultCoverage": null,
+          "coverage": "axe+det+manual_ai",
+          "axeRules": [
+            "AXE.1",
+            "AXE.10",
+            "AXE.11",
+            "AXE.14",
+            "AXE.15",
+            "AXE.18",
+            "AXE.19",
+            "AXE.2",
+            "AXE.21",
+            "AXE.22",
+            "AXE.24",
+            "AXE.25",
+            "AXE.30",
+            "AXE.39",
+            "AXE.4",
+            "AXE.47",
+            "AXE.48",
+            "AXE.5",
+            "AXE.57",
+            "AXE.58",
+            "AXE.6",
+            "AXE.61",
+            "AXE.7",
+            "AXE.72",
+            "AXE.80",
+            "AXE.9",
+            "AXE.90",
+            "AXE.93"
+          ],
+          "detRules": [
+            "DET.A11Y.KS.HASH_MARKERS",
+            "DET.A11Y.KS.REACT_A11Y_ROLE",
+            "DET.A11Y.KS.PY_HASH_ATTRS"
+          ],
+          "aiRules": [
+            "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS",
+            "AI.A11Y.KS.REGION_LABELING"
+          ],
+          "gap": "covered"
+        },
+        {
+          "criterionId": "4.1.3",
+          "title": "Status Messages",
+          "level": "AA",
+          "principle": 4,
+          "defaultCoverage": null,
+          "coverage": "det",
+          "axeRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.STATUS_MESSAGES"
+          ],
+          "aiRules": [],
+          "gap": "covered"
+        }
+      ],
+      "rules": [
+        {
+          "ruleId": "AXE.1",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.4.4",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "1"
+        },
+        {
+          "ruleId": "AXE.10",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "10"
+        },
+        {
+          "ruleId": "AXE.100",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "100"
+        },
+        {
+          "ruleId": "AXE.101",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "101"
+        },
+        {
+          "ruleId": "AXE.102",
+          "lane": "axe",
+          "wcagCriteria": [
+            "3.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "102"
+        },
+        {
+          "ruleId": "AXE.103",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "103"
+        },
+        {
+          "ruleId": "AXE.11",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "11"
+        },
+        {
+          "ruleId": "AXE.12",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "12"
+        },
+        {
+          "ruleId": "AXE.13",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "13"
+        },
+        {
+          "ruleId": "AXE.14",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "14"
+        },
+        {
+          "ruleId": "AXE.15",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "15"
+        },
+        {
+          "ruleId": "AXE.16",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "16"
+        },
+        {
+          "ruleId": "AXE.17",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "17"
+        },
+        {
+          "ruleId": "AXE.18",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "18"
+        },
+        {
+          "ruleId": "AXE.19",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "19"
+        },
+        {
+          "ruleId": "AXE.2",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "2"
+        },
+        {
+          "ruleId": "AXE.21",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "21"
+        },
+        {
+          "ruleId": "AXE.22",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "22"
+        },
+        {
+          "ruleId": "AXE.24",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "24"
+        },
+        {
+          "ruleId": "AXE.25",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "25"
+        },
+        {
+          "ruleId": "AXE.26",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.2.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "26"
+        },
+        {
+          "ruleId": "AXE.27",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "27"
+        },
+        {
+          "ruleId": "AXE.28",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.4.12"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "28"
+        },
+        {
+          "ruleId": "AXE.29",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "29"
+        },
+        {
+          "ruleId": "AXE.30",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "30"
+        },
+        {
+          "ruleId": "AXE.31",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.4.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "31"
+        },
+        {
+          "ruleId": "AXE.32",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.4.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "32"
+        },
+        {
+          "ruleId": "AXE.33",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.4.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "33"
+        },
+        {
+          "ruleId": "AXE.34",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "34"
+        },
+        {
+          "ruleId": "AXE.35",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "35"
+        },
+        {
+          "ruleId": "AXE.36",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "36"
+        },
+        {
+          "ruleId": "AXE.37",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.4.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "37"
+        },
+        {
+          "ruleId": "AXE.39",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "39"
+        },
+        {
+          "ruleId": "AXE.4",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "4"
+        },
+        {
+          "ruleId": "AXE.44",
+          "lane": "axe",
+          "wcagCriteria": [
+            "3.3.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "44"
+        },
+        {
+          "ruleId": "AXE.45",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "45"
+        },
+        {
+          "ruleId": "AXE.47",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "47"
+        },
+        {
+          "ruleId": "AXE.48",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "48"
+        },
+        {
+          "ruleId": "AXE.5",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "5"
+        },
+        {
+          "ruleId": "AXE.51",
+          "lane": "axe",
+          "wcagCriteria": [
+            "3.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "51"
+        },
+        {
+          "ruleId": "AXE.52",
+          "lane": "axe",
+          "wcagCriteria": [
+            "3.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "52"
+        },
+        {
+          "ruleId": "AXE.53",
+          "lane": "axe",
+          "wcagCriteria": [
+            "3.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "53"
+        },
+        {
+          "ruleId": "AXE.54",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.4.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "54"
+        },
+        {
+          "ruleId": "AXE.55",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "55"
+        },
+        {
+          "ruleId": "AXE.57",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "57"
+        },
+        {
+          "ruleId": "AXE.58",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "58"
+        },
+        {
+          "ruleId": "AXE.59",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.5.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "59"
+        },
+        {
+          "ruleId": "AXE.6",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "6"
+        },
+        {
+          "ruleId": "AXE.61",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "61"
+        },
+        {
+          "ruleId": "AXE.7",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "7"
+        },
+        {
+          "ruleId": "AXE.71",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.4.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "71"
+        },
+        {
+          "ruleId": "AXE.72",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.4.4",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "72"
+        },
+        {
+          "ruleId": "AXE.73",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "73"
+        },
+        {
+          "ruleId": "AXE.74",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "74"
+        },
+        {
+          "ruleId": "AXE.75",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "75"
+        },
+        {
+          "ruleId": "AXE.76",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.2.4",
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "76"
+        },
+        {
+          "ruleId": "AXE.77",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.2.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "77"
+        },
+        {
+          "ruleId": "AXE.79",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.4.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "79"
+        },
+        {
+          "ruleId": "AXE.80",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "80"
+        },
+        {
+          "ruleId": "AXE.81",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.4.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "81"
+        },
+        {
+          "ruleId": "AXE.82",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "82"
+        },
+        {
+          "ruleId": "AXE.83",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "83"
+        },
+        {
+          "ruleId": "AXE.87",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "87"
+        },
+        {
+          "ruleId": "AXE.89",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.1.1",
+            "2.1.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "89"
+        },
+        {
+          "ruleId": "AXE.9",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "9"
+        },
+        {
+          "ruleId": "AXE.90",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "90"
+        },
+        {
+          "ruleId": "AXE.91",
+          "lane": "axe",
+          "wcagCriteria": [
+            "2.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "91"
+        },
+        {
+          "ruleId": "AXE.93",
+          "lane": "axe",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "93"
+        },
+        {
+          "ruleId": "AXE.94",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "94"
+        },
+        {
+          "ruleId": "AXE.97",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "97"
+        },
+        {
+          "ruleId": "AXE.99",
+          "lane": "axe",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "profiles": [
+            "wcag21aaa"
+          ],
+          "axeRuleId": "99"
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LANG",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TITLE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.VIEWPORT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.10"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LANDMARKS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.1",
+            "2.4.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.IMAGES_ALT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTRAST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MOTION_REDUCED",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MOTION_FLASH",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.FOCUS_ORDER",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.DATA_TABLE_HEADERS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.DIAGRAM_ALT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.APP_FOCUS_TRAP",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.1.2",
+            "2.4.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.READING_ORDER",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.IMAGES_OF_TEXT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.5",
+            "1.4.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.SECTION_HEADINGS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.10"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.FLASH_THRESHOLD",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.3.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONSISTENT_LABELS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.USE_OF_COLOR",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.RESIZE_TEXT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.1.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.PAUSE_STOP_HIDE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LINK_PURPOSE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.4",
+            "2.4.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LANG_OF_PARTS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MEDIA_TRACKS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.2.1",
+            "1.2.2",
+            "1.2.3",
+            "1.2.4",
+            "1.2.5",
+            "1.2.6",
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.AUTOPLAY_AUDIO",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TIMING",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.SENSORY_CUES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MULTIPLE_WAYS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONSISTENT_NAV",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.PAGE_LOCATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTRAST_ENHANCED",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.NON_TEXT_CONTRAST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.11"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.13"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CHARACTER_SHORTCUTS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.1.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.11"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.POINTER_CANCELLATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.MOTION_ACTUATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.12"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "4.1.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.HASH_MARKERS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": true,
+          "traceabilityRole": "forge_only",
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.BREADCRUMB",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.REACT_A11Y_ROLE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.PY_HASH_ATTRS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": true,
+          "traceabilityRole": "forge_only",
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.KS.HANDBOOK_SINGLE_H1",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.4.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.1.1",
+            "2.1.2",
+            "2.4.3",
+            "2.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.1",
+            "3.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.4.4",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.KS.REGION_LABELING",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.3.1",
+            "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        }
+      ],
+      "gaps": {
+        "uncoveredCriteria": [],
+        "manualExpected": [
+          "1.2.1",
+          "1.2.2",
+          "1.2.3",
+          "1.2.4",
+          "1.2.5",
+          "1.2.6",
+          "1.2.7",
+          "1.2.8",
+          "1.2.9",
+          "1.3.3",
+          "1.4.2",
+          "1.4.7",
+          "1.4.8",
+          "2.1.3",
+          "2.2.1",
+          "2.2.3",
+          "2.2.4",
+          "2.2.5",
+          "2.4.5",
+          "2.4.8",
+          "2.5.1",
+          "3.1.3",
+          "3.1.4",
+          "3.1.5",
+          "3.1.6",
+          "3.2.3",
+          "3.2.5",
+          "3.3.4",
+          "3.3.5",
+          "3.3.6",
+          "4.1.1"
+        ],
+        "coveredCriteria": [
+          "1.1.1",
+          "1.3.1",
+          "1.3.2",
+          "1.3.4",
+          "1.3.5",
+          "1.4.1",
+          "1.4.3",
+          "1.4.4",
+          "1.4.5",
+          "1.4.6",
+          "1.4.9",
+          "1.4.10",
+          "1.4.11",
+          "1.4.12",
+          "1.4.13",
+          "2.1.1",
+          "2.1.2",
+          "2.1.4",
+          "2.2.2",
+          "2.3.1",
+          "2.3.2",
+          "2.4.1",
+          "2.4.2",
+          "2.4.3",
+          "2.4.4",
+          "2.4.6",
+          "2.4.7",
+          "2.4.9",
+          "2.4.10",
+          "2.5.2",
+          "2.5.3",
+          "2.5.4",
+          "2.5.6",
+          "3.1.1",
+          "3.1.2",
+          "3.2.1",
+          "3.2.2",
+          "3.2.4",
+          "3.3.1",
+          "3.3.2",
+          "3.3.3",
+          "4.1.2",
+          "4.1.3"
+        ],
+        "untiedRules": [],
+        "forgeOnlyRules": [
+          "DET.A11Y.KS.HASH_MARKERS",
+          "DET.A11Y.KS.PY_HASH_ATTRS"
+        ],
+        "overMappedCriteria": [
+          {
+            "criterionId": "1.1.1",
+            "ruleCount": 9
+          },
+          {
+            "criterionId": "1.3.1",
+            "ruleCount": 15
+          },
+          {
+            "criterionId": "4.1.2",
+            "ruleCount": 33
+          }
+        ]
+      },
+      "summary": {
+        "totalCriteria": 74,
+        "covered": 43,
+        "manualExpected": 31,
+        "uncovered": 0,
+        "untiedRuleCount": 0,
+        "axeRuleCount": 71,
+        "detRuleCount": 53,
+        "aiRuleCount": 4,
+        "byPrinciple": {
+          "1": {
+            "covered": 15,
+            "manualExpected": 13,
+            "uncovered": 0,
+            "total": 28
+          },
+          "2": {
+            "covered": 18,
+            "manualExpected": 8,
+            "uncovered": 0,
+            "total": 26
+          },
+          "3": {
+            "covered": 8,
+            "manualExpected": 9,
+            "uncovered": 0,
+            "total": 17
           },
           "4": {
             "covered": 2,
@@ -9584,11 +15072,13 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": null,
-          "coverage": "axe",
+          "coverage": "axe+det",
           "axeRules": [
             "AXE.34"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.ORIENTATION"
+          ],
           "aiRules": [],
           "gap": "covered"
         },
@@ -9598,11 +15088,13 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": null,
-          "coverage": "axe",
+          "coverage": "axe+det",
           "axeRules": [
             "AXE.27"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.INPUT_PURPOSE"
+          ],
           "aiRules": [],
           "gap": "covered"
         },
@@ -9718,11 +15210,13 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": null,
-          "coverage": "axe",
+          "coverage": "axe+det",
           "axeRules": [
             "AXE.28"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.TEXT_SPACING"
+          ],
           "aiRules": [],
           "gap": "covered"
         },
@@ -9967,9 +15461,11 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "det",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.POINTER_GESTURES"
+          ],
           "aiRules": [],
           "gap": "manual_expected"
         },
@@ -9993,11 +15489,13 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": null,
-          "coverage": "axe",
+          "coverage": "axe+det",
           "axeRules": [
             "AXE.59"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.LABEL_IN_NAME"
+          ],
           "aiRules": [],
           "gap": "covered"
         },
@@ -11749,6 +17247,84 @@
           ]
         },
         {
+          "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.12"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
           "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES",
           "lane": "deterministic",
           "wcagCriteria": [
@@ -11974,7 +17550,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 69,
-        "detRuleCount": 47,
+        "detRuleCount": 53,
         "aiRuleCount": 4,
         "byPrinciple": {
           "1": {

@@ -13,7 +13,9 @@ After `npm run blend-rules` in `tools/website-a11y-auditor/`:
 | `design-rules/standards-packs/wcag20a.pack.json` | WCAG 2.0 Level A |
 | `design-rules/standards-packs/wcag20aa.pack.json` | WCAG 2.0 Level AA |
 | `design-rules/standards-packs/wcag20aaa.pack.json` | WCAG 2.0 Level AAA |
+| `design-rules/standards-packs/wcag21a.pack.json` | WCAG 2.1 Level A |
 | `design-rules/standards-packs/wcag21aa.pack.json` | WCAG 2.1 Level AA |
+| `design-rules/standards-packs/wcag21aaa.pack.json` | WCAG 2.1 Level AAA |
 | `design-rules/standards-packs/wcag22aa.pack.json` | WCAG 2.2 Level AA |
 
 Source catalog: [`wcag-criteria-catalog.json`](wcag-criteria-catalog.json). WCAG 2.0 profiles reference [WCAG 2.0](https://www.w3.org/TR/WCAG20/).
@@ -32,6 +34,9 @@ npm run build-standards-packs
 ```bash
 node validate-standards-pack.mjs --pack wcag20aa
 node validate-standards-pack.mjs --pack wcag20aaa --strict
+node validate-standards-pack.mjs --pack wcag21a --strict
+node validate-standards-pack.mjs --pack wcag21aa --strict
+node validate-standards-pack.mjs --pack wcag21aaa --strict
 ```
 
 `--strict` fails when `validation.uncoveredCriteria` is non-empty (automation gaps with no axe/DET/AI path). Use `--allow-manual-only` to permit gaps that are documented as manual-only in the catalog.

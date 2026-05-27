@@ -76,6 +76,17 @@ export const COMPLIANCE_PROFILES = {
     jurisdictionNotes: 'Common procurement baseline; aligns with many ADA web references.',
     manualTestingRequired: MANUAL_GAPS_COMMON,
   },
+  wcag21aaa: {
+    id: 'wcag21aaa',
+    label: 'WCAG 2.1 Level AAA',
+    axePresetKey: 'wcag21aaa',
+    detStandardsTags: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21a', 'wcag21aa'],
+    wcagVersion: '2.1',
+    level: 'AAA',
+    jurisdictionNotes:
+      'WCAG 2.1 AAA per https://www.w3.org/TR/WCAG21/; axe uses wcag2aaa + wcag21aa tags where Deque supports AAA rules.',
+    manualTestingRequired: MANUAL_GAPS_COMMON,
+  },
   wcag22aa: {
     id: 'wcag22aa',
     label: 'WCAG 2.2 Level AA',

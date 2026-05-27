@@ -5,8 +5,8 @@ scope: generic
 title: Data Table Headers
 summary: Deterministic accessibility check (generic scope).
 page_version: de263aafde320d2d975daa4a0f8238e754b0789152f7bb5f04a22f6cb8adf664
-generated_at: 2026-05-27T18:38:01.000Z
-registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
+generated_at: 2026-05-27T18:51:09.000Z
+registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-data-table-headers
 related_rules:

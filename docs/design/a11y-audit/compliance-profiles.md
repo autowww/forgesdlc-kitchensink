@@ -27,7 +27,8 @@ Profiles change **which axe tags run** and **which DET rules are in scope** — 
 | `wcag20a` | WCAG 2.0 Level A only |
 | `wcag20aaa` | WCAG 2.0 AAA (adds `wcag2aaa` axe tag) |
 | `wcag21aa` | Procurement baseline; WCAG 2.1 AA |
-| `wcag21a` | Level A only |
+| `wcag21a` | WCAG 2.1 Level A only |
+| `wcag21aaa` | WCAG 2.1 AAA (`wcag2aaa` + `wcag21aa` axe tags) |
 | `wcag22aaa` | AAA campaigns |
 | `ada-title-ii-wcag21aa` | US state/local gov web (WCAG 2.1 AA mapping) |
 | `ada-title-iii-wcag21aa` | US public accommodations web (WCAG 2.1 AA mapping) |

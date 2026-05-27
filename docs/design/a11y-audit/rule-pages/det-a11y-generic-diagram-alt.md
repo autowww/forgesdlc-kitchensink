@@ -5,8 +5,8 @@ scope: generic
 title: Diagram Alt
 summary: Deterministic accessibility check (generic scope).
 page_version: ec442a5dd1c86d574a0499777943be4394ef801c1fe2eb120c2b0d229331993e
-generated_at: 2026-05-27T18:38:01.000Z
-registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
+generated_at: 2026-05-27T18:51:09.000Z
+registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-diagram-alt
 related_rules:

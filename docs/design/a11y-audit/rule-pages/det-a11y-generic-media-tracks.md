@@ -5,8 +5,8 @@ scope: generic
 title: Media Tracks
 summary: Deterministic accessibility check (generic scope).
 page_version: e4c909564e10c38d712e706ecfb0e723ce378d99820fde520620c8f71d9ac77c
-generated_at: 2026-05-27T18:38:01.000Z
-registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
+generated_at: 2026-05-27T18:51:09.000Z
+registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-media-tracks
 related_rules:

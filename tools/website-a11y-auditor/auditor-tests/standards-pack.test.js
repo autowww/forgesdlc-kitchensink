@@ -60,8 +60,26 @@ describe('standards-pack', () => {
     assert.deepEqual(pack.validation.uncoveredCriteria || [], []);
   });
 
-  it('wcag21aa pack has zero uncovered after 2.1 DET rules', () => {
+  it('wcag21a pack has zero uncovered after 2.1 DET rules', () => {
+    const pack = loadStandardsPack('wcag21a');
+    const result = validateStandardsPack(pack, { allowManualOnly: true, strict: true });
+    assert.equal(result.ok, true, result.errors?.join('; '));
+    assert.deepEqual(pack.validation.uncoveredCriteria || [], []);
+  });
+
+  it('wcag21aa pack has zero uncovered and no axe-only after 2.1 DET rules', () => {
     const pack = loadStandardsPack('wcag21aa');
+    const result = validateStandardsPack(pack, { allowManualOnly: true, strict: true });
+    assert.equal(result.ok, true, result.errors?.join('; '));
+    assert.deepEqual(pack.validation.uncoveredCriteria || [], []);
+    const axeOnly = pack.criteria.filter(
+      (c) => c.gap === 'covered' && c.tooling.includes('axe') && !c.tooling.includes('det'),
+    );
+    assert.equal(axeOnly.length, 0, `axe-only: ${axeOnly.map((c) => c.id).join(', ')}`);
+  });
+
+  it('wcag21aaa pack has zero uncovered after AAA DET rules', () => {
+    const pack = loadStandardsPack('wcag21aaa');
     const result = validateStandardsPack(pack, { allowManualOnly: true, strict: true });
     assert.equal(result.ok, true, result.errors?.join('; '));
     assert.deepEqual(pack.validation.uncoveredCriteria || [], []);

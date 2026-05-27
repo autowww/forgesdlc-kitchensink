@@ -113,6 +113,79 @@ _EXAMPLES: dict[str, tuple[str, str, str]] = {
             '<button type="button">Explicit control — no focus handler</button></div>'
         ),
     ),
+    "DET.A11Y.GENERIC.ORIENTATION": (
+        "Orientation",
+        "Do not lock viewport or CSS to one orientation (1.3.4).",
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<meta name="viewport" content="width=device-width, orientation=landscape">'
+            '<p class="mb-0">Content forced to landscape.</p></div>'
+        ),
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<p class="mb-0">Works in portrait and landscape.</p></div>'
+        ),
+    ),
+    "DET.A11Y.GENERIC.INPUT_PURPOSE": (
+        "Input purpose",
+        "Personal data fields need autocomplete tokens (1.3.5).",
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<label>Email <input type="email" name="user_email" placeholder="you@example.com"></label></div>'
+        ),
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<label>Email <input type="email" name="user_email" autocomplete="email"></label></div>'
+        ),
+    ),
+    "DET.A11Y.GENERIC.TEXT_SPACING": (
+        "Text spacing",
+        "Avoid clipping when spacing increases (1.4.12).",
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<p style="line-height:12px!important;overflow:hidden;height:2em">Clipped paragraph text.</p></div>'
+        ),
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<p style="line-height:1.5">Paragraph allows extra spacing.</p></div>'
+        ),
+    ),
+    "DET.A11Y.GENERIC.LABEL_IN_NAME": (
+        "Label in name",
+        "Accessible name should include visible label (2.5.3).",
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<button aria-label="Submit form">Send</button></div>'
+        ),
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<button aria-label="Send invoice">Send</button></div>'
+        ),
+    ),
+    "DET.A11Y.GENERIC.POINTER_GESTURES": (
+        "Pointer gestures",
+        "Provide single-pointer alternative to path gestures (2.5.1).",
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<div ontouchstart="void 0">Swipe-only zone</div></div>'
+        ),
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<button type="button" onclick="void 0">Tap or click</button></div>'
+        ),
+    ),
+    "DET.A11Y.GENERIC.CONCURRENT_INPUT": (
+        "Concurrent input",
+        "Do not block keyboard or pointer when not essential (2.5.6).",
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<canvas data-touch-only></canvas></div>'
+        ),
+        (
+            '<div data-ks-embed-main class="p-3">'
+            '<button type="button">Works with keyboard and pointer</button></div>'
+        ),
+    ),
     "DET.A11Y.GENERIC.STATUS_MESSAGES": (
         "Status messages",
         "Dynamic status needs role or aria-live (4.1.3).",

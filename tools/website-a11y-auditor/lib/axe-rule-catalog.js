@@ -8,7 +8,9 @@ export const RTM_PROFILE_IDS = [
   'wcag20a',
   'wcag20aa',
   'wcag20aaa',
+  'wcag21a',
   'wcag21aa',
+  'wcag21aaa',
   'wcag22aa',
 ];
 

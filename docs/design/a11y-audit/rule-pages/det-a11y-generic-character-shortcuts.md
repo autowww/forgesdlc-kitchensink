@@ -5,8 +5,8 @@ scope: generic
 title: Character Shortcuts
 summary: Deterministic accessibility check (generic scope).
 page_version: 213f7992000afc669132157f72916b1281e9cdb1ee7eb710ffad46c2913a640f
-generated_at: 2026-05-27T18:38:01.000Z
-registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
+generated_at: 2026-05-27T18:51:09.000Z
+registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-character-shortcuts
 related_rules:

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-27T18:37:25.011Z",
+  "generatedAt": "2026-05-27T18:50:56.212Z",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
   "profiles": [
     {
@@ -112,6 +112,34 @@
         "wcag21aa"
       ],
       "jurisdictionNotes": "Common procurement baseline; aligns with many ADA web references.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "wcag21aaa",
+      "label": "WCAG 2.1 Level AAA",
+      "wcagVersion": "2.1",
+      "level": "AAA",
+      "axePresetKey": "wcag21aaa",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa",
+        "wcag21a",
+        "wcag21aa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa",
+        "wcag21a",
+        "wcag21aa"
+      ],
+      "jurisdictionNotes": "WCAG 2.1 AAA per https://www.w3.org/TR/WCAG21/; axe uses wcag2aaa + wcag21aa tags where Deque supports AAA rules.",
       "manualTestingRequired": [
         "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
         "Media alternatives (captions, audio description, transcripts)",

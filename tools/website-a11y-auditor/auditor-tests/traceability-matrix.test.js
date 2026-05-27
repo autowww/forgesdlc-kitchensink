@@ -87,8 +87,10 @@ describe('traceability-matrix', () => {
     assert.equal(s.uncovered, 0, 'wcag21aa RTM should be closed after 2.1 DET rules');
   });
 
-  it('resolveRtmProfileId maps ADA to wcag21aa', () => {
+  it('resolveRtmProfileId maps profiles to RTM pack ids', () => {
     assert.equal(resolveRtmProfileId('ada-title-ii-wcag21aa'), 'wcag21aa');
+    assert.equal(resolveRtmProfileId('wcag21a'), 'wcag21a');
+    assert.equal(resolveRtmProfileId('wcag21aaa'), 'wcag21aaa');
     assert.equal(resolveRtmProfileId('wcag22aa'), 'wcag22aa');
     assert.equal(resolveRtmProfileId('wcag20aa'), 'wcag20aa');
     assert.equal(resolveRtmProfileId('wcag20aaa'), 'wcag20aaa');
@@ -140,5 +142,16 @@ describe('traceability-matrix', () => {
   it('wcag21aa catalog has 50 success criteria', () => {
     const criteria = resolveProfileCriteria(catalogJson, 'wcag21aa');
     assert.equal(criteria.length, 50);
+  });
+
+  it('wcag21aaa catalog includes 2.5.6 and has zero uncovered in matrix', () => {
+    const criteria = resolveProfileCriteria(catalogJson, 'wcag21aaa');
+    assert.ok(criteria.some((c) => c.id === '2.5.6'));
+    const matrix = buildStandardsTraceability({
+      catalogJson,
+      registry,
+      axeCatalog: buildAxeRuleCatalog(),
+    });
+    assert.equal(matrix.profiles.wcag21aaa.summary.uncovered, 0);
   });
 });

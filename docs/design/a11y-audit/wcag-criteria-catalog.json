@@ -615,6 +615,183 @@
         }
       ]
     },
+    "wcag21a": {
+      "wcagVersion": "2.1",
+      "level": "A",
+      "specUrl": "https://www.w3.org/TR/WCAG21/",
+      "extendsProfile": "wcag21aa",
+      "levelFilter": "A"
+    },
+    "wcag21aaa": {
+      "wcagVersion": "2.1",
+      "level": "AAA",
+      "specUrl": "https://www.w3.org/TR/WCAG21/",
+      "extendsProfile": "wcag21aa",
+      "additionalCriteria": [
+        {
+          "id": "1.2.6",
+          "title": "Sign Language (Prerecorded)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "1.2.7",
+          "title": "Extended Audio Description (Prerecorded)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "1.2.8",
+          "title": "Media Alternative (Prerecorded)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "1.2.9",
+          "title": "Audio-only (Live)",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "1.4.6",
+          "title": "Contrast (Enhanced)",
+          "level": "AAA",
+          "principle": 1
+        },
+        {
+          "id": "1.4.7",
+          "title": "Low or No Background Audio",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "1.4.8",
+          "title": "Visual Presentation",
+          "level": "AAA",
+          "principle": 1,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "1.4.9",
+          "title": "Images of Text (No Exception)",
+          "level": "AAA",
+          "principle": 1
+        },
+        {
+          "id": "2.1.3",
+          "title": "Keyboard (No Exception)",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "2.2.3",
+          "title": "No Timing",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "2.2.4",
+          "title": "Interruptions",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "2.2.5",
+          "title": "Re-authenticating",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "2.3.2",
+          "title": "Three Flashes",
+          "level": "AAA",
+          "principle": 2
+        },
+        {
+          "id": "2.4.8",
+          "title": "Location",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "2.4.9",
+          "title": "Link Purpose (Link Only)",
+          "level": "AAA",
+          "principle": 2
+        },
+        {
+          "id": "2.4.10",
+          "title": "Section Headings",
+          "level": "AAA",
+          "principle": 2
+        },
+        {
+          "id": "2.5.6",
+          "title": "Concurrent Input Mechanisms",
+          "level": "AAA",
+          "principle": 2
+        },
+        {
+          "id": "3.1.3",
+          "title": "Unusual Words",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "3.1.4",
+          "title": "Abbreviations",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "3.1.5",
+          "title": "Reading Level",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "3.1.6",
+          "title": "Pronunciation",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "3.2.5",
+          "title": "Change on Request",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "3.3.5",
+          "title": "Help",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "3.3.6",
+          "title": "Error Prevention (All)",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        }
+      ]
+    },
     "wcag20a": {
       "wcagVersion": "2.0",
       "level": "A",

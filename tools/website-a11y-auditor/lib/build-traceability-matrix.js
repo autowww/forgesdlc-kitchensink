@@ -341,7 +341,8 @@ export function buildTraceabilityFromRegistry(registry) {
 export function resolveRtmProfileId(complianceProfileId) {
   const id = String(complianceProfileId || 'wcag22aa').toLowerCase();
   if (id === 'wcag20a' || id === 'wcag20aa' || id === 'wcag20aaa') return id;
-  if (id.startsWith('ada-title-') || id === 'wcag21aa' || id === 'wcag21a') return 'wcag21aa';
+  if (id === 'wcag21a' || id === 'wcag21aa' || id === 'wcag21aaa') return id;
+  if (id.startsWith('ada-title-')) return 'wcag21aa';
   if (id === 'wcag22aa' || id === 'wcag22aaa') return 'wcag22aa';
   return 'wcag22aa';
 }

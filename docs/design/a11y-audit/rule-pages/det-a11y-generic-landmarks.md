@@ -5,8 +5,8 @@ scope: generic
 title: Landmarks
 summary: One main landmark and nav when chrome links exist.
 page_version: 55fa55cce449bfc0b59fd29f556d9e0d18b039da258dd04bb2611701c6f8b7e3
-generated_at: 2026-05-27T18:38:01.000Z
-registry_fingerprint: 755460e3459075c98681623f9de9afefbe974f1c88c68d9c6bfd534026cc6bf8
+generated_at: 2026-05-27T18:51:09.000Z
+registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-landmarks
 related_rules:
