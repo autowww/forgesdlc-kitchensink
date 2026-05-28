@@ -97,6 +97,7 @@ export async function collectCardTitleReport(page, minTitleChars = MIN_CARD_TITL
         if (!el || el.nodeType !== 1 || !visible(el) || isHiddenSubtree(el)) return false;
         const tag = el.tagName.toLowerCase();
         const cls = String(el.className || '').toLowerCase();
+        if (/\bcard-grid\b|\bartifact-card-grid\b/.test(cls)) return false;
         if (el.hasAttribute('data-card')) return true;
         if (/\bcard\b/.test(cls) && !/\bcard-header\b|\bcard-body\b|\bcard-footer\b|\bcard-title\b/.test(cls)) {
           if (tag === 'a' || tag === 'article' || tag === 'div' || tag === 'section') {

@@ -105,7 +105,7 @@ export function isStudioDynamicUxRuleId(ruleId) {
  * @returns {string[]}
  */
 export function resolveStudioDynamicUxRuleIds(registry, opts = {}) {
-  const includePrimitives = opts.includePrimitives !== false;
+  const includePrimitives = opts.includePrimitives === true;
   const allowed = new Set([
     ...STUDIO_DYNAMIC_UX_RUN,
     ...(includePrimitives ? STUDIO_DYNAMIC_UX_PRIMITIVE_RULES : []),

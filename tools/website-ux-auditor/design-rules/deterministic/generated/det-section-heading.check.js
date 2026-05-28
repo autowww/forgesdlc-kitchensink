@@ -239,6 +239,7 @@ export async function collectSectionHeadingReport(page) {
         const found = [];
         for (const el of sectionEl.querySelectorAll(headingSelector)) {
           if (!visible(el)) continue;
+          if (el.closest('dialog, [role="dialog"]')) continue;
           const owner = el.closest('section, article');
           if (owner && owner !== sectionEl) continue;
           found.push({

@@ -19,8 +19,9 @@ export { A11Y_STUDIO_UX_DET_EXCLUDED };
 export async function studioUxDetRuntimeOpts(siteKind, opts = {}) {
   if (siteKind === 'a11y-studio' || siteKind === 'app-shell') {
     const registry = opts.registry || (await loadDesignRuleRegistry());
+    const includePrimitives = opts.includePrimitives === true;
     return {
-      onlyDeterministicRuleIds: resolveStudioDynamicUxRuleIds(registry),
+      onlyDeterministicRuleIds: resolveStudioDynamicUxRuleIds(registry, { includePrimitives }),
       excludeDeterministicRuleIds: [],
     };
   }

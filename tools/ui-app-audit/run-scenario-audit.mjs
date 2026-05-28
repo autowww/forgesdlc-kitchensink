@@ -15,7 +15,10 @@ import {
   resolveRulesScope,
 } from '../website-a11y-auditor/lib/detect-ks-site.js';
 import { runAllChecksWithTrace } from '../website-ux-auditor/checks/index.js';
-import { createDesignRuleRuntime } from '../website-ux-auditor/lib/design-rule-runtime.js';
+import {
+  createDesignRuleRuntime,
+  loadDesignRuleRegistry,
+} from '../website-ux-auditor/lib/design-rule-runtime.js';
 import { collectDomMetrics } from '../website-ux-auditor/lib/dom-metrics.js';
 import { importPlaywright } from '../website-ux-auditor/lib/playwright-import.js';
 import { isMajorPlus } from '../website-ux-auditor/lib/severity.js';
@@ -118,7 +121,11 @@ async function runScenario(page, scenario, url, opts, a11yRuntime, uxRuntime, la
         await page.locator(step.click).first().click({ timeout: 15_000 });
       }
       if (step?.wait_for) {
-        await page.waitForSelector(step.wait_for, { state: 'attached', timeout: 15_000 });
+        const state = step.state || 'attached';
+        await page.waitForSelector(step.wait_for, { state, timeout: 15_000 });
+      }
+      if (step?.press) {
+        await page.keyboard.press(step.press);
       }
     }
 
@@ -225,9 +232,7 @@ async function main() {
   const a11yRuntime = needsA11yDet
     ? await createA11yRuleRuntime({ rulesScopeResolved: rulesScopePre })
     : null;
-  const uxDetOpts = await studioUxDetRuntimeOpts(opts.siteKind);
-  const uxRuntime =
-    needsUxDet && opts.ux ? await createDesignRuleRuntime(uxDetOpts) : null;
+  const uxRegistry = needsUxDet && opts.ux ? await loadDesignRuleRegistry() : null;
 
   /** @type {object[]} */
   const pages = [];
@@ -243,6 +248,16 @@ async function main() {
       console.error(
         `[scenario-audit] ${i + 1}/${scenarios.length} ${scenario.scenarioId} lanes=${[...laneSet].join(',')}`,
       );
+
+      let uxRuntime = null;
+      if (laneSet.has('ux-det') && opts.ux && uxRegistry) {
+        const includePrimitives = scenario.include_primitives === true;
+        const uxDetOpts = await studioUxDetRuntimeOpts(opts.siteKind, {
+          registry: uxRegistry,
+          includePrimitives,
+        });
+        uxRuntime = await createDesignRuleRuntime(uxDetOpts);
+      }
 
       const result = await runScenario(
         page,
@@ -330,7 +345,7 @@ async function main() {
     gatePass,
     qualityGate,
     uxQualityGate,
-    uxDetPolicy: uxDetOpts,
+    uxDetPolicy: { allowlist: 'studio-dynamic-ux-ruleset', perScenarioPrimitives: true },
     pages,
     findings: allFindings,
   };
