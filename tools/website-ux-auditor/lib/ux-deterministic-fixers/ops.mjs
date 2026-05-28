@@ -94,10 +94,19 @@ export async function findFilesRecursive(dir, pattern) {
  * @param {string} repoRoot
  */
 export function defaultWebsiteRoots(repoRoot) {
-  const candidates = [
+  return defaultAppRoots(repoRoot);
+}
+
+/**
+ * HTML search roots for static sites and Forge app shells (Studio, etc.).
+ * @param {string} repoRoot
+ */
+export function defaultAppRoots(repoRoot) {
+  return [
     path.join(repoRoot, 'website'),
     path.join(repoRoot, 'showcase'),
+    path.join(repoRoot, 'forge_accessibility', 'static'),
+    path.join(repoRoot, 'forge_accessibility', 'static', 'partials'),
     repoRoot,
   ];
-  return candidates;
 }

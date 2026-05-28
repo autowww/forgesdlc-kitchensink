@@ -6,7 +6,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { isMajorPlus } from '../website-ux-auditor/lib/severity.js';
-import { evaluateStudioQualityGate } from './lib/studio-quality-gate.mjs';
+import {
+  evaluateStudioQualityGates,
+  resolveStudioGateMode,
+} from './lib/studio-quality-gate.mjs';
 
 function parseArgs(argv) {
   const opts = { audit: '', out: '' };
@@ -32,9 +35,16 @@ async function main() {
   const waiversPath =
     process.env.FORGE_STUDIO_WAIVERS_PATH ||
     path.join(appRepo, 'docs', 'studio', 'sealed-audit-waivers.yaml');
-  const qualityGate =
-    auditData.qualityGate ||
-    (await evaluateStudioQualityGate(findings, { waiversPath }));
+  const gates =
+    auditData.qualityGate && auditData.uxQualityGate
+      ? {
+          mode: auditData.gateMode || resolveStudioGateMode(),
+          pass: auditData.gatePass ?? auditData.qualityGate.pass,
+          qualityGate: auditData.qualityGate,
+          uxQualityGate: auditData.uxQualityGate,
+        }
+      : await evaluateStudioQualityGates(findings, { waiversPath });
+  const { qualityGate, uxQualityGate, mode: gateMode, pass: passGate } = gates;
 
   const byLane = { legacy: 0, uxDet: 0, a11yDet: 0, axe: 0, other: 0 };
   for (const f of findings) {
@@ -56,17 +66,19 @@ async function main() {
     findingsTotal: findings.length,
     majorPlusTotal: majorPlus,
     findingsByLane: byLane,
+    gateMode,
     qualityGate,
-    passGate: qualityGate.pass,
+    uxQualityGate,
+    passGate,
   };
 
   const outDir = opts.out ? path.dirname(opts.out) : path.dirname(opts.audit);
   const outPath = opts.out || path.join(outDir, 'studio-ux-quality-score.json');
   await fs.writeFile(outPath, `${JSON.stringify(score, null, 2)}\n`, 'utf8');
   console.error(
-    `score-scenario-ux: wrote ${outPath} majorPlus=${majorPlus} qualityGate=${qualityGate.pass ? 'pass' : 'fail'}`,
+    `score-scenario-ux: wrote ${outPath} majorPlus=${majorPlus} gateMode=${gateMode} passGate=${passGate ? 'pass' : 'fail'} uxGate=${uxQualityGate.pass ? 'pass' : 'fail'}`,
   );
-  if (!qualityGate.pass) process.exitCode = 1;
+  if (!passGate) process.exitCode = 1;
 }
 
 main().catch((err) => {

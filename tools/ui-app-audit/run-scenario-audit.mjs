@@ -25,7 +25,7 @@ import { writeStudioRemediationPlan } from './lib/generate-studio-remediation-pl
 import { loadSmokePlan, scenarioMatchesTiers, scenarioUrl } from './lib/smoke-plan.mjs';
 import { resolveScenarioLanes } from './lib/scenario-lanes.mjs';
 import { studioUxDetRuntimeOpts } from './lib/studio-ux-det-policy.mjs';
-import { evaluateStudioQualityGate } from './lib/studio-quality-gate.mjs';
+import { evaluateStudioQualityGates } from './lib/studio-quality-gate.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -275,7 +275,8 @@ async function main() {
   const waiversPath =
     process.env.FORGE_STUDIO_WAIVERS_PATH ||
     path.join(repoRoot, 'docs', 'studio', 'sealed-audit-waivers.yaml');
-  const qualityGate = await evaluateStudioQualityGate(allFindings, { waiversPath });
+  const gates = await evaluateStudioQualityGates(allFindings, { waiversPath });
+  const { mode: gateMode, pass: gatePass, qualityGate, uxQualityGate } = gates;
 
   const auditData = {
     schemaVersion: 2,
@@ -295,9 +296,16 @@ async function main() {
       scenariosTotal: scenarios.length,
       majorPlusFindingCountTotal: majorPlus,
       qualityGatePass: qualityGate.pass,
+      uxQualityGatePass: uxQualityGate.pass,
+      gateMode,
+      gatePass,
       gateableFindingCount: qualityGate.gateFindingCount,
+      uxGateableFindingCount: uxQualityGate.gateFindingCount,
     },
+    gateMode,
+    gatePass,
     qualityGate,
+    uxQualityGate,
     uxDetPolicy: uxDetOpts,
     pages,
     findings: allFindings,
@@ -348,9 +356,9 @@ async function main() {
   }
 
   console.error(
-    `run-scenario-audit: wrote ${outPath} scenarios=${scenarios.length} findings=${allFindings.length} majorPlus=${majorPlus} qualityGate=${qualityGate.pass ? 'pass' : 'fail'} gateable=${qualityGate.gateFindingCount}`,
+    `run-scenario-audit: wrote ${outPath} scenarios=${scenarios.length} findings=${allFindings.length} majorPlus=${majorPlus} gateMode=${gateMode} gatePass=${gatePass ? 'pass' : 'fail'} a11yGate=${qualityGate.pass ? 'pass' : 'fail'} uxGate=${uxQualityGate.pass ? 'pass' : 'fail'}`,
   );
-  if (!qualityGate.pass) process.exitCode = 1;
+  if (!gatePass) process.exitCode = 1;
 }
 
 main().catch((err) => {

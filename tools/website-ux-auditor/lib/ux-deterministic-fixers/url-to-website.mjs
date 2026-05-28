@@ -1,5 +1,7 @@
 import path from 'node:path';
 
+import { htmlPathsFromAppFindings, htmlPathsFromSources } from './url-to-app-static.mjs';
+
 /**
  * Map audit page URL to a static HTML file under website/.
  * @param {string} repoRoot
@@ -45,5 +47,7 @@ export function htmlPathsFromFindings(repoRoot, findings) {
     const p = urlToWebsiteHtmlPath(repoRoot, f.url || '');
     if (p) paths.add(p);
   }
+  for (const p of htmlPathsFromSources(repoRoot, findings)) paths.add(p);
+  for (const p of htmlPathsFromAppFindings(repoRoot, findings)) paths.add(p);
   return [...paths];
 }
