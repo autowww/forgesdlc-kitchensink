@@ -143,6 +143,8 @@ auditor-tests/invoke-ai-ruleset-harness.sh --skip-agent
 
 Deterministic fixers: `lib/a11y-deterministic-fixers/` (`pilot-registry.json`). AI findings with `candidateDeterministicRule` route to the same DET fixer when registered.
 
+Agent remediation: `generate-a11y-remediation-plan.mjs` writes `forge-a11y-remediation.plan.md`; `cursor-agent-run-a11y-plan.sh` executes it (set `FORGE_A11Y_SKIP_CURSOR_AGENT=0` in the loop).
+
 ## Kitchen Sink showcase
 
 After `python3 generator/build-showcase.py` from the KS repo root:
