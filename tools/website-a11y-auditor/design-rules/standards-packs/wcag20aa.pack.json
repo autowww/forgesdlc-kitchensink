@@ -6,7 +6,7 @@
   "level": "AA",
   "specUrl": "https://www.w3.org/TR/WCAG20/",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
-  "generatedAt": "2026-05-28T03:48:07.550Z",
+  "generatedAt": "2026-05-28T04:01:43.824Z",
   "axeTags": [
     "wcag2a",
     "wcag2aa"
@@ -1561,7 +1561,8 @@
       "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
       "lane": "deterministic",
       "wcagCriteria": [
-        "2.1.1"
+        "2.1.1",
+        "2.1.3"
       ],
       "inPack": true
     },
@@ -1626,7 +1627,8 @@
       "ruleId": "DET.A11Y.GENERIC.TIMING",
       "lane": "deterministic",
       "wcagCriteria": [
-        "2.2.1"
+        "2.2.1",
+        "2.2.3"
       ],
       "inPack": true
     },
@@ -1642,7 +1644,8 @@
       "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
       "lane": "deterministic",
       "wcagCriteria": [
-        "3.3.4"
+        "3.3.4",
+        "3.3.6"
       ],
       "inPack": true
     },
@@ -1771,6 +1774,72 @@
       "lane": "deterministic",
       "wcagCriteria": [
         "2.5.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.7"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.8"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.2.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.2.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.1.3",
+        "3.1.4",
+        "3.1.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.1.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.2.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.3.5"
       ],
       "inPack": false
     },

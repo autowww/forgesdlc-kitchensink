@@ -24,13 +24,22 @@ export async function run(ctx) {
       const text = norm(form.textContent || '');
       const sensitive =
         /\b(payment|card|checkout|purchase|submit order|wire transfer|legal|contract)\b/.test(text);
-      if (!sensitive) continue;
+      const destructive =
+        /\b(delete all|permanently delete|remove account|submit)\b/.test(text) &&
+        form.querySelector('[type="submit"],button[type="submit"]');
+      if (!sensitive && !destructive) continue;
       const hasReview =
         form.querySelector('[type="button"],button') &&
         /\b(review|confirm|verify)\b/i.test(form.innerHTML);
-      const hasConfirmStep = form.querySelector('[name*="confirm" i],[id*="confirm" i]');
+      const hasConfirmStep = form.querySelector(
+        '[name*="confirm" i],[id*="confirm" i],[type="checkbox"][required]',
+      );
       if (!hasReview && !hasConfirmStep) {
-        hits.push({ id: form.id || '', action: (form.getAttribute('action') || '').slice(0, 60) });
+        hits.push({
+          id: form.id || '',
+          action: (form.getAttribute('action') || '').slice(0, 60),
+          kind: sensitive ? 'legal-financial' : 'destructive',
+        });
         if (hits.length >= 3) break;
       }
     }
@@ -41,7 +50,9 @@ export async function run(ctx) {
     severity: 'warn',
     area: 'accessibility',
     message:
-      'Financial or legal form may lack review/confirmation step (WCAG 3.3.4 supplemental).',
+      h.kind === 'destructive'
+        ? 'Destructive submit may lack confirmation (WCAG 3.3.6 supplemental).'
+        : 'Financial or legal form may lack review/confirmation step (WCAG 3.3.4 supplemental).',
     evidence: `form id="${h.id}" action="${h.action}"`,
     remediation: 'Let users review, confirm, or reverse submissions that bind the user.',
   }));

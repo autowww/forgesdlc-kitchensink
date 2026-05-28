@@ -5,8 +5,8 @@ scope: ks
 title: Handbook Sidebar Labels
 summary: AI judgment overlay (ks scope).
 page_version: 442bc2e72ad1227e949746587b797ed3df48b4deb4a3410cfda4f8149e33042d
-generated_at: 2026-05-28T03:48:11.000Z
-registry_fingerprint: 0021c088bf3664f96bb6c318bf46b537f04b476e6c6b1d511b371f23ade016ac
+generated_at: 2026-05-28T04:01:52.000Z
+registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-ks-handbook-sidebar-labels
 related_rules:

@@ -67,6 +67,16 @@ describe('standards-pack', () => {
     assert.deepEqual(pack.validation.uncoveredCriteria || [], []);
   });
 
+  it('wcag21aaa manual_expected rows have supplemental DET except 4.1.1 Parsing', () => {
+    const pack = loadStandardsPack('wcag21aaa');
+    const manual = pack.criteria.filter((c) => c.gap === 'manual_expected');
+    const noDet = manual.filter((c) => !(c.tooling || []).includes('det'));
+    assert.deepEqual(
+      noDet.map((c) => c.id),
+      ['4.1.1'],
+    );
+  });
+
   it('wcag21aa manual_expected criteria include AI tooling (except 4.1.1)', () => {
     const pack = loadStandardsPack('wcag21aa');
     const manual = pack.criteria.filter((c) => c.gap === 'manual_expected');
@@ -80,6 +90,14 @@ describe('standards-pack', () => {
       fs.readFileSync(path.join(TOOL_ROOT, 'design-rules/registry.generated.json'), 'utf8'),
     );
     assert.equal((reg.aiRules || []).length, 21);
+  });
+
+  it('registry has 61 documented DET rules after AAA supplemental pass', () => {
+    const reg = JSON.parse(
+      fs.readFileSync(path.join(TOOL_ROOT, 'design-rules/registry.generated.json'), 'utf8'),
+    );
+    assert.equal(reg.deterministicCoverage?.documentedRuleCount, 61);
+    assert.equal(reg.deterministicCoverage?.implementedCount, 61);
   });
 
   it('wcag21aa pack has zero uncovered and no axe-only after 2.1 DET rules', () => {

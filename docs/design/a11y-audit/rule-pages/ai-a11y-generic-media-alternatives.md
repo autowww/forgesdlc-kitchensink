@@ -5,8 +5,8 @@ scope: generic
 title: Media Alternatives
 summary: AI judgment overlay (generic scope).
 page_version: 3d8513a6e0b82edd24820d08aa0afded956ef279dd83873ea6842522e4a401d4
-generated_at: 2026-05-28T03:48:11.000Z
-registry_fingerprint: 0021c088bf3664f96bb6c318bf46b537f04b476e6c6b1d511b371f23ade016ac
+generated_at: 2026-05-28T04:01:52.000Z
+registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-media-alternatives
 related_rules:

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T03:48:07.550Z",
+  "generatedAt": "2026-05-28T04:01:43.824Z",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
   "catalogSource": "docs/design/a11y-audit/wcag-criteria-catalog.json",
   "profiles": {
@@ -1562,7 +1562,8 @@
           "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.1.1"
+            "2.1.1",
+            "2.1.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -1662,7 +1663,8 @@
           "ruleId": "DET.A11Y.GENERIC.TIMING",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.2.1"
+            "2.2.1",
+            "2.2.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -1688,7 +1690,8 @@
           "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
           "lane": "deterministic",
           "wcagCriteria": [
-            "3.3.4"
+            "3.3.4",
+            "3.3.6"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -1897,6 +1900,112 @@
           "lane": "deterministic",
           "wcagCriteria": [
             "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4",
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.5"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -2334,7 +2443,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 61,
-        "detRuleCount": 53,
+        "detRuleCount": 61,
         "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
@@ -4143,7 +4252,8 @@
           "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.1.1"
+            "2.1.1",
+            "2.1.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -4243,7 +4353,8 @@
           "ruleId": "DET.A11Y.GENERIC.TIMING",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.2.1"
+            "2.2.1",
+            "2.2.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -4269,7 +4380,8 @@
           "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
           "lane": "deterministic",
           "wcagCriteria": [
-            "3.3.4"
+            "3.3.4",
+            "3.3.6"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -4478,6 +4590,112 @@
           "lane": "deterministic",
           "wcagCriteria": [
             "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4",
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.5"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -4927,7 +5145,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 64,
-        "detRuleCount": 53,
+        "detRuleCount": 61,
         "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
@@ -5294,9 +5512,11 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.AUDIO_CONTROL"
           ],
@@ -5308,9 +5528,11 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.VISUAL_PRESENTATION"
           ],
@@ -5372,11 +5594,13 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+manual_ai",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.89"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.KEYBOARD_ACCESS"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION"
           ],
@@ -5423,9 +5647,11 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.TIMING"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
           ],
@@ -5437,11 +5663,13 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+manual_ai",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.76"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.INTERRUPTIONS"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.INTERRUPTIONS"
           ],
@@ -5453,9 +5681,11 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.RE_AUTHENTICATION"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.RE_AUTHENTICATION"
           ],
@@ -5686,9 +5916,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.GLOSSARY_ABBR"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.UNUSUAL_WORDS"
           ],
@@ -5700,9 +5932,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.GLOSSARY_ABBR"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.UNUSUAL_WORDS"
           ],
@@ -5714,9 +5948,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.READING_LEVEL"
           ],
@@ -5728,9 +5964,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.GLOSSARY_ABBR"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.PRONUNCIATION"
           ],
@@ -5800,11 +6038,13 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+manual_ai",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.76"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.CHANGE_ON_REQUEST"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.CHANGE_ON_REQUEST"
           ],
@@ -5876,9 +6116,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.CONTEXT_HELP"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.CONTEXT_HELP"
           ],
@@ -5890,9 +6132,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.ERROR_PREVENTION"
           ],
@@ -7117,7 +7361,8 @@
           "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.1.1"
+            "2.1.1",
+            "2.1.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -7217,7 +7462,8 @@
           "ruleId": "DET.A11Y.GENERIC.TIMING",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.2.1"
+            "2.2.1",
+            "2.2.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -7243,7 +7489,8 @@
           "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
           "lane": "deterministic",
           "wcagCriteria": [
-            "3.3.4"
+            "3.3.4",
+            "3.3.6"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -7452,6 +7699,112 @@
           "lane": "deterministic",
           "wcagCriteria": [
             "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4",
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.5"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -7924,7 +8277,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 67,
-        "detRuleCount": 53,
+        "detRuleCount": 61,
         "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
@@ -9599,7 +9952,8 @@
           "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.1.1"
+            "2.1.1",
+            "2.1.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -9699,7 +10053,8 @@
           "ruleId": "DET.A11Y.GENERIC.TIMING",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.2.1"
+            "2.2.1",
+            "2.2.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -9725,7 +10080,8 @@
           "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
           "lane": "deterministic",
           "wcagCriteria": [
-            "3.3.4"
+            "3.3.4",
+            "3.3.6"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -9934,6 +10290,112 @@
           "lane": "deterministic",
           "wcagCriteria": [
             "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4",
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.5"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -10376,7 +10838,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 62,
-        "detRuleCount": 53,
+        "detRuleCount": 61,
         "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
@@ -12415,7 +12877,8 @@
           "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.1.1"
+            "2.1.1",
+            "2.1.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -12515,7 +12978,8 @@
           "ruleId": "DET.A11Y.GENERIC.TIMING",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.2.1"
+            "2.2.1",
+            "2.2.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -12541,7 +13005,8 @@
           "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
           "lane": "deterministic",
           "wcagCriteria": [
-            "3.3.4"
+            "3.3.4",
+            "3.3.6"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -12750,6 +13215,112 @@
           "lane": "deterministic",
           "wcagCriteria": [
             "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4",
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.5"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -13211,7 +13782,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 68,
-        "detRuleCount": 53,
+        "detRuleCount": 61,
         "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
@@ -13610,9 +14181,11 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.AUDIO_CONTROL"
           ],
@@ -13624,9 +14197,11 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.VISUAL_PRESENTATION"
           ],
@@ -13746,11 +14321,13 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+manual_ai",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.89"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.KEYBOARD_ACCESS"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION"
           ],
@@ -13811,9 +14388,11 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.TIMING"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
           ],
@@ -13825,11 +14404,13 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+manual_ai",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.76"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.INTERRUPTIONS"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.INTERRUPTIONS"
           ],
@@ -13841,9 +14422,11 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.RE_AUTHENTICATION"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.RE_AUTHENTICATION"
           ],
@@ -14148,9 +14731,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.GLOSSARY_ABBR"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.UNUSUAL_WORDS"
           ],
@@ -14162,9 +14747,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.GLOSSARY_ABBR"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.UNUSUAL_WORDS"
           ],
@@ -14176,9 +14763,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.READING_LEVEL"
           ],
@@ -14190,9 +14779,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.GLOSSARY_ABBR"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.PRONUNCIATION"
           ],
@@ -14262,11 +14853,13 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+manual_ai",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.76"
           ],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.CHANGE_ON_REQUEST"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.CHANGE_ON_REQUEST"
           ],
@@ -14338,9 +14931,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.CONTEXT_HELP"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.CONTEXT_HELP"
           ],
@@ -14352,9 +14947,11 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_ai",
+          "coverage": "det+manual_ai",
           "axeRules": [],
-          "detRules": [],
+          "detRules": [
+            "DET.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
           "aiRules": [
             "AI.A11Y.GENERIC.ERROR_PREVENTION"
           ],
@@ -15645,7 +16242,8 @@
           "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.1.1"
+            "2.1.1",
+            "2.1.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -15745,7 +16343,8 @@
           "ruleId": "DET.A11Y.GENERIC.TIMING",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.2.1"
+            "2.2.1",
+            "2.2.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -15771,7 +16370,8 @@
           "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
           "lane": "deterministic",
           "wcagCriteria": [
-            "3.3.4"
+            "3.3.4",
+            "3.3.6"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -15980,6 +16580,112 @@
           "lane": "deterministic",
           "wcagCriteria": [
             "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4",
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.5"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -16465,7 +17171,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 71,
-        "detRuleCount": 53,
+        "detRuleCount": 61,
         "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
@@ -18593,7 +19299,8 @@
           "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.1.1"
+            "2.1.1",
+            "2.1.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -18693,7 +19400,8 @@
           "ruleId": "DET.A11Y.GENERIC.TIMING",
           "lane": "deterministic",
           "wcagCriteria": [
-            "2.2.1"
+            "2.2.1",
+            "2.2.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -18719,7 +19427,8 @@
           "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
           "lane": "deterministic",
           "wcagCriteria": [
-            "3.3.4"
+            "3.3.4",
+            "3.3.6"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -18928,6 +19637,112 @@
           "lane": "deterministic",
           "wcagCriteria": [
             "2.5.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4",
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "deterministic",
+          "wcagCriteria": [
+            "3.3.5"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -19395,7 +20210,7 @@
         "uncovered": 0,
         "untiedRuleCount": 0,
         "axeRuleCount": 69,
-        "detRuleCount": 53,
+        "detRuleCount": 61,
         "aiRuleCount": 21,
         "byPrinciple": {
           "1": {

@@ -28,7 +28,7 @@
 | `DET.A11Y.GENERIC.SECTION_HEADINGS` | Section headings in long content (**2.4.10** AAA) |
 | `DET.A11Y.GENERIC.CONSISTENT_LABELS` | Consistent component labels sitewide (**3.2.4**) |
 | `DET.A11Y.GENERIC.CONSISTENT_NAV` | Consistent primary nav sitewide (**3.2.3**) |
-| `DET.A11Y.GENERIC.KEYBOARD_ACCESS` | Mouse-only handlers / focus traps (**2.1.1**) |
+| `DET.A11Y.GENERIC.KEYBOARD_ACCESS` | Mouse-only handlers / focus traps (**2.1.1**, **2.1.3** supplemental) |
 | `DET.A11Y.GENERIC.PAUSE_STOP_HIDE` | Pause/stop for moving content (**2.2.2**) |
 | `DET.A11Y.GENERIC.LINK_PURPOSE` | Link text and purpose (**2.4.4**) |
 | `DET.A11Y.GENERIC.LANG_OF_PARTS` | `lang` on foreign-language blocks (**3.1.2**) |
@@ -36,9 +36,9 @@
 | `DET.A11Y.GENERIC.PAGE_LOCATION` | Breadcrumb / location (**2.4.8** AAA) |
 | `DET.A11Y.GENERIC.MEDIA_TRACKS` | Supplemental media/caption hints (**1.2.x**, manual catalog) |
 | `DET.A11Y.GENERIC.AUTOPLAY_AUDIO` | Autoplay audio (**1.4.2**, supplemental) |
-| `DET.A11Y.GENERIC.TIMING` | Time limits and meta refresh (**2.2.1**, supplemental) |
+| `DET.A11Y.GENERIC.TIMING` | Time limits and meta refresh (**2.2.1**, **2.2.3** supplemental) |
 | `DET.A11Y.GENERIC.SENSORY_CUES` | Sensory-only instructions (**1.3.3**, supplemental) |
-| `DET.A11Y.GENERIC.ERROR_PREVENTION` | Legal/financial confirm steps (**3.3.4**, supplemental) |
+| `DET.A11Y.GENERIC.ERROR_PREVENTION` | Legal/financial/destructive confirm steps (**3.3.4**, **3.3.6** supplemental) |
 | `DET.A11Y.GENERIC.MULTIPLE_WAYS` | Nav/search/sitemap heuristics (**2.4.5**, supplemental) |
 | `DET.A11Y.GENERIC.ORIENTATION` | Orientation not locked (**1.3.4**, WCAG 2.1) |
 | `DET.A11Y.GENERIC.INPUT_PURPOSE` | `autocomplete` on common personal-data fields (**1.3.5**) |
@@ -53,6 +53,14 @@
 | `DET.A11Y.GENERIC.MOTION_ACTUATION` | Motion actuation (**2.5.4**) |
 | `DET.A11Y.GENERIC.STATUS_MESSAGES` | Status message roles / live regions (**4.1.3**) |
 | `DET.A11Y.GENERIC.CONTRAST_ENHANCED` | Enhanced contrast samples (**1.4.6** AAA) |
+| `DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO` | Autoplay media / background audio (**1.4.7** AAA supplemental) |
+| `DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA` | Block presentation heuristics (**1.4.8** AAA supplemental) |
+| `DET.A11Y.GENERIC.INTERRUPTIONS` | Alerts, assertive live regions, modals (**2.2.4** AAA supplemental) |
+| `DET.A11Y.GENERIC.RE_AUTHENTICATION` | Session timeout re-auth forms (**2.2.5** AAA supplemental) |
+| `DET.A11Y.GENERIC.GLOSSARY_ABBR` | Abbreviations without expansion (**3.1.3**, **3.1.4**, **3.1.6** supplemental) |
+| `DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC` | Very long paragraphs (**3.1.5** AAA supplemental) |
+| `DET.A11Y.GENERIC.CHANGE_ON_REQUEST` | Context change on `change` without submit (**3.2.5** AAA supplemental) |
+| `DET.A11Y.GENERIC.CONTEXT_HELP` | Complex forms without help (**3.3.5** AAA supplemental) |
 
 **WCAG 2.0 SC 4.1.1 Parsing** — obsolete for HTML5; catalog marks `manual_only`. Rely on axe and well-formed DOM; no dedicated DET rule.
 

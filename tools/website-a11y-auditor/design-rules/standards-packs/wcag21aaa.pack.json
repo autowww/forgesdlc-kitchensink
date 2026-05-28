@@ -6,7 +6,7 @@
   "level": "AAA",
   "specUrl": "https://www.w3.org/TR/WCAG21/",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
-  "generatedAt": "2026-05-28T03:48:07.550Z",
+  "generatedAt": "2026-05-28T04:01:43.824Z",
   "axeTags": [
     "wcag2a",
     "wcag2aa",
@@ -520,12 +520,15 @@
       "principle": 1,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.AUDIO_CONTROL"
         ]
@@ -538,12 +541,15 @@
       "principle": 1,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.VISUAL_PRESENTATION"
         ]
@@ -690,6 +696,7 @@
       "gap": "manual_expected",
       "tooling": [
         "axe",
+        "det",
         "ai",
         "manual"
       ],
@@ -697,7 +704,9 @@
         "axe": [
           "AXE.89"
         ],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.KEYBOARD_ACCESS"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION"
         ]
@@ -772,12 +781,15 @@
       "principle": 2,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.TIMING"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
         ]
@@ -791,6 +803,7 @@
       "gap": "manual_expected",
       "tooling": [
         "axe",
+        "det",
         "ai",
         "manual"
       ],
@@ -798,7 +811,9 @@
         "axe": [
           "AXE.76"
         ],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.INTERRUPTIONS"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.INTERRUPTIONS"
         ]
@@ -811,12 +826,15 @@
       "principle": 2,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.RE_AUTHENTICATION"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.RE_AUTHENTICATION"
         ]
@@ -1193,12 +1211,15 @@
       "principle": 3,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.GLOSSARY_ABBR"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.UNUSUAL_WORDS"
         ]
@@ -1211,12 +1232,15 @@
       "principle": 3,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.GLOSSARY_ABBR"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.UNUSUAL_WORDS"
         ]
@@ -1229,12 +1253,15 @@
       "principle": 3,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.READING_LEVEL"
         ]
@@ -1247,12 +1274,15 @@
       "principle": 3,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.GLOSSARY_ABBR"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.PRONUNCIATION"
         ]
@@ -1338,6 +1368,7 @@
       "gap": "manual_expected",
       "tooling": [
         "axe",
+        "det",
         "ai",
         "manual"
       ],
@@ -1345,7 +1376,9 @@
         "axe": [
           "AXE.76"
         ],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.CHANGE_ON_REQUEST"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.CHANGE_ON_REQUEST"
         ]
@@ -1433,12 +1466,15 @@
       "principle": 3,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.CONTEXT_HELP"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.CONTEXT_HELP"
         ]
@@ -1451,12 +1487,15 @@
       "principle": 3,
       "gap": "manual_expected",
       "tooling": [
+        "det",
         "ai",
         "manual"
       ],
       "rules": {
         "axe": [],
-        "det": [],
+        "det": [
+          "DET.A11Y.GENERIC.ERROR_PREVENTION"
+        ],
         "ai": [
           "AI.A11Y.GENERIC.ERROR_PREVENTION"
         ]
@@ -2298,7 +2337,8 @@
       "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
       "lane": "deterministic",
       "wcagCriteria": [
-        "2.1.1"
+        "2.1.1",
+        "2.1.3"
       ],
       "inPack": true
     },
@@ -2363,7 +2403,8 @@
       "ruleId": "DET.A11Y.GENERIC.TIMING",
       "lane": "deterministic",
       "wcagCriteria": [
-        "2.2.1"
+        "2.2.1",
+        "2.2.3"
       ],
       "inPack": true
     },
@@ -2379,7 +2420,8 @@
       "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
       "lane": "deterministic",
       "wcagCriteria": [
-        "3.3.4"
+        "3.3.4",
+        "3.3.6"
       ],
       "inPack": true
     },
@@ -2508,6 +2550,72 @@
       "lane": "deterministic",
       "wcagCriteria": [
         "2.5.6"
+      ],
+      "inPack": true
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.7"
+      ],
+      "inPack": true
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.8"
+      ],
+      "inPack": true
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.2.4"
+      ],
+      "inPack": true
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.2.5"
+      ],
+      "inPack": true
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.1.3",
+        "3.1.4",
+        "3.1.6"
+      ],
+      "inPack": true
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.1.5"
+      ],
+      "inPack": true
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.2.5"
+      ],
+      "inPack": true
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.3.5"
       ],
       "inPack": true
     },

@@ -5,8 +5,8 @@ scope: generic
 title: App Focus Trap
 summary: Deterministic accessibility check (generic scope).
 page_version: e0c4594d9d4476d03710f0d6be9be8c9bd7457048eea0bd0ef09db556810982b
-generated_at: 2026-05-28T03:48:11.000Z
-registry_fingerprint: 0021c088bf3664f96bb6c318bf46b537f04b476e6c6b1d511b371f23ade016ac
+generated_at: 2026-05-28T04:01:52.000Z
+registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-app-focus-trap
 related_rules:
