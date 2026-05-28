@@ -6,9 +6,24 @@ TOOL="$(cd "${DIR}/.." && pwd)"
 
 bash "${DIR}/invoke-a11y-ruleset-harness.sh" DET.A11Y.GENERIC.LANG
 
+SUPP_RULES=(
+  DET.A11Y.GENERIC.GLOSSARY_ABBR
+  DET.A11Y.GENERIC.ERROR_PREVENTION
+  DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC
+  DET.A11Y.GENERIC.DRAGGING_MOVEMENTS
+  DET.A11Y.GENERIC.REDUNDANT_ENTRY
+  DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION
+  DET.A11Y.GENERIC.RE_AUTHENTICATION
+  DET.A11Y.GENERIC.CONCURRENT_INPUT
+)
+for R in "${SUPP_RULES[@]}"; do
+  bash "${DIR}/invoke-a11y-ruleset-harness.sh" "${R}"
+done
+
 bash "${DIR}/invoke-ai-ruleset-harness.sh" --skip-agent
 
 bash "${DIR}/run-a11y-deterministic-fixers.smoke.sh"
+bash "${DIR}/run-a11y-supplemental-fixers.smoke.sh"
 
 TOOL="${TOOL}" node --input-type=module -e "
 import path from 'node:path';

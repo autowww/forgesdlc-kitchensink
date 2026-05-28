@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T06:59:02.930Z",
+  "generatedAt": "2026-05-28T08:29:08.433Z",
   "ruleCount": 68,
   "rules": [
     {
       "ruleId": "DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_accessible_auth",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -45,7 +45,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_concurrent_input",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -117,7 +117,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.DRAGGING_MOVEMENTS",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_dragging_movements",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -125,7 +125,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_error_prevention",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -181,7 +181,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_glossary_abbr",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -389,7 +389,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_re_authentication",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -397,7 +397,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_reading_level",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -413,7 +413,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.REDUNDANT_ENTRY",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_redundant_entry",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"

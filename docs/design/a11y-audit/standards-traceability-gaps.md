@@ -2,7 +2,7 @@
 
 > Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.
 
-Generated: 2026-05-28T06:59:02.982Z
+Generated: 2026-05-28T08:29:08.560Z
 
 Refresh: `cd tools/website-a11y-auditor && npm run blend-rules`
 

@@ -30,13 +30,15 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Glossary Abbr</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.GLOSSARY_ABBR</code> (glossary abbr).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.GLOSSARY_ABBR</code> · scope: generic</p></div>
+<h1>Glossary</h1>
+  <p>The <abbr>API</abbr> and <abbr>WCAG</abbr> terms appear without definitions.</p>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Glossary Abbr (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.GLOSSARY_ABBR</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
+<h1>Glossary</h1>
+  <p>The <abbr title="API">API</abbr> and <abbr title="WCAG">WCAG</abbr> terms appear without definitions.</p>
 ```
 
 ## Evidence and remediation

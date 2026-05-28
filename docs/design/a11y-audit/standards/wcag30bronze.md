@@ -4,7 +4,7 @@ label: "WCAG 3.0 bronze"
 wcagVersion: "3.0"
 level: "bronze"
 packJson: tools/website-a11y-auditor/design-rules/standards-packs/wcag30bronze.pack.json
-generatedAt: 2026-05-28T06:59:02.985Z
+generatedAt: 2026-05-28T08:29:08.569Z
 ---
 
 # wcag30bronze
@@ -48,19 +48,19 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag30
 | **WCAG3-REQ-ERROR-ID** | Error identification | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (ai_apply_form_error) | [md](../../wcag/3.0/outcomes/wcag3-req-error-id-error-identification.md) |
 | **WCAG3-REQ-ERROR-SUGGEST** | Error suggestions | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (ai_apply_form_error) | [md](../../wcag/3.0/outcomes/wcag3-req-error-suggest-error-suggestions.md) |
 | **WCAG3-REQ-FOCUS-OBSCURED** | Focus not obscured | det | covered | — | `DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED` (patch_ambient_z) | — | [md](../../wcag/3.0/outcomes/wcag3-req-focus-obscured-focus-not-obscured.md) |
-| **WCAG3-REQ-FOCUS-ORDER** | Focus order | det+manual_ai | covered | — | `DET.A11Y.GENERIC.FOCUS_ORDER` (patch_landmarks), `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/3.0/outcomes/wcag3-req-focus-order-focus-order.md) |
-| **WCAG3-REQ-FOCUS-VISIBLE** | Focus visible | manual_ai | covered | — | — | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/3.0/outcomes/wcag3-req-focus-visible-focus-visible.md) |
+| **WCAG3-REQ-FOCUS-ORDER** | Focus order | det+manual_ai | covered | — | `DET.A11Y.GENERIC.FOCUS_ORDER` (patch_landmarks), `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-focus-order-focus-order.md) |
+| **WCAG3-REQ-FOCUS-VISIBLE** | Focus visible | manual_ai | covered | — | — | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-focus-visible-focus-visible.md) |
 | **WCAG3-REQ-HEADINGS** | Headings describe sections | det | covered | — | `DET.A11Y.KS.HANDBOOK_SINGLE_H1` (patch_section_heading) | — | [md](../../wcag/3.0/outcomes/wcag3-req-headings-headings-describe-sections.md) |
 | **WCAG3-REQ-INFO-STRUCTURE** | Information and structure programmatically avail | axe+det+manual_ai | covered | 12 | `DET.A11Y.GENERIC.LANDMARKS` (patch_landmarks), `DET.A11Y.GENERIC.DATA_TABLE_HEADERS` (patch_data_table) | `AI.A11Y.KS.REGION_LABELING` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-info-structure-information-and-structure-programmatically-available.md) |
 | **WCAG3-REQ-INPUT-PURPOSE** | Input purpose identified | axe+det | covered | 1 | `DET.A11Y.GENERIC.INPUT_PURPOSE` (patch_page_mode) | — | [md](../../wcag/3.0/outcomes/wcag3-req-input-purpose-input-purpose-identified.md) |
-| **WCAG3-REQ-KEYWORD** | Keyboard operable | axe+det+manual_ai | covered | 3 | `DET.A11Y.GENERIC.KEYBOARD_ACCESS` (patch_landmarks) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/3.0/outcomes/wcag3-req-keyword-keyboard-operable.md) |
+| **WCAG3-REQ-KEYWORD** | Keyboard operable | axe+det+manual_ai | covered | 3 | `DET.A11Y.GENERIC.KEYBOARD_ACCESS` (patch_landmarks) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-keyword-keyboard-operable.md) |
 | **WCAG3-REQ-LABELS** | Labels and instructions | axe+det | covered | 1 | `DET.A11Y.GENERIC.LABELS_INSTRUCTIONS` (patch_cta_label) | — | [md](../../wcag/3.0/outcomes/wcag3-req-labels-labels-and-instructions.md) |
 | **WCAG3-REQ-LANG** | Page language | axe+det | covered | 3 | `DET.A11Y.GENERIC.LANG` (patch_page_lang) | — | [md](../../wcag/3.0/outcomes/wcag3-req-lang-page-language.md) |
 | **WCAG3-REQ-LANG-PARTS** | Language of parts | axe+det | covered | 1 | `DET.A11Y.GENERIC.LANG_OF_PARTS` (patch_page_lang) | — | [md](../../wcag/3.0/outcomes/wcag3-req-lang-parts-language-of-parts.md) |
 | **WCAG3-REQ-LINK-PURPOSE** | Link purpose in context | axe+det+manual_ai | covered | 2 | `DET.A11Y.GENERIC.LINK_PURPOSE` (patch_cta_label) | `AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-link-purpose-link-purpose-in-context.md) |
 | **WCAG3-REQ-MEANINGFUL-SEQUENCE** | Meaningful sequence | det | covered | — | `DET.A11Y.GENERIC.READING_ORDER` (patch_landmarks) | — | [md](../../wcag/3.0/outcomes/wcag3-req-meaningful-sequence-meaningful-sequence.md) |
 | **WCAG3-REQ-NAME-ROLE-VALUE** | Name, role, value | axe+det+manual_ai | covered | 28 | `DET.A11Y.KS.HASH_MARKERS` (hash_markers), `DET.A11Y.KS.REACT_A11Y_ROLE` (patch_landmarks), `DET.A11Y.KS.PY_HASH_ATTRS` (repo_production) | `AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS` (remediation_note), `AI.A11Y.KS.REGION_LABELING` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-name-role-value-name-role-value.md) |
-| **WCAG3-REQ-NO-KB-TRAP** | No keyboard trap | det+manual_ai | covered | — | `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/3.0/outcomes/wcag3-req-no-kb-trap-no-keyboard-trap.md) |
+| **WCAG3-REQ-NO-KB-TRAP** | No keyboard trap | det+manual_ai | covered | — | `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-no-kb-trap-no-keyboard-trap.md) |
 | **WCAG3-REQ-NON-TEXT-CONTRAST** | Non-text contrast | det | covered | — | `DET.A11Y.GENERIC.NON_TEXT_CONTRAST` (patch_page_mode) | — | [md](../../wcag/3.0/outcomes/wcag3-req-non-text-contrast-non-text-contrast.md) |
 | **WCAG3-REQ-ON-Focus** | On focus no unexpected context change | det | covered | — | `DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE` (patch_app_focus_trap) | — | [md](../../wcag/3.0/outcomes/wcag3-req-on-focus-on-focus-no-unexpected-context-change.md) |
 | **WCAG3-REQ-ON-INPUT** | On input no unexpected context change | det | covered | — | `DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE` (patch_app_focus_trap) | — | [md](../../wcag/3.0/outcomes/wcag3-req-on-input-on-input-no-unexpected-context-change.md) |

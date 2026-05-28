@@ -25,6 +25,17 @@ import { runHashMarkersFixer } from '../../../../website-ux-auditor/lib/ux-deter
 import { runNavBreadcrumbFixer } from '../../../../website-ux-auditor/lib/ux-deterministic-fixers/fixers/nav-breadcrumb.mjs';
 import { runPageTitleFixer } from '../../../../website-ux-auditor/lib/ux-deterministic-fixers/fixers/page-title.mjs';
 import { runRepoProductionFixer } from '../../../../website-ux-auditor/lib/ux-deterministic-fixers/fixers/repo-production.mjs';
+import {
+  patchAccessibleAuth,
+  patchConcurrentInput,
+  patchDraggingMovements,
+  patchErrorPrevention,
+  patchGlossaryAbbr,
+  patchReadingLevel,
+  patchRedundantEntry,
+  patchReAuthentication,
+} from '../../../../website-ux-auditor/lib/ux-deterministic-fixers/fixers/patches/a11y-supplemental.mjs';
+import { runRemediationNoteFixer } from '../../a11y-ai-fixers/fixers/remediation-note.mjs';
 
 /** @type {Record<string, string>} */
 export const FIXER_ID_BY_RULE = {
@@ -88,6 +99,14 @@ export const FIXER_ID_BY_RULE = {
   'DET.A11Y.GENERIC.CONTEXT_HELP': 'patch_nav_toc',
   'DET.A11Y.GENERIC.INTERRUPTIONS': 'patch_motion_reduced',
   'DET.A11Y.GENERIC.CHANGE_ON_REQUEST': 'patch_motion_reduced',
+  'DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION': 'patch_accessible_auth',
+  'DET.A11Y.GENERIC.CONCURRENT_INPUT': 'patch_concurrent_input',
+  'DET.A11Y.GENERIC.DRAGGING_MOVEMENTS': 'patch_dragging_movements',
+  'DET.A11Y.GENERIC.ERROR_PREVENTION': 'patch_error_prevention',
+  'DET.A11Y.GENERIC.GLOSSARY_ABBR': 'patch_glossary_abbr',
+  'DET.A11Y.GENERIC.RE_AUTHENTICATION': 'patch_re_authentication',
+  'DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC': 'patch_reading_level',
+  'DET.A11Y.GENERIC.REDUNDANT_ENTRY': 'patch_redundant_entry',
 };
 
 /** @type {Record<string, (ctx: object) => Promise<{ applied: boolean, filesTouched?: number, error?: string }>>} */
@@ -110,6 +129,15 @@ export const A11Y_FIXER_BY_ID = {
   hash_markers: runHashMarkersFixer,
   nav_breadcrumb: runNavBreadcrumbFixer,
   repo_production: runRepoProductionFixer,
+  remediation_note: runRemediationNoteFixer,
+  patch_glossary_abbr: patchGlossaryAbbr,
+  patch_error_prevention: patchErrorPrevention,
+  patch_reading_level: patchReadingLevel,
+  patch_dragging_movements: patchDraggingMovements,
+  patch_redundant_entry: patchRedundantEntry,
+  patch_accessible_auth: patchAccessibleAuth,
+  patch_re_authentication: patchReAuthentication,
+  patch_concurrent_input: patchConcurrentInput,
 };
 
 /**

@@ -4,7 +4,7 @@ label: "WCAG  Level"
 wcagVersion: ""
 level: ""
 packJson: tools/website-a11y-auditor/design-rules/standards-packs/wcag20a.pack.json
-generatedAt: 2026-05-28T06:59:02.984Z
+generatedAt: 2026-05-28T08:29:08.565Z
 ---
 
 # wcag20a
@@ -51,14 +51,14 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag20
 | **1.3.3** | Sensory Characteristics | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.SENSORY_CUES` (patch_cta_label) | `AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS` (remediation_note) | [md](../../wcag/2.2/sc/1.3.3-sensory-characteristics.md) |
 | **1.4.1** | Use of Color | axe+det | covered | 1 | `DET.A11Y.GENERIC.USE_OF_COLOR` (patch_cta_label) | — | [md](../../wcag/2.2/sc/1.4.1-use-of-color.md) |
 | **1.4.2** | Audio Control | axe+det+manual_ai | manual_expected | 1 | `DET.A11Y.GENERIC.AUTOPLAY_AUDIO` (patch_motion_flash) | `AI.A11Y.GENERIC.AUDIO_CONTROL` (ai_apply_audio_control) | [md](../../wcag/2.2/sc/1.4.2-audio-control.md) |
-| **2.1.1** | Keyboard | axe+det+manual_ai | covered | 3 | `DET.A11Y.GENERIC.KEYBOARD_ACCESS` (patch_landmarks) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/2.2/sc/2.1.1-keyboard.md) |
-| **2.1.2** | No Keyboard Trap | det+manual_ai | covered | — | `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/2.2/sc/2.1.2-no-keyboard-trap.md) |
+| **2.1.1** | Keyboard | axe+det+manual_ai | covered | 3 | `DET.A11Y.GENERIC.KEYBOARD_ACCESS` (patch_landmarks) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/2.2/sc/2.1.1-keyboard.md) |
+| **2.1.2** | No Keyboard Trap | det+manual_ai | covered | — | `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/2.2/sc/2.1.2-no-keyboard-trap.md) |
 | **2.2.1** | Timing Adjustable | axe+det+manual_ai | manual_expected | 1 | `DET.A11Y.GENERIC.TIMING` (patch_motion_reduced) | `AI.A11Y.GENERIC.TIMING_ADJUSTABLE` (remediation_note) | [md](../../wcag/2.2/sc/2.2.1-timing-adjustable.md) |
 | **2.2.2** | Pause, Stop, Hide | axe+det | covered | 2 | `DET.A11Y.GENERIC.PAUSE_STOP_HIDE` (patch_motion_flash) | — | [md](../../wcag/2.2/sc/2.2.2-pause-stop-hide.md) |
 | **2.3.1** | Three Flashes or Below Threshold | det | covered | — | `DET.A11Y.GENERIC.MOTION_FLASH` (patch_motion_flash) | — | [md](../../wcag/2.2/sc/2.3.1-three-flashes-or-below-threshold.md) |
 | **2.4.1** | Bypass Blocks | axe+det | covered | 1 | `DET.A11Y.GENERIC.LANDMARKS` (patch_landmarks) | — | [md](../../wcag/2.2/sc/2.4.1-bypass-blocks.md) |
 | **2.4.2** | Page Titled | axe+det | covered | 1 | `DET.A11Y.GENERIC.TITLE` (patch_page_title) | — | [md](../../wcag/2.2/sc/2.4.2-page-titled.md) |
-| **2.4.3** | Focus Order | det+manual_ai | covered | — | `DET.A11Y.GENERIC.FOCUS_ORDER` (patch_landmarks), `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/2.2/sc/2.4.3-focus-order.md) |
+| **2.4.3** | Focus Order | det+manual_ai | covered | — | `DET.A11Y.GENERIC.FOCUS_ORDER` (patch_landmarks), `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/2.2/sc/2.4.3-focus-order.md) |
 | **2.4.4** | Link Purpose (In Context) | axe+det+manual_ai | covered | 2 | `DET.A11Y.GENERIC.LINK_PURPOSE` (patch_cta_label) | `AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS` (remediation_note) | [md](../../wcag/2.2/sc/2.4.4-link-purpose-in-context.md) |
 | **3.1.1** | Language of Page | axe+det | covered | 3 | `DET.A11Y.GENERIC.LANG` (patch_page_lang) | — | [md](../../wcag/2.2/sc/3.1.1-language-of-page.md) |
 | **3.2.1** | On Focus | det | covered | — | `DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE` (patch_app_focus_trap) | — | [md](../../wcag/2.2/sc/3.2.1-on-focus.md) |

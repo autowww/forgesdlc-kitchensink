@@ -30,13 +30,25 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Accessible Authentication</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION</code> (accessible authentication).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION</code> · scope: generic</p></div>
+<form id="signin">
+    <h1>Sign in</h1>
+    <p>Log in with your password to access your account.</p>
+    <label>Username <input type="email" autocomplete="username" /></label>
+    <label>Password <input type="password" autocomplete="current-password" /></label>
+    <button type="submit">Sign in</button>
+  </form>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Accessible Authentication (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
+<form id="signin">
+    <h1>Sign in</h1>
+    <p>Log in with your password to access your account.</p>
+    <label>Username <input type="email" autocomplete="username" /></label>
+    <label>Password <input type="password" autocomplete="current-password" /></label>
+    <button type="submit">Sign in</button>
+  <p class="a11y-auth-otp">Paste-friendly sign-in: use a one-time code from email.</p><input type="text" name="otp" autocomplete="one-time-code" inputmode="numeric" aria-label="One-time code" /></form>
 ```
 
 ## Evidence and remediation

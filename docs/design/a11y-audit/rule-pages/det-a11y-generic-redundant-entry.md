@@ -30,13 +30,21 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Redundant Entry</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.REDUNDANT_ENTRY</code> (redundant entry).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.REDUNDANT_ENTRY</code> · scope: generic</p></div>
+<form>
+    <label>Email <input type="email" name="email" /></label>
+    <label>Confirm email <input type="email" name="email" /></label>
+    <button type="submit">Next</button>
+  </form>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Redundant Entry (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.REDUNDANT_ENTRY</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
+<form>
+    <label>Email <input type="email" name="email" / autocomplete="on"></label>
+    <label>Confirm email <input type="email" name="email-2" / autocomplete="on"></label>
+    <button type="submit">Next</button>
+  </form>
 ```
 
 ## Evidence and remediation

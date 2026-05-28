@@ -10,7 +10,15 @@ import { htmlPathsFromFindings } from '../../url-to-website.mjs';
  * @param {number} [cap]
  */
 export async function targetHtmlFiles(repoRoot, findings, cap = 40) {
-  const explicit = htmlPathsFromFindings(repoRoot, findings);
+  const explicit = [];
+  for (const p of htmlPathsFromFindings(repoRoot, findings)) {
+    try {
+      await fs.access(p);
+      explicit.push(p);
+    } catch {
+      /* mapped path missing (e.g. harness repo with index.html at root only) */
+    }
+  }
   if (explicit.length) return explicit.slice(0, cap);
   /** Harness fixture-website/index.html (no website/ subfolder). */
   const harnessIndex = path.join(repoRoot, 'index.html');

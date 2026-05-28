@@ -30,13 +30,23 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Error Prevention</h2><p class="forge-support mb-2">Form control labeling or error association is weak.</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.ERROR_PREVENTION</code> · scope: generic</p></div>
+<form id="checkout">
+    <h1>Checkout</h1>
+    <p>Enter payment card details to complete your purchase.</p>
+    <label>Card <input name="card" type="text" /></label>
+    <button type="submit">Purchase</button>
+  </form>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Error Prevention (remediated)</h2><p class="mb-2">Labels, instructions, and errors are programmatically associated.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
+<form id="checkout">
+    <h1>Checkout</h1>
+    <p>Enter payment card details to complete your purchase.</p>
+    <label>Card <input name="card" type="text" /></label>
+    <button type="submit">Purchase</button>
+  <p class="a11y-confirm-step"><label><input type="checkbox" name="user_confirm" id="user_confirm" required /> I confirm this submission</label></p></form>
 ```
 
 ## Evidence and remediation

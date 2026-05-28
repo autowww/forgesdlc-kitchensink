@@ -4,7 +4,7 @@ label: "WCAG  Level"
 wcagVersion: ""
 level: ""
 packJson: tools/website-a11y-auditor/design-rules/standards-packs/wcag22aa.pack.json
-generatedAt: 2026-05-28T06:59:02.985Z
+generatedAt: 2026-05-28T08:29:08.567Z
 ---
 
 # wcag22aa
@@ -61,25 +61,25 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag22
 | **1.4.11** | Non-text Contrast | det | covered | — | `DET.A11Y.GENERIC.NON_TEXT_CONTRAST` (patch_page_mode) | — | [md](../../wcag/2.2/sc/1.4.11-non-text-contrast.md) |
 | **1.4.12** | Text Spacing | axe+det | covered | 1 | `DET.A11Y.GENERIC.TEXT_SPACING` (patch_page_mode) | — | [md](../../wcag/2.2/sc/1.4.12-text-spacing.md) |
 | **1.4.13** | Content on Hover or Focus | det | covered | — | `DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT` (patch_ambient_z) | — | [md](../../wcag/2.2/sc/1.4.13-content-on-hover-or-focus.md) |
-| **2.1.1** | Keyboard | axe+det+manual_ai | covered | 3 | `DET.A11Y.GENERIC.KEYBOARD_ACCESS` (patch_landmarks) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/2.2/sc/2.1.1-keyboard.md) |
-| **2.1.2** | No Keyboard Trap | det+manual_ai | covered | — | `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/2.2/sc/2.1.2-no-keyboard-trap.md) |
+| **2.1.1** | Keyboard | axe+det+manual_ai | covered | 3 | `DET.A11Y.GENERIC.KEYBOARD_ACCESS` (patch_landmarks) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/2.2/sc/2.1.1-keyboard.md) |
+| **2.1.2** | No Keyboard Trap | det+manual_ai | covered | — | `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/2.2/sc/2.1.2-no-keyboard-trap.md) |
 | **2.1.4** | Character Key Shortcuts | det | covered | — | `DET.A11Y.GENERIC.CHARACTER_SHORTCUTS` (patch_page_mode) | — | [md](../../wcag/2.2/sc/2.1.4-character-key-shortcuts.md) |
 | **2.2.1** | Timing Adjustable | axe+det+manual_ai | manual_expected | 1 | `DET.A11Y.GENERIC.TIMING` (patch_motion_reduced) | `AI.A11Y.GENERIC.TIMING_ADJUSTABLE` (remediation_note) | [md](../../wcag/2.2/sc/2.2.1-timing-adjustable.md) |
 | **2.2.2** | Pause, Stop, Hide | axe+det | covered | 2 | `DET.A11Y.GENERIC.PAUSE_STOP_HIDE` (patch_motion_flash) | — | [md](../../wcag/2.2/sc/2.2.2-pause-stop-hide.md) |
 | **2.3.1** | Three Flashes or Below Threshold | det | covered | — | `DET.A11Y.GENERIC.MOTION_FLASH` (patch_motion_flash) | — | [md](../../wcag/2.2/sc/2.3.1-three-flashes-or-below-threshold.md) |
 | **2.4.1** | Bypass Blocks | axe+det | covered | 1 | `DET.A11Y.GENERIC.LANDMARKS` (patch_landmarks) | — | [md](../../wcag/2.2/sc/2.4.1-bypass-blocks.md) |
 | **2.4.2** | Page Titled | axe+det | covered | 1 | `DET.A11Y.GENERIC.TITLE` (patch_page_title) | — | [md](../../wcag/2.2/sc/2.4.2-page-titled.md) |
-| **2.4.3** | Focus Order | det+manual_ai | covered | — | `DET.A11Y.GENERIC.FOCUS_ORDER` (patch_landmarks), `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/2.2/sc/2.4.3-focus-order.md) |
+| **2.4.3** | Focus Order | det+manual_ai | covered | — | `DET.A11Y.GENERIC.FOCUS_ORDER` (patch_landmarks), `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/2.2/sc/2.4.3-focus-order.md) |
 | **2.4.4** | Link Purpose (In Context) | axe+det+manual_ai | covered | 2 | `DET.A11Y.GENERIC.LINK_PURPOSE` (patch_cta_label) | `AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS` (remediation_note) | [md](../../wcag/2.2/sc/2.4.4-link-purpose-in-context.md) |
-| **2.4.5** | Multiple Ways | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.MULTIPLE_WAYS` (patch_nav_toc) | `AI.A11Y.GENERIC.MULTIPLE_WAYS` (plan_only) | [md](../../wcag/2.2/sc/2.4.5-multiple-ways.md) |
+| **2.4.5** | Multiple Ways | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.MULTIPLE_WAYS` (patch_nav_toc) | `AI.A11Y.GENERIC.MULTIPLE_WAYS` (remediation_note) | [md](../../wcag/2.2/sc/2.4.5-multiple-ways.md) |
 | **2.4.6** | Headings and Labels | det | covered | — | `DET.A11Y.KS.HANDBOOK_SINGLE_H1` (patch_section_heading) | — | [md](../../wcag/2.2/sc/2.4.6-headings-and-labels.md) |
-| **2.4.7** | Focus Visible | manual_ai | covered | — | — | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/2.2/sc/2.4.7-focus-visible.md) |
+| **2.4.7** | Focus Visible | manual_ai | covered | — | — | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (remediation_note) | [md](../../wcag/2.2/sc/2.4.7-focus-visible.md) |
 | **2.4.11** | Focus Not Obscured (Minimum) | det | covered | — | `DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED` (patch_ambient_z) | — | [md](../../wcag/2.2/sc/2.4.11-focus-not-obscured-minimum.md) |
 | **2.5.1** | Pointer Gestures | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.POINTER_GESTURES` (patch_cta_label) | `AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT` (remediation_note) | [md](../../wcag/2.2/sc/2.5.1-pointer-gestures.md) |
 | **2.5.2** | Pointer Cancellation | det | covered | — | `DET.A11Y.GENERIC.POINTER_CANCELLATION` (patch_cta_label) | — | [md](../../wcag/2.2/sc/2.5.2-pointer-cancellation.md) |
 | **2.5.3** | Label in Name | axe+det | covered | 1 | `DET.A11Y.GENERIC.LABEL_IN_NAME` (patch_cta_label) | — | [md](../../wcag/2.2/sc/2.5.3-label-in-name.md) |
 | **2.5.4** | Motion Actuation | det | covered | — | `DET.A11Y.GENERIC.MOTION_ACTUATION` (patch_motion_reduced) | — | [md](../../wcag/2.2/sc/2.5.4-motion-actuation.md) |
-| **2.5.7** | Dragging Movements | det | manual_expected | — | `DET.A11Y.GENERIC.DRAGGING_MOVEMENTS` (handbook_after) | — | [md](../../wcag/2.2/sc/2.5.7-dragging-movements.md) |
+| **2.5.7** | Dragging Movements | det | manual_expected | — | `DET.A11Y.GENERIC.DRAGGING_MOVEMENTS` (patch_dragging_movements) | — | [md](../../wcag/2.2/sc/2.5.7-dragging-movements.md) |
 | **2.5.8** | Target Size (Minimum) | axe+det | covered | 1 | `DET.A11Y.GENERIC.TARGET_SIZE_MIN` (patch_page_viewport) | — | [md](../../wcag/2.2/sc/2.5.8-target-size-minimum.md) |
 | **3.1.1** | Language of Page | axe+det | covered | 3 | `DET.A11Y.GENERIC.LANG` (patch_page_lang) | — | [md](../../wcag/2.2/sc/3.1.1-language-of-page.md) |
 | **3.1.2** | Language of Parts | axe+det | covered | 1 | `DET.A11Y.GENERIC.LANG_OF_PARTS` (patch_page_lang) | — | [md](../../wcag/2.2/sc/3.1.2-language-of-parts.md) |
@@ -91,9 +91,9 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag22
 | **3.3.1** | Error Identification | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (ai_apply_form_error) | [md](../../wcag/2.2/sc/3.3.1-error-identification.md) |
 | **3.3.2** | Labels or Instructions | axe+det | covered | 1 | `DET.A11Y.GENERIC.LABELS_INSTRUCTIONS` (patch_cta_label) | — | [md](../../wcag/2.2/sc/3.3.2-labels-or-instructions.md) |
 | **3.3.3** | Error Suggestion | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (ai_apply_form_error) | [md](../../wcag/2.2/sc/3.3.3-error-suggestion.md) |
-| **3.3.4** | Error Prevention (Legal, Financial, Data) | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.ERROR_PREVENTION` (handbook_after) | `AI.A11Y.GENERIC.ERROR_PREVENTION` (remediation_note) | [md](../../wcag/2.2/sc/3.3.4-error-prevention-legal-financial-data.md) |
-| **3.3.7** | Redundant Entry | det | manual_expected | — | `DET.A11Y.GENERIC.REDUNDANT_ENTRY` (handbook_after) | — | [md](../../wcag/2.2/sc/3.3.7-redundant-entry.md) |
-| **3.3.8** | Accessible Authentication (Minimum) | det | manual_expected | — | `DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION` (handbook_after) | — | [md](../../wcag/2.2/sc/3.3.8-accessible-authentication-minimum.md) |
+| **3.3.4** | Error Prevention (Legal, Financial, Data) | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.ERROR_PREVENTION` (patch_error_prevention) | `AI.A11Y.GENERIC.ERROR_PREVENTION` (remediation_note) | [md](../../wcag/2.2/sc/3.3.4-error-prevention-legal-financial-data.md) |
+| **3.3.7** | Redundant Entry | det | manual_expected | — | `DET.A11Y.GENERIC.REDUNDANT_ENTRY` (patch_redundant_entry) | — | [md](../../wcag/2.2/sc/3.3.7-redundant-entry.md) |
+| **3.3.8** | Accessible Authentication (Minimum) | det | manual_expected | — | `DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION` (patch_accessible_auth) | — | [md](../../wcag/2.2/sc/3.3.8-accessible-authentication-minimum.md) |
 | **4.1.1** | Parsing | manual_catalog | manual_expected | — | — | — | [md](../../wcag/2.2/sc/4.1.1-parsing.md) |
 | **4.1.2** | Name, Role, Value | axe+det+manual_ai | covered | 28 | `DET.A11Y.KS.HASH_MARKERS` (hash_markers), `DET.A11Y.KS.REACT_A11Y_ROLE` (patch_landmarks), `DET.A11Y.KS.PY_HASH_ATTRS` (repo_production) | `AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS` (remediation_note), `AI.A11Y.KS.REGION_LABELING` (remediation_note) | [md](../../wcag/2.2/sc/4.1.2-name-role-value.md) |
 | **4.1.3** | Status Messages | det | covered | — | `DET.A11Y.GENERIC.STATUS_MESSAGES` (patch_section_heading) | — | [md](../../wcag/2.2/sc/4.1.3-status-messages.md) |

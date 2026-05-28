@@ -30,13 +30,15 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Dragging Movements</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.DRAGGING_MOVEMENTS</code> (dragging movements).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.DRAGGING_MOVEMENTS</code> · scope: generic</p></div>
+<h1>Reorder</h1>
+  <div class="drag-item" draggable="true">Drag to reorder</div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Dragging Movements (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.DRAGGING_MOVEMENTS</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
+<h1>Reorder</h1>
+  <div class="reorder-item">Drag to reorder</div>
 ```
 
 ## Evidence and remediation

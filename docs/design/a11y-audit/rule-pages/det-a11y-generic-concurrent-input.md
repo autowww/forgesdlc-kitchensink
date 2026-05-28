@@ -30,13 +30,15 @@ Do not block keyboard or pointer when not essential (2.5.6).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3"><canvas data-touch-only></canvas></div>
+<h1>Blocked input</h1>
+  <label>Note <input type="text" inputmode="none" readonly aria-disabled="true" value="locked" /></label>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3"><button type="button">Works with keyboard and pointer</button></div>
+<h1>Blocked input</h1>
+  <label>Note <input type="text" value="locked" /></label>
 ```
 
 ## Evidence and remediation

@@ -18,6 +18,7 @@ describe('a11y-deterministic-fixers', () => {
     const list = registry.rules || [];
     const allowed = new Set([
       'handbook_after',
+      'remediation_note',
       'patch_page_lang',
       'patch_page_title',
       'patch_page_viewport',
@@ -35,6 +36,14 @@ describe('a11y-deterministic-fixers', () => {
       'hash_markers',
       'nav_breadcrumb',
       'repo_production',
+      'patch_glossary_abbr',
+      'patch_error_prevention',
+      'patch_reading_level',
+      'patch_dragging_movements',
+      'patch_redundant_entry',
+      'patch_accessible_auth',
+      'patch_re_authentication',
+      'patch_concurrent_input',
     ]);
     assert.equal(list.length, registry.ruleCount);
     assert.ok(list.length >= 68);

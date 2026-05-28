@@ -30,13 +30,23 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Re Authentication</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.RE_AUTHENTICATION</code> (re authentication).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.RE_AUTHENTICATION</code> · scope: generic</p></div>
+<form id="reauth">
+    <h1>Session expired</h1>
+    <p>Your session expired. Please log in again to continue.</p>
+    <label>Password <input type="password" name="password" /></label>
+    <button type="submit">Sign in again</button>
+  </form>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Re Authentication (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.RE_AUTHENTICATION</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
+<form id="reauth">
+    <h1>continue your session</h1>
+    <p>Your continue your session. Please continue your session to continue.</p>
+    <label>Password <input type="password" name="password" /></label>
+    <button type="submit">continue your session</button>
+  <p class="a11y-session-preserve" data-session-preserve="true">Your entries are preserved for 20 hours after you sign back in.</p></form>
 ```
 
 ## Evidence and remediation

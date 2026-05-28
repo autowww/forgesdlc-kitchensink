@@ -30,13 +30,19 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Reading Level Heuristic</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC</code> (reading level heuristic).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC</code> · scope: generic</p></div>
+<h1>Article</h1>
+  <p>term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term</p>
+  <p>term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term</p>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Reading Level Heuristic (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
+<h1>Article</h1>
+  <p>term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term</p>
+<p>term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term</p>
+  <p>term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term</p>
+<p>term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term</p>
 ```
 
 ## Evidence and remediation
