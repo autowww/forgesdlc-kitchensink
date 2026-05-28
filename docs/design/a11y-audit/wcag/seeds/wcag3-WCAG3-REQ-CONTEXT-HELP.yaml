@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-CONTEXT-HELP"
+summary: |
+  Context-sensitive help — WCAG 3.0 draft (supplemental). Guideline: Help.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 3.3.5.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

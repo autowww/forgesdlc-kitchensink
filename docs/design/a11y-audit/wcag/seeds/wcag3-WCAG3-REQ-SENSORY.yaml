@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-SENSORY"
+summary: |
+  Instructions not sensory-only — WCAG 3.0 draft (core). Guideline: Clear words.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 1.3.3.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

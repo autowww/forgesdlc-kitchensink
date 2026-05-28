@@ -95,4 +95,9 @@ jobs:
           npm run vendor:axe
       - name: Test Forge Website A11y Auditor
         working-directory: tools/website-a11y-auditor
-        run: npm test
+        run: |
+          npm run bootstrap-wcag-seeds
+          npm run generate-pilot-registry
+          npm run generate-ai-fixer-registry
+          npm run export-axe-catalog
+          npm test

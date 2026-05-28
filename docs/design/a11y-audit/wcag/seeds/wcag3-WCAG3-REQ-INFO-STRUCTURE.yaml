@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-INFO-STRUCTURE"
+summary: |
+  Information and structure programmatically available — WCAG 3.0 draft (core). Guideline: Structure.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 1.3.1.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

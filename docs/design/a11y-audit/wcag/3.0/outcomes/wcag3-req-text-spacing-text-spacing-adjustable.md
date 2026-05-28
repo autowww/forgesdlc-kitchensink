@@ -12,7 +12,12 @@ manualOnly: false
 
 ## Summary
 
-Draft WCAG 3.0 requirement under guideline **Visual presentation**. Tier: **core**. This is not a WCAG 2.x success criterion; conformance uses Bronze / Silver / Gold.
+Text spacing adjustable — WCAG 3.0 draft (core). Guideline: Visual presentation.
+
+
+## Operator notes
+
+Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 1.4.12.
 
 ## Intent
 
@@ -25,8 +30,13 @@ Address functional user needs described in the [WCAG 3.0 Working Draft](https://
 
 ## Forge automation
 
+| Lane | Rules |
+|------|-------|
+| DET | — |
+| AI | — |
+| Crosswalk | 1.4.12 |
+
 - **Automation proxy:** axe/DET packs use WCAG 2.2 tag bundles; see [wcag-3.0-profiles.md](../wcag-3.0-profiles.md).
-- **Crosswalk:** 1.4.12.
 
 ## Manual test steps
 

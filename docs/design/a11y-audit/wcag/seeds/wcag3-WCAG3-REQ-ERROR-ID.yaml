@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-ERROR-ID"
+summary: |
+  Error identification — WCAG 3.0 draft (core). Guideline: Forms.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 3.3.1.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

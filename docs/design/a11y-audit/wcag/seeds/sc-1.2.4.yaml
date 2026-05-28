@@ -1,0 +1,12 @@
+id: "1.2.4"
+summary: |
+  Captions (Live) (Level A) — Principle 1; verify perceivable, operable, understandable, and robust outcomes for users with disabilities. See the normative W3C TR for legal wording.
+operatorNotes: |
+  Run axe with a profile that includes SC 1.2.4, then confirm DET/AI mappings below.
+  Manual verification: keyboard-only task path + one screen reader spot-check on representative pages.
+  Catalog marks this SC as manual-only — automation is informative, not sufficient.
+  Primary DET rules: DET.A11Y.GENERIC.MEDIA_TRACKS.
+  AI judgment lane: AI.A11Y.GENERIC.MEDIA_ALTERNATIVES.
+forgeRulesHighlight:
+  - DET.A11Y.GENERIC.MEDIA_TRACKS
+  - AI.A11Y.GENERIC.MEDIA_ALTERNATIVES

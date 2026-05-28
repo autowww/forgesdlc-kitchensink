@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T04:21:01.594Z",
+  "generatedAt": "2026-05-28T06:40:12.220Z",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
   "profiles": [
     {

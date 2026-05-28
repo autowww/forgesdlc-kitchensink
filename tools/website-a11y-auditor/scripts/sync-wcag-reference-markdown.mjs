@@ -206,9 +206,25 @@ Users who rely on assistive technology, keyboard-only navigation, adjusted displ
 `;
 }
 
-function buildWcag3Markdown(r) {
+function buildWcag3Markdown(r, registry, seed) {
   const maps = (r.mapsToWcag22 || []).join(', ');
-  const docRel = `3.0/outcomes/${r.id.toLowerCase()}-${slugify(r.title)}.md`;
+  const det = [];
+  const ai = [];
+  for (const rule of registry.deterministicRules || []) {
+    if ((rule.wcagCriteria || []).includes(r.id)) det.push(rule.id);
+  }
+  for (const rule of registry.aiRules || []) {
+    if ((rule.wcagCriteria || []).includes(r.id)) ai.push(rule.id);
+  }
+  const summaryBlock =
+    seed?.summary ||
+    `Draft WCAG 3.0 requirement under guideline **${r.guideline || '—'}**. Tier: **${(r.tiers || []).join(', ')}**. This is not a WCAG 2.x success criterion; conformance uses Bronze / Silver / Gold.`;
+  const operatorBlock = seed?.operatorNotes
+    ? `\n## Operator notes\n\n${seed.operatorNotes}\n`
+    : '';
+  const highlight = seed?.forgeRulesHighlight?.length
+    ? `\n**Highlighted Forge rules:** ${seed.forgeRulesHighlight.map((x) => `\`${x}\``).join(', ')}\n`
+    : '';
   return `---
 id: "${r.id}"
 title: "${r.title.replace(/"/g, '\\"')}"
@@ -223,8 +239,9 @@ manualOnly: ${r.defaultCoverage === 'manual_only'}
 
 ## Summary
 
-Draft WCAG 3.0 requirement under guideline **${r.guideline || '—'}**. Tier: **${(r.tiers || []).join(', ')}**. This is not a WCAG 2.x success criterion; conformance uses Bronze / Silver / Gold.
-
+${summaryBlock}
+${highlight}
+${operatorBlock}
 ## Intent
 
 Address functional user needs described in the [WCAG 3.0 Working Draft](https://www.w3.org/TR/wcag-3.0/). Bronze is closest to WCAG 2.2 AA in migration guidance — not equivalent to Level A.
@@ -236,8 +253,13 @@ Address functional user needs described in the [WCAG 3.0 Working Draft](https://
 
 ## Forge automation
 
+| Lane | Rules |
+|------|-------|
+| DET | ${det.length ? det.join(', ') : '—'} |
+| AI | ${ai.length ? ai.join(', ') : '—'} |
+| Crosswalk | ${maps || 'WCAG 3–only — manual / AI judgment expected'} |
+
 - **Automation proxy:** axe/DET packs use WCAG 2.2 tag bundles; see [wcag-3.0-profiles.md](../wcag-3.0-profiles.md).
-- **Crosswalk:** ${maps || 'WCAG 3–only — manual / AI judgment expected'}.
 
 ## Manual test steps
 
@@ -290,7 +312,7 @@ async function main() {
   for (const r of wcag3All) {
     const rel = `3.0/outcomes/${r.id.toLowerCase()}-${slugify(r.title)}.md`;
     const abs = path.join(WCAG_DIR, rel);
-    const body = buildWcag3Markdown(r);
+    const body = buildWcag3Markdown(r, registry, seeds.get(r.id));
     const checksum = crypto.createHash('sha256').update(body).digest('hex');
     manifest[r.id] = { path: rel, checksum, kind: 'wcag3-requirement' };
     if (!checkOnly) await fs.writeFile(abs, body, 'utf8');

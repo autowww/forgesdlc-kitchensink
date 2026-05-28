@@ -1,0 +1,9 @@
+id: "3.3.2"
+summary: |
+  Labels or Instructions (Level A) — Principle 3; verify perceivable, operable, understandable, and robust outcomes for users with disabilities. See the normative W3C TR for legal wording.
+operatorNotes: |
+  Run axe with a profile that includes SC 3.3.2, then confirm DET/AI mappings below.
+  Manual verification: keyboard-only task path + one screen reader spot-check on representative pages.
+  Primary DET rules: DET.A11Y.GENERIC.LABELS_INSTRUCTIONS.
+forgeRulesHighlight:
+  - DET.A11Y.GENERIC.LABELS_INSTRUCTIONS

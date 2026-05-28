@@ -1,10 +1,92 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T12:00:00.000Z",
+  "generatedAt": "2026-05-28T06:40:12.323Z",
   "defaultFixerId": "plan_only",
+  "ruleCount": 21,
   "rules": [
-    { "ruleId": "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW", "fixerId": "plan_only" },
-    { "ruleId": "AI.A11Y.GENERIC.READING_LEVEL", "fixerId": "plan_only" },
-    { "ruleId": "AI.A11Y.KS.REGION_LABELING", "fixerId": "plan_only" }
+    {
+      "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
+      "fixerId": "plan_only"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
+      "fixerId": "plan_only"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.CONTEXT_HELP",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.ERROR_PREVENTION",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",
+      "fixerId": "plan_only"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION",
+      "fixerId": "plan_only"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW",
+      "fixerId": "plan_only"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+      "fixerId": "plan_only"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.PRONUNCIATION",
+      "fixerId": "plan_only"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.RE_AUTHENTICATION",
+      "fixerId": "plan_only"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.READING_LEVEL",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.TIMING_ADJUSTABLE",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.UNUSUAL_WORDS",
+      "fixerId": "plan_only"
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.VISUAL_PRESENTATION",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS",
+      "fixerId": "remediation_note"
+    },
+    {
+      "ruleId": "AI.A11Y.KS.REGION_LABELING",
+      "fixerId": "remediation_note"
+    }
   ]
 }

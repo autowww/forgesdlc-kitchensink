@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-NAME-ROLE-VALUE"
+summary: |
+  Name, role, value — WCAG 3.0 draft (core). Guideline: Compatibility.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 4.1.2.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

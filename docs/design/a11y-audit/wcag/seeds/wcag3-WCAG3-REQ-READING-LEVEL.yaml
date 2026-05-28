@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-READING-LEVEL"
+summary: |
+  Reading level / plain language — WCAG 3.0 draft (supplemental). Guideline: Clear words.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 3.1.5.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

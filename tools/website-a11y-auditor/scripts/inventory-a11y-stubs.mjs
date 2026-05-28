@@ -48,9 +48,48 @@ async function main() {
       'utf8',
     ),
   );
+  let aiFixerRegistry = { rules: [], defaultFixerId: 'plan_only' };
+  try {
+    aiFixerRegistry = JSON.parse(
+      await fs.readFile(
+        path.join(TOOL_ROOT, 'lib/a11y-ai-fixers/ai-fixer-registry.json'),
+        'utf8',
+      ),
+    );
+  } catch {
+    /* optional until generated */
+  }
 
   const detTotal = (registry.deterministicRules || []).filter((r) => r.status === 'implemented').length;
   const pilotCount = pilot.rules?.length || 0;
+  const aiTotal = (registry.aiRules || []).filter((r) => r.status === 'implemented').length;
+  const aiRegistryRows = aiFixerRegistry.rules?.length || 0;
+  const detFixerIds = new Set((pilot.rules || []).map((r) => r.fixerId));
+  const detNonHandbook = (pilot.rules || []).filter((r) => r.fixerId !== 'handbook_after').length;
+
+  let axeWithDoc = 0;
+  let axeUnmappable = 0;
+  try {
+    const axeCat = JSON.parse(
+      await fs.readFile(path.join(TOOL_ROOT, 'design-rules/axe-catalog.generated.json'), 'utf8'),
+    );
+    for (const row of axeCat.rules || []) {
+      const hasDoc = Object.keys(row.criteriaDocPaths || {}).length > 0;
+      const unmappable = row.unmappable === true || !(row.wcagCriteria || []).length;
+      if (hasDoc) axeWithDoc += 1;
+      else if (unmappable) axeUnmappable += 1;
+    }
+  } catch {
+    /* axe catalog optional at inventory time */
+  }
+
+  const seedFiles = [];
+  try {
+    const seeds = await fs.readdir(path.join(KS_ROOT, 'docs/design/a11y-audit/wcag/seeds'));
+    seedFiles.push(...seeds.filter((f) => f.endsWith('.yaml') || f.endsWith('.yml')));
+  } catch {
+    /* no seeds dir */
+  }
 
   const rulePagesDir = path.join(KS_ROOT, 'docs/design/a11y-audit/rule-pages');
   const rulePages = await walkMd(rulePagesDir);
@@ -116,17 +155,29 @@ async function main() {
       mergeScript: 'npm run merge-ai-audit',
     },
     qualityScorer: {
-      note: 'score-website-a11y.mjs is severity-only; no standards pack / WCAG 3',
-      standardsPackAware: false,
+      note: 'score-website-a11y.mjs severity + optional standards rollup via buildComplianceReport (--include-compliance default on)',
+      standardsPackAware: true,
+      includeComplianceFlag: '--include-compliance',
     },
     detRemediation: {
       pilotFixerRules: pilotCount,
       implementedDetRules: detTotal,
       gap: detTotal - pilotCount,
+      distinctFixerIds: [...detFixerIds].sort(),
+      rulesWithNonHandbookFixer: detNonHandbook,
     },
     aiRemediation: {
       aiFixerModule: true,
-      note: 'lib/a11y-ai-fixers/run-ai-fixers.mjs in remediation loop; plan_only v1',
+      implementedAiRules: aiTotal,
+      explicitRegistryRows: aiRegistryRows,
+      registryCoversAllAiRules: aiRegistryRows >= aiTotal,
+      defaultFixerId: aiFixerRegistry.defaultFixerId || 'plan_only',
+      note: 'lib/a11y-ai-fixers/run-ai-fixers.mjs; plan_only or remediation_note per ai-fixer-registry.json',
+    },
+    mdCorpus: {
+      wcagSeedYamlCount: seedFiles.length,
+      axeRulesWithCriteriaDocPaths: axeWithDoc,
+      axeRulesUnmappableBestPractice: axeUnmappable,
     },
     rulePages: { placeholderCount: placeholderPages.length, paths: placeholderPages },
     detChecks: { heuristicOrSupplementalCount: heuristicChecks.length, files: heuristicChecks },
@@ -168,16 +219,25 @@ async function main() {
     '',
     '## Quality scorer (`score-website-a11y.mjs`)',
     '',
-    '- Severity penalty only; not scoped to standards packs or WCAG 3 profiles.',
+    '- Severity penalty from crawl findings **plus** optional standards pack rollup (`buildComplianceReport`, default `--include-compliance`).',
+    '- Supports WCAG 2.x and WCAG 3 profiles via `--compliance-profile` / `--standard`.',
     '',
     '## DET remediation (`lib/a11y-deterministic-fixers/`)',
     '',
     `- Pilot fixers: **${pilotCount}** / **${detTotal}** implemented DET rules.`,
+    `- Non–\`handbook_after\` fixers: **${detNonHandbook}** (distinct fixer ids: ${[...detFixerIds].join(', ') || '—'}).`,
     '',
     '## AI remediation',
     '',
-    '- **`lib/a11y-ai-fixers/`** — `run-ai-fixers.mjs` (plan_only v1; no auto DOM apply unless extended).',
+    `- **${aiRegistryRows}** explicit registry rows / **${aiTotal}** implemented AI rules.`,
+    '- **`lib/a11y-ai-fixers/`** — `run-ai-fixers.mjs` (`plan_only` or `remediation_note` per rule).',
     '- `run-website-a11y-remediation-loop.sh` calls AI fixers after DET fixers.',
+    '',
+    '## MD corpus',
+    '',
+    `- WCAG seed YAML files: **${seedFiles.length}**`,
+    `- Axe catalog with \`criteriaDocPaths\`: **${axeWithDoc}**; unmappable (best-practice / no WCAG tag): **${axeUnmappable}**`,
+    '',
     '',
     '## Rule pages with placeholder examples',
     '',

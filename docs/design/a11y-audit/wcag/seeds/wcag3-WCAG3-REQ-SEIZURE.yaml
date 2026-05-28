@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-SEIZURE"
+summary: |
+  Three flashes or below threshold — WCAG 3.0 draft (core). Guideline: Seizures.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 2.3.1.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

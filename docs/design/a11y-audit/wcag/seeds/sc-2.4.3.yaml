@@ -1,0 +1,12 @@
+id: "2.4.3"
+summary: |
+  Focus Order (Level A) — Principle 2; verify perceivable, operable, understandable, and robust outcomes for users with disabilities. See the normative W3C TR for legal wording.
+operatorNotes: |
+  Run axe with a profile that includes SC 2.4.3, then confirm DET/AI mappings below.
+  Manual verification: keyboard-only task path + one screen reader spot-check on representative pages.
+  Primary DET rules: DET.A11Y.GENERIC.FOCUS_ORDER, DET.A11Y.GENERIC.APP_FOCUS_TRAP.
+  AI judgment lane: AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW.
+forgeRulesHighlight:
+  - DET.A11Y.GENERIC.FOCUS_ORDER
+  - DET.A11Y.GENERIC.APP_FOCUS_TRAP
+  - AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW

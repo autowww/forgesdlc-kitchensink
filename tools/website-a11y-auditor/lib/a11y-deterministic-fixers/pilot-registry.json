@@ -1,90 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T05:08:32.380Z",
+  "generatedAt": "2026-05-28T06:40:12.267Z",
   "ruleCount": 68,
   "rules": [
     {
-      "ruleId": "DET.A11Y.GENERIC.LANG",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.TITLE",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.VIEWPORT",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.LANDMARKS",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.IMAGES_ALT",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.CONTRAST",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.MOTION_REDUCED",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.MOTION_FLASH",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.FOCUS_ORDER",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.DATA_TABLE_HEADERS",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.DIAGRAM_ALT",
+      "ruleId": "DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION",
       "fixerId": "handbook_after",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
@@ -93,127 +13,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.APP_FOCUS_TRAP",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.READING_ORDER",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.IMAGES_OF_TEXT",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.SECTION_HEADINGS",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.FLASH_THRESHOLD",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.CONSISTENT_LABELS",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.USE_OF_COLOR",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.RESIZE_TEXT",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.PAUSE_STOP_HIDE",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.LINK_PURPOSE",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.LANG_OF_PARTS",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.MEDIA_TRACKS",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_app_focus_trap",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -221,78 +21,14 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.AUTOPLAY_AUDIO",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_motion_flash",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.TIMING",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.SENSORY_CUES",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.MULTIPLE_WAYS",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.CONSISTENT_NAV",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.PAGE_LOCATION",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.CONTRAST_ENHANCED",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.NON_TEXT_CONTRAST",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT",
+      "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
       "fixerId": "handbook_after",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
@@ -308,70 +44,6 @@
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.POINTER_CANCELLATION",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.MOTION_ACTUATION",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
       "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
       "fixerId": "handbook_after",
       "verifyMode": "expect_rule_clean",
@@ -380,7 +52,31 @@
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+      "ruleId": "DET.A11Y.GENERIC.CONSISTENT_HELP",
+      "fixerId": "patch_nav_toc",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONSISTENT_LABELS",
+      "fixerId": "patch_cta_label",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONSISTENT_NAV",
+      "fixerId": "patch_nav_toc",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
       "fixerId": "handbook_after",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
@@ -388,8 +84,144 @@
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+      "ruleId": "DET.A11Y.GENERIC.CONTRAST",
+      "fixerId": "patch_page_mode",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONTRAST_ENHANCED",
+      "fixerId": "patch_page_mode",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.DATA_TABLE_HEADERS",
+      "fixerId": "patch_data_table",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.DIAGRAM_ALT",
+      "fixerId": "patch_diagram_alt",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.DRAGGING_MOVEMENTS",
       "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FLASH_THRESHOLD",
+      "fixerId": "patch_motion_flash",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_APPEARANCE",
+      "fixerId": "patch_page_mode",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE",
+      "fixerId": "patch_app_focus_trap",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED",
+      "fixerId": "patch_ambient_z",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED",
+      "fixerId": "patch_ambient_z",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_ORDER",
+      "fixerId": "patch_landmarks",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT",
+      "fixerId": "patch_ambient_z",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.IMAGES_ALT",
+      "fixerId": "patch_diagram_alt",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.IMAGES_OF_TEXT",
+      "fixerId": "patch_diagram_alt",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE",
+      "fixerId": "patch_app_focus_trap",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+      "fixerId": "patch_page_mode",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -404,7 +236,47 @@
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+      "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
+      "fixerId": "patch_landmarks",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+      "fixerId": "patch_cta_label",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS",
+      "fixerId": "patch_cta_label",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LANDMARKS",
+      "fixerId": "patch_landmarks",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LANG",
+      "fixerId": "patch_page_lang",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LANG_OF_PARTS",
       "fixerId": "handbook_after",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
@@ -412,7 +284,111 @@
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+      "ruleId": "DET.A11Y.GENERIC.LINK_PURPOSE",
+      "fixerId": "patch_cta_label",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+      "fixerId": "patch_motion_flash",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MEDIA_TRACKS",
+      "fixerId": "patch_diagram_alt",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MOTION_ACTUATION",
+      "fixerId": "patch_motion_reduced",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MOTION_FLASH",
+      "fixerId": "patch_motion_flash",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MOTION_REDUCED",
+      "fixerId": "patch_motion_reduced",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MULTIPLE_WAYS",
+      "fixerId": "patch_nav_toc",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.NON_TEXT_CONTRAST",
+      "fixerId": "patch_page_mode",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+      "fixerId": "patch_page_viewport",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.PAGE_LOCATION",
+      "fixerId": "patch_nav_toc",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.PAUSE_STOP_HIDE",
+      "fixerId": "handbook_after",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.POINTER_CANCELLATION",
+      "fixerId": "patch_cta_label",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+      "fixerId": "patch_cta_label",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
       "fixerId": "handbook_after",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
@@ -428,40 +404,8 @@
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.DRAGGING_MOVEMENTS",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.TARGET_SIZE_MIN",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.GENERIC.CONSISTENT_HELP",
-      "fixerId": "handbook_after",
+      "ruleId": "DET.A11Y.GENERIC.READING_ORDER",
+      "fixerId": "patch_landmarks",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -476,24 +420,24 @@
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION",
-      "fixerId": "handbook_after",
+      "ruleId": "DET.A11Y.GENERIC.RESIZE_TEXT",
+      "fixerId": "patch_page_viewport",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED",
-      "fixerId": "handbook_after",
+      "ruleId": "DET.A11Y.GENERIC.SECTION_HEADINGS",
+      "fixerId": "patch_section_heading",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
       ]
     },
     {
-      "ruleId": "DET.A11Y.GENERIC.FOCUS_APPEARANCE",
-      "fixerId": "handbook_after",
+      "ruleId": "DET.A11Y.GENERIC.SENSORY_CUES",
+      "fixerId": "patch_cta_label",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -501,15 +445,63 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_section_heading",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
       ]
     },
     {
-      "ruleId": "DET.A11Y.KS.HASH_MARKERS",
-      "fixerId": "handbook_after",
+      "ruleId": "DET.A11Y.GENERIC.TARGET_SIZE_MIN",
+      "fixerId": "patch_page_viewport",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+      "fixerId": "patch_page_mode",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.TIMING",
+      "fixerId": "patch_motion_reduced",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.TITLE",
+      "fixerId": "patch_page_title",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.USE_OF_COLOR",
+      "fixerId": "patch_cta_label",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.VIEWPORT",
+      "fixerId": "patch_page_viewport",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+      "fixerId": "patch_page_mode",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -517,23 +509,7 @@
     },
     {
       "ruleId": "DET.A11Y.KS.BREADCRUMB",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.KS.REACT_A11Y_ROLE",
-      "fixerId": "handbook_after",
-      "verifyMode": "expect_rule_clean",
-      "harnessModes": [
-        "standalone"
-      ]
-    },
-    {
-      "ruleId": "DET.A11Y.KS.PY_HASH_ATTRS",
-      "fixerId": "handbook_after",
+      "fixerId": "nav_breadcrumb",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -541,7 +517,31 @@
     },
     {
       "ruleId": "DET.A11Y.KS.HANDBOOK_SINGLE_H1",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_section_heading",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.KS.HASH_MARKERS",
+      "fixerId": "hash_markers",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.KS.PY_HASH_ATTRS",
+      "fixerId": "repo_production",
+      "verifyMode": "expect_rule_clean",
+      "harnessModes": [
+        "standalone"
+      ]
+    },
+    {
+      "ruleId": "DET.A11Y.KS.REACT_A11Y_ROLE",
+      "fixerId": "patch_landmarks",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"

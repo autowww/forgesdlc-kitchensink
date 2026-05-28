@@ -1,6 +1,6 @@
 # A11y tooling stub inventory
 
-Generated: 2026-05-28T05:38:46.834Z
+Generated: 2026-05-28T06:40:13.065Z
 
 > Read-only gap report. Does not modify code or close gaps.
 
@@ -26,16 +26,25 @@ Generated: 2026-05-28T05:38:46.834Z
 
 ## Quality scorer (`score-website-a11y.mjs`)
 
-- Severity penalty only; not scoped to standards packs or WCAG 3 profiles.
+- Severity penalty from crawl findings **plus** optional standards pack rollup (`buildComplianceReport`, default `--include-compliance`).
+- Supports WCAG 2.x and WCAG 3 profiles via `--compliance-profile` / `--standard`.
 
 ## DET remediation (`lib/a11y-deterministic-fixers/`)
 
 - Pilot fixers: **68** / **68** implemented DET rules.
+- Non–`handbook_after` fixers: **54** (distinct fixer ids: handbook_after, patch_app_focus_trap, patch_motion_flash, patch_nav_toc, patch_cta_label, patch_page_mode, patch_data_table, patch_diagram_alt, patch_ambient_z, patch_landmarks, patch_page_lang, patch_motion_reduced, patch_page_viewport, patch_section_heading, patch_page_title, nav_breadcrumb, hash_markers, repo_production).
 
 ## AI remediation
 
-- **`lib/a11y-ai-fixers/`** — `run-ai-fixers.mjs` (plan_only v1; no auto DOM apply unless extended).
+- **21** explicit registry rows / **21** implemented AI rules.
+- **`lib/a11y-ai-fixers/`** — `run-ai-fixers.mjs` (`plan_only` or `remediation_note` per rule).
 - `run-website-a11y-remediation-loop.sh` calls AI fixers after DET fixers.
+
+## MD corpus
+
+- WCAG seed YAML files: **99**
+- Axe catalog with `criteriaDocPaths`: **71**; unmappable (best-practice / no WCAG tag): **30**
+
 
 ## Rule pages with placeholder examples
 

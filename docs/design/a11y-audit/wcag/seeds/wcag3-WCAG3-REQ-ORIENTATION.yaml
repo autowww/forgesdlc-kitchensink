@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-ORIENTATION"
+summary: |
+  Display orientation not restricted — WCAG 3.0 draft (core). Guideline: Layout.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 1.3.4.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

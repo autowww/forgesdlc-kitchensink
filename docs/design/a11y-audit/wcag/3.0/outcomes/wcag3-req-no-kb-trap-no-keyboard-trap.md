@@ -12,7 +12,12 @@ manualOnly: false
 
 ## Summary
 
-Draft WCAG 3.0 requirement under guideline **Keyboard**. Tier: **core**. This is not a WCAG 2.x success criterion; conformance uses Bronze / Silver / Gold.
+No keyboard trap — WCAG 3.0 draft (core). Guideline: Keyboard.
+
+
+## Operator notes
+
+Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 2.1.2.
 
 ## Intent
 
@@ -25,8 +30,13 @@ Address functional user needs described in the [WCAG 3.0 Working Draft](https://
 
 ## Forge automation
 
+| Lane | Rules |
+|------|-------|
+| DET | — |
+| AI | — |
+| Crosswalk | 2.1.2 |
+
 - **Automation proxy:** axe/DET packs use WCAG 2.2 tag bundles; see [wcag-3.0-profiles.md](../wcag-3.0-profiles.md).
-- **Crosswalk:** 2.1.2.
 
 ## Manual test steps
 

@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-ON-Focus"
+summary: |
+  On focus no unexpected context change — WCAG 3.0 draft (core). Guideline: Predictable.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 3.2.1.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

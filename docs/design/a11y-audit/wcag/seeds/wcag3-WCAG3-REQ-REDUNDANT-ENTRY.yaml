@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-REDUNDANT-ENTRY"
+summary: |
+  Redundant entry avoided — WCAG 3.0 draft (supplemental). Guideline: Forms.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 3.3.7.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

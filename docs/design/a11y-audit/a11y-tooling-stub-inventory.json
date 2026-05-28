@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T05:38:46.834Z",
+  "generatedAt": "2026-05-28T06:40:13.065Z",
   "disclaimer": "Inventory only — no fixes applied",
   "detAuditor": {
     "note": "crawl runs axe + det; ai lane when --lanes includes ai and FORGE_A11Y_SKIP_AI_AGENT is unset",
@@ -21,17 +21,48 @@
     "mergeScript": "npm run merge-ai-audit"
   },
   "qualityScorer": {
-    "note": "score-website-a11y.mjs is severity-only; no standards pack / WCAG 3",
-    "standardsPackAware": false
+    "note": "score-website-a11y.mjs severity + optional standards rollup via buildComplianceReport (--include-compliance default on)",
+    "standardsPackAware": true,
+    "includeComplianceFlag": "--include-compliance"
   },
   "detRemediation": {
     "pilotFixerRules": 68,
     "implementedDetRules": 68,
-    "gap": 0
+    "gap": 0,
+    "distinctFixerIds": [
+      "handbook_after",
+      "hash_markers",
+      "nav_breadcrumb",
+      "patch_ambient_z",
+      "patch_app_focus_trap",
+      "patch_cta_label",
+      "patch_data_table",
+      "patch_diagram_alt",
+      "patch_landmarks",
+      "patch_motion_flash",
+      "patch_motion_reduced",
+      "patch_nav_toc",
+      "patch_page_lang",
+      "patch_page_mode",
+      "patch_page_title",
+      "patch_page_viewport",
+      "patch_section_heading",
+      "repo_production"
+    ],
+    "rulesWithNonHandbookFixer": 54
   },
   "aiRemediation": {
     "aiFixerModule": true,
-    "note": "lib/a11y-ai-fixers/run-ai-fixers.mjs in remediation loop; plan_only v1"
+    "implementedAiRules": 21,
+    "explicitRegistryRows": 21,
+    "registryCoversAllAiRules": true,
+    "defaultFixerId": "plan_only",
+    "note": "lib/a11y-ai-fixers/run-ai-fixers.mjs; plan_only or remediation_note per ai-fixer-registry.json"
+  },
+  "mdCorpus": {
+    "wcagSeedYamlCount": 99,
+    "axeRulesWithCriteriaDocPaths": 71,
+    "axeRulesUnmappableBestPractice": 30
   },
   "rulePages": {
     "placeholderCount": 0,

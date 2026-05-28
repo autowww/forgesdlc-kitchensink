@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-NO-KB-TRAP"
+summary: |
+  No keyboard trap — WCAG 3.0 draft (core). Guideline: Keyboard.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 2.1.2.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

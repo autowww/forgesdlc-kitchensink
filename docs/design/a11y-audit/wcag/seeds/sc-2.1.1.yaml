@@ -1,0 +1,11 @@
+id: "2.1.1"
+summary: |
+  Keyboard (Level A) — Principle 2; verify perceivable, operable, understandable, and robust outcomes for users with disabilities. See the normative W3C TR for legal wording.
+operatorNotes: |
+  Run axe with a profile that includes SC 2.1.1, then confirm DET/AI mappings below.
+  Manual verification: keyboard-only task path + one screen reader spot-check on representative pages.
+  Primary DET rules: DET.A11Y.GENERIC.KEYBOARD_ACCESS.
+  AI judgment lane: AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW.
+forgeRulesHighlight:
+  - DET.A11Y.GENERIC.KEYBOARD_ACCESS
+  - AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW

@@ -41,7 +41,7 @@ export async function runAiFixers(opts) {
   for (const ruleId of aiIds) {
     const findings = findingsByRuleId.get(ruleId) || [];
     const fixerId = resolveAiFixerId(ruleId);
-    const result = runAiFixerById(fixerId, { ruleId, findings });
+    const result = await runAiFixerById(fixerId, { ruleId, findings, outDir });
     perRule[ruleId] = {
       ruleId,
       fixerId,

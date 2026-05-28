@@ -1,0 +1,12 @@
+id: "3.3.4"
+summary: |
+  Error Prevention (Legal, Financial, Data) (Level AA) — Principle 3; verify perceivable, operable, understandable, and robust outcomes for users with disabilities. See the normative W3C TR for legal wording.
+operatorNotes: |
+  Run axe with a profile that includes SC 3.3.4, then confirm DET/AI mappings below.
+  Manual verification: keyboard-only task path + one screen reader spot-check on representative pages.
+  Catalog marks this SC as manual-only — automation is informative, not sufficient.
+  Primary DET rules: DET.A11Y.GENERIC.ERROR_PREVENTION.
+  AI judgment lane: AI.A11Y.GENERIC.ERROR_PREVENTION.
+forgeRulesHighlight:
+  - DET.A11Y.GENERIC.ERROR_PREVENTION
+  - AI.A11Y.GENERIC.ERROR_PREVENTION

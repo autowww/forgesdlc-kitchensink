@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T05:38:05.817Z",
+  "generatedAt": "2026-05-28T06:40:12.877Z",
   "ruleCount": 104,
   "rules": [
     {
@@ -26,7 +26,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "1",
@@ -69,7 +71,9 @@
       "criteriaDocPaths": {
         "2.4.4": "wcag/2.2/sc/2.4.4-link-purpose-in-context.md",
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "10",
@@ -105,7 +109,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "100",
@@ -143,7 +149,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "101",
@@ -181,7 +189,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "102",
@@ -218,7 +228,9 @@
       },
       "criteriaDocPaths": {
         "3.1.2": "wcag/2.2/sc/3.1.2-language-of-parts.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "103",
@@ -256,7 +268,9 @@
       },
       "criteriaDocPaths": {
         "1.2.2": "wcag/2.2/sc/1.2.2-captions-prerecorded.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "11",
@@ -293,7 +307,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "12",
@@ -327,7 +343,9 @@
       },
       "criteriaDocPaths": {
         "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "13",
@@ -361,7 +379,9 @@
       },
       "criteriaDocPaths": {
         "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "14",
@@ -395,7 +415,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "15",
@@ -429,7 +451,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "16",
@@ -463,7 +487,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "17",
@@ -497,7 +523,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "18",
@@ -530,7 +558,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "19",
@@ -564,7 +594,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "2",
@@ -598,7 +630,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "20",
@@ -623,7 +657,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "21",
@@ -660,7 +696,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "22",
@@ -692,7 +730,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "23",
@@ -717,7 +757,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "24",
@@ -751,7 +793,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "25",
@@ -785,7 +829,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "26",
@@ -820,7 +866,9 @@
       },
       "criteriaDocPaths": {
         "1.2.1": "wcag/2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "27",
@@ -855,7 +903,9 @@
       },
       "criteriaDocPaths": {
         "1.3.5": "wcag/2.2/sc/1.3.5-identify-input-purpose.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "28",
@@ -888,7 +938,9 @@
       },
       "criteriaDocPaths": {
         "1.4.12": "wcag/2.2/sc/1.4.12-text-spacing.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "29",
@@ -926,7 +978,9 @@
       },
       "criteriaDocPaths": {
         "2.2.2": "wcag/2.2/sc/2.2.2-pause-stop-hide.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "3",
@@ -951,7 +1005,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "30",
@@ -990,7 +1046,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "31",
@@ -1028,7 +1086,9 @@
       },
       "criteriaDocPaths": {
         "2.4.1": "wcag/2.2/sc/2.4.1-bypass-blocks.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "32",
@@ -1057,7 +1117,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "33",
@@ -1094,7 +1156,9 @@
       },
       "criteriaDocPaths": {
         "1.4.3": "wcag/2.2/sc/1.4.3-contrast-minimum.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "34",
@@ -1129,7 +1193,9 @@
       },
       "criteriaDocPaths": {
         "1.3.4": "wcag/2.2/sc/1.3.4-orientation.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "35",
@@ -1163,7 +1229,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "36",
@@ -1197,7 +1265,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "37",
@@ -1234,7 +1304,9 @@
       },
       "criteriaDocPaths": {
         "2.4.2": "wcag/2.2/sc/2.4.2-page-titled.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "38",
@@ -1265,7 +1337,9 @@
       },
       "criteriaDocPaths": {
         "4.1.1": "wcag/2.2/sc/4.1.1-parsing.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "39",
@@ -1299,7 +1373,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "4",
@@ -1331,7 +1407,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "40",
@@ -1362,7 +1440,9 @@
       },
       "criteriaDocPaths": {
         "4.1.1": "wcag/2.2/sc/4.1.1-parsing.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "41",
@@ -1387,7 +1467,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "42",
@@ -1412,7 +1494,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "43",
@@ -1440,7 +1524,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "44",
@@ -1476,7 +1562,9 @@
       },
       "criteriaDocPaths": {
         "3.3.2": "wcag/2.2/sc/3.3.2-labels-or-instructions.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "45",
@@ -1512,7 +1600,9 @@
       },
       "criteriaDocPaths": {
         "2.1.1": "wcag/2.2/sc/2.1.1-keyboard.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "46",
@@ -1538,7 +1628,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "47",
@@ -1574,7 +1666,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "48",
@@ -1612,7 +1706,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "49",
@@ -1637,7 +1733,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "5",
@@ -1674,7 +1772,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "50",
@@ -1701,7 +1801,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "51",
@@ -1738,7 +1840,9 @@
       },
       "criteriaDocPaths": {
         "3.1.1": "wcag/2.2/sc/3.1.1-language-of-page.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "52",
@@ -1775,7 +1879,9 @@
       },
       "criteriaDocPaths": {
         "3.1.1": "wcag/2.2/sc/3.1.1-language-of-page.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "53",
@@ -1810,7 +1916,9 @@
       },
       "criteriaDocPaths": {
         "3.1.1": "wcag/2.2/sc/3.1.1-language-of-page.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "54",
@@ -1838,7 +1946,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "55",
@@ -1878,7 +1988,9 @@
       },
       "criteriaDocPaths": {
         "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "56",
@@ -1903,7 +2015,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "57",
@@ -1942,7 +2056,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "58",
@@ -1985,7 +2101,9 @@
       "criteriaDocPaths": {
         "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md",
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "59",
@@ -2020,7 +2138,9 @@
       },
       "criteriaDocPaths": {
         "2.5.3": "wcag/2.2/sc/2.5.3-label-in-name.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "6",
@@ -2054,7 +2174,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "60",
@@ -2079,7 +2201,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "61",
@@ -2118,7 +2242,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "62",
@@ -2143,7 +2269,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "63",
@@ -2168,7 +2296,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "64",
@@ -2193,7 +2323,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "65",
@@ -2218,7 +2350,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "66",
@@ -2243,7 +2377,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "67",
@@ -2268,7 +2404,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "68",
@@ -2293,7 +2431,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "69",
@@ -2318,7 +2458,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "7",
@@ -2352,7 +2494,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "70",
@@ -2377,7 +2521,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "71",
@@ -2413,7 +2559,9 @@
       },
       "criteriaDocPaths": {
         "1.4.1": "wcag/2.2/sc/1.4.1-use-of-color.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "72",
@@ -2456,7 +2604,9 @@
       "criteriaDocPaths": {
         "2.4.4": "wcag/2.2/sc/2.4.4-link-purpose-in-context.md",
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "73",
@@ -2490,7 +2640,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "74",
@@ -2524,7 +2676,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "75",
@@ -2560,7 +2714,9 @@
       },
       "criteriaDocPaths": {
         "2.2.2": "wcag/2.2/sc/2.2.2-pause-stop-hide.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "76",
@@ -2590,7 +2746,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "77",
@@ -2626,7 +2784,9 @@
       },
       "criteriaDocPaths": {
         "2.2.1": "wcag/2.2/sc/2.2.1-timing-adjustable.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "78",
@@ -2651,7 +2811,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "79",
@@ -2686,7 +2848,9 @@
       },
       "criteriaDocPaths": {
         "1.4.4": "wcag/2.2/sc/1.4.4-resize-text.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "8",
@@ -2711,7 +2875,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "80",
@@ -2747,7 +2913,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "81",
@@ -2784,7 +2952,9 @@
       },
       "criteriaDocPaths": {
         "1.4.2": "wcag/2.2/sc/1.4.2-audio-control.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "82",
@@ -2820,7 +2990,9 @@
       },
       "criteriaDocPaths": {
         "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "83",
@@ -2855,7 +3027,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "84",
@@ -2880,7 +3054,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "85",
@@ -2906,7 +3082,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "86",
@@ -2933,7 +3111,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "87",
@@ -2972,7 +3152,9 @@
       },
       "criteriaDocPaths": {
         "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "88",
@@ -2997,7 +3179,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "89",
@@ -3036,7 +3220,9 @@
       },
       "criteriaDocPaths": {
         "2.1.1": "wcag/2.2/sc/2.1.1-keyboard.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "9",
@@ -3074,7 +3260,9 @@
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md",
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "90",
@@ -3113,7 +3301,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "91",
@@ -3151,7 +3341,9 @@
       },
       "criteriaDocPaths": {
         "2.1.1": "wcag/2.2/sc/2.1.1-keyboard.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "92",
@@ -3178,7 +3370,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "93",
@@ -3214,7 +3408,9 @@
       },
       "criteriaDocPaths": {
         "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "94",
@@ -3253,7 +3449,9 @@
       },
       "criteriaDocPaths": {
         "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "95",
@@ -3278,7 +3476,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "96",
@@ -3305,7 +3505,9 @@
         "wcag30silver": false,
         "wcag30gold": false
       },
-      "criteriaDocPaths": {}
+      "criteriaDocPaths": {},
+      "unmappable": true,
+      "unmappableReason": "best-practice-or-no-wcag-tag"
     },
     {
       "axeRuleId": "97",
@@ -3342,7 +3544,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "98",
@@ -3372,7 +3576,9 @@
       },
       "criteriaDocPaths": {
         "2.5.8": "wcag/2.2/sc/2.5.8-target-size-minimum.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     },
     {
       "axeRuleId": "99",
@@ -3411,7 +3617,9 @@
       },
       "criteriaDocPaths": {
         "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
-      }
+      },
+      "unmappable": false,
+      "unmappableReason": null
     }
   ]
 }

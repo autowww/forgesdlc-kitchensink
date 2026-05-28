@@ -5,8 +5,10 @@ import { describe, it } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 import { buildAxeRuleCatalog } from '../lib/axe-rule-catalog.js';
+import { RTM_PROFILE_IDS } from '../lib/axe-rule-catalog.js';
 import {
   buildStandardsTraceability,
+  renderProfileStandardMarkdown,
   resolveProfileCriteria,
   resolveRtmProfileId,
   traceabilitySummaryForProfile,
@@ -21,6 +23,11 @@ const CATALOG_PATH = path.resolve(
 );
 const REGISTRY_PATH = path.resolve(TOOL_ROOT, 'design-rules/registry.generated.json');
 const MATRIX_PATH = path.resolve(TOOL_ROOT, 'design-rules/standards-traceability.generated.json');
+const MATRIX_MD_PATH = path.resolve(
+  TOOL_ROOT,
+  '../../docs/design/a11y-audit/standards-traceability-matrix.md',
+);
+const STANDARDS_DIR = path.resolve(TOOL_ROOT, '../../docs/design/a11y-audit/standards');
 
 describe('wcag-tag-parse', () => {
   it('parses wcag143 to 1.4.3', () => {
@@ -129,6 +136,12 @@ describe('traceability-matrix', () => {
     assert.ok(summary);
     assert.equal(summary.rtmProfileId, 'wcag22aa');
     assert.equal(summary.totalCriteria, 56);
+    assert.equal(
+      summary.matrixMdPath,
+      'docs/design/a11y-audit/standards-traceability-matrix.md',
+    );
+    assert.equal(summary.standardsIndexPath, 'docs/design/a11y-audit/standards/README.md');
+    assert.equal(summary.profileMdPath, 'docs/design/a11y-audit/standards/wcag22aa.md');
   });
 
   it('axe rule 28 maps to 1.4.12 and is not untied', () => {
@@ -169,5 +182,34 @@ describe('traceability-matrix', () => {
       axeCatalog: buildAxeRuleCatalog(),
     });
     assert.equal(matrix.profiles.wcag21aaa.summary.uncovered, 0);
+  });
+
+  it('standards-traceability-matrix.md exists and lists all RTM profiles', () => {
+    assert.ok(fs.existsSync(MATRIX_MD_PATH));
+    const md = fs.readFileSync(MATRIX_MD_PATH, 'utf8');
+    for (const id of RTM_PROFILE_IDS) {
+      assert.match(md, new RegExp(`\`${id}\``));
+    }
+    assert.match(md, /failingByLane|Compliance scorer/i);
+  });
+
+  it('standards/wcag22aa.md exists with DET tooling and traceability table', () => {
+    const profilePath = path.join(STANDARDS_DIR, 'wcag22aa.md');
+    assert.ok(fs.existsSync(profilePath));
+    const md = fs.readFileSync(profilePath, 'utf8');
+    assert.match(md, /DET\.A11Y/);
+    assert.match(md, /run-deterministic-fixers/);
+    assert.match(md, /Criteria traceability/);
+  });
+
+  it('renderProfileStandardMarkdown includes criterion rows', () => {
+    const matrix = buildStandardsTraceability({
+      catalogJson,
+      registry,
+      axeCatalog: buildAxeRuleCatalog(),
+    });
+    const md = renderProfileStandardMarkdown(matrix.profiles.wcag22aa, { det: new Map(), ai: new Map(), detDistinctFixers: [], aiDistinctFixers: [] }, {});
+    assert.match(md, /\*\*3\.1\.1\*\*/);
+    assert.match(md, /Runtime tooling/);
   });
 });

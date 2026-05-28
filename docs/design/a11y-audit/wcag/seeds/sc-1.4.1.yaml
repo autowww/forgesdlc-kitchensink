@@ -1,0 +1,9 @@
+id: "1.4.1"
+summary: |
+  Use of Color (Level A) — Principle 1; verify perceivable, operable, understandable, and robust outcomes for users with disabilities. See the normative W3C TR for legal wording.
+operatorNotes: |
+  Run axe with a profile that includes SC 1.4.1, then confirm DET/AI mappings below.
+  Manual verification: keyboard-only task path + one screen reader spot-check on representative pages.
+  Primary DET rules: DET.A11Y.GENERIC.USE_OF_COLOR.
+forgeRulesHighlight:
+  - DET.A11Y.GENERIC.USE_OF_COLOR

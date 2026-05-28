@@ -12,7 +12,12 @@ manualOnly: false
 
 ## Summary
 
-Draft WCAG 3.0 requirement under guideline **Layout**. Tier: **core**. This is not a WCAG 2.x success criterion; conformance uses Bronze / Silver / Gold.
+Display orientation not restricted — WCAG 3.0 draft (core). Guideline: Layout.
+
+
+## Operator notes
+
+Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 1.3.4.
 
 ## Intent
 
@@ -25,8 +30,13 @@ Address functional user needs described in the [WCAG 3.0 Working Draft](https://
 
 ## Forge automation
 
+| Lane | Rules |
+|------|-------|
+| DET | — |
+| AI | — |
+| Crosswalk | 1.3.4 |
+
 - **Automation proxy:** axe/DET packs use WCAG 2.2 tag bundles; see [wcag-3.0-profiles.md](../wcag-3.0-profiles.md).
-- **Crosswalk:** 1.3.4.
 
 ## Manual test steps
 

@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-ORG-PRACTICES"
+summary: |
+  Organizational accessibility practices — WCAG 3.0 draft (supplemental). Guideline: Process.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 3.3.4, 3.3.6.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-ENHANCED-CONTRAST"
+summary: |
+  Enhanced text contrast — WCAG 3.0 draft (supplemental). Guideline: Visual contrast.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 1.4.6.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

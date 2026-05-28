@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-FOCUS-VISIBLE"
+summary: |
+  Focus visible — WCAG 3.0 draft (core). Guideline: Navigation.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 2.4.7.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

@@ -1,0 +1,12 @@
+id: "2.5.1"
+summary: |
+  Pointer Gestures (Level A) — Principle 2; verify perceivable, operable, understandable, and robust outcomes for users with disabilities. See the normative W3C TR for legal wording.
+operatorNotes: |
+  Run axe with a profile that includes SC 2.5.1, then confirm DET/AI mappings below.
+  Manual verification: keyboard-only task path + one screen reader spot-check on representative pages.
+  Catalog marks this SC as manual-only — automation is informative, not sufficient.
+  Primary DET rules: DET.A11Y.GENERIC.POINTER_GESTURES.
+  AI judgment lane: AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT.
+forgeRulesHighlight:
+  - DET.A11Y.GENERIC.POINTER_GESTURES
+  - AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT

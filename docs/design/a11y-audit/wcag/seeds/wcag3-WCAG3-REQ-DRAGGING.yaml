@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-DRAGGING"
+summary: |
+  Dragging movements — WCAG 3.0 draft (supplemental). Guideline: Pointer.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 2.5.7.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

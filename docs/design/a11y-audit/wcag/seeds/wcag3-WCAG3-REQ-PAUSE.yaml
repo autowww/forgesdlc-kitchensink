@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-PAUSE"
+summary: |
+  Pause, stop, hide moving content — WCAG 3.0 draft (core). Guideline: Timing.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 2.2.2.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.

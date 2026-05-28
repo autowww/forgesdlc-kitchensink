@@ -1,0 +1,6 @@
+id: "WCAG3-REQ-POINTER-GESTURES"
+summary: |
+  Pointer gestures have single-pointer alternative — WCAG 3.0 draft (core). Guideline: Pointer.
+operatorNotes: |
+  Bronze/Silver/Gold tier requirement; maps to WCAG 2.2: 2.5.1.
+  Use draft TR methods plus mapped 2.2 SC automation where crosswalk IDs exist.
