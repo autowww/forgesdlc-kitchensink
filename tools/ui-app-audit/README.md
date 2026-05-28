@@ -38,6 +38,10 @@ node generate-studio-remediation-plan.mjs --audit /path/to/audit-out/audit-data.
 Product one-shot: [forge-accessibility-leo/scripts/run-sealed-studio-smoke.sh](../../forge-accessibility-leo/scripts/run-sealed-studio-smoke.sh).  
 Remediation loop: [forge-accessibility-leo/scripts/run-sealed-studio-remediation-loop.sh](../../forge-accessibility-leo/scripts/run-sealed-studio-remediation-loop.sh).
 
+## Phase B (deferred)
+
+Studio-aware deterministic fixers (`sources[]`-first HTML under `forge_accessibility/static/`, a11y fixer lane in loop, React primitive scenarios) are **not** in scope for the trustworthy gate slice. Use `cursor-agent-run-studio-finding.sh` until Phase B lands.
+
 ## Seal contract
 
 | Variable | Meaning |
