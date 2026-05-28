@@ -5,8 +5,8 @@ scope: generic
 title: Consistent Nav
 summary: Deterministic accessibility check (generic scope).
 page_version: 4416cd9c31ab1772b49b707f1eca47c8027001383615c0a5a49d14d942593453
-generated_at: 2026-05-27T18:51:09.000Z
-registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
+generated_at: 2026-05-28T03:48:11.000Z
+registry_fingerprint: 0021c088bf3664f96bb6c318bf46b537f04b476e6c6b1d511b371f23ade016ac
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-consistent-nav
 related_rules:

@@ -5,8 +5,8 @@ scope: ks
 title: React A11Y Role
 summary: Deterministic accessibility check (ks scope).
 page_version: 12d277513ddd47bcd5d56388d2b97acc85845382a7ff036038a4fa2107964811
-generated_at: 2026-05-27T18:51:09.000Z
-registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
+generated_at: 2026-05-28T03:48:11.000Z
+registry_fingerprint: 0021c088bf3664f96bb6c318bf46b537f04b476e6c6b1d511b371f23ade016ac
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-react-a11y-role
 related_rules:

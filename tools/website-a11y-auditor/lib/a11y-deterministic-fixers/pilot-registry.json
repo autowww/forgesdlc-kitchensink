@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-27T00:00:00.000Z",
+  "ruleCount": 12,
+  "rules": [
+    { "ruleId": "DET.A11Y.GENERIC.LANG", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.TITLE", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.VIEWPORT", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.ORIENTATION", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.IMAGES_ALT", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.LANDMARKS", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.RESIZE_TEXT", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] },
+    { "ruleId": "DET.A11Y.GENERIC.NON_TEXT_CONTRAST", "fixerId": "handbook_after", "verifyMode": "expect_rule_clean", "harnessModes": ["standalone"] }
+  ]
+}

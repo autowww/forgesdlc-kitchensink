@@ -5,8 +5,8 @@ scope: generic
 title: Input purpose
 summary: Personal data fields need autocomplete tokens (1.3.5).
 page_version: 02148ab0dae225c64bc6ba6625963802b5ae37c3f3a9a8b5d4ece0e5e18a5b77
-generated_at: 2026-05-27T18:51:09.000Z
-registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
+generated_at: 2026-05-28T03:48:11.000Z
+registry_fingerprint: 0021c088bf3664f96bb6c318bf46b537f04b476e6c6b1d511b371f23ade016ac
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-input-purpose
 related_rules:

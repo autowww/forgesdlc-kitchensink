@@ -573,4 +573,108 @@ export const AI_PROMPT_IMPLEMENTATIONS = {
     sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-ks-region-labeling',
     wcagCriteria: ['1.3.1', '4.1.2'],
   },
+  'AI.A11Y.GENERIC.MEDIA_ALTERNATIVES': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-media-alternatives.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-media-alternatives',
+    wcagCriteria: ['1.2.1', '1.2.2', '1.2.3', '1.2.4', '1.2.5', '1.2.6', '1.2.7', '1.2.8', '1.2.9'],
+  },
+  'AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-sensory-instructions.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-sensory-instructions',
+    wcagCriteria: ['1.3.3'],
+  },
+  'AI.A11Y.GENERIC.AUDIO_CONTROL': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-audio-control.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-audio-control',
+    wcagCriteria: ['1.4.2', '1.4.7'],
+  },
+  'AI.A11Y.GENERIC.TIMING_ADJUSTABLE': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-timing-adjustable.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-timing-adjustable',
+    wcagCriteria: ['2.2.1', '2.2.3'],
+  },
+  'AI.A11Y.GENERIC.MULTIPLE_WAYS': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-multiple-ways.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-multiple-ways',
+    wcagCriteria: ['2.4.5'],
+  },
+  'AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-pointer-gestures-judgment.md',
+    sourceRule:
+      'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-pointer-gestures-judgment',
+    wcagCriteria: ['2.5.1'],
+  },
+  'AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-consistent-nav-judgment.md',
+    sourceRule:
+      'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-consistent-nav-judgment',
+    wcagCriteria: ['3.2.3'],
+  },
+  'AI.A11Y.GENERIC.ERROR_PREVENTION': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-error-prevention.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-error-prevention',
+    wcagCriteria: ['3.3.4', '3.3.6'],
+  },
+  'AI.A11Y.GENERIC.UNUSUAL_WORDS': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-unusual-words.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-unusual-words',
+    wcagCriteria: ['3.1.3', '3.1.4'],
+  },
+  'AI.A11Y.GENERIC.READING_LEVEL': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-reading-level.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-reading-level',
+    wcagCriteria: ['3.1.5'],
+  },
+  'AI.A11Y.GENERIC.PRONUNCIATION': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-pronunciation.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-pronunciation',
+    wcagCriteria: ['3.1.6'],
+  },
+  'AI.A11Y.GENERIC.CONTEXT_HELP': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-context-help.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-context-help',
+    wcagCriteria: ['3.3.5'],
+  },
+  'AI.A11Y.GENERIC.INTERRUPTIONS': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-interruptions.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-interruptions',
+    wcagCriteria: ['2.2.4'],
+  },
+  'AI.A11Y.GENERIC.VISUAL_PRESENTATION': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-visual-presentation.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-visual-presentation',
+    wcagCriteria: ['1.4.8'],
+  },
+  'AI.A11Y.GENERIC.CHANGE_ON_REQUEST': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-change-on-request.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-change-on-request',
+    wcagCriteria: ['3.2.5'],
+  },
+  'AI.A11Y.GENERIC.RE_AUTHENTICATION': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-re-authentication.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-re-authentication',
+    wcagCriteria: ['2.2.5'],
+  },
+  'AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION': {
+    scope: 'generic',
+    promptPath: 'design-rules/ai/prompts/generated/ai-a11y-generic-keyboard-no-exception.md',
+    sourceRule: 'docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-keyboard-no-exception',
+    wcagCriteria: ['2.1.3'],
+  },
 };

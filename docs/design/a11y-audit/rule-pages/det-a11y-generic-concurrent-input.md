@@ -5,8 +5,8 @@ scope: generic
 title: Concurrent input
 summary: Do not block keyboard or pointer when not essential (2.5.6).
 page_version: e4d0fdb706092dbd05a9ceedef8dc21b9ce2478ead28cba4c36eb0d43d93d9f4
-generated_at: 2026-05-27T18:51:09.000Z
-registry_fingerprint: e6ee2008237b1ef01ad3fc4119b64e3eff0194d1a45c35f10fc2b63d373bc3fd
+generated_at: 2026-05-28T03:48:11.000Z
+registry_fingerprint: 0021c088bf3664f96bb6c318bf46b537f04b476e6c6b1d511b371f23ade016ac
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-concurrent-input
 related_rules:

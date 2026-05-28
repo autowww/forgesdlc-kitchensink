@@ -67,6 +67,21 @@ describe('standards-pack', () => {
     assert.deepEqual(pack.validation.uncoveredCriteria || [], []);
   });
 
+  it('wcag21aa manual_expected criteria include AI tooling (except 4.1.1)', () => {
+    const pack = loadStandardsPack('wcag21aa');
+    const manual = pack.criteria.filter((c) => c.gap === 'manual_expected');
+    const withAi = manual.filter((c) => c.tooling.includes('ai'));
+    assert.equal(withAi.length, 12);
+    assert.ok(manual.some((c) => c.id === '4.1.1' && !c.tooling.includes('ai')));
+  });
+
+  it('registry has 21 AI rules after manual SC expansion', () => {
+    const reg = JSON.parse(
+      fs.readFileSync(path.join(TOOL_ROOT, 'design-rules/registry.generated.json'), 'utf8'),
+    );
+    assert.equal((reg.aiRules || []).length, 21);
+  });
+
   it('wcag21aa pack has zero uncovered and no axe-only after 2.1 DET rules', () => {
     const pack = loadStandardsPack('wcag21aa');
     const result = validateStandardsPack(pack, { allowManualOnly: true, strict: true });

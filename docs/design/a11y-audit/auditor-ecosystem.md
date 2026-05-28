@@ -33,7 +33,7 @@ Ruleset (deterministic-a11y-rules.md + registry.generated.json)
         → Detection check (det-a11y-generic-*.check.js / det-a11y-ks-*.check.js)
             → Fixture (auditor-tests/fixtures/*.html)
                 → Auditor (analyze-website-a11y.mjs on fixture URL)
-                    → Manual / agent remediation (no production fixer pilot yet)
+                    → Optional fixer pilot (`lib/a11y-deterministic-fixers/`) + AI audit + remediation loop
 ```
 
 | Artifact | Location | Role |

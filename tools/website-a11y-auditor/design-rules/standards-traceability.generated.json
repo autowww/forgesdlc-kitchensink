@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-27T18:50:56.226Z",
+  "generatedAt": "2026-05-28T03:48:07.550Z",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
   "catalogSource": "docs/design/a11y-audit/wcag-criteria-catalog.json",
   "profiles": {
@@ -37,14 +37,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.26"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -53,14 +55,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.103"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -69,12 +73,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -83,12 +89,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -141,12 +149,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.SENSORY_CUES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -171,14 +181,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.81"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.AUTOPLAY_AUDIO"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.AUDIO_CONTROL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -223,14 +235,16 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.77"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.TIMING"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2026,6 +2040,239 @@
           "profiles": [
             "wcag20a"
           ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.2.1",
+            "1.2.2",
+            "1.2.3",
+            "1.2.4",
+            "1.2.5",
+            "1.2.6",
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.2",
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.TIMING_ADJUSTABLE",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.1",
+            "2.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.4.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.ERROR_PREVENTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.4",
+            "3.3.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.UNUSUAL_WORDS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.READING_LEVEL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.PRONUNCIATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.VISUAL_PRESENTATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.1.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20a"
+          ]
         }
       ],
       "gaps": {
@@ -2088,7 +2335,7 @@
         "untiedRuleCount": 0,
         "axeRuleCount": 61,
         "detRuleCount": 53,
-        "aiRuleCount": 4,
+        "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
             "covered": 4,
@@ -2150,14 +2397,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.26"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2166,14 +2415,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.103"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2182,12 +2433,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2196,12 +2449,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2210,12 +2465,14 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2268,12 +2525,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.SENSORY_CUES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2298,14 +2557,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.81"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.AUTOPLAY_AUDIO"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.AUDIO_CONTROL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2396,14 +2657,16 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.77"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.TIMING"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2511,12 +2774,14 @@
           "level": "AA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MULTIPLE_WAYS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MULTIPLE_WAYS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2615,12 +2880,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.CONSISTENT_NAV"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -2687,12 +2954,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.ERROR_PREVENTION"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4352,6 +4621,239 @@
           "profiles": [
             "wcag20aa"
           ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.2.1",
+            "1.2.2",
+            "1.2.3",
+            "1.2.4",
+            "1.2.5",
+            "1.2.6",
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.2",
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.TIMING_ADJUSTABLE",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.1",
+            "2.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.4.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.ERROR_PREVENTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.4",
+            "3.3.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.UNUSUAL_WORDS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.READING_LEVEL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.PRONUNCIATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.VISUAL_PRESENTATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.1.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aa"
+          ]
         }
       ],
       "gaps": {
@@ -4426,7 +4928,7 @@
         "untiedRuleCount": 0,
         "axeRuleCount": 64,
         "detRuleCount": 53,
-        "aiRuleCount": 4,
+        "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
             "covered": 7,
@@ -4488,14 +4990,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.26"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4504,14 +5008,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.103"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4520,12 +5026,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4534,12 +5042,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4548,12 +5058,14 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4562,12 +5074,14 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4576,12 +5090,14 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4590,12 +5106,14 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4604,12 +5122,14 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4662,12 +5182,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.SENSORY_CUES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4692,14 +5214,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.81"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.AUTOPLAY_AUDIO"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.AUDIO_CONTROL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4770,10 +5294,12 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.AUDIO_CONTROL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4782,10 +5308,12 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.VISUAL_PRESENTATION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4844,12 +5372,14 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe",
+          "coverage": "axe+manual_ai",
           "axeRules": [
             "AXE.89"
           ],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4858,14 +5388,16 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.77"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.TIMING"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4891,10 +5423,12 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4903,12 +5437,14 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe",
+          "coverage": "axe+manual_ai",
           "axeRules": [
             "AXE.76"
           ],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.INTERRUPTIONS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -4917,10 +5453,12 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.RE_AUTHENTICATION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5025,12 +5563,14 @@
           "level": "AA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MULTIPLE_WAYS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MULTIPLE_WAYS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5146,10 +5686,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.UNUSUAL_WORDS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5158,10 +5700,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.UNUSUAL_WORDS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5170,10 +5714,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.READING_LEVEL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5182,10 +5728,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.PRONUNCIATION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5222,12 +5770,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.CONSISTENT_NAV"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5250,12 +5800,14 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "axe",
+          "coverage": "axe+manual_ai",
           "axeRules": [
             "AXE.76"
           ],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.CHANGE_ON_REQUEST"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5308,12 +5860,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.ERROR_PREVENTION"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5322,10 +5876,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.CONTEXT_HELP"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -5334,10 +5890,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -7030,6 +7588,239 @@
           "wcagCriteria": [
             "1.3.1",
             "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.2.1",
+            "1.2.2",
+            "1.2.3",
+            "1.2.4",
+            "1.2.5",
+            "1.2.6",
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.2",
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.TIMING_ADJUSTABLE",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.1",
+            "2.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.4.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.ERROR_PREVENTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.4",
+            "3.3.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.UNUSUAL_WORDS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.READING_LEVEL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.PRONUNCIATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.VISUAL_PRESENTATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag20aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.1.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -7134,7 +7925,7 @@
         "untiedRuleCount": 0,
         "axeRuleCount": 67,
         "detRuleCount": 53,
-        "aiRuleCount": 4,
+        "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
             "covered": 9,
@@ -7196,14 +7987,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.26"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -7212,14 +8005,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.103"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -7228,12 +8023,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -7242,12 +8039,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -7300,12 +8099,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.SENSORY_CUES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -7330,14 +8131,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.81"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.AUTOPLAY_AUDIO"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.AUDIO_CONTROL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -7396,14 +8199,16 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.77"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.TIMING"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -7511,12 +8316,14 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.POINTER_GESTURES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9270,6 +10077,239 @@
           "profiles": [
             "wcag21a"
           ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.2.1",
+            "1.2.2",
+            "1.2.3",
+            "1.2.4",
+            "1.2.5",
+            "1.2.6",
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.2",
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.TIMING_ADJUSTABLE",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.1",
+            "2.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.4.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.ERROR_PREVENTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.4",
+            "3.3.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.UNUSUAL_WORDS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.READING_LEVEL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.PRONUNCIATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.VISUAL_PRESENTATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.1.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21a"
+          ]
         }
       ],
       "gaps": {
@@ -9337,7 +10377,7 @@
         "untiedRuleCount": 0,
         "axeRuleCount": 62,
         "detRuleCount": 53,
-        "aiRuleCount": 4,
+        "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
             "covered": 4,
@@ -9399,14 +10439,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.26"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9415,14 +10457,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.103"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9431,12 +10475,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9445,12 +10491,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9459,12 +10507,14 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9517,12 +10567,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.SENSORY_CUES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9579,14 +10631,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.81"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.AUTOPLAY_AUDIO"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.AUDIO_CONTROL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9749,14 +10803,16 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.77"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.TIMING"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9864,12 +10920,14 @@
           "level": "AA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MULTIPLE_WAYS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MULTIPLE_WAYS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -9906,12 +10964,14 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.POINTER_GESTURES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -10026,12 +11086,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.CONSISTENT_NAV"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -10098,12 +11160,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.ERROR_PREVENTION"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -11829,6 +12893,239 @@
           "profiles": [
             "wcag21aa"
           ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.2.1",
+            "1.2.2",
+            "1.2.3",
+            "1.2.4",
+            "1.2.5",
+            "1.2.6",
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.2",
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.TIMING_ADJUSTABLE",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.1",
+            "2.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.4.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.ERROR_PREVENTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.4",
+            "3.3.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.UNUSUAL_WORDS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.READING_LEVEL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.PRONUNCIATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.VISUAL_PRESENTATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.1.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aa"
+          ]
         }
       ],
       "gaps": {
@@ -11915,7 +13212,7 @@
         "untiedRuleCount": 0,
         "axeRuleCount": 68,
         "detRuleCount": 53,
-        "aiRuleCount": 4,
+        "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
             "covered": 13,
@@ -11977,14 +13274,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.26"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -11993,14 +13292,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.103"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12009,12 +13310,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12023,12 +13326,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12037,12 +13342,14 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12051,12 +13358,14 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12065,12 +13374,14 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12079,12 +13390,14 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12093,12 +13406,14 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12151,12 +13466,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.SENSORY_CUES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12213,14 +13530,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.81"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.AUTOPLAY_AUDIO"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.AUDIO_CONTROL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12291,10 +13610,12 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.AUDIO_CONTROL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12303,10 +13624,12 @@
           "level": "AAA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.VISUAL_PRESENTATION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12423,12 +13746,14 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe",
+          "coverage": "axe+manual_ai",
           "axeRules": [
             "AXE.89"
           ],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12451,14 +13776,16 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.77"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.TIMING"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12484,10 +13811,12 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12496,12 +13825,14 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe",
+          "coverage": "axe+manual_ai",
           "axeRules": [
             "AXE.76"
           ],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.INTERRUPTIONS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12510,10 +13841,12 @@
           "level": "AAA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.RE_AUTHENTICATION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12618,12 +13951,14 @@
           "level": "AA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MULTIPLE_WAYS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MULTIPLE_WAYS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12705,12 +14040,14 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.POINTER_GESTURES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12811,10 +14148,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.UNUSUAL_WORDS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12823,10 +14162,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.UNUSUAL_WORDS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12835,10 +14176,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.READING_LEVEL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12847,10 +14190,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.PRONUNCIATION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12887,12 +14232,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.CONSISTENT_NAV"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12915,12 +14262,14 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "axe",
+          "coverage": "axe+manual_ai",
           "axeRules": [
             "AXE.76"
           ],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.CHANGE_ON_REQUEST"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12973,12 +14322,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.ERROR_PREVENTION"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12987,10 +14338,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.CONTEXT_HELP"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -12999,10 +14352,12 @@
           "level": "AAA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "manual_catalog",
+          "coverage": "manual_ai",
           "axeRules": [],
           "detRules": [],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -14761,6 +16116,239 @@
           "wcagCriteria": [
             "1.3.1",
             "4.1.2"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.2.1",
+            "1.2.2",
+            "1.2.3",
+            "1.2.4",
+            "1.2.5",
+            "1.2.6",
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.2",
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.TIMING_ADJUSTABLE",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.1",
+            "2.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.4.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.ERROR_PREVENTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.4",
+            "3.3.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.UNUSUAL_WORDS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.READING_LEVEL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.PRONUNCIATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.VISUAL_PRESENTATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag21aaa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.1.3"
           ],
           "tiedToStandard": true,
           "forgeOnly": false,
@@ -14878,7 +16466,7 @@
         "untiedRuleCount": 0,
         "axeRuleCount": 71,
         "detRuleCount": 53,
-        "aiRuleCount": 4,
+        "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
             "covered": 15,
@@ -14940,14 +16528,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.26"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -14956,14 +16546,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.103"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -14972,12 +16564,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -14986,12 +16580,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -15000,12 +16596,14 @@
           "level": "AA",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MEDIA_TRACKS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -15058,12 +16656,14 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.SENSORY_CUES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -15120,14 +16720,16 @@
           "level": "A",
           "principle": 1,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.81"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.AUTOPLAY_AUDIO"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.AUDIO_CONTROL"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -15290,14 +16892,16 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "axe+det",
+          "coverage": "axe+det+manual_ai",
           "axeRules": [
             "AXE.77"
           ],
           "detRules": [
             "DET.A11Y.GENERIC.TIMING"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -15405,12 +17009,14 @@
           "level": "AA",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.MULTIPLE_WAYS"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.MULTIPLE_WAYS"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -15461,12 +17067,14 @@
           "level": "A",
           "principle": 2,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.POINTER_GESTURES"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -15607,12 +17215,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.CONSISTENT_NAV"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -15691,12 +17301,14 @@
           "level": "AA",
           "principle": 3,
           "defaultCoverage": "manual_only",
-          "coverage": "det",
+          "coverage": "det+manual_ai",
           "axeRules": [],
           "detRules": [
             "DET.A11Y.GENERIC.ERROR_PREVENTION"
           ],
-          "aiRules": [],
+          "aiRules": [
+            "AI.A11Y.GENERIC.ERROR_PREVENTION"
+          ],
           "gap": "manual_expected"
         },
         {
@@ -17459,6 +19071,239 @@
           "profiles": [
             "wcag22aa"
           ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.2.1",
+            "1.2.2",
+            "1.2.3",
+            "1.2.4",
+            "1.2.5",
+            "1.2.6",
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.3.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.2",
+            "1.4.7"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.TIMING_ADJUSTABLE",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.1",
+            "2.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.4.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.5.1"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.ERROR_PREVENTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.4",
+            "3.3.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.UNUSUAL_WORDS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.3",
+            "3.1.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.READING_LEVEL",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.PRONUNCIATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.1.6"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CONTEXT_HELP",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.3.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.4"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.VISUAL_PRESENTATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "1.4.8"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
+          "lane": "ai",
+          "wcagCriteria": [
+            "3.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.RE_AUTHENTICATION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.2.5"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
+        },
+        {
+          "ruleId": "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION",
+          "lane": "ai",
+          "wcagCriteria": [
+            "2.1.3"
+          ],
+          "tiedToStandard": true,
+          "forgeOnly": false,
+          "traceabilityRole": null,
+          "profiles": [
+            "wcag22aa"
+          ]
         }
       ],
       "gaps": {
@@ -17551,7 +19396,7 @@
         "untiedRuleCount": 0,
         "axeRuleCount": 69,
         "detRuleCount": 53,
-        "aiRuleCount": 4,
+        "aiRuleCount": 21,
         "byPrinciple": {
           "1": {
             "covered": 13,

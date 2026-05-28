@@ -49,7 +49,7 @@ node kitchensink/tools/website-a11y-auditor/analyze-website-a11y.mjs \
 |------|------|-------------|
 | **axe** | default in `--lanes` | axe-core WCAG-tagged violations → `AXE.*` findings |
 | **det** | default | `DET.A11Y.GENERIC.*` and (when KS) `DET.A11Y.KS.*` |
-| **ai** | `--enable-ai` | Lists eligible `AI.A11Y.*` rules in the report (prompts for Cursor/agent) |
+| **ai** | `--enable-ai` | Lists eligible `AI.A11Y.*` rules; use `run-website-a11y-ai-audit.mjs` to run prompts and merge findings |
 
 `--skip-axe` / `--skip-det` remove lanes. `--lanes axe,det,ai` combines all.
 
@@ -127,6 +127,21 @@ Override hub: `FORGE_A11Y_AUDIT_WORKBENCH_ROOT`.
 - KS modules: `det-a11y-ks-*.check.js`
 
 Registry `scope` must match the filename segment (`npm run blend-rules` enforces).
+
+## AI audit and remediation loop
+
+```bash
+# Merge AI prompt findings into an existing audit (requires Cursor CLI `agent` unless --skip-agent)
+node run-website-a11y-ai-audit.mjs --audit-data workbench/.../a11y-audit-data.json --repo . --site https://example.com/
+
+# Full loop: audit → fixers → optional AI → re-audit
+./run-website-a11y-remediation-loop.sh /path/to/site-repo https://example.com/
+
+# AI harness (contract parse; --skip-agent for CI)
+auditor-tests/invoke-ai-ruleset-harness.sh --skip-agent
+```
+
+Deterministic fixers: `lib/a11y-deterministic-fixers/` (`pilot-registry.json`). AI findings with `candidateDeterministicRule` route to the same DET fixer when registered.
 
 ## Kitchen Sink showcase
 
