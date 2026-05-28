@@ -5,6 +5,9 @@
  */
 const HANDBOOK_INNER_SITE_KINDS = new Set(['platform', 'lenses', 'fleet', 'lcdl']);
 
+/** Sealed Studio / operator app shells — marketing and handbook landing heuristics are out of scope. */
+export const APP_SHELL_SITE_KINDS = new Set(['a11y-studio', 'app-shell']);
+
 export function pageContext(url, siteKind) {
   let pathname = '';
   try {
@@ -14,5 +17,6 @@ export function pageContext(url, siteKind) {
   }
   const isHome = pathname === '/' || pathname === '' || pathname === '/index.html';
   const isPlatformHandbookInner = HANDBOOK_INNER_SITE_KINDS.has(siteKind) && !isHome;
-  return { pathname, isHome, isPlatformHandbookInner };
+  const isAppShell = APP_SHELL_SITE_KINDS.has(siteKind);
+  return { pathname, isHome, isPlatformHandbookInner, isAppShell };
 }

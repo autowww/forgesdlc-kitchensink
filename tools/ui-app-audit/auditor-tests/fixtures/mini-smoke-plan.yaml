@@ -1,0 +1,21 @@
+planId: fixture-studio
+scenarios:
+  - scenarioId: home-shell
+    doc_anchor: paged-shell-home
+    tier: smoke
+    status: implemented
+    navigate:
+      hash: dashboard-section
+    ready: "#main-content"
+    ownership:
+      - path: forge_accessibility/static/index.html
+        role: markup
+  - scenarioId: registry-overview
+    doc_anchor: curated-resource-registry
+    tier: smoke
+    navigate:
+      hash: registry-section
+    ready: "#registry-heading"
+    ownership:
+      - path: forge_accessibility/static/partials/registry-section.html
+        role: markup

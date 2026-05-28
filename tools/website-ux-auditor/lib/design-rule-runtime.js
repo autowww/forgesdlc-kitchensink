@@ -71,6 +71,7 @@ export function listImplementedDeterministicRules(registry) {
  *   traceStore?: import('./audit-backlog-trace.js').RulePageTraceStore | null,
  *   priorityRuleIds?: string[],
  *   deprioritizedRuleIds?: string[],
+ *   excludeDeterministicRuleIds?: string[],
  *   onlyDeterministicRuleIds?: string[] | null,
  *   onDeterministicRuleProgress?: (payload: { url: string, done: number, total: number, ruleId?: string }) => void,
  * }} [opts]
@@ -82,8 +83,11 @@ export async function createDesignRuleRuntime(opts = {}) {
   const onlySet = opts.onlyDeterministicRuleIds?.length
     ? new Set(opts.onlyDeterministicRuleIds)
     : null;
+  const excludeSet = opts.excludeDeterministicRuleIds?.length
+    ? new Set(opts.excludeDeterministicRuleIds)
+    : null;
   const implementedRules = listImplementedDeterministicRules(registry).filter(
-    (r) => !onlySet || onlySet.has(r.id),
+    (r) => (!onlySet || onlySet.has(r.id)) && (!excludeSet || !excludeSet.has(r.id)),
   );
   const deterministicConcurrency = clampInt(
     opts.deterministicConcurrency,
@@ -225,7 +229,7 @@ export async function createDesignRuleRuntime(opts = {}) {
   }
 
   async function runDeterministicRulesWithTrace({ metrics, url, page, repoRoot, ctx }) {
-    const rules = (registry.deterministicRules || []).filter((r) => !onlySet || onlySet.has(r.id));
+    const rules = implementedRules;
     const prioSet = new Set(priorityRuleIds);
     const indexed = rules.map((ruleMeta, index) => ({ ruleMeta, index }));
     indexed.sort((a, b) => {

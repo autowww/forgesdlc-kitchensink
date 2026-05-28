@@ -77,14 +77,37 @@ export const PRODUCT_PROFILES = {
     handbookShellAllowedOnlyBeyondHome: true,
     homepageShell: { ...HOMEPAGE_SHELL_DEFAULTS },
   },
+  'a11y-studio': {
+    name: 'Forge A11y Studio',
+    oneLiner: 'A local-first accessibility control workbench for governed audits and evidence.',
+    promise: 'Run, review, and trace accessibility work without leaving the machine.',
+    primaryAudience: 'accessibility engineers, reviewers, and platform operators',
+    preferredStory: 'registry -> governed run -> evidence -> triage -> remediation -> monitor',
+    homepageMustUseProductShell: false,
+    handbookShellAllowedOnlyBeyondHome: false,
+    pageMode: 'app',
+    homepageShell: { ...HOMEPAGE_SHELL_DEFAULTS, maxSidebarOffcanvasLinksBlocker: 999 },
+  },
+  'app-shell': {
+    name: 'Forge app shell',
+    oneLiner: 'A desktop-first operator UI built on KS app chrome.',
+    promise: 'Consistent studio chrome with governed workflows.',
+    primaryAudience: 'operators and engineers',
+    preferredStory: 'context -> workspace -> action -> evidence',
+    homepageMustUseProductShell: false,
+    handbookShellAllowedOnlyBeyondHome: false,
+    pageMode: 'app',
+    homepageShell: { ...HOMEPAGE_SHELL_DEFAULTS, maxSidebarOffcanvasLinksBlocker: 999 },
+  },
 };
 
 export function inferSiteKind(args, inventory) {
   if (args.siteKind && args.siteKind !== 'auto') return PRODUCT_PROFILES[args.siteKind] ? args.siteKind : 'generic';
   const haystack = [args.site || '', inventory.packageName || '', inventory.framework || '', ...inventory.topFiles.slice(0, 80)].join(' ').toLowerCase();
-  for (const kind of ['forgesdlc', 'lenses', 'lcdl', 'fleet', 'platform']) {
+  for (const kind of ['a11y-studio', 'app-shell', 'forgesdlc', 'lenses', 'lcdl', 'fleet', 'platform']) {
     if (haystack.includes(kind)) return kind;
   }
+  if (/forge[-_]?accessibility|a11ystudio/.test(haystack.replace(/-/g, ''))) return 'a11y-studio';
   return 'generic';
 }
 

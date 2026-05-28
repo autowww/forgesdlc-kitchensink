@@ -24,6 +24,7 @@ import { runLayoutGridConsistencyFixer } from './layout-grid-consistency.mjs';
 import { runNavBreadcrumbFixer } from './nav-breadcrumb.mjs';
 import { runPageTitleFixer } from './page-title.mjs';
 import { runRepoProductionFixer } from './repo-production.mjs';
+import { runReactKsAttrsFixer } from './react-ks-attrs-fixer.mjs';
 
 /** @type {Record<string, (ctx: object) => Promise<{ applied: boolean, filesTouched?: number, adapter?: string, error?: string }>>} */
 export const PRODUCTION_FIXER_BY_RULE = {
@@ -64,7 +65,7 @@ export const PRODUCTION_FIXER_BY_RULE = {
   'DET.HASH.REGISTRY_ROW': runRepoProductionFixer,
   'DET.DIAGRAM.ASSET_REGISTRY': runRepoProductionFixer,
   'DET.CATALOG.CONTRACT_SPECIFICITY': runRepoProductionFixer,
-  'DET.REACT.KS_ATTRS': runHashMarkersFixer,
+  'DET.REACT.KS_ATTRS': runReactKsAttrsFixer,
   'DET.REACT.A11Y_ROLE': patchLandmarksRequired,
   'DET.SURFACE.ELEVATION_TOKEN': patchAmbientZIndex,
   'DET.VISUAL.RHYTHM': runLayoutGridConsistencyFixer,

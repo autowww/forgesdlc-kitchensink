@@ -98,7 +98,7 @@ export function detectKsFromDomPages(pages) {
 
 /**
  * @param {{
- *   rulesScope: 'auto' | 'generic' | 'ks' | 'all',
+ *   rulesScope: 'auto' | 'generic' | 'ks' | 'all' | 'app',
  *   repoScore: number,
  *   domScore: number,
  * }} input
@@ -107,6 +107,9 @@ export function resolveRulesScope(input) {
   const scope = input.rulesScope || 'auto';
   if (scope === 'generic') {
     return { effectiveScope: 'generic', ksDriven: false, reason: 'forced-generic' };
+  }
+  if (scope === 'app') {
+    return { effectiveScope: 'app', ksDriven: false, reason: 'forced-app' };
   }
   if (scope === 'ks') {
     return { effectiveScope: 'ks', ksDriven: true, reason: 'forced-ks' };
@@ -139,6 +142,10 @@ export function ruleScopeEnabled(scope, resolved) {
   const s = String(scope || 'generic').toLowerCase();
   if (s === 'universal') return true;
   if (resolved.effectiveScope === 'all') return true;
+  if (resolved.effectiveScope === 'app') {
+    if (s === 'ks') return false;
+    return s === 'generic' || s === 'universal';
+  }
   if (s === 'ks') return resolved.ksDriven || resolved.effectiveScope === 'ks';
   if (s === 'generic') return true;
   return true;

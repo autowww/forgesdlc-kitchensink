@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "a11y.studio.registry-overview",
+      "dom": { "selectors": ["#registry-heading"] },
+      "scenarioIds": ["registry-overview"],
+      "sources": [
+        {
+          "repo": "fixture-app",
+          "path": "forge_accessibility/static/partials/registry-section.html",
+          "role": "markup"
+        }
+      ],
+      "docs": []
+    }
+  ],
+  "bySelector": { "#registry-heading": "a11y.studio.registry-overview" },
+  "byKsHash": {},
+  "byScenarioId": { "registry-overview": "a11y.studio.registry-overview" }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@forgesdlc/ui-app-audit",
+  "private": true,
+  "type": "module",
+  "description": "Sealed Studio smoke: traceability index + scenario Playwright audit (no MCP)",
+  "scripts": {
+    "test": "node --test auditor-tests/*.test.js"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

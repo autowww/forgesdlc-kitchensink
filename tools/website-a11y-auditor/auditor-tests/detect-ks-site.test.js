@@ -24,4 +24,12 @@ describe('detect-ks-site', () => {
     assert.equal(ruleScopeEnabled('ks', resolved), false);
     assert.equal(ruleScopeEnabled('generic', resolved), true);
   });
+
+  it('app scope keeps generic a11y DET and excludes ks handbook rules', () => {
+    const resolved = resolveRulesScope({ rulesScope: 'app', repoScore: 1, domScore: 1 });
+    assert.equal(resolved.effectiveScope, 'app');
+    assert.equal(resolved.ksDriven, false);
+    assert.equal(ruleScopeEnabled('ks', resolved), false);
+    assert.equal(ruleScopeEnabled('generic', resolved), true);
+  });
 });

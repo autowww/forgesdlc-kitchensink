@@ -1,4 +1,6 @@
 import { runCheck as homepageShell } from './homepage-shell.js';
+import { applies as appShellApplies } from './app-shell-inner.js';
+import { runCheck as appShellInner } from './app-shell-inner.js';
 import { applies as handbookApplies } from './platform-handbook-inner.js';
 import { runCheck as platformHandbook } from './platform-handbook-inner.js';
 import { runCheck as heroHeadings } from './hero-headings.js';
@@ -38,6 +40,7 @@ const LEGACY_CHECK_RUNNERS = [
 
 /** Legacy check modules scheduled for this URL (for execution telemetry). */
 export function legacyChecksPlannedForUrl(ctx = {}, url = '') {
+  if (appShellApplies(ctx, url)) return ['app-shell-inner'];
   if (handbookApplies(ctx, url)) return ['platform-handbook-inner'];
   return LEGACY_CHECK_RUNNERS.map((c) => c.checkId);
 }
@@ -46,6 +49,7 @@ export function legacyChecksPlannedForUrl(ctx = {}, url = '') {
  * Aggregate findings from modular UX checks (design standard heuristic rules).
  */
 export function runAllChecks(metrics, url, ctx = {}) {
+  if (appShellApplies(ctx, url)) return appShellInner(metrics, url) || [];
   if (handbookApplies(ctx, url)) return platformHandbook(metrics, url) || [];
 
   let all = [];
@@ -68,6 +72,15 @@ export function runAllChecks(metrics, url, ctx = {}) {
  */
 export function runAllChecksWithTrace(metrics, url, ctx = {}) {
   const trace = [];
+  if (appShellApplies(ctx, url)) {
+    const batch = appShellInner(metrics, url) || [];
+    trace.push({
+      checkId: 'app-shell-inner',
+      status: 'ran',
+      findingsCount: Array.isArray(batch) ? batch.length : 0,
+    });
+    return { findings: batch, trace };
+  }
   if (handbookApplies(ctx, url)) {
     const batch = platformHandbook(metrics, url) || [];
     trace.push({
