@@ -270,6 +270,7 @@ export async function collectSectionHeadingReport(page) {
       const sections = [];
       for (const sectionEl of root.querySelectorAll('section, article')) {
         if (!visible(sectionEl)) continue;
+        if (sectionEl.hasAttribute('data-studio-tab-host')) continue;
         if (sectionEl.closest(excludedOutlineSelector)) continue;
         const bodyText = textOf(sectionEl);
         const wordCount = words(bodyText).length;

@@ -100,13 +100,16 @@ Rules in this catalog are intended for **automated or scripted** evaluation (DOM
 |---------|-------------------------|------------------|
 | `DET.APP.FOCUS_TRAP` | Modals/panels trap focus until dismissed (detectable via component contract tests). | E2E |
 | `DET.APP.PERSISTENT_CHROME` | Shell regions stable across routes when contract promises persistence. | Route crawl |
-
-## React primitives
-
-| Rule ID | Check (pass condition) | Typical evidence |
-|---------|-------------------------|------------------|
-| `DET.REACT.KS_ATTRS` | Primitive emits `data-ks-hash`, `data-ks-type`, `data-ks-name` per KS helper conventions. | DOM |
-| `DET.REACT.A11Y_ROLE` | Interactive primitives expose correct ARIA roles/states for keyboard/screen readers. | axe / DOM |
+| `DET.APP.PRIMARY_STATE` | Per `[data-studio-workspace]` or active `.studio-page`, at most one visible `[data-studio-primary-state]` / `.studio-state--*` region. | DOM |
+| `DET.APP.PRIMARY_CTA` | Per workspace, ≤1 visible `[data-studio-primary-cta]` or `.btn-primary` primary action. | DOM |
+| `DET.APP.DEMO_DISCLOSURE` | `[data-demo]` / `[data-mock]` containers include visible Demo/Sample/Mock labeling in the same section. | DOM |
+| `DET.APP.TILE_AFFORDANCE` | Link-styled dashboard/KPI tiles are `<a href>` or keyboard-operable `role="button"`. | DOM |
+| `DET.APP.TAB_PANEL` | Selected `[role="tab"]` has `aria-selected`, `aria-controls`, and a visible panel. | DOM |
+| `DET.APP.PRIMITIVE_MARKERS` | Primitive emits `data-ks-hash`, `data-ks-type`, `data-ks-name` per `ksReactPrimitiveAttrs()` conventions. | DOM |
+| `DET.APP.CONTROL_A11Y` | Interactive primitives expose correct ARIA roles/states for keyboard/screen readers. | axe / DOM |
+| `DET.APP.PRIMITIVE_SOURCE` | Every `KS_REACT_PRIMITIVE` `.tsx` spreads `ksReactPrimitiveAttrs()`. | Repo scan |
+| `DET.APP.PRIMITIVE_STYLES` | Pages with `data-ks-react-root` load `forge-react-primitives` / `ks-fe-*` styling. | DOM / CSS |
+| `DET.APP.SHELL_INTEGRATION` | No Bootstrap `alert`/`badge` patterns adjacent to governed react-primitive roots in app workspace. | DOM |
 
 ## Python-generated HTML modules
 

@@ -38,9 +38,18 @@ node generate-studio-remediation-plan.mjs --audit /path/to/audit-out/audit-data.
 Product one-shot: [forge-accessibility-leo/scripts/run-sealed-studio-smoke.sh](../../forge-accessibility-leo/scripts/run-sealed-studio-smoke.sh).  
 Remediation loop: [forge-accessibility-leo/scripts/run-sealed-studio-remediation-loop.sh](../../forge-accessibility-leo/scripts/run-sealed-studio-remediation-loop.sh).
 
-## Phase B (deferred)
+## Studio dynamic UX ruleset
 
-Studio-aware deterministic fixers (`sources[]`-first HTML under `forge_accessibility/static/`, a11y fixer lane in loop, React primitive scenarios) are **not** in scope for the trustworthy gate slice. Use `cursor-agent-run-studio-finding.sh` until Phase B lands.
+For `siteKind` `a11y-studio` / `app-shell`, scenario audit runs an **explicit allowlist** (~38 DOM rules + optional React/hash primitives) via `lib/studio-dynamic-ux-ruleset.mjs`. Repo-static rules (`DET.CONTRACT.*`, `DET.PY.*`, …) and handbook exclusions are omitted.
+
+New dynamic rules: `DET.APP.PRIMARY_STATE`, `DET.APP.PRIMARY_CTA`, `DET.APP.DEMO_DISCLOSURE`, `DET.APP.TILE_AFFORDANCE`, `DET.APP.TAB_PANEL`.
+
+## Studio fixers and agent (partial)
+
+- **UX HTML fixers** — `website-ux-auditor` resolves `sources[]` and `forge_accessibility/static/` (hash → partials). Most Studio KPI/cards are JS-built; fix product code or use the agent for those.
+- **Remediation loop** — `run-sealed-studio-remediation-loop.sh` runs UX `DET.*` fixers with `--skip-verify` (no per-scenario re-audit yet). Set `FORGE_STUDIO_SKIP_FIXERS=1` when the gate is already green.
+- **Agent** — `run-studio-ux-agent-next.sh` (UX DET only) or `cursor-agent-run-studio-finding.sh` with `FORGE_STUDIO_AGENT_GATE=ux|a11y|all` and optional `RULE_ID`.
+- **Still deferred** — a11y fixer lane in the loop, per-scenario fixer verify, default `--enable-ai-audit` in smoke. React primitive scenarios use `DET.APP.PRIMITIVE_*` / `DET.APP.CONTROL_A11Y` via `STUDIO_DYNAMIC_UX_PRIMITIVE_RULES` when `includePrimitives` is true.
 
 ## Seal contract
 

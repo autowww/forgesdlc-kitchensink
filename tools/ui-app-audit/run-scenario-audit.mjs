@@ -113,7 +113,31 @@ async function runScenario(page, scenario, url, opts, a11yRuntime, uxRuntime, la
       }
     }
 
-    const ctx = { siteKind: opts.siteKind, repoRoot: opts.appRepo || process.cwd() };
+    for (const step of scenario.steps || []) {
+      if (step?.click) {
+        await page.locator(step.click).first().click({ timeout: 15_000 });
+      }
+      if (step?.wait_for) {
+        await page.waitForSelector(step.wait_for, { state: 'attached', timeout: 15_000 });
+      }
+    }
+
+    const ctx = {
+      siteKind: opts.siteKind,
+      repoRoot: opts.appRepo || process.cwd(),
+      structure: {
+        pageType: opts.siteKind === 'a11y-studio' || opts.siteKind === 'app-shell'
+          ? 'app-shell'
+          : 'generic',
+      },
+      scenario: {
+        id: scenario.scenarioId,
+        tier: scenario.tier || 'smoke',
+        workspace: scenario.workspace || null,
+        audit_lanes: scenario.audit_lanes || null,
+        ux_expect: scenario.ux_expect || null,
+      },
+    };
 
     if (opts.ux) {
       const raw = await collectDomMetrics(page, url);
@@ -201,7 +225,7 @@ async function main() {
   const a11yRuntime = needsA11yDet
     ? await createA11yRuleRuntime({ rulesScopeResolved: rulesScopePre })
     : null;
-  const uxDetOpts = studioUxDetRuntimeOpts(opts.siteKind);
+  const uxDetOpts = await studioUxDetRuntimeOpts(opts.siteKind);
   const uxRuntime =
     needsUxDet && opts.ux ? await createDesignRuleRuntime(uxDetOpts) : null;
 

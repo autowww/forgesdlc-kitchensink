@@ -1,27 +1,28 @@
 /**
  * UX DET policy for sealed Studio / app-shell scenario audits.
- * Excludes handbook-oriented rules that dominate Major+ on operator UIs.
+ * Uses an explicit dynamic-UI allowlist (see studio-dynamic-ux-ruleset.mjs).
  */
 
-/** @type {readonly string[]} */
-export const A11Y_STUDIO_UX_DET_EXCLUDED = [
-  'DET.CONTEXT.BURDEN',
-  'DET.THEME.CONTRAST_MIN',
-  'DET.JS.PROGRESSIVE',
-  'DET.JS.NO_CONSOLE_ERROR',
-  'DET.SECTION.SINGLE_JOB',
-  'DET.PROSE.LENGTH',
-  'DET.VISUAL.RHYTHM',
-  'DET.SURFACE.ELEVATION_TOKEN',
-];
+import {
+  A11Y_STUDIO_UX_DET_EXCLUDED,
+  resolveStudioDynamicUxRuleIds,
+} from './studio-dynamic-ux-ruleset.mjs';
+import { loadDesignRuleRegistry } from '../../website-ux-auditor/lib/design-rule-runtime.js';
+
+export { A11Y_STUDIO_UX_DET_EXCLUDED };
 
 /**
  * @param {string} siteKind
- * @returns {{ excludeDeterministicRuleIds: string[] }}
+ * @param {{ registry?: Awaited<ReturnType<typeof loadDesignRuleRegistry>> }} [opts]
+ * @returns {Promise<{ onlyDeterministicRuleIds: string[], excludeDeterministicRuleIds: string[] }>}
  */
-export function studioUxDetRuntimeOpts(siteKind) {
+export async function studioUxDetRuntimeOpts(siteKind, opts = {}) {
   if (siteKind === 'a11y-studio' || siteKind === 'app-shell') {
-    return { excludeDeterministicRuleIds: [...A11Y_STUDIO_UX_DET_EXCLUDED] };
+    const registry = opts.registry || (await loadDesignRuleRegistry());
+    return {
+      onlyDeterministicRuleIds: resolveStudioDynamicUxRuleIds(registry),
+      excludeDeterministicRuleIds: [],
+    };
   }
-  return { excludeDeterministicRuleIds: [] };
+  return { onlyDeterministicRuleIds: [], excludeDeterministicRuleIds: [] };
 }

@@ -1,27 +1,27 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-25T14:48:23.167Z",
+  "generatedAt": "2026-05-28T15:37:13.510Z",
   "blender": {
     "version": 1,
     "entry": "design-rules/blender/design-rules-blender.mjs"
   },
-  "fingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+  "fingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
   "sources": {
     "deterministicRulesDoc": {
       "path": "docs/design/ux-audit/deterministic-design-rules.md",
-      "sha256": "b381ea52060962c833a75553b28158e6faa2de8487a50c8cb339b39e28491653"
+      "sha256": "706df4e3e9577658b6163260b0067b1e9f62219ef048bae0184da8d4cc7631b9"
     },
     "aiRulesDoc": {
       "path": "docs/design/ux-audit/ai-enabled-design-principles.md",
-      "sha256": "34934de9425d206bc852f9f47e4f5470cbb2f02f61a9fe6e7eebef03650649ce"
+      "sha256": "7812392f00d86bd62cf72fba457dae6a5b640e7849368bdbe1748c0f510c62e0"
     },
     "matrixDoc": {
       "path": "docs/design/ux-audit/element-level-ruleset-matrix.md",
-      "sha256": "be3dba277351d6bfc198505bab571a99908db74a740a485ac7b0adc3e7c6d7dc"
+      "sha256": "4af39814c89f53272908e517fa52e7af2dc55f3ef9da5df288aa126dfdc6aaa4"
     },
     "taxonomyDoc": {
       "path": "docs/design/ux-audit/component-design-ruleset-taxonomy.md",
-      "sha256": "3d240d80138de8a5401548195a11ca8f3e813c983fcc3a2c562bf9103a41c91f"
+      "sha256": "734012cb2f8b1fc759e7635b5a97f927b27f72dcdf43fd8735bbe2f877856013"
     },
     "mappingFile": {
       "path": "tools/website-ux-auditor/design-rules/blender/rule-mappings.js"
@@ -36,8 +36,8 @@
     "selectedCount": 20
   },
   "versioning": {
-    "deterministicRulesVersion": "b381ea52060962c833a75553b28158e6faa2de8487a50c8cb339b39e28491653",
-    "aiRulesVersion": "013774a62681d79900e635229d43808d94a49557290e5701b90b755754a8afcd",
+    "deterministicRulesVersion": "706df4e3e9577658b6163260b0067b1e9f62219ef048bae0184da8d4cc7631b9",
+    "aiRulesVersion": "e1225bf3177aaa58c659af4857c4ccdf0f9ff72bb2979e5955374ca30b7f7aa8",
     "overrideVersionApplied": false,
     "policy": "Generated files are not rewritten when embedded rules-version matches, unless --override-version is passed."
   },
@@ -46,13 +46,23 @@
     "aiPromptsGenerated": 0
   },
   "deterministicCoverage": {
-    "documentedRuleCount": 51,
-    "implementedCount": 50,
+    "documentedRuleCount": 59,
+    "implementedCount": 58,
     "stubCount": 1,
     "implementedRuleIds": [
       "DET.AMBIENT.Z_INDEX",
+      "DET.APP.CONTROL_A11Y",
+      "DET.APP.DEMO_DISCLOSURE",
       "DET.APP.FOCUS_TRAP",
       "DET.APP.PERSISTENT_CHROME",
+      "DET.APP.PRIMARY_CTA",
+      "DET.APP.PRIMARY_STATE",
+      "DET.APP.PRIMITIVE_MARKERS",
+      "DET.APP.PRIMITIVE_SOURCE",
+      "DET.APP.PRIMITIVE_STYLES",
+      "DET.APP.SHELL_INTEGRATION",
+      "DET.APP.TAB_PANEL",
+      "DET.APP.TILE_AFFORDANCE",
       "DET.BUTTON.GROUP.MAX",
       "DET.CARD.ACTION_LIMIT",
       "DET.CARD.TITLE",
@@ -91,8 +101,6 @@
       "DET.PROSE.LENGTH",
       "DET.PY.KS_HASH_ATTRS",
       "DET.PY.OPTIONAL_REGIONS",
-      "DET.REACT.A11Y_ROLE",
-      "DET.REACT.KS_ATTRS",
       "DET.SCREENSHOT.STATUS",
       "DET.SECTION.HEADING",
       "DET.SECTION.SINGLE_JOB",
@@ -105,7 +113,7 @@
       "DET.THEME.FONT_STACK"
     ],
     "byImplementationSource": {
-      "explicit-map": 50
+      "explicit-map": 58
     }
   },
   "requiredAiFindingMetadata": [
@@ -128,6 +136,32 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-ambient-z-index.check.js",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ambient-z-index",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.CONTROL_A11Y",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-app-control-a11y.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-control_a11y",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.DEMO_DISCLOSURE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "trustAndEcosystemTruth",
+      "scoreDimension": "trustAndEcosystemTruth",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-app-demo-disclosure.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-demo-disclosure",
       "implementationSource": "explicit-map"
     },
     {
@@ -154,6 +188,110 @@
       "priorityWeight": 8,
       "modulePath": "design-rules/deterministic/generated/det-app-persistent-chrome.check.js",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-persistent-chrome",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.PRIMARY_CTA",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "conversion",
+      "scoreDimension": "trustAndEcosystemTruth",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-app-primary-cta.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primary-cta",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.PRIMARY_STATE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "major",
+      "priorityWeight": 9,
+      "modulePath": "design-rules/deterministic/generated/det-app-primary-state.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primary-state",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.PRIMITIVE_MARKERS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-app-primitive-markers.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_markers",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.PRIMITIVE_SOURCE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-app-primitive-source.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_source",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.PRIMITIVE_STYLES",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-app-primitive-styles.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_styles",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.SHELL_INTEGRATION",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "minor",
+      "priorityWeight": 7,
+      "modulePath": "design-rules/deterministic/generated/det-app-shell-integration.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-shell_integration",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.TAB_PANEL",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "accessibility",
+      "scoreDimension": "accessibilitySemanticsMeta",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-app-tab-panel.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-tab-panel",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.TILE_AFFORDANCE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "conversion",
+      "scoreDimension": "trustAndEcosystemTruth",
+      "defaultSeverity": "major",
+      "priorityWeight": 8,
+      "modulePath": "design-rules/deterministic/generated/det-app-tile-affordance.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-tile-affordance",
       "implementationSource": "explicit-map"
     },
     {
@@ -651,32 +789,6 @@
       "implementationSource": "explicit-map"
     },
     {
-      "id": "DET.REACT.A11Y_ROLE",
-      "lane": "deterministic",
-      "status": "implemented",
-      "phase": "metrics",
-      "area": "accessibility",
-      "scoreDimension": "accessibilitySemanticsMeta",
-      "defaultSeverity": "minor",
-      "priorityWeight": 8,
-      "modulePath": "design-rules/deterministic/generated/det-react-a11y-role.check.js",
-      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-react-a11y_role",
-      "implementationSource": "explicit-map"
-    },
-    {
-      "id": "DET.REACT.KS_ATTRS",
-      "lane": "deterministic",
-      "status": "implemented",
-      "phase": "metrics",
-      "area": "visual-catalog",
-      "scoreDimension": "visualCatalogGovernance",
-      "defaultSeverity": "minor",
-      "priorityWeight": 8,
-      "modulePath": "design-rules/deterministic/generated/det-react-ks-attrs.check.js",
-      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-react-ks_attrs",
-      "implementationSource": "explicit-map"
-    },
-    {
       "id": "DET.SCREENSHOT.STATUS",
       "lane": "deterministic",
       "status": "implemented",
@@ -797,6 +909,13 @@
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-density-balance"
     },
     {
+      "id": "AI.APP.PRIMITIVE_CONSISTENCY",
+      "lane": "ai",
+      "status": "generated",
+      "promptPath": "design-rules/ai/prompts/generated/ai-app-primitive-consistency.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-primitive-consistency"
+    },
+    {
       "id": "AI.APP.WORKFLOW_CONTINUITY",
       "lane": "ai",
       "status": "generated",
@@ -879,13 +998,6 @@
       "status": "generated",
       "promptPath": "design-rules/ai/prompts/generated/ai-py-html-authoring-quality.md",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-py-html-authoring-quality"
-    },
-    {
-      "id": "AI.REACT.PRIMITIVE_CONSISTENCY",
-      "lane": "ai",
-      "status": "generated",
-      "promptPath": "design-rules/ai/prompts/generated/ai-react-primitive-consistency.md",
-      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-react-primitive-consistency"
     },
     {
       "id": "AI.THEME.PERSONALITY_COHERENCE",
