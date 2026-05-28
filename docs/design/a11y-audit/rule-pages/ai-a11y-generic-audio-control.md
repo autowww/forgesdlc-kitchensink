@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Audio Control
 summary: AI judgment overlay (generic scope).
-page_version: 27f7b02e9194c180fb4592a91a13c172f07f06cb88e075ee929d31821fa4495b
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 67635e60e2091339376cf74ecb8cab4d0ce072a3be5d7a6e095d4e2d3fc8b6c1
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-audio-control
@@ -30,13 +30,13 @@ AI judgment overlay (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>AI.A11Y.GENERIC.AUDIO_CONTROL</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Audio Control</h2><p class="forge-support mb-2">Content or UX likely fails human judgment for this AI overlay rule.</p><p class="mb-0 small">Rule: <code>AI.A11Y.GENERIC.AUDIO_CONTROL</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>AI.A11Y.GENERIC.AUDIO_CONTROL</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Audio Control (remediated)</h2><p class="mb-2">Signals satisfy the AI rule prompt expectations on review.</p><p class="mb-0 small text-muted">AI judgment overlay (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

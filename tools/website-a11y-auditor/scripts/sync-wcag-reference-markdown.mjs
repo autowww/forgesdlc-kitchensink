@@ -20,6 +20,70 @@ const REGISTRY_PATH = path.join(
   'tools/website-a11y-auditor/design-rules/registry.generated.json',
 );
 const MANIFEST_PATH = path.join(WCAG_DIR, 'reference-manifest.json');
+const SEEDS_DIR = path.join(WCAG_DIR, 'seeds');
+
+/**
+ * @returns {Promise<Map<string, object>>}
+ */
+async function loadSeeds() {
+  /** @type {Map<string, object>} */
+  const map = new Map();
+  let files;
+  try {
+    files = await fs.readdir(SEEDS_DIR);
+  } catch {
+    return map;
+  }
+  for (const name of files) {
+    if (!name.endsWith('.yaml') && !name.endsWith('.yml')) continue;
+    const raw = await fs.readFile(path.join(SEEDS_DIR, name), 'utf8');
+    const idMatch = name.match(/^sc-(.+)\.ya?ml$/i);
+    const wcag3Match = name.match(/^wcag3-(.+)\.ya?ml$/i);
+    const id = idMatch?.[1] || wcag3Match?.[1];
+    if (!id) continue;
+    const body = {};
+    for (const block of ['summary', 'operatorNotes']) {
+      const re = new RegExp(`^${block}:\\s*\\|\\s*\\n([\\s\\S]*?)(?=\\n[a-zA-Z]|$)`, 'm');
+      const m = raw.match(re);
+      if (m) body[block] = m[1].replace(/^  /gm, '').trim();
+    }
+    const listMatch = raw.match(/^forgeRulesHighlight:\s*\n((?:\s+-\s+.+\n?)+)/m);
+    if (listMatch) {
+      body.forgeRulesHighlight = listMatch[1]
+        .split('\n')
+        .map((l) => l.replace(/^\s*-\s*/, '').trim())
+        .filter(Boolean);
+    }
+    map.set(id, body);
+  }
+  return map;
+}
+
+function buildGuidelinesIndex(catalog3) {
+  /** @type {Map<string, object[]>} */
+  const byGuideline = new Map();
+  for (const r of catalog3.requirements || []) {
+    const g = r.guideline || 'Other';
+    if (!byGuideline.has(g)) byGuideline.set(g, []);
+    byGuideline.get(g).push(r);
+  }
+  const lines = [
+    '# WCAG 3.0 draft — guidelines index',
+    '',
+    'Generated from `wcag3-outcomes-catalog.json`. Links to in-repo outcome pages.',
+    '',
+  ];
+  for (const [guideline, reqs] of [...byGuideline.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+    lines.push(`## ${guideline}`);
+    lines.push('');
+    for (const r of reqs) {
+      const rel = `../outcomes/${r.id.toLowerCase()}-${slugify(r.title)}.md`;
+      lines.push(`- [${r.id}](${rel}) — ${r.title}`);
+    }
+    lines.push('');
+  }
+  return `${lines.join('\n')}`;
+}
 
 const PROFILE_VERSIONS = [
   { version: '2.0', profileId: 'wcag20aa' },
@@ -66,11 +130,19 @@ function rulesForSc(registry, scId) {
   return { det, ai };
 }
 
-function buildScMarkdown(c, version, registry) {
+function buildScMarkdown(c, version, registry, seed) {
   const { det, ai } = rulesForSc(registry, c.id);
   const specUrl = c.specUrl || specUrlForSc(version, c.id, c.title);
-  const docRel = `${version}/sc/${c.id}-${slugify(c.title)}.md`;
   const manual = c.defaultCoverage === 'manual_only';
+  const summaryBlock =
+    seed?.summary ||
+    `${c.title} (WCAG ${version} Level ${c.level}) ensures content remains perceivable, operable, understandable, or robust for people with disabilities. This page paraphrases the intent for Forge operators; see the normative [W3C specification](${specUrl}) for legal text.`;
+  const operatorBlock = seed?.operatorNotes
+    ? `\n## Operator notes\n\n${seed.operatorNotes}\n`
+    : '';
+  const highlight = seed?.forgeRulesHighlight?.length
+    ? `\n**Highlighted Forge rules:** ${seed.forgeRulesHighlight.map((x) => `\`${x}\``).join(', ')}\n`
+    : '';
 
   return `---
 id: "${c.id}"
@@ -89,8 +161,9 @@ manualOnly: ${manual}
 
 ## Summary
 
-${c.title} (WCAG ${version} Level ${c.level}) ensures content remains perceivable, operable, understandable, or robust for people with disabilities. This page paraphrases the intent for Forge operators; see the normative [W3C specification](${specUrl}) for legal text.
-
+${summaryBlock}
+${highlight}
+${operatorBlock}
 ## Intent
 
 Users who rely on assistive technology, keyboard-only navigation, adjusted display settings, or plain language should be able to use the interface without losing information or functionality tied to this criterion.
@@ -188,6 +261,7 @@ async function main() {
   const catalog2 = JSON.parse(await fs.readFile(CATALOG2_PATH, 'utf8'));
   const catalog3 = JSON.parse(await fs.readFile(CATALOG3_PATH, 'utf8'));
   const registry = JSON.parse(await fs.readFile(REGISTRY_PATH, 'utf8'));
+  const seeds = await loadSeeds();
 
   /** @type {Record<string, { path: string, checksum: string }>} */
   const manifest = {};
@@ -202,7 +276,7 @@ async function main() {
     for (const c of criteria) {
       const rel = `${version}/sc/${c.id}-${slugify(c.title)}.md`;
       const abs = path.join(WCAG_DIR, rel);
-      const body = buildScMarkdown(c, version, registry);
+      const body = buildScMarkdown(c, version, registry, seeds.get(c.id));
       const checksum = crypto.createHash('sha256').update(body).digest('hex');
       manifest[c.id] = { path: rel, checksum, kind: 'sc', wcagVersion: version };
       if (!checkOnly) await fs.writeFile(abs, body, 'utf8');
@@ -239,7 +313,12 @@ Regenerate: \`npm run sync-wcag-md\` from \`tools/website-a11y-auditor\`.
 See also [wcag-3.0-profiles.md](../wcag-3.0-profiles.md).
 `;
 
+  const guidelinesDir = path.join(WCAG_DIR, '3.0/guidelines');
+  const guidelinesBody = buildGuidelinesIndex(catalog3);
+
   if (!checkOnly) {
+    await fs.mkdir(guidelinesDir, { recursive: true });
+    await fs.writeFile(path.join(guidelinesDir, 'README.md'), guidelinesBody, 'utf8');
     await fs.writeFile(path.join(WCAG_DIR, 'README.md'), readme, 'utf8');
     await fs.writeFile(
       MANIFEST_PATH,

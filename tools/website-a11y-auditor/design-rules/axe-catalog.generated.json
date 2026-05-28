@@ -1,0 +1,3417 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-28T05:38:05.817Z",
+  "ruleCount": 104,
+  "rules": [
+    {
+      "axeRuleId": "0",
+      "forgeRuleId": "AXE.0",
+      "description": "Ensure every accesskey attribute value is unique",
+      "axeTags": [
+        "cat.keyboard",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "1",
+      "forgeRuleId": "AXE.1",
+      "description": "Ensure <area> elements of image maps have alternative text",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag244",
+        "wcag412",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.2.4.4",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.2"
+      ],
+      "wcagCriteria": [
+        "2.4.4",
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.4.4": "wcag/2.2/sc/2.4.4-link-purpose-in-context.md",
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "10",
+      "forgeRuleId": "AXE.10",
+      "description": "Ensure aria-hidden elements are not focusable nor contain focusable elements",
+      "axeTags": [
+        "cat.name-role-value",
+        "wcag2a",
+        "wcag412",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-10.8.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "100",
+      "forgeRuleId": "AXE.100",
+      "description": "Ensure that each cell in a table that uses the headers attribute refers only to other <th> elements in that table",
+      "axeTags": [
+        "cat.tables",
+        "wcag2a",
+        "wcag131",
+        "section508",
+        "section508.22.g",
+        "TTv5",
+        "TT14.b",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-5.7.4"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "101",
+      "forgeRuleId": "AXE.101",
+      "description": "Ensure that <th> elements and elements with role=columnheader/rowheader have data cells they describe",
+      "axeTags": [
+        "cat.tables",
+        "wcag2a",
+        "wcag131",
+        "section508",
+        "section508.22.g",
+        "TTv5",
+        "TT14.b",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-5.7.1"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "102",
+      "forgeRuleId": "AXE.102",
+      "description": "Ensure lang attributes have valid values",
+      "axeTags": [
+        "cat.language",
+        "wcag2aa",
+        "wcag312",
+        "TTv5",
+        "TT11.b",
+        "EN-301-549",
+        "EN-9.3.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-8.8.1"
+      ],
+      "wcagCriteria": [
+        "3.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": false,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": false,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "3.1.2": "wcag/2.2/sc/3.1.2-language-of-parts.md"
+      }
+    },
+    {
+      "axeRuleId": "103",
+      "forgeRuleId": "AXE.103",
+      "description": "Ensure <video> elements have captions",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag122",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT17.a",
+        "EN-301-549",
+        "EN-9.1.2.2",
+        "RGAAv4",
+        "RGAA-4.3.1"
+      ],
+      "wcagCriteria": [
+        "1.2.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.2.2": "wcag/2.2/sc/1.2.2-captions-prerecorded.md"
+      }
+    },
+    {
+      "axeRuleId": "11",
+      "forgeRuleId": "AXE.11",
+      "description": "Ensure every ARIA input field has an accessible name",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "12",
+      "forgeRuleId": "AXE.12",
+      "description": "Ensure every ARIA meter node has an accessible name",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag111",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "RGAAv4",
+        "RGAA-11.1.1"
+      ],
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
+      }
+    },
+    {
+      "axeRuleId": "13",
+      "forgeRuleId": "AXE.13",
+      "description": "Ensure every ARIA progressbar node has an accessible name",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag111",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "RGAAv4",
+        "RGAA-11.1.1"
+      ],
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
+      }
+    },
+    {
+      "axeRuleId": "14",
+      "forgeRuleId": "AXE.14",
+      "description": "Ensure ARIA attributes are not prohibited for an element's role",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "15",
+      "forgeRuleId": "AXE.15",
+      "description": "Ensure elements with ARIA roles have all required ARIA attributes",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "16",
+      "forgeRuleId": "AXE.16",
+      "description": "Ensure elements with an ARIA role that require child roles contain them",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.1"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "17",
+      "forgeRuleId": "AXE.17",
+      "description": "Ensure elements with an ARIA role that require parent roles are contained by them",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.1"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "18",
+      "forgeRuleId": "AXE.18",
+      "description": "Ensure aria-roledescription is only used on elements with an implicit or explicit role",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "deprecated"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "19",
+      "forgeRuleId": "AXE.19",
+      "description": "Ensure all elements with a role attribute use a valid value",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "2",
+      "forgeRuleId": "AXE.2",
+      "description": "Ensure an element's role supports its ARIA attributes",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "20",
+      "forgeRuleId": "AXE.20",
+      "description": "Ensure role=\"text\" is used on elements with no focusable descendants",
+      "axeTags": [
+        "cat.aria",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "21",
+      "forgeRuleId": "AXE.21",
+      "description": "Ensure every ARIA toggle field has an accessible name",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "22",
+      "forgeRuleId": "AXE.22",
+      "description": "Ensure every ARIA tooltip node has an accessible name",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "23",
+      "forgeRuleId": "AXE.23",
+      "description": "Ensure every ARIA treeitem node has an accessible name",
+      "axeTags": [
+        "cat.aria",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "24",
+      "forgeRuleId": "AXE.24",
+      "description": "Ensure all ARIA attributes have valid values",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "25",
+      "forgeRuleId": "AXE.25",
+      "description": "Ensure attributes that begin with aria- are valid ARIA attributes",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "26",
+      "forgeRuleId": "AXE.26",
+      "description": "Ensure <audio> elements have captions",
+      "axeTags": [
+        "cat.time-and-media",
+        "wcag2a",
+        "wcag121",
+        "EN-301-549",
+        "EN-9.1.2.1",
+        "section508",
+        "section508.22.a",
+        "deprecated"
+      ],
+      "wcagCriteria": [
+        "1.2.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.2.1": "wcag/2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md"
+      }
+    },
+    {
+      "axeRuleId": "27",
+      "forgeRuleId": "AXE.27",
+      "description": "Ensure the autocomplete attribute is correct and suitable for the form field",
+      "axeTags": [
+        "cat.forms",
+        "wcag21aa",
+        "wcag135",
+        "EN-301-549",
+        "EN-9.1.3.5",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.13.1"
+      ],
+      "wcagCriteria": [
+        "1.3.5"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": false,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.5": "wcag/2.2/sc/1.3.5-identify-input-purpose.md"
+      }
+    },
+    {
+      "axeRuleId": "28",
+      "forgeRuleId": "AXE.28",
+      "description": "Ensure that text spacing set through style attributes can be adjusted with custom stylesheets",
+      "axeTags": [
+        "cat.structure",
+        "wcag21aa",
+        "wcag1412",
+        "EN-301-549",
+        "EN-9.1.4.12",
+        "ACT"
+      ],
+      "wcagCriteria": [
+        "1.4.12"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": false,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.4.12": "wcag/2.2/sc/1.4.12-text-spacing.md"
+      }
+    },
+    {
+      "axeRuleId": "29",
+      "forgeRuleId": "AXE.29",
+      "description": "Ensure <blink> elements are not used",
+      "axeTags": [
+        "cat.time-and-media",
+        "wcag2a",
+        "wcag222",
+        "section508",
+        "section508.22.j",
+        "TTv5",
+        "TT2.b",
+        "EN-301-549",
+        "EN-9.2.2.2",
+        "RGAAv4",
+        "RGAA-13.8.1"
+      ],
+      "wcagCriteria": [
+        "2.2.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.2.2": "wcag/2.2/sc/2.2.2-pause-stop-hide.md"
+      }
+    },
+    {
+      "axeRuleId": "3",
+      "forgeRuleId": "AXE.3",
+      "description": "Ensure role attribute has an appropriate value for the element",
+      "axeTags": [
+        "cat.aria",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "30",
+      "forgeRuleId": "AXE.30",
+      "description": "Ensure buttons have discernible text",
+      "axeTags": [
+        "cat.name-role-value",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.9.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "31",
+      "forgeRuleId": "AXE.31",
+      "description": "Ensure each page has at least one mechanism for a user to bypass navigation and jump straight to the content",
+      "axeTags": [
+        "cat.keyboard",
+        "wcag2a",
+        "wcag241",
+        "section508",
+        "section508.22.o",
+        "TTv5",
+        "TT9.a",
+        "EN-301-549",
+        "EN-9.2.4.1",
+        "RGAAv4",
+        "RGAA-12.7.1"
+      ],
+      "wcagCriteria": [
+        "2.4.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.4.1": "wcag/2.2/sc/2.4.1-bypass-blocks.md"
+      }
+    },
+    {
+      "axeRuleId": "32",
+      "forgeRuleId": "AXE.32",
+      "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AAA enhanced contrast ratio thresholds",
+      "axeTags": [
+        "cat.color",
+        "wcag2aaa",
+        "wcag146",
+        "ACT"
+      ],
+      "wcagCriteria": [
+        "1.4.6"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": true,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": true,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "33",
+      "forgeRuleId": "AXE.33",
+      "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+      "axeTags": [
+        "cat.color",
+        "wcag2aa",
+        "wcag143",
+        "TTv5",
+        "TT13.c",
+        "EN-301-549",
+        "EN-9.1.4.3",
+        "ACT",
+        "RGAAv4",
+        "RGAA-3.2.1"
+      ],
+      "wcagCriteria": [
+        "1.4.3"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": false,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": false,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.4.3": "wcag/2.2/sc/1.4.3-contrast-minimum.md"
+      }
+    },
+    {
+      "axeRuleId": "34",
+      "forgeRuleId": "AXE.34",
+      "description": "Ensure content is not locked to any specific display orientation, and the content is operable in all display orientations",
+      "axeTags": [
+        "cat.structure",
+        "wcag134",
+        "wcag21aa",
+        "EN-301-549",
+        "EN-9.1.3.4",
+        "RGAAv4",
+        "RGAA-13.9.1",
+        "experimental"
+      ],
+      "wcagCriteria": [
+        "1.3.4"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": false,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.4": "wcag/2.2/sc/1.3.4-orientation.md"
+      }
+    },
+    {
+      "axeRuleId": "35",
+      "forgeRuleId": "AXE.35",
+      "description": "Ensure <dl> elements are structured correctly",
+      "axeTags": [
+        "cat.structure",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.3"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "36",
+      "forgeRuleId": "AXE.36",
+      "description": "Ensure <dt> and <dd> elements are contained by a <dl>",
+      "axeTags": [
+        "cat.structure",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.3"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "37",
+      "forgeRuleId": "AXE.37",
+      "description": "Ensure each HTML document contains a non-empty <title> element",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag242",
+        "TTv5",
+        "TT12.a",
+        "EN-301-549",
+        "EN-9.2.4.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-8.5.1"
+      ],
+      "wcagCriteria": [
+        "2.4.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.4.2": "wcag/2.2/sc/2.4.2-page-titled.md"
+      }
+    },
+    {
+      "axeRuleId": "38",
+      "forgeRuleId": "AXE.38",
+      "description": "Ensure every id attribute value of active elements is unique",
+      "axeTags": [
+        "cat.parsing",
+        "wcag2a-obsolete",
+        "wcag411",
+        "deprecated"
+      ],
+      "wcagCriteria": [
+        "4.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {
+        "4.1.1": "wcag/2.2/sc/4.1.1-parsing.md"
+      }
+    },
+    {
+      "axeRuleId": "39",
+      "forgeRuleId": "AXE.39",
+      "description": "Ensure every id attribute value used in ARIA and in labels is unique",
+      "axeTags": [
+        "cat.parsing",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-8.2.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "4",
+      "forgeRuleId": "AXE.4",
+      "description": "Ensure aria-braillelabel and aria-brailleroledescription have a non-braille equivalent",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "40",
+      "forgeRuleId": "AXE.40",
+      "description": "Ensure every id attribute value is unique",
+      "axeTags": [
+        "cat.parsing",
+        "wcag2a-obsolete",
+        "wcag411",
+        "deprecated"
+      ],
+      "wcagCriteria": [
+        "4.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {
+        "4.1.1": "wcag/2.2/sc/4.1.1-parsing.md"
+      }
+    },
+    {
+      "axeRuleId": "41",
+      "forgeRuleId": "AXE.41",
+      "description": "Ensure headings have discernible text",
+      "axeTags": [
+        "cat.name-role-value",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "42",
+      "forgeRuleId": "AXE.42",
+      "description": "Ensure table headers have discernible text",
+      "axeTags": [
+        "cat.name-role-value",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "43",
+      "forgeRuleId": "AXE.43",
+      "description": "Ensure elements in the focus order have a role appropriate for interactive content",
+      "axeTags": [
+        "cat.keyboard",
+        "best-practice",
+        "RGAAv4",
+        "RGAA-12.8.1",
+        "experimental"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "44",
+      "forgeRuleId": "AXE.44",
+      "description": "Ensure form field does not have multiple label elements",
+      "axeTags": [
+        "cat.forms",
+        "wcag2a",
+        "wcag332",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.3.3.2",
+        "RGAAv4",
+        "RGAA-11.2.1"
+      ],
+      "wcagCriteria": [
+        "3.3.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "3.3.2": "wcag/2.2/sc/3.3.2-labels-or-instructions.md"
+      }
+    },
+    {
+      "axeRuleId": "45",
+      "forgeRuleId": "AXE.45",
+      "description": "Ensure <frame> and <iframe> elements with focusable content do not have tabindex=-1",
+      "axeTags": [
+        "cat.keyboard",
+        "wcag2a",
+        "wcag211",
+        "TTv5",
+        "TT4.a",
+        "EN-301-549",
+        "EN-9.2.1.1",
+        "RGAAv4",
+        "RGAA-7.3.2"
+      ],
+      "wcagCriteria": [
+        "2.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.1.1": "wcag/2.2/sc/2.1.1-keyboard.md"
+      }
+    },
+    {
+      "axeRuleId": "46",
+      "forgeRuleId": "AXE.46",
+      "description": "Ensure <iframe> and <frame> elements contain the axe-core script",
+      "axeTags": [
+        "cat.structure",
+        "best-practice",
+        "review-item"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "47",
+      "forgeRuleId": "AXE.47",
+      "description": "Ensure <iframe> and <frame> elements contain a unique title attribute",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag412",
+        "TTv5",
+        "TT12.d",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-2.2.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "48",
+      "forgeRuleId": "AXE.48",
+      "description": "Ensure <iframe> and <frame> elements have an accessible name",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.i",
+        "TTv5",
+        "TT12.d",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-2.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "49",
+      "forgeRuleId": "AXE.49",
+      "description": "Ensure the order of headings is semantically correct",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "5",
+      "forgeRuleId": "AXE.5",
+      "description": "Ensure every ARIA button, link and menuitem has an accessible name",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.9.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "50",
+      "forgeRuleId": "AXE.50",
+      "description": "Inform users about hidden content.",
+      "axeTags": [
+        "cat.structure",
+        "best-practice",
+        "experimental",
+        "review-item"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "51",
+      "forgeRuleId": "AXE.51",
+      "description": "Ensure every HTML document has a lang attribute",
+      "axeTags": [
+        "cat.language",
+        "wcag2a",
+        "wcag311",
+        "TTv5",
+        "TT11.a",
+        "EN-301-549",
+        "EN-9.3.1.1",
+        "ACT",
+        "RGAAv4",
+        "RGAA-8.3.1"
+      ],
+      "wcagCriteria": [
+        "3.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "3.1.1": "wcag/2.2/sc/3.1.1-language-of-page.md"
+      }
+    },
+    {
+      "axeRuleId": "52",
+      "forgeRuleId": "AXE.52",
+      "description": "Ensure the lang attribute of the <html> element has a valid value",
+      "axeTags": [
+        "cat.language",
+        "wcag2a",
+        "wcag311",
+        "TTv5",
+        "TT11.a",
+        "EN-301-549",
+        "EN-9.3.1.1",
+        "ACT",
+        "RGAAv4",
+        "RGAA-8.4.1"
+      ],
+      "wcagCriteria": [
+        "3.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "3.1.1": "wcag/2.2/sc/3.1.1-language-of-page.md"
+      }
+    },
+    {
+      "axeRuleId": "53",
+      "forgeRuleId": "AXE.53",
+      "description": "Ensure that HTML elements with both valid lang and xml:lang attributes agree on the base language of the page",
+      "axeTags": [
+        "cat.language",
+        "wcag2a",
+        "wcag311",
+        "EN-301-549",
+        "EN-9.3.1.1",
+        "ACT",
+        "RGAAv4",
+        "RGAA-8.3.1"
+      ],
+      "wcagCriteria": [
+        "3.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "3.1.1": "wcag/2.2/sc/3.1.1-language-of-page.md"
+      }
+    },
+    {
+      "axeRuleId": "54",
+      "forgeRuleId": "AXE.54",
+      "description": "Ensure that links with the same accessible name serve a similar purpose",
+      "axeTags": [
+        "cat.semantics",
+        "wcag2aaa",
+        "wcag249"
+      ],
+      "wcagCriteria": [
+        "2.4.9"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": true,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": true,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "55",
+      "forgeRuleId": "AXE.55",
+      "description": "Ensure <img> elements have alternative text or a role of none or presentation",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT7.a",
+        "TT7.b",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.1"
+      ],
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
+      }
+    },
+    {
+      "axeRuleId": "56",
+      "forgeRuleId": "AXE.56",
+      "description": "Ensure image alternative is not repeated as text",
+      "axeTags": [
+        "cat.text-alternatives",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "57",
+      "forgeRuleId": "AXE.57",
+      "description": "Ensure input buttons have discernible text",
+      "axeTags": [
+        "cat.name-role-value",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.9.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "58",
+      "forgeRuleId": "AXE.58",
+      "description": "Ensure <input type=\"image\"> elements have alternative text",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "wcag412",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT7.a",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.3"
+      ],
+      "wcagCriteria": [
+        "1.1.1",
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md",
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "59",
+      "forgeRuleId": "AXE.59",
+      "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+      "axeTags": [
+        "cat.semantics",
+        "wcag21a",
+        "wcag253",
+        "EN-301-549",
+        "EN-9.2.5.3",
+        "RGAAv4",
+        "RGAA-6.1.5",
+        "experimental"
+      ],
+      "wcagCriteria": [
+        "2.5.3"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.5.3": "wcag/2.2/sc/2.5.3-label-in-name.md"
+      }
+    },
+    {
+      "axeRuleId": "6",
+      "forgeRuleId": "AXE.6",
+      "description": "Ensure ARIA attributes are used as described in the specification of the element's role",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "60",
+      "forgeRuleId": "AXE.60",
+      "description": "Ensure that every form element has a visible label and is not solely labeled using hidden labels, or the title or aria-describedby attributes",
+      "axeTags": [
+        "cat.forms",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "61",
+      "forgeRuleId": "AXE.61",
+      "description": "Ensure every form element has a label",
+      "axeTags": [
+        "cat.forms",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.n",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "62",
+      "forgeRuleId": "AXE.62",
+      "description": "Ensure the banner landmark is at top level",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "63",
+      "forgeRuleId": "AXE.63",
+      "description": "Ensure the complementary landmark or aside is at top level",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "64",
+      "forgeRuleId": "AXE.64",
+      "description": "Ensure the contentinfo landmark is at top level",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "65",
+      "forgeRuleId": "AXE.65",
+      "description": "Ensure the main landmark is at top level",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "66",
+      "forgeRuleId": "AXE.66",
+      "description": "Ensure the document has at most one banner landmark",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "67",
+      "forgeRuleId": "AXE.67",
+      "description": "Ensure the document has at most one contentinfo landmark",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "68",
+      "forgeRuleId": "AXE.68",
+      "description": "Ensure the document has at most one main landmark",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "69",
+      "forgeRuleId": "AXE.69",
+      "description": "Ensure the document has a main landmark",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "7",
+      "forgeRuleId": "AXE.7",
+      "description": "Ensure elements do not use deprecated roles",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "70",
+      "forgeRuleId": "AXE.70",
+      "description": "Ensure landmarks are unique",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "71",
+      "forgeRuleId": "AXE.71",
+      "description": "Ensure links are distinguished from surrounding text in a way that does not rely on color",
+      "axeTags": [
+        "cat.color",
+        "wcag2a",
+        "wcag141",
+        "TTv5",
+        "TT13.a",
+        "EN-301-549",
+        "EN-9.1.4.1",
+        "RGAAv4",
+        "RGAA-10.6.1"
+      ],
+      "wcagCriteria": [
+        "1.4.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.4.1": "wcag/2.2/sc/1.4.1-use-of-color.md"
+      }
+    },
+    {
+      "axeRuleId": "72",
+      "forgeRuleId": "AXE.72",
+      "description": "Ensure links have discernible text",
+      "axeTags": [
+        "cat.name-role-value",
+        "wcag2a",
+        "wcag244",
+        "wcag412",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.2.4.4",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-6.2.1"
+      ],
+      "wcagCriteria": [
+        "2.4.4",
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.4.4": "wcag/2.2/sc/2.4.4-link-purpose-in-context.md",
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "73",
+      "forgeRuleId": "AXE.73",
+      "description": "Ensure that lists are structured correctly",
+      "axeTags": [
+        "cat.structure",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.1"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "74",
+      "forgeRuleId": "AXE.74",
+      "description": "Ensure <li> elements are used semantically",
+      "axeTags": [
+        "cat.structure",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.1"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "75",
+      "forgeRuleId": "AXE.75",
+      "description": "Ensure <marquee> elements are not used",
+      "axeTags": [
+        "cat.parsing",
+        "wcag2a",
+        "wcag222",
+        "TTv5",
+        "TT2.b",
+        "EN-301-549",
+        "EN-9.2.2.2",
+        "RGAAv4",
+        "RGAA-13.8.1"
+      ],
+      "wcagCriteria": [
+        "2.2.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.2.2": "wcag/2.2/sc/2.2.2-pause-stop-hide.md"
+      }
+    },
+    {
+      "axeRuleId": "76",
+      "forgeRuleId": "AXE.76",
+      "description": "Ensure <meta http-equiv=\"refresh\"> is not used for delayed refresh",
+      "axeTags": [
+        "cat.time-and-media",
+        "wcag2aaa",
+        "wcag224",
+        "wcag325"
+      ],
+      "wcagCriteria": [
+        "2.2.4",
+        "3.2.5"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": true,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": true,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "77",
+      "forgeRuleId": "AXE.77",
+      "description": "Ensure <meta http-equiv=\"refresh\"> is not used for delayed refresh",
+      "axeTags": [
+        "cat.time-and-media",
+        "wcag2a",
+        "wcag221",
+        "TTv5",
+        "TT8.a",
+        "EN-301-549",
+        "EN-9.2.2.1",
+        "RGAAv4",
+        "RGAA-13.1.2"
+      ],
+      "wcagCriteria": [
+        "2.2.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.2.1": "wcag/2.2/sc/2.2.1-timing-adjustable.md"
+      }
+    },
+    {
+      "axeRuleId": "78",
+      "forgeRuleId": "AXE.78",
+      "description": "Ensure <meta name=\"viewport\"> can scale a significant amount",
+      "axeTags": [
+        "cat.sensory-and-visual-cues",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "79",
+      "forgeRuleId": "AXE.79",
+      "description": "Ensure <meta name=\"viewport\"> does not disable text scaling and zooming",
+      "axeTags": [
+        "cat.sensory-and-visual-cues",
+        "wcag2aa",
+        "wcag144",
+        "EN-301-549",
+        "EN-9.1.4.4",
+        "ACT",
+        "RGAAv4",
+        "RGAA-10.4.2"
+      ],
+      "wcagCriteria": [
+        "1.4.4"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": false,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": false,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.4.4": "wcag/2.2/sc/1.4.4-resize-text.md"
+      }
+    },
+    {
+      "axeRuleId": "8",
+      "forgeRuleId": "AXE.8",
+      "description": "Ensure every ARIA dialog and alertdialog node has an accessible name",
+      "axeTags": [
+        "cat.aria",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "80",
+      "forgeRuleId": "AXE.80",
+      "description": "Ensure interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies",
+      "axeTags": [
+        "cat.keyboard",
+        "wcag2a",
+        "wcag412",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "81",
+      "forgeRuleId": "AXE.81",
+      "description": "Ensure <video> or <audio> elements do not autoplay audio for more than 3 seconds without a control mechanism to stop or mute the audio",
+      "axeTags": [
+        "cat.time-and-media",
+        "wcag2a",
+        "wcag142",
+        "TTv5",
+        "TT2.a",
+        "EN-301-549",
+        "EN-9.1.4.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-4.10.1"
+      ],
+      "wcagCriteria": [
+        "1.4.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.4.2": "wcag/2.2/sc/1.4.2-audio-control.md"
+      }
+    },
+    {
+      "axeRuleId": "82",
+      "forgeRuleId": "AXE.82",
+      "description": "Ensure <object> elements have alternative text",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "section508",
+        "section508.22.a",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "RGAAv4",
+        "RGAA-1.1.6"
+      ],
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
+      }
+    },
+    {
+      "axeRuleId": "83",
+      "forgeRuleId": "AXE.83",
+      "description": "Ensure bold, italic text and font-size is not used to style <p> elements as a heading",
+      "axeTags": [
+        "cat.semantics",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.1.3",
+        "experimental"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "84",
+      "forgeRuleId": "AXE.84",
+      "description": "Ensure that the page, or at least one of its frames contains a level-one heading",
+      "axeTags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "85",
+      "forgeRuleId": "AXE.85",
+      "description": "Ensure elements marked as presentational do not have global ARIA or tabindex so that all screen readers ignore them",
+      "axeTags": [
+        "cat.aria",
+        "best-practice",
+        "ACT"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "86",
+      "forgeRuleId": "AXE.86",
+      "description": "Ensure all page content is contained by landmarks",
+      "axeTags": [
+        "cat.keyboard",
+        "best-practice",
+        "RGAAv4",
+        "RGAA-9.2.1"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "87",
+      "forgeRuleId": "AXE.87",
+      "description": "Ensure [role=\"img\"] elements have alternative text",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT7.a",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.1"
+      ],
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
+      }
+    },
+    {
+      "axeRuleId": "88",
+      "forgeRuleId": "AXE.88",
+      "description": "Ensure the scope attribute is used correctly on tables",
+      "axeTags": [
+        "cat.tables",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "89",
+      "forgeRuleId": "AXE.89",
+      "description": "Ensure elements that have scrollable content are accessible by keyboard in Safari",
+      "axeTags": [
+        "cat.keyboard",
+        "wcag2a",
+        "wcag211",
+        "wcag213",
+        "TTv5",
+        "TT4.a",
+        "EN-301-549",
+        "EN-9.2.1.1",
+        "EN-9.2.1.3",
+        "RGAAv4",
+        "RGAA-7.3.2"
+      ],
+      "wcagCriteria": [
+        "2.1.1",
+        "2.1.3"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.1.1": "wcag/2.2/sc/2.1.1-keyboard.md"
+      }
+    },
+    {
+      "axeRuleId": "9",
+      "forgeRuleId": "AXE.9",
+      "description": "Ensure aria-hidden=\"true\" is not present on the document body.",
+      "axeTags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag131",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-10.8.1"
+      ],
+      "wcagCriteria": [
+        "1.3.1",
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md",
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "90",
+      "forgeRuleId": "AXE.90",
+      "description": "Ensure select element has an accessible name",
+      "axeTags": [
+        "cat.forms",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.n",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.1.1"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "91",
+      "forgeRuleId": "AXE.91",
+      "description": "Ensure that server-side image maps are not used",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag211",
+        "section508",
+        "section508.22.f",
+        "TTv5",
+        "TT4.a",
+        "EN-301-549",
+        "EN-9.2.1.1",
+        "RGAAv4",
+        "RGAA-1.1.4"
+      ],
+      "wcagCriteria": [
+        "2.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.1.1": "wcag/2.2/sc/2.1.1-keyboard.md"
+      }
+    },
+    {
+      "axeRuleId": "92",
+      "forgeRuleId": "AXE.92",
+      "description": "Ensure all skip links have a focusable target",
+      "axeTags": [
+        "cat.keyboard",
+        "best-practice",
+        "RGAAv4",
+        "RGAA-12.7.1"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "93",
+      "forgeRuleId": "AXE.93",
+      "description": "Ensure summary elements have discernible text",
+      "axeTags": [
+        "cat.name-role-value",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.4.1.2"
+      ],
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "4.1.2": "wcag/2.2/sc/4.1.2-name-role-value.md"
+      }
+    },
+    {
+      "axeRuleId": "94",
+      "forgeRuleId": "AXE.94",
+      "description": "Ensure <svg> elements with an img, graphics-document or graphics-symbol role have accessible text",
+      "axeTags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT7.a",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.5"
+      ],
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.1.1": "wcag/2.2/sc/1.1.1-non-text-content.md"
+      }
+    },
+    {
+      "axeRuleId": "95",
+      "forgeRuleId": "AXE.95",
+      "description": "Ensure tabindex attribute values are not greater than 0",
+      "axeTags": [
+        "cat.keyboard",
+        "best-practice"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "96",
+      "forgeRuleId": "AXE.96",
+      "description": "Ensure the <caption> element does not contain the same text as the summary attribute",
+      "axeTags": [
+        "cat.tables",
+        "best-practice",
+        "RGAAv4",
+        "RGAA-5.2.1"
+      ],
+      "wcagCriteria": [],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": false,
+        "wcag22aaa": false,
+        "wcag30bronze": false,
+        "wcag30silver": false,
+        "wcag30gold": false
+      },
+      "criteriaDocPaths": {}
+    },
+    {
+      "axeRuleId": "97",
+      "forgeRuleId": "AXE.97",
+      "description": "Ensure that tables with a caption use the <caption> element.",
+      "axeTags": [
+        "cat.tables",
+        "experimental",
+        "wcag2a",
+        "wcag131",
+        "section508",
+        "section508.22.g",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-5.4.1"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    },
+    {
+      "axeRuleId": "98",
+      "forgeRuleId": "AXE.98",
+      "description": "Ensure touch targets have sufficient size and space",
+      "axeTags": [
+        "cat.sensory-and-visual-cues",
+        "wcag22aa",
+        "wcag258"
+      ],
+      "wcagCriteria": [
+        "2.5.8"
+      ],
+      "inProfiles": {
+        "wcag20a": false,
+        "wcag20aa": false,
+        "wcag20aaa": false,
+        "wcag21a": false,
+        "wcag21aa": false,
+        "wcag21aaa": false,
+        "wcag22a": false,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "2.5.8": "wcag/2.2/sc/2.5.8-target-size-minimum.md"
+      }
+    },
+    {
+      "axeRuleId": "99",
+      "forgeRuleId": "AXE.99",
+      "description": "Ensure that each non-empty data cell in a <table> larger than 3 by 3  has one or more table headers",
+      "axeTags": [
+        "cat.tables",
+        "experimental",
+        "wcag2a",
+        "wcag131",
+        "section508",
+        "section508.22.g",
+        "TTv5",
+        "TT14.b",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-5.7.4"
+      ],
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inProfiles": {
+        "wcag20a": true,
+        "wcag20aa": true,
+        "wcag20aaa": true,
+        "wcag21a": true,
+        "wcag21aa": true,
+        "wcag21aaa": true,
+        "wcag22a": true,
+        "wcag22aa": true,
+        "wcag22aaa": true,
+        "wcag30bronze": true,
+        "wcag30silver": true,
+        "wcag30gold": true
+      },
+      "criteriaDocPaths": {
+        "1.3.1": "wcag/2.2/sc/1.3.1-info-and-relationships.md"
+      }
+    }
+  ]
+}

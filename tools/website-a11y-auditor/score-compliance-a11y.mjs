@@ -4,6 +4,7 @@
  * Scoped compliance score vs a standards pack — does NOT call analyze-website-a11y.mjs.
  */
 
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
@@ -32,6 +33,7 @@ Options:
   --compliance-profile / --standard   Profile id (e.g. wcag20aa, wcag20aaa, wcag21aa)
   --pack PATH                         Explicit .pack.json path
   --pack-only                         Design-time pack coverage only (no crawl)
+  --audit-data PATH                   Score from existing a11y-audit-data.json (merged AI OK)
   --repo, --site, --out, --lanes, --rules-scope, --max-pages  Same as analyze/score tools
 
 Standards: ${listStandardPresetIds().join(' | ')}
@@ -47,6 +49,7 @@ function parseArgs(argv) {
     complianceProfile: null,
     packPath: null,
     packOnly: false,
+    auditDataPath: null,
     rulesScope: process.env.FORGE_A11Y_RULES_SCOPE || 'auto',
     lanes: new Set(['axe', 'det']),
     maxPages: 60,
@@ -68,6 +71,7 @@ function parseArgs(argv) {
     else if (raw === '--compliance-profile') args.complianceProfile = argv[++i] || null;
     else if (raw === '--pack') args.packPath = path.resolve(argv[++i] || '');
     else if (raw === '--pack-only') args.packOnly = true;
+    else if (raw === '--audit-data') args.auditDataPath = path.resolve(argv[++i] || '');
     else if (raw === '--rules-scope') args.rulesScope = argv[++i] || 'auto';
     else if (raw === '--lanes') {
       args.lanes = new Set(String(argv[++i] || 'axe,det').split(',').map((s) => s.trim()).filter(Boolean));
@@ -88,6 +92,35 @@ async function main() {
   const pack = args.packPath
     ? loadStandardsPack(args.packPath)
     : loadStandardsPack(profileId);
+
+  if (args.auditDataPath) {
+    const auditRaw = await fs.readFile(args.auditDataPath, 'utf8');
+    const audit = JSON.parse(auditRaw);
+    const profileId = args.complianceProfile || args.standard || audit.complianceProfile?.id || audit.standards?.presetId;
+    const rtmId = resolveRtmProfileId(profileId || pack.packId);
+    const packForRtm = pack.packId === rtmId ? pack : loadStandardsPack(rtmId);
+    const report = buildComplianceReport(packForRtm, audit.findings || []);
+    report.mode = 'site';
+    report.auditDataPath = args.auditDataPath;
+    report.site = audit.site || args.site;
+    report.repo = audit.repo || args.repo;
+    report.rtmProfileId = rtmId;
+    report.findingsCount = (audit.findings || []).length;
+    report.lanesExecuted = audit.lanesExecuted || null;
+    report.aiLaneExecuted = audit.aiLaneExecuted ?? null;
+    report.standards = audit.standards
+      ? { label: audit.standards.label, axeTags: audit.standards.axeTags, presetId: audit.standards.presetId }
+      : undefined;
+    await ensureDir(args.out);
+    const jsonPath = path.join(args.out, 'compliance-score.json');
+    const mdPath = path.join(args.out, 'compliance-score.md');
+    const criteriaPath = path.join(args.out, 'criteria-results.json');
+    await writeFile(jsonPath, `${JSON.stringify(report, null, 2)}\n`);
+    await writeFile(criteriaPath, `${JSON.stringify(report.criteriaResults, null, 2)}\n`);
+    await writeFile(mdPath, renderComplianceScoreMarkdown(report));
+    console.log(`Wrote ${jsonPath} (compliance score ${report.complianceScore}, audit-data)`);
+    return;
+  }
 
   if (args.packOnly || !args.site) {
     const report = buildComplianceReport(pack, null);

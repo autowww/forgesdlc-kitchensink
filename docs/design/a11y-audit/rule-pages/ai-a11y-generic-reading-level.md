@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Reading Level
 summary: AI judgment overlay (generic scope).
-page_version: 2407bd20338959d9ad00ac6d057b85d021f0a5a7a98ad796ef1f84d20bb5ba05
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: f189185b099a0f0e2b54c21dc8c21fdba5a3717a4d8b6eadc01ea637ba8376e8
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-reading-level
@@ -30,13 +30,13 @@ AI judgment overlay (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>AI.A11Y.GENERIC.READING_LEVEL</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Reading Level</h2><p class="forge-support mb-2">Content or UX likely fails human judgment for this AI overlay rule.</p><p class="mb-0 small">Rule: <code>AI.A11Y.GENERIC.READING_LEVEL</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>AI.A11Y.GENERIC.READING_LEVEL</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Reading Level (remediated)</h2><p class="mb-2">Signals satisfy the AI rule prompt expectations on review.</p><p class="mb-0 small text-muted">AI judgment overlay (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

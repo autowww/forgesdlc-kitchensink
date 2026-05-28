@@ -5,7 +5,7 @@ scope: ks
 title: Handbook single H1
 summary: One primary h1 inside handbook chapter layout.
 page_version: ad1e3e28852f4687a54149cc799d182ef6f9834eeb8bc90a6925d67ba3da9318
-generated_at: 2026-05-28T04:23:01.000Z
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-handbook-single-h1

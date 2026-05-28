@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Input Context Change
 summary: Deterministic accessibility check (generic scope).
-page_version: 38f634b4708e960643cb3d9b8ea13e8e0f56be87e5b87d3a972fba03bfc6872b
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 5f154bf13c04f992ac18b1b95dd986f4620728aad355c09f24e7dc60c0e10a03
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-input-context-change
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Input Context Change</h2><p class="forge-support mb-2">Form control labeling or error association is weak.</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Input Context Change (remediated)</h2><p class="mb-2">Labels, instructions, and errors are programmatically associated.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

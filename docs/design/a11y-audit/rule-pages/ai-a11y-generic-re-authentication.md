@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Re Authentication
 summary: AI judgment overlay (generic scope).
-page_version: 607d0e292e88801b567e904061e26f1415a7e51f6eff0a571870a84273e4cecf
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: e3ee8f56b6e80aad1e43af9142f663660480ca1777070028394213df2557307b
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-re-authentication
@@ -30,13 +30,13 @@ AI judgment overlay (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>AI.A11Y.GENERIC.RE_AUTHENTICATION</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Re Authentication</h2><p class="forge-support mb-2">Content or UX likely fails human judgment for this AI overlay rule.</p><p class="mb-0 small">Rule: <code>AI.A11Y.GENERIC.RE_AUTHENTICATION</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>AI.A11Y.GENERIC.RE_AUTHENTICATION</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Re Authentication (remediated)</h2><p class="mb-2">Signals satisfy the AI rule prompt expectations on review.</p><p class="mb-0 small text-muted">AI judgment overlay (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

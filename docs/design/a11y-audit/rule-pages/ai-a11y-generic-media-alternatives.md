@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Media Alternatives
 summary: AI judgment overlay (generic scope).
-page_version: 573ea85a24ea37673100c6b0cf45071fc3d9aa7c315c180ea79e87b597815ef3
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: ab475346440b8c10cc4f6d90e777c8e8677fc6a13bab0afc634a98e9be2f2780
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-media-alternatives
@@ -30,13 +30,13 @@ AI judgment overlay (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>AI.A11Y.GENERIC.MEDIA_ALTERNATIVES</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Media Alternatives</h2><p class="forge-support mb-2">Content or UX likely fails human judgment for this AI overlay rule.</p><p class="mb-0 small">Rule: <code>AI.A11Y.GENERIC.MEDIA_ALTERNATIVES</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>AI.A11Y.GENERIC.MEDIA_ALTERNATIVES</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Media Alternatives (remediated)</h2><p class="mb-2">Signals satisfy the AI rule prompt expectations on review.</p><p class="mb-0 small text-muted">AI judgment overlay (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

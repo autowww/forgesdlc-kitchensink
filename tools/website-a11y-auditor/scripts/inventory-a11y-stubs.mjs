@@ -30,7 +30,15 @@ async function walkMd(dir, acc = []) {
   return acc;
 }
 
+async function detectAiLaneInCrawl() {
+  const crawlPath = path.join(TOOL_ROOT, 'lib/a11y-crawl.js');
+  const crawlSrc = await fs.readFile(crawlPath, 'utf8');
+  return /lanes\.has\(\s*['"]ai['"]\s*\)/.test(crawlSrc);
+}
+
 async function main() {
+  const aiLaneInCrawl = await detectAiLaneInCrawl();
+
   const registry = JSON.parse(
     await fs.readFile(path.join(TOOL_ROOT, 'design-rules/registry.generated.json'), 'utf8'),
   );
@@ -88,8 +96,10 @@ async function main() {
     generatedAt: new Date().toISOString(),
     disclaimer: 'Inventory only — no fixes applied',
     detAuditor: {
-      note: 'analyze-website-a11y.mjs crawl runs axe + det only; --enable-ai lists eligibility without LLM',
-      aiLaneInCrawl: false,
+      note: aiLaneInCrawl
+        ? 'crawl runs axe + det; ai lane when --lanes includes ai and FORGE_A11Y_SKIP_AI_AGENT is unset'
+        : 'analyze-website-a11y.mjs crawl runs axe + det only; --enable-ai lists eligibility without LLM',
+      aiLaneInCrawl,
     },
     detScorer: {
       note: 'score-compliance-a11y.mjs default lanes: axe,det — no AI findings in crawl',
@@ -100,8 +110,10 @@ async function main() {
       separateCli: true,
     },
     aiScorer: {
-      note: 'No score-compliance path that ingests AI audit JSON end-to-end',
+      note: 'score-compliance-a11y.mjs --audit-data ingests merged AI findings; no AI in default crawl',
       dedicatedAiScorer: false,
+      auditDataIngest: true,
+      mergeScript: 'npm run merge-ai-audit',
     },
     qualityScorer: {
       note: 'score-website-a11y.mjs is severity-only; no standards pack / WCAG 3',
@@ -113,8 +125,8 @@ async function main() {
       gap: detTotal - pilotCount,
     },
     aiRemediation: {
-      aiFixerModule: false,
-      note: 'Remediation loop uses cursor-agent-run-a11y-plan.sh optionally',
+      aiFixerModule: true,
+      note: 'lib/a11y-ai-fixers/run-ai-fixers.mjs in remediation loop; plan_only v1',
     },
     rulePages: { placeholderCount: placeholderPages.length, paths: placeholderPages },
     detChecks: { heuristicOrSupplementalCount: heuristicChecks.length, files: heuristicChecks },
@@ -134,8 +146,10 @@ async function main() {
     '',
     '## DET auditor (`analyze-website-a11y.mjs`)',
     '',
-    '- Crawl executes **axe + det** only (`lib/a11y-crawl.js`).',
-    '- `--enable-ai` adds eligibility metadata; **does not** run LLM prompts in this CLI.',
+    aiLaneInCrawl
+      ? '- Crawl executes **axe + det**; **ai** when `--lanes` includes `ai` and agent not skipped (`lib/a11y-crawl.js`).'
+      : '- Crawl executes **axe + det** only (`lib/a11y-crawl.js`).',
+    '- `--enable-ai` lists eligible AI rules; use `--lanes axe,det,ai` to run AI in crawl when allowed.',
     '',
     '## AI auditor (`run-website-a11y-ai-audit.mjs`)',
     '',
@@ -148,7 +162,9 @@ async function main() {
     '',
     '## AI scorer',
     '',
-    '- **No** dedicated compliance rollup consuming AI audit output.',
+    '- **No** dedicated AI-only scorer CLI.',
+    '- **Yes** merged path: `run-website-a11y-ai-audit.mjs` → `npm run merge-ai-audit` → `score-compliance-a11y.mjs --audit-data`.',
+    '- Compliance criteria include `failingByLane` (axe / det / ai) when site findings exist.',
     '',
     '## Quality scorer (`score-website-a11y.mjs`)',
     '',
@@ -160,8 +176,8 @@ async function main() {
     '',
     '## AI remediation',
     '',
-    '- **No** `a11y-ai-fixers/` module.',
-    '- `run-website-a11y-remediation-loop.sh` may skip agent if not on PATH.',
+    '- **`lib/a11y-ai-fixers/`** — `run-ai-fixers.mjs` (plan_only v1; no auto DOM apply unless extended).',
+    '- `run-website-a11y-remediation-loop.sh` calls AI fixers after DET fixers.',
     '',
     '## Rule pages with placeholder examples',
     '',

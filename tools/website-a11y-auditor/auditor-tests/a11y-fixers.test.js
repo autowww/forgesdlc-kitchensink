@@ -14,9 +14,11 @@ describe('a11y-deterministic-fixers', () => {
     );
   });
 
-  it('pilot registry has 12 handbook_after DET rules', () => {
+  it('pilot registry covers all implemented DET rules with handbook_after', () => {
     const list = registry.rules || [];
-    assert.equal(list.length, 12);
+    assert.equal(list.length, registry.ruleCount);
+    assert.ok(list.length >= 68);
     assert.ok(list.every((e) => e.fixerId === 'handbook_after'));
+    assert.ok(list.every((e) => String(e.ruleId || '').startsWith('DET.A11Y.')));
   });
 });

@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Sensory Instructions
 summary: AI judgment overlay (generic scope).
-page_version: f3dcd0baf29112ebc90465ebb6b17e4cd32018bca025edb4393c47e6a6ad6237
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: d106fc283751ba4eb6c893c8c591e62315682952e410b0978d5049e63162e566
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-sensory-instructions
@@ -30,13 +30,13 @@ AI judgment overlay (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Sensory Instructions</h2><p class="forge-support mb-2">Content or UX likely fails human judgment for this AI overlay rule.</p><p class="mb-0 small">Rule: <code>AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Sensory Instructions (remediated)</h2><p class="mb-2">Signals satisfy the AI rule prompt expectations on review.</p><p class="mb-0 small text-muted">AI judgment overlay (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

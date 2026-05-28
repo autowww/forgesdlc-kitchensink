@@ -50,6 +50,39 @@ export function buildRuleToCriteriaMap(pack) {
 }
 
 /**
+ * Classify a finding into axe | det | ai for compliance rollup.
+ * @param {object} finding
+ */
+export function classifyFindingLane(finding) {
+  const ruleId = String(finding.ruleId || finding.checkId || '').trim();
+  if (ruleId.startsWith('AI.') || finding.lane === 'ai') return 'ai';
+  if (
+    ruleId.startsWith('AXE.') ||
+    finding.checkId === 'axe-lane' ||
+    finding.lane === 'axe'
+  ) {
+    return 'axe';
+  }
+  if (ruleId.startsWith('DET.A11Y.') || finding.lane === 'deterministic') return 'det';
+  return 'other';
+}
+
+/**
+ * @param {object[]} failingFindings
+ */
+export function failingRulesByLane(failingFindings) {
+  const out = { axe: [], det: [], ai: [], other: [] };
+  for (const f of failingFindings || []) {
+    const lane = classifyFindingLane(f);
+    const ruleId = String(f.ruleId || f.checkId || '').trim();
+    if (!ruleId) continue;
+    const key = lane === 'other' ? 'other' : lane;
+    if (!out[key].includes(ruleId)) out[key].push(ruleId);
+  }
+  return out;
+}
+
+/**
  * @param {object[]} findings
  * @param {Map<string, Set<string>>} ruleToCriteria
  */
@@ -108,6 +141,7 @@ export function computeCriteriaResults(pack, findingsByCriterion) {
     });
     if (failing.length) {
       const failingRules = [...new Set(failing.map((f) => f.ruleId).filter(Boolean))];
+      const failingByLane = failingRulesByLane(failing);
       return {
         id: c.id,
         title: c.title,
@@ -115,6 +149,11 @@ export function computeCriteriaResults(pack, findingsByCriterion) {
         status: 'fail',
         tooling: c.tooling || [],
         failingRules,
+        failingByLane: {
+          axe: failingByLane.axe,
+          det: failingByLane.det,
+          ai: failingByLane.ai,
+        },
         findingCount: findings.length,
       };
     }
@@ -241,5 +280,26 @@ export function renderComplianceScoreMarkdown(report) {
     lines.push(`| ${row.id} | ${row.status} | ${(row.tooling || []).join('+') || '—'} | ${rules} |`);
   }
   lines.push('');
+
+  const failingRows = (report.criteriaResults || []).filter((r) => r.status === 'fail');
+  if (failingRows.length && report.mode === 'site') {
+    lines.push('## Failures by lane');
+    lines.push('');
+    for (const row of failingRows) {
+      const by = row.failingByLane || {};
+      const parts = [];
+      if (by.axe?.length) parts.push(`axe: ${by.axe.join(', ')}`);
+      if (by.det?.length) parts.push(`det: ${by.det.join(', ')}`);
+      if (by.ai?.length) parts.push(`ai: ${by.ai.join(', ')}`);
+      lines.push(`- **${row.id}** — ${parts.length ? parts.join('; ') : row.failingRules?.join(', ') || '—'}`);
+    }
+    lines.push('');
+  }
+
+  if (report.auditDataPath) {
+    lines.push(`Findings source: \`${report.auditDataPath}\``);
+    lines.push('');
+  }
+
   return lines.join('\n');
 }

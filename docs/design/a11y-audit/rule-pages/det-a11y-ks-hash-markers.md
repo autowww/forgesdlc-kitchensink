@@ -5,7 +5,7 @@ scope: ks
 title: KS hash markers
 summary: hash and data-ks-hash must agree on visual roots.
 page_version: 46ebe041679ba66019e51869b1fdba1cf72b2f80b03925484c67097129944c75
-generated_at: 2026-05-28T04:23:01.000Z
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-hash-markers

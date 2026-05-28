@@ -5,7 +5,7 @@ scope: generic
 title: Pointer gestures
 summary: Provide single-pointer alternative to path gestures (2.5.1).
 page_version: bed76f160e39f71e28138d9c4c1f22d08e29eee909c2328d5a5cfc33579031f3
-generated_at: 2026-05-28T04:23:01.000Z
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-pointer-gestures

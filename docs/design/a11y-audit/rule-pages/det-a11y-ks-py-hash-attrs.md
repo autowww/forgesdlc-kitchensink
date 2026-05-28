@@ -4,8 +4,8 @@ lane: deterministic
 scope: ks
 title: Py Hash Attrs
 summary: Deterministic accessibility check (ks scope).
-page_version: cc62ae12385c13b38bb468355cce794419be64691b56fea812c29e5a8b136de1
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 7abf4e51ad1c979a435b9793e00416d87f01486e1485d969ae18a4d3c4eac4bb
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-py-hash-attrs
@@ -30,13 +30,13 @@ Deterministic accessibility check (ks scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.KS.PY_HASH_ATTRS</code> (ks).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Py Hash Attrs</h2><p class="forge-support mb-2">KS visual hash markers are missing or mismatched.</p><p class="mb-0 small">Rule: <code>DET.A11Y.KS.PY_HASH_ATTRS</code> · scope: ks</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.KS.PY_HASH_ATTRS</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Py Hash Attrs (remediated)</h2><p class="mb-2">hash and data-ks-hash match on governed roots.</p><p class="mb-0 small text-muted">Deterministic accessibility check (ks scope).</p></div>
 ```
 
 ## Evidence and remediation

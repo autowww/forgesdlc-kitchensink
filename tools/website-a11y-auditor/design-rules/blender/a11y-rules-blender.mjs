@@ -173,6 +173,12 @@ async function main() {
     console.log(`wrote ${TRACEABILITY_OUT}`);
     console.log(`wrote ${TRACEABILITY_GAPS_MD}`);
     console.log(`wrote ${Object.keys(packs).length} standards packs under design-rules/standards-packs/`);
+    const { spawnSync } = await import('node:child_process');
+    const exportRc = spawnSync(process.execPath, ['scripts/export-axe-catalog.mjs'], {
+      cwd: TOOL_ROOT,
+      stdio: 'inherit',
+    });
+    if (exportRc.status !== 0) process.exit(exportRc.status ?? 1);
   } else {
     console.log(JSON.stringify(registry, null, 2));
   }

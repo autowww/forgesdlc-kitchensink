@@ -5,7 +5,7 @@ scope: generic
 title: Status messages
 summary: Dynamic status needs role or aria-live (4.1.3).
 page_version: 6a73feb0ea7b62a078bb83c31912fe6492b1eaf706aa8405ec360f5005557089
-generated_at: 2026-05-28T04:23:01.000Z
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-status-messages

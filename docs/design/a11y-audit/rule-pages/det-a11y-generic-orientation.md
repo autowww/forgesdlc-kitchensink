@@ -5,7 +5,7 @@ scope: generic
 title: Orientation
 summary: Do not lock viewport or CSS to one orientation (1.3.4).
 page_version: 2803adbb5a2621f834d21bfdd519389287ccb8d04c9d39d52917403d772caf62
-generated_at: 2026-05-28T04:23:01.000Z
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-orientation

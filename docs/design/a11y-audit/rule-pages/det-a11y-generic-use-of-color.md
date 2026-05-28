@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Use Of Color
 summary: Deterministic accessibility check (generic scope).
-page_version: a0eb8e96eb770c92488c5df668278fbb4d8c68af8738b9d25fc4f46b90afd719
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 2614a663d1ac84077cf3df1d3f201a8c46f4a8ce78a882b725bfc6031daf3ba6
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-use-of-color
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.USE_OF_COLOR</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Use Of Color</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.USE_OF_COLOR</code> (use of color).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.USE_OF_COLOR</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.USE_OF_COLOR</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Use Of Color (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.USE_OF_COLOR</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

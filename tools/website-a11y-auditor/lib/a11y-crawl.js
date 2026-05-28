@@ -155,9 +155,43 @@ export async function crawlAndAuditA11y(opts) {
     }
   }
 
+  let aiLaneExecuted = false;
+  let aiFindingsAdded = 0;
+  if (opts.lanes.has('ai') && opts.aiRun) {
+    const { runAiRules, shouldSkipAiAgent, listAiRulesFromRegistry } = await import('./ai-audit-run.mjs');
+    if (shouldSkipAiAgent()) {
+      log('ai lane skipped (FORGE_A11Y_SKIP_AI_AGENT=1)');
+    } else {
+      const urls = [
+        opts.siteUrl,
+        ...pages.map((p) => p.url).filter(Boolean),
+      ]
+        .filter((u, i, arr) => arr.indexOf(u) === i)
+        .slice(0, opts.aiRun.maxUrls ?? 3);
+      const aiRules = listAiRulesFromRegistry(opts.aiRun.registry, opts.aiRun.onlyAiRuleIds);
+      const aiOutDir = opts.aiRun.outDir || path.join(opts.repoRoot, '.cursor', 'a11y-ai-runs');
+      const result = await runAiRules({
+        rules: aiRules,
+        repoRoot: opts.repoRoot,
+        urls,
+        outDir: aiOutDir,
+        skipAgent: opts.aiRun.skipAgent,
+        verbose: opts.verbose,
+      });
+      if (result.findings.length) {
+        allFindings.push(...result.findings);
+        aiFindingsAdded = result.findings.length;
+      }
+      aiLaneExecuted = result.aiLaneExecuted;
+      log(`ai lane findings=${aiFindingsAdded} executed=${aiLaneExecuted}`);
+    }
+  }
+
   return {
     pages,
     findings: allFindings,
+    aiLaneExecuted,
+    aiFindingsAdded,
     crawlSummary: {
       origin,
       pagesVisited: visited.size,

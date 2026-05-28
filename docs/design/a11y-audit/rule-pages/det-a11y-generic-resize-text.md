@@ -5,7 +5,7 @@ scope: generic
 title: Resize text
 summary: Viewport must allow zoom; avoid clipping enlarged text (1.4.4).
 page_version: ea9e31185b8ff976b15a38519ce10b19482b8a2d59cec58d7bc03b9fd6c0139d
-generated_at: 2026-05-28T04:23:01.000Z
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-resize-text

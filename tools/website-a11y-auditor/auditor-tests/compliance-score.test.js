@@ -4,8 +4,10 @@ import { describe, it } from 'node:test';
 import {
   buildComplianceReport,
   buildRuleToCriteriaMap,
+  classifyFindingLane,
   computeComplianceScore,
   computeCriteriaResults,
+  failingRulesByLane,
   loadStandardsPack,
   mapFindingsToCriteria,
 } from '../lib/compliance-score.js';
@@ -61,9 +63,21 @@ describe('compliance-score', () => {
     const results = computeCriteriaResults(pack, bySc);
     const row = results.find((r) => r.id === '1.1.1');
     assert.equal(row?.status, 'fail');
+    assert.deepEqual(row?.failingByLane?.axe, ['AXE.image-alt']);
     const scores = computeComplianceScore(results, pack);
     assert.ok(scores.criteriaFail >= 1);
     assert.ok(scores.complianceScore < 100);
+  });
+
+  it('classifies finding lanes and rolls up failingByLane on DET', () => {
+    assert.equal(classifyFindingLane({ ruleId: 'AI.A11Y.GENERIC.FOO' }), 'ai');
+    assert.equal(classifyFindingLane({ ruleId: 'DET.A11Y.GENERIC.LANG', lane: 'deterministic' }), 'det');
+    const byLane = failingRulesByLane([
+      { ruleId: 'DET.A11Y.GENERIC.LANG', severity: 'major' },
+      { ruleId: 'AI.A11Y.GENERIC.FOO', severity: 'critical' },
+    ]);
+    assert.ok(byLane.det.includes('DET.A11Y.GENERIC.LANG'));
+    assert.ok(byLane.ai.includes('AI.A11Y.GENERIC.FOO'));
   });
 
   it('pack-only report has no site compliance score requirement', () => {

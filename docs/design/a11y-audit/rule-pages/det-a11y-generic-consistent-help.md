@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Consistent Help
 summary: Deterministic accessibility check (generic scope).
-page_version: 29d9fc379c7a059f49b2540ffcbd79a7604c570d37c9ed066380ae12bab47cf3
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 6358e651c44245dc10eed3afc78880ca1a30dc1b6b3193ec0edb40451a1b6bbd
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-consistent-help
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.CONSISTENT_HELP</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Consistent Help</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.CONSISTENT_HELP</code> (consistent help).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.CONSISTENT_HELP</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.CONSISTENT_HELP</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Consistent Help (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.CONSISTENT_HELP</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

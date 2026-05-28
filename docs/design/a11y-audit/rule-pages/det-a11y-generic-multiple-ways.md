@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Multiple Ways
 summary: Deterministic accessibility check (generic scope).
-page_version: cdb575876d4875fea52e1f5f8a5c1563b7114fb2a92818f1bba667435e57ad2b
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 725a99f8cad03df2441ea2205cfdcf7d51458e974bd8ed9c7a880579d3b6bcce
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-multiple-ways
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.MULTIPLE_WAYS</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Multiple Ways</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.MULTIPLE_WAYS</code> (multiple ways).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.MULTIPLE_WAYS</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.MULTIPLE_WAYS</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Multiple Ways (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.MULTIPLE_WAYS</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

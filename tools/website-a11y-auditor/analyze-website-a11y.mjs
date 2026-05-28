@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 import crypto from 'node:crypto';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
 import { writeFile, ensureDir } from '../website-ux-auditor/lib/files.js';
 import { inventoryRepo } from '../website-ux-auditor/lib/repo-inventory.js';
@@ -252,6 +254,12 @@ async function main() {
 
   runtimeFinal = await buildRuntime(preCrawlScope);
 
+  const registryPath = path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    'design-rules/registry.generated.json',
+  );
+  const registryForAi = JSON.parse(await fs.readFile(registryPath, 'utf8'));
+
   if (!args.staticOnly && args.site) {
     crawlResult = await crawlAndAuditA11y({
       siteUrl: args.site,
@@ -266,6 +274,15 @@ async function main() {
       stopAfterMajorPlus: args.stopAfterMajorPlus,
       stopDisabled: args.stopDisabled,
       verbose: args.verbose,
+      aiRun: args.lanes.has('ai')
+        ? {
+            registry: registryForAi,
+            outDir: path.join(outDir, 'ai-runs-crawl'),
+            onlyAiRuleIds: args.onlyAiRuleIds || [],
+            maxUrls: 3,
+            skipAgent: process.env.FORGE_A11Y_SKIP_AI_AGENT === '1',
+          }
+        : null,
     });
 
     const domKs = detectKsFromDomPages(crawlResult.pages);
@@ -316,6 +333,14 @@ async function main() {
         .map((r) => r.id)
     : [];
 
+  const lanesExecuted = {
+    axe: args.lanes.has('axe') && !args.staticOnly && Boolean(args.site),
+    det: args.lanes.has('det') && !args.staticOnly && Boolean(args.site),
+    ai: Boolean(crawlResult.aiLaneExecuted),
+  };
+  const aiLaneRequested = args.lanes.has('ai') || args.enableAi;
+  const aiLaneExecuted = Boolean(crawlResult.aiLaneExecuted);
+
   const complianceProfile = standards.complianceProfile || {
     id: standards.presetId,
     label: standards.label,
@@ -346,6 +371,10 @@ async function main() {
     rulesScope,
     ksDetection,
     lanes: [...args.lanes],
+    lanesExecuted,
+    aiLaneRequested,
+    aiLaneExecuted,
+    aiFindingsAdded: crawlResult.aiFindingsAdded || 0,
     registryFingerprint: runtimeFinal.registryFingerprint,
     deterministicRuleIds: runtimeFinal.implementedRuleIds,
     excludedDeterministicRuleIds: runtimeFinal.excludedDeterministicRuleIds || [],

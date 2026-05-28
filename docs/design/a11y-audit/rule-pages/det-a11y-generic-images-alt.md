@@ -5,7 +5,7 @@ scope: generic
 title: Image alt text
 summary: Informative images need meaningful alt.
 page_version: 5fa307511af0d45e8a45c8c3bac208e0666ed4c359a00ae37bfa53525ed2d758
-generated_at: 2026-05-28T04:23:01.000Z
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-images-alt

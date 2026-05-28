@@ -1,340 +1,340 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T04:21:49.536Z",
+  "generatedAt": "2026-05-28T05:38:05.535Z",
   "entries": {
     "1.1.1": {
       "path": "2.2/sc/1.1.1-non-text-content.md",
-      "checksum": "673d662eca8ce26640d7934ae06a23291b6593351e550359583c017bbb27fb21",
+      "checksum": "8ac31d53c1feca42aaa68488cb01713b46f81e1c72e4b9bee1ead3ce9fc56107",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.2.1": {
       "path": "2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md",
-      "checksum": "0c7a6c4814a7f2ce7734225adc688f08020a928a8208c3a5f3aadbbe31a3ace9",
+      "checksum": "1f6d99168ec4564936fab6a6cb0d87505fda1b55bd5d035cd483a0e021b0238a",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.2.2": {
       "path": "2.2/sc/1.2.2-captions-prerecorded.md",
-      "checksum": "26c8c768b7c23e9059a14e0ca4c7a9066336af9688eb037e18d85c2a8dec6567",
+      "checksum": "7885c424427cd4fe080c2246d5f8aaffcf0548391886a19855844daffac64e52",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.2.3": {
       "path": "2.2/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md",
-      "checksum": "33f2c7c2a38ba39f698f7bffe45197b8beca3560ebe4392a45e27a7fd158c977",
+      "checksum": "12696bbe6db7d2eb1a95b4804078c8e14937923d53f357d22d7381ce35728c16",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.2.4": {
       "path": "2.2/sc/1.2.4-captions-live.md",
-      "checksum": "3b1bdcbb6b86c3cdd9ce230d37f6edca4ff71d8d702c1ed38f9453e353a769bb",
+      "checksum": "966650a36f2767522b34e79cf7f4957737c858396958552bcd816c0fda6cdd0e",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.2.5": {
       "path": "2.2/sc/1.2.5-audio-description-prerecorded.md",
-      "checksum": "a84cab6bc4bf8245362e16905f948aecad57b8e0589e541a99dd0c2f9337a35e",
+      "checksum": "2f5ac015cf3cc3aa91b85041b9c57758dbac00a9f3f9622d0ecb2f274eb0778d",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.3.1": {
       "path": "2.2/sc/1.3.1-info-and-relationships.md",
-      "checksum": "e3039ba10035556246481fc7f3079e10e87d14b01eedad4acbd0796f9ef580a3",
+      "checksum": "f1641677fa94ccbf45d54b7ecc86fc87f51d08131fbed2f66b961d897817b3f4",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.3.2": {
       "path": "2.2/sc/1.3.2-meaningful-sequence.md",
-      "checksum": "569de79e5a3576a8026ea04c8b74641c630be57694aeb468bcc59db868e5d6a1",
+      "checksum": "9ccdedfe986062505686b1eab1815e449a8df10c5cd631a178cddce71638164a",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.3.3": {
       "path": "2.2/sc/1.3.3-sensory-characteristics.md",
-      "checksum": "f7dacb03adc38013d8092a5beff01fc72d6cda146a0822e0899fcc5eeaf672ff",
+      "checksum": "5661f2174c96605be4086f0fbb9007c5ebf5471a32c971a715c914d89c3368ee",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.4.1": {
       "path": "2.2/sc/1.4.1-use-of-color.md",
-      "checksum": "1f7b289bf975dc5e1bccdd62ce180fd502a956eed0aae1bd04c599e8a2308501",
+      "checksum": "6e0aa5a6215e6e8060053af57cb3c620b68fafe24e9ad4b480296d4fe80dc6e0",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.4.2": {
       "path": "2.2/sc/1.4.2-audio-control.md",
-      "checksum": "246a5d00310141b648b4d6fbc40fa5a771c8ad10755a46965bb8682920993860",
+      "checksum": "9e21f413f40358f8312fccda8c7f51582bf9a0b87d0b06a359fa308f5b41e1a6",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.4.3": {
       "path": "2.2/sc/1.4.3-contrast-minimum.md",
-      "checksum": "998a029e72fe2ba56311d177dcaf641377fd336479aff1e01ff35771259a9141",
+      "checksum": "63f89b235dfd83d6a8f16801ef744cc6a4416c9c22fd09efa05d7580259f7d4e",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.4.4": {
       "path": "2.2/sc/1.4.4-resize-text.md",
-      "checksum": "1ea14c2b66dab75ca5a823ee8ba6ddf078b543010d739999b390ccb09f251e1c",
+      "checksum": "f10bdc314ea97ccd7030efd0bd4f75a7300fb66fabd31e146179e6677c28d4af",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.4.5": {
       "path": "2.2/sc/1.4.5-images-of-text.md",
-      "checksum": "263e0fbe4321c7496e62caa84f2dd95c59550c585212ae9d6c78ecd20d23f902",
+      "checksum": "6aaf1be6d3f6a2df457cb7c5250ba0803ce1114242d7d583e522490603eed5de",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.1.1": {
       "path": "2.2/sc/2.1.1-keyboard.md",
-      "checksum": "293c93fd05c5206f1a36bf2e74d9f40e393605e68fb10e4df0b1e644f7d72a94",
+      "checksum": "dab223e86ee067ad48a40d9a4ff17a238a600ca7637274a5552aca9a53128fec",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.1.2": {
       "path": "2.2/sc/2.1.2-no-keyboard-trap.md",
-      "checksum": "8818d8fbbff77fcc42dabadd4eebe062104b7a7e289a7b04fce532f3c6b92aa6",
+      "checksum": "86ffc174d39bb429531d8a449c4bc7a8888629936505eead292f1d6dedcaa270",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.2.1": {
       "path": "2.2/sc/2.2.1-timing-adjustable.md",
-      "checksum": "3eb697bc0a74717deb5b93f599e5c3ecbda75b7950248e253aff99b2833b034e",
+      "checksum": "9e745b3b047d898749f17b1f2ed458788bbf1e42dae6cbf20157a0e39b7b7341",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.2.2": {
       "path": "2.2/sc/2.2.2-pause-stop-hide.md",
-      "checksum": "988928c3a9cb1766aed530e8e1bff58cc8e56608556080440a11222ccbbce5f6",
+      "checksum": "b427c421f0b88e46792f389cd5ed77d3c0b51e08d1aa9afd757eb59e6d70c723",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.3.1": {
       "path": "2.2/sc/2.3.1-three-flashes-or-below-threshold.md",
-      "checksum": "d543114460bc3a35d5453e07a6ec3db5975eef47f0a6c36fc8e5de5ca37aa3e0",
+      "checksum": "3b034110f422e8c0127d2effaee893ba9d9f630203eb5b9537a48cac12fba9bd",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.4.1": {
       "path": "2.2/sc/2.4.1-bypass-blocks.md",
-      "checksum": "f3422660335378ac570655dc0db98f48f561e49f410096ed27df0353214f9ddc",
+      "checksum": "487bdfc478fe6eb2ce8371d9a9985aebc9e4911a17cf590a793bde3a14945294",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.4.2": {
       "path": "2.2/sc/2.4.2-page-titled.md",
-      "checksum": "1a31ef9d59ea58b51cf19297451cb410d8383a8b1a47f3fbec8060cdaf9dfcda",
+      "checksum": "71cd936cfc485e7868ecef5e640ac7a36915341201ebe7f9d6f9dc0a75fabb34",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.4.3": {
       "path": "2.2/sc/2.4.3-focus-order.md",
-      "checksum": "f637b88f54a86c77e979285d2973a72bf57d782dbf1f0e4c34c6b5e64ec911de",
+      "checksum": "cecce8e0ef7542d311d615e4d3ab2fd8676411b8ccd05e5c6948f28d33378e72",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.4.4": {
       "path": "2.2/sc/2.4.4-link-purpose-in-context.md",
-      "checksum": "7def6b021f7fd11539c2436af09dfd2768a8eaafd6891ed2a92891398f8f95b0",
+      "checksum": "b188199a4b749f6ce5d0464f705af4c0ae9c8a03067cc1f9193e40fc2aea5519",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.4.5": {
       "path": "2.2/sc/2.4.5-multiple-ways.md",
-      "checksum": "4fc132e7805315f58426f404be207bd8721100a40b1d84cb6c1c630ac5ff258f",
+      "checksum": "98992b9e1ec3b97cf9c53133a43442098e3db6127ac4ef8b59e88a258e2597a5",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.4.6": {
       "path": "2.2/sc/2.4.6-headings-and-labels.md",
-      "checksum": "ea8affff81ee3a326ebe84f84c1ae85c283450633fc2c69f07312d3a74d04be2",
+      "checksum": "9c8ad3c754522f4474e8e9e289fa88429e1b8c57252f4bc113e3c9ce0f1a1054",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.4.7": {
       "path": "2.2/sc/2.4.7-focus-visible.md",
-      "checksum": "3c7c088dd0b542d68c814d406783e4560e2887b19ebbd63fc6df55e5773b57bb",
+      "checksum": "2bdf5482f3b7fd84c36ce012e13485f5f5cd8cb7d4b44ac5a5d2918cbb7b0dc0",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.1.1": {
       "path": "2.2/sc/3.1.1-language-of-page.md",
-      "checksum": "bfdadff183685dc1a5ecaf5c8e0fcaf98c287049570f26fa165d2351abb2235d",
+      "checksum": "83a62b2ea8781c6e134dc99705f516be15d448c2a96dd39285ceda20f1a8d89c",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.1.2": {
       "path": "2.2/sc/3.1.2-language-of-parts.md",
-      "checksum": "0298443b17208844f1abc11658c949c313c821dcc517448fdf7baf8fcf013ac5",
+      "checksum": "3af4be249d1d254e63ee0e193ff9fd47f372e7b4b3279538eb54657c587e811a",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.2.1": {
       "path": "2.2/sc/3.2.1-on-focus.md",
-      "checksum": "79431a69955d00d8bc6b3b81ee16cef7f2f120da62ac946f1e355b4669a5bc39",
+      "checksum": "6b11d3fcaad13b61638fd0ac6b61e2822ef01d671490f193f5297892fda1ec45",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.2.2": {
       "path": "2.2/sc/3.2.2-on-input.md",
-      "checksum": "6bd5c7d29c1bae557edad19dc1642d2ed9d5c13d2d93fc7464374d9cb65a6511",
+      "checksum": "788b241abcdb9a4e1fe3e544da34e5ad14facc4ba5d14860e831db245f76c361",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.2.3": {
       "path": "2.2/sc/3.2.3-consistent-navigation.md",
-      "checksum": "e04ffd2dab7eeb6d64f8f0d413a2ccb606e9d710b3dba0841116b7b8e60e1f79",
+      "checksum": "fa5d69ffef182ed60e34ae3b52aaf703364ef57d6a40ed3b7c7c278611323e70",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.2.4": {
       "path": "2.2/sc/3.2.4-consistent-identification.md",
-      "checksum": "2fd8c56b7ce4c232c6167ff5edd40f96e491ea9dc81e090961cc7718901d88ce",
+      "checksum": "8f6f3570096c7580b2614821d3953688cdfec79244243a860879e9056eb7e355",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.3.1": {
       "path": "2.2/sc/3.3.1-error-identification.md",
-      "checksum": "c7f7e86ac7bd1802d404e9c042d2f5225ecaa3b4d98d19603006d4e87a18d1f7",
+      "checksum": "170b6985073facc78ee60dde31c2e16e40fd3cd7f34680230e75908037b5abbe",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.3.2": {
       "path": "2.2/sc/3.3.2-labels-or-instructions.md",
-      "checksum": "d10d51f08f80e3056d4b98f67198bc2c5f6797343b07f22c125437bd09cc5579",
+      "checksum": "60eb55ba1d8e0c862d0e916cb26f1cecda922b72d6795a002204ec778eeea336",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.3.3": {
       "path": "2.2/sc/3.3.3-error-suggestion.md",
-      "checksum": "a125332c82b4c1d22cafe3fd92f29e072c0765c9c9bbc8a43b7b1991161d9d5f",
+      "checksum": "27a6d308034ccf173a48e9436e57dae913e5f19a15ae37f8ed8f0ce3473fc7a5",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.3.4": {
       "path": "2.2/sc/3.3.4-error-prevention-legal-financial-data.md",
-      "checksum": "500ec6aa1c586dd240fabb1c323a5580f1cb1287a3b2588cb649a15aa05dd1b5",
+      "checksum": "7ffa192224e8ace4e0cbbf6b7c03963ff9686025011905ce037f596cd2c9b51f",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "4.1.1": {
       "path": "2.2/sc/4.1.1-parsing.md",
-      "checksum": "0251199f0e967d9ee4ec82425f427cca07de160894a49166674d4b4bcf52db37",
+      "checksum": "11335f6cdfde749243330e28eef9263954449a129aa244d9b734143ec92a5a2b",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "4.1.2": {
       "path": "2.2/sc/4.1.2-name-role-value.md",
-      "checksum": "13cd4a03cfd8de54f128d9ccaf83e8195cbb883587e1031581413896b02f6875",
+      "checksum": "b2841abd3f56b4160cb4049329c9ce68d7f7f66d31cc198ce2510e593d99ddbc",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.3.4": {
       "path": "2.2/sc/1.3.4-orientation.md",
-      "checksum": "ca4a62da58f0af9260016065f556b7e072ccdfac4977f5e1e0be967f57483855",
+      "checksum": "c27becc4e609c22d5b0f469646c0a8f0eb1ae3ce5f9d3901ddc9c78f12279dbc",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.3.5": {
       "path": "2.2/sc/1.3.5-identify-input-purpose.md",
-      "checksum": "8d0cc24eab78931ecbd25f10e09f0197dc17b620fe1884b65a6100b867089a66",
+      "checksum": "9cdb7bdabaef3e161184f94f67c603bee81a375e6d8ff18d360df3df910cbf44",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.4.10": {
       "path": "2.2/sc/1.4.10-reflow.md",
-      "checksum": "000ef533b6655bad942b39c53d70580550a4c09c2acbf6a741dc6dbed94f81e6",
+      "checksum": "999c852e17d8efd503fd4888621b79d09697f6d3a1e3eea4d79222fa68794801",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.4.11": {
       "path": "2.2/sc/1.4.11-non-text-contrast.md",
-      "checksum": "c40d0866f41b446c754dd6860ffe3ccdf4384d4863c851db7ba5757085ca9c6a",
+      "checksum": "0a8620ceb25e485b23c6d7244cbddaad2db41e8bcb0ddb74adb3ac0e7488565b",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.4.12": {
       "path": "2.2/sc/1.4.12-text-spacing.md",
-      "checksum": "b6c97ef9c3565aec7b4c6378e1a886a651f684191db23bdaa95c96bd6492e797",
+      "checksum": "d93102ba3b8507e9847cb8dbcbcb86faa9041996d775b80140eaadcf0e8f4647",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "1.4.13": {
       "path": "2.2/sc/1.4.13-content-on-hover-or-focus.md",
-      "checksum": "3c7e006ee8e33f54d4a9ebdeb4396693053b23654f46e2033343d0fa801f2126",
+      "checksum": "e7abda5ce5988981a94a65d1869b740dc6d9c45767ca527e0ce36cafc2213a75",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.1.4": {
       "path": "2.2/sc/2.1.4-character-key-shortcuts.md",
-      "checksum": "00d1bd6734a0c4faf0c2f3ec55e675a10776e8651da476a31a4797ba5a97121e",
+      "checksum": "40362afec2b42c4a1c21c39f92b6cc7dcfc00d628f6a93d2a6efd253b5be92d7",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.5.1": {
       "path": "2.2/sc/2.5.1-pointer-gestures.md",
-      "checksum": "d87dd5312d4a7a8c6d582ce04c6d85604c2c1a33657ef3aa9ed49ec9cf432b68",
+      "checksum": "99dcc5d01b601182173f6e663f4b6bdf565f91d44742767a0548cb69fb34a495",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.5.2": {
       "path": "2.2/sc/2.5.2-pointer-cancellation.md",
-      "checksum": "a2a9b5b325a0065c8b367cb2444aa5b27beb72c834fdd473856936d4b39e9efb",
+      "checksum": "4fdbcc13919c2bcbe5a02f9e8ecbc32dcdbc91bc3164ff8b9f326ebd106ced19",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.5.3": {
       "path": "2.2/sc/2.5.3-label-in-name.md",
-      "checksum": "e266c91de08196de2f93b20635279082b81c4fb13e423e1c107a69f174d7cf45",
+      "checksum": "9812011798c50a971f03018ed88773805b95be16f721716d26835b112a667976",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.5.4": {
       "path": "2.2/sc/2.5.4-motion-actuation.md",
-      "checksum": "4b6b44e4319c94dd7592d9fc03ff966db823deca433dd83b70b0bb2e4584c876",
+      "checksum": "09f199ff92ec234cbcef24a23f35536d2d0e8ab01fc715f423208b0721e2c3cd",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "4.1.3": {
       "path": "2.2/sc/4.1.3-status-messages.md",
-      "checksum": "ea5e19171116fc59557ddf80d42b6075009803b401449696256a8b6248144f3f",
+      "checksum": "91d41049d53867b95f3e13939ea1355bfa03160dfbe5fa7e0e3dca070ee93764",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.4.11": {
       "path": "2.2/sc/2.4.11-focus-not-obscured-minimum.md",
-      "checksum": "adf57fc5b272b41962a7a77d05bafa6c9a59ad90100bd6a3f9ee092cbd681203",
+      "checksum": "91e494fae71c392e08e51386c1f380c724446ff6f767f603d0b309fb8be9b1b4",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.5.7": {
       "path": "2.2/sc/2.5.7-dragging-movements.md",
-      "checksum": "d9defd732f227834de883a45246f780ce62336ddfbc319550913c9a0ba66c1ce",
+      "checksum": "6d90cb0a6e0b5e9ba708f09e15aceeef90254144a6b60aa0dc052a3f99320d35",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "2.5.8": {
       "path": "2.2/sc/2.5.8-target-size-minimum.md",
-      "checksum": "29015fe9f8690f0dcb4f1af6f18ef09f5adcef0622a23443942ef4cc426d0e5a",
+      "checksum": "b4ee8f1b2066fde0a0ac39b764119ac692c4e41d5f4ffa9e69be72f9e68c9eda",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.2.6": {
       "path": "2.2/sc/3.2.6-consistent-help.md",
-      "checksum": "16a1ed3af699ab2e9f47a480def9791914b9f5163ea4edec708f725685dd1be9",
+      "checksum": "9e064bfa26450b7eeeffa6e82ab41e6d832f2d4574375f26792f6cb9a347cd0d",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.3.7": {
       "path": "2.2/sc/3.3.7-redundant-entry.md",
-      "checksum": "5db113e1ef46980a16b3d087a94ed284e4352bb7dbb63e3e65cd0707bb34f5ae",
+      "checksum": "dc85a1f2f6e451002bf92ae0eed81dd2365eb453d866fae19c926ce533c673d1",
       "kind": "sc",
       "wcagVersion": "2.2"
     },
     "3.3.8": {
       "path": "2.2/sc/3.3.8-accessible-authentication-minimum.md",
-      "checksum": "b29d496800af8aca4dd12ad103afde1cc14975e6d5eb52ed4540eb79d53e560c",
+      "checksum": "c9f3ea594fef67c47668b39e8a77cb2e7432dd92a94b2bf14fa1cb6bf53fd4bb",
       "kind": "sc",
       "wcagVersion": "2.2"
     },

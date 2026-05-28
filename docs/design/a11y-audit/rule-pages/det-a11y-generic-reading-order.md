@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Reading Order
 summary: Deterministic accessibility check (generic scope).
-page_version: 701ded8eeae491bdbf09887114b650b2da7622ec9867a4bc60337034cf64f91a
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: ce9944d2780012790e7593cca25031d0dd16465af65ba5027ec592286598ac14
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-reading-order
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.READING_ORDER</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Reading Order</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.READING_ORDER</code> (reading order).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.READING_ORDER</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.READING_ORDER</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Reading Order (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.READING_ORDER</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

@@ -76,3 +76,23 @@ jobs:
       - name: Test Forge Website UX Auditor
         working-directory: tools/website-ux-auditor
         run: npm test
+
+  website-a11y-auditor:
+    runs-on: ubuntu-latest
+    env:
+      FORGE_A11Y_SKIP_AI_AGENT: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tools/website-a11y-auditor/package-lock.json
+      - name: npm ci (Forge Website A11y Auditor)
+        working-directory: tools/website-a11y-auditor
+        run: |
+          npm ci
+          npm run vendor:axe
+      - name: Test Forge Website A11y Auditor
+        working-directory: tools/website-a11y-auditor
+        run: npm test

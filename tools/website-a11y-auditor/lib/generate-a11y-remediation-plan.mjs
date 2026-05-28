@@ -29,9 +29,10 @@ function groupFindings(findings) {
  * @param {string} opts.outDir
  * @param {string} opts.repoRoot
  * @param {string} [opts.fixerReportPath]
+ * @param {string} [opts.aiFixerReportPath]
  */
 export async function generateA11yRemediationPlan(opts) {
-  const { auditDataPath, outDir, repoRoot, fixerReportPath } = opts;
+  const { auditDataPath, outDir, repoRoot, fixerReportPath, aiFixerReportPath } = opts;
   const audit = JSON.parse(await fs.readFile(auditDataPath, 'utf8'));
   const findings = audit.findings || [];
 
@@ -41,6 +42,15 @@ export async function generateA11yRemediationPlan(opts) {
       fixerReport = JSON.parse(await fs.readFile(fixerReportPath, 'utf8'));
     } catch {
       fixerReport = null;
+    }
+  }
+
+  let aiFixerReport = null;
+  if (aiFixerReportPath) {
+    try {
+      aiFixerReport = JSON.parse(await fs.readFile(aiFixerReportPath, 'utf8'));
+    } catch {
+      aiFixerReport = null;
     }
   }
 
@@ -95,7 +105,8 @@ export async function generateA11yRemediationPlan(opts) {
 ## Evidence
 
 - Audit JSON: \`a11y-audit-data.json\`
-- Fixer report: \`deterministic-fixer-report.json\` (when fixers ran)
+- Fixer report: \`deterministic-fixer-report.json\` (when DET fixers ran)
+- AI fixer report: \`ai-fixer-report.json\` (when AI fixers ran)
 - Re-audit: \`./run-website-a11y-remediation-loop.sh\` or \`analyze-website-a11y.mjs\`
 
 ## Agent instructions
@@ -119,6 +130,16 @@ ${groups
     return `### ${ruleId} (${rows.length})\n\n${lines.join('\n')}${more}\n`;
   })
   .join('\n')}
+${
+  aiFixerReport?.rules
+    ? `\n## AI fixer suggestions\n\n${Object.entries(aiFixerReport.rules)
+        .map(
+          ([rid, row]) =>
+            `- \`${rid}\` (${row.fixerId}): ${String(row.suggestedAction || '').slice(0, 240)}`,
+        )
+        .join('\n')}\n`
+    : ''
+}
 `;
 
   const front = `---

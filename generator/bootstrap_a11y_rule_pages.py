@@ -220,14 +220,64 @@ _EXAMPLES: dict[str, tuple[str, str, str]] = {
 }
 
 
-def _default_examples(rule_id: str, title: str, scope: str) -> tuple[str, str]:
+def _rule_theme(rule_id: str, lane: str) -> tuple[str, str, str]:
+    """Return (short_title, fail_hint, pass_hint) from rule id suffix."""
+    suffix = rule_id.split(".")[-1].replace("_", " ").lower()
+    short = suffix.title() if suffix else "Accessibility"
+    if lane == "ai":
+        return (
+            short,
+            "Content or UX likely fails human judgment for this AI overlay rule.",
+            "Signals satisfy the AI rule prompt expectations on review.",
+        )
+    if "contrast" in suffix:
+        return short, "Low contrast text or UI component.", "Contrast meets the profile threshold."
+    if "keyboard" in suffix or "focus" in suffix:
+        return short, "Keyboard or focus behavior blocks operation.", "All functionality available via keyboard with visible focus."
+    if "landmark" in suffix or "heading" in suffix or "h1" in suffix:
+        return short, "Landmark or heading structure is incomplete.", "Landmarks and heading levels follow a logical outline."
+    if "lang" in suffix:
+        return short, "Language of page or part is not declared.", "lang (and hreflang where needed) is set correctly."
+    if "alt" in suffix or "image" in suffix or "diagram" in suffix:
+        return short, "Non-text content lacks an adequate text alternative.", "Informative images have meaningful alt text."
+    if "form" in suffix or "label" in suffix or "input" in suffix or "error" in suffix:
+        return short, "Form control labeling or error association is weak.", "Labels, instructions, and errors are programmatically associated."
+    if "media" in suffix or "audio" in suffix or "video" in suffix or "caption" in suffix:
+        return short, "Media alternative or control is missing.", "Captions, controls, or alternatives are provided."
+    if "motion" in suffix or "flash" in suffix or "animation" in suffix:
+        return short, "Motion or flashing may harm or distract users.", "Motion respects prefers-reduced-motion; no hazardous flash."
+    if "timing" in suffix or "pause" in suffix:
+        return short, "Time limits or moving content lack user control.", "Users can extend, pause, or disable timing."
+    if "nav" in suffix or "link" in suffix or "skip" in suffix or "location" in suffix:
+        return short, "Navigation or link purpose is unclear.", "Navigation is consistent; link purpose is clear in context."
+    if "hash" in suffix or "ks" in suffix.lower():
+        return short, "KS visual hash markers are missing or mismatched.", "hash and data-ks-hash match on governed roots."
+    return (
+        short,
+        f"DOM or content signals fail <code>{rule_id}</code> ({suffix or 'check'}).",
+        f"DOM and content satisfy <code>{rule_id}</code> after remediation.",
+    )
+
+
+def _generated_examples(
+    rule_id: str,
+    title: str,
+    scope: str,
+    lane: str,
+    summary: str,
+) -> tuple[str, str]:
+    short, fail_hint, pass_hint = _rule_theme(rule_id, lane)
     fail = (
-        f'<div data-ks-embed-main class="p-3 forge-card">'
-        f'<p class="forge-support mb-0">Placeholder failing state for <code>{rule_id}</code> ({scope}).</p></div>'
+        f'<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail">'
+        f'<h2 class="h6">{title or short}</h2>'
+        f'<p class="forge-support mb-2">{fail_hint}</p>'
+        f'<p class="mb-0 small">Rule: <code>{rule_id}</code> · scope: {scope}</p></div>'
     )
     pass_ = (
-        f'<div data-ks-embed-main class="p-3 forge-card">'
-        f'<p class="mb-0">Placeholder passing state for <code>{rule_id}</code>.</p></div>'
+        f'<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass">'
+        f'<h2 class="h6">{title or short} (remediated)</h2>'
+        f'<p class="mb-2">{pass_hint}</p>'
+        f'<p class="mb-0 small text-muted">{summary[:120]}{"…" if len(summary) > 120 else ""}</p></div>'
     )
     return fail, pass_
 
@@ -355,7 +405,7 @@ def main() -> None:
         else:
             title = rid.split(".")[-1].replace("_", " ").title()
             summary = f"Deterministic accessibility check ({scope} scope)."
-            before, after = _default_examples(rid, title, scope)
+            before, after = _generated_examples(rid, title, scope, "deterministic", summary)
         md = _render_md(
             rid,
             lane="deterministic",
@@ -394,7 +444,7 @@ def main() -> None:
         slug = kebab_from_rule_id(rid)
         title = rid.split(".")[-1].replace("_", " ").title()
         summary = f"AI judgment overlay ({scope} scope)."
-        before, after = _default_examples(rid, title, scope)
+        before, after = _generated_examples(rid, title, scope, "ai", summary)
         md = _render_md(
             rid,
             lane="ai",

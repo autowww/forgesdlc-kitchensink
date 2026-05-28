@@ -49,9 +49,20 @@ node kitchensink/tools/website-a11y-auditor/analyze-website-a11y.mjs \
 |------|------|-------------|
 | **axe** | default in `--lanes` | axe-core WCAG-tagged violations → `AXE.*` findings |
 | **det** | default | `DET.A11Y.GENERIC.*` and (when KS) `DET.A11Y.KS.*` |
-| **ai** | `--enable-ai` | Lists eligible `AI.A11Y.*` rules; use `run-website-a11y-ai-audit.mjs` to run prompts and merge findings |
+| **ai** | `--enable-ai` | Lists eligible `AI.A11Y.*` rules only — **does not** run LLM in analyze |
 
-`--skip-axe` / `--skip-det` remove lanes. `--lanes axe,det,ai` combines all.
+`--skip-axe` / `--skip-det` remove lanes. Including `ai` in `--lanes` does not execute AI in crawl (see `lanesExecuted` in audit JSON).
+
+### AI findings + compliance score
+
+```bash
+node analyze-website-a11y.mjs --repo . --site http://127.0.0.1:8080 --enable-ai --out ./campaign
+node run-website-a11y-ai-audit.mjs --audit-data ./campaign/a11y-audit-data.json --out-dir ./campaign
+npm run merge-ai-audit -- --audit-data ./campaign/a11y-audit-data.json --ai-findings ./campaign/ai-findings-merged.json
+node score-compliance-a11y.mjs --compliance-profile wcag22aa --audit-data ./campaign/a11y-audit-data.json --out ./campaign
+```
+
+Compliance reports include **Failures by lane** (`failingByLane`) per success criterion when scoring a site.
 
 ## Rules scope
 

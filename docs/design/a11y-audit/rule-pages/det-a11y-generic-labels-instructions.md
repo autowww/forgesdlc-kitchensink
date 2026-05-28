@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Labels Instructions
 summary: Deterministic accessibility check (generic scope).
-page_version: 74f6b9b23b669b74316300d5a4bb22e6c00ba11eda28819533527bbb59485eb1
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: d0a1566f20a928aa4837dd776648c13b155de74c2a6c699c7b8bc1388a22893f
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-labels-instructions
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.LABELS_INSTRUCTIONS</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Labels Instructions</h2><p class="forge-support mb-2">Form control labeling or error association is weak.</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.LABELS_INSTRUCTIONS</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.LABELS_INSTRUCTIONS</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Labels Instructions (remediated)</h2><p class="mb-2">Labels, instructions, and errors are programmatically associated.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

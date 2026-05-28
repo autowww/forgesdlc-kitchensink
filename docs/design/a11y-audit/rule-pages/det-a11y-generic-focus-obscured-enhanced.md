@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Focus Obscured Enhanced
 summary: Deterministic accessibility check (generic scope).
-page_version: 856a83b1fa52e661b32d2da8487d5fb7dedc03086e13ec16e16515eb648bc0a8
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: a713e77f53624d5abeb6a00743ae4260d10f7e814e2b251b71d185ddd3cff1c5
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-obscured-enhanced
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Focus Obscured Enhanced</h2><p class="forge-support mb-2">Keyboard or focus behavior blocks operation.</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Focus Obscured Enhanced (remediated)</h2><p class="mb-2">All functionality available via keyboard with visible focus.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

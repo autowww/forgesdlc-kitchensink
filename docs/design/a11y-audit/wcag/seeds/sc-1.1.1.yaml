@@ -1,0 +1,10 @@
+id: "1.1.1"
+summary: |
+  Non-text content must have a text alternative that serves the same purpose,
+  except when the content is purely decorative or redundant with adjacent text.
+operatorNotes: |
+  Pair axe image-alt with DET.A11Y.GENERIC.IMAGES_ALT and diagram-specific checks.
+  Verify complex charts in Studio with a human-readable data table or long description.
+forgeRulesHighlight:
+  - DET.A11Y.GENERIC.IMAGES_ALT
+  - DET.A11Y.GENERIC.DIAGRAM_ALT

@@ -7,13 +7,14 @@ import { generateA11yRemediationPlan } from './lib/generate-a11y-remediation-pla
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function parseArgs(argv) {
-  const opts = { auditData: '', outDir: '', repoRoot: process.cwd(), fixerReport: '' };
+  const opts = { auditData: '', outDir: '', repoRoot: process.cwd(), fixerReport: '', aiFixerReport: '' };
   for (let i = 2; i < argv.length; i += 1) {
     const a = argv[i];
     if (a === '--audit-data' && argv[i + 1]) opts.auditData = path.resolve(argv[++i]);
     else if (a === '--out-dir' && argv[i + 1]) opts.outDir = path.resolve(argv[++i]);
     else if (a === '--repo' && argv[i + 1]) opts.repoRoot = path.resolve(argv[++i]);
     else if (a === '--fixer-report' && argv[i + 1]) opts.fixerReport = path.resolve(argv[++i]);
+    else if (a === '--ai-fixer-report' && argv[i + 1]) opts.aiFixerReport = path.resolve(argv[++i]);
   }
   if (!opts.outDir && opts.auditData) opts.outDir = path.dirname(opts.auditData);
   return opts;
@@ -27,11 +28,14 @@ async function main() {
   }
   const fixerReportPath =
     opts.fixerReport || path.join(opts.outDir, 'deterministic-fixer-report.json');
+  const aiFixerReportPath =
+    opts.aiFixerReport || path.join(opts.outDir, 'ai-fixer-report.json');
   const result = await generateA11yRemediationPlan({
     auditDataPath: opts.auditData,
     outDir: opts.outDir,
     repoRoot: opts.repoRoot,
     fixerReportPath,
+    aiFixerReportPath,
   });
   console.log(`wrote ${result.planPath} (${result.todoCount} todos, ${result.openClusters} clusters)`);
 }

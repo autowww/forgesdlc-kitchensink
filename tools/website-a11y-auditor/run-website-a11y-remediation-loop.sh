@@ -97,6 +97,18 @@ run_fixers() {
     --out-dir "${OUT_DIR}"
 }
 
+run_ai_fixers() {
+  if [[ "${SKIP_AI_FIXERS}" == "1" || "${FIXERS}" != "1" ]]; then
+    return 0
+  fi
+  if [[ ! -f "${AUDIT_DATA}" ]]; then
+    return 0
+  fi
+  node "${TOOL_DIR}/lib/a11y-ai-fixers/run-ai-fixers.mjs" \
+    --audit-data "${AUDIT_DATA}" \
+    --out-dir "${OUT_DIR}" || true
+}
+
 run_ai_audit() {
   if [[ "${SKIP_AI}" == "1" ]]; then
     return 0
@@ -144,6 +156,7 @@ post_agent_build() {
 echo "run-website-a11y-remediation-loop: OUT_DIR=${OUT_DIR}"
 run_audit
 run_fixers
+run_ai_fixers
 run_ai_audit
 generate_plan
 

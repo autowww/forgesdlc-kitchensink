@@ -111,6 +111,16 @@ export function buildA11yAuditReportMarkdown(auditData) {
     `Rules scope: ${auditData.rulesScope?.effectiveScope || '—'} (KS-driven: ${auditData.ksDetection?.ksDriven ? 'yes' : 'no'})`,
   );
   lines.push(`Lanes: ${(auditData.lanes || []).join(', ')}`);
+  const executed = auditData.lanesExecuted;
+  if (executed) {
+    const ran = ['axe', 'det', 'ai'].filter((k) => executed[k]).join(', ') || 'none';
+    lines.push(`Lanes executed this run: ${ran}`);
+  }
+  if (auditData.aiLaneRequested && auditData.aiLaneExecuted === false) {
+    lines.push(
+      'AI lane: **requested but not executed** in this CLI — run `run-website-a11y-ai-audit.mjs` and `npm run merge-ai-audit` to add AI findings.',
+    );
+  }
   lines.push('');
   lines.push(`> ${COMPLIANCE_DISCLAIMER}`);
   lines.push('');

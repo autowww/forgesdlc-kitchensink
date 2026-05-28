@@ -4,6 +4,16 @@ Per-profile **standards packs** are machine-readable JSON files that list every 
 
 **Not legal conformance.** Same disclaimer as [compliance-profiles.md](compliance-profiles.md).
 
+## Runtime lanes vs pack tooling
+
+Packs and the RTM encode **which lane** (axe, deterministic, AI) is expected to cover each criterion. That is **not** the same as runtime execution:
+
+- **Pack / RTM** — design-time mapping (`rules.det`, `rules.ai`, `tooling: manual`).
+- **Site crawl** — `analyze-website-a11y.mjs` and `score-compliance-a11y.mjs` (default) run **axe + det** only unless you pass `--audit-data` with findings that already include merged AI output.
+- **Compliance report** — when scoring a site, each failing criterion includes `failingByLane` (axe / det / ai rule IDs) derived from findings, not a separate AI crawl.
+
+See [compliance-profiles.md](compliance-profiles.md#runtime-lanes-vs-pack-tooling).
+
 ## Location
 
 After `npm run blend-rules` in `tools/website-a11y-auditor/`:

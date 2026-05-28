@@ -4,8 +4,8 @@ lane: deterministic
 scope: ks
 title: Breadcrumb
 summary: Deterministic accessibility check (ks scope).
-page_version: 65466ed153b87870b51557a125ddfc22f77727ef3c91f784a8490b3c5759b48e
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 5a32c9b7aa82a0a41661042538d60b7b25f1fdf0cde66ec4c2bf923bf90255a5
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-breadcrumb
@@ -30,13 +30,13 @@ Deterministic accessibility check (ks scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.KS.BREADCRUMB</code> (ks).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Breadcrumb</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.KS.BREADCRUMB</code> (breadcrumb).</p><p class="mb-0 small">Rule: <code>DET.A11Y.KS.BREADCRUMB</code> · scope: ks</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.KS.BREADCRUMB</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Breadcrumb (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.KS.BREADCRUMB</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (ks scope).</p></div>
 ```
 
 ## Evidence and remediation

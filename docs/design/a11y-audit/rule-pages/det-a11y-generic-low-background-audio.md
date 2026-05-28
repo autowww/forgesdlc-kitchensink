@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Low Background Audio
 summary: Deterministic accessibility check (generic scope).
-page_version: 099246ab6dbefa2e5a298430bd583343939841602db90fdf359b4c6c1606caac
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 9dbc1c89f2d6255dc2246a7367caabd9ba9b218dc19f3c440829aad6799b8482
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-low-background-audio
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Low Background Audio</h2><p class="forge-support mb-2">Media alternative or control is missing.</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Low Background Audio (remediated)</h2><p class="mb-2">Captions, controls, or alternatives are provided.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

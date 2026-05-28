@@ -5,7 +5,7 @@ scope: generic
 title: Text spacing
 summary: Avoid clipping when spacing increases (1.4.12).
 page_version: 2b95ed7da6ed6c79e15cdcde572915490837b361fbf80591ac4f20ef68e3586d
-generated_at: 2026-05-28T04:23:01.000Z
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-text-spacing

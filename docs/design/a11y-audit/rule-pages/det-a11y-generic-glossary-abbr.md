@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Glossary Abbr
 summary: Deterministic accessibility check (generic scope).
-page_version: afa3b75ae42e94a795019f2a7feb10a3e49ea5c762567162b25d2ae38a1c60f3
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 20fad2a0bc0ea3bd403259739fb755beb5b75fb3b6ddf927e381b0233a56351c
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-glossary-abbr
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.GLOSSARY_ABBR</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Glossary Abbr</h2><p class="forge-support mb-2">DOM or content signals fail <code>DET.A11Y.GENERIC.GLOSSARY_ABBR</code> (glossary abbr).</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.GLOSSARY_ABBR</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.GLOSSARY_ABBR</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Glossary Abbr (remediated)</h2><p class="mb-2">DOM and content satisfy <code>DET.A11Y.GENERIC.GLOSSARY_ABBR</code> after remediation.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

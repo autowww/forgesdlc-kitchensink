@@ -5,9 +5,24 @@
   "draftSnapshot": "2025-05-import",
   "source": "Curated from WCAG 3.0 draft guideline topics; mapsToWcag22 is informative automation crosswalk only.",
   "migrationCrosswalkNotes": {
-    "bronze": { "expectedOverlapWith": ["wcag22aa"], "automationProxy": "wcag22aa" },
-    "silver": { "expectedOverlapWith": ["wcag22aa"], "automationProxy": "wcag22aa" },
-    "gold": { "expectedOverlapWith": ["wcag22aaa"], "automationProxy": "wcag22aaa" }
+    "bronze": {
+      "expectedOverlapWith": [
+        "wcag22aa"
+      ],
+      "automationProxy": "wcag22aa"
+    },
+    "silver": {
+      "expectedOverlapWith": [
+        "wcag22aa"
+      ],
+      "automationProxy": "wcag22aa"
+    },
+    "gold": {
+      "expectedOverlapWith": [
+        "wcag22aaa"
+      ],
+      "automationProxy": "wcag22aaa"
+    }
   },
   "rejectedProfileAliases": {
     "wcag30a": "Use wcag30bronze — not equivalent to WCAG 2.x Level A",
@@ -15,55 +30,611 @@
     "wcag30aaa": "Use wcag30gold — not equivalent to WCAG 2.x Level AAA"
   },
   "requirements": [
-    { "id": "WCAG3-REQ-TEXT-ALT", "title": "Text alternatives for non-text content", "guideline": "Text alternatives", "tiers": ["core"], "mapsToWcag22": ["1.1.1"] },
-    { "id": "WCAG3-REQ-CAPTIONS", "title": "Captions for prerecorded audio", "guideline": "Captions", "tiers": ["core"], "defaultCoverage": "manual_only", "mapsToWcag22": ["1.2.2"] },
-    { "id": "WCAG3-REQ-AD", "title": "Audio description or media alternative", "guideline": "Audio description", "tiers": ["core"], "defaultCoverage": "manual_only", "mapsToWcag22": ["1.2.3", "1.2.5"] },
-    { "id": "WCAG3-REQ-INFO-STRUCTURE", "title": "Information and structure programmatically available", "guideline": "Structure", "tiers": ["core"], "mapsToWcag22": ["1.3.1"] },
-    { "id": "WCAG3-REQ-MEANINGFUL-SEQUENCE", "title": "Meaningful sequence", "guideline": "Structure", "tiers": ["core"], "mapsToWcag22": ["1.3.2"] },
-    { "id": "WCAG3-REQ-SENSORY", "title": "Instructions not sensory-only", "guideline": "Clear words", "tiers": ["core"], "defaultCoverage": "manual_only", "mapsToWcag22": ["1.3.3"] },
-    { "id": "WCAG3-REQ-ORIENTATION", "title": "Display orientation not restricted", "guideline": "Layout", "tiers": ["core"], "mapsToWcag22": ["1.3.4"] },
-    { "id": "WCAG3-REQ-INPUT-PURPOSE", "title": "Input purpose identified", "guideline": "Forms", "tiers": ["core"], "mapsToWcag22": ["1.3.5"] },
-    { "id": "WCAG3-REQ-CONTRAST-TEXT", "title": "Text contrast (minimum)", "guideline": "Visual contrast", "tiers": ["core"], "mapsToWcag22": ["1.4.3"] },
-    { "id": "WCAG3-REQ-RESIZE", "title": "Resize text", "guideline": "Visual presentation", "tiers": ["core"], "mapsToWcag22": ["1.4.4"] },
-    { "id": "WCAG3-REQ-REFLOW", "title": "Reflow without horizontal scroll", "guideline": "Layout", "tiers": ["core"], "mapsToWcag22": ["1.4.10"] },
-    { "id": "WCAG3-REQ-NON-TEXT-CONTRAST", "title": "Non-text contrast", "guideline": "Visual contrast", "tiers": ["core"], "mapsToWcag22": ["1.4.11"] },
-    { "id": "WCAG3-REQ-TEXT-SPACING", "title": "Text spacing adjustable", "guideline": "Visual presentation", "tiers": ["core"], "mapsToWcag22": ["1.4.12"] },
-    { "id": "WCAG3-REQ-KEYWORD", "title": "Keyboard operable", "guideline": "Keyboard", "tiers": ["core"], "mapsToWcag22": ["2.1.1"] },
-    { "id": "WCAG3-REQ-NO-KB-TRAP", "title": "No keyboard trap", "guideline": "Keyboard", "tiers": ["core"], "mapsToWcag22": ["2.1.2"] },
-    { "id": "WCAG3-REQ-CHAR-SHORTCUTS", "title": "Character key shortcuts", "guideline": "Keyboard", "tiers": ["core"], "mapsToWcag22": ["2.1.4"] },
-    { "id": "WCAG3-REQ-TIMING", "title": "Timing adjustable", "guideline": "Timing", "tiers": ["core"], "defaultCoverage": "manual_only", "mapsToWcag22": ["2.2.1"] },
-    { "id": "WCAG3-REQ-PAUSE", "title": "Pause, stop, hide moving content", "guideline": "Timing", "tiers": ["core"], "mapsToWcag22": ["2.2.2"] },
-    { "id": "WCAG3-REQ-SEIZURE", "title": "Three flashes or below threshold", "guideline": "Seizures", "tiers": ["core"], "mapsToWcag22": ["2.3.1"] },
-    { "id": "WCAG3-REQ-SKIP", "title": "Bypass blocks / skip links", "guideline": "Navigation", "tiers": ["core"], "mapsToWcag22": ["2.4.1"] },
-    { "id": "WCAG3-REQ-PAGE-TITLE", "title": "Page titled", "guideline": "Navigation", "tiers": ["core"], "mapsToWcag22": ["2.4.2"] },
-    { "id": "WCAG3-REQ-FOCUS-ORDER", "title": "Focus order", "guideline": "Navigation", "tiers": ["core"], "mapsToWcag22": ["2.4.3"] },
-    { "id": "WCAG3-REQ-LINK-PURPOSE", "title": "Link purpose in context", "guideline": "Navigation", "tiers": ["core"], "mapsToWcag22": ["2.4.4"] },
-    { "id": "WCAG3-REQ-HEADINGS", "title": "Headings describe sections", "guideline": "Structure", "tiers": ["core"], "mapsToWcag22": ["2.4.6"] },
-    { "id": "WCAG3-REQ-FOCUS-VISIBLE", "title": "Focus visible", "guideline": "Navigation", "tiers": ["core"], "mapsToWcag22": ["2.4.7"] },
-    { "id": "WCAG3-REQ-FOCUS-OBSCURED", "title": "Focus not obscured", "guideline": "Navigation", "tiers": ["core"], "mapsToWcag22": ["2.4.11"] },
-    { "id": "WCAG3-REQ-TARGET-SIZE", "title": "Target size minimum", "guideline": "Pointer", "tiers": ["core"], "mapsToWcag22": ["2.5.8"] },
-    { "id": "WCAG3-REQ-POINTER-GESTURES", "title": "Pointer gestures have single-pointer alternative", "guideline": "Pointer", "tiers": ["core"], "defaultCoverage": "manual_only", "mapsToWcag22": ["2.5.1"] },
-    { "id": "WCAG3-REQ-LANG", "title": "Page language", "guideline": "Language", "tiers": ["core"], "mapsToWcag22": ["3.1.1"] },
-    { "id": "WCAG3-REQ-LANG-PARTS", "title": "Language of parts", "guideline": "Language", "tiers": ["core"], "mapsToWcag22": ["3.1.2"] },
-    { "id": "WCAG3-REQ-ON-Focus", "title": "On focus no unexpected context change", "guideline": "Predictable", "tiers": ["core"], "mapsToWcag22": ["3.2.1"] },
-    { "id": "WCAG3-REQ-ON-INPUT", "title": "On input no unexpected context change", "guideline": "Predictable", "tiers": ["core"], "mapsToWcag22": ["3.2.2"] },
-    { "id": "WCAG3-REQ-LABELS", "title": "Labels and instructions", "guideline": "Forms", "tiers": ["core"], "mapsToWcag22": ["3.3.2"] },
-    { "id": "WCAG3-REQ-ERROR-ID", "title": "Error identification", "guideline": "Forms", "tiers": ["core"], "mapsToWcag22": ["3.3.1"] },
-    { "id": "WCAG3-REQ-ERROR-SUGGEST", "title": "Error suggestions", "guideline": "Forms", "tiers": ["core"], "mapsToWcag22": ["3.3.3"] },
-    { "id": "WCAG3-REQ-NAME-ROLE-VALUE", "title": "Name, role, value", "guideline": "Compatibility", "tiers": ["core"], "mapsToWcag22": ["4.1.2"] },
-    { "id": "WCAG3-REQ-STATUS", "title": "Status messages", "guideline": "Compatibility", "tiers": ["core"], "mapsToWcag22": ["4.1.3"] },
-    { "id": "WCAG3-REQ-CONSISTENT-HELP", "title": "Consistent help", "guideline": "Help", "tiers": ["supplemental"], "defaultCoverage": "manual_only", "mapsToWcag22": ["3.2.6"] },
-    { "id": "WCAG3-REQ-REDUNDANT-ENTRY", "title": "Redundant entry avoided", "guideline": "Forms", "tiers": ["supplemental"], "defaultCoverage": "manual_only", "mapsToWcag22": ["3.3.7"] },
-    { "id": "WCAG3-REQ-AUTH-MIN", "title": "Accessible authentication (minimum)", "guideline": "Forms", "tiers": ["supplemental"], "defaultCoverage": "manual_only", "mapsToWcag22": ["3.3.8"] },
-    { "id": "WCAG3-REQ-DRAGGING", "title": "Dragging movements", "guideline": "Pointer", "tiers": ["supplemental"], "defaultCoverage": "manual_only", "mapsToWcag22": ["2.5.7"] },
-    { "id": "WCAG3-REQ-ENHANCED-CONTRAST", "title": "Enhanced text contrast", "guideline": "Visual contrast", "tiers": ["supplemental"], "mapsToWcag22": ["1.4.6"] },
-    { "id": "WCAG3-REQ-READING-LEVEL", "title": "Reading level / plain language", "guideline": "Clear words", "tiers": ["supplemental"], "defaultCoverage": "manual_only", "mapsToWcag22": ["3.1.5"] },
-    { "id": "WCAG3-REQ-CONTEXT-HELP", "title": "Context-sensitive help", "guideline": "Help", "tiers": ["supplemental"], "defaultCoverage": "manual_only", "mapsToWcag22": ["3.3.5"] },
-    { "id": "WCAG3-REQ-FOCUS-OBSCURED-ENH", "title": "Focus not obscured (enhanced)", "guideline": "Navigation", "tiers": ["supplemental"], "mapsToWcag22": ["2.4.12"] },
-    { "id": "WCAG3-REQ-FOCUS-APPEARANCE", "title": "Focus appearance", "guideline": "Navigation", "tiers": ["supplemental"], "mapsToWcag22": ["2.4.13"] },
-    { "id": "WCAG3-REQ-AUTH-ENH", "title": "Accessible authentication (enhanced)", "guideline": "Forms", "tiers": ["supplemental"], "defaultCoverage": "manual_only", "mapsToWcag22": ["3.3.9"] },
-    { "id": "WCAG3-REQ-HOLISTIC-USABILITY", "title": "Holistic usability with disabled users", "guideline": "Process", "tiers": ["supplemental"], "defaultCoverage": "manual_only", "mapsToWcag22": ["2.4.5", "3.3.4"] },
-    { "id": "WCAG3-REQ-ORG-PRACTICES", "title": "Organizational accessibility practices", "guideline": "Process", "tiers": ["supplemental"], "defaultCoverage": "manual_only", "mapsToWcag22": ["3.3.4", "3.3.6"] }
+    {
+      "id": "WCAG3-REQ-TEXT-ALT",
+      "title": "Text alternatives for non-text content",
+      "guideline": "Text alternatives",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.1.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-text-alt-text-alternatives-for-non-text-content.md"
+    },
+    {
+      "id": "WCAG3-REQ-CAPTIONS",
+      "title": "Captions for prerecorded audio",
+      "guideline": "Captions",
+      "tiers": [
+        "core"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "1.2.2"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-captions-captions-for-prerecorded-audio.md"
+    },
+    {
+      "id": "WCAG3-REQ-AD",
+      "title": "Audio description or media alternative",
+      "guideline": "Audio description",
+      "tiers": [
+        "core"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "1.2.3",
+        "1.2.5"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-ad-audio-description-or-media-alternative.md"
+    },
+    {
+      "id": "WCAG3-REQ-INFO-STRUCTURE",
+      "title": "Information and structure programmatically available",
+      "guideline": "Structure",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.3.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-info-structure-information-and-structure-programmatically-available.md"
+    },
+    {
+      "id": "WCAG3-REQ-MEANINGFUL-SEQUENCE",
+      "title": "Meaningful sequence",
+      "guideline": "Structure",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.3.2"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-meaningful-sequence-meaningful-sequence.md"
+    },
+    {
+      "id": "WCAG3-REQ-SENSORY",
+      "title": "Instructions not sensory-only",
+      "guideline": "Clear words",
+      "tiers": [
+        "core"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "1.3.3"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-sensory-instructions-not-sensory-only.md"
+    },
+    {
+      "id": "WCAG3-REQ-ORIENTATION",
+      "title": "Display orientation not restricted",
+      "guideline": "Layout",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.3.4"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-orientation-display-orientation-not-restricted.md"
+    },
+    {
+      "id": "WCAG3-REQ-INPUT-PURPOSE",
+      "title": "Input purpose identified",
+      "guideline": "Forms",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.3.5"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-input-purpose-input-purpose-identified.md"
+    },
+    {
+      "id": "WCAG3-REQ-CONTRAST-TEXT",
+      "title": "Text contrast (minimum)",
+      "guideline": "Visual contrast",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.4.3"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-contrast-text-text-contrast-minimum.md"
+    },
+    {
+      "id": "WCAG3-REQ-RESIZE",
+      "title": "Resize text",
+      "guideline": "Visual presentation",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.4.4"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-resize-resize-text.md"
+    },
+    {
+      "id": "WCAG3-REQ-REFLOW",
+      "title": "Reflow without horizontal scroll",
+      "guideline": "Layout",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.4.10"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-reflow-reflow-without-horizontal-scroll.md"
+    },
+    {
+      "id": "WCAG3-REQ-NON-TEXT-CONTRAST",
+      "title": "Non-text contrast",
+      "guideline": "Visual contrast",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.4.11"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-non-text-contrast-non-text-contrast.md"
+    },
+    {
+      "id": "WCAG3-REQ-TEXT-SPACING",
+      "title": "Text spacing adjustable",
+      "guideline": "Visual presentation",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "1.4.12"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-text-spacing-text-spacing-adjustable.md"
+    },
+    {
+      "id": "WCAG3-REQ-KEYWORD",
+      "title": "Keyboard operable",
+      "guideline": "Keyboard",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.1.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-keyword-keyboard-operable.md"
+    },
+    {
+      "id": "WCAG3-REQ-NO-KB-TRAP",
+      "title": "No keyboard trap",
+      "guideline": "Keyboard",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.1.2"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-no-kb-trap-no-keyboard-trap.md"
+    },
+    {
+      "id": "WCAG3-REQ-CHAR-SHORTCUTS",
+      "title": "Character key shortcuts",
+      "guideline": "Keyboard",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.1.4"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-char-shortcuts-character-key-shortcuts.md"
+    },
+    {
+      "id": "WCAG3-REQ-TIMING",
+      "title": "Timing adjustable",
+      "guideline": "Timing",
+      "tiers": [
+        "core"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "2.2.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-timing-timing-adjustable.md"
+    },
+    {
+      "id": "WCAG3-REQ-PAUSE",
+      "title": "Pause, stop, hide moving content",
+      "guideline": "Timing",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.2.2"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-pause-pause-stop-hide-moving-content.md"
+    },
+    {
+      "id": "WCAG3-REQ-SEIZURE",
+      "title": "Three flashes or below threshold",
+      "guideline": "Seizures",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.3.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-seizure-three-flashes-or-below-threshold.md"
+    },
+    {
+      "id": "WCAG3-REQ-SKIP",
+      "title": "Bypass blocks / skip links",
+      "guideline": "Navigation",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.4.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-skip-bypass-blocks-skip-links.md"
+    },
+    {
+      "id": "WCAG3-REQ-PAGE-TITLE",
+      "title": "Page titled",
+      "guideline": "Navigation",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.4.2"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-page-title-page-titled.md"
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-ORDER",
+      "title": "Focus order",
+      "guideline": "Navigation",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.4.3"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-focus-order-focus-order.md"
+    },
+    {
+      "id": "WCAG3-REQ-LINK-PURPOSE",
+      "title": "Link purpose in context",
+      "guideline": "Navigation",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.4.4"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-link-purpose-link-purpose-in-context.md"
+    },
+    {
+      "id": "WCAG3-REQ-HEADINGS",
+      "title": "Headings describe sections",
+      "guideline": "Structure",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.4.6"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-headings-headings-describe-sections.md"
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-VISIBLE",
+      "title": "Focus visible",
+      "guideline": "Navigation",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.4.7"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-focus-visible-focus-visible.md"
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-OBSCURED",
+      "title": "Focus not obscured",
+      "guideline": "Navigation",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.4.11"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-focus-obscured-focus-not-obscured.md"
+    },
+    {
+      "id": "WCAG3-REQ-TARGET-SIZE",
+      "title": "Target size minimum",
+      "guideline": "Pointer",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "2.5.8"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-target-size-target-size-minimum.md"
+    },
+    {
+      "id": "WCAG3-REQ-POINTER-GESTURES",
+      "title": "Pointer gestures have single-pointer alternative",
+      "guideline": "Pointer",
+      "tiers": [
+        "core"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "2.5.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-pointer-gestures-pointer-gestures-have-single-pointer-alternative.md"
+    },
+    {
+      "id": "WCAG3-REQ-LANG",
+      "title": "Page language",
+      "guideline": "Language",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "3.1.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-lang-page-language.md"
+    },
+    {
+      "id": "WCAG3-REQ-LANG-PARTS",
+      "title": "Language of parts",
+      "guideline": "Language",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "3.1.2"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-lang-parts-language-of-parts.md"
+    },
+    {
+      "id": "WCAG3-REQ-ON-Focus",
+      "title": "On focus no unexpected context change",
+      "guideline": "Predictable",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "3.2.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-on-focus-on-focus-no-unexpected-context-change.md"
+    },
+    {
+      "id": "WCAG3-REQ-ON-INPUT",
+      "title": "On input no unexpected context change",
+      "guideline": "Predictable",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "3.2.2"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-on-input-on-input-no-unexpected-context-change.md"
+    },
+    {
+      "id": "WCAG3-REQ-LABELS",
+      "title": "Labels and instructions",
+      "guideline": "Forms",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "3.3.2"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-labels-labels-and-instructions.md"
+    },
+    {
+      "id": "WCAG3-REQ-ERROR-ID",
+      "title": "Error identification",
+      "guideline": "Forms",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "3.3.1"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-error-id-error-identification.md"
+    },
+    {
+      "id": "WCAG3-REQ-ERROR-SUGGEST",
+      "title": "Error suggestions",
+      "guideline": "Forms",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "3.3.3"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-error-suggest-error-suggestions.md"
+    },
+    {
+      "id": "WCAG3-REQ-NAME-ROLE-VALUE",
+      "title": "Name, role, value",
+      "guideline": "Compatibility",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "4.1.2"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-name-role-value-name-role-value.md"
+    },
+    {
+      "id": "WCAG3-REQ-STATUS",
+      "title": "Status messages",
+      "guideline": "Compatibility",
+      "tiers": [
+        "core"
+      ],
+      "mapsToWcag22": [
+        "4.1.3"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-status-status-messages.md"
+    },
+    {
+      "id": "WCAG3-REQ-CONSISTENT-HELP",
+      "title": "Consistent help",
+      "guideline": "Help",
+      "tiers": [
+        "supplemental"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "3.2.6"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-consistent-help-consistent-help.md"
+    },
+    {
+      "id": "WCAG3-REQ-REDUNDANT-ENTRY",
+      "title": "Redundant entry avoided",
+      "guideline": "Forms",
+      "tiers": [
+        "supplemental"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "3.3.7"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-redundant-entry-redundant-entry-avoided.md"
+    },
+    {
+      "id": "WCAG3-REQ-AUTH-MIN",
+      "title": "Accessible authentication (minimum)",
+      "guideline": "Forms",
+      "tiers": [
+        "supplemental"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "3.3.8"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-auth-min-accessible-authentication-minimum.md"
+    },
+    {
+      "id": "WCAG3-REQ-DRAGGING",
+      "title": "Dragging movements",
+      "guideline": "Pointer",
+      "tiers": [
+        "supplemental"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "2.5.7"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-dragging-dragging-movements.md"
+    },
+    {
+      "id": "WCAG3-REQ-ENHANCED-CONTRAST",
+      "title": "Enhanced text contrast",
+      "guideline": "Visual contrast",
+      "tiers": [
+        "supplemental"
+      ],
+      "mapsToWcag22": [
+        "1.4.6"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-enhanced-contrast-enhanced-text-contrast.md"
+    },
+    {
+      "id": "WCAG3-REQ-READING-LEVEL",
+      "title": "Reading level / plain language",
+      "guideline": "Clear words",
+      "tiers": [
+        "supplemental"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "3.1.5"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-reading-level-reading-level-plain-language.md"
+    },
+    {
+      "id": "WCAG3-REQ-CONTEXT-HELP",
+      "title": "Context-sensitive help",
+      "guideline": "Help",
+      "tiers": [
+        "supplemental"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "3.3.5"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-context-help-context-sensitive-help.md"
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-OBSCURED-ENH",
+      "title": "Focus not obscured (enhanced)",
+      "guideline": "Navigation",
+      "tiers": [
+        "supplemental"
+      ],
+      "mapsToWcag22": [
+        "2.4.12"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-focus-obscured-enh-focus-not-obscured-enhanced.md"
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-APPEARANCE",
+      "title": "Focus appearance",
+      "guideline": "Navigation",
+      "tiers": [
+        "supplemental"
+      ],
+      "mapsToWcag22": [
+        "2.4.13"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-focus-appearance-focus-appearance.md"
+    },
+    {
+      "id": "WCAG3-REQ-AUTH-ENH",
+      "title": "Accessible authentication (enhanced)",
+      "guideline": "Forms",
+      "tiers": [
+        "supplemental"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "3.3.9"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-auth-enh-accessible-authentication-enhanced.md"
+    },
+    {
+      "id": "WCAG3-REQ-HOLISTIC-USABILITY",
+      "title": "Holistic usability with disabled users",
+      "guideline": "Process",
+      "tiers": [
+        "supplemental"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "2.4.5",
+        "3.3.4"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-holistic-usability-holistic-usability-with-disabled-users.md"
+    },
+    {
+      "id": "WCAG3-REQ-ORG-PRACTICES",
+      "title": "Organizational accessibility practices",
+      "guideline": "Process",
+      "tiers": [
+        "supplemental"
+      ],
+      "defaultCoverage": "manual_only",
+      "mapsToWcag22": [
+        "3.3.4",
+        "3.3.6"
+      ],
+      "docPath": "wcag/3.0/outcomes/wcag3-req-org-practices-organizational-accessibility-practices.md"
+    }
   ],
   "profiles": {
     "wcag30bronze": {

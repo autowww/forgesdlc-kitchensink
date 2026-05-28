@@ -4,8 +4,8 @@ lane: ai
 scope: ks
 title: Region Labeling
 summary: AI judgment overlay (ks scope).
-page_version: 3f0eb9c1e78bc1fad7ac5de32de7e590a59553babfce913b3bde591de69944c7
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 9621a04a37c3177743c416db496d7b6718343a62c16ebe07402049b927100789
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-ks-region-labeling
@@ -30,13 +30,13 @@ AI judgment overlay (ks scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>AI.A11Y.KS.REGION_LABELING</code> (ks).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Region Labeling</h2><p class="forge-support mb-2">Content or UX likely fails human judgment for this AI overlay rule.</p><p class="mb-0 small">Rule: <code>AI.A11Y.KS.REGION_LABELING</code> · scope: ks</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>AI.A11Y.KS.REGION_LABELING</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Region Labeling (remediated)</h2><p class="mb-2">Signals satisfy the AI rule prompt expectations on review.</p><p class="mb-0 small text-muted">AI judgment overlay (ks scope).</p></div>
 ```
 
 ## Evidence and remediation

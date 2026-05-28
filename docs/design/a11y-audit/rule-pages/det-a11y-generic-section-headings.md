@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Section Headings
 summary: Deterministic accessibility check (generic scope).
-page_version: 39d9e8bb03c74538d31d7c734bab5377610b3033a5e869531e1576a5898e24c4
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 4193f24f8a8aca6f1b17a70c2ec8928bf93ae29126bb4e73a04c50282b0794ba
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-section-headings
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.SECTION_HEADINGS</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Section Headings</h2><p class="forge-support mb-2">Landmark or heading structure is incomplete.</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.SECTION_HEADINGS</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.SECTION_HEADINGS</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Section Headings (remediated)</h2><p class="mb-2">Landmarks and heading levels follow a logical outline.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation

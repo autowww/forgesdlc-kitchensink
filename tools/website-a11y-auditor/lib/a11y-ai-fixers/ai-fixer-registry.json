@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-28T12:00:00.000Z",
+  "defaultFixerId": "plan_only",
+  "rules": [
+    { "ruleId": "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW", "fixerId": "plan_only" },
+    { "ruleId": "AI.A11Y.GENERIC.READING_LEVEL", "fixerId": "plan_only" },
+    { "ruleId": "AI.A11Y.KS.REGION_LABELING", "fixerId": "plan_only" }
+  ]
+}

@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Diagram Alt
 summary: Deterministic accessibility check (generic scope).
-page_version: 42478773ceb2dd36d037149f4c834efb632722dab5c48235ace562fdc363bf58
-generated_at: 2026-05-28T04:23:01.000Z
+page_version: 2b388c3ef9d785fa8738c70c722538cf3a3963e308cf650994952ab0f87a0823
+generated_at: 2026-05-28T05:09:12.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-diagram-alt
@@ -30,13 +30,13 @@ Deterministic accessibility check (generic scope).
 ## Before example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="forge-support mb-0">Placeholder failing state for <code>DET.A11Y.GENERIC.DIAGRAM_ALT</code> (generic).</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="fail"><h2 class="h6">Diagram Alt</h2><p class="forge-support mb-2">Non-text content lacks an adequate text alternative.</p><p class="mb-0 small">Rule: <code>DET.A11Y.GENERIC.DIAGRAM_ALT</code> · scope: generic</p></div>
 ```
 
 ## After example
 
 ```html
-<div data-ks-embed-main class="p-3 forge-card"><p class="mb-0">Placeholder passing state for <code>DET.A11Y.GENERIC.DIAGRAM_ALT</code>.</p></div>
+<div data-ks-embed-main class="p-3 forge-card" data-a11y-example="pass"><h2 class="h6">Diagram Alt (remediated)</h2><p class="mb-2">Informative images have meaningful alt text.</p><p class="mb-0 small text-muted">Deterministic accessibility check (generic scope).</p></div>
 ```
 
 ## Evidence and remediation
