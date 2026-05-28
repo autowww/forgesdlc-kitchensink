@@ -20,9 +20,11 @@ describe('ai-fixer-registry coverage', () => {
     for (const rule of implemented) {
       assert.ok(byRule.has(rule.id), `missing ai fixer row for ${rule.id}`);
     }
-    assert.ok(
-      (aiFixer.rules || []).filter((r) => r.fixerId === 'remediation_note').length >= 10,
-      'expected at least ten remediation_note fixers',
-    );
+    const applyCount = (aiFixer.rules || []).filter((r) =>
+      String(r.fixerId || '').startsWith('ai_apply_'),
+    ).length;
+    const noteCount = (aiFixer.rules || []).filter((r) => r.fixerId === 'remediation_note').length;
+    assert.ok(applyCount >= 6, `expected at least six ai_apply_* fixers, got ${applyCount}`);
+    assert.ok(noteCount >= 6, `expected at least six remediation_note fixers, got ${noteCount}`);
   });
 });

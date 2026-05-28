@@ -15,17 +15,17 @@ const OUT_PATH = path.join(TOOL_ROOT, 'lib/a11y-ai-fixers/ai-fixer-registry.json
 const AI_APPLY_RULES = new Map([
   ['AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION', 'ai_apply_form_error'],
   ['AI.A11Y.GENERIC.AUDIO_CONTROL', 'ai_apply_audio_control'],
+  ['AI.A11Y.GENERIC.TIMING_ADJUSTABLE', 'ai_apply_timing_adjustable'],
+  ['AI.A11Y.GENERIC.READING_LEVEL', 'ai_apply_reading_level'],
+  ['AI.A11Y.GENERIC.ERROR_PREVENTION', 'ai_apply_error_prevention'],
+  ['AI.A11Y.KS.REGION_LABELING', 'ai_apply_region_labeling'],
 ]);
 
 /** Rules that may emit a remediation note artifact (guarded apply). */
 const REMEDIATION_NOTE_RULES = new Set([
   'AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS',
-  'AI.A11Y.KS.REGION_LABELING',
   'AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS',
-  'AI.A11Y.GENERIC.READING_LEVEL',
-  'AI.A11Y.GENERIC.TIMING_ADJUSTABLE',
   'AI.A11Y.GENERIC.MEDIA_ALTERNATIVES',
-  'AI.A11Y.GENERIC.ERROR_PREVENTION',
   'AI.A11Y.GENERIC.CONTEXT_HELP',
   'AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT',
   'AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT',

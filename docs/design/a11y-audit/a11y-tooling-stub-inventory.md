@@ -1,6 +1,6 @@
 # A11y tooling stub inventory
 
-Generated: 2026-05-28T08:29:03.694Z
+Generated: 2026-05-28T08:42:12.971Z
 
 > Read-only gap report. Does not modify code or close gaps.
 

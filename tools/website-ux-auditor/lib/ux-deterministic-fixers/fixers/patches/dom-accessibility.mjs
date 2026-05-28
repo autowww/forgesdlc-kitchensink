@@ -148,3 +148,55 @@ export async function patchMotionNoAutoplay(ctx) {
   });
   return { applied: touched > 0, filesTouched: touched, adapter: 'dom_accessibility' };
 }
+
+/**
+ * @param {string} html
+ */
+export function patchTimingAdjustableHtml(html) {
+  let out = html;
+  out = out.replace(/<meta\b[^>]*http-equiv=["']refresh["'][^>]*>/gi, '');
+  out = out.replace(/\sdata-session-timeout\b/gi, '');
+  out = out.replace(/\sdata-timeout\b/gi, '');
+  if (!/@media\s*\(\s*prefers-reduced-motion/i.test(out)) {
+    const block =
+      '<style>@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }</style>';
+    out = out.replace(/<\/head>/i, `${block}\n</head>`);
+  }
+  return out;
+}
+
+/**
+ * @param {{ repoRoot: string, findings?: object[] }} ctx
+ */
+export async function patchTimingAdjustable(ctx) {
+  const touched = await patchHtmlFiles(ctx.repoRoot, ctx.findings || [], patchTimingAdjustableHtml);
+  return { applied: touched > 0, filesTouched: touched, adapter: 'dom_accessibility' };
+}
+
+/**
+ * @param {string} html
+ */
+export function patchRegionLabelingHtml(html) {
+  let out = html;
+  const addLabel = (tag, label) => {
+    const re = new RegExp(
+      `<${tag}\\b((?![^>]*\\baria-label=)(?![^>]*\\baria-labelledby=)[^>]*)>`,
+      'gi',
+    );
+    out = out.replace(re, `<${tag} aria-label="${label}"$1>`);
+  };
+  addLabel('main', 'Main content');
+  addLabel('nav', 'Site navigation');
+  addLabel('header', 'Site header');
+  addLabel('footer', 'Site footer');
+  addLabel('aside', 'Complementary content');
+  return out;
+}
+
+/**
+ * @param {{ repoRoot: string, findings?: object[] }} ctx
+ */
+export async function patchRegionLabeling(ctx) {
+  const touched = await patchHtmlFiles(ctx.repoRoot, ctx.findings || [], patchRegionLabelingHtml);
+  return { applied: touched > 0, filesTouched: touched, adapter: 'dom_accessibility' };
+}

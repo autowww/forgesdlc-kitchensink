@@ -20,6 +20,13 @@ describe('a11y-ai-fixers', () => {
     assert.equal(resolveAiFixerId('AI.A11Y.GENERIC.AUDIO_CONTROL'), 'ai_apply_audio_control');
   });
 
+  it('resolveAiFixerId maps DOM-apply pilot rules', () => {
+    assert.equal(resolveAiFixerId('AI.A11Y.GENERIC.TIMING_ADJUSTABLE'), 'ai_apply_timing_adjustable');
+    assert.equal(resolveAiFixerId('AI.A11Y.GENERIC.READING_LEVEL'), 'ai_apply_reading_level');
+    assert.equal(resolveAiFixerId('AI.A11Y.GENERIC.ERROR_PREVENTION'), 'ai_apply_error_prevention');
+    assert.equal(resolveAiFixerId('AI.A11Y.KS.REGION_LABELING'), 'ai_apply_region_labeling');
+  });
+
   it('runAiFixers writes ai-fixer-report.json for AI findings', async () => {
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'ai-fix-'));
     const auditPath = path.join(tmp, 'a11y-audit-data.json');
@@ -76,6 +83,77 @@ describe('a11y-ai-fixers', () => {
     assert.equal(row.applied, true);
     const patched = await fs.readFile(htmlPath, 'utf8');
     assert.match(patched, /aria-describedby=["']err-email["']/);
+  });
+
+  it('ai_apply_error_prevention patches checkout confirm step', async () => {
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'ai-err-prev-'));
+    const repo = path.join(tmp, 'site');
+    await fs.mkdir(repo, { recursive: true });
+    const htmlPath = path.join(repo, 'index.html');
+    await fs.writeFile(
+      htmlPath,
+      '<!DOCTYPE html><html><body><form><p>Complete your purchase with payment card.</p><button type="submit">Pay</button></form></body></html>',
+    );
+    const auditPath = path.join(tmp, 'a11y-audit-data.json');
+    await fs.writeFile(
+      auditPath,
+      `${JSON.stringify({
+        findings: [
+          {
+            ruleId: 'AI.A11Y.GENERIC.ERROR_PREVENTION',
+            severity: 'major',
+            message: 'no confirm step',
+            url: 'file://' + htmlPath,
+          },
+        ],
+      })}\n`,
+    );
+    const { report } = await runAiFixers({
+      auditDataPath: auditPath,
+      outDir: tmp,
+      repoRoot: repo,
+    });
+    const row = report.rules['AI.A11Y.GENERIC.ERROR_PREVENTION'];
+    assert.equal(row.fixerId, 'ai_apply_error_prevention');
+    assert.equal(row.applied, true);
+    const patched = await fs.readFile(htmlPath, 'utf8');
+    assert.match(patched, /user_confirm/);
+  });
+
+  it('ai_apply_region_labeling adds aria-label on landmarks', async () => {
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'ai-region-'));
+    const repo = path.join(tmp, 'site');
+    await fs.mkdir(repo, { recursive: true });
+    const htmlPath = path.join(repo, 'index.html');
+    await fs.writeFile(
+      htmlPath,
+      '<!DOCTYPE html><html><body><nav><a href="/a">A</a></nav><main><p>Hi</p></main></body></html>',
+    );
+    const auditPath = path.join(tmp, 'a11y-audit-data.json');
+    await fs.writeFile(
+      auditPath,
+      `${JSON.stringify({
+        findings: [
+          {
+            ruleId: 'AI.A11Y.KS.REGION_LABELING',
+            severity: 'major',
+            message: 'unlabeled region',
+            url: 'file://' + htmlPath,
+          },
+        ],
+      })}\n`,
+    );
+    const { report } = await runAiFixers({
+      auditDataPath: auditPath,
+      outDir: tmp,
+      repoRoot: repo,
+    });
+    const row = report.rules['AI.A11Y.KS.REGION_LABELING'];
+    assert.equal(row.fixerId, 'ai_apply_region_labeling');
+    assert.equal(row.applied, true);
+    const patched = await fs.readFile(htmlPath, 'utf8');
+    assert.match(patched, /aria-label="Main content"/);
+    assert.match(patched, /aria-label="Site navigation"/);
   });
 
   it('remediation_note fixer applies and writes note file', async () => {
