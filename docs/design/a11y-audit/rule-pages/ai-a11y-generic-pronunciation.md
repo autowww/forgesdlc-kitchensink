@@ -5,7 +5,7 @@ scope: generic
 title: Pronunciation
 summary: AI judgment overlay (generic scope).
 page_version: 851f181622ce0abc42c6516997fe1fbbd581f5f4ef0b6afc8a992081b79653f5
-generated_at: 2026-05-28T04:08:36.000Z
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-pronunciation

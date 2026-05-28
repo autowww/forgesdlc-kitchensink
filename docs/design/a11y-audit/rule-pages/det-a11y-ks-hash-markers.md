@@ -4,8 +4,8 @@ lane: deterministic
 scope: ks
 title: KS hash markers
 summary: hash and data-ks-hash must agree on visual roots.
-page_version: d00c8b56cf3d2d3489df3c58a997ba4362258683394271c8d661606972b8c976
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 46ebe041679ba66019e51869b1fdba1cf72b2f80b03925484c67097129944c75
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-hash-markers
@@ -48,4 +48,8 @@ hash and data-ks-hash must agree on visual roots.
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **4.1.2** — [`wcag/2.2/sc/4.1.2-name-role-value.md`](../wcag/2.2/sc/4.1.2-name-role-value.md)
 

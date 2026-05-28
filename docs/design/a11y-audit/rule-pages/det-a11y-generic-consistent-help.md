@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Consistent Help
 summary: Deterministic accessibility check (generic scope).
-page_version: cd0f075cc311f0a3a96259d864e3bb8db120a86acd6cee8b9134bd4be18181a0
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 29d9fc379c7a059f49b2540ffcbd79a7604c570d37c9ed066380ae12bab47cf3
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-consistent-help
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **3.2.6** — [`wcag/2.2/sc/3.2.6-consistent-help.md`](../wcag/2.2/sc/3.2.6-consistent-help.md)
 

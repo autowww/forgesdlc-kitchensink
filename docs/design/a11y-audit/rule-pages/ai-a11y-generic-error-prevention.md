@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Error Prevention
 summary: AI judgment overlay (generic scope).
-page_version: ebfc675bd8403a55f494f14888c36024514137a94c6c48d897b5bcd8ecae0001
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: d047fbfde16a23cbb2b0a22d43ef442d0d692f2a4f0cdb329325aba1d65f5fc7
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-error-prevention
@@ -48,4 +48,8 @@ AI judgment overlay (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **3.3.4** — [`wcag/2.2/sc/3.3.4-error-prevention-legal-financial-data.md`](../wcag/2.2/sc/3.3.4-error-prevention-legal-financial-data.md)
 

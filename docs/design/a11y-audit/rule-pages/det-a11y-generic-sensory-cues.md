@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Sensory Cues
 summary: Deterministic accessibility check (generic scope).
-page_version: 21fbc0c173a87fc18173cc41c63d68a5ffd6f9751089bab7c81dccca8eabbd1c
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 3ec8088f124a14819fb7052e778617f6621e443df077f499e73afbd9affad383
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-sensory-cues
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.3.3** — [`wcag/2.2/sc/1.3.3-sensory-characteristics.md`](../wcag/2.2/sc/1.3.3-sensory-characteristics.md)
 

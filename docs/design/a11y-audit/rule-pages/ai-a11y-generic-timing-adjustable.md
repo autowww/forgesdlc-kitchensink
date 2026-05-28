@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Timing Adjustable
 summary: AI judgment overlay (generic scope).
-page_version: ca2dcdfb0dd713e11cba4d40dc9eaf4ab8ce021e1fda06bce3fce5fd930db498
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 92722f0c981d29e6a7c5e47c01666e3d19336fa53a5c8bce2ce052fe2c11308b
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-timing-adjustable
@@ -48,4 +48,8 @@ AI judgment overlay (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.2.1** — [`wcag/2.2/sc/2.2.1-timing-adjustable.md`](../wcag/2.2/sc/2.2.1-timing-adjustable.md)
 

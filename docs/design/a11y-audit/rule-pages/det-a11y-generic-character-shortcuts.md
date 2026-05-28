@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Character Shortcuts
 summary: Deterministic accessibility check (generic scope).
-page_version: 213f7992000afc669132157f72916b1281e9cdb1ee7eb710ffad46c2913a640f
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 8fb5d7bbb8bbb3484869d46ee6cb7be77ba4dcb27921dc9f683c0fcbedcbd44b
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-character-shortcuts
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.1.4** — [`wcag/2.2/sc/2.1.4-character-key-shortcuts.md`](../wcag/2.2/sc/2.1.4-character-key-shortcuts.md)
 

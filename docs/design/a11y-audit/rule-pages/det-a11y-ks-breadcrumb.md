@@ -5,7 +5,7 @@ scope: ks
 title: Breadcrumb
 summary: Deterministic accessibility check (ks scope).
 page_version: 65466ed153b87870b51557a125ddfc22f77727ef3c91f784a8490b3c5759b48e
-generated_at: 2026-05-28T04:08:36.000Z
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-breadcrumb

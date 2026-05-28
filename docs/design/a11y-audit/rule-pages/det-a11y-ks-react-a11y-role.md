@@ -4,8 +4,8 @@ lane: deterministic
 scope: ks
 title: React A11Y Role
 summary: Deterministic accessibility check (ks scope).
-page_version: 12d277513ddd47bcd5d56388d2b97acc85845382a7ff036038a4fa2107964811
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 95d700d9e2f4fed60f110f94405260e1fb1e09363d63ce361c9a802817f6aacd
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-react-a11y-role
@@ -48,4 +48,8 @@ Deterministic accessibility check (ks scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **4.1.2** — [`wcag/2.2/sc/4.1.2-name-role-value.md`](../wcag/2.2/sc/4.1.2-name-role-value.md)
 

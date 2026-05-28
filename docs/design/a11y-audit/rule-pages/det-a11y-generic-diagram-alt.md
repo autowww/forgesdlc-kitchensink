@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Diagram Alt
 summary: Deterministic accessibility check (generic scope).
-page_version: ec442a5dd1c86d574a0499777943be4394ef801c1fe2eb120c2b0d229331993e
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 42478773ceb2dd36d037149f4c834efb632722dab5c48235ace562fdc363bf58
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-diagram-alt
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.1.1** — [`wcag/2.2/sc/1.1.1-non-text-content.md`](../wcag/2.2/sc/1.1.1-non-text-content.md)
 

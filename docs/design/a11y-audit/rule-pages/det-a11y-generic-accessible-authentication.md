@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Accessible Authentication
 summary: Deterministic accessibility check (generic scope).
-page_version: 453f1901740af9e2e94784c99c3ff1e46825ac70a7bd37125c56dd369a4d0bfc
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: a2637c69c1d08abc8f5e9543344370d8bc053a8fb61f71a59cae38b901573327
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-accessible-authentication
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **3.3.8** — [`wcag/2.2/sc/3.3.8-accessible-authentication-minimum.md`](../wcag/2.2/sc/3.3.8-accessible-authentication-minimum.md)
 

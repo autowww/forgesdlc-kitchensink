@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Focus Order
 summary: Deterministic accessibility check (generic scope).
-page_version: 93938ab408102a4069fad6b4f8fc70b1a321c6b7c4a27060ecdeae528830535b
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 93199f326f0f9a4f2c7fcd23eb60cc207bdfad7bf1a10789858c40cc005e8529
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-order
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.4.3** — [`wcag/2.2/sc/2.4.3-focus-order.md`](../wcag/2.2/sc/2.4.3-focus-order.md)
 

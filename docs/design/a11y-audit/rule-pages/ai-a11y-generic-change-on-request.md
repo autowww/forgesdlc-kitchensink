@@ -5,7 +5,7 @@ scope: generic
 title: Change On Request
 summary: AI judgment overlay (generic scope).
 page_version: 9637a971057d632b3edff65fb041ced62b8e915628f2b1b7c14963db0552263f
-generated_at: 2026-05-28T04:08:36.000Z
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-change-on-request

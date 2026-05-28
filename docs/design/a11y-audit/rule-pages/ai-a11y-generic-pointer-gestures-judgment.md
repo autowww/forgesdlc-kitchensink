@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Pointer Gestures Judgment
 summary: AI judgment overlay (generic scope).
-page_version: 691ca6cd01ac81a6b53ddedcc23037756572646d3a0f7a2e535aa742270b1fcc
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 10cbd5d87f8dee05c7c6daba490db9330fe7dead4cb55d9a8117cc9956041092
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-pointer-gestures-judgment
@@ -48,4 +48,8 @@ AI judgment overlay (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.5.1** — [`wcag/2.2/sc/2.5.1-pointer-gestures.md`](../wcag/2.2/sc/2.5.1-pointer-gestures.md)
 

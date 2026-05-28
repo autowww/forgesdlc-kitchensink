@@ -4,8 +4,8 @@ lane: ai
 scope: ks
 title: Region Labeling
 summary: AI judgment overlay (ks scope).
-page_version: ebae1267d4fe0098d54b74afc3a2adac78935e79f31ca0463cd6f8aa70a74640
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 3f0eb9c1e78bc1fad7ac5de32de7e590a59553babfce913b3bde591de69944c7
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-ks-region-labeling
@@ -48,4 +48,9 @@ AI judgment overlay (ks scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.3.1** — [`wcag/2.2/sc/1.3.1-info-and-relationships.md`](../wcag/2.2/sc/1.3.1-info-and-relationships.md)
+- WCAG **4.1.2** — [`wcag/2.2/sc/4.1.2-name-role-value.md`](../wcag/2.2/sc/4.1.2-name-role-value.md)
 

@@ -1,0 +1,587 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-28T04:21:49.536Z",
+  "entries": {
+    "1.1.1": {
+      "path": "2.2/sc/1.1.1-non-text-content.md",
+      "checksum": "673d662eca8ce26640d7934ae06a23291b6593351e550359583c017bbb27fb21",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.2.1": {
+      "path": "2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md",
+      "checksum": "0c7a6c4814a7f2ce7734225adc688f08020a928a8208c3a5f3aadbbe31a3ace9",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.2.2": {
+      "path": "2.2/sc/1.2.2-captions-prerecorded.md",
+      "checksum": "26c8c768b7c23e9059a14e0ca4c7a9066336af9688eb037e18d85c2a8dec6567",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.2.3": {
+      "path": "2.2/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md",
+      "checksum": "33f2c7c2a38ba39f698f7bffe45197b8beca3560ebe4392a45e27a7fd158c977",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.2.4": {
+      "path": "2.2/sc/1.2.4-captions-live.md",
+      "checksum": "3b1bdcbb6b86c3cdd9ce230d37f6edca4ff71d8d702c1ed38f9453e353a769bb",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.2.5": {
+      "path": "2.2/sc/1.2.5-audio-description-prerecorded.md",
+      "checksum": "a84cab6bc4bf8245362e16905f948aecad57b8e0589e541a99dd0c2f9337a35e",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.3.1": {
+      "path": "2.2/sc/1.3.1-info-and-relationships.md",
+      "checksum": "e3039ba10035556246481fc7f3079e10e87d14b01eedad4acbd0796f9ef580a3",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.3.2": {
+      "path": "2.2/sc/1.3.2-meaningful-sequence.md",
+      "checksum": "569de79e5a3576a8026ea04c8b74641c630be57694aeb468bcc59db868e5d6a1",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.3.3": {
+      "path": "2.2/sc/1.3.3-sensory-characteristics.md",
+      "checksum": "f7dacb03adc38013d8092a5beff01fc72d6cda146a0822e0899fcc5eeaf672ff",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.4.1": {
+      "path": "2.2/sc/1.4.1-use-of-color.md",
+      "checksum": "1f7b289bf975dc5e1bccdd62ce180fd502a956eed0aae1bd04c599e8a2308501",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.4.2": {
+      "path": "2.2/sc/1.4.2-audio-control.md",
+      "checksum": "246a5d00310141b648b4d6fbc40fa5a771c8ad10755a46965bb8682920993860",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.4.3": {
+      "path": "2.2/sc/1.4.3-contrast-minimum.md",
+      "checksum": "998a029e72fe2ba56311d177dcaf641377fd336479aff1e01ff35771259a9141",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.4.4": {
+      "path": "2.2/sc/1.4.4-resize-text.md",
+      "checksum": "1ea14c2b66dab75ca5a823ee8ba6ddf078b543010d739999b390ccb09f251e1c",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.4.5": {
+      "path": "2.2/sc/1.4.5-images-of-text.md",
+      "checksum": "263e0fbe4321c7496e62caa84f2dd95c59550c585212ae9d6c78ecd20d23f902",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.1.1": {
+      "path": "2.2/sc/2.1.1-keyboard.md",
+      "checksum": "293c93fd05c5206f1a36bf2e74d9f40e393605e68fb10e4df0b1e644f7d72a94",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.1.2": {
+      "path": "2.2/sc/2.1.2-no-keyboard-trap.md",
+      "checksum": "8818d8fbbff77fcc42dabadd4eebe062104b7a7e289a7b04fce532f3c6b92aa6",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.2.1": {
+      "path": "2.2/sc/2.2.1-timing-adjustable.md",
+      "checksum": "3eb697bc0a74717deb5b93f599e5c3ecbda75b7950248e253aff99b2833b034e",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.2.2": {
+      "path": "2.2/sc/2.2.2-pause-stop-hide.md",
+      "checksum": "988928c3a9cb1766aed530e8e1bff58cc8e56608556080440a11222ccbbce5f6",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.3.1": {
+      "path": "2.2/sc/2.3.1-three-flashes-or-below-threshold.md",
+      "checksum": "d543114460bc3a35d5453e07a6ec3db5975eef47f0a6c36fc8e5de5ca37aa3e0",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.4.1": {
+      "path": "2.2/sc/2.4.1-bypass-blocks.md",
+      "checksum": "f3422660335378ac570655dc0db98f48f561e49f410096ed27df0353214f9ddc",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.4.2": {
+      "path": "2.2/sc/2.4.2-page-titled.md",
+      "checksum": "1a31ef9d59ea58b51cf19297451cb410d8383a8b1a47f3fbec8060cdaf9dfcda",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.4.3": {
+      "path": "2.2/sc/2.4.3-focus-order.md",
+      "checksum": "f637b88f54a86c77e979285d2973a72bf57d782dbf1f0e4c34c6b5e64ec911de",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.4.4": {
+      "path": "2.2/sc/2.4.4-link-purpose-in-context.md",
+      "checksum": "7def6b021f7fd11539c2436af09dfd2768a8eaafd6891ed2a92891398f8f95b0",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.4.5": {
+      "path": "2.2/sc/2.4.5-multiple-ways.md",
+      "checksum": "4fc132e7805315f58426f404be207bd8721100a40b1d84cb6c1c630ac5ff258f",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.4.6": {
+      "path": "2.2/sc/2.4.6-headings-and-labels.md",
+      "checksum": "ea8affff81ee3a326ebe84f84c1ae85c283450633fc2c69f07312d3a74d04be2",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.4.7": {
+      "path": "2.2/sc/2.4.7-focus-visible.md",
+      "checksum": "3c7c088dd0b542d68c814d406783e4560e2887b19ebbd63fc6df55e5773b57bb",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.1.1": {
+      "path": "2.2/sc/3.1.1-language-of-page.md",
+      "checksum": "bfdadff183685dc1a5ecaf5c8e0fcaf98c287049570f26fa165d2351abb2235d",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.1.2": {
+      "path": "2.2/sc/3.1.2-language-of-parts.md",
+      "checksum": "0298443b17208844f1abc11658c949c313c821dcc517448fdf7baf8fcf013ac5",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.2.1": {
+      "path": "2.2/sc/3.2.1-on-focus.md",
+      "checksum": "79431a69955d00d8bc6b3b81ee16cef7f2f120da62ac946f1e355b4669a5bc39",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.2.2": {
+      "path": "2.2/sc/3.2.2-on-input.md",
+      "checksum": "6bd5c7d29c1bae557edad19dc1642d2ed9d5c13d2d93fc7464374d9cb65a6511",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.2.3": {
+      "path": "2.2/sc/3.2.3-consistent-navigation.md",
+      "checksum": "e04ffd2dab7eeb6d64f8f0d413a2ccb606e9d710b3dba0841116b7b8e60e1f79",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.2.4": {
+      "path": "2.2/sc/3.2.4-consistent-identification.md",
+      "checksum": "2fd8c56b7ce4c232c6167ff5edd40f96e491ea9dc81e090961cc7718901d88ce",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.3.1": {
+      "path": "2.2/sc/3.3.1-error-identification.md",
+      "checksum": "c7f7e86ac7bd1802d404e9c042d2f5225ecaa3b4d98d19603006d4e87a18d1f7",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.3.2": {
+      "path": "2.2/sc/3.3.2-labels-or-instructions.md",
+      "checksum": "d10d51f08f80e3056d4b98f67198bc2c5f6797343b07f22c125437bd09cc5579",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.3.3": {
+      "path": "2.2/sc/3.3.3-error-suggestion.md",
+      "checksum": "a125332c82b4c1d22cafe3fd92f29e072c0765c9c9bbc8a43b7b1991161d9d5f",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.3.4": {
+      "path": "2.2/sc/3.3.4-error-prevention-legal-financial-data.md",
+      "checksum": "500ec6aa1c586dd240fabb1c323a5580f1cb1287a3b2588cb649a15aa05dd1b5",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "4.1.1": {
+      "path": "2.2/sc/4.1.1-parsing.md",
+      "checksum": "0251199f0e967d9ee4ec82425f427cca07de160894a49166674d4b4bcf52db37",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "4.1.2": {
+      "path": "2.2/sc/4.1.2-name-role-value.md",
+      "checksum": "13cd4a03cfd8de54f128d9ccaf83e8195cbb883587e1031581413896b02f6875",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.3.4": {
+      "path": "2.2/sc/1.3.4-orientation.md",
+      "checksum": "ca4a62da58f0af9260016065f556b7e072ccdfac4977f5e1e0be967f57483855",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.3.5": {
+      "path": "2.2/sc/1.3.5-identify-input-purpose.md",
+      "checksum": "8d0cc24eab78931ecbd25f10e09f0197dc17b620fe1884b65a6100b867089a66",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.4.10": {
+      "path": "2.2/sc/1.4.10-reflow.md",
+      "checksum": "000ef533b6655bad942b39c53d70580550a4c09c2acbf6a741dc6dbed94f81e6",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.4.11": {
+      "path": "2.2/sc/1.4.11-non-text-contrast.md",
+      "checksum": "c40d0866f41b446c754dd6860ffe3ccdf4384d4863c851db7ba5757085ca9c6a",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.4.12": {
+      "path": "2.2/sc/1.4.12-text-spacing.md",
+      "checksum": "b6c97ef9c3565aec7b4c6378e1a886a651f684191db23bdaa95c96bd6492e797",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "1.4.13": {
+      "path": "2.2/sc/1.4.13-content-on-hover-or-focus.md",
+      "checksum": "3c7e006ee8e33f54d4a9ebdeb4396693053b23654f46e2033343d0fa801f2126",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.1.4": {
+      "path": "2.2/sc/2.1.4-character-key-shortcuts.md",
+      "checksum": "00d1bd6734a0c4faf0c2f3ec55e675a10776e8651da476a31a4797ba5a97121e",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.5.1": {
+      "path": "2.2/sc/2.5.1-pointer-gestures.md",
+      "checksum": "d87dd5312d4a7a8c6d582ce04c6d85604c2c1a33657ef3aa9ed49ec9cf432b68",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.5.2": {
+      "path": "2.2/sc/2.5.2-pointer-cancellation.md",
+      "checksum": "a2a9b5b325a0065c8b367cb2444aa5b27beb72c834fdd473856936d4b39e9efb",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.5.3": {
+      "path": "2.2/sc/2.5.3-label-in-name.md",
+      "checksum": "e266c91de08196de2f93b20635279082b81c4fb13e423e1c107a69f174d7cf45",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.5.4": {
+      "path": "2.2/sc/2.5.4-motion-actuation.md",
+      "checksum": "4b6b44e4319c94dd7592d9fc03ff966db823deca433dd83b70b0bb2e4584c876",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "4.1.3": {
+      "path": "2.2/sc/4.1.3-status-messages.md",
+      "checksum": "ea5e19171116fc59557ddf80d42b6075009803b401449696256a8b6248144f3f",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.4.11": {
+      "path": "2.2/sc/2.4.11-focus-not-obscured-minimum.md",
+      "checksum": "adf57fc5b272b41962a7a77d05bafa6c9a59ad90100bd6a3f9ee092cbd681203",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.5.7": {
+      "path": "2.2/sc/2.5.7-dragging-movements.md",
+      "checksum": "d9defd732f227834de883a45246f780ce62336ddfbc319550913c9a0ba66c1ce",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "2.5.8": {
+      "path": "2.2/sc/2.5.8-target-size-minimum.md",
+      "checksum": "29015fe9f8690f0dcb4f1af6f18ef09f5adcef0622a23443942ef4cc426d0e5a",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.2.6": {
+      "path": "2.2/sc/3.2.6-consistent-help.md",
+      "checksum": "16a1ed3af699ab2e9f47a480def9791914b9f5163ea4edec708f725685dd1be9",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.3.7": {
+      "path": "2.2/sc/3.3.7-redundant-entry.md",
+      "checksum": "5db113e1ef46980a16b3d087a94ed284e4352bb7dbb63e3e65cd0707bb34f5ae",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "3.3.8": {
+      "path": "2.2/sc/3.3.8-accessible-authentication-minimum.md",
+      "checksum": "b29d496800af8aca4dd12ad103afde1cc14975e6d5eb52ed4540eb79d53e560c",
+      "kind": "sc",
+      "wcagVersion": "2.2"
+    },
+    "WCAG3-REQ-AD": {
+      "path": "3.0/outcomes/wcag3-req-ad-audio-description-or-media-alternative.md",
+      "checksum": "3634b7bace1efbcb169f2eb4b04e83d8450e0c4fe0dcb8bd16a8629e3126a818",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-AUTH-ENH": {
+      "path": "3.0/outcomes/wcag3-req-auth-enh-accessible-authentication-enhanced.md",
+      "checksum": "5df486535dea516855130138effebf8c8f44a543503e2d41f91856df9590932f",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-AUTH-MIN": {
+      "path": "3.0/outcomes/wcag3-req-auth-min-accessible-authentication-minimum.md",
+      "checksum": "2833e38282d2c16dc99c0a835835976cdcc68f29b90b01ab2fbbd76a5b2f6bb2",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-CAPTIONS": {
+      "path": "3.0/outcomes/wcag3-req-captions-captions-for-prerecorded-audio.md",
+      "checksum": "3d70636300b1c6b54b44c7ad6124dab69756fc6ee0f8da216a97ec30da39d2d3",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-CHAR-SHORTCUTS": {
+      "path": "3.0/outcomes/wcag3-req-char-shortcuts-character-key-shortcuts.md",
+      "checksum": "8eed83ad49558af312fe24f4b7099b65568e0982ea74bdf2c16ab56a09280b05",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-CONSISTENT-HELP": {
+      "path": "3.0/outcomes/wcag3-req-consistent-help-consistent-help.md",
+      "checksum": "379576849034e66a304811c4d098ff3e0e335401f4a97a8a8a2052661a12d0f2",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-CONTEXT-HELP": {
+      "path": "3.0/outcomes/wcag3-req-context-help-context-sensitive-help.md",
+      "checksum": "24ad62b51e64aaa399a88584b6301bb5fe2cbe7f163ccfea7641a515e8b4e43c",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-CONTRAST-TEXT": {
+      "path": "3.0/outcomes/wcag3-req-contrast-text-text-contrast-minimum.md",
+      "checksum": "c72ce9e9c8b33fc623a98da5b488421ce55fe4f471a8dab27e1e5dba16da0549",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-DRAGGING": {
+      "path": "3.0/outcomes/wcag3-req-dragging-dragging-movements.md",
+      "checksum": "45676836189546b0bc4b1e6b5a359e42242185a220b24dc656f7512118507bd9",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-ENHANCED-CONTRAST": {
+      "path": "3.0/outcomes/wcag3-req-enhanced-contrast-enhanced-text-contrast.md",
+      "checksum": "c73400e8c1af75d28b09b6b827d60e274c56c1e634785669cb9cccfabac337f3",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-ERROR-ID": {
+      "path": "3.0/outcomes/wcag3-req-error-id-error-identification.md",
+      "checksum": "42d3cae67cce02e268ee02663e9a54d4a00dfd100795b56cd4a5f80a71f78925",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-ERROR-SUGGEST": {
+      "path": "3.0/outcomes/wcag3-req-error-suggest-error-suggestions.md",
+      "checksum": "3041892d5e977f699a6533488fd72cd8b7484dc1b9278f4e4d783616831e9119",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-FOCUS-APPEARANCE": {
+      "path": "3.0/outcomes/wcag3-req-focus-appearance-focus-appearance.md",
+      "checksum": "eba23f7635bac38b2370b8881ceb939b757ce8e8dd9b3a78b2a67451bc424798",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-FOCUS-OBSCURED": {
+      "path": "3.0/outcomes/wcag3-req-focus-obscured-focus-not-obscured.md",
+      "checksum": "bbf8c057c32a3f49e46e185e5586c43ef15d748566f69f4d6e00fe65cf2dec15",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-FOCUS-OBSCURED-ENH": {
+      "path": "3.0/outcomes/wcag3-req-focus-obscured-enh-focus-not-obscured-enhanced.md",
+      "checksum": "997847d6939615d8b066080d60c850b7fc83633dc5f16597eb047c2410822d2d",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-FOCUS-ORDER": {
+      "path": "3.0/outcomes/wcag3-req-focus-order-focus-order.md",
+      "checksum": "3191bbe7ee27a82c0fcd0c5f2a9326b53398c8c711b0432e68e72233dc305b36",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-FOCUS-VISIBLE": {
+      "path": "3.0/outcomes/wcag3-req-focus-visible-focus-visible.md",
+      "checksum": "7645fdce2a95bc67acf2d79ca55a38b6db745dd3b18e65cb7845d86c400342db",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-HEADINGS": {
+      "path": "3.0/outcomes/wcag3-req-headings-headings-describe-sections.md",
+      "checksum": "e061be2c2773d5a0fb095f2c1112ebcce9468b6a7b323384a294fda5d1513fb6",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-HOLISTIC-USABILITY": {
+      "path": "3.0/outcomes/wcag3-req-holistic-usability-holistic-usability-with-disabled-users.md",
+      "checksum": "26c848565e84ecefb8bb1c046f6d64363171019ee008a0d293ae3439be517825",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-INFO-STRUCTURE": {
+      "path": "3.0/outcomes/wcag3-req-info-structure-information-and-structure-programmatically-available.md",
+      "checksum": "04481eb5fb68671c3eebf3f6d645ec7fbd42bbf483b64be13d6156f694a205fd",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-INPUT-PURPOSE": {
+      "path": "3.0/outcomes/wcag3-req-input-purpose-input-purpose-identified.md",
+      "checksum": "edadfd111d00d9ad13a604ceda6ae91c6c06ed10acd9374d6abbf978db26004a",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-KEYWORD": {
+      "path": "3.0/outcomes/wcag3-req-keyword-keyboard-operable.md",
+      "checksum": "28e278479a3f797d96d1d3baab00d39139c68da7b2cd8b373ee44c511e055f7a",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-LABELS": {
+      "path": "3.0/outcomes/wcag3-req-labels-labels-and-instructions.md",
+      "checksum": "1b26144fdbeb41695a00ad5899a44a54d84cc6ddd1795f37f96a7bf05a8d421f",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-LANG": {
+      "path": "3.0/outcomes/wcag3-req-lang-page-language.md",
+      "checksum": "8ad042cd2db3d7088951124654b964b24bf7b3026f8481bbd9516139e8a4d598",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-LANG-PARTS": {
+      "path": "3.0/outcomes/wcag3-req-lang-parts-language-of-parts.md",
+      "checksum": "78ac25897f0c3d7b213fbb9461ad1d999d4f992c757db35169189937b39ab9d2",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-LINK-PURPOSE": {
+      "path": "3.0/outcomes/wcag3-req-link-purpose-link-purpose-in-context.md",
+      "checksum": "54e197eae188dcb1c5f8737861ca3ae8f9b51ef5fb818d201f877e16b88937d5",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-MEANINGFUL-SEQUENCE": {
+      "path": "3.0/outcomes/wcag3-req-meaningful-sequence-meaningful-sequence.md",
+      "checksum": "4761ee468dbcf8d56bfb1fa226022024939c6ce2b65d20b9d7af444e20bd6085",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-NAME-ROLE-VALUE": {
+      "path": "3.0/outcomes/wcag3-req-name-role-value-name-role-value.md",
+      "checksum": "225249db23d5bf9070a1facbcd75ea2bed092d363faace87072c6cace95a8dca",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-NO-KB-TRAP": {
+      "path": "3.0/outcomes/wcag3-req-no-kb-trap-no-keyboard-trap.md",
+      "checksum": "dc52727c92a958ccd72c2326a48dc9e63c9c91bb327ad611da4ec6db3e4d51e3",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-NON-TEXT-CONTRAST": {
+      "path": "3.0/outcomes/wcag3-req-non-text-contrast-non-text-contrast.md",
+      "checksum": "5d63ddc177a3d09c4a0dda91bd7e5721a9c219a8eec316e83194520d500b70e1",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-ON-Focus": {
+      "path": "3.0/outcomes/wcag3-req-on-focus-on-focus-no-unexpected-context-change.md",
+      "checksum": "8bfbd1caad430536f23a0997c0fb54076983ae9e47aacd149f06309a56675e1a",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-ON-INPUT": {
+      "path": "3.0/outcomes/wcag3-req-on-input-on-input-no-unexpected-context-change.md",
+      "checksum": "5040480db5409fd155e33f4da31b3c9483d0d42e23a369bb14ef475acc8eef44",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-ORG-PRACTICES": {
+      "path": "3.0/outcomes/wcag3-req-org-practices-organizational-accessibility-practices.md",
+      "checksum": "1e19e44aee61090242e079637c853aa5682904a6c023ae06900bfa85642c2d78",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-ORIENTATION": {
+      "path": "3.0/outcomes/wcag3-req-orientation-display-orientation-not-restricted.md",
+      "checksum": "31741e6f468af121a3b95eb5f7ea3e58e57e974affb93ed11b7deb62e5ecb378",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-PAGE-TITLE": {
+      "path": "3.0/outcomes/wcag3-req-page-title-page-titled.md",
+      "checksum": "4b6c1a2ae5388d7d1f027fffd7caf74a954e43662e2e795bbab3a8bd2a51a80f",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-PAUSE": {
+      "path": "3.0/outcomes/wcag3-req-pause-pause-stop-hide-moving-content.md",
+      "checksum": "a95bea49d4c0015cc7392cd91f44508e4b1c203af9a50f90ef9cf83a3b7ba011",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-POINTER-GESTURES": {
+      "path": "3.0/outcomes/wcag3-req-pointer-gestures-pointer-gestures-have-single-pointer-alternative.md",
+      "checksum": "4c9c58b5a942202ba8886dd34a38d4cc44cbeb9f4af853df35b5c7a8c5eefa7c",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-READING-LEVEL": {
+      "path": "3.0/outcomes/wcag3-req-reading-level-reading-level-plain-language.md",
+      "checksum": "31ed44d150d69be5ba831a4a9b11d6f59ddd8c88b3e1c57b8d926af1c00c406a",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-REDUNDANT-ENTRY": {
+      "path": "3.0/outcomes/wcag3-req-redundant-entry-redundant-entry-avoided.md",
+      "checksum": "40d39972e75aa855b85a19226117038f1ba0ecaeeae37c2211aa04125cc75d40",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-REFLOW": {
+      "path": "3.0/outcomes/wcag3-req-reflow-reflow-without-horizontal-scroll.md",
+      "checksum": "e7a594245d4cbdcd4e551484e6a0e3e9d461c39873c3c763fd3cf423a1e41cfa",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-RESIZE": {
+      "path": "3.0/outcomes/wcag3-req-resize-resize-text.md",
+      "checksum": "c8d3463baa0ca62e8d3280e6028c527c1a9bd458194245308eaed8be82ccfe5c",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-SEIZURE": {
+      "path": "3.0/outcomes/wcag3-req-seizure-three-flashes-or-below-threshold.md",
+      "checksum": "506b9c56b131997bcacb15dfeec1a54c66a8b0224c631026e9a551daadf56ca8",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-SENSORY": {
+      "path": "3.0/outcomes/wcag3-req-sensory-instructions-not-sensory-only.md",
+      "checksum": "20adc07c6b9c944fef5c3d7afa1ca9ea3074e7023a23ca84218eecf8a24ceabd",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-SKIP": {
+      "path": "3.0/outcomes/wcag3-req-skip-bypass-blocks-skip-links.md",
+      "checksum": "97067f1e68b50cf6863650c1bc0f1bb126cbbefa0c9a88e0f6b750bb250e5df7",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-STATUS": {
+      "path": "3.0/outcomes/wcag3-req-status-status-messages.md",
+      "checksum": "1fc30275c0ecfdec46f4a76f5d10cdaa159b2c3178b6822fad362bdc4bc8d99e",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-TARGET-SIZE": {
+      "path": "3.0/outcomes/wcag3-req-target-size-target-size-minimum.md",
+      "checksum": "f3bb0cecdcc8d9437d58d6dcfb002a0790c3ac3308af1155c4c1516916ee847b",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-TEXT-ALT": {
+      "path": "3.0/outcomes/wcag3-req-text-alt-text-alternatives-for-non-text-content.md",
+      "checksum": "2cb6f36b71424dbd90edbee3c20e7f12acd3f0fb7412aabd4823b52da09320af",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-TEXT-SPACING": {
+      "path": "3.0/outcomes/wcag3-req-text-spacing-text-spacing-adjustable.md",
+      "checksum": "d8b3873710cea08711ed153eb47b411ad94be9bac041eb5bb675a48bc6d052fb",
+      "kind": "wcag3-requirement"
+    },
+    "WCAG3-REQ-TIMING": {
+      "path": "3.0/outcomes/wcag3-req-timing-timing-adjustable.md",
+      "checksum": "919a7f934ad4f4acc7af0df9ab3cbd261b4bda861b5cffaee53514432eaacf23",
+      "kind": "wcag3-requirement"
+    }
+  }
+}

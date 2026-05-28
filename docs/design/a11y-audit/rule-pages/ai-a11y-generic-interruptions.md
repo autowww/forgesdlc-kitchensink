@@ -5,7 +5,7 @@ scope: generic
 title: Interruptions
 summary: AI judgment overlay (generic scope).
 page_version: 4722e3b5bea7777f13b82905bdd17b10b21566943acc4d58dd189f95ade2e321
-generated_at: 2026-05-28T04:08:36.000Z
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-interruptions

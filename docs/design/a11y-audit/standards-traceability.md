@@ -16,7 +16,12 @@ The RTM joins three sources:
 | `wcag20aa` | WCAG 2.0 Level A + AA (38 criteria) |
 | `wcag20aaa` | WCAG 2.0 through AAA (61 criteria) |
 | `wcag21aa` | WCAG 2.1 Level A + AA (50 criteria in catalog) |
+| `wcag22a` | WCAG 2.2 Level A |
 | `wcag22aa` | 2.1 AA + WCAG 2.2 AA additions (56 criteria) |
+| `wcag22aaa` | WCAG 2.2 AAA |
+| `wcag30bronze` | WCAG 3.0 draft — core requirements |
+| `wcag30silver` | WCAG 3.0 draft — Bronze + supplemental |
+| `wcag30gold` | WCAG 3.0 draft — full Silver set |
 
 Compliance CLI profiles such as `ada-title-ii-wcag21aa` use the **wcag21aa** RTM row in audit reports.
 

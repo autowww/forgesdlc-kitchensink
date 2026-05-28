@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Label in name
 summary: Accessible name should include visible label (2.5.3).
-page_version: 2598713b8ffbf34643f3e9bc6fdc59551f985377358cb3055fb79205b7d3ccd7
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: cc25aa0311e1ef6d8a5ff1660ed5297a04f1410aaf5293127e2bd2c7997936a9
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-label-in-name
@@ -48,4 +48,8 @@ Accessible name should include visible label (2.5.3).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.5.3** — [`wcag/2.2/sc/2.5.3-label-in-name.md`](../wcag/2.2/sc/2.5.3-label-in-name.md)
 

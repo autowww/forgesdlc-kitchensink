@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Contrast
 summary: Deterministic accessibility check (generic scope).
-page_version: b8307bbe6144c1e094af167929612e1d7b36fa6a2fba62ce0620ce5f35773e9a
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 543e605c56dbd0aff6c192365145546608bfcd966ac79c4784a653318d31e163
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-contrast
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.4.3** — [`wcag/2.2/sc/1.4.3-contrast-minimum.md`](../wcag/2.2/sc/1.4.3-contrast-minimum.md)
 

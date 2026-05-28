@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Landmarks
 summary: One main landmark and nav when chrome links exist.
-page_version: 55fa55cce449bfc0b59fd29f556d9e0d18b039da258dd04bb2611701c6f8b7e3
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 453ac4cb689ed216bfc97d7c450dbe1ab8493e11c9360ba52574570534aec3c0
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-landmarks
@@ -48,4 +48,9 @@ One main landmark and nav when chrome links exist.
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.3.1** — [`wcag/2.2/sc/1.3.1-info-and-relationships.md`](../wcag/2.2/sc/1.3.1-info-and-relationships.md)
+- WCAG **2.4.1** — [`wcag/2.2/sc/2.4.1-bypass-blocks.md`](../wcag/2.2/sc/2.4.1-bypass-blocks.md)
 

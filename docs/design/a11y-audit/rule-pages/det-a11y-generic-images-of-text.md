@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Images Of Text
 summary: Deterministic accessibility check (generic scope).
-page_version: b3b177a2f122b6fef40bba93c5ca7d65a55d31bce754bbabb00a957fcd1d5d78
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 87fb957219fb336c6c375158e55fed91def8962634ea6e3869d7ab5fe3bbcbe1
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-images-of-text
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.4.5** — [`wcag/2.2/sc/1.4.5-images-of-text.md`](../wcag/2.2/sc/1.4.5-images-of-text.md)
 

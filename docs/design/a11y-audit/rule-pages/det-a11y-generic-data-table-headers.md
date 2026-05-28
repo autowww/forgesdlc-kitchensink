@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Data Table Headers
 summary: Deterministic accessibility check (generic scope).
-page_version: de263aafde320d2d975daa4a0f8238e754b0789152f7bb5f04a22f6cb8adf664
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 4d0abfe3fc0b8d656074a353d42ba37d144cd1ab04f79aa598a89f3ef055a53f
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-data-table-headers
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.3.1** — [`wcag/2.2/sc/1.3.1-info-and-relationships.md`](../wcag/2.2/sc/1.3.1-info-and-relationships.md)
 

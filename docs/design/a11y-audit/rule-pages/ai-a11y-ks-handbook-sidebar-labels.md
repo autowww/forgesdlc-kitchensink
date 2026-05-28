@@ -4,8 +4,8 @@ lane: ai
 scope: ks
 title: Handbook Sidebar Labels
 summary: AI judgment overlay (ks scope).
-page_version: 442bc2e72ad1227e949746587b797ed3df48b4deb4a3410cfda4f8149e33042d
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: ae8f04dcfcf61ebee47a33dd72c5a84921905435baefba6734f273521252d430
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-ks-handbook-sidebar-labels
@@ -48,4 +48,9 @@ AI judgment overlay (ks scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.4.4** — [`wcag/2.2/sc/2.4.4-link-purpose-in-context.md`](../wcag/2.2/sc/2.4.4-link-purpose-in-context.md)
+- WCAG **4.1.2** — [`wcag/2.2/sc/4.1.2-name-role-value.md`](../wcag/2.2/sc/4.1.2-name-role-value.md)
 

@@ -2,7 +2,7 @@
 
 > Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.
 
-Generated: 2026-05-28T04:08:28.101Z
+Generated: 2026-05-28T04:21:01.632Z
 
 Refresh: `cd tools/website-a11y-auditor && npm run blend-rules`
 
@@ -271,6 +271,42 @@ Refresh: `cd tools/website-a11y-auditor && npm run blend-rules`
 - `DET.A11Y.KS.HASH_MARKERS`
 - `DET.A11Y.KS.PY_HASH_ATTRS`
 
+## wcag22a
+
+| Metric | Count |
+|--------|------:|
+| Total success criteria | 31 |
+| Covered (axe and/or DET/AI) | 22 |
+| Manual expected (catalog) | 9 |
+| Uncovered (automation gap) | 0 |
+| Untied Forge rules | 0 |
+| Axe rules in profile | 62 |
+
+### Uncovered criteria (no axe/DET/AI mapping)
+
+- _(none)_
+
+### Manual expected (documented in catalog)
+
+- **1.2.1** — Audio-only and Video-only (Prerecorded)
+- **1.2.2** — Captions (Prerecorded)
+- **1.2.3** — Audio Description or Media Alternative (Prerecorded)
+- **1.2.4** — Captions (Live)
+- **1.3.3** — Sensory Characteristics
+- **1.4.2** — Audio Control
+- **2.2.1** — Timing Adjustable
+- **2.5.1** — Pointer Gestures
+- **4.1.1** — Parsing
+
+### Untied rules (no WCAG criteria; not forge_only)
+
+- _(none)_
+
+### Forge-only rules (KS governance; excluded from untied)
+
+- `DET.A11Y.KS.HASH_MARKERS`
+- `DET.A11Y.KS.PY_HASH_ATTRS`
+
 ## wcag22aa
 
 | Metric | Count |
@@ -370,6 +406,120 @@ Refresh: `cd tools/website-a11y-auditor && npm run blend-rules`
 - **3.3.8** — Accessible Authentication (Minimum)
 - **3.3.9** — Accessible Authentication (Enhanced)
 - **4.1.1** — Parsing
+
+### Untied rules (no WCAG criteria; not forge_only)
+
+- _(none)_
+
+### Forge-only rules (KS governance; excluded from untied)
+
+- `DET.A11Y.KS.HASH_MARKERS`
+- `DET.A11Y.KS.PY_HASH_ATTRS`
+
+## wcag30bronze
+
+| Metric | Count |
+|--------|------:|
+| Total success criteria | 37 |
+| Covered (axe and/or DET/AI) | 32 |
+| Manual expected (catalog) | 5 |
+| Uncovered (automation gap) | 0 |
+| Untied Forge rules | 0 |
+| Axe rules in profile | 69 |
+
+### Uncovered criteria (no axe/DET/AI mapping)
+
+- _(none)_
+
+### Manual expected (documented in catalog)
+
+- **WCAG3-REQ-AD** — Audio description or media alternative
+- **WCAG3-REQ-CAPTIONS** — Captions for prerecorded audio
+- **WCAG3-REQ-POINTER-GESTURES** — Pointer gestures have single-pointer alternative
+- **WCAG3-REQ-SENSORY** — Instructions not sensory-only
+- **WCAG3-REQ-TIMING** — Timing adjustable
+
+### Untied rules (no WCAG criteria; not forge_only)
+
+- _(none)_
+
+### Forge-only rules (KS governance; excluded from untied)
+
+- `DET.A11Y.KS.HASH_MARKERS`
+- `DET.A11Y.KS.PY_HASH_ATTRS`
+
+## wcag30silver
+
+| Metric | Count |
+|--------|------:|
+| Total success criteria | 49 |
+| Covered (axe and/or DET/AI) | 35 |
+| Manual expected (catalog) | 14 |
+| Uncovered (automation gap) | 0 |
+| Untied Forge rules | 0 |
+| Axe rules in profile | 69 |
+
+### Uncovered criteria (no axe/DET/AI mapping)
+
+- _(none)_
+
+### Manual expected (documented in catalog)
+
+- **WCAG3-REQ-AD** — Audio description or media alternative
+- **WCAG3-REQ-AUTH-ENH** — Accessible authentication (enhanced)
+- **WCAG3-REQ-AUTH-MIN** — Accessible authentication (minimum)
+- **WCAG3-REQ-CAPTIONS** — Captions for prerecorded audio
+- **WCAG3-REQ-CONSISTENT-HELP** — Consistent help
+- **WCAG3-REQ-CONTEXT-HELP** — Context-sensitive help
+- **WCAG3-REQ-DRAGGING** — Dragging movements
+- **WCAG3-REQ-HOLISTIC-USABILITY** — Holistic usability with disabled users
+- **WCAG3-REQ-ORG-PRACTICES** — Organizational accessibility practices
+- **WCAG3-REQ-POINTER-GESTURES** — Pointer gestures have single-pointer alternative
+- **WCAG3-REQ-READING-LEVEL** — Reading level / plain language
+- **WCAG3-REQ-REDUNDANT-ENTRY** — Redundant entry avoided
+- **WCAG3-REQ-SENSORY** — Instructions not sensory-only
+- **WCAG3-REQ-TIMING** — Timing adjustable
+
+### Untied rules (no WCAG criteria; not forge_only)
+
+- _(none)_
+
+### Forge-only rules (KS governance; excluded from untied)
+
+- `DET.A11Y.KS.HASH_MARKERS`
+- `DET.A11Y.KS.PY_HASH_ATTRS`
+
+## wcag30gold
+
+| Metric | Count |
+|--------|------:|
+| Total success criteria | 49 |
+| Covered (axe and/or DET/AI) | 35 |
+| Manual expected (catalog) | 14 |
+| Uncovered (automation gap) | 0 |
+| Untied Forge rules | 0 |
+| Axe rules in profile | 69 |
+
+### Uncovered criteria (no axe/DET/AI mapping)
+
+- _(none)_
+
+### Manual expected (documented in catalog)
+
+- **WCAG3-REQ-AD** — Audio description or media alternative
+- **WCAG3-REQ-AUTH-ENH** — Accessible authentication (enhanced)
+- **WCAG3-REQ-AUTH-MIN** — Accessible authentication (minimum)
+- **WCAG3-REQ-CAPTIONS** — Captions for prerecorded audio
+- **WCAG3-REQ-CONSISTENT-HELP** — Consistent help
+- **WCAG3-REQ-CONTEXT-HELP** — Context-sensitive help
+- **WCAG3-REQ-DRAGGING** — Dragging movements
+- **WCAG3-REQ-HOLISTIC-USABILITY** — Holistic usability with disabled users
+- **WCAG3-REQ-ORG-PRACTICES** — Organizational accessibility practices
+- **WCAG3-REQ-POINTER-GESTURES** — Pointer gestures have single-pointer alternative
+- **WCAG3-REQ-READING-LEVEL** — Reading level / plain language
+- **WCAG3-REQ-REDUNDANT-ENTRY** — Redundant entry avoided
+- **WCAG3-REQ-SENSORY** — Instructions not sensory-only
+- **WCAG3-REQ-TIMING** — Timing adjustable
 
 ### Untied rules (no WCAG criteria; not forge_only)
 

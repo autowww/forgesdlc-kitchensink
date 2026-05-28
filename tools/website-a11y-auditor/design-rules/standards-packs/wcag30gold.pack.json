@@ -1,0 +1,2484 @@
+{
+  "schemaVersion": 1,
+  "packId": "wcag30gold",
+  "label": "WCAG 3.0 Gold (draft)",
+  "wcagVersion": "3.0",
+  "level": "Gold",
+  "specUrl": "https://www.w3.org/TR/wcag-3.0/",
+  "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
+  "generatedAt": "2026-05-28T04:21:01.632Z",
+  "axeTags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21a",
+    "wcag21aa",
+    "wcag22aa",
+    "wcag22aaa"
+  ],
+  "detStandardsTags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag2aaa",
+    "wcag21a",
+    "wcag21aa",
+    "wcag22aa",
+    "wcag22aaa",
+    "wcag30bronze",
+    "wcag30silver",
+    "wcag30gold"
+  ],
+  "automationProxy": "wcag22aaa",
+  "isDraft": true,
+  "summary": {
+    "totalCriteria": 49,
+    "automationMapped": 35,
+    "manualExpected": 14,
+    "uncovered": 0,
+    "untiedRuleCount": 0,
+    "axeRuleCount": 69,
+    "byPrinciple": {
+      "Audio description": {
+        "principle": "Audio description",
+        "total": 1,
+        "covered": 0,
+        "manualExpected": 1,
+        "uncovered": 0
+      },
+      "Forms": {
+        "principle": "Forms",
+        "total": 7,
+        "covered": 4,
+        "manualExpected": 3,
+        "uncovered": 0
+      },
+      "Captions": {
+        "principle": "Captions",
+        "total": 1,
+        "covered": 0,
+        "manualExpected": 1,
+        "uncovered": 0
+      },
+      "Keyboard": {
+        "principle": "Keyboard",
+        "total": 3,
+        "covered": 3,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Help": {
+        "principle": "Help",
+        "total": 2,
+        "covered": 0,
+        "manualExpected": 2,
+        "uncovered": 0
+      },
+      "Visual contrast": {
+        "principle": "Visual contrast",
+        "total": 3,
+        "covered": 3,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Pointer": {
+        "principle": "Pointer",
+        "total": 3,
+        "covered": 1,
+        "manualExpected": 2,
+        "uncovered": 0
+      },
+      "Navigation": {
+        "principle": "Navigation",
+        "total": 8,
+        "covered": 8,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Structure": {
+        "principle": "Structure",
+        "total": 3,
+        "covered": 3,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Process": {
+        "principle": "Process",
+        "total": 2,
+        "covered": 0,
+        "manualExpected": 2,
+        "uncovered": 0
+      },
+      "Language": {
+        "principle": "Language",
+        "total": 2,
+        "covered": 2,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Compatibility": {
+        "principle": "Compatibility",
+        "total": 2,
+        "covered": 2,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Predictable": {
+        "principle": "Predictable",
+        "total": 2,
+        "covered": 2,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Layout": {
+        "principle": "Layout",
+        "total": 2,
+        "covered": 2,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Timing": {
+        "principle": "Timing",
+        "total": 2,
+        "covered": 1,
+        "manualExpected": 1,
+        "uncovered": 0
+      },
+      "Clear words": {
+        "principle": "Clear words",
+        "total": 2,
+        "covered": 0,
+        "manualExpected": 2,
+        "uncovered": 0
+      },
+      "Visual presentation": {
+        "principle": "Visual presentation",
+        "total": 2,
+        "covered": 2,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Seizures": {
+        "principle": "Seizures",
+        "total": 1,
+        "covered": 1,
+        "manualExpected": 0,
+        "uncovered": 0
+      },
+      "Text alternatives": {
+        "principle": "Text alternatives",
+        "total": 1,
+        "covered": 1,
+        "manualExpected": 0,
+        "uncovered": 0
+      }
+    },
+    "automationCoveragePercent": 100
+  },
+  "criteria": [
+    {
+      "id": "WCAG3-REQ-AD",
+      "title": "Audio description or media alternative",
+      "level": "core",
+      "principle": "Audio description",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "ai",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.MEDIA_TRACKS"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-AUTH-ENH",
+      "title": "Accessible authentication (enhanced)",
+      "level": "supplemental",
+      "principle": "Forms",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-AUTH-MIN",
+      "title": "Accessible authentication (minimum)",
+      "level": "supplemental",
+      "principle": "Forms",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-CAPTIONS",
+      "title": "Captions for prerecorded audio",
+      "level": "core",
+      "principle": "Captions",
+      "gap": "manual_expected",
+      "tooling": [
+        "axe",
+        "det",
+        "ai",
+        "manual"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.103"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.MEDIA_TRACKS"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-CHAR-SHORTCUTS",
+      "title": "Character key shortcuts",
+      "level": "core",
+      "principle": "Keyboard",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.CHARACTER_SHORTCUTS"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-CONSISTENT-HELP",
+      "title": "Consistent help",
+      "level": "supplemental",
+      "principle": "Help",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.CONSISTENT_HELP"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-CONTEXT-HELP",
+      "title": "Context-sensitive help",
+      "level": "supplemental",
+      "principle": "Help",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "ai",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.CONTEXT_HELP"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.CONTEXT_HELP"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-CONTRAST-TEXT",
+      "title": "Text contrast (minimum)",
+      "level": "core",
+      "principle": "Visual contrast",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.33"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.CONTRAST"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-DRAGGING",
+      "title": "Dragging movements",
+      "level": "supplemental",
+      "principle": "Pointer",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.DRAGGING_MOVEMENTS"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-ENHANCED-CONTRAST",
+      "title": "Enhanced text contrast",
+      "level": "supplemental",
+      "principle": "Visual contrast",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.CONTRAST_ENHANCED"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-ERROR-ID",
+      "title": "Error identification",
+      "level": "core",
+      "principle": "Forms",
+      "gap": "covered",
+      "tooling": [
+        "ai"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [],
+        "ai": [
+          "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-ERROR-SUGGEST",
+      "title": "Error suggestions",
+      "level": "core",
+      "principle": "Forms",
+      "gap": "covered",
+      "tooling": [
+        "ai"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [],
+        "ai": [
+          "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-APPEARANCE",
+      "title": "Focus appearance",
+      "level": "supplemental",
+      "principle": "Navigation",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.FOCUS_APPEARANCE"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-OBSCURED",
+      "title": "Focus not obscured",
+      "level": "core",
+      "principle": "Navigation",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-OBSCURED-ENH",
+      "title": "Focus not obscured (enhanced)",
+      "level": "supplemental",
+      "principle": "Navigation",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-ORDER",
+      "title": "Focus order",
+      "level": "core",
+      "principle": "Navigation",
+      "gap": "covered",
+      "tooling": [
+        "det",
+        "ai"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.FOCUS_ORDER",
+          "DET.A11Y.GENERIC.APP_FOCUS_TRAP"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-FOCUS-VISIBLE",
+      "title": "Focus visible",
+      "level": "core",
+      "principle": "Navigation",
+      "gap": "covered",
+      "tooling": [
+        "ai"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [],
+        "ai": [
+          "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-HEADINGS",
+      "title": "Headings describe sections",
+      "level": "core",
+      "principle": "Structure",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.KS.HANDBOOK_SINGLE_H1"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-HOLISTIC-USABILITY",
+      "title": "Holistic usability with disabled users",
+      "level": "supplemental",
+      "principle": "Process",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "ai",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.MULTIPLE_WAYS",
+          "DET.A11Y.GENERIC.ERROR_PREVENTION"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+          "AI.A11Y.GENERIC.ERROR_PREVENTION"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-INFO-STRUCTURE",
+      "title": "Information and structure programmatically available",
+      "level": "core",
+      "principle": "Structure",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det",
+        "ai"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.100",
+          "AXE.101",
+          "AXE.16",
+          "AXE.17",
+          "AXE.35",
+          "AXE.36",
+          "AXE.73",
+          "AXE.74",
+          "AXE.83",
+          "AXE.9",
+          "AXE.97",
+          "AXE.99"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.LANDMARKS",
+          "DET.A11Y.GENERIC.DATA_TABLE_HEADERS"
+        ],
+        "ai": [
+          "AI.A11Y.KS.REGION_LABELING"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-INPUT-PURPOSE",
+      "title": "Input purpose identified",
+      "level": "core",
+      "principle": "Forms",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.27"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.INPUT_PURPOSE"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-KEYWORD",
+      "title": "Keyboard operable",
+      "level": "core",
+      "principle": "Keyboard",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det",
+        "ai"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.45",
+          "AXE.89",
+          "AXE.91"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.KEYBOARD_ACCESS"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-LABELS",
+      "title": "Labels and instructions",
+      "level": "core",
+      "principle": "Forms",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.44"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-LANG",
+      "title": "Page language",
+      "level": "core",
+      "principle": "Language",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.51",
+          "AXE.52",
+          "AXE.53"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.LANG"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-LANG-PARTS",
+      "title": "Language of parts",
+      "level": "core",
+      "principle": "Language",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.102"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.LANG_OF_PARTS"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-LINK-PURPOSE",
+      "title": "Link purpose in context",
+      "level": "core",
+      "principle": "Navigation",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det",
+        "ai"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.1",
+          "AXE.72"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.LINK_PURPOSE"
+        ],
+        "ai": [
+          "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-MEANINGFUL-SEQUENCE",
+      "title": "Meaningful sequence",
+      "level": "core",
+      "principle": "Structure",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.READING_ORDER"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-NAME-ROLE-VALUE",
+      "title": "Name, role, value",
+      "level": "core",
+      "principle": "Compatibility",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det",
+        "ai"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.1",
+          "AXE.10",
+          "AXE.11",
+          "AXE.14",
+          "AXE.15",
+          "AXE.18",
+          "AXE.19",
+          "AXE.2",
+          "AXE.21",
+          "AXE.22",
+          "AXE.24",
+          "AXE.25",
+          "AXE.30",
+          "AXE.39",
+          "AXE.4",
+          "AXE.47",
+          "AXE.48",
+          "AXE.5",
+          "AXE.57",
+          "AXE.58",
+          "AXE.6",
+          "AXE.61",
+          "AXE.7",
+          "AXE.72",
+          "AXE.80",
+          "AXE.9",
+          "AXE.90",
+          "AXE.93"
+        ],
+        "det": [
+          "DET.A11Y.KS.HASH_MARKERS",
+          "DET.A11Y.KS.REACT_A11Y_ROLE",
+          "DET.A11Y.KS.PY_HASH_ATTRS"
+        ],
+        "ai": [
+          "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS",
+          "AI.A11Y.KS.REGION_LABELING"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-NO-KB-TRAP",
+      "title": "No keyboard trap",
+      "level": "core",
+      "principle": "Keyboard",
+      "gap": "covered",
+      "tooling": [
+        "det",
+        "ai"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.APP_FOCUS_TRAP"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-NON-TEXT-CONTRAST",
+      "title": "Non-text contrast",
+      "level": "core",
+      "principle": "Visual contrast",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.NON_TEXT_CONTRAST"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-ON-Focus",
+      "title": "On focus no unexpected context change",
+      "level": "core",
+      "principle": "Predictable",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-ON-INPUT",
+      "title": "On input no unexpected context change",
+      "level": "core",
+      "principle": "Predictable",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-ORG-PRACTICES",
+      "title": "Organizational accessibility practices",
+      "level": "supplemental",
+      "principle": "Process",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "ai",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.ERROR_PREVENTION"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.ERROR_PREVENTION"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-ORIENTATION",
+      "title": "Display orientation not restricted",
+      "level": "core",
+      "principle": "Layout",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.34"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.ORIENTATION"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-PAGE-TITLE",
+      "title": "Page titled",
+      "level": "core",
+      "principle": "Navigation",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.37"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.TITLE"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-PAUSE",
+      "title": "Pause, stop, hide moving content",
+      "level": "core",
+      "principle": "Timing",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.29",
+          "AXE.75"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.PAUSE_STOP_HIDE"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-POINTER-GESTURES",
+      "title": "Pointer gestures have single-pointer alternative",
+      "level": "core",
+      "principle": "Pointer",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "ai",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.POINTER_GESTURES"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-READING-LEVEL",
+      "title": "Reading level / plain language",
+      "level": "supplemental",
+      "principle": "Clear words",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "ai",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.READING_LEVEL"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-REDUNDANT-ENTRY",
+      "title": "Redundant entry avoided",
+      "level": "supplemental",
+      "principle": "Forms",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.REDUNDANT_ENTRY"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-REFLOW",
+      "title": "Reflow without horizontal scroll",
+      "level": "core",
+      "principle": "Layout",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.VIEWPORT"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-RESIZE",
+      "title": "Resize text",
+      "level": "core",
+      "principle": "Visual presentation",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.79"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.RESIZE_TEXT"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-SEIZURE",
+      "title": "Three flashes or below threshold",
+      "level": "core",
+      "principle": "Seizures",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.MOTION_FLASH"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-SENSORY",
+      "title": "Instructions not sensory-only",
+      "level": "core",
+      "principle": "Clear words",
+      "gap": "manual_expected",
+      "tooling": [
+        "det",
+        "ai",
+        "manual"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.SENSORY_CUES"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS"
+        ]
+      }
+    },
+    {
+      "id": "WCAG3-REQ-SKIP",
+      "title": "Bypass blocks / skip links",
+      "level": "core",
+      "principle": "Navigation",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.31"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.LANDMARKS"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-STATUS",
+      "title": "Status messages",
+      "level": "core",
+      "principle": "Compatibility",
+      "gap": "covered",
+      "tooling": [
+        "det"
+      ],
+      "rules": {
+        "axe": [],
+        "det": [
+          "DET.A11Y.GENERIC.STATUS_MESSAGES"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-TARGET-SIZE",
+      "title": "Target size minimum",
+      "level": "core",
+      "principle": "Pointer",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.98"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.TARGET_SIZE_MIN"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-TEXT-ALT",
+      "title": "Text alternatives for non-text content",
+      "level": "core",
+      "principle": "Text alternatives",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.12",
+          "AXE.13",
+          "AXE.55",
+          "AXE.58",
+          "AXE.82",
+          "AXE.87",
+          "AXE.94"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.IMAGES_ALT",
+          "DET.A11Y.GENERIC.DIAGRAM_ALT"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-TEXT-SPACING",
+      "title": "Text spacing adjustable",
+      "level": "core",
+      "principle": "Visual presentation",
+      "gap": "covered",
+      "tooling": [
+        "axe",
+        "det"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.28"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.TEXT_SPACING"
+        ],
+        "ai": []
+      }
+    },
+    {
+      "id": "WCAG3-REQ-TIMING",
+      "title": "Timing adjustable",
+      "level": "core",
+      "principle": "Timing",
+      "gap": "manual_expected",
+      "tooling": [
+        "axe",
+        "det",
+        "ai",
+        "manual"
+      ],
+      "rules": {
+        "axe": [
+          "AXE.77"
+        ],
+        "det": [
+          "DET.A11Y.GENERIC.TIMING"
+        ],
+        "ai": [
+          "AI.A11Y.GENERIC.TIMING_ADJUSTABLE"
+        ]
+      }
+    }
+  ],
+  "rulesIndex": [
+    {
+      "ruleId": "AXE.1",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.4.4",
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.10",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.100",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.101",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.102",
+      "lane": "axe",
+      "wcagCriteria": [
+        "3.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.103",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.2.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.11",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.12",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.13",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.14",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.15",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.16",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.17",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.18",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.19",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.2",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.21",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.22",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.24",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.25",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.26",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.2.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.27",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.28",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.4.12"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.29",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.2.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.30",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.31",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.4.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.33",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.4.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.34",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.35",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.36",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.37",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.4.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.39",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.4",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.44",
+      "lane": "axe",
+      "wcagCriteria": [
+        "3.3.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.45",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.47",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.48",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.5",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.51",
+      "lane": "axe",
+      "wcagCriteria": [
+        "3.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.52",
+      "lane": "axe",
+      "wcagCriteria": [
+        "3.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.53",
+      "lane": "axe",
+      "wcagCriteria": [
+        "3.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.55",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.57",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.58",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.1.1",
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.59",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.5.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.6",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.61",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.7",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.71",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.4.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.72",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.4.4",
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.73",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.74",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.75",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.2.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.77",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.2.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.79",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.4.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.80",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.81",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.4.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.82",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.83",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.87",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.89",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.1.1",
+        "2.1.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.9",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1",
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.90",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.91",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.93",
+      "lane": "axe",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.94",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.97",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.98",
+      "lane": "axe",
+      "wcagCriteria": [
+        "2.5.8"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AXE.99",
+      "lane": "axe",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LANG",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.TITLE",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.VIEWPORT",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.10"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LANDMARKS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.3.1",
+        "2.4.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.IMAGES_ALT",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONTRAST",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MOTION_REDUCED",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.3.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MOTION_FLASH",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_ORDER",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.DATA_TABLE_HEADERS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.DIAGRAM_ALT",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.APP_FOCUS_TRAP",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.1.2",
+        "2.4.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_CONTEXT_CHANGE",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.2.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.2.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.READING_ORDER",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.3.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.IMAGES_OF_TEXT",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.5",
+        "1.4.9"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.SECTION_HEADINGS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.10"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FLASH_THRESHOLD",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.3.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONSISTENT_LABELS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.2.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.USE_OF_COLOR",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.RESIZE_TEXT",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.KEYBOARD_ACCESS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.1.1",
+        "2.1.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.PAUSE_STOP_HIDE",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.2.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LINK_PURPOSE",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.4",
+        "2.4.9"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LANG_OF_PARTS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LABELS_INSTRUCTIONS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.3.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MEDIA_TRACKS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.2.1",
+        "1.2.2",
+        "1.2.3",
+        "1.2.4",
+        "1.2.5",
+        "1.2.6",
+        "1.2.7",
+        "1.2.8",
+        "1.2.9"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.AUTOPLAY_AUDIO",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.TIMING",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.2.1",
+        "2.2.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.SENSORY_CUES",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.3.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.ERROR_PREVENTION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.3.4",
+        "3.3.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MULTIPLE_WAYS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONSISTENT_NAV",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.2.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.PAGE_LOCATION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.8"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONTRAST_ENHANCED",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.NON_TEXT_CONTRAST",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.11"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.13"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CHARACTER_SHORTCUTS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.1.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.11"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.POINTER_CANCELLATION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.MOTION_ACTUATION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.ORIENTATION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.3.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.INPUT_PURPOSE",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.3.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.TEXT_SPACING",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.12"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LABEL_IN_NAME",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.POINTER_GESTURES",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONCURRENT_INPUT",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.7"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "1.4.8"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.2.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.RE_AUTHENTICATION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.2.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.GLOSSARY_ABBR",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.1.3",
+        "3.1.4",
+        "3.1.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.1.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.2.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.3.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.DRAGGING_MOVEMENTS",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.7"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.TARGET_SIZE_MIN",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.5.8"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.CONSISTENT_HELP",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.2.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.REDUNDANT_ENTRY",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.3.7"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "3.3.8",
+        "3.3.9"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.12"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.FOCUS_APPEARANCE",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.13"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.GENERIC.STATUS_MESSAGES",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "4.1.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.KS.BREADCRUMB",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.8"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.KS.REACT_A11Y_ROLE",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "DET.A11Y.KS.HANDBOOK_SINGLE_H1",
+      "lane": "deterministic",
+      "wcagCriteria": [
+        "2.4.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW",
+      "lane": "ai",
+      "wcagCriteria": [
+        "2.1.1",
+        "2.1.2",
+        "2.4.3",
+        "2.4.7"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION",
+      "lane": "ai",
+      "wcagCriteria": [
+        "3.3.1",
+        "3.3.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS",
+      "lane": "ai",
+      "wcagCriteria": [
+        "2.4.4",
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.KS.REGION_LABELING",
+      "lane": "ai",
+      "wcagCriteria": [
+        "1.3.1",
+        "4.1.2"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.MEDIA_ALTERNATIVES",
+      "lane": "ai",
+      "wcagCriteria": [
+        "1.2.1",
+        "1.2.2",
+        "1.2.3",
+        "1.2.4",
+        "1.2.5",
+        "1.2.6",
+        "1.2.7",
+        "1.2.8",
+        "1.2.9"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS",
+      "lane": "ai",
+      "wcagCriteria": [
+        "1.3.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
+      "lane": "ai",
+      "wcagCriteria": [
+        "1.4.2",
+        "1.4.7"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.TIMING_ADJUSTABLE",
+      "lane": "ai",
+      "wcagCriteria": [
+        "2.2.1",
+        "2.2.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.MULTIPLE_WAYS",
+      "lane": "ai",
+      "wcagCriteria": [
+        "2.4.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT",
+      "lane": "ai",
+      "wcagCriteria": [
+        "2.5.1"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT",
+      "lane": "ai",
+      "wcagCriteria": [
+        "3.2.3"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.ERROR_PREVENTION",
+      "lane": "ai",
+      "wcagCriteria": [
+        "3.3.4",
+        "3.3.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.UNUSUAL_WORDS",
+      "lane": "ai",
+      "wcagCriteria": [
+        "3.1.3",
+        "3.1.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.READING_LEVEL",
+      "lane": "ai",
+      "wcagCriteria": [
+        "3.1.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.PRONUNCIATION",
+      "lane": "ai",
+      "wcagCriteria": [
+        "3.1.6"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.CONTEXT_HELP",
+      "lane": "ai",
+      "wcagCriteria": [
+        "3.3.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",
+      "lane": "ai",
+      "wcagCriteria": [
+        "2.2.4"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.VISUAL_PRESENTATION",
+      "lane": "ai",
+      "wcagCriteria": [
+        "1.4.8"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
+      "lane": "ai",
+      "wcagCriteria": [
+        "3.2.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.RE_AUTHENTICATION",
+      "lane": "ai",
+      "wcagCriteria": [
+        "2.2.5"
+      ],
+      "inPack": false
+    },
+    {
+      "ruleId": "AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION",
+      "lane": "ai",
+      "wcagCriteria": [
+        "2.1.3"
+      ],
+      "inPack": false
+    }
+  ],
+  "validation": {
+    "uncoveredCriteria": [],
+    "untiedRules": [],
+    "forgeOnlyRules": [
+      "DET.A11Y.KS.HASH_MARKERS",
+      "DET.A11Y.KS.PY_HASH_ATTRS"
+    ]
+  }
+}

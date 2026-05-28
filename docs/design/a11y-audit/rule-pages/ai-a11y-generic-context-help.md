@@ -5,7 +5,7 @@ scope: generic
 title: Context Help
 summary: AI judgment overlay (generic scope).
 page_version: 249be6b3c56ebafd959e46ac818a73c8855325916c342f97f92ebd4f70ad83d2
-generated_at: 2026-05-28T04:08:36.000Z
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-context-help

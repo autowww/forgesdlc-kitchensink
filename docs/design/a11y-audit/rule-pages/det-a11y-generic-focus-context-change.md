@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Focus context change
 summary: Avoid navigation or submit on focus (3.2.1).
-page_version: 5fb3f6b9a30f87073225fced6e87724c66cd78b5bc40185ee94f53b101ab7edc
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: bc733f06605a60e2f338ef5fa5fe25317de6a03011d2662c26c9f90c74b168a2
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-context-change
@@ -48,4 +48,8 @@ Avoid navigation or submit on focus (3.2.1).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **3.2.1** — [`wcag/2.2/sc/3.2.1-on-focus.md`](../wcag/2.2/sc/3.2.1-on-focus.md)
 

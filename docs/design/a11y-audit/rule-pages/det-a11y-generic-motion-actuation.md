@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Motion Actuation
 summary: Deterministic accessibility check (generic scope).
-page_version: 37760b05e39a77a3c40e24c88699a65676ccd01a3574dbca71e5b6b039d3b2ac
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: e4ee4b0e05111f3486b4e05dab9e1f0e49a64abc6ee85cf897c40287d924fc5c
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-motion-actuation
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.5.4** — [`wcag/2.2/sc/2.5.4-motion-actuation.md`](../wcag/2.2/sc/2.5.4-motion-actuation.md)
 

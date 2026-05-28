@@ -6,7 +6,7 @@
   "level": "AAA",
   "specUrl": "https://www.w3.org/TR/WCAG20/",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
-  "generatedAt": "2026-05-28T04:08:28.101Z",
+  "generatedAt": "2026-05-28T04:21:01.632Z",
   "axeTags": [
     "wcag2a",
     "wcag2aa",

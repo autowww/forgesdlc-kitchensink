@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Title
 summary: Deterministic accessibility check (generic scope).
-page_version: 27045e6cc28d039340c7a01bbfc0a3f415d2e83308d8c453a25257b8a4f4d406
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: c74c58ab41bde64980201dfd1d0b7c196692861bdc201be8f93d5a460a1c0e92
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-title
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.4.2** — [`wcag/2.2/sc/2.4.2-page-titled.md`](../wcag/2.2/sc/2.4.2-page-titled.md)
 

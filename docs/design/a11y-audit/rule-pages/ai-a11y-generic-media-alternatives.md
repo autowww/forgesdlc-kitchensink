@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Media Alternatives
 summary: AI judgment overlay (generic scope).
-page_version: 3d8513a6e0b82edd24820d08aa0afded956ef279dd83873ea6842522e4a401d4
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 573ea85a24ea37673100c6b0cf45071fc3d9aa7c315c180ea79e87b597815ef3
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-media-alternatives
@@ -48,4 +48,12 @@ AI judgment overlay (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.2.1** — [`wcag/2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md`](../wcag/2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md)
+- WCAG **1.2.2** — [`wcag/2.2/sc/1.2.2-captions-prerecorded.md`](../wcag/2.2/sc/1.2.2-captions-prerecorded.md)
+- WCAG **1.2.3** — [`wcag/2.2/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md`](../wcag/2.2/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md)
+- WCAG **1.2.4** — [`wcag/2.2/sc/1.2.4-captions-live.md`](../wcag/2.2/sc/1.2.4-captions-live.md)
+- WCAG **1.2.5** — [`wcag/2.2/sc/1.2.5-audio-description-prerecorded.md`](../wcag/2.2/sc/1.2.5-audio-description-prerecorded.md)
 

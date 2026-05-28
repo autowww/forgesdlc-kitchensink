@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Multiple Ways
 summary: AI judgment overlay (generic scope).
-page_version: 10242d3c61fddf8b8c1b6ec6179dbf2f7fa9d98c70b9507537d23b86965e3e00
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: da0f0754ea280fdf6fd4697213b93d92aadba1a6ddab0d03ccceac1a3ef17119
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-multiple-ways
@@ -48,4 +48,8 @@ AI judgment overlay (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.4.5** — [`wcag/2.2/sc/2.4.5-multiple-ways.md`](../wcag/2.2/sc/2.4.5-multiple-ways.md)
 

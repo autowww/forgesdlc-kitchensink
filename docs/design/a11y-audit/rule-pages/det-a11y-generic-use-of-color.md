@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Use Of Color
 summary: Deterministic accessibility check (generic scope).
-page_version: a695565c0a0f6f45d2b68211ce8a8e91d70ecbbc797305d957707eb894357f11
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: a0eb8e96eb770c92488c5df668278fbb4d8c68af8738b9d25fc4f46b90afd719
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-use-of-color
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.4.1** — [`wcag/2.2/sc/1.4.1-use-of-color.md`](../wcag/2.2/sc/1.4.1-use-of-color.md)
 

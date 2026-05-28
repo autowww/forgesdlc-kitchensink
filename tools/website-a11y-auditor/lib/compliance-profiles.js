@@ -95,6 +95,17 @@ export const COMPLIANCE_PROFILES = {
       'WCAG 2.1 AAA per https://www.w3.org/TR/WCAG21/; axe uses wcag2aaa + wcag21aa tags where Deque supports AAA rules.',
     manualTestingRequired: MANUAL_GAPS_COMMON,
   },
+  wcag22a: {
+    id: 'wcag22a',
+    label: 'WCAG 2.2 Level A',
+    axePresetKey: 'wcag22a',
+    detStandardsTags: ['wcag2a', 'wcag21a', 'wcag22aa'],
+    wcagVersion: '2.2',
+    level: 'A',
+    jurisdictionNotes:
+      'WCAG 2.2 Level A per https://www.w3.org/TR/WCAG22/; Deque axe tag mapping for 2.2 A.',
+    manualTestingRequired: MANUAL_GAPS_COMMON,
+  },
   wcag22aa: {
     id: 'wcag22aa',
     label: 'WCAG 2.2 Level AA',
@@ -102,7 +113,8 @@ export const COMPLIANCE_PROFILES = {
     detStandardsTags: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'],
     wcagVersion: '2.2',
     level: 'AA',
-    jurisdictionNotes: 'Forge default profile; includes WCAG 2.2 AA axe tags.',
+    jurisdictionNotes:
+      'Forge default profile; WCAG 2.2 AA per https://www.w3.org/TR/WCAG22/.',
     manualTestingRequired: MANUAL_GAPS_COMMON,
   },
   wcag22aaa: {
@@ -124,6 +136,78 @@ export const COMPLIANCE_PROFILES = {
     jurisdictionNotes:
       'WCAG 2.2 AAA per https://www.w3.org/TR/WCAG22/; includes 2.2-only criteria (2.4.11–13, 2.5.7–8, 3.2.6, 3.3.7–9) plus full AAA stack.',
     manualTestingRequired: MANUAL_GAPS_COMMON,
+  },
+  wcag30bronze: {
+    id: 'wcag30bronze',
+    label: 'WCAG 3.0 Bronze (draft)',
+    axePresetKey: 'wcag30bronze',
+    detStandardsTags: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'wcag30bronze'],
+    wcagVersion: '3.0',
+    level: 'Bronze',
+    conformanceTier: 'bronze',
+    isDraft: true,
+    automationProxy: 'wcag22aa',
+    jurisdictionNotes:
+      'W3C WCAG 3.0 Working Draft — Bronze tier. Axe/DET use WCAG 2.2 AA as automation proxy only; not legal conformance.',
+    manualTestingRequired: [
+      ...MANUAL_GAPS_COMMON,
+      'WCAG 3.0 supplemental requirements and assertions (draft)',
+      'Holistic / user testing where required for Silver/Gold (not Bronze proxy)',
+    ],
+  },
+  wcag30silver: {
+    id: 'wcag30silver',
+    label: 'WCAG 3.0 Silver (draft)',
+    axePresetKey: 'wcag30silver',
+    detStandardsTags: [
+      'wcag2a',
+      'wcag2aa',
+      'wcag21a',
+      'wcag21aa',
+      'wcag22aa',
+      'wcag30bronze',
+      'wcag30silver',
+    ],
+    wcagVersion: '3.0',
+    level: 'Silver',
+    conformanceTier: 'silver',
+    isDraft: true,
+    automationProxy: 'wcag22aa',
+    jurisdictionNotes:
+      'WCAG 3.0 Silver (draft). Automation proxy: WCAG 2.2 AA; additional supplemental outcomes are manual/AI.',
+    manualTestingRequired: [
+      ...MANUAL_GAPS_COMMON,
+      'WCAG 3.0 Silver supplemental requirements (draft)',
+      'Usability testing with people with disabilities where applicable',
+    ],
+  },
+  wcag30gold: {
+    id: 'wcag30gold',
+    label: 'WCAG 3.0 Gold (draft)',
+    axePresetKey: 'wcag30gold',
+    detStandardsTags: [
+      'wcag2a',
+      'wcag2aa',
+      'wcag2aaa',
+      'wcag21a',
+      'wcag21aa',
+      'wcag22aa',
+      'wcag22aaa',
+      'wcag30bronze',
+      'wcag30silver',
+      'wcag30gold',
+    ],
+    wcagVersion: '3.0',
+    level: 'Gold',
+    conformanceTier: 'gold',
+    isDraft: true,
+    automationProxy: 'wcag22aaa',
+    jurisdictionNotes:
+      'WCAG 3.0 Gold (draft). Automation proxy upper bound: WCAG 2.2 AAA axe tags; not equivalent to 2.x AAA checklist.',
+    manualTestingRequired: [
+      ...MANUAL_GAPS_COMMON,
+      'WCAG 3.0 Gold supplemental and organizational practices (draft)',
+    ],
   },
   'ada-title-ii-wcag21aa': {
     id: 'ada-title-ii-wcag21aa',

@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Consistent Nav
 summary: Deterministic accessibility check (generic scope).
-page_version: 4416cd9c31ab1772b49b707f1eca47c8027001383615c0a5a49d14d942593453
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 9c5e45418d24c1e1005d033cbd14eeae9eec15b984a89c8eadf6b663928f3e89
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-consistent-nav
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **3.2.3** — [`wcag/2.2/sc/3.2.3-consistent-navigation.md`](../wcag/2.2/sc/3.2.3-consistent-navigation.md)
 

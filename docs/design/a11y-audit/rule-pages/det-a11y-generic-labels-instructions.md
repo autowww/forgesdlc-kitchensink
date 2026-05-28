@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Labels Instructions
 summary: Deterministic accessibility check (generic scope).
-page_version: ead5071a6b652e208f9a03544d3d089e5216a5eea3f44c254c420aafd7d701b0
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 74f6b9b23b669b74316300d5a4bb22e6c00ba11eda28819533527bbb59485eb1
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-labels-instructions
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **3.3.2** — [`wcag/2.2/sc/3.3.2-labels-or-instructions.md`](../wcag/2.2/sc/3.3.2-labels-or-instructions.md)
 

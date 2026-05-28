@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T04:08:28.089Z",
+  "generatedAt": "2026-05-28T04:21:01.594Z",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
   "profiles": [
     {
@@ -150,6 +150,29 @@
       ]
     },
     {
+      "id": "wcag22a",
+      "label": "WCAG 2.2 Level A",
+      "wcagVersion": "2.2",
+      "level": "A",
+      "axePresetKey": "wcag22a",
+      "axeTags": [
+        "wcag2a",
+        "wcag21a"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag21a",
+        "wcag22aa"
+      ],
+      "jurisdictionNotes": "WCAG 2.2 Level A per https://www.w3.org/TR/WCAG22/; Deque axe tag mapping for 2.2 A.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
       "id": "wcag22aa",
       "label": "WCAG 2.2 Level AA",
       "wcagVersion": "2.2",
@@ -169,7 +192,7 @@
         "wcag21aa",
         "wcag22aa"
       ],
-      "jurisdictionNotes": "Forge default profile; includes WCAG 2.2 AA axe tags.",
+      "jurisdictionNotes": "Forge default profile; WCAG 2.2 AA per https://www.w3.org/TR/WCAG22/.",
       "manualTestingRequired": [
         "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
         "Media alternatives (captions, audio description, transcripts)",
@@ -207,6 +230,104 @@
         "Media alternatives (captions, audio description, transcripts)",
         "Complex widgets and live regions (custom components, dynamic updates)",
         "Cognitive load and plain language (content judgment)"
+      ]
+    },
+    {
+      "id": "wcag30bronze",
+      "label": "WCAG 3.0 Bronze (draft)",
+      "wcagVersion": "3.0",
+      "level": "Bronze",
+      "axePresetKey": "wcag30bronze",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa",
+        "wcag30bronze"
+      ],
+      "jurisdictionNotes": "W3C WCAG 3.0 Working Draft — Bronze tier. Axe/DET use WCAG 2.2 AA as automation proxy only; not legal conformance.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)",
+        "WCAG 3.0 supplemental requirements and assertions (draft)",
+        "Holistic / user testing where required for Silver/Gold (not Bronze proxy)"
+      ]
+    },
+    {
+      "id": "wcag30silver",
+      "label": "WCAG 3.0 Silver (draft)",
+      "wcagVersion": "3.0",
+      "level": "Silver",
+      "axePresetKey": "wcag30silver",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa",
+        "wcag30bronze",
+        "wcag30silver"
+      ],
+      "jurisdictionNotes": "WCAG 3.0 Silver (draft). Automation proxy: WCAG 2.2 AA; additional supplemental outcomes are manual/AI.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)",
+        "WCAG 3.0 Silver supplemental requirements (draft)",
+        "Usability testing with people with disabilities where applicable"
+      ]
+    },
+    {
+      "id": "wcag30gold",
+      "label": "WCAG 3.0 Gold (draft)",
+      "wcagVersion": "3.0",
+      "level": "Gold",
+      "axePresetKey": "wcag30gold",
+      "axeTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa",
+        "wcag22aaa"
+      ],
+      "detStandardsTags": [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa",
+        "wcag22aaa",
+        "wcag30bronze",
+        "wcag30silver",
+        "wcag30gold"
+      ],
+      "jurisdictionNotes": "WCAG 3.0 Gold (draft). Automation proxy upper bound: WCAG 2.2 AAA axe tags; not equivalent to 2.x AAA checklist.",
+      "manualTestingRequired": [
+        "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
+        "Media alternatives (captions, audio description, transcripts)",
+        "Complex widgets and live regions (custom components, dynamic updates)",
+        "Cognitive load and plain language (content judgment)",
+        "WCAG 3.0 Gold supplemental and organizational practices (draft)"
       ]
     },
     {

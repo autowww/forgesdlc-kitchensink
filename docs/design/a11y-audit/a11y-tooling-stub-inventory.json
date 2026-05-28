@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-28T04:23:01.350Z",
+  "disclaimer": "Inventory only — no fixes applied",
+  "detAuditor": {
+    "note": "analyze-website-a11y.mjs crawl runs axe + det only; --enable-ai lists eligibility without LLM",
+    "aiLaneInCrawl": false
+  },
+  "detScorer": {
+    "note": "score-compliance-a11y.mjs default lanes: axe,det — no AI findings in crawl",
+    "aiInDefaultCrawl": false
+  },
+  "aiAuditor": {
+    "note": "run-website-a11y-ai-audit.mjs requires run-design-ai-rule.sh + agent",
+    "separateCli": true
+  },
+  "aiScorer": {
+    "note": "No score-compliance path that ingests AI audit JSON end-to-end",
+    "dedicatedAiScorer": false
+  },
+  "qualityScorer": {
+    "note": "score-website-a11y.mjs is severity-only; no standards pack / WCAG 3",
+    "standardsPackAware": false
+  },
+  "detRemediation": {
+    "pilotFixerRules": 12,
+    "implementedDetRules": 68,
+    "gap": 56
+  },
+  "aiRemediation": {
+    "aiFixerModule": false,
+    "note": "Remediation loop uses cursor-agent-run-a11y-plan.sh optionally"
+  },
+  "rulePages": {
+    "placeholderCount": 75,
+    "paths": [
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-audio-control.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-change-on-request.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-consistent-nav-judgment.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-context-help.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-error-prevention.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-form-error-association.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-interruptions.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-keyboard-no-exception.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-keyboard-task-flow.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-media-alternatives.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-multiple-ways.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-pointer-gestures-judgment.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-pronunciation.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-re-authentication.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-reading-level.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-sensory-instructions.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-timing-adjustable.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-unusual-words.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-generic-visual-presentation.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-ks-handbook-sidebar-labels.md",
+      "docs/design/a11y-audit/rule-pages/ai-a11y-ks-region-labeling.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-accessible-authentication.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-app-focus-trap.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-autoplay-audio.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-change-on-request.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-character-shortcuts.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-consistent-help.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-consistent-labels.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-consistent-nav.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-context-help.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-contrast-enhanced.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-contrast.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-data-table-headers.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-diagram-alt.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-dragging-movements.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-error-prevention.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-flash-threshold.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-appearance.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-not-obscured.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-obscured-enhanced.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-order.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-glossary-abbr.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-hover-focus-content.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-images-of-text.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-input-context-change.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-interruptions.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-keyboard-access.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-labels-instructions.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-lang-of-parts.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-link-purpose.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-low-background-audio.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-media-tracks.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-motion-actuation.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-motion-flash.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-motion-reduced.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-multiple-ways.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-non-text-contrast.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-page-location.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-pause-stop-hide.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-pointer-cancellation.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-re-authentication.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-reading-level-heuristic.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-reading-order.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-redundant-entry.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-section-headings.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-sensory-cues.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-target-size-min.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-timing.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-title.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-use-of-color.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-viewport.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-generic-visual-presentation-aaa.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-ks-breadcrumb.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-ks-py-hash-attrs.md",
+      "docs/design/a11y-audit/rule-pages/det-a11y-ks-react-a11y-role.md"
+    ]
+  },
+  "detChecks": {
+    "heuristicOrSupplementalCount": 30,
+    "files": [
+      "det-a11y-generic-accessible-authentication.check.js",
+      "det-a11y-generic-change-on-request.check.js",
+      "det-a11y-generic-concurrent-input.check.js",
+      "det-a11y-generic-consistent-help.check.js",
+      "det-a11y-generic-consistent-nav.check.js",
+      "det-a11y-generic-context-help.check.js",
+      "det-a11y-generic-contrast-enhanced.check.js",
+      "det-a11y-generic-contrast.check.js",
+      "det-a11y-generic-dragging-movements.check.js",
+      "det-a11y-generic-error-prevention.check.js",
+      "det-a11y-generic-flash-threshold.check.js",
+      "det-a11y-generic-focus-appearance.check.js",
+      "det-a11y-generic-focus-context-change.check.js",
+      "det-a11y-generic-focus-obscured-enhanced.check.js",
+      "det-a11y-generic-glossary-abbr.check.js",
+      "det-a11y-generic-interruptions.check.js",
+      "det-a11y-generic-keyboard-access.check.js",
+      "det-a11y-generic-lang-of-parts.check.js",
+      "det-a11y-generic-low-background-audio.check.js",
+      "det-a11y-generic-media-tracks.check.js",
+      "det-a11y-generic-multiple-ways.check.js",
+      "det-a11y-generic-pointer-gestures.check.js",
+      "det-a11y-generic-re-authentication.check.js",
+      "det-a11y-generic-reading-level-heuristic.check.js",
+      "det-a11y-generic-reading-order.check.js",
+      "det-a11y-generic-redundant-entry.check.js",
+      "det-a11y-generic-resize-text.check.js",
+      "det-a11y-generic-target-size-min.check.js",
+      "det-a11y-generic-timing.check.js",
+      "det-a11y-generic-visual-presentation-aaa.check.js"
+    ]
+  },
+  "standardsPacks": {
+    "wcag20a": {
+      "uncovered": 0,
+      "manual": 8,
+      "automationProxy": null
+    },
+    "wcag20aa": {
+      "uncovered": 0,
+      "manual": 12,
+      "automationProxy": null
+    },
+    "wcag20aaa": {
+      "uncovered": 0,
+      "manual": 30,
+      "automationProxy": null
+    },
+    "wcag21a": {
+      "uncovered": 0,
+      "manual": 9,
+      "automationProxy": null
+    },
+    "wcag21aa": {
+      "uncovered": 0,
+      "manual": 13,
+      "automationProxy": null
+    },
+    "wcag21aaa": {
+      "uncovered": 0,
+      "manual": 31,
+      "automationProxy": null
+    },
+    "wcag22a": {
+      "uncovered": 0,
+      "manual": 9,
+      "automationProxy": null
+    },
+    "wcag22aa": {
+      "uncovered": 0,
+      "manual": 17,
+      "automationProxy": null
+    },
+    "wcag22aaa": {
+      "uncovered": 0,
+      "manual": 38,
+      "automationProxy": null
+    },
+    "wcag30bronze": {
+      "uncovered": 0,
+      "manual": 5,
+      "automationProxy": "wcag22aa"
+    },
+    "wcag30silver": {
+      "uncovered": 0,
+      "manual": 14,
+      "automationProxy": "wcag22aa"
+    },
+    "wcag30gold": {
+      "uncovered": 0,
+      "manual": 14,
+      "automationProxy": "wcag22aaa"
+    }
+  },
+  "wcag3": {
+    "requirementsWithoutCrosswalk": [],
+    "draftProfiles": [
+      "wcag30bronze",
+      "wcag30silver",
+      "wcag30gold"
+    ]
+  }
+}

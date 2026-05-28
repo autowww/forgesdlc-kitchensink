@@ -324,6 +324,7 @@
     "wcag22aa": {
       "wcagVersion": "2.2",
       "level": "AA",
+      "specUrl": "https://www.w3.org/TR/WCAG22/",
       "extendsProfile": "wcag21aa",
       "additionalCriteria": [
         {
@@ -367,6 +368,13 @@
           "defaultCoverage": "manual_only"
         }
       ]
+    },
+    "wcag22a": {
+      "wcagVersion": "2.2",
+      "level": "A",
+      "specUrl": "https://www.w3.org/TR/WCAG22/",
+      "extendsProfile": "wcag22aa",
+      "levelFilter": "A"
     },
     "wcag22aaa": {
       "wcagVersion": "2.2",

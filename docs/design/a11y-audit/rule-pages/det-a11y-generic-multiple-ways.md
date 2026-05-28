@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Multiple Ways
 summary: Deterministic accessibility check (generic scope).
-page_version: b95312b72be13079766a955dc7dbb414e59d87dfa3f85ef9c898a5af4158584e
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: cdb575876d4875fea52e1f5f8a5c1563b7114fb2a92818f1bba667435e57ad2b
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-multiple-ways
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.4.5** — [`wcag/2.2/sc/2.4.5-multiple-ways.md`](../wcag/2.2/sc/2.4.5-multiple-ways.md)
 

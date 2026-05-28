@@ -13,6 +13,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 REGISTRY_PATH = REPO_ROOT / "tools/website-a11y-auditor/design-rules/registry.generated.json"
 RULE_PAGES_DIR = REPO_ROOT / "docs/design/a11y-audit/rule-pages"
 MANIFEST_PATH = RULE_PAGES_DIR / "rule-pages.manifest.json"
+WCAG_REF_MANIFEST = REPO_ROOT / "docs/design/a11y-audit/wcag/reference-manifest.json"
 
 
 def kebab_from_rule_id(rule_id: str) -> str:
@@ -231,6 +232,23 @@ def _default_examples(rule_id: str, title: str, scope: str) -> tuple[str, str]:
     return fail, pass_
 
 
+def _load_wcag_ref_manifest() -> dict[str, dict]:
+    if not WCAG_REF_MANIFEST.is_file():
+        return {}
+    data = json.loads(WCAG_REF_MANIFEST.read_text(encoding="utf-8"))
+    return data.get("entries") or {}
+
+
+def _wcag_links_for_rule(row: dict, wcag_entries: dict[str, dict]) -> list[str]:
+    links: list[str] = []
+    for sc in row.get("wcagCriteria") or []:
+        meta = wcag_entries.get(sc)
+        if not meta or not meta.get("path"):
+            continue
+        links.append(f"- WCAG **{sc}** — [`wcag/{meta['path']}`](../wcag/{meta['path']})")
+    return links
+
+
 def _render_md(
     rule_id: str,
     *,
@@ -243,6 +261,7 @@ def _render_md(
     before_html: str,
     after_html: str,
     related: list[str],
+    wcag_links: list[str],
 ) -> str:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
     body_core = f"""\
@@ -286,6 +305,10 @@ def _render_md(
     if not related:
         body_core += "- See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)\n"
 
+    if wcag_links:
+        body_core += "\n## Related WCAG\n\n"
+        body_core += "\n".join(wcag_links) + "\n"
+
     content = body_core
     pv = _page_version(content)
     rel_yaml = "\n".join(f"  - {r}" for r in related) if related else "  []"
@@ -313,6 +336,7 @@ def main() -> None:
         raise SystemExit(f"Missing registry: {REGISTRY_PATH}")
     registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
     reg_fp = registry.get("fingerprint") or ""
+    wcag_entries = _load_wcag_ref_manifest()
     RULE_PAGES_DIR.mkdir(parents=True, exist_ok=True)
 
     manifest_rules: list[dict] = []
@@ -343,6 +367,7 @@ def main() -> None:
             before_html=before,
             after_html=after,
             related=[],
+            wcag_links=_wcag_links_for_rule(row, wcag_entries),
         )
         path = RULE_PAGES_DIR / f"{slug}.md"
         path.write_text(md, encoding="utf-8")
@@ -381,6 +406,7 @@ def main() -> None:
             before_html=before,
             after_html=after,
             related=[],
+            wcag_links=_wcag_links_for_rule(row, wcag_entries),
         )
         path = RULE_PAGES_DIR / f"{slug}.md"
         path.write_text(md, encoding="utf-8")

@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Target Size Min
 summary: Deterministic accessibility check (generic scope).
-page_version: 4f471f46b69fe2ed75ffe6cfaf488941e4788fbbeefe841e7898843d294416da
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 63ca2f5fc4c3b84ef9280b0fb2e5043a750dc2c9937d4a0d268754d5d84ecbc2
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-target-size-min
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.5.8** — [`wcag/2.2/sc/2.5.8-target-size-minimum.md`](../wcag/2.2/sc/2.5.8-target-size-minimum.md)
 

@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Autoplay Audio
 summary: Deterministic accessibility check (generic scope).
-page_version: 3405b8f0cad4ff61dedc0e8756e36470e6f36dd28c137fc0263217ea3be49bba
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: b94755d3e7cbd20e662be4da0ce5268270b0e7c7668d17f9d50272774a9ee7b2
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-autoplay-audio
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.4.2** — [`wcag/2.2/sc/1.4.2-audio-control.md`](../wcag/2.2/sc/1.4.2-audio-control.md)
 

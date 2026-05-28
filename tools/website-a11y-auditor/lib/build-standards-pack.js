@@ -13,6 +13,7 @@ const SPEC_URLS = {
   '2.0': 'https://www.w3.org/TR/WCAG20/',
   '2.1': 'https://www.w3.org/TR/WCAG21/',
   '2.2': 'https://www.w3.org/TR/WCAG22/',
+  '3.0': 'https://www.w3.org/TR/wcag-3.0/',
 };
 
 /**
@@ -41,7 +42,9 @@ export function buildStandardsPackFromProfile(matrix, profileId) {
   const def = getComplianceProfile(profileId);
   const preset = def ? A11Y_STANDARD_PRESETS[def.axePresetKey] : null;
   const wcagVersion = def?.wcagVersion || '—';
-  const specUrl = SPEC_URLS[wcagVersion] || '';
+  const specUrl = def?.isDraft
+    ? SPEC_URLS['3.0']
+    : SPEC_URLS[wcagVersion] || profileMatrix.specUrl || '';
 
   const criteria = profileMatrix.criteria.map((row) => {
     const tooling = toolingFromRow(row);
@@ -98,6 +101,7 @@ export function buildStandardsPackFromProfile(matrix, profileId) {
     generatedAt: matrix.generatedAt || new Date().toISOString(),
     axeTags: preset?.axeTags ? [...preset.axeTags] : [],
     detStandardsTags: def?.detStandardsTags ? [...def.detStandardsTags] : [],
+    ...(def?.automationProxy ? { automationProxy: def.automationProxy, isDraft: Boolean(def.isDraft) } : {}),
     summary: {
       ...summary,
       automationCoveragePercent,

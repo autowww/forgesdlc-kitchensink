@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Keyboard Access
 summary: Deterministic accessibility check (generic scope).
-page_version: fa03fe25fc9da21aa281af9a2263dfa2e92ce846fdf964eb911460f734371895
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: fc085bed3c11ac740e235fa841598a8fb276d0f56cb24e46a93c4fb0affe6c3a
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-keyboard-access
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.1.1** — [`wcag/2.2/sc/2.1.1-keyboard.md`](../wcag/2.2/sc/2.1.1-keyboard.md)
 

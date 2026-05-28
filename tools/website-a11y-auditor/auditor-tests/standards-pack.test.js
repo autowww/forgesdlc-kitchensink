@@ -130,6 +130,17 @@ describe('standards-pack', () => {
     assert.ok(pack.summary.totalCriteria >= 80);
   });
 
+  it('wcag22a pack has zero uncovered', () => {
+    const pack = loadStandardsPack('wcag22a');
+    assert.equal(pack.validation.uncoveredCriteria.length, 0);
+  });
+
+  it('wcag30bronze pack has zero uncovered', () => {
+    const pack = loadStandardsPack('wcag30bronze');
+    assert.equal(pack.validation.uncoveredCriteria.length, 0);
+    assert.equal(pack.automationProxy, 'wcag22aa');
+  });
+
   it('wcag22aa pack has zero uncovered after 2.2 DET rules', () => {
     const pack = loadStandardsPack('wcag22aa');
     const result = validateStandardsPack(pack, { allowManualOnly: true, strict: true });

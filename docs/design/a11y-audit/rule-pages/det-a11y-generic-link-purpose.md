@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Link Purpose
 summary: Deterministic accessibility check (generic scope).
-page_version: a9297953d4b5b71b1068e60583204716c7f0e32519b24b236103a37fec3a96e9
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: a107c14fbf6e9b7c7e0c4f05e34561278e84e62eb8b3ddf20ae81a50629682a9
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-link-purpose
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.4.4** — [`wcag/2.2/sc/2.4.4-link-purpose-in-context.md`](../wcag/2.2/sc/2.4.4-link-purpose-in-context.md)
 

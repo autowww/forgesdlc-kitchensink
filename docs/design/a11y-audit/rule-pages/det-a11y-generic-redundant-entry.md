@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Redundant Entry
 summary: Deterministic accessibility check (generic scope).
-page_version: 66433267c7eefa5740052f50ce377cea326ad562bcd13a313b17c969eb6ba511
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 01f3c269a2d11e5a34420aa850950e77d7f3344de88ce4b15263ffcdc6591dd3
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-redundant-entry
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **3.3.7** — [`wcag/2.2/sc/3.3.7-redundant-entry.md`](../wcag/2.2/sc/3.3.7-redundant-entry.md)
 

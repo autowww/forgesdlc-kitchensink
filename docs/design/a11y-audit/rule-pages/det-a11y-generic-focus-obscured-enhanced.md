@@ -5,7 +5,7 @@ scope: generic
 title: Focus Obscured Enhanced
 summary: Deterministic accessibility check (generic scope).
 page_version: 856a83b1fa52e661b32d2da8487d5fb7dedc03086e13ec16e16515eb648bc0a8
-generated_at: 2026-05-28T04:08:36.000Z
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-obscured-enhanced

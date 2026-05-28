@@ -11,6 +11,9 @@
     "build-standards-packs": "node design-rules/blender/build-standards-packs.mjs",
     "validate-pack": "node validate-standards-pack.mjs",
     "blend-rules": "node design-rules/blender/a11y-rules-blender.mjs",
+    "sync-wcag-md": "node scripts/sync-wcag-reference-markdown.mjs",
+    "import-wcag3-catalog": "node scripts/import-wcag3-draft-catalog.mjs",
+    "inventory-a11y-stubs": "node scripts/inventory-a11y-stubs.mjs",
     "test": "node --test auditor-tests/*.test.js",
     "install-browsers": "playwright install chromium",
     "vendor:axe": "node -e \"const fs=require('fs');const p=require('path');const d=p.join('node_modules','axe-core','axe.min.js');const t=p.join('vendor','axe.min.js');if(fs.existsSync(d)){fs.mkdirSync('vendor',{recursive:true});fs.copyFileSync(d,t);}else process.exit(1);\""

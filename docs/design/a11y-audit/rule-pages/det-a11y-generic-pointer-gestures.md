@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Pointer gestures
 summary: Provide single-pointer alternative to path gestures (2.5.1).
-page_version: da432c951ac3370557040afa9c6456a7374280d9a7e7678c5f5752af4a2d2faa
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: bed76f160e39f71e28138d9c4c1f22d08e29eee909c2328d5a5cfc33579031f3
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-pointer-gestures
@@ -48,4 +48,8 @@ Provide single-pointer alternative to path gestures (2.5.1).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.5.1** — [`wcag/2.2/sc/2.5.1-pointer-gestures.md`](../wcag/2.2/sc/2.5.1-pointer-gestures.md)
 

@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Audio Control
 summary: AI judgment overlay (generic scope).
-page_version: 5edcd9b1edb57d32d325ef2d0cb611862f887cd2e6f8dede7c5c6b12ce3d8919
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 27f7b02e9194c180fb4592a91a13c172f07f06cb88e075ee929d31821fa4495b
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-audio-control
@@ -48,4 +48,8 @@ AI judgment overlay (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.4.2** — [`wcag/2.2/sc/1.4.2-audio-control.md`](../wcag/2.2/sc/1.4.2-audio-control.md)
 

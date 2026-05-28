@@ -48,6 +48,12 @@ export const A11Y_STANDARD_PRESETS = {
     axeTags: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21a', 'wcag21aa'],
     notes: 'WCAG 2.1 AAA; wcag2aaa + wcag21aa axe tags.',
   },
+  wcag22a: {
+    id: 'wcag22a',
+    label: 'WCAG 2.2 Level A',
+    axeTags: ['wcag2a', 'wcag21a'],
+    notes: 'WCAG 2.2 Level A; same axe tag pattern as wcag21a.',
+  },
   wcag22aa: {
     id: 'wcag22aa',
     label: 'WCAG 2.2 Level AA',
@@ -59,6 +65,24 @@ export const A11Y_STANDARD_PRESETS = {
     label: 'WCAG 2.2 Level AAA',
     axeTags: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'wcag22aaa'],
     notes: 'AAA axe tag set where supported by axe-core.',
+  },
+  wcag30bronze: {
+    id: 'wcag30bronze',
+    label: 'WCAG 3.0 Bronze (draft)',
+    axeTags: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'],
+    notes: 'Automation proxy: WCAG 2.2 AA axe tags. WCAG 3.0 has no wcag30* axe tags.',
+  },
+  wcag30silver: {
+    id: 'wcag30silver',
+    label: 'WCAG 3.0 Silver (draft)',
+    axeTags: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'],
+    notes: 'Automation proxy: WCAG 2.2 AA; supplemental WCAG 3 outcomes are manual/AI.',
+  },
+  wcag30gold: {
+    id: 'wcag30gold',
+    label: 'WCAG 3.0 Gold (draft)',
+    axeTags: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'wcag22aaa'],
+    notes: 'Automation proxy upper bound: WCAG 2.2 AAA axe tags where supported.',
   },
   section508: {
     id: 'section508',

@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Timing
 summary: Deterministic accessibility check (generic scope).
-page_version: 75470780accd25cc240e98c06b982984e92d68e611331ef24a0e449434ac053b
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 47e800c788e452d6f4f9008a94f5b7272cc7a0635c9d02fb2fbe0c9fde7cf0e8
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-timing
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.2.1** — [`wcag/2.2/sc/2.2.1-timing-adjustable.md`](../wcag/2.2/sc/2.2.1-timing-adjustable.md)
 

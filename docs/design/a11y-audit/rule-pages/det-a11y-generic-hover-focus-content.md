@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Hover Focus Content
 summary: Deterministic accessibility check (generic scope).
-page_version: b1a9e813fccb79afa8e4e5b5d8b8c1820df4c0f238d9c793d99b501be81f4e8d
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: c82d7a00339c4073abb0537ce06e1ca8f6b0b9f52a56f0dc42ab90d639ae0148
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-hover-focus-content
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.4.13** — [`wcag/2.2/sc/1.4.13-content-on-hover-or-focus.md`](../wcag/2.2/sc/1.4.13-content-on-hover-or-focus.md)
 

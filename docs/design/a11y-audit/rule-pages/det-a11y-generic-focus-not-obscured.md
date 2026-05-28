@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Focus Not Obscured
 summary: Deterministic accessibility check (generic scope).
-page_version: 817c3a1412d545d742d3360080ae8a41b92753f61a98a4bc5d2d8d83a4f5f781
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 0dfc2482b7a09117c1d5c724e011b9d3a556c9574009457db7428ad4a1a559ac
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-not-obscured
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **2.4.11** — [`wcag/2.2/sc/2.4.11-focus-not-obscured-minimum.md`](../wcag/2.2/sc/2.4.11-focus-not-obscured-minimum.md)
 

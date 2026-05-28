@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Text spacing
 summary: Avoid clipping when spacing increases (1.4.12).
-page_version: 7c121f1c086e99604f46b577a89385e1c771c728cc7636b2fe5aadf927bcc54b
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 2b95ed7da6ed6c79e15cdcde572915490837b361fbf80591ac4f20ef68e3586d
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-text-spacing
@@ -48,4 +48,8 @@ Avoid clipping when spacing increases (1.4.12).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.4.12** — [`wcag/2.2/sc/1.4.12-text-spacing.md`](../wcag/2.2/sc/1.4.12-text-spacing.md)
 

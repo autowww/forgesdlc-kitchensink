@@ -4,8 +4,8 @@ lane: deterministic
 scope: generic
 title: Lang Of Parts
 summary: Deterministic accessibility check (generic scope).
-page_version: 2f0e8853f040609a5fd9c8da001fe14835baac8abb7e765443615a54c5ce4642
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 1f4ff368ab5deeae147e08589c1e300671fcff2658f74b04b99641888e6023de
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-lang-of-parts
@@ -48,4 +48,8 @@ Deterministic accessibility check (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **3.1.2** — [`wcag/2.2/sc/3.1.2-language-of-parts.md`](../wcag/2.2/sc/3.1.2-language-of-parts.md)
 

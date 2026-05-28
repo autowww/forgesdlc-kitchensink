@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Form Error Association
 summary: AI judgment overlay (generic scope).
-page_version: 4b7d26b26401252ed15719e4b809a2453e692ad27e0eb260e8924e2a73dfa612
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: 1f8293bb45186b677781f3a6bb3c655423484f565a2883042f4a35c03f35bad9
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-form-error-association
@@ -48,4 +48,9 @@ AI judgment overlay (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **3.3.1** — [`wcag/2.2/sc/3.3.1-error-identification.md`](../wcag/2.2/sc/3.3.1-error-identification.md)
+- WCAG **3.3.3** — [`wcag/2.2/sc/3.3.3-error-suggestion.md`](../wcag/2.2/sc/3.3.3-error-suggestion.md)
 

@@ -5,7 +5,7 @@ scope: generic
 title: Reading Level Heuristic
 summary: Deterministic accessibility check (generic scope).
 page_version: 59715addae19d9b85cd06875304880d51789e8568fcad4824e4e334884c008e9
-generated_at: 2026-05-28T04:08:36.000Z
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-reading-level-heuristic

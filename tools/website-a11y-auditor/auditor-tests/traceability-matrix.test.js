@@ -91,8 +91,11 @@ describe('traceability-matrix', () => {
     assert.equal(resolveRtmProfileId('ada-title-ii-wcag21aa'), 'wcag21aa');
     assert.equal(resolveRtmProfileId('wcag21a'), 'wcag21a');
     assert.equal(resolveRtmProfileId('wcag21aaa'), 'wcag21aaa');
+    assert.equal(resolveRtmProfileId('wcag22a'), 'wcag22a');
     assert.equal(resolveRtmProfileId('wcag22aa'), 'wcag22aa');
     assert.equal(resolveRtmProfileId('wcag22aaa'), 'wcag22aaa');
+    assert.equal(resolveRtmProfileId('wcag30bronze'), 'wcag30bronze');
+    assert.throws(() => resolveRtmProfileId('wcag30aa'), /not supported/);
     assert.equal(resolveRtmProfileId('wcag20aa'), 'wcag20aa');
     assert.equal(resolveRtmProfileId('wcag20aaa'), 'wcag20aaa');
     assert.equal(resolveRtmProfileId('wcag20a'), 'wcag20a');

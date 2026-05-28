@@ -4,8 +4,8 @@ lane: ai
 scope: generic
 title: Sensory Instructions
 summary: AI judgment overlay (generic scope).
-page_version: 00e455c7b8f757868649d18f05d829272a137404ebf207f0f0900fa0285e8698
-generated_at: 2026-05-28T04:08:36.000Z
+page_version: f3dcd0baf29112ebc90465ebb6b17e4cd32018bca025edb4393c47e6a6ad6237
+generated_at: 2026-05-28T04:23:01.000Z
 registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-sensory-instructions
@@ -48,4 +48,8 @@ AI judgment overlay (generic scope).
 ## Related rules
 
 - See [deterministic-a11y-rules.md](../deterministic-a11y-rules.md)
+
+## Related WCAG
+
+- WCAG **1.3.3** — [`wcag/2.2/sc/1.3.3-sensory-characteristics.md`](../wcag/2.2/sc/1.3.3-sensory-characteristics.md)
 

@@ -11,8 +11,12 @@ export const RTM_PROFILE_IDS = [
   'wcag21a',
   'wcag21aa',
   'wcag21aaa',
+  'wcag22a',
   'wcag22aa',
   'wcag22aaa',
+  'wcag30bronze',
+  'wcag30silver',
+  'wcag30gold',
 ];
 
 /**
