@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 import { A11Y_STANDARD_PRESETS } from '../../lib/a11y-standards.js';
 import { buildComplianceProfilesCrosswalk } from '../../lib/compliance-profiles.js';
-import { buildTraceabilityFromRegistry } from '../../lib/build-traceability-matrix.js';
+import { buildTraceabilityMarkdownBundle } from '../../lib/build-traceability-matrix.js';
 import { writeStandardsPacks } from './build-standards-packs.mjs';
 import {
   AI_PROMPT_IMPLEMENTATIONS,
@@ -27,6 +27,11 @@ const TRACEABILITY_GAPS_MD = path.resolve(
   REPO_KS_ROOT,
   'docs/design/a11y-audit/standards-traceability-gaps.md',
 );
+const TRACEABILITY_MATRIX_MD = path.resolve(
+  REPO_KS_ROOT,
+  'docs/design/a11y-audit/standards-traceability-matrix.md',
+);
+const STANDARDS_DIR = path.resolve(REPO_KS_ROOT, 'docs/design/a11y-audit/standards');
 const DEFAULT_OUT = path.resolve(TOOL_ROOT, 'design-rules/registry.generated.json');
 const DET_DOC = path.resolve(TOOL_ROOT, '../../docs/design/a11y-audit/deterministic-a11y-rules.md');
 const AI_DOC = path.resolve(TOOL_ROOT, '../../docs/design/a11y-audit/ai-enabled-a11y-principles.md');
@@ -155,7 +160,17 @@ async function main() {
     Object.entries(A11Y_STANDARD_PRESETS).map(([key, preset]) => [key, preset.axeTags]),
   );
   const complianceCrosswalk = buildComplianceProfilesCrosswalk(axeTagsByPresetKey);
-  const { matrix, gapsMd } = buildTraceabilityFromRegistry(registry);
+
+  if (args.write) {
+    const { spawnSync } = await import('node:child_process');
+    for (const script of ['scripts/generate-pilot-registry.mjs', 'scripts/generate-ai-fixer-registry.mjs']) {
+      const rc = spawnSync(process.execPath, [script], { cwd: TOOL_ROOT, stdio: 'inherit' });
+      if (rc.status !== 0) process.exit(rc.status ?? 1);
+    }
+  }
+
+  const { matrix, gapsMd, matrixMd, standardsIndexMd, profileMdById } =
+    buildTraceabilityMarkdownBundle(registry);
 
   if (args.write) {
     await fs.mkdir(path.dirname(args.out), { recursive: true });
@@ -167,11 +182,19 @@ async function main() {
     );
     await fs.writeFile(TRACEABILITY_OUT, `${JSON.stringify(matrix, null, 2)}\n`, 'utf8');
     await fs.writeFile(TRACEABILITY_GAPS_MD, gapsMd, 'utf8');
+    await fs.writeFile(TRACEABILITY_MATRIX_MD, matrixMd, 'utf8');
+    await fs.mkdir(STANDARDS_DIR, { recursive: true });
+    await fs.writeFile(path.join(STANDARDS_DIR, 'README.md'), standardsIndexMd, 'utf8');
+    for (const [profileId, body] of Object.entries(profileMdById)) {
+      await fs.writeFile(path.join(STANDARDS_DIR, `${profileId}.md`), body, 'utf8');
+    }
     const packs = await writeStandardsPacks(matrix);
     console.log(`wrote ${args.out} (${detRules.length} DET, ${aiRules.length} AI)`);
     console.log(`wrote ${COMPLIANCE_PROFILES_OUT} (${complianceCrosswalk.profiles.length} profiles)`);
     console.log(`wrote ${TRACEABILITY_OUT}`);
     console.log(`wrote ${TRACEABILITY_GAPS_MD}`);
+    console.log(`wrote ${TRACEABILITY_MATRIX_MD}`);
+    console.log(`wrote ${STANDARDS_DIR}/ (${Object.keys(profileMdById).length} profile pages)`);
     console.log(`wrote ${Object.keys(packs).length} standards packs under design-rules/standards-packs/`);
     const { spawnSync } = await import('node:child_process');
     const exportRc = spawnSync(process.execPath, ['scripts/export-axe-catalog.mjs'], {

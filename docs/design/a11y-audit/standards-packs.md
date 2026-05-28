@@ -33,6 +33,9 @@ After `npm run blend-rules` in `tools/website-a11y-auditor/`:
 | `wcag30silver.pack.json` | WCAG 3.0 Silver (draft) |
 | `wcag30gold.pack.json` | WCAG 3.0 Gold (draft) |
 
+Handbook (per profile): [`standards/<packId>.md`](standards/) — regenerated with `npm run blend-rules`.  
+Master matrix: [`standards-traceability-matrix.md`](standards-traceability-matrix.md).
+
 Sources: [`wcag-criteria-catalog.json`](wcag-criteria-catalog.json), [`wcag3-outcomes-catalog.json`](wcag3-outcomes-catalog.json).
 
 ## Regenerate

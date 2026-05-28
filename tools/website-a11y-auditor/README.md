@@ -13,7 +13,7 @@ Deterministic accessibility campaigns for **any** website, with optional Kitchen
 | CLI | Role |
 |-----|------|
 | `analyze-website-a11y.mjs` / `npm run audit` | Crawl + axe + DET rules → `a11y-audit-data.json`, `a11y-audit-report.md` |
-| `score-website-a11y.mjs` / `npm run score` | Full-breadth crawl scorecard → `a11y-quality-score.json` |
+| `score-website-a11y.mjs` / `npm run score` | Full-breadth crawl scorecard + optional standards compliance rollup → `a11y-quality-score.json` |
 | `score-compliance-a11y.mjs` / `npm run score-compliance` | Compliance score vs a standards pack (per success criterion) |
 | `validate-standards-pack.mjs` / `npm run validate-pack` | CI check that a `*.pack.json` has no unexpected gaps |
 
@@ -49,9 +49,9 @@ node kitchensink/tools/website-a11y-auditor/analyze-website-a11y.mjs \
 |------|------|-------------|
 | **axe** | default in `--lanes` | axe-core WCAG-tagged violations → `AXE.*` findings |
 | **det** | default | `DET.A11Y.GENERIC.*` and (when KS) `DET.A11Y.KS.*` |
-| **ai** | `--enable-ai` | Lists eligible `AI.A11Y.*` rules only — **does not** run LLM in analyze |
+| **ai** | `--lanes axe,det,ai` + agent | Runs `AI.A11Y.*` in crawl when `FORGE_A11Y_SKIP_AI_AGENT` is unset; `--enable-ai` alone lists eligibility |
 
-`--skip-axe` / `--skip-det` remove lanes. Including `ai` in `--lanes` does not execute AI in crawl (see `lanesExecuted` in audit JSON).
+`--skip-axe` / `--skip-det` remove lanes. Without `ai` in `--lanes`, crawl does not call the agent (see `lanesExecuted` in audit JSON).
 
 ### AI findings + compliance score
 
@@ -109,10 +109,14 @@ Design docs: [`docs/design/a11y-audit/compliance-profiles.md`](../../docs/design
 
 `npm run blend-rules` also writes:
 
-- `design-rules/standards-traceability.generated.json` — WCAG 2.1 AA / 2.2 AA success criteria ↔ axe / DET / AI
+- `design-rules/standards-traceability.generated.json` — RTM JSON (all 12 packs)
+- `docs/design/a11y-audit/standards-traceability-matrix.md` — tooling × lane (auditor / scorer / fixer) + profile summary
+- `docs/design/a11y-audit/standards/<packId>.md` — per-profile SC tables with axe / DET / AI / fixer columns
+- `docs/design/a11y-audit/standards/README.md` — index + CLI alias → RTM pack table
 - `docs/design/a11y-audit/standards-traceability-gaps.md` — uncovered criteria and untied rules
+- Regenerates `pilot-registry.json`, `ai-fixer-registry.json`, and `*.pack.json`
 
-See [`docs/design/a11y-audit/standards-traceability.md`](../../docs/design/a11y-audit/standards-traceability.md). Audit reports include `traceabilitySummary` when the matrix is present.
+See [`docs/design/a11y-audit/standards-traceability.md`](../../docs/design/a11y-audit/standards-traceability.md). Audit reports include `traceabilitySummary` when the matrix is present. CI: `npm run check-standards-traceability-md`.
 
 ## Narrowing scope
 

@@ -17,9 +17,9 @@ Forge **Website Accessibility Auditor** (`tools/website-a11y-auditor/`) uses thi
 |------|------------|
 | **axe** | Deque axe-core in Playwright; violations tagged with WCAG-oriented rule IDs (`AXE.*`). |
 | **Deterministic (DET)** | Pass/fail from DOM, repo, or catalog JSON — **no LLM**. |
-| **AI-enabled** | Judgment-heavy review for keyboard flows, handbook chrome, region labeling. |
+| **AI-enabled** | Judgment-heavy review for keyboard flows, handbook chrome, region labeling. Runs in crawl when `--lanes` includes `ai` and the agent is available; otherwise use `run-website-a11y-ai-audit.mjs` after analyze. |
 
-`analyze-website-a11y.mjs` **must not** call `score-website-a11y.mjs` (or vice versa).
+`analyze-website-a11y.mjs` **must not** call `score-website-a11y.mjs` (or vice versa). `score-website-a11y.mjs` may include a **compliance** block (`buildComplianceReport`, default `--include-compliance`) without calling analyze.
 
 ## Naming: `-generic-` vs `-ks-`
 
@@ -42,6 +42,8 @@ The rules blender **rejects** scope/filename mismatches.
 | [`ai-enabled-a11y-principles.md`](ai-enabled-a11y-principles.md) | **AI.A11Y.\*** catalog |
 | [`compliance-profiles.md`](compliance-profiles.md) | Named bundles (ADA, Section 508, EN 301 549, WCAG) |
 | [`standards-traceability.md`](standards-traceability.md) | RTM: SC ↔ axe / DET / AI coverage |
+| [`standards-traceability-matrix.md`](standards-traceability-matrix.md) | Generated matrix: auditor / scorer / fixer × lane + profile summary |
+| [`standards/`](standards/) | Generated handbook page per RTM pack (12 profiles) |
 | [`standards-traceability-gaps.md`](standards-traceability-gaps.md) | Generated gap report (after `blend-rules`) |
 | [`standards-packs.md`](standards-packs.md) | Per-profile `*.pack.json` for compliance score + CI |
 | [`wcag-criteria-catalog.json`](wcag-criteria-catalog.json) | Canonical WCAG 2.0 / 2.1 / 2.2 criteria |

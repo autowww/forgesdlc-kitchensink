@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { COMPLIANCE_DISCLAIMER } from './compliance-profiles.js';
+import { COMPLIANCE_DISCLAIMER, COMPLIANCE_PROFILES, listComplianceProfileIds } from './compliance-profiles.js';
 import { buildAxeRuleCatalog, RTM_PROFILE_IDS } from './axe-rule-catalog.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -16,6 +16,15 @@ const WCAG3_CATALOG_PATH = path.resolve(
   REPO_KS_ROOT,
   'docs/design/a11y-audit/wcag3-outcomes-catalog.json',
 );
+const REFERENCE_MANIFEST_PATH = path.resolve(
+  REPO_KS_ROOT,
+  'docs/design/a11y-audit/wcag/reference-manifest.json',
+);
+const PILOT_REGISTRY_PATH = path.resolve(
+  TOOL_ROOT,
+  'lib/a11y-deterministic-fixers/pilot-registry.json',
+);
+const AI_FIXER_REGISTRY_PATH = path.resolve(TOOL_ROOT, 'lib/a11y-ai-fixers/ai-fixer-registry.json');
 
 /** @type {string[]} */
 export const WCAG3_PROFILE_IDS = ['wcag30bronze', 'wcag30silver', 'wcag30gold'];
@@ -556,11 +565,341 @@ export function renderTraceabilityGapsMarkdown(matrix) {
 }
 
 /**
+ * @returns {{ det: Map<string, string>, ai: Map<string, string>, detDistinctFixers: string[], aiDistinctFixers: string[] }}
+ */
+export function loadFixerMaps() {
+  /** @type {Map<string, string>} */
+  const det = new Map();
+  /** @type {Map<string, string>} */
+  const ai = new Map();
+  if (fs.existsSync(PILOT_REGISTRY_PATH)) {
+    const pilot = JSON.parse(fs.readFileSync(PILOT_REGISTRY_PATH, 'utf8'));
+    for (const row of pilot.rules || []) {
+      if (row.ruleId) det.set(row.ruleId, row.fixerId || 'handbook_after');
+    }
+  }
+  if (fs.existsSync(AI_FIXER_REGISTRY_PATH)) {
+    const reg = JSON.parse(fs.readFileSync(AI_FIXER_REGISTRY_PATH, 'utf8'));
+    const defaultId = reg.defaultFixerId || 'plan_only';
+    for (const row of reg.rules || []) {
+      if (row.ruleId) ai.set(row.ruleId, row.fixerId || defaultId);
+    }
+  }
+  return {
+    det,
+    ai,
+    detDistinctFixers: [...new Set(det.values())].sort(),
+    aiDistinctFixers: [...new Set(ai.values())].sort(),
+  };
+}
+
+/**
+ * @returns {Record<string, { path: string, kind?: string }>}
+ */
+export function loadReferenceManifest() {
+  if (!fs.existsSync(REFERENCE_MANIFEST_PATH)) return {};
+  try {
+    const raw = JSON.parse(fs.readFileSync(REFERENCE_MANIFEST_PATH, 'utf8'));
+    return raw.entries || {};
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * @param {string[]} ruleIds
+ * @param {Map<string, string>} fixerMap
+ * @param {number} maxRules
+ */
+function formatRulesWithFixers(ruleIds, fixerMap, maxRules = 4) {
+  const ids = ruleIds || [];
+  if (!ids.length) return '—';
+  const shown = ids.slice(0, maxRules);
+  const parts = shown.map((id) => {
+    const fix = fixerMap.get(id);
+    return fix ? `\`${id}\` (${fix})` : `\`${id}\``;
+  });
+  let out = parts.join(', ');
+  if (ids.length > maxRules) out += ` (+${ids.length - maxRules} more)`;
+  return out;
+}
+
+/**
+ * @param {string} criterionId
+ * @param {Record<string, { path: string }>} manifest
+ */
+function docLinkForCriterion(criterionId, manifest) {
+  const meta = manifest[criterionId];
+  if (!meta?.path) return criterionId;
+  const rel = meta.path.startsWith('wcag/') ? meta.path : `wcag/${meta.path}`;
+  return `[${criterionId}](../../wcag/${meta.path.replace(/^wcag\//, '')})`;
+}
+
+/**
+ * @param {ReturnType<typeof buildStandardsTraceability>} matrix
+ * @param {ReturnType<typeof loadFixerMaps>} fixerMaps
+ */
+export function renderTraceabilityMatrixMarkdown(matrix, fixerMaps) {
+  const lines = [];
+  lines.push('# Standards traceability matrix');
+  lines.push('');
+  lines.push(`> ${matrix.disclaimer}`);
+  lines.push('');
+  lines.push(`generatedAt: ${matrix.generatedAt}`);
+  lines.push('');
+  lines.push('Refresh: `cd tools/website-a11y-auditor && npm run blend-rules`');
+  lines.push('');
+  lines.push('## Tooling × lane (auditor / scorer / remediation)');
+  lines.push('');
+  lines.push('| Lane | Auditor | Scorer | Remediation |');
+  lines.push('|------|---------|--------|-------------|');
+  lines.push(
+    '| **axe** | `analyze-website-a11y.mjs` / `a11y-crawl.js` (default `--lanes axe,det`) | `score-compliance-a11y.mjs` → `failingByLane.axe`; `score-website-a11y.mjs` severity + optional `compliance` | No dedicated axe fixer in a11y loop |',
+  );
+  lines.push(
+    '| **DET** | Default crawl `DET.A11Y.*` (+ KS when `--rules-scope` allows) | Same findings → `failingByLane.det` | `run-deterministic-fixers.mjs` — see fixer ids below |',
+  );
+  lines.push(
+    '| **AI** | `--lanes …,ai` + agent, or `run-website-a11y-ai-audit.mjs` | `merge-ai-audit` + `score-compliance-a11y.mjs --audit-data` | `run-ai-fixers.mjs` (`plan_only` / `remediation_note`) |',
+  );
+  lines.push('');
+  lines.push('`analyze-website-a11y.mjs` **must not** call `score-website-a11y.mjs` or `score-compliance-a11y.mjs`.');
+  lines.push('');
+  lines.push('## Fixer registry (Forge rules)');
+  lines.push('');
+  lines.push(`- **DET** distinct fixer ids (${fixerMaps.det.size} rules): ${fixerMaps.detDistinctFixers.map((x) => `\`${x}\``).join(', ') || '—'}`);
+  lines.push(`- **AI** distinct fixer ids (${fixerMaps.ai.size} rules): ${fixerMaps.aiDistinctFixers.map((x) => `\`${x}\``).join(', ') || '—'}`);
+  lines.push('');
+  lines.push('## Profile summary (design-time SC coverage)');
+  lines.push('');
+  lines.push('| Pack | Handbook | Total | axe SC | DET SC | AI SC | Manual | Covered | Uncovered |');
+  lines.push('|------|----------|------:|-------:|-------:|------:|-------:|--------:|----------:|');
+  for (const profileId of RTM_PROFILE_IDS) {
+    const p = matrix.profiles[profileId];
+    if (!p) continue;
+    let axeSc = 0;
+    let detSc = 0;
+    let aiSc = 0;
+    for (const row of p.criteria || []) {
+      if ((row.axeRules || []).length) axeSc += 1;
+      if ((row.detRules || []).length) detSc += 1;
+      if ((row.aiRules || []).length) aiSc += 1;
+    }
+    lines.push(
+      `| \`${profileId}\` | [standards/${profileId}.md](standards/${profileId}.md) | ${p.summary.totalCriteria} | ${axeSc} | ${detSc} | ${aiSc} | ${p.summary.manualExpected} | ${p.summary.covered} | ${p.summary.uncovered} |`,
+    );
+  }
+  lines.push('');
+  lines.push('## Artifacts');
+  lines.push('');
+  lines.push('| Output | Path |');
+  lines.push('|--------|------|');
+  lines.push('| Matrix JSON | `tools/website-a11y-auditor/design-rules/standards-traceability.generated.json` |');
+  lines.push('| Gap report | [standards-traceability-gaps.md](standards-traceability-gaps.md) |');
+  lines.push('| Per-profile handbook | [standards/](standards/) |');
+  lines.push('| Standards packs | `tools/website-a11y-auditor/design-rules/standards-packs/*.pack.json` |');
+  lines.push('');
+  return `${lines.join('\n')}\n`;
+}
+
+/**
+ * @param {object} profileSection
+ * @param {ReturnType<typeof loadFixerMaps>} fixerMaps
+ * @param {Record<string, { path: string }>} manifest
+ */
+export function renderProfileStandardMarkdown(profileSection, fixerMaps, manifest) {
+  const p = profileSection;
+  const profileId = p.profileId;
+  const packJson = `tools/website-a11y-auditor/design-rules/standards-packs/${profileId}.pack.json`;
+  const lines = [];
+  lines.push('---');
+  lines.push(`profileId: ${profileId}`);
+  const profileLabel =
+    p.wcagVersion === '3.0'
+      ? `WCAG 3.0 ${p.level || profileId}`
+      : `WCAG ${p.wcagVersion || ''} Level ${p.level || ''}`.trim();
+  lines.push(`label: "${profileLabel.replace(/"/g, '\\"')}"`);
+  lines.push(`wcagVersion: "${p.wcagVersion || ''}"`);
+  lines.push(`level: "${p.level || ''}"`);
+  lines.push(`packJson: ${packJson}`);
+  lines.push(`generatedAt: ${new Date().toISOString()}`);
+  lines.push('---');
+  lines.push('');
+  lines.push(`# ${profileId}`);
+  lines.push('');
+  lines.push(`> ${COMPLIANCE_DISCLAIMER}`);
+  lines.push('');
+  lines.push(`Standards pack: [\`${packJson}\`](../../../../${packJson})`);
+  lines.push('');
+  lines.push('## Summary');
+  lines.push('');
+  lines.push('| Metric | Count |');
+  lines.push('|--------|------:|');
+  lines.push(`| Total criteria | ${p.summary.totalCriteria} |`);
+  lines.push(`| Covered (axe and/or DET/AI) | ${p.summary.covered} |`);
+  lines.push(`| Manual expected | ${p.summary.manualExpected} |`);
+  lines.push(`| Uncovered | ${p.summary.uncovered} |`);
+  lines.push(`| Untied Forge rules | ${p.summary.untiedRuleCount} |`);
+  lines.push(`| Axe rules in profile | ${p.summary.axeRuleCount} |`);
+  lines.push(`| DET rules in registry (profile scope) | ${p.summary.detRuleCount ?? '—'} |`);
+  lines.push(`| AI rules in registry | ${p.summary.aiRuleCount ?? '—'} |`);
+  lines.push('');
+  lines.push('## Runtime tooling');
+  lines.push('');
+  lines.push('| Role | CLI / module | Default lanes / notes |');
+  lines.push('|------|--------------|-------------------------|');
+  lines.push(
+    '| **Auditor** | `analyze-website-a11y.mjs` | `axe,det`; add `ai` to `--lanes` when agent available |',
+  );
+  lines.push(
+    '| **AI auditor** | `run-website-a11y-ai-audit.mjs` | After analyze; requires agent |',
+  );
+  lines.push(
+    '| **Compliance scorer** | `score-compliance-a11y.mjs` | Per-SC rollup + `failingByLane` (axe/det/ai) |',
+  );
+  lines.push(
+    '| **Quality scorer** | `score-website-a11y.mjs` | Severity + `buildComplianceReport` (`--include-compliance` default on) |',
+  );
+  lines.push(
+    '| **DET remediation** | `run-deterministic-fixers.mjs` | Uses `pilot-registry.json` fixerId per rule |',
+  );
+  lines.push(
+    '| **AI remediation** | `run-ai-fixers.mjs` | Uses `ai-fixer-registry.json` |',
+  );
+  lines.push('');
+  lines.push('## Criteria traceability');
+  lines.push('');
+  lines.push(
+    '| Criterion | Title | Coverage | Gap | axe | DET (fixer) | AI (fixer) | Doc |',
+  );
+  lines.push(
+    '|-----------|-------|----------|-----|-----|-------------|------------|-----|',
+  );
+  for (const row of p.criteria || []) {
+    const docCell = manifest[row.criterionId]
+      ? `[md](../../wcag/${manifest[row.criterionId].path})`
+      : '—';
+    lines.push(
+      `| **${row.criterionId}** | ${String(row.title || '').replace(/\|/g, '\\|').slice(0, 48)} | ${row.coverage || '—'} | ${row.gap || '—'} | ${(row.axeRules || []).length || '—'} | ${formatRulesWithFixers(row.detRules, fixerMaps.det, 3)} | ${formatRulesWithFixers(row.aiRules, fixerMaps.ai, 2)} | ${docCell} |`,
+    );
+  }
+  lines.push('');
+  lines.push('## Gap lists');
+  lines.push('');
+  lines.push('See [standards-traceability-gaps.md](../standards-traceability-gaps.md) for full uncovered/manual/untied lists.');
+  lines.push('');
+  if ((p.gaps?.forgeOnlyRules || []).length) {
+    lines.push('### Forge-only rules');
+    lines.push('');
+    for (const id of p.gaps.forgeOnlyRules) lines.push(`- \`${id}\``);
+    lines.push('');
+  }
+  if ((p.gaps?.untiedRules || []).length) {
+    lines.push('### Untied rules');
+    lines.push('');
+    for (const u of p.gaps.untiedRules) {
+      lines.push(`- \`${u.ruleId}\` (${u.lane}) — ${u.reason}`);
+    }
+    lines.push('');
+  }
+  return `${lines.join('\n')}\n`;
+}
+
+/**
+ * @param {ReturnType<typeof buildStandardsTraceability>} matrix
+ */
+export function renderStandardsIndexMarkdown(matrix) {
+  const lines = [];
+  lines.push('# Accessibility standards (RTM profiles)');
+  lines.push('');
+  lines.push(`> ${matrix.disclaimer}`);
+  lines.push('');
+  lines.push(`generatedAt: ${matrix.generatedAt}`);
+  lines.push('');
+  lines.push('Handbook pages for each **standards pack** (RTM profile). Regenerate via `npm run blend-rules`.');
+  lines.push('');
+  lines.push('## RTM profiles');
+  lines.push('');
+  lines.push('| Pack | Label | Criteria | Handbook |');
+  lines.push('|------|-------|----------:|----------|');
+  for (const profileId of RTM_PROFILE_IDS) {
+    const p = matrix.profiles[profileId];
+    if (!p) continue;
+    lines.push(
+      `| \`${profileId}\` | WCAG ${p.wcagVersion || '—'} ${p.level || ''} | ${p.summary.totalCriteria} | [${profileId}.md](${profileId}.md) |`,
+    );
+  }
+  lines.push('');
+  lines.push('## Compliance CLI aliases → RTM pack');
+  lines.push('');
+  lines.push('| CLI `--compliance-profile` | RTM pack | Label |');
+  lines.push('|---------------------------|----------|-------|');
+  for (const cliId of listComplianceProfileIds().sort()) {
+    let rtmId;
+    try {
+      rtmId = resolveRtmProfileId(cliId);
+    } catch {
+      continue;
+    }
+    const def = COMPLIANCE_PROFILES[cliId];
+    lines.push(`| \`${cliId}\` | \`${rtmId}\` | ${def?.label || ''} |`);
+  }
+  lines.push('');
+  lines.push('## Related');
+  lines.push('');
+  lines.push('- [standards-traceability-matrix.md](../standards-traceability-matrix.md) — tooling × lane summary');
+  lines.push('- [standards-traceability-gaps.md](../standards-traceability-gaps.md) — gap-only report');
+  lines.push('- [standards-packs.md](../standards-packs.md) — pack JSON location');
+  lines.push('');
+  lines.push('## Adding a new standard');
+  lines.push('');
+  lines.push('1. Extend `wcag-criteria-catalog.json` or `wcag3-outcomes-catalog.json`.');
+  lines.push('2. Add profile to `RTM_PROFILE_IDS` in `lib/axe-rule-catalog.js` and `COMPLIANCE_PROFILES` if needed.');
+  lines.push('3. Map DET/AI in `design-rules/blender/rule-mappings.js`.');
+  lines.push('4. Run `npm run blend-rules` (regenerates this folder + matrix MD).');
+  lines.push('5. Run `npm run bootstrap-wcag-seeds` and `npm run sync-wcag-md`.');
+  lines.push('6. `npm run validate-all-packs` and `npm test`.');
+  lines.push('');
+  return `${lines.join('\n')}\n`;
+}
+
+/**
+ * Strip volatile timestamps for stable `--check` hashes.
+ * @param {string} md
+ */
+export function stripVolatileTraceabilityMd(md) {
+  return String(md || '')
+    .replace(/^generatedAt:.*\n/gm, 'generatedAt: STABLE\n')
+    .replace(/^---[\s\S]*?---\n\n/, (block) =>
+      block.replace(/generatedAt:.*\n/, 'generatedAt: STABLE\n'),
+    );
+}
+
+/**
  * @param {object} registry
  */
-export function buildTraceabilityFromRegistry(registry) {
-  const catalogRaw = fs.readFileSync(WCAG_CATALOG_PATH, 'utf8');
-  const catalogJson = JSON.parse(catalogRaw);
+export function buildTraceabilityMarkdownBundle(registry) {
+  const { matrix, gapsMd, axeCatalog } = buildTraceabilityFromRegistryCore(registry);
+  const fixerMaps = loadFixerMaps();
+  const manifest = loadReferenceManifest();
+  const matrixMd = renderTraceabilityMatrixMarkdown(matrix, fixerMaps);
+  const standardsIndexMd = renderStandardsIndexMarkdown(matrix);
+  /** @type {Record<string, string>} */
+  const profileMdById = {};
+  for (const profileId of RTM_PROFILE_IDS) {
+    const section = matrix.profiles[profileId];
+    if (section) {
+      profileMdById[profileId] = renderProfileStandardMarkdown(section, fixerMaps, manifest);
+    }
+  }
+  return { matrix, gapsMd, matrixMd, standardsIndexMd, profileMdById, axeCatalog, fixerMaps };
+}
+
+/**
+ * @param {object} registry
+ */
+function buildTraceabilityFromRegistryCore(registry) {
+  const catalogJson = JSON.parse(fs.readFileSync(WCAG_CATALOG_PATH, 'utf8'));
   let catalog3Json = null;
   if (fs.existsSync(WCAG3_CATALOG_PATH)) {
     catalog3Json = JSON.parse(fs.readFileSync(WCAG3_CATALOG_PATH, 'utf8'));
@@ -574,6 +913,13 @@ export function buildTraceabilityFromRegistry(registry) {
   });
   const gapsMd = renderTraceabilityGapsMarkdown(matrix);
   return { matrix, gapsMd, axeCatalog };
+}
+
+/**
+ * @param {object} registry
+ */
+export function buildTraceabilityFromRegistry(registry) {
+  return buildTraceabilityFromRegistryCore(registry);
 }
 
 /**
@@ -624,5 +970,8 @@ export function traceabilitySummaryForProfile(matrix, complianceProfileId) {
     untiedRuleCount: p.summary.untiedRuleCount,
     gapsDocPath: 'docs/design/a11y-audit/standards-traceability-gaps.md',
     matrixPath: 'tools/website-a11y-auditor/design-rules/standards-traceability.generated.json',
+    matrixMdPath: 'docs/design/a11y-audit/standards-traceability-matrix.md',
+    standardsIndexPath: 'docs/design/a11y-audit/standards/README.md',
+    profileMdPath: `docs/design/a11y-audit/standards/${rtmId}.md`,
   };
 }

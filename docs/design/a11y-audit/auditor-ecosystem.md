@@ -72,7 +72,18 @@ Those blocks feed:
 
 ## Standards traceability matrix (RTM)
 
-`npm run blend-rules` generates a **traceability matrix** for WCAG 2.1 AA and 2.2 AA: which success criteria are covered by axe vs Forge DET/AI rules, which criteria lack automation, and which rules are untied. See [`standards-traceability.md`](standards-traceability.md) and [`standards-traceability-gaps.md`](standards-traceability-gaps.md).
+`npm run blend-rules` generates a **traceability matrix** for **12 RTM packs** (WCAG 2.0–2.2 A/AA/AAA and WCAG 3.0 Bronze/Silver/Gold draft): which success criteria are covered by axe vs Forge DET/AI rules, which criteria lack automation, and which rules are untied.
+
+| Handbook | Purpose |
+|----------|---------|
+| [`standards-traceability.md`](standards-traceability.md) | RTM concepts, coverage legend, refresh |
+| [`standards-traceability-matrix.md`](standards-traceability-matrix.md) | Tooling × lane (auditor / scorer / fixer) + profile summary |
+| [`standards/README.md`](standards/README.md) | Index of per-pack pages + CLI alias map |
+| [`standards/wcag22aa.md`](standards/wcag22aa.md) | Example pack page (SC ↔ axe/DET/AI ↔ fixer) |
+| [`standards-traceability-gaps.md`](standards-traceability-gaps.md) | Uncovered criteria and untied rules |
+| [`axe-unmappable-rules.md`](axe-unmappable-rules.md) | axe rules without WCAG SC tags (best-practice lane) |
+
+Per-pack pages: `standards/wcag20a.md` … `standards/wcag30gold.md` (one file per RTM profile).
 
 ## Compliance profiles (standards bundles)
 

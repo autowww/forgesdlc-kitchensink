@@ -26,6 +26,21 @@ from a11y_audit_rule_pages import (
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ECOSYSTEM_MD = REPO_ROOT / "docs/design/a11y-audit/auditor-ecosystem.md"
+STANDARDS_DIR = REPO_ROOT / "docs/design/a11y-audit/standards"
+RTM_PROFILE_IDS = (
+    "wcag20a",
+    "wcag20aa",
+    "wcag20aaa",
+    "wcag21a",
+    "wcag21aa",
+    "wcag21aaa",
+    "wcag22a",
+    "wcag22aa",
+    "wcag22aaa",
+    "wcag30bronze",
+    "wcag30silver",
+    "wcag30gold",
+)
 
 
 def _anchor_slug(title: str) -> str:
@@ -43,6 +58,33 @@ def _footer() -> str:
     )
 
 
+def _standards_rtm_showcase_block() -> str:
+    rows = []
+    for pid in RTM_PROFILE_IDS:
+        md_path = STANDARDS_DIR / f"{pid}.md"
+        if md_path.is_file():
+            rows.append(
+                f"<tr><td><code>{e(pid)}</code></td>"
+                f'<td><a href="../docs/design/a11y-audit/standards/{e(pid)}.md">'
+                f"Handbook (source)</a></td></tr>"
+            )
+    if not rows:
+        return ""
+    return (
+        '<div class="forge-callout forge-callout-surface mt-3">'
+        "<p><strong>Standards packs (RTM)</strong> — per-profile traceability in the design handbook "
+        '(not copied into showcase HTML; open from repo or handbook build):</p>'
+        '<div class="forge-table-wrap"><table class="table table-sm mb-2">'
+        '<thead><tr><th scope="col">Pack</th><th scope="col">Handbook</th></tr></thead>'
+        f"<tbody>{''.join(rows)}</tbody></table></div>"
+        '<p class="forge-support mb-0">Also: '
+        "<code>standards-traceability-matrix.md</code>, "
+        "<code>standards/README.md</code>, "
+        "<code>axe-unmappable-rules.md</code>.</p>"
+        "</div>"
+    )
+
+
 def compile_ecosystem_markdown(md_path: Path) -> str:
     if not md_path.is_file():
         return "<p class='forge-support'>Missing auditor-ecosystem.md</p>"
@@ -51,6 +93,16 @@ def compile_ecosystem_markdown(md_path: Path) -> str:
     parts: list[str] = []
     for title, content in split_sections(body):
         low = title.lower()
+        if "standards traceability matrix" in low:
+            html = markdown_to_handbook_html(content) if content.strip() else ""
+            parts.append(
+                f'<section class="ks-section" id="{e(_anchor_slug(title))}">'
+                f'<h2 class="ks-section-title">{e(title)}</h2>'
+                f"{html}"
+                f"{_standards_rtm_showcase_block()}"
+                "</section>"
+            )
+            continue
         if "full example gallery" in low:
             parts.append(
                 '<section class="ks-section" id="afe-gallery">'
