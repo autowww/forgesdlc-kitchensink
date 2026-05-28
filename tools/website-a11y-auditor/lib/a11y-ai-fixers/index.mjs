@@ -25,10 +25,11 @@ async function loadAiFindingsByRule(auditDataPath) {
  *   auditDataPath: string,
  *   outDir: string,
  *   ruleIds?: string[],
+ *   repoRoot?: string,
  * }} opts
  */
 export async function runAiFixers(opts) {
-  const { auditDataPath, outDir, ruleIds: onlyRuleIds } = opts;
+  const { auditDataPath, outDir, ruleIds: onlyRuleIds, repoRoot } = opts;
   const findingsByRuleId = await loadAiFindingsByRule(auditDataPath);
   let aiIds = [...findingsByRuleId.keys()];
   if (onlyRuleIds?.length) {
@@ -41,7 +42,7 @@ export async function runAiFixers(opts) {
   for (const ruleId of aiIds) {
     const findings = findingsByRuleId.get(ruleId) || [];
     const fixerId = resolveAiFixerId(ruleId);
-    const result = await runAiFixerById(fixerId, { ruleId, findings, outDir });
+    const result = await runAiFixerById(fixerId, { ruleId, findings, outDir, repoRoot });
     perRule[ruleId] = {
       ruleId,
       fixerId,

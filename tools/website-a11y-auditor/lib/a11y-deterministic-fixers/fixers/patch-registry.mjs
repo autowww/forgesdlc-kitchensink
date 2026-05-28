@@ -82,6 +82,12 @@ export const FIXER_ID_BY_RULE = {
   'DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO': 'patch_motion_flash',
   'DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA': 'patch_page_mode',
   'DET.A11Y.GENERIC.SENSORY_CUES': 'patch_cta_label',
+  'DET.A11Y.GENERIC.LANG_OF_PARTS': 'patch_page_lang',
+  'DET.A11Y.GENERIC.PAUSE_STOP_HIDE': 'patch_motion_flash',
+  'DET.A11Y.GENERIC.CHARACTER_SHORTCUTS': 'patch_page_mode',
+  'DET.A11Y.GENERIC.CONTEXT_HELP': 'patch_nav_toc',
+  'DET.A11Y.GENERIC.INTERRUPTIONS': 'patch_motion_reduced',
+  'DET.A11Y.GENERIC.CHANGE_ON_REQUEST': 'patch_motion_reduced',
 };
 
 /** @type {Record<string, (ctx: object) => Promise<{ applied: boolean, filesTouched?: number, error?: string }>>} */

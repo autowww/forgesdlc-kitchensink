@@ -4,7 +4,7 @@ label: "WCAG  Level"
 wcagVersion: ""
 level: ""
 packJson: tools/website-a11y-auditor/design-rules/standards-packs/wcag22aaa.pack.json
-generatedAt: 2026-05-28T06:40:12.365Z
+generatedAt: 2026-05-28T06:59:02.985Z
 ---
 
 # wcag22aaa
@@ -57,12 +57,12 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag22
 | **1.3.4** | Orientation | axe+det | covered | 1 | `DET.A11Y.GENERIC.ORIENTATION` (patch_page_viewport) | — | [md](../../wcag/2.2/sc/1.3.4-orientation.md) |
 | **1.3.5** | Identify Input Purpose | axe+det | covered | 1 | `DET.A11Y.GENERIC.INPUT_PURPOSE` (patch_page_mode) | — | [md](../../wcag/2.2/sc/1.3.5-identify-input-purpose.md) |
 | **1.4.1** | Use of Color | axe+det | covered | 1 | `DET.A11Y.GENERIC.USE_OF_COLOR` (patch_cta_label) | — | [md](../../wcag/2.2/sc/1.4.1-use-of-color.md) |
-| **1.4.2** | Audio Control | axe+det+manual_ai | manual_expected | 1 | `DET.A11Y.GENERIC.AUTOPLAY_AUDIO` (patch_motion_flash) | `AI.A11Y.GENERIC.AUDIO_CONTROL` (plan_only) | [md](../../wcag/2.2/sc/1.4.2-audio-control.md) |
+| **1.4.2** | Audio Control | axe+det+manual_ai | manual_expected | 1 | `DET.A11Y.GENERIC.AUTOPLAY_AUDIO` (patch_motion_flash) | `AI.A11Y.GENERIC.AUDIO_CONTROL` (ai_apply_audio_control) | [md](../../wcag/2.2/sc/1.4.2-audio-control.md) |
 | **1.4.3** | Contrast (Minimum) | axe+det | covered | 1 | `DET.A11Y.GENERIC.CONTRAST` (patch_page_mode) | — | [md](../../wcag/2.2/sc/1.4.3-contrast-minimum.md) |
 | **1.4.4** | Resize Text | axe+det | covered | 1 | `DET.A11Y.GENERIC.RESIZE_TEXT` (patch_page_viewport) | — | [md](../../wcag/2.2/sc/1.4.4-resize-text.md) |
 | **1.4.5** | Images of Text | det | covered | — | `DET.A11Y.GENERIC.IMAGES_OF_TEXT` (patch_diagram_alt) | — | [md](../../wcag/2.2/sc/1.4.5-images-of-text.md) |
 | **1.4.6** | Contrast (Enhanced) | det | covered | — | `DET.A11Y.GENERIC.CONTRAST_ENHANCED` (patch_page_mode) | — | — |
-| **1.4.7** | Low or No Background Audio | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO` (patch_motion_flash) | `AI.A11Y.GENERIC.AUDIO_CONTROL` (plan_only) | — |
+| **1.4.7** | Low or No Background Audio | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.LOW_BACKGROUND_AUDIO` (patch_motion_flash) | `AI.A11Y.GENERIC.AUDIO_CONTROL` (ai_apply_audio_control) | — |
 | **1.4.8** | Visual Presentation | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.VISUAL_PRESENTATION_AAA` (patch_page_mode) | `AI.A11Y.GENERIC.VISUAL_PRESENTATION` (remediation_note) | — |
 | **1.4.9** | Images of Text (No Exception) | det | covered | — | `DET.A11Y.GENERIC.IMAGES_OF_TEXT` (patch_diagram_alt) | — | — |
 | **1.4.10** | Reflow | det | covered | — | `DET.A11Y.GENERIC.VIEWPORT` (patch_page_viewport) | — | [md](../../wcag/2.2/sc/1.4.10-reflow.md) |
@@ -72,11 +72,11 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag22
 | **2.1.1** | Keyboard | axe+det+manual_ai | covered | 3 | `DET.A11Y.GENERIC.KEYBOARD_ACCESS` (patch_landmarks) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/2.2/sc/2.1.1-keyboard.md) |
 | **2.1.2** | No Keyboard Trap | det+manual_ai | covered | — | `DET.A11Y.GENERIC.APP_FOCUS_TRAP` (patch_app_focus_trap) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/2.2/sc/2.1.2-no-keyboard-trap.md) |
 | **2.1.3** | Keyboard (No Exception) | axe+det+manual_ai | manual_expected | 1 | `DET.A11Y.GENERIC.KEYBOARD_ACCESS` (patch_landmarks) | `AI.A11Y.GENERIC.KEYBOARD_NO_EXCEPTION` (plan_only) | — |
-| **2.1.4** | Character Key Shortcuts | det | covered | — | `DET.A11Y.GENERIC.CHARACTER_SHORTCUTS` (handbook_after) | — | [md](../../wcag/2.2/sc/2.1.4-character-key-shortcuts.md) |
+| **2.1.4** | Character Key Shortcuts | det | covered | — | `DET.A11Y.GENERIC.CHARACTER_SHORTCUTS` (patch_page_mode) | — | [md](../../wcag/2.2/sc/2.1.4-character-key-shortcuts.md) |
 | **2.2.1** | Timing Adjustable | axe+det+manual_ai | manual_expected | 1 | `DET.A11Y.GENERIC.TIMING` (patch_motion_reduced) | `AI.A11Y.GENERIC.TIMING_ADJUSTABLE` (remediation_note) | [md](../../wcag/2.2/sc/2.2.1-timing-adjustable.md) |
-| **2.2.2** | Pause, Stop, Hide | axe+det | covered | 2 | `DET.A11Y.GENERIC.PAUSE_STOP_HIDE` (handbook_after) | — | [md](../../wcag/2.2/sc/2.2.2-pause-stop-hide.md) |
+| **2.2.2** | Pause, Stop, Hide | axe+det | covered | 2 | `DET.A11Y.GENERIC.PAUSE_STOP_HIDE` (patch_motion_flash) | — | [md](../../wcag/2.2/sc/2.2.2-pause-stop-hide.md) |
 | **2.2.3** | No Timing | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.TIMING` (patch_motion_reduced) | `AI.A11Y.GENERIC.TIMING_ADJUSTABLE` (remediation_note) | — |
-| **2.2.4** | Interruptions | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.INTERRUPTIONS` (handbook_after) | `AI.A11Y.GENERIC.INTERRUPTIONS` (plan_only) | — |
+| **2.2.4** | Interruptions | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.INTERRUPTIONS` (patch_motion_reduced) | `AI.A11Y.GENERIC.INTERRUPTIONS` (plan_only) | — |
 | **2.2.5** | Re-authenticating | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.RE_AUTHENTICATION` (handbook_after) | `AI.A11Y.GENERIC.RE_AUTHENTICATION` (plan_only) | — |
 | **2.3.1** | Three Flashes or Below Threshold | det | covered | — | `DET.A11Y.GENERIC.MOTION_FLASH` (patch_motion_flash) | — | [md](../../wcag/2.2/sc/2.3.1-three-flashes-or-below-threshold.md) |
 | **2.3.2** | Three Flashes | det | covered | — | `DET.A11Y.GENERIC.FLASH_THRESHOLD` (patch_motion_flash) | — | — |
@@ -101,7 +101,7 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag22
 | **2.5.7** | Dragging Movements | det | manual_expected | — | `DET.A11Y.GENERIC.DRAGGING_MOVEMENTS` (handbook_after) | — | [md](../../wcag/2.2/sc/2.5.7-dragging-movements.md) |
 | **2.5.8** | Target Size (Minimum) | axe+det | covered | 1 | `DET.A11Y.GENERIC.TARGET_SIZE_MIN` (patch_page_viewport) | — | [md](../../wcag/2.2/sc/2.5.8-target-size-minimum.md) |
 | **3.1.1** | Language of Page | axe+det | covered | 3 | `DET.A11Y.GENERIC.LANG` (patch_page_lang) | — | [md](../../wcag/2.2/sc/3.1.1-language-of-page.md) |
-| **3.1.2** | Language of Parts | axe+det | covered | 1 | `DET.A11Y.GENERIC.LANG_OF_PARTS` (handbook_after) | — | [md](../../wcag/2.2/sc/3.1.2-language-of-parts.md) |
+| **3.1.2** | Language of Parts | axe+det | covered | 1 | `DET.A11Y.GENERIC.LANG_OF_PARTS` (patch_page_lang) | — | [md](../../wcag/2.2/sc/3.1.2-language-of-parts.md) |
 | **3.1.3** | Unusual Words | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.GLOSSARY_ABBR` (handbook_after) | `AI.A11Y.GENERIC.UNUSUAL_WORDS` (plan_only) | — |
 | **3.1.4** | Abbreviations | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.GLOSSARY_ABBR` (handbook_after) | `AI.A11Y.GENERIC.UNUSUAL_WORDS` (plan_only) | — |
 | **3.1.5** | Reading Level | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC` (handbook_after) | `AI.A11Y.GENERIC.READING_LEVEL` (remediation_note) | — |
@@ -110,13 +110,13 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag22
 | **3.2.2** | On Input | det | covered | — | `DET.A11Y.GENERIC.INPUT_CONTEXT_CHANGE` (patch_app_focus_trap) | — | [md](../../wcag/2.2/sc/3.2.2-on-input.md) |
 | **3.2.3** | Consistent Navigation | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.CONSISTENT_NAV` (patch_nav_toc) | `AI.A11Y.GENERIC.CONSISTENT_NAV_JUDGMENT` (remediation_note) | [md](../../wcag/2.2/sc/3.2.3-consistent-navigation.md) |
 | **3.2.4** | Consistent Identification | det | covered | — | `DET.A11Y.GENERIC.CONSISTENT_LABELS` (patch_cta_label) | — | [md](../../wcag/2.2/sc/3.2.4-consistent-identification.md) |
-| **3.2.5** | Change on Request | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.CHANGE_ON_REQUEST` (handbook_after) | `AI.A11Y.GENERIC.CHANGE_ON_REQUEST` (plan_only) | — |
+| **3.2.5** | Change on Request | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.CHANGE_ON_REQUEST` (patch_motion_reduced) | `AI.A11Y.GENERIC.CHANGE_ON_REQUEST` (plan_only) | — |
 | **3.2.6** | Consistent Help | det | manual_expected | — | `DET.A11Y.GENERIC.CONSISTENT_HELP` (patch_nav_toc) | — | [md](../../wcag/2.2/sc/3.2.6-consistent-help.md) |
-| **3.3.1** | Error Identification | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (remediation_note) | [md](../../wcag/2.2/sc/3.3.1-error-identification.md) |
+| **3.3.1** | Error Identification | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (ai_apply_form_error) | [md](../../wcag/2.2/sc/3.3.1-error-identification.md) |
 | **3.3.2** | Labels or Instructions | axe+det | covered | 1 | `DET.A11Y.GENERIC.LABELS_INSTRUCTIONS` (patch_cta_label) | — | [md](../../wcag/2.2/sc/3.3.2-labels-or-instructions.md) |
-| **3.3.3** | Error Suggestion | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (remediation_note) | [md](../../wcag/2.2/sc/3.3.3-error-suggestion.md) |
+| **3.3.3** | Error Suggestion | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (ai_apply_form_error) | [md](../../wcag/2.2/sc/3.3.3-error-suggestion.md) |
 | **3.3.4** | Error Prevention (Legal, Financial, Data) | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.ERROR_PREVENTION` (handbook_after) | `AI.A11Y.GENERIC.ERROR_PREVENTION` (remediation_note) | [md](../../wcag/2.2/sc/3.3.4-error-prevention-legal-financial-data.md) |
-| **3.3.5** | Help | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.CONTEXT_HELP` (handbook_after) | `AI.A11Y.GENERIC.CONTEXT_HELP` (remediation_note) | — |
+| **3.3.5** | Help | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.CONTEXT_HELP` (patch_nav_toc) | `AI.A11Y.GENERIC.CONTEXT_HELP` (remediation_note) | — |
 | **3.3.6** | Error Prevention (All) | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.ERROR_PREVENTION` (handbook_after) | `AI.A11Y.GENERIC.ERROR_PREVENTION` (remediation_note) | — |
 | **3.3.7** | Redundant Entry | det | manual_expected | — | `DET.A11Y.GENERIC.REDUNDANT_ENTRY` (handbook_after) | — | [md](../../wcag/2.2/sc/3.3.7-redundant-entry.md) |
 | **3.3.8** | Accessible Authentication (Minimum) | det | manual_expected | — | `DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION` (handbook_after) | — | [md](../../wcag/2.2/sc/3.3.8-accessible-authentication-minimum.md) |
@@ -124,6 +124,390 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag22
 | **4.1.1** | Parsing | manual_catalog | manual_expected | — | — | — | [md](../../wcag/2.2/sc/4.1.1-parsing.md) |
 | **4.1.2** | Name, Role, Value | axe+det+manual_ai | covered | 28 | `DET.A11Y.KS.HASH_MARKERS` (hash_markers), `DET.A11Y.KS.REACT_A11Y_ROLE` (patch_landmarks), `DET.A11Y.KS.PY_HASH_ATTRS` (repo_production) | `AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS` (remediation_note), `AI.A11Y.KS.REGION_LABELING` (remediation_note) | [md](../../wcag/2.2/sc/4.1.2-name-role-value.md) |
 | **4.1.3** | Status Messages | det | covered | — | `DET.A11Y.GENERIC.STATUS_MESSAGES` (patch_section_heading) | — | [md](../../wcag/2.2/sc/4.1.3-status-messages.md) |
+
+## Manual test playbooks
+
+Criteria marked **manual_expected** require human verification even when axe/DET/AI mappings exist. Use the WCAG reference page in the table above for normative detail.
+
+### 1.2.1 — Audio-only and Video-only (Prerecorded)
+
+Reference: [WCAG reference](../../wcag/2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.2.2 — Captions (Prerecorded)
+
+Reference: [WCAG reference](../../wcag/2.2/sc/1.2.2-captions-prerecorded.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.2.3 — Audio Description or Media Alternative (Prerecorded)
+
+Reference: [WCAG reference](../../wcag/2.2/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.2.4 — Captions (Live)
+
+Reference: [WCAG reference](../../wcag/2.2/sc/1.2.4-captions-live.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.2.5 — Audio Description (Prerecorded)
+
+Reference: [WCAG reference](../../wcag/2.2/sc/1.2.5-audio-description-prerecorded.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.2.6 — Sign Language (Prerecorded)
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.2.7 — Extended Audio Description (Prerecorded)
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.2.8 — Media Alternative (Prerecorded)
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.2.9 — Audio-only (Live)
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.3.3 — Sensory Characteristics
+
+Reference: [WCAG reference](../../wcag/2.2/sc/1.3.3-sensory-characteristics.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.4.2 — Audio Control
+
+Reference: [WCAG reference](../../wcag/2.2/sc/1.4.2-audio-control.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.4.7 — Low or No Background Audio
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 1.4.8 — Visual Presentation
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.1.3 — Keyboard (No Exception)
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.2.1 — Timing Adjustable
+
+Reference: [WCAG reference](../../wcag/2.2/sc/2.2.1-timing-adjustable.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.2.3 — No Timing
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.2.4 — Interruptions
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.2.5 — Re-authenticating
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.4.5 — Multiple Ways
+
+Reference: [WCAG reference](../../wcag/2.2/sc/2.4.5-multiple-ways.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.4.8 — Location
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.4.12 — Focus Not Obscured (Enhanced)
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.4.13 — Focus Appearance
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.5.1 — Pointer Gestures
+
+Reference: [WCAG reference](../../wcag/2.2/sc/2.5.1-pointer-gestures.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 2.5.7 — Dragging Movements
+
+Reference: [WCAG reference](../../wcag/2.2/sc/2.5.7-dragging-movements.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.1.3 — Unusual Words
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.1.4 — Abbreviations
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.1.5 — Reading Level
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.1.6 — Pronunciation
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.2.3 — Consistent Navigation
+
+Reference: [WCAG reference](../../wcag/2.2/sc/3.2.3-consistent-navigation.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.2.5 — Change on Request
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.2.6 — Consistent Help
+
+Reference: [WCAG reference](../../wcag/2.2/sc/3.2.6-consistent-help.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.3.4 — Error Prevention (Legal, Financial, Data)
+
+Reference: [WCAG reference](../../wcag/2.2/sc/3.3.4-error-prevention-legal-financial-data.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.3.5 — Help
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.3.6 — Error Prevention (All)
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.3.7 — Redundant Entry
+
+Reference: [WCAG reference](../../wcag/2.2/sc/3.3.7-redundant-entry.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.3.8 — Accessible Authentication (Minimum)
+
+Reference: [WCAG reference](../../wcag/2.2/sc/3.3.8-accessible-authentication-minimum.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 3.3.9 — Accessible Authentication (Enhanced)
+
+Reference: —
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### 4.1.1 — Parsing
+
+Reference: [WCAG reference](../../wcag/2.2/sc/4.1.1-parsing.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
 
 ## Gap lists
 

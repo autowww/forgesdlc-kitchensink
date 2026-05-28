@@ -12,8 +12,12 @@ describe('a11y-ai-fixers', () => {
     assert.equal(resolveAiFixerId('AI.A11Y.GENERIC.UNKNOWN'), 'plan_only');
   });
 
-  it('resolveAiFixerId uses remediation_note for form errors', () => {
-    assert.equal(resolveAiFixerId('AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION'), 'remediation_note');
+  it('resolveAiFixerId uses ai_apply_form_error for form errors', () => {
+    assert.equal(resolveAiFixerId('AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION'), 'ai_apply_form_error');
+  });
+
+  it('resolveAiFixerId uses ai_apply_audio_control for audio control', () => {
+    assert.equal(resolveAiFixerId('AI.A11Y.GENERIC.AUDIO_CONTROL'), 'ai_apply_audio_control');
   });
 
   it('runAiFixers writes ai-fixer-report.json for AI findings', async () => {
@@ -39,8 +43,15 @@ describe('a11y-ai-fixers', () => {
     assert.match(String(row.suggestedAction || ''), /keyboard/i);
   });
 
-  it('remediation_note fixer applies and writes note file', async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'ai-note-'));
+  it('ai_apply_form_error fixer patches HTML when repo root provided', async () => {
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'ai-apply-'));
+    const repo = path.join(tmp, 'site');
+    await fs.mkdir(repo, { recursive: true });
+    const htmlPath = path.join(repo, 'index.html');
+    await fs.writeFile(
+      htmlPath,
+      '<!DOCTYPE html><html><body><form><input type="text" name="email"/><p class="error" id="err-email">Invalid</p></form></body></html>',
+    );
     const auditPath = path.join(tmp, 'a11y-audit-data.json');
     await fs.writeFile(
       auditPath,
@@ -50,12 +61,40 @@ describe('a11y-ai-fixers', () => {
             ruleId: 'AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION',
             severity: 'major',
             message: 'label not associated',
+            url: 'file://' + htmlPath,
+          },
+        ],
+      })}\n`,
+    );
+    const { report } = await runAiFixers({
+      auditDataPath: auditPath,
+      outDir: tmp,
+      repoRoot: repo,
+    });
+    const row = report.rules['AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION'];
+    assert.equal(row.fixerId, 'ai_apply_form_error');
+    assert.equal(row.applied, true);
+    const patched = await fs.readFile(htmlPath, 'utf8');
+    assert.match(patched, /aria-describedby=["']err-email["']/);
+  });
+
+  it('remediation_note fixer applies and writes note file', async () => {
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'ai-note-'));
+    const auditPath = path.join(tmp, 'a11y-audit-data.json');
+    await fs.writeFile(
+      auditPath,
+      `${JSON.stringify({
+        findings: [
+          {
+            ruleId: 'AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS',
+            severity: 'major',
+            message: 'sensory-only instructions',
           },
         ],
       })}\n`,
     );
     const { report } = await runAiFixers({ auditDataPath: auditPath, outDir: tmp });
-    const row = report.rules['AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION'];
+    const row = report.rules['AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS'];
     assert.equal(row.fixerId, 'remediation_note');
     assert.equal(row.applied, true);
     assert.ok(row.notePath);

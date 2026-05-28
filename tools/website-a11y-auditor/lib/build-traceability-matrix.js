@@ -784,6 +784,30 @@ export function renderProfileStandardMarkdown(profileSection, fixerMaps, manifes
     );
   }
   lines.push('');
+  const manualIds = p.gaps?.manualExpected || [];
+  if (manualIds.length) {
+    lines.push('## Manual test playbooks');
+    lines.push('');
+    lines.push(
+      'Criteria marked **manual_expected** require human verification even when axe/DET/AI mappings exist. Use the WCAG reference page in the table above for normative detail.',
+    );
+    lines.push('');
+    for (const id of manualIds) {
+      const row = (p.criteria || []).find((c) => c.criterionId === id);
+      const title = row?.title || id;
+      const docCell = manifest[id] ? `[WCAG reference](../../wcag/${manifest[id].path})` : '—';
+      lines.push(`### ${id} — ${title}`);
+      lines.push('');
+      lines.push(`Reference: ${docCell}`);
+      lines.push('');
+      lines.push('1. Identify pages and components in scope for this criterion.');
+      lines.push('2. Complete the primary task flow with keyboard only.');
+      lines.push('3. Spot-check with at least one screen reader (names, roles, states).');
+      lines.push('4. For media/time-based content, verify controls and alternatives manually.');
+      lines.push('5. Log pass/fail and evidence in the audit report (not automated sign-off).');
+      lines.push('');
+    }
+  }
   lines.push('## Gap lists');
   lines.push('');
   lines.push('See [standards-traceability-gaps.md](../standards-traceability-gaps.md) for full uncovered/manual/untied lists.');
@@ -803,6 +827,54 @@ export function renderProfileStandardMarkdown(profileSection, fixerMaps, manifes
     lines.push('');
   }
   return `${lines.join('\n')}\n`;
+}
+
+/**
+ * @param {ReturnType<typeof buildStandardsTraceability>} matrix
+ * @param {Record<string, { path: string }>} manifest
+ */
+export function renderManualTestPlaybooksMarkdown(matrix, manifest) {
+  const lines = [];
+  lines.push('# Manual test playbooks (RTM profiles)');
+  lines.push('');
+  lines.push(`> ${matrix.disclaimer}`);
+  lines.push('');
+  lines.push(
+    'Index of **manual_expected** success criteria per standards pack. Per-pack detail also appears under **Manual test playbooks** on each [`standards/<profileId>.md`](README.md) page.',
+  );
+  lines.push('');
+  for (const profileId of RTM_PROFILE_IDS) {
+    const p = matrix.profiles[profileId];
+    if (!p?.gaps?.manualExpected?.length) continue;
+    lines.push(`## ${profileId}`);
+    lines.push('');
+    lines.push(`| Criterion | Title | Handbook |`);
+    lines.push(`|-----------|-------|----------|`);
+    for (const id of p.gaps.manualExpected) {
+      const row = (p.criteria || []).find((c) => c.criterionId === id);
+      const title = String(row?.title || '').replace(/\|/g, '\\|').slice(0, 56);
+      const doc = manifest[id] ? `[ref](../../wcag/${manifest[id].path})` : '—';
+      const pack = `[${profileId}.md](${profileId}.md)`;
+      lines.push(`| **${id}** | ${title} | ${doc} · ${pack} |`);
+    }
+    lines.push('');
+  }
+  lines.push('## Refresh');
+  lines.push('');
+  lines.push('```bash');
+  lines.push('cd tools/website-a11y-auditor');
+  lines.push('npm run blend-rules');
+  lines.push('```');
+  lines.push('');
+  return `${lines.join('\n')}\n`;
+}
+
+function slugifyCriterionTitle(title) {
+  return String(title || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 48);
 }
 
 /**
@@ -848,6 +920,7 @@ export function renderStandardsIndexMarkdown(matrix) {
   lines.push('## Related');
   lines.push('');
   lines.push('- [standards-traceability-matrix.md](../standards-traceability-matrix.md) — tooling × lane summary');
+  lines.push('- [manual-test-playbooks.md](manual-test-playbooks.md) — manual_expected criteria index');
   lines.push('- [standards-traceability-gaps.md](../standards-traceability-gaps.md) — gap-only report');
   lines.push('- [standards-packs.md](../standards-packs.md) — pack JSON location');
   lines.push('');
@@ -884,6 +957,7 @@ export function buildTraceabilityMarkdownBundle(registry) {
   const manifest = loadReferenceManifest();
   const matrixMd = renderTraceabilityMatrixMarkdown(matrix, fixerMaps);
   const standardsIndexMd = renderStandardsIndexMarkdown(matrix);
+  const manualPlaybooksMd = renderManualTestPlaybooksMarkdown(matrix, manifest);
   /** @type {Record<string, string>} */
   const profileMdById = {};
   for (const profileId of RTM_PROFILE_IDS) {
@@ -892,7 +966,16 @@ export function buildTraceabilityMarkdownBundle(registry) {
       profileMdById[profileId] = renderProfileStandardMarkdown(section, fixerMaps, manifest);
     }
   }
-  return { matrix, gapsMd, matrixMd, standardsIndexMd, profileMdById, axeCatalog, fixerMaps };
+  return {
+    matrix,
+    gapsMd,
+    matrixMd,
+    standardsIndexMd,
+    manualPlaybooksMd,
+    profileMdById,
+    axeCatalog,
+    fixerMaps,
+  };
 }
 
 /**

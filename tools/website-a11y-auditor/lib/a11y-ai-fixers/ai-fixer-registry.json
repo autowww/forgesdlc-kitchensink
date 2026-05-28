@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T06:40:12.323Z",
+  "generatedAt": "2026-05-28T06:59:02.959Z",
   "defaultFixerId": "plan_only",
   "ruleCount": 21,
   "rules": [
     {
       "ruleId": "AI.A11Y.GENERIC.AUDIO_CONTROL",
-      "fixerId": "plan_only"
+      "fixerId": "ai_apply_audio_control"
     },
     {
       "ruleId": "AI.A11Y.GENERIC.CHANGE_ON_REQUEST",
@@ -26,7 +26,7 @@
     },
     {
       "ruleId": "AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION",
-      "fixerId": "remediation_note"
+      "fixerId": "ai_apply_form_error"
     },
     {
       "ruleId": "AI.A11Y.GENERIC.INTERRUPTIONS",

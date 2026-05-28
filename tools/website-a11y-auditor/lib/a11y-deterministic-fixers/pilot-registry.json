@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T06:40:12.267Z",
+  "generatedAt": "2026-05-28T06:59:02.930Z",
   "ruleCount": 68,
   "rules": [
     {
@@ -29,7 +29,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.CHANGE_ON_REQUEST",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_motion_reduced",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -37,7 +37,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.CHARACTER_SHORTCUTS",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_page_mode",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -77,7 +77,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.CONTEXT_HELP",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_nav_toc",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -229,7 +229,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.INTERRUPTIONS",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_motion_reduced",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -277,7 +277,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.LANG_OF_PARTS",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_page_lang",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"
@@ -365,7 +365,7 @@
     },
     {
       "ruleId": "DET.A11Y.GENERIC.PAUSE_STOP_HIDE",
-      "fixerId": "handbook_after",
+      "fixerId": "patch_motion_flash",
       "verifyMode": "expect_rule_clean",
       "harnessModes": [
         "standalone"

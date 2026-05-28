@@ -11,9 +11,14 @@ const TOOL_ROOT = path.resolve(__dirname, '..');
 const REGISTRY_PATH = path.join(TOOL_ROOT, 'design-rules/registry.generated.json');
 const OUT_PATH = path.join(TOOL_ROOT, 'lib/a11y-ai-fixers/ai-fixer-registry.json');
 
+/** DOM-apply pilots (require --repo-root on run-ai-fixers). */
+const AI_APPLY_RULES = new Map([
+  ['AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION', 'ai_apply_form_error'],
+  ['AI.A11Y.GENERIC.AUDIO_CONTROL', 'ai_apply_audio_control'],
+]);
+
 /** Rules that may emit a remediation note artifact (guarded apply). */
 const REMEDIATION_NOTE_RULES = new Set([
-  'AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION',
   'AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS',
   'AI.A11Y.KS.REGION_LABELING',
   'AI.A11Y.GENERIC.SENSORY_INSTRUCTIONS',
@@ -34,7 +39,9 @@ async function main() {
     .filter((r) => r.status === 'implemented')
     .map((r) => ({
       ruleId: r.id,
-      fixerId: REMEDIATION_NOTE_RULES.has(r.id) ? 'remediation_note' : 'plan_only',
+      fixerId:
+        AI_APPLY_RULES.get(r.id) ||
+        (REMEDIATION_NOTE_RULES.has(r.id) ? 'remediation_note' : 'plan_only'),
     }))
     .sort((a, b) => a.ruleId.localeCompare(b.ruleId));
 

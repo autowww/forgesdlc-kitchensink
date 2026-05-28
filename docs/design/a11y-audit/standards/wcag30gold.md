@@ -4,7 +4,7 @@ label: "WCAG 3.0 gold"
 wcagVersion: "3.0"
 level: "gold"
 packJson: tools/website-a11y-auditor/design-rules/standards-packs/wcag30gold.pack.json
-generatedAt: 2026-05-28T06:40:12.366Z
+generatedAt: 2026-05-28T06:59:02.986Z
 ---
 
 # wcag30gold
@@ -45,14 +45,14 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag30
 | **WCAG3-REQ-AUTH-ENH** | Accessible authentication (enhanced) | det | manual_expected | — | `DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION` (handbook_after) | — | [md](../../wcag/3.0/outcomes/wcag3-req-auth-enh-accessible-authentication-enhanced.md) |
 | **WCAG3-REQ-AUTH-MIN** | Accessible authentication (minimum) | det | manual_expected | — | `DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION` (handbook_after) | — | [md](../../wcag/3.0/outcomes/wcag3-req-auth-min-accessible-authentication-minimum.md) |
 | **WCAG3-REQ-CAPTIONS** | Captions for prerecorded audio | axe+det+manual_ai | manual_expected | 1 | `DET.A11Y.GENERIC.MEDIA_TRACKS` (patch_diagram_alt) | `AI.A11Y.GENERIC.MEDIA_ALTERNATIVES` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-captions-captions-for-prerecorded-audio.md) |
-| **WCAG3-REQ-CHAR-SHORTCUTS** | Character key shortcuts | det | covered | — | `DET.A11Y.GENERIC.CHARACTER_SHORTCUTS` (handbook_after) | — | [md](../../wcag/3.0/outcomes/wcag3-req-char-shortcuts-character-key-shortcuts.md) |
+| **WCAG3-REQ-CHAR-SHORTCUTS** | Character key shortcuts | det | covered | — | `DET.A11Y.GENERIC.CHARACTER_SHORTCUTS` (patch_page_mode) | — | [md](../../wcag/3.0/outcomes/wcag3-req-char-shortcuts-character-key-shortcuts.md) |
 | **WCAG3-REQ-CONSISTENT-HELP** | Consistent help | det | manual_expected | — | `DET.A11Y.GENERIC.CONSISTENT_HELP` (patch_nav_toc) | — | [md](../../wcag/3.0/outcomes/wcag3-req-consistent-help-consistent-help.md) |
-| **WCAG3-REQ-CONTEXT-HELP** | Context-sensitive help | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.CONTEXT_HELP` (handbook_after) | `AI.A11Y.GENERIC.CONTEXT_HELP` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-context-help-context-sensitive-help.md) |
+| **WCAG3-REQ-CONTEXT-HELP** | Context-sensitive help | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.CONTEXT_HELP` (patch_nav_toc) | `AI.A11Y.GENERIC.CONTEXT_HELP` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-context-help-context-sensitive-help.md) |
 | **WCAG3-REQ-CONTRAST-TEXT** | Text contrast (minimum) | axe+det | covered | 1 | `DET.A11Y.GENERIC.CONTRAST` (patch_page_mode) | — | [md](../../wcag/3.0/outcomes/wcag3-req-contrast-text-text-contrast-minimum.md) |
 | **WCAG3-REQ-DRAGGING** | Dragging movements | det | manual_expected | — | `DET.A11Y.GENERIC.DRAGGING_MOVEMENTS` (handbook_after) | — | [md](../../wcag/3.0/outcomes/wcag3-req-dragging-dragging-movements.md) |
 | **WCAG3-REQ-ENHANCED-CONTRAST** | Enhanced text contrast | det | covered | — | `DET.A11Y.GENERIC.CONTRAST_ENHANCED` (patch_page_mode) | — | [md](../../wcag/3.0/outcomes/wcag3-req-enhanced-contrast-enhanced-text-contrast.md) |
-| **WCAG3-REQ-ERROR-ID** | Error identification | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-error-id-error-identification.md) |
-| **WCAG3-REQ-ERROR-SUGGEST** | Error suggestions | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-error-suggest-error-suggestions.md) |
+| **WCAG3-REQ-ERROR-ID** | Error identification | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (ai_apply_form_error) | [md](../../wcag/3.0/outcomes/wcag3-req-error-id-error-identification.md) |
+| **WCAG3-REQ-ERROR-SUGGEST** | Error suggestions | manual_ai | covered | — | — | `AI.A11Y.GENERIC.FORM_ERROR_ASSOCIATION` (ai_apply_form_error) | [md](../../wcag/3.0/outcomes/wcag3-req-error-suggest-error-suggestions.md) |
 | **WCAG3-REQ-FOCUS-APPEARANCE** | Focus appearance | det | covered | — | `DET.A11Y.GENERIC.FOCUS_APPEARANCE` (patch_page_mode) | — | [md](../../wcag/3.0/outcomes/wcag3-req-focus-appearance-focus-appearance.md) |
 | **WCAG3-REQ-FOCUS-OBSCURED** | Focus not obscured | det | covered | — | `DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED` (patch_ambient_z) | — | [md](../../wcag/3.0/outcomes/wcag3-req-focus-obscured-focus-not-obscured.md) |
 | **WCAG3-REQ-FOCUS-OBSCURED-ENH** | Focus not obscured (enhanced) | det | covered | — | `DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED` (patch_ambient_z) | — | [md](../../wcag/3.0/outcomes/wcag3-req-focus-obscured-enh-focus-not-obscured-enhanced.md) |
@@ -65,7 +65,7 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag30
 | **WCAG3-REQ-KEYWORD** | Keyboard operable | axe+det+manual_ai | covered | 3 | `DET.A11Y.GENERIC.KEYBOARD_ACCESS` (patch_landmarks) | `AI.A11Y.GENERIC.KEYBOARD_TASK_FLOW` (plan_only) | [md](../../wcag/3.0/outcomes/wcag3-req-keyword-keyboard-operable.md) |
 | **WCAG3-REQ-LABELS** | Labels and instructions | axe+det | covered | 1 | `DET.A11Y.GENERIC.LABELS_INSTRUCTIONS` (patch_cta_label) | — | [md](../../wcag/3.0/outcomes/wcag3-req-labels-labels-and-instructions.md) |
 | **WCAG3-REQ-LANG** | Page language | axe+det | covered | 3 | `DET.A11Y.GENERIC.LANG` (patch_page_lang) | — | [md](../../wcag/3.0/outcomes/wcag3-req-lang-page-language.md) |
-| **WCAG3-REQ-LANG-PARTS** | Language of parts | axe+det | covered | 1 | `DET.A11Y.GENERIC.LANG_OF_PARTS` (handbook_after) | — | [md](../../wcag/3.0/outcomes/wcag3-req-lang-parts-language-of-parts.md) |
+| **WCAG3-REQ-LANG-PARTS** | Language of parts | axe+det | covered | 1 | `DET.A11Y.GENERIC.LANG_OF_PARTS` (patch_page_lang) | — | [md](../../wcag/3.0/outcomes/wcag3-req-lang-parts-language-of-parts.md) |
 | **WCAG3-REQ-LINK-PURPOSE** | Link purpose in context | axe+det+manual_ai | covered | 2 | `DET.A11Y.GENERIC.LINK_PURPOSE` (patch_cta_label) | `AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-link-purpose-link-purpose-in-context.md) |
 | **WCAG3-REQ-MEANINGFUL-SEQUENCE** | Meaningful sequence | det | covered | — | `DET.A11Y.GENERIC.READING_ORDER` (patch_landmarks) | — | [md](../../wcag/3.0/outcomes/wcag3-req-meaningful-sequence-meaningful-sequence.md) |
 | **WCAG3-REQ-NAME-ROLE-VALUE** | Name, role, value | axe+det+manual_ai | covered | 28 | `DET.A11Y.KS.HASH_MARKERS` (hash_markers), `DET.A11Y.KS.REACT_A11Y_ROLE` (patch_landmarks), `DET.A11Y.KS.PY_HASH_ATTRS` (repo_production) | `AI.A11Y.KS.HANDBOOK_SIDEBAR_LABELS` (remediation_note), `AI.A11Y.KS.REGION_LABELING` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-name-role-value-name-role-value.md) |
@@ -76,7 +76,7 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag30
 | **WCAG3-REQ-ORG-PRACTICES** | Organizational accessibility practices | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.ERROR_PREVENTION` (handbook_after) | `AI.A11Y.GENERIC.ERROR_PREVENTION` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-org-practices-organizational-accessibility-practices.md) |
 | **WCAG3-REQ-ORIENTATION** | Display orientation not restricted | axe+det | covered | 1 | `DET.A11Y.GENERIC.ORIENTATION` (patch_page_viewport) | — | [md](../../wcag/3.0/outcomes/wcag3-req-orientation-display-orientation-not-restricted.md) |
 | **WCAG3-REQ-PAGE-TITLE** | Page titled | axe+det | covered | 1 | `DET.A11Y.GENERIC.TITLE` (patch_page_title) | — | [md](../../wcag/3.0/outcomes/wcag3-req-page-title-page-titled.md) |
-| **WCAG3-REQ-PAUSE** | Pause, stop, hide moving content | axe+det | covered | 2 | `DET.A11Y.GENERIC.PAUSE_STOP_HIDE` (handbook_after) | — | [md](../../wcag/3.0/outcomes/wcag3-req-pause-pause-stop-hide-moving-content.md) |
+| **WCAG3-REQ-PAUSE** | Pause, stop, hide moving content | axe+det | covered | 2 | `DET.A11Y.GENERIC.PAUSE_STOP_HIDE` (patch_motion_flash) | — | [md](../../wcag/3.0/outcomes/wcag3-req-pause-pause-stop-hide-moving-content.md) |
 | **WCAG3-REQ-POINTER-GESTURES** | Pointer gestures have single-pointer alternative | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.POINTER_GESTURES` (patch_cta_label) | `AI.A11Y.GENERIC.POINTER_GESTURES_JUDGMENT` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-pointer-gestures-pointer-gestures-have-single-pointer-alternative.md) |
 | **WCAG3-REQ-READING-LEVEL** | Reading level / plain language | det+manual_ai | manual_expected | — | `DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC` (handbook_after) | `AI.A11Y.GENERIC.READING_LEVEL` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-reading-level-reading-level-plain-language.md) |
 | **WCAG3-REQ-REDUNDANT-ENTRY** | Redundant entry avoided | det | manual_expected | — | `DET.A11Y.GENERIC.REDUNDANT_ENTRY` (handbook_after) | — | [md](../../wcag/3.0/outcomes/wcag3-req-redundant-entry-redundant-entry-avoided.md) |
@@ -90,6 +90,150 @@ Standards pack: [`tools/website-a11y-auditor/design-rules/standards-packs/wcag30
 | **WCAG3-REQ-TEXT-ALT** | Text alternatives for non-text content | axe+det | covered | 7 | `DET.A11Y.GENERIC.IMAGES_ALT` (patch_diagram_alt), `DET.A11Y.GENERIC.DIAGRAM_ALT` (patch_diagram_alt) | — | [md](../../wcag/3.0/outcomes/wcag3-req-text-alt-text-alternatives-for-non-text-content.md) |
 | **WCAG3-REQ-TEXT-SPACING** | Text spacing adjustable | axe+det | covered | 1 | `DET.A11Y.GENERIC.TEXT_SPACING` (patch_page_mode) | — | [md](../../wcag/3.0/outcomes/wcag3-req-text-spacing-text-spacing-adjustable.md) |
 | **WCAG3-REQ-TIMING** | Timing adjustable | axe+det+manual_ai | manual_expected | 1 | `DET.A11Y.GENERIC.TIMING` (patch_motion_reduced) | `AI.A11Y.GENERIC.TIMING_ADJUSTABLE` (remediation_note) | [md](../../wcag/3.0/outcomes/wcag3-req-timing-timing-adjustable.md) |
+
+## Manual test playbooks
+
+Criteria marked **manual_expected** require human verification even when axe/DET/AI mappings exist. Use the WCAG reference page in the table above for normative detail.
+
+### WCAG3-REQ-AD — Audio description or media alternative
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-ad-audio-description-or-media-alternative.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-AUTH-ENH — Accessible authentication (enhanced)
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-auth-enh-accessible-authentication-enhanced.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-AUTH-MIN — Accessible authentication (minimum)
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-auth-min-accessible-authentication-minimum.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-CAPTIONS — Captions for prerecorded audio
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-captions-captions-for-prerecorded-audio.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-CONSISTENT-HELP — Consistent help
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-consistent-help-consistent-help.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-CONTEXT-HELP — Context-sensitive help
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-context-help-context-sensitive-help.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-DRAGGING — Dragging movements
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-dragging-dragging-movements.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-HOLISTIC-USABILITY — Holistic usability with disabled users
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-holistic-usability-holistic-usability-with-disabled-users.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-ORG-PRACTICES — Organizational accessibility practices
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-org-practices-organizational-accessibility-practices.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-POINTER-GESTURES — Pointer gestures have single-pointer alternative
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-pointer-gestures-pointer-gestures-have-single-pointer-alternative.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-READING-LEVEL — Reading level / plain language
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-reading-level-reading-level-plain-language.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-REDUNDANT-ENTRY — Redundant entry avoided
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-redundant-entry-redundant-entry-avoided.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-SENSORY — Instructions not sensory-only
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-sensory-instructions-not-sensory-only.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
+
+### WCAG3-REQ-TIMING — Timing adjustable
+
+Reference: [WCAG reference](../../wcag/3.0/outcomes/wcag3-req-timing-timing-adjustable.md)
+
+1. Identify pages and components in scope for this criterion.
+2. Complete the primary task flow with keyboard only.
+3. Spot-check with at least one screen reader (names, roles, states).
+4. For media/time-based content, verify controls and alternatives manually.
+5. Log pass/fail and evidence in the audit report (not automated sign-off).
 
 ## Gap lists
 

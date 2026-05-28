@@ -1,6 +1,6 @@
 # A11y tooling stub inventory
 
-Generated: 2026-05-28T06:40:13.065Z
+Generated: 2026-05-28T06:59:03.230Z
 
 > Read-only gap report. Does not modify code or close gaps.
 
@@ -32,7 +32,7 @@ Generated: 2026-05-28T06:40:13.065Z
 ## DET remediation (`lib/a11y-deterministic-fixers/`)
 
 - Pilot fixers: **68** / **68** implemented DET rules.
-- Non–`handbook_after` fixers: **54** (distinct fixer ids: handbook_after, patch_app_focus_trap, patch_motion_flash, patch_nav_toc, patch_cta_label, patch_page_mode, patch_data_table, patch_diagram_alt, patch_ambient_z, patch_landmarks, patch_page_lang, patch_motion_reduced, patch_page_viewport, patch_section_heading, patch_page_title, nav_breadcrumb, hash_markers, repo_production).
+- Non–`handbook_after` fixers: **60** (distinct fixer ids: handbook_after, patch_app_focus_trap, patch_motion_flash, patch_motion_reduced, patch_page_mode, patch_nav_toc, patch_cta_label, patch_data_table, patch_diagram_alt, patch_ambient_z, patch_landmarks, patch_page_lang, patch_page_viewport, patch_section_heading, patch_page_title, nav_breadcrumb, hash_markers, repo_production).
 
 ## AI remediation
 

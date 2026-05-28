@@ -2,7 +2,7 @@
 
 > Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.
 
-generatedAt: 2026-05-28T06:40:12.361Z
+generatedAt: 2026-05-28T06:59:02.982Z
 
 Handbook pages for each **standards pack** (RTM profile). Regenerate via `npm run blend-rules`.
 
@@ -48,6 +48,7 @@ Handbook pages for each **standards pack** (RTM profile). Regenerate via `npm ru
 ## Related
 
 - [standards-traceability-matrix.md](../standards-traceability-matrix.md) — tooling × lane summary
+- [manual-test-playbooks.md](manual-test-playbooks.md) — manual_expected criteria index
 - [standards-traceability-gaps.md](../standards-traceability-gaps.md) — gap-only report
 - [standards-packs.md](../standards-packs.md) — pack JSON location
 

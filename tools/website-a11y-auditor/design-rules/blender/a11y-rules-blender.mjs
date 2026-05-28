@@ -169,7 +169,7 @@ async function main() {
     }
   }
 
-  const { matrix, gapsMd, matrixMd, standardsIndexMd, profileMdById } =
+  const { matrix, gapsMd, matrixMd, standardsIndexMd, manualPlaybooksMd, profileMdById } =
     buildTraceabilityMarkdownBundle(registry);
 
   if (args.write) {
@@ -185,6 +185,7 @@ async function main() {
     await fs.writeFile(TRACEABILITY_MATRIX_MD, matrixMd, 'utf8');
     await fs.mkdir(STANDARDS_DIR, { recursive: true });
     await fs.writeFile(path.join(STANDARDS_DIR, 'README.md'), standardsIndexMd, 'utf8');
+    await fs.writeFile(path.join(STANDARDS_DIR, 'manual-test-playbooks.md'), manualPlaybooksMd, 'utf8');
     for (const [profileId, body] of Object.entries(profileMdById)) {
       await fs.writeFile(path.join(STANDARDS_DIR, `${profileId}.md`), body, 'utf8');
     }

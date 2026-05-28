@@ -2,7 +2,7 @@
 
 > Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.
 
-generatedAt: 2026-05-28T06:40:12.361Z
+generatedAt: 2026-05-28T06:59:02.982Z
 
 Refresh: `cd tools/website-a11y-auditor && npm run blend-rules`
 
@@ -19,7 +19,7 @@ Refresh: `cd tools/website-a11y-auditor && npm run blend-rules`
 ## Fixer registry (Forge rules)
 
 - **DET** distinct fixer ids (68 rules): `handbook_after`, `hash_markers`, `nav_breadcrumb`, `patch_ambient_z`, `patch_app_focus_trap`, `patch_cta_label`, `patch_data_table`, `patch_diagram_alt`, `patch_landmarks`, `patch_motion_flash`, `patch_motion_reduced`, `patch_nav_toc`, `patch_page_lang`, `patch_page_mode`, `patch_page_title`, `patch_page_viewport`, `patch_section_heading`, `repo_production`
-- **AI** distinct fixer ids (21 rules): `plan_only`, `remediation_note`
+- **AI** distinct fixer ids (21 rules): `ai_apply_audio_control`, `ai_apply_form_error`, `plan_only`, `remediation_note`
 
 ## Profile summary (design-time SC coverage)
 

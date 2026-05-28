@@ -34,7 +34,8 @@ async function readOrEmpty(p) {
 
 async function main() {
   const registry = JSON.parse(await fs.readFile(REGISTRY_PATH, 'utf8'));
-  const { matrixMd, standardsIndexMd, profileMdById } = buildTraceabilityMarkdownBundle(registry);
+  const { matrixMd, standardsIndexMd, manualPlaybooksMd, profileMdById } =
+    buildTraceabilityMarkdownBundle(registry);
 
   let failed = 0;
 
@@ -49,6 +50,13 @@ async function main() {
   const onDiskIndex = await readOrEmpty(path.join(STANDARDS_DIR, 'README.md'));
   if (!onDiskIndex || stableHash(onDiskIndex) !== expectedIndex) {
     console.error('check-standards-traceability-md: drift in standards/README.md');
+    failed += 1;
+  }
+
+  const expectedManual = stableHash(manualPlaybooksMd);
+  const onDiskManual = await readOrEmpty(path.join(STANDARDS_DIR, 'manual-test-playbooks.md'));
+  if (!onDiskManual || stableHash(onDiskManual) !== expectedManual) {
+    console.error('check-standards-traceability-md: drift in standards/manual-test-playbooks.md');
     failed += 1;
   }
 
@@ -71,7 +79,7 @@ async function main() {
     process.exit(1);
   }
   console.log(
-    `check-standards-traceability-md: OK (matrix + index + ${RTM_PROFILE_IDS.length} profiles)`,
+    `check-standards-traceability-md: OK (matrix + index + manual playbooks + ${RTM_PROFILE_IDS.length} profiles)`,
   );
 }
 
