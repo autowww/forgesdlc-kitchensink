@@ -65,7 +65,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.MOTION_REDUCED': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-motion-reduced.check.js',
     scope: 'generic',
-    standards: ['wcag21aa', 'wcag22aa'],
+    standards: ['wcag21aa', 'wcag22aa', 'wcag22aaa'],
     wcagCriteria: ['2.3.3'],
     area: 'accessibility',
     defaultSeverity: 'major',
@@ -126,7 +126,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     modulePath:
       'design-rules/deterministic/generated/det-a11y-generic-focus-context-change.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.2.1'],
     area: 'accessibility',
     defaultSeverity: 'major',
@@ -138,7 +138,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     modulePath:
       'design-rules/deterministic/generated/det-a11y-generic-input-context-change.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.2.2'],
     area: 'accessibility',
     defaultSeverity: 'major',
@@ -149,7 +149,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.READING_ORDER': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-reading-order.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.3.2'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -159,7 +159,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.IMAGES_OF_TEXT': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-images-of-text.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.4.5', '1.4.9'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -169,7 +169,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.SECTION_HEADINGS': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-section-headings.check.js',
     scope: 'generic',
-    standards: ['wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.4.10'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -180,7 +180,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.FLASH_THRESHOLD': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-flash-threshold.check.js',
     scope: 'generic',
-    standards: ['wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.3.2'],
     area: 'accessibility',
     defaultSeverity: 'major',
@@ -191,7 +191,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     modulePath:
       'design-rules/deterministic/generated/det-a11y-generic-consistent-labels.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.2.4'],
     sitewide: true,
     area: 'accessibility',
@@ -203,7 +203,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.USE_OF_COLOR': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-use-of-color.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.4.1'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -213,7 +213,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.RESIZE_TEXT': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-resize-text.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.4.4'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -223,7 +223,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.KEYBOARD_ACCESS': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-keyboard-access.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.1.1', '2.1.3'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -233,7 +233,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.PAUSE_STOP_HIDE': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-pause-stop-hide.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.2.2'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -243,7 +243,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.LINK_PURPOSE': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-link-purpose.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.4.4', '2.4.9'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -253,7 +253,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.LANG_OF_PARTS': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-lang-of-parts.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.1.2'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -264,7 +264,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     modulePath:
       'design-rules/deterministic/generated/det-a11y-generic-labels-instructions.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.3.2'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -275,7 +275,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.MEDIA_TRACKS': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-media-tracks.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.2.1', '1.2.2', '1.2.3', '1.2.4', '1.2.5', '1.2.6', '1.2.7', '1.2.8', '1.2.9'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -285,7 +285,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.AUTOPLAY_AUDIO': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-autoplay-audio.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.4.2'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -295,7 +295,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.TIMING': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-timing.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.2.1', '2.2.3'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -305,7 +305,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.SENSORY_CUES': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-sensory-cues.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.3.3'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -315,7 +315,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.ERROR_PREVENTION': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-error-prevention.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.3.4', '3.3.6'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -325,7 +325,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.MULTIPLE_WAYS': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-multiple-ways.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.4.5'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -335,7 +335,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.CONSISTENT_NAV': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-consistent-nav.check.js',
     scope: 'generic',
-    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.2.3'],
     sitewide: true,
     area: 'accessibility',
@@ -346,7 +346,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.PAGE_LOCATION': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-page-location.check.js',
     scope: 'generic',
-    standards: ['wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.4.8'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -356,7 +356,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.CONTRAST_ENHANCED': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-contrast-enhanced.check.js',
     scope: 'generic',
-    standards: ['wcag2aaa', 'wcag21aaa'],
+    standards: ['wcag2aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.4.6'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -366,7 +366,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.NON_TEXT_CONTRAST': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-non-text-contrast.check.js',
     scope: 'generic',
-    standards: ['wcag21a', 'wcag21aa', 'wcag22aa'],
+    standards: ['wcag21a', 'wcag21aa', 'wcag22aa', 'wcag22aaa'],
     wcagCriteria: ['1.4.11'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -376,7 +376,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.HOVER_FOCUS_CONTENT': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-hover-focus-content.check.js',
     scope: 'generic',
-    standards: ['wcag21a', 'wcag21aa', 'wcag22aa'],
+    standards: ['wcag21a', 'wcag21aa', 'wcag22aa', 'wcag22aaa'],
     wcagCriteria: ['1.4.13'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -386,7 +386,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.CHARACTER_SHORTCUTS': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-character-shortcuts.check.js',
     scope: 'generic',
-    standards: ['wcag21a', 'wcag21aa', 'wcag22aa'],
+    standards: ['wcag21a', 'wcag21aa', 'wcag22aa', 'wcag22aaa'],
     wcagCriteria: ['2.1.4'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -396,7 +396,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-focus-not-obscured.check.js',
     scope: 'generic',
-    standards: ['wcag22aa'],
+    standards: ['wcag22aa', 'wcag22aaa'],
     wcagCriteria: ['2.4.11'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -406,7 +406,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.POINTER_CANCELLATION': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-pointer-cancellation.check.js',
     scope: 'generic',
-    standards: ['wcag21a', 'wcag21aa', 'wcag22aa'],
+    standards: ['wcag21a', 'wcag21aa', 'wcag22aa', 'wcag22aaa'],
     wcagCriteria: ['2.5.2'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -416,7 +416,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.MOTION_ACTUATION': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-motion-actuation.check.js',
     scope: 'generic',
-    standards: ['wcag21a', 'wcag21aa', 'wcag22aa'],
+    standards: ['wcag21a', 'wcag21aa', 'wcag22aa', 'wcag22aaa'],
     wcagCriteria: ['2.5.4'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -476,7 +476,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.CONCURRENT_INPUT': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-concurrent-input.check.js',
     scope: 'generic',
-    standards: ['wcag21aaa'],
+    standards: ['wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.5.6'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -487,7 +487,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     modulePath:
       'design-rules/deterministic/generated/det-a11y-generic-low-background-audio.check.js',
     scope: 'generic',
-    standards: ['wcag20aaa', 'wcag21aaa'],
+    standards: ['wcag20aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.4.7'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -499,7 +499,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     modulePath:
       'design-rules/deterministic/generated/det-a11y-generic-visual-presentation-aaa.check.js',
     scope: 'generic',
-    standards: ['wcag20aaa', 'wcag21aaa'],
+    standards: ['wcag20aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['1.4.8'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -510,7 +510,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.INTERRUPTIONS': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-interruptions.check.js',
     scope: 'generic',
-    standards: ['wcag20aaa', 'wcag21aaa'],
+    standards: ['wcag20aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.2.4'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -520,7 +520,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.RE_AUTHENTICATION': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-re-authentication.check.js',
     scope: 'generic',
-    standards: ['wcag20aaa', 'wcag21aaa'],
+    standards: ['wcag20aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['2.2.5'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -530,7 +530,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.GLOSSARY_ABBR': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-glossary-abbr.check.js',
     scope: 'generic',
-    standards: ['wcag20aaa', 'wcag21aaa'],
+    standards: ['wcag20aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.1.3', '3.1.4', '3.1.6'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -541,7 +541,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     modulePath:
       'design-rules/deterministic/generated/det-a11y-generic-reading-level-heuristic.check.js',
     scope: 'generic',
-    standards: ['wcag20aaa', 'wcag21aaa'],
+    standards: ['wcag20aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.1.5'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -552,7 +552,7 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.CHANGE_ON_REQUEST': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-change-on-request.check.js',
     scope: 'generic',
-    standards: ['wcag20aaa', 'wcag21aaa'],
+    standards: ['wcag20aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.2.5'],
     area: 'accessibility',
     defaultSeverity: 'warn',
@@ -562,17 +562,91 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
   'DET.A11Y.GENERIC.CONTEXT_HELP': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-context-help.check.js',
     scope: 'generic',
-    standards: ['wcag20aaa', 'wcag21aaa'],
+    standards: ['wcag20aaa', 'wcag21aaa', 'wcag22aaa'],
     wcagCriteria: ['3.3.5'],
     area: 'accessibility',
     defaultSeverity: 'warn',
     priorityWeight: 6,
     sourceRule: 'docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-context-help',
   },
+  'DET.A11Y.GENERIC.DRAGGING_MOVEMENTS': {
+    modulePath: 'design-rules/deterministic/generated/det-a11y-generic-dragging-movements.check.js',
+    scope: 'generic',
+    standards: ['wcag22aa', 'wcag22aaa'],
+    wcagCriteria: ['2.5.7'],
+    area: 'accessibility',
+    defaultSeverity: 'warn',
+    priorityWeight: 7,
+    sourceRule: 'docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-dragging-movements',
+  },
+  'DET.A11Y.GENERIC.TARGET_SIZE_MIN': {
+    modulePath: 'design-rules/deterministic/generated/det-a11y-generic-target-size-min.check.js',
+    scope: 'generic',
+    standards: ['wcag22aa', 'wcag22aaa'],
+    wcagCriteria: ['2.5.8'],
+    area: 'accessibility',
+    defaultSeverity: 'warn',
+    priorityWeight: 7,
+    sourceRule: 'docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-target-size-min',
+  },
+  'DET.A11Y.GENERIC.CONSISTENT_HELP': {
+    modulePath: 'design-rules/deterministic/generated/det-a11y-generic-consistent-help.check.js',
+    scope: 'generic',
+    standards: ['wcag22aa', 'wcag22aaa'],
+    wcagCriteria: ['3.2.6'],
+    area: 'accessibility',
+    defaultSeverity: 'warn',
+    priorityWeight: 6,
+    sourceRule: 'docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-consistent-help',
+  },
+  'DET.A11Y.GENERIC.REDUNDANT_ENTRY': {
+    modulePath: 'design-rules/deterministic/generated/det-a11y-generic-redundant-entry.check.js',
+    scope: 'generic',
+    standards: ['wcag22aa', 'wcag22aaa'],
+    wcagCriteria: ['3.3.7'],
+    area: 'accessibility',
+    defaultSeverity: 'warn',
+    priorityWeight: 6,
+    sourceRule: 'docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-redundant-entry',
+  },
+  'DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION': {
+    modulePath:
+      'design-rules/deterministic/generated/det-a11y-generic-accessible-authentication.check.js',
+    scope: 'generic',
+    standards: ['wcag22aa', 'wcag22aaa'],
+    wcagCriteria: ['3.3.8', '3.3.9'],
+    area: 'accessibility',
+    defaultSeverity: 'warn',
+    priorityWeight: 7,
+    sourceRule:
+      'docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-accessible-authentication',
+  },
+  'DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED': {
+    modulePath:
+      'design-rules/deterministic/generated/det-a11y-generic-focus-obscured-enhanced.check.js',
+    scope: 'generic',
+    standards: ['wcag22aaa'],
+    wcagCriteria: ['2.4.12'],
+    area: 'accessibility',
+    defaultSeverity: 'warn',
+    priorityWeight: 7,
+    sourceRule:
+      'docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-obscured-enhanced',
+  },
+  'DET.A11Y.GENERIC.FOCUS_APPEARANCE': {
+    modulePath: 'design-rules/deterministic/generated/det-a11y-generic-focus-appearance.check.js',
+    scope: 'generic',
+    standards: ['wcag22aaa'],
+    wcagCriteria: ['2.4.13'],
+    area: 'accessibility',
+    defaultSeverity: 'warn',
+    priorityWeight: 7,
+    sourceRule: 'docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-focus-appearance',
+  },
   'DET.A11Y.GENERIC.STATUS_MESSAGES': {
     modulePath: 'design-rules/deterministic/generated/det-a11y-generic-status-messages.check.js',
     scope: 'generic',
-    standards: ['wcag21a', 'wcag21aa', 'wcag22aa'],
+    standards: ['wcag21a', 'wcag21aa', 'wcag22aa', 'wcag22aaa'],
     wcagCriteria: ['4.1.3'],
     area: 'accessibility',
     defaultSeverity: 'warn',

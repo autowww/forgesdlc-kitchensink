@@ -343,7 +343,8 @@ export function resolveRtmProfileId(complianceProfileId) {
   if (id === 'wcag20a' || id === 'wcag20aa' || id === 'wcag20aaa') return id;
   if (id === 'wcag21a' || id === 'wcag21aa' || id === 'wcag21aaa') return id;
   if (id.startsWith('ada-title-')) return 'wcag21aa';
-  if (id === 'wcag22aa' || id === 'wcag22aaa') return 'wcag22aa';
+  if (id === 'wcag22aaa') return 'wcag22aaa';
+  if (id === 'wcag22aa') return 'wcag22aa';
   return 'wcag22aa';
 }
 

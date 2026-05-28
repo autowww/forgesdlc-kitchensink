@@ -5,8 +5,8 @@ scope: generic
 title: Images Of Text
 summary: Deterministic accessibility check (generic scope).
 page_version: b3b177a2f122b6fef40bba93c5ca7d65a55d31bce754bbabb00a957fcd1d5d78
-generated_at: 2026-05-28T04:01:52.000Z
-registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
+generated_at: 2026-05-28T04:08:36.000Z
+registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-generic-images-of-text
 related_rules:

@@ -5,8 +5,8 @@ scope: generic
 title: Pointer Gestures Judgment
 summary: AI judgment overlay (generic scope).
 page_version: 691ca6cd01ac81a6b53ddedcc23037756572646d3a0f7a2e535aa742270b1fcc
-generated_at: 2026-05-28T04:01:52.000Z
-registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
+generated_at: 2026-05-28T04:08:36.000Z
+registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-pointer-gestures-judgment
 related_rules:

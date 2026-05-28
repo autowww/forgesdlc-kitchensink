@@ -5,8 +5,8 @@ scope: generic
 title: Keyboard No Exception
 summary: AI judgment overlay (generic scope).
 page_version: a9c7df3ed22192876512baa0cd99eff8f0eb877896b1cd0616efd0d5385e2b27
-generated_at: 2026-05-28T04:01:52.000Z
-registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
+generated_at: 2026-05-28T04:08:36.000Z
+registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-keyboard-no-exception
 related_rules:

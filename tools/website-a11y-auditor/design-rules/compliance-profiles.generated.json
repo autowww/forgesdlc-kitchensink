@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-28T04:01:43.777Z",
+  "generatedAt": "2026-05-28T04:08:28.089Z",
   "disclaimer": "Automated axe and deterministic checks do not constitute legal conformance, ADA certification, VPAT completion, or WCAG sign-off. Pair with manual testing and, when needed, forge-accessibility Studio evidence.",
   "profiles": [
     {
@@ -137,7 +137,9 @@
         "wcag2aa",
         "wcag2aaa",
         "wcag21a",
-        "wcag21aa"
+        "wcag21aa",
+        "wcag21aaa",
+        "wcag22aa"
       ],
       "jurisdictionNotes": "WCAG 2.1 AAA per https://www.w3.org/TR/WCAG21/; axe uses wcag2aaa + wcag21aa tags where Deque supports AAA rules.",
       "manualTestingRequired": [
@@ -192,12 +194,14 @@
       "detStandardsTags": [
         "wcag2a",
         "wcag2aa",
+        "wcag2aaa",
         "wcag21a",
         "wcag21aa",
+        "wcag21aaa",
         "wcag22aa",
         "wcag22aaa"
       ],
-      "jurisdictionNotes": "AAA campaigns; axe tag set includes wcag22aaa where supported.",
+      "jurisdictionNotes": "WCAG 2.2 AAA per https://www.w3.org/TR/WCAG22/; includes 2.2-only criteria (2.4.11–13, 2.5.7–8, 3.2.6, 3.3.7–9) plus full AAA stack.",
       "manualTestingRequired": [
         "Keyboard-only task flows and focus visibility beyond automated focus-order heuristics",
         "Media alternatives (captions, audio description, transcripts)",

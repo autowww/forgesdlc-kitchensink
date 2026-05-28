@@ -5,8 +5,8 @@ scope: ks
 title: Py Hash Attrs
 summary: Deterministic accessibility check (ks scope).
 page_version: 60119289f8f6f8132d16aa042b13792f8397e991aa66adc2c8510e6a7a17fee0
-generated_at: 2026-05-28T04:01:52.000Z
-registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
+generated_at: 2026-05-28T04:08:36.000Z
+registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/deterministic-a11y-rules.md#det-a11y-ks-py-hash-attrs
 related_rules:

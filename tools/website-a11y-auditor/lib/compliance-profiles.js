@@ -80,7 +80,15 @@ export const COMPLIANCE_PROFILES = {
     id: 'wcag21aaa',
     label: 'WCAG 2.1 Level AAA',
     axePresetKey: 'wcag21aaa',
-    detStandardsTags: ['wcag2a', 'wcag2aa', 'wcag2aaa', 'wcag21a', 'wcag21aa'],
+    detStandardsTags: [
+      'wcag2a',
+      'wcag2aa',
+      'wcag2aaa',
+      'wcag21a',
+      'wcag21aa',
+      'wcag21aaa',
+      'wcag22aa',
+    ],
     wcagVersion: '2.1',
     level: 'AAA',
     jurisdictionNotes:
@@ -104,14 +112,17 @@ export const COMPLIANCE_PROFILES = {
     detStandardsTags: [
       'wcag2a',
       'wcag2aa',
+      'wcag2aaa',
       'wcag21a',
       'wcag21aa',
+      'wcag21aaa',
       'wcag22aa',
       'wcag22aaa',
     ],
     wcagVersion: '2.2',
     level: 'AAA',
-    jurisdictionNotes: 'AAA campaigns; axe tag set includes wcag22aaa where supported.',
+    jurisdictionNotes:
+      'WCAG 2.2 AAA per https://www.w3.org/TR/WCAG22/; includes 2.2-only criteria (2.4.11–13, 2.5.7–8, 3.2.6, 3.3.7–9) plus full AAA stack.',
     manualTestingRequired: MANUAL_GAPS_COMMON,
   },
   'ada-title-ii-wcag21aa': {

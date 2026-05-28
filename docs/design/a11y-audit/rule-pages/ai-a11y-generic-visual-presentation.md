@@ -5,8 +5,8 @@ scope: generic
 title: Visual Presentation
 summary: AI judgment overlay (generic scope).
 page_version: 9a7233cf15969832e2cfc946bb3677674757fca656d5171b1ff9a3405ffcd50f
-generated_at: 2026-05-28T04:01:52.000Z
-registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
+generated_at: 2026-05-28T04:08:36.000Z
+registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-visual-presentation
 related_rules:

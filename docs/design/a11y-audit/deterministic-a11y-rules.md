@@ -18,6 +18,7 @@
 | `DET.A11Y.GENERIC.MOTION_FLASH` | No hazardous auto-play flash (**2.3.1**) |
 | `DET.A11Y.GENERIC.FLASH_THRESHOLD` | High-frequency flash (**2.3.2** AAA) |
 | `DET.A11Y.GENERIC.FOCUS_ORDER` | Focus order vs visual nav (**2.4.3**) |
+| `DET.A11Y.GENERIC.FOCUS_NOT_OBSCURED` | Sticky/fixed chrome vs focused controls (**2.4.11** WCAG 2.2) |
 | `DET.A11Y.GENERIC.DATA_TABLE_HEADERS` | Tables with meaningful headers |
 | `DET.A11Y.GENERIC.DIAGRAM_ALT` | Diagram images have alt |
 | `DET.A11Y.GENERIC.APP_FOCUS_TRAP` | Modals trap focus appropriately |
@@ -61,6 +62,13 @@
 | `DET.A11Y.GENERIC.READING_LEVEL_HEURISTIC` | Very long paragraphs (**3.1.5** AAA supplemental) |
 | `DET.A11Y.GENERIC.CHANGE_ON_REQUEST` | Context change on `change` without submit (**3.2.5** AAA supplemental) |
 | `DET.A11Y.GENERIC.CONTEXT_HELP` | Complex forms without help (**3.3.5** AAA supplemental) |
+| `DET.A11Y.GENERIC.DRAGGING_MOVEMENTS` | Drag without pointer alternative (**2.5.7** WCAG 2.2 supplemental) |
+| `DET.A11Y.GENERIC.TARGET_SIZE_MIN` | Small hit targets (**2.5.8** WCAG 2.2 supplemental; complements axe) |
+| `DET.A11Y.GENERIC.CONSISTENT_HELP` | Help entry placement (**3.2.6** WCAG 2.2 supplemental) |
+| `DET.A11Y.GENERIC.REDUNDANT_ENTRY` | Repeated field names in session (**3.3.7** WCAG 2.2 supplemental) |
+| `DET.A11Y.GENERIC.ACCESSIBLE_AUTHENTICATION` | Cognitive auth heuristics (**3.3.8**, **3.3.9** WCAG 2.2 supplemental) |
+| `DET.A11Y.GENERIC.FOCUS_OBSCURED_ENHANCED` | Fixed chrome vs focus (**2.4.12** WCAG 2.2 AAA supplemental) |
+| `DET.A11Y.GENERIC.FOCUS_APPEARANCE` | Suppressed focus style (**2.4.13** WCAG 2.2 AAA supplemental) |
 
 **WCAG 2.0 SC 4.1.1 Parsing** — obsolete for HTML5; catalog marks `manual_only`. Rely on axe and well-formed DOM; no dedicated DET rule.
 

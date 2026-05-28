@@ -5,8 +5,8 @@ scope: generic
 title: Reading Level
 summary: AI judgment overlay (generic scope).
 page_version: 2407bd20338959d9ad00ac6d057b85d021f0a5a7a98ad796ef1f84d20bb5ba05
-generated_at: 2026-05-28T04:01:52.000Z
-registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
+generated_at: 2026-05-28T04:08:36.000Z
+registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-reading-level
 related_rules:

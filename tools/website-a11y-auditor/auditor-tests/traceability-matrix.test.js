@@ -92,6 +92,7 @@ describe('traceability-matrix', () => {
     assert.equal(resolveRtmProfileId('wcag21a'), 'wcag21a');
     assert.equal(resolveRtmProfileId('wcag21aaa'), 'wcag21aaa');
     assert.equal(resolveRtmProfileId('wcag22aa'), 'wcag22aa');
+    assert.equal(resolveRtmProfileId('wcag22aaa'), 'wcag22aaa');
     assert.equal(resolveRtmProfileId('wcag20aa'), 'wcag20aa');
     assert.equal(resolveRtmProfileId('wcag20aaa'), 'wcag20aaa');
     assert.equal(resolveRtmProfileId('wcag20a'), 'wcag20a');
@@ -142,6 +143,18 @@ describe('traceability-matrix', () => {
   it('wcag21aa catalog has 50 success criteria', () => {
     const criteria = resolveProfileCriteria(catalogJson, 'wcag21aa');
     assert.equal(criteria.length, 50);
+  });
+
+  it('wcag22aaa profile resolves and has zero uncovered in matrix', () => {
+    const criteria = resolveProfileCriteria(catalogJson, 'wcag22aaa');
+    assert.ok(criteria.some((c) => c.id === '2.4.12'));
+    assert.ok(criteria.some((c) => c.id === '3.3.9'));
+    const matrix = buildStandardsTraceability({
+      catalogJson,
+      registry,
+      axeCatalog: buildAxeRuleCatalog(),
+    });
+    assert.equal(matrix.profiles.wcag22aaa.summary.uncovered, 0);
   });
 
   it('wcag21aaa catalog includes 2.5.6 and has zero uncovered in matrix', () => {

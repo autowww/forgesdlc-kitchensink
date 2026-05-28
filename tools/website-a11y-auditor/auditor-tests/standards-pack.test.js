@@ -92,12 +92,12 @@ describe('standards-pack', () => {
     assert.equal((reg.aiRules || []).length, 21);
   });
 
-  it('registry has 61 documented DET rules after AAA supplemental pass', () => {
+  it('registry has 68 documented DET rules after WCAG 2.2 AAA pass', () => {
     const reg = JSON.parse(
       fs.readFileSync(path.join(TOOL_ROOT, 'design-rules/registry.generated.json'), 'utf8'),
     );
-    assert.equal(reg.deterministicCoverage?.documentedRuleCount, 61);
-    assert.equal(reg.deterministicCoverage?.implementedCount, 61);
+    assert.equal(reg.deterministicCoverage?.documentedRuleCount, 68);
+    assert.equal(reg.deterministicCoverage?.implementedCount, 68);
   });
 
   it('wcag21aa pack has zero uncovered and no axe-only after 2.1 DET rules', () => {
@@ -116,6 +116,18 @@ describe('standards-pack', () => {
     const result = validateStandardsPack(pack, { allowManualOnly: true, strict: true });
     assert.equal(result.ok, true, result.errors?.join('; '));
     assert.deepEqual(pack.validation.uncoveredCriteria || [], []);
+  });
+
+  it('wcag22aaa pack has zero uncovered and manual rows have det except 4.1.1', () => {
+    const pack = loadStandardsPack('wcag22aaa');
+    assert.equal(pack.validation.uncoveredCriteria.length, 0);
+    const manual = pack.criteria.filter((c) => c.gap === 'manual_expected');
+    const noDet = manual.filter((c) => !(c.tooling || []).includes('det'));
+    assert.deepEqual(
+      noDet.map((c) => c.id),
+      ['4.1.1'],
+    );
+    assert.ok(pack.summary.totalCriteria >= 80);
   });
 
   it('wcag22aa pack has zero uncovered after 2.2 DET rules', () => {

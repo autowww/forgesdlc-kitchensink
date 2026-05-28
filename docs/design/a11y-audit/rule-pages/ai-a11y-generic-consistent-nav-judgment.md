@@ -5,8 +5,8 @@ scope: generic
 title: Consistent Nav Judgment
 summary: AI judgment overlay (generic scope).
 page_version: ef1059c98016c7ca73295a23a650e705b272069246dc4325162558ef5c18c2a2
-generated_at: 2026-05-28T04:01:52.000Z
-registry_fingerprint: 4d1679dc5f5a9212ebb2ca5072adbfd2683b2f93bfe6853ec5db7da590e25b0e
+generated_at: 2026-05-28T04:08:36.000Z
+registry_fingerprint: b3797010c3ca988bb0d21d5e85d4efece0b9e83f311c2d4981ebbf402df7a7c2
 registry_status: implemented
 source_rule: docs/design/a11y-audit/ai-enabled-a11y-principles.md#ai-a11y-generic-consistent-nav-judgment
 related_rules:

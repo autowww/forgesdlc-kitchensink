@@ -368,6 +368,75 @@
         }
       ]
     },
+    "wcag22aaa": {
+      "wcagVersion": "2.2",
+      "level": "AAA",
+      "specUrl": "https://www.w3.org/TR/WCAG22/",
+      "extendsProfile": "wcag21aaa",
+      "additionalCriteria": [
+        {
+          "id": "2.4.11",
+          "title": "Focus Not Obscured (Minimum)",
+          "level": "AA",
+          "principle": 2
+        },
+        {
+          "id": "2.5.7",
+          "title": "Dragging Movements",
+          "level": "AA",
+          "principle": 2,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "2.5.8",
+          "title": "Target Size (Minimum)",
+          "level": "AA",
+          "principle": 2
+        },
+        {
+          "id": "3.2.6",
+          "title": "Consistent Help",
+          "level": "AA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "3.3.7",
+          "title": "Redundant Entry",
+          "level": "AA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "3.3.8",
+          "title": "Accessible Authentication (Minimum)",
+          "level": "AA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "2.4.12",
+          "title": "Focus Not Obscured (Enhanced)",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "2.4.13",
+          "title": "Focus Appearance",
+          "level": "AAA",
+          "principle": 2,
+          "defaultCoverage": "manual_only"
+        },
+        {
+          "id": "3.3.9",
+          "title": "Accessible Authentication (Enhanced)",
+          "level": "AAA",
+          "principle": 3,
+          "defaultCoverage": "manual_only"
+        }
+      ]
+    },
     "wcag20aa": {
       "wcagVersion": "2.0",
       "level": "AA",
