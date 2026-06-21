@@ -1,0 +1,46 @@
+## Report: `AI.CONTEXT.BURDEN_SUBJECTIVE` handbook page
+
+The full rule page is ready in staging at:
+
+`tools/website-ux-auditor/design-rules/blender/.staging-ai-context-burden-subjective.md`
+
+Writes to `docs/design/ux-audit/rule-pages/` were blocked from this workspace (blender-only sandbox). Sync to the canonical path with:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-ai-context-burden-subjective.mjs
+```
+
+### `page_version` (confirmed in staging)
+
+`99fe774659a806853a5fce24a97864ded19fccf89f72368d441b8e3b33ed9353`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.CONTEXT.BURDEN_SUBJECTIVE` |
+| `lane` | `ai` |
+| `title` | Subjective context burden |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-context-burden-subjective` |
+| `generated_at` | `2026-05-28T17:45:00.000Z` |
+
+**`related_rules`:** `DET.CONTEXT.BURDEN`, `AI.CONTEXT.COGNITIVE_CLARITY`, `AI.NARRATIVE.COHERENCE`, `AI.VISUAL.HIERARCHY`, `AI.AMBIENT.READABILITY_CONFLICT`, `DET.SECTION.SINGLE_JOB` (replaced non-registry `AI.VISUAL.HIERARCHY_CONFIDENCE`).
+
+### Body (PDCA, all required sections)
+
+- **Purpose** — Subjective overload when `DET.CONTEXT.BURDEN` passes; PDCA plan/do/check/adjust.
+- **Passing / failing signals** — One focal path, staged hero, deferred diagrams/cards, subtle ambient.
+- **Before example** — Failing `landing-hero` with stacked copy bands (`landing-hero-clarification`, `landing-hero-explainer`, support list), hero-scale `ks-diagram-tile`, three `forge-card card-amber` tiles in the same viewport, `forge-ambient--expressive`.
+- **After example** — Passing staged hero (`product-landing-title`, single `landing-hero-tagline`, two CTAs), `landing-forge-visual`, outcome cards in `forge-section` with `section-label`, diagram in a later “How it works” band.
+- **Evidence and remediation** — Screenshot capture + five-step fix order.
+- **Related rules** — Mirrors front matter with registry IDs.
+
+### KS class verification
+
+Examples use classes from `components/components.py`, `components/layouts.py`, and `css/forge-ambient.css`: `landing-hero`, `fs-landing-hero-band`, `landing-hero-wide`, `product-landing-title`, `landing-hero-tagline`, `landing-hero-actions__buttons`, `btn btn-forge`, `btn-cyan-outline`, `landing-forge-visual`, `forge-diagram`, `ks-diagram-tile`, `forge-card card-amber`, `forge-section`, `section-label`, hash governance (`hash`, `data-ks-hash`, `data-ks-type`, `data-ks-name`).
+
+No Mermaid, no Fleet-specific profiles. Check modules and manifest were not edited (orchestrator updates manifest after the batch).
+
+After you run the sync script, the canonical file at `docs/design/ux-audit/rule-pages/ai-context-burden-subjective.md` should show the required `page_version`.

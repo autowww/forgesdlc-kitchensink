@@ -1,0 +1,53 @@
+## Report: `det-section-heading.md` (PDCA handbook page)
+
+### What was written
+
+A full **PDCA** handbook page for **`DET.SECTION.HEADING`** was authored from:
+
+- `docs/design/ux-audit/deterministic-design-rules.md` (each major section → one heading; outline order)
+- `design-rules/deterministic/generated/det-section-heading.check.js` (45-word / 48px thresholds, three violation kinds, exclusions)
+- KS patterns: `doc-main`, `forge-section`, `ks-section`, `section-label`, `font-display`, `forge-support`, `handbook_page` header band
+
+**Sections included:** Purpose (Plan/Do/Check/Adjust), Passing signals, Failing signals, Before/After HTML, Evidence and remediation, Related rules.
+
+**Violation kinds documented:**
+
+| Kind | Severity | Trigger |
+|------|----------|---------|
+| `missing-section-heading` | minor | Major `section`/`article` (≥45 words) with no `h2`–`h6` (eyebrow `p.section-label` alone fails) |
+| `duplicate-section-heading` | major | More than one primary heading in the same major section |
+| `skipped-heading-level` | major | Outline jumps ranks (e.g. `h2` → `h4`) |
+
+**Before/After examples** use real KS classes (`doc-main`, `forge-section`, `ks-section`, `section-label`, `text-cyan`, `font-display`, `forge-support`, `forge-border`) and demonstrate both missing-section-heading and skipped-level failures vs. corrected `h2`/`h3` ladder.
+
+**Related rules in front matter:** `DET.SECTION.SINGLE_JOB`, `DET.PROSE.LENGTH`, `DET.LANDMARKS.REQUIRED`, `DET.LAYOUT.GRID_CONSISTENCY`, `DET.NAV.IN_PAGE_TOC`, `DET.PY.OPTIONAL_REGIONS`, `DET.HTML.EMPTY_INLINE`, `AI.NARRATIVE.COHERENCE`, `AI.CONTEXT.COGNITIVE_CLARITY`, `AI.VISUAL.HIERARCHY`.
+
+### `page_version` (confirmed in authored content)
+
+```yaml
+page_version: 39a8f3db87bd1379afac33e0bfeb9cf8aa9943e5b55dc22fa884319a9a4ba840
+```
+
+Also set: `registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `registry_status: implemented`, `agent_model: composer-2.5-fast`.
+
+### Path note (workspace scope)
+
+This session’s workspace root is `tools/website-ux-auditor/design-rules/blender`, so the full page landed here:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-section-heading.md`
+
+The **canonical** target you specified still has the old bootstrap stub:
+
+`docs/design/ux-audit/rule-pages/det-section-heading.md` (`page_version: 5dbbdcb6…`)
+
+Writes outside the blender folder were blocked. From the **Kitchen Sink repo root**, sync with:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-section-heading.md \
+   docs/design/ux-audit/rule-pages/det-section-heading.md
+grep '^page_version:' docs/design/ux-audit/rule-pages/det-section-heading.md
+```
+
+Expected: `page_version: 39a8f3db87bd1379afac33e0bfeb9cf8aa9943e5b55dc22fa884319a9a4ba840`
+
+No changes were made to check modules, `rule-mappings.js`, or `registry.generated.json`. Re-run the pagegen/orchestrator batch from KS root so `rule-pages.manifest.json` picks up the new `page_version`.

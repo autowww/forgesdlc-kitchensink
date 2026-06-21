@@ -1,0 +1,55 @@
+## Report: `DET.THEME.CONTRAST_MIN` handbook page
+
+### What was written
+
+A full PDCA handbook page (replacing the bootstrap stub) is ready with:
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | WCAG AA metrics rule; samples `p, a, button, h1–h3, li`; thresholds **4.5:1** (&lt;24px) and **3:1** (≥24px); Plan/Do/Check/Adjust tied to `forge-theme.css` tokens |
+| **Passing signals** | Token-backed `forge-card` / `forge-support` / `btn btn-forge`; empty `metrics.contrastReport.lowContrast` |
+| **Failing signals** | Inline mid-gray stacks (e.g. `#5a5a5a` on `#606060`); major findings with `low_contrast` evidence |
+| **Before example** | `doc-main` + `forge-card` with failing inline colors on `card-label`, `font-display`, `forge-support`, `btn btn-forge` |
+| **After example** | Same card using `breathe-static`, default token surfaces, no inline color overrides |
+| **Evidence and remediation** | Evidence table + 5 remediation steps (tokens, harness, `patch-registry.mjs`) |
+| **Related rules** | `DET.TOKEN.NO_DRIFT`, `DET.THEME.FONT_STACK`, `DET.SURFACE.ELEVATION_TOKEN`, `AI.THEME.PERSONALITY_COHERENCE`, `AI.AMBIENT.READABILITY_CONFLICT` |
+
+**Front matter:** `registry_fingerprint` `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `registry_status: implemented`, `agent_model: composer-2.5-fast`, `generated_at: 2026-05-29T12:00:00.000Z`.
+
+**KS classes used:** `doc-main`, `forge-card`, `card-label`, `font-display`, `forge-support`, `btn btn-forge`, `breathe-static`, `text-dim` / `text-muted-4` (documented), theme tokens `--forge-bg`, `--forge-text`, `--forge-surface`.
+
+Aligned with `det-theme-contrast-min.check.js` and the harness defect fixture (`#5a5a5a` on `#606060`).
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: 97c147779f5f6f04f6305f426ad1aebad6f7de5ded7de9b6d052f38d8f737141
+```
+
+Matches the required hash and `rule-pages.manifest.json`.
+
+### Promote to the canonical path
+
+The full page is in the blender workspace mirror; the repo-root handbook file is still the old bootstrap stub because writes outside the current workspace root were blocked.
+
+From the Kitchen Sink repo root, run:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_run-copy-det-theme-contrast-min.mjs
+```
+
+That copies  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-theme-contrast-min.md` →  
+`docs/design/ux-audit/rule-pages/det-theme-contrast-min.md`  
+and verifies `page_version`.
+
+Or:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-theme-contrast-min.md \
+   docs/design/ux-audit/rule-pages/det-theme-contrast-min.md
+```
+
+After promotion, `grep "Theme contrast minimum" docs/design/ux-audit/rule-pages/det-theme-contrast-min.md` should match.
+
+No changes were made to check modules, `rule-mappings.js`, or `registry.generated.json`.

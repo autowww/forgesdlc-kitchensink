@@ -3,10 +3,10 @@ rule_id: DET.CARD.ACTION_LIMIT
 lane: deterministic
 title: One primary action per card
 summary: Each standard Kitchen Sink card exposes at most one filled primary CTA; extra actions use outline/secondary buttons, text links, or an explicit toolbar-card contract.
-page_version: 7f989d49b54debbbf250a24bc84c6bc5f9dedadedc654dd4e15989008004f934
+page_version: cf2a3260b29e73e441d945311198851f63b343202b7f0e347bb46d35a77408ed
 generated_at: 2026-05-19T20:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-card-action-limit
 ---

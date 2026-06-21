@@ -1,0 +1,45 @@
+## Report: `DET.PAGE.MODE` handbook page
+
+### `page_version` (confirmed)
+
+Staging copy has the required value exactly:
+
+`dea6bb3c09a5b7eb7caee8bdef5088d6572376d4879234f9daf370edc297dfff`
+
+### What was written
+
+A full PDCA handbook page aligned with `RULE_PAGE_SCHEMA.md`, `det-page-mode.check.js`, and `landing_page` in `components/layouts.py`:
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Single primary page mode above the fold; PDCA; `layout_shell_attrs`, `forge-page-mode` meta, layout slug → mode map |
+| **Passing signals** | `layout-landing` / `Ldg`, `landing-header`, `fs-landing-main`, handbook-native `Ksr` only on `layout-handbook` / `layout-chapter` |
+| **Failing signals** | `competing-modes`, `home-handbook-shell`, `undeclared-mode`, app/presentation chrome leaks |
+| **Before** | `layout-landing` + `landing-header` + visible `forge-sidebar` `Ksr` `doc-sidebar` with **7** `nav-link` items outside `main` + `fs-landing-hero-band` |
+| **After** | `<meta name="forge-page-mode" content="marketing">`, collapsible `landing-header-navbar` / `#fsLandingNav`, `fs-landing-main` without sidebar, `fs-landing-body-shell` + `forge-card` |
+| **Evidence** | Remediation table + KS/consumer/harness pointers |
+| **Related rules** | Backtick IDs in body; `related_rules` in front matter |
+
+**Front matter:** `registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `registry_status: implemented`, `generated_at: 2026-05-29T17:30:00.000Z`, `agent_model: composer-2.5-fast`.
+
+### Canonical path status
+
+Edits to `docs/design/ux-audit/rule-pages/det-page-mode.md` were blocked from this session’s workspace (writes only succeed under `tools/website-ux-auditor/design-rules/blender/`). The canonical file **already** has the correct `page_version` and strong before/after HTML, but is **missing** the `related_rules` front-matter block and still has `generated_at: 2026-05-25T19:00:00.000Z`.
+
+### Install to canonical path
+
+Run from the Kitchen Sink repo root:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-det-page-mode.mjs
+```
+
+That copies  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-page-mode.md`  
+→ `docs/design/ux-audit/rule-pages/det-page-mode.md`  
+and checks `page_version` against the required hash.
+
+**Staging source (complete):**  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-page-mode.md`
+
+If you want this applied in-chat, say **write the file** (broader write access) and I will re-run the copy step.

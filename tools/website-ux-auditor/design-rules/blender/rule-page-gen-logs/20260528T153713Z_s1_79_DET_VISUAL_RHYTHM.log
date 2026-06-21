@@ -1,0 +1,40 @@
+## Report: `DET.VISUAL.RHYTHM` handbook page
+
+The full PDCA handbook page is written and polished in the workspace staging path (this Cursor workspace is scoped to `tools/website-ux-auditor/design-rules/blender`, so direct writes to `docs/design/ux-audit/rule-pages/` were blocked).
+
+### `page_version` (confirmed in staging)
+
+```text
+34c97742f51f9ba21a25a468c09d85934f66664723a208599c485565a7016b51
+```
+
+### What was written
+
+Replaced the bootstrap stub with a full rule page aligned to `det-visual-rhythm.check.js` and `RULE_PAGE_SCHEMA.md`:
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Vertical cadence between `main` sections; metrics-phase checks (median gap, spread ratio, ad hoc spacing, handbook first-screen density) |
+| **Passing signals** | Median gap ≥ 32 px, spread ≤ 55%, tokenized spacing (`py-4`, `fs-landing-section`, `mb-4`, 8px grid) |
+| **Failing signals** | `cramped-median-gap`, `gap-inconsistency`, `adhoc-section-spacing`, handbook table/h2 density |
+| **Before** | `fs-landing-section` / `forge-section` with `py-2`, `margin-top:33px`, alternating `mb-1` / `mb-5` on `forge-card` sections |
+| **After** | `fs-marketing-stat-band py-4 px-2 px-md-3`, `forge-section ks-section py-4`, uniform `mb-4`, hash attrs |
+| **Evidence** | `collectVisualRhythmReport`, finding evidence strings, 6-step remediation |
+| **Related rules** | `DET.LAYOUT.GRID_CONSISTENCY`, `AI.VISUAL.RHYTHM_SUBJECTIVE`, `DET.SECTION.HEADING`, `DET.CONTEXT.BURDEN`, `AI.VISUAL.HIERARCHY` |
+
+Front matter uses `registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `registry_status: implemented`, `agent_model: composer-2.5-fast`, `generated_at: 2026-05-29T20:15:00.000Z`.
+
+### Finalize (one command)
+
+The canonical file at `docs/design/ux-audit/rule-pages/det-visual-rhythm.md` is still the old bootstrap (`title: Visual Rhythm`). Copy staging into place:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink && node tools/website-ux-auditor/design-rules/blender/_write-det-visual-rhythm.mjs
+```
+
+Staging source: `tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-visual-rhythm.md`  
+Copy helper: `tools/website-ux-auditor/design-rules/blender/_write-det-visual-rhythm.mjs`
+
+After copy, `grep '^title:' docs/design/ux-audit/rule-pages/det-visual-rhythm.md` should show `title: Visual rhythm between sections`.
+
+No check modules, `rule-mappings.js`, or registry were edited.

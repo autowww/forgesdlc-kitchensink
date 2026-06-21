@@ -7,7 +7,15 @@ describe('pilot registry', () => {
   it('lists pilot rules including DET.HASH.MARKERS', () => {
     const ids = listPilotRuleIds();
     assert.ok(ids.includes('DET.HASH.MARKERS'));
-    assert.ok(ids.length >= 50, `expected full DET pilot set, got ${ids.length}`);
+    assert.ok(ids.includes('DET.APP.DEMO_DISCLOSURE'));
+    assert.ok(ids.length >= 87, `expected expanded DET pilot set, got ${ids.length}`);
+  });
+
+  it('marks plan_only rules in pilot registry', () => {
+    const e = getPilotEntry('DET.APP.ROUTE_DEEPLINK_STATE');
+    assert.ok(e, 'pending registry rule should be in pilot set');
+    assert.equal(e.fixerId, 'plan_only');
+    assert.equal(e.planOnly, true);
   });
 
   it('resolves handbook_after for DET.PAGE.TITLE', () => {

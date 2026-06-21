@@ -52,7 +52,7 @@ Handbook **bootstrap/version_sync** flag (quality, not tier): **19** rules.
 | AI.NARRATIVE.COHERENCE | ai | generated | stale | pagegen | Y | - | detection_ok | - | - | - | - | detect_e2e |  |
 | AI.PREMIUM.ENTERPRISE_FEEL | ai | implemented | stale | pagegen | Y | - | detection_ok | - | - | - | - | detect_e2e |  |
 | AI.PY.HTML_AUTHORING_QUALITY | ai | generated | stale | pagegen | Y | - | detection_ok | - | - | - | - | detect_e2e |  |
-| AI.REACT.PRIMITIVE_CONSISTENCY | ai | generated | stale | pagegen | Y | - | detection_ok | - | - | - | - | detect_e2e |  |
+| AI.APP.PRIMITIVE_CONSISTENCY | ai | generated | stale | pagegen | Y | - | detection_ok | - | - | - | - | detect_e2e |  |
 | AI.THEME.PERSONALITY_COHERENCE | ai | generated | stale | pagegen | Y | - | detection_ok | - | - | - | - | detect_e2e |  |
 | AI.TRUST.BOUNDARY_CLARITY | ai | generated | stale | pagegen | Y | - | detection_ok | - | - | - | - | detect_e2e |  |
 | AI.VISUAL.HIERARCHY | ai | generated | stale | pagegen | Y | - | detection_ok | - | - | - | - | detect_e2e |  |
@@ -99,8 +99,8 @@ Handbook **bootstrap/version_sync** flag (quality, not tier): **19** rules.
 | DET.PROSE.LENGTH | deterministic | implemented | current | version_sync | Y | standalone | detection_ok | remediation_ok | - | - | - | full_e2e |  |
 | DET.PY.KS_HASH_ATTRS | deterministic | implemented | current | version_sync | Y | repo_overlay | detection_ok | remediation_ok | - | - | - | full_e2e |  |
 | DET.PY.OPTIONAL_REGIONS | deterministic | implemented | current | version_sync | Y | standalone | detection_ok | remediation_ok | - | - | - | full_e2e |  |
-| DET.REACT.A11Y_ROLE | deterministic | implemented | current | version_sync | Y | standalone | detection_ok | remediation_ok | - | - | - | full_e2e |  |
-| DET.REACT.KS_ATTRS | deterministic | implemented | current | version_sync | Y | standalone | detection_ok | remediation_ok | - | - | - | full_e2e |  |
+| DET.APP.CONTROL_A11Y | deterministic | implemented | current | version_sync | Y | standalone | detection_ok | remediation_ok | - | - | - | full_e2e |  |
+| DET.APP.PRIMITIVE_MARKERS | deterministic | implemented | current | version_sync | Y | standalone | detection_ok | remediation_ok | - | - | - | full_e2e |  |
 | DET.SCREENSHOT.STATUS | deterministic | implemented | current | version_sync | Y | repo_overlay | detection_ok | remediation_ok | - | - | - | full_e2e |  |
 | DET.SECTION.HEADING | deterministic | implemented | current | version_sync | Y | standalone | detection_ok | remediation_ok | - | - | - | full_e2e |  |
 | DET.SECTION.SINGLE_JOB | deterministic | implemented | current | version_sync | Y | standalone | detection_ok | remediation_ok | - | - | - | full_e2e |  |

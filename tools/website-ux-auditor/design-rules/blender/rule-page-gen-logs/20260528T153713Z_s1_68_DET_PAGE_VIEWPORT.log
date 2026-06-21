@@ -1,0 +1,43 @@
+## Report: `DET.PAGE.VIEWPORT` handbook page
+
+### Written (workspace staging)
+
+The full page is at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-page-viewport.md`
+
+The Cursor workspace is limited to the **blender** subtree, so writes to the canonical Kitchen Sink path were blocked. The canonical file at `docs/design/ux-audit/rule-pages/det-page-viewport.md` still has the **2026-05-25** draft (no `related_rules:` front matter, older `nav` markup).
+
+**Promote to canonical** (one command):
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-page-viewport.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-page-viewport.md
+```
+
+### `page_version` (confirmed)
+
+```
+9970ddaefb906abb69a9ca9f962f5fa4b130831974123c69db1abd344c1b230b
+```
+
+Matches `rule-pages.manifest.json` and your required hash.
+
+### Sources used
+
+| Source | Finding |
+|--------|---------|
+| `deterministic-design-rules.md` | Responsive viewport meta present for web pages (DOM) |
+| `viewport.check.js` | Metrics phase; fails when `metrics.metaViewport` is empty; message *Responsive viewport meta tag is missing.* |
+| `registry.generated.json` | `implemented`, fingerprint `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `components/layouts.py` | All major layouts emit `<meta name="viewport" content="width=device-width, initial-scale=1" />` after charset |
+
+### Page content (PDCA + schema)
+
+- **Front matter:** `rule_id`, `lane`, `title`, `summary`, `page_version`, `generated_at: 2026-05-29T18:45:00.000Z`, `agent_model`, `registry_fingerprint`, `registry_status`, `source_rule`, `related_rules` (`DET.PAGE.LANG`, `DET.PAGE.TITLE`, `DET.LANDMARKS.REQUIRED`, `DET.PAGE.MODE`)
+- **Purpose:** PDCA plan/do/check/adjust; crawler reads `meta[name="viewport"]` → `metrics.metaViewport`
+- **Before/after:** Handbook shell with real KS classes — `forge-aurora`, `forge-sidebar`, `nav-scroll flex-grow-1`, `doc-content`, `forge-card`, `section-label`, `font-display`, `forge-support`, `card-label`, `skip-link`, `container-fluid`, `flex-lg-nowrap`; only difference is viewport meta in `<head>`
+- **Evidence:** Table + `patchPageViewport` fixer path
+- **Related rules:** Backtick rule IDs per schema
+
+No Mermaid, no Fleet profile, no check/registry edits. After you run `cp` above, the canonical path will match the staging file and the orchestrator can sync `rule-pages.manifest.json`.

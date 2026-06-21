@@ -1,0 +1,56 @@
+## Report: `DET.APP.SHELL_INTEGRATION` handbook page
+
+### Status
+
+The **full PDCA page** (147 lines) is in staging at:
+
+`tools/website-ux-auditor/design-rules/blender/.staging-det-app-shell-integration.md`
+
+The **canonical target** at `docs/design/ux-audit/rule-pages/det-app-shell-integration.md` is still the **41-line bootstrap stub** — this session’s workspace sandbox blocks writes outside the blender tree. A promote helper is ready:
+
+`tools/website-ux-auditor/design-rules/blender/_write-det-app-shell-integration.mjs`
+
+**Promote (from KS repo root or blender dir):**
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender && node _write-det-app-shell-integration.mjs
+```
+
+### `page_version` confirmation
+
+In staging front matter (matches manifest / your required hash):
+
+`6dd4b00f88ac436ec18a428e36d29cdb99c488cfb214472e05ceacaacc05d8d7`
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | No Bootstrap `alert`/`badge` beside governed react-primitive roots in app workspaces; ties to `det-app-shell-integration.check.js` and **Fsb** / **Fwb** primitives |
+| **Passing signals** | `studio-page`, `data-studio-workspace`, `data-ks-app-shell`; `ks-fe-banner` + `ks-fe-banner--*`; `ks-fe-stagebar__node--*` |
+| **Failing signals** | `bootstrap-alert-near-primitive`, `bootstrap-badge-near-primitive`, duplicate status channels |
+| **Before** | `alert alert-danger` + `ks-fe-banner` + `badge bg-warning` near `ks-fe-stagebar` (fails) |
+| **After** | Single `ForgeStatusBanner`-shaped mount + stage bar node states only (passes) |
+| **Evidence** | `appShellIntegrationReport`, remediation via `ForgeStatusBanner`, harness commands |
+| **Related rules** | `DET.APP.PRIMITIVE_MARKERS`, `PRIMITIVE_STYLES`, `PRIMITIVE_SOURCE`, `AI.APP.PRIMITIVE_CONSISTENCY`, `DET.APP.PERSISTENT_CHROME` |
+
+### Real KS class names used
+
+Aligned with `react/ForgeStatusBanner.tsx`, `react/ForgeWorkflowStageBar.tsx`, and `css/forge-react-primitives.css`:
+
+- Shell: `studio-page`, `flex-grow-1`, `data-studio-workspace`, `data-ks-app-shell`
+- Banner: `ks-fe-banner`, `ks-fe-banner--failed`, `ks-fe-banner__body`, `ks-fe-banner__title`, `ks-fe-banner__desc`, `ks-fe-banner__actions`
+- Stage bar: `ks-fe-stagebar`, `ks-fe-stagebar__node`, `ks-fe-stagebar__node--failed` / `--completed` / `--waiting`
+- Markers: `hash="Fsb"` / `Fwb`, `data-ks-react-root`, `data-ks-type="react-primitive"`, `data-ks-name`
+
+(Uses `ks-fe-banner`, not the obsolete `ks-fe-status-banner` stub class.)
+
+### Front matter (staging)
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `registry_status`: `implemented`
+- `agent_model`: `composer-2.5-fast`
+- `generated_at`: `2026-05-28T18:12:00.000Z`
+- `source_rule`: `docs/design/ux-audit/deterministic-design-rules.md#det-app-shell_integration`
+
+No check modules, `rule-mappings.js`, or registry were edited. After you run the promote command, the canonical file will match staging and `page_version` will remain **`6dd4b00f88ac436ec18a428e36d29cdb99c488cfb214472e05ceacaacc05d8d7`**.

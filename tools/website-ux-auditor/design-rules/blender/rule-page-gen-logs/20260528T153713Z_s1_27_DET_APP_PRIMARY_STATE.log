@@ -1,0 +1,51 @@
+## Report: `DET.APP.PRIMARY_STATE` handbook page
+
+The full PDCA rule page (119 lines) is written at the blender staging path used by other rule-page generators:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-primary-state.md`
+
+The canonical target at `docs/design/ux-audit/rule-pages/det-app-primary-state.md` is still the old 38-line stub — this session could not write or shell-copy outside the blender workspace. Promote with:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-primary-state.md \
+   docs/design/ux-audit/rule-pages/det-app-primary-state.md
+```
+
+Or, from `tools/website-ux-auditor/design-rules/blender/`:
+
+```bash
+node _write-det-app-primary-state.mjs
+```
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: 7f62082ab82c1c2ce9ab7f016fcb2e54839413386514bb23d04c6112a1021d75
+```
+
+Matches the required hash and `rule-pages.manifest.json`.
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.APP.PRIMARY_STATE` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `agent_model` | `composer-2.5-fast` |
+| `related_rules` | `DET.APP.PRIMARY_CTA`, `DET.APP.SHELL_INTEGRATION`, `DET.APP.CONTROL_A11Y`, `DET.APP.DEMO_DISCLOSURE`, `AI.APP.WORKFLOW.CONTINUITY` |
+
+### Content (aligned with `det-app-primary-state.check.js`)
+
+- **Purpose:** One visible lifecycle state per `[data-studio-workspace]` / `.studio-page`; counts `[data-studio-primary-state]` and `[class*="studio-state--"]`; PDCA plan/do/check/adjust.
+- **Passing / failing signals:** Visibility rules (`hidden`, `aria-hidden`, `inert`, sub-4px), state vocabulary (empty/ready/running/completed/error), `metrics.primaryStateReport`.
+- **Before:** Running + completed panels both visible (matches harness `det-app-primary-state-fail.html`).
+- **After:** Completed panel `hidden` + `aria-hidden="true"`; active panel keeps `data-studio-primary-state`.
+- **Evidence:** Remediation table, harness commands, link to `collectPrimaryStateReport` in the check module.
+
+### Real KS classes in examples
+
+`studio-page`, `doc-main`, `forge-card`, `card-label`, `text-cyan`, `font-display`, `forge-support`, `studio-state--running`, `studio-state--completed`, `data-studio-workspace`, `data-studio-primary-state` — same patterns as `det-app-primary-cta` and the defect fixture.
+
+No Mermaid, no Fleet-specific profiles, check modules unchanged. After you run the `cp` above, the canonical handbook path will match the staging file.

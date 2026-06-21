@@ -1,0 +1,57 @@
+## Report: `AI.APP.WORKFLOW_CONTINUITY` handbook page
+
+The full PDCA page is authored in the blender staging file (canonical target path could not be written from this workspace — writes outside `tools/website-ux-auditor/design-rules/blender/` were blocked).
+
+### Staging (ready to promote)
+
+**Path:** `tools/website-ux-auditor/design-rules/blender/.staging-ai-app-workflow-continuity.md`  
+**Promote with:**
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-ai-app-workflow-continuity.mjs
+```
+
+or:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/.staging-ai-app-workflow-continuity.md \
+   docs/design/ux-audit/rule-pages/ai-app-workflow-continuity.md
+```
+
+(from KS repo root)
+
+### `page_version` (staging — matches requirement)
+
+```
+74c7753bf5918efbabb1f895f86bb18af4748aeecb66082cbf65e184d2867c67
+```
+
+The live file at `docs/design/ux-audit/rule-pages/ai-app-workflow-continuity.md` is still on the old hash (`c35c4eb0…`) until you run the copy above.
+
+### Front matter (in staging)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.APP.WORKFLOW_CONTINUITY` |
+| `lane` | `ai` |
+| `page_version` | `74c7753bf5918efbabb1f895f86bb18af4748aeecb66082cbf65e184d2867c67` |
+| `generated_at` | `2026-05-28T17:50:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-workflow-continuity` |
+
+**Related rules added:** `DET.LANDMARKS.REQUIRED` (plus existing DET/AI links).
+
+### Content summary
+
+- **Purpose:** AI judgment for **sense of place** on KS desktop interfaces (`Msm`, `museum-studio`, `forge-app-shell`) — complements `DET.APP.PERSISTENT_CHROME`, breadcrumbs, chrome boundary, landmarks.
+- **Passing / failing signals:** Stable `data-shell-region` chrome, breadcrumbs, `ks-workspace-lens__segment--active`, `ks-wizard-flow__session-item` + `aria-current`, `data-route-contract="persistent-shell"`; failures include chrome rebuilds, generic “Workspace” titles, competing nav rails.
+- **Before example:** Tablist in header, generic “Workspace” `h2`, no trail or session marker.
+- **After example:** Persistent shell, Lens segments, session rail, breadcrumb, route `h1`, `forge-card` step copy.
+- **Evidence / remediation:** PDCA capture + five-step fix list, including deterministic promotion when tab disorientation repeats.
+
+### Real KS class names used
+
+`Msm`, `data-ks-type="desktop-interface"`, `data-persistent-chrome`, `data-shell-regions`, `data-route-contract`, `nav-section-label`, `ks-workspace-lens*` (from `css/workspace-lens.css`), `ks-wizard-flow__session-list` / `__session-item`, `forge-card`, `card-label`, `forge-support`, `breadcrumb`, Bootstrap `btn` variants — aligned with the `DET.APP.PERSISTENT_CHROME` auditor fixture.
+
+No Mermaid, no Fleet-specific profiles. Check modules, registry, and manifest were not edited (orchestrator updates manifest after batch).

@@ -28,22 +28,71 @@ export async function countRuleFindings(auditDataPath, ruleId) {
 }
 
 /**
+ * Resolve audit data path for live/scenario verify modes.
+ * @param {string} auditDataPath
+ * @param {string} [verifyMode]
+ */
+export function resolveVerifyAuditPath(auditDataPath, verifyMode) {
+  if (verifyMode !== 'live_scenario') return auditDataPath;
+  const scenarioEnv = process.env.FORGE_UX_SCENARIO_AUDIT_DATA || '';
+  if (scenarioEnv) return scenarioEnv;
+  const dir = path.dirname(auditDataPath);
+  const candidates = [
+    path.join(dir, 'scenario-audit-data.json'),
+    path.join(dir, 'live-audit-data.json'),
+    auditDataPath,
+  ];
+  return candidates[0];
+}
+
+/**
+ * @param {string} ruleId
+ * @param {string} auditDataPath
+ * @param {string} [verifyMode]
+ */
+export function buildVerifyCommand(ruleId, auditDataPath, verifyMode = 'expect_rule_clean') {
+  const audit = resolveVerifyAuditPath(auditDataPath, verifyMode);
+  if (verifyMode === 'count_only') {
+    return `node -e "/* count ${ruleId} findings in ${audit} */"`;
+  }
+  if (verifyMode === 'live_scenario') {
+    return `FORGE_UX_SCENARIO_AUDIT_DATA=${audit} bash auditor-tests/expect-rule-clean.sh ${audit} ${ruleId}`;
+  }
+  return `bash auditor-tests/expect-rule-clean.sh ${audit} ${ruleId}`;
+}
+
+/**
  * @param {{ auditDataPath: string, ruleId: string, verifyMode?: string }} opts
  */
 export async function verifyRuleClean(opts) {
-  const { auditDataPath, ruleId, verifyMode = 'expect_rule_clean' } = opts;
+  const { ruleId, verifyMode = 'expect_rule_clean' } = opts;
+  let { auditDataPath } = opts;
+  auditDataPath = resolveVerifyAuditPath(auditDataPath, verifyMode);
+
   if (!auditDataPath) {
-    return { verifyOk: false, findingsCount: -1, error: 'missing auditDataPath' };
+    return { verifyOk: false, findingsCount: -1, error: 'missing auditDataPath', verifyCommand: '' };
   }
   try {
     await fs.access(auditDataPath);
   } catch {
+    if (verifyMode === 'live_scenario') {
+      return {
+        verifyOk: null,
+        findingsCount: -1,
+        note: 'scenario audit data not present — verify skipped',
+        verifyCommand: buildVerifyCommand(ruleId, auditDataPath, verifyMode),
+      };
+    }
     return { verifyOk: true, findingsCount: 0, note: 'no audit file yet' };
   }
 
   if (verifyMode === 'count_only') {
     const fc = await countRuleFindings(auditDataPath, ruleId);
-    return { verifyOk: fc === 0, findingsCount: fc };
+    return {
+      verifyOk: fc === 0,
+      findingsCount: fc,
+      verifyCommand: buildVerifyCommand(ruleId, auditDataPath, verifyMode),
+    };
   }
 
   const proc = spawnSync('bash', [EXPECT_CLEAN, auditDataPath, ruleId], {
@@ -54,5 +103,6 @@ export async function verifyRuleClean(opts) {
   return {
     verifyOk: proc.status === 0 && fc === 0,
     findingsCount: fc,
+    verifyCommand: buildVerifyCommand(ruleId, auditDataPath, verifyMode),
   };
 }

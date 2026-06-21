@@ -1,0 +1,41 @@
+## Report: `DET.CONTRACT.PLACEHOLDERS` handbook page
+
+### Status
+The full page is ready at:
+
+`tools/website-ux-auditor/design-rules/blender/_det-contract-placeholders-staging.md`
+
+Writes to `docs/design/ux-audit/rule-pages/det-contract-placeholders.md` were blocked (Cursor workspace root is the blender folder). Install with:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink
+cp tools/website-ux-auditor/design-rules/blender/_det-contract-placeholders-staging.md \
+   docs/design/ux-audit/rule-pages/det-contract-placeholders.md
+rm tools/website-ux-auditor/design-rules/blender/_det-contract-placeholders-staging.md
+```
+
+### `page_version` (confirmed)
+`0aca28e5318ec24c5777c700f2920cc3781d6669a243a815bf4d69e96c16cf74` — matches `rule-pages.manifest.json` and your required value.
+
+### Sources used
+| Source | Takeaway |
+|--------|----------|
+| `deterministic-design-rules.md#det-contract-placeholders` | Registry contracts must not keep unresolved placeholder/stub language |
+| `det-contract-placeholders.check.js` + `contract-placeholders.mjs` | Always-error markers; `TBD`/`TODO`/`FIXME` bullets strict-only; 12-finding cap; skips `contract-template.md` |
+| `registry.generated.json` | `registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `registry_status: implemented` |
+| `Kbc-doc-breadcrumb.md`, `layouts.py` | Real classes: `site-header`, `ks-doc-breadcrumb`, `breadcrumb`, `text-cyan`, `text-dim`, `forge-gradient-text`, hash attrs |
+
+### Page content (PDCA)
+- **Purpose:** Repo-scans `own` / `family-covered` contracts via `analyzeContractPlaceholders`; PDCA loop for clearing stubs after hash allocation.
+- **Passing / Failing:** Aligned with check implementation (marker vs stub-bullet kinds, strict mode, evidence format, skip when no registry).
+- **Before:** Generic Bootstrap breadcrumb in `site-header`, no **Kbc** markers, visible “lorem ipsum / TBD” filler.
+- **After:** `nav.ks-doc-breadcrumb` with `hash` / `data-ks-hash` / `data-ks-type` / `data-ks-name`, matching `chrome_region_attrs("doc-breadcrumb")` emission in `layouts.py`.
+- **Evidence and remediation:** Table + `check-visual-catalog.mjs --strict-contract-placeholders` commands.
+- **Related rules:** `DET.CONTRACT.PATH`, `DET.CATALOG.CONTRACT_SPECIFICITY`, `DET.HASH.MARKERS`, `DET.INVENTORY.CROSSWALK`, `AI.CONTRACT.IMPLEMENTATION_USEFULNESS` (in front matter and body).
+
+### Front matter deltas vs on-disk canonical file
+- `generated_at`: `2026-05-29T12:00:00.000Z`
+- `related_rules:` added (5 IDs)
+- **After** example updated to `nav.ks-doc-breadcrumb` + `ol.breadcrumb` / `text-cyan` / `text-dim` (from `layouts.py`)
+
+No check modules, `rule-mappings.js`, or registry files were edited. After you run the `cp` above, the canonical handbook page will match the staging file and `page_version` will remain `0aca28e5318ec24c5777c700f2920cc3781d6669a243a815bf4d69e96c16cf74`.

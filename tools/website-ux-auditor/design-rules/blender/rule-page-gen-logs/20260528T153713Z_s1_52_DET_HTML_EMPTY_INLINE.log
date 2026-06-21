@@ -1,0 +1,55 @@
+## Report: `DET.HTML.EMPTY_INLINE` handbook page
+
+File writes were blocked in this session, so the page on disk was not updated. Below is what was verified against sources and what still differs from the target spec.
+
+### Sources reviewed
+
+| Source | Finding |
+|--------|---------|
+| `deterministic-design-rules.md` | Pass: no empty `<strong>` / `<em>` in `main` (autodoc table focus rows). |
+| `det-html-empty-inline.check.js` | Scans `main#main` (or first `main`); counts empty `strong`/`em` by collapsed `textContent`; **minor** / **trivial** severities; evidence `empty_strong_count=`, `empty_em_count=`. |
+| `registry.generated.json` | `registry_status: implemented`, `registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`. |
+| `components/layouts.py` (line 1223) | Handbook `main`: `col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main`. |
+| `components/components.py` | `render_table` → `.forge-table-wrap mt-2` + `table table-sm …`. |
+| `components/transforms.py` | `enhance_tables` wraps bare tables with `.forge-table-wrap`. |
+
+### `page_version` (confirmed)
+
+Front matter already has the required value:
+
+`91e7f0f4199abd4be34f2951bf293e923c8b3d8d05f55209ca6a9f0cf4b2e372`
+
+### KS classes in before/after examples (verified)
+
+Examples use real patterns from `layouts.py`, `components.py`, and `docs-theme.css`:
+
+- `doc-main`, `font-display`, `forge-support`
+- `forge-table-wrap`, `table table-sm table-striped mb-0`
+- `th scope="col"`
+
+Before fails with `<strong></strong>` / `<em></em>` in prose and table cells; after passes with `Recommended` / `Primary path`.
+
+### Gaps vs `RULE_PAGE_SCHEMA.md`
+
+The existing page at `docs/design/ux-audit/rule-pages/det-html-empty-inline.md` is largely complete but still needs:
+
+1. **`related_rules` in YAML** (body section exists; front matter does not).
+2. **`generated_at`** → `2026-05-29T12:00:00.000Z` (still `2026-05-25T11:30:00.000Z`).
+3. Small copy tweaks: metrics phase sentence, `handbook_page` cite in Before example, `render_table` in remediation step 2.
+
+### Intended front matter delta
+
+```yaml
+generated_at: 2026-05-29T12:00:00.000Z
+related_rules:
+  - DET.DATA.TABLE_HEADERS
+  - DET.CTA.LABEL_NONEMPTY
+  - DET.PY.OPTIONAL_REGIONS
+  - DET.PROSE.LENGTH
+```
+
+All seven body sections are present with fenced `html` before/after blocks; no Mermaid; no Fleet-specific profile.
+
+---
+
+**Next step:** Switch to agent mode (or apply the front-matter delta manually) so the file can be saved. I can retry the write in agent mode if you want.

@@ -1,0 +1,48 @@
+## Handbook page: `AI.DATA.INSIGHT_LEGIBILITY`
+
+Wrote the full rule page per `RULE_PAGE_SCHEMA.md` with PDCA framing, all required sections, and before/after `html` examples using real Kitchen Sink patterns.
+
+**Authored file (complete, correct `page_version`):**  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-data-insight-legibility.md`
+
+**Canonical target (still needs promotion):**  
+`docs/design/ux-audit/rule-pages/ai-data-insight-legibility.md`  
+(line 6 is still the old hash until you run the copy below)
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.DATA.INSIGHT_LEGIBILITY` |
+| `lane` | `ai` |
+| `page_version` | **`3944be688abe4356216ca9d368c138b797bc1b7736bc7487cdfa23e8b652cd89`** |
+| `generated_at` | `2026-05-28T18:00:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-data-insight-legibility` |
+
+### Content summary
+
+- **Purpose:** AI judgment on whether charts answer “so what?” beyond geometry; builds on `DET.CHART.ALT_SUMMARY`, `DET.DATA.TABLE_HEADERS`, and `DET.DATA.COLOR_ONLY`.
+- **Passing / failing signals:** Takeaway titles, `forge-support` summaries, emphasis aligned with narrative, redundant encoding, accessible summaries.
+- **Before:** `ks-section` + `ks-chart-mount` + generic `render_ks_chart_mount` caption only (fails insight legibility).
+- **After:** `forge-card`, `card-label`, outcome `h2`, `aria-describedby` summary, amber peak emphasis, `lenses-overview-donut-swatch` legend (passes).
+- **Evidence / remediation:** 5-step ordered fix list; related deterministic and AI rules.
+
+### Real KS classes used
+
+`ks-section`, `ks-section-title`, `forge-card`, `card-label`, `forge-support`, `ks-chart-mount`, `data-ks-chart`, `data-ks-chart-kind`, `data-ks-chart-state`, `lenses-overview-donut-swatch`, hashes `Dcs` / `data-ks-name="data-charts-static"`, chart kind `commit_weekly` from `render_ks_chart_mount` / `components/components.py`.
+
+### Promote to canonical path
+
+This workspace could not write outside `design-rules/blender/`. Run from the Kitchen Sink repo root:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_copy-ai-data-insight-legibility-canonical.mjs
+```
+
+Expected output: `VERIFY OK` and line 6:
+
+`page_version: 3944be688abe4356216ca9d368c138b797bc1b7736bc7487cdfa23e8b652cd89`
+
+No Mermaid, no Fleet profile, and no check modules / manifest edits (orchestrator handles manifest after the batch).

@@ -1,0 +1,56 @@
+## Report: `AI.MOTION.INTENTIONALITY` rule page
+
+Wrote the full handbook page per `RULE_PAGE_SCHEMA.md` with PDCA framing, all required sections, and before/after `html` examples using real Kitchen Sink patterns.
+
+**Authored file (complete, correct `page_version`):**  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-motion-intentionality.md`
+
+**Canonical target (promotion pending):**  
+`docs/design/ux-audit/rule-pages/ai-motion-intentionality.md`  
+(line 6 is still the old hash until you run the copy below)
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.MOTION.INTENTIONALITY` |
+| `lane` | `ai` |
+| `page_version` | **`136728ab3fe29e6d695661f901d3c331816c1d82725d75fc155f673d279da7ce`** |
+| `generated_at` | `2026-05-28T17:30:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-motion-intentionality` |
+
+### Content summary
+
+- **Purpose:** AI judgment on whether motion guides attention toward the next read or action; builds on `DET.MOTION.PREFERS_REDUCED` and `DET.MOTION.NO_AUTO_PLAY_FLASH`, references **`Mtn`** motion contract.
+- **Passing / failing signals:** One focal cue per band, hover-gated `.breathe-link`, short entrance motion, calm easing, no competing loops.
+- **Before:** Expressive ambient hero + `.glass.pulse` copy wrapper + `.pulse-amber` CTA + multiple `.breathe-static` / `.pulse-amber` bento tiles + autoplay `.ks-sa-fly-chip--in-*` fly-ins (fails).
+- **After:** `forge-ambient--subtle` + scrim, static hero card, one `.pulse-amber` stat accent, `.breathe-link` hover tile, helper copy for hover motion (passes).
+- **Evidence / remediation:** Screenshot + recording capture steps; 5-step ordered fix list; related rules section.
+
+### Real KS classes used
+
+From `css/forge-theme.css`: `.pulse`, `.pulse-amber`, `.breathe-link`, `.breathe-static`, `.glass`, `.glass-amber`, `.forge-card`, `.forge-stat`, `.stat-value`, `.stat-label`, `.section-label`, `.product-landing-title`, `.forge-support`, `.bento-grid`, `.bento-3`
+
+From `css/forge-ambient.css`: `.forge-ambient`, `.forge-ambient--mesh-bloom`, `.forge-ambient--hero`, `.forge-ambient--expressive`, `.forge-ambient--subtle`, `.forge-ambient-bg`, `.forge-ambient-scrim`, `.forge-ambient-content`
+
+From `css/script-assembly.css`: `.ks-sa-root`, `.ks-sa-fly-mount`, `.ks-sa-fly-chip`, `.ks-sa-fly-chip--in-1` through `--in-3` (corrected from invalid `ks-sa-fly-in-*` names)
+
+Also: `landing-hero`, `fs-landing-hero-band`, `forge-section`, hash **`Mtn`**
+
+### Promote to canonical path
+
+This workspace could not write outside `design-rules/blender/`. Run from the Kitchen Sink repo:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_copy-ai-motion-intentionality-canonical.mjs
+```
+
+Expected output ends with `VERIFY OK` and `page_version: 136728ab3fe29e6d695661f901d3c331816c1d82725d75fc155f673d279da7ce`.
+
+### `page_version` confirmation
+
+**Staging file:** `136728ab3fe29e6d695661f901d3c331816c1d82725d75fc155f673d279da7ce` — matches required value exactly.
+
+**Canonical file (on disk now):** still `74c3a3b237d7b20f8b0915547e41ac1d3fe3655ef5a2c13112644eec7b36d82b` until the copy script runs.

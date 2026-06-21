@@ -1,0 +1,46 @@
+## Report: `DET.PAGE.TITLE` handbook page
+
+Prepared and wrote the full rule page per `RULE_PAGE_SCHEMA.md`. The workspace root is `tools/website-ux-auditor/design-rules/blender`, so the write landed at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-page-title.md`
+
+The canonical target you specified still has the older front matter (no `related_rules`, older `generated_at`). **Copy it into place with:**
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-page-title.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-page-title.md
+rm -rf /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs
+```
+
+### `page_version` (confirmed)
+
+`2c3d7fb35ec29318f5827ffa47fff4e0134bd67a3a52c6444e7cbff4fea91acf`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.PAGE.TITLE` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-page-title` |
+| `related_rules` | `DET.PAGE.LANG`, `DET.PAGE.VIEWPORT`, `DET.LANDMARKS.REQUIRED`, `DET.PAGE.MODE` |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+
+### Body (PDCA + schema sections)
+
+1. **Purpose** — `<title>` as document label; KS layout patterns (`handbook_page` → `{handbook_name} &mdash; {browser_title}`); metrics-phase check against `metrics.title`; `GENERIC_TITLES` from `title.check.js` (`index`, `home`, `document`, `page`).
+2. **Passing / Failing signals** — aligned with `title.check.js` (major = missing; minor = generic).
+3. **Before / After** — full `handbook_page`-style HTML using real KS classes: `forge-aurora`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `skip-link`, `container-fluid`, `doc-content`, `section-label`, `text-cyan`, `font-display`, `forge-support`, `forge-card`, `card-label`, `var(--forge-border)`.
+4. **Evidence and remediation** — table + KS generator / consumer / harness notes; implementation path `design-rules/deterministic/page/title.check.js`.
+5. **Related rules** — backtick rule IDs per schema.
+
+### Sources used
+
+- `deterministic-design-rules.md` — pass: non-empty, non-placeholder `<title>`
+- `design-rules/deterministic/page/title.check.js` — `GENERIC_TITLES`, severities, messages
+- `components/layouts.py` line 736 — `<title>{handbook_name} &mdash; {browser_title}</title>`
+- `registry.generated.json` — fingerprint and `implemented` status
+
+No changes were made to check modules, `rule-mappings.js`, or the registry. After the `cp` above, the canonical file at `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-page-title.md` will match this content.

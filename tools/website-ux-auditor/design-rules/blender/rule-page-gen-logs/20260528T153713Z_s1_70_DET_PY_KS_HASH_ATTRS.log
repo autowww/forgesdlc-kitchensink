@@ -1,0 +1,42 @@
+## Report: `DET.PY.KS_HASH_ATTRS` rule page
+
+File writes to `docs/design/ux-audit/rule-pages/det-py-ks-hash-attrs.md` were blocked from this session (workspace root is `tools/website-ux-auditor/design-rules/blender`; the target path is outside it). Below is what was verified on disk and what still needs a small refresh when you can save from the KS repo root.
+
+### Confirmed on disk
+
+| Field | Value |
+|--------|--------|
+| **Target** | `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-py-ks-hash-attrs.md` |
+| **`page_version`** | `b463dd1c07258e2e9ec6cf183e5b0d4574cf1267ac9a604099efb2cd12eccc1d` (matches manifest + your requirement) |
+| **`registry_fingerprint`** | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| **`registry_status`** | `implemented` |
+| **Check module** | `design-rules/deterministic/generated/det-py-ks-hash-attrs.check.js` (metrics phase, scans `components/`, `generator/`, `forge-autodoc/`) |
+
+The page already follows `RULE_PAGE_SCHEMA.md`: Purpose, Passing/Failing signals, Before/After `html` blocks, Evidence and remediation, Related rules.
+
+### Source alignment (PDCA)
+
+- **Plan anchor:** `deterministic-design-rules.md` — renderers use `ks_hash_attrs` (or equivalent) on visual roots.
+- **Check logic:** `manual-literal`, `missing-helper`, `missing-emitter`; cap 12 findings; only `components/ks_hash_attrs.py` exempt for inline literals.
+- **Real KS patterns:** `layout_shell_attrs("handbook_page")`, `chrome_region_attrs("doc-sidebar"|"doc-breadcrumb")` in `components/layouts.py`; emitted HTML in `showcase/preview-handbook.html` (`Hbk`, `Ksr`, `Kco`, `Ksf`).
+
+### Intended refinements (not applied — permission blocked)
+
+1. **Front matter:** add `related_rules:` list (body already lists them); bump `generated_at` to current UTC.
+2. **Passing signals:** mention offcanvas **`Kco`** and `showcase/preview-handbook.html`.
+3. **Before example:** wrap main in `mx-auto doc-content`; use `doc-sidebar-sublink` (not generic `nav-link`).
+4. **After example:** add `offcanvas` **`Kco`**, `forge-toc` / `toc-title`, compact `ks-site-footer-region` like the preview.
+
+### `page_version` confirmation
+
+**`page_version` = `b463dd1c07258e2e9ec6cf183e5b0d4574cf1267ac9a604099efb2cd12eccc1d`** — already set correctly in the existing file and in `rule-pages.manifest.json`.
+
+---
+
+To apply the refresh locally from the kitchensink root:
+
+```bash
+# Open the file in the full KS workspace, or widen Cursor workspace to forgesdlc-kitchensink
+```
+
+If you widen the workspace to `/home/lzvyahin/Code/forgesdlc-kitchensink` and ask again, I can write the updated markdown in one pass. The current on-disk page is already usable for the batch; the deltas above are polish, not blockers.

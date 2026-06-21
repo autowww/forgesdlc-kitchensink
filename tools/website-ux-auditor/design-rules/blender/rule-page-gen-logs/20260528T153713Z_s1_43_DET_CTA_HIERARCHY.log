@@ -1,0 +1,48 @@
+## Report: `DET.CTA.HIERARCHY` handbook page
+
+Wrote the full PDCA rule page at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-cta-hierarchy.md`
+
+The Cursor workspace sandbox blocks writes to the canonical path you specified (`docs/design/ux-audit/rule-pages/det-cta-hierarchy.md` at the KS repo root). That file still has the older draft (`generated_at: 2026-05-19`, no `related_rules` in front matter). **`page_version` there already matches the required hash.**
+
+### `page_version` (confirmed)
+
+`455be72677f9d86619b1984fcb7e00cf2896ac0a6816e8e52d3c8d45163b1a1a`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.CTA.HIERARCHY` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `related_rules` | `DET.BUTTON.GROUP.MAX`, `DET.CTA.LABEL_NONEMPTY`, `DET.CONTEXT.BURDEN`, `DET.CARD.ACTION_LIMIT`, `DET.APP.PRIMARY_CTA`, `AI.VISUAL.HIERARCHY` |
+
+### Content (from check + KS sources)
+
+- **Purpose:** One filled primary (`btn-forge` / `btn-primary`) per hero, open modal, or sticky footer band; aligns with `collectCtaHierarchyReport` and `components/components.py` hero CTA pattern.
+- **Regions:** `.landing-hero-wide`, `.landing-hero-grid-wrap`, `.modal.show`, `#diagramModal`, sticky footer selectors from the check module.
+- **Before/after:** Real KS classes — `landing-hero`, `fs-landing-hero-band`, `landing-hero-actions__buttons`, `btn-forge`, `btn-cyan-outline`, `landing-hero-secondary-link`, `landing-hero-secondary-sep`, hash attrs.
+- **Evidence:** `metrics.ctaHierarchyReport`, `too-many-primary-ctas`, remediation steps.
+- **Scope note:** Studio workspaces → `DET.APP.PRIMARY_CTA` (not Fleet-specific).
+
+### Publish to canonical path
+
+Run from the blender directory:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-det-cta-hierarchy.mjs
+```
+
+Or:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-cta-hierarchy.md \
+   docs/design/ux-audit/rule-pages/det-cta-hierarchy.md
+```
+
+Updated `_write-det-cta-hierarchy.mjs` to copy from the blender `docs/…` staging file and verify `page_version` against `455be726…`.
+
+No changes were made to `det-cta-hierarchy.check.js`, `rule-mappings.js`, or `registry.generated.json`.

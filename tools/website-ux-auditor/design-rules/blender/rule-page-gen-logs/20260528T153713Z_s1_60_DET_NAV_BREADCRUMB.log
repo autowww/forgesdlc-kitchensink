@@ -1,0 +1,43 @@
+## Report: `DET.NAV.BREADCRUMB` rule page
+
+Wrote the full handbook page at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-breadcrumb.md`
+
+The canonical target you specified still has the prior revision (missing `related_rules`, older `generated_at`). File writes outside the blender workspace were blocked here, so sync with:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-breadcrumb.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-breadcrumb.md
+```
+
+Or: `bash tools/website-ux-auditor/design-rules/blender/.copy-det-nav-breadcrumb-to-canonical.sh`
+
+### `page_version` (confirmed)
+
+`5ab868d6bc68af508504e298a9c3771ee4259906486a4c8b0338d49eee3903e2`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.NAV.BREADCRUMB` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `related_rules` | 7 IDs (landmarks, chrome boundary, persistent chrome, nav depth/dedup, hash markers, AI workflow continuity) |
+
+### Content (PDCA, from check + KS sources)
+
+- **Purpose** — Doc/product/showcase hubs need **Kbc** (`.ks-doc-breadcrumb`) in `header.site-header`; signals from `det-nav-breadcrumb.check.js` (layout slugs, **Ksr** sidebar, showcase masthead); home + `layout-landing` / `layout-marketing` exempt.
+- **Passing / failing** — Mirrors `collectNavBreadcrumbReport`, `findingsFromNavBreadcrumbReport`, and `findingsFromKbcMarkerReport` (`missing_breadcrumb`, `kbc_marker_missing`, visibility thresholds).
+- **Before** — `layout-handbook` + **Ksr** `forge-sidebar` + `site-header-content` with `h1` only (no **Kbc**).
+- **After** — Same shell with `nav.ks-doc-breadcrumb` + `hash`/`data-ks-hash="Kbc"` + `breadcrumb-item` trail (aligned with `_showcase_header` / `render_breadcrumbs()`).
+- **Evidence** — `navBreadcrumbReport`, `render_breadcrumbs()`, `Kbc-doc-breadcrumb.md`, harness re-run steps.
+
+### Real KS class names in examples
+
+`site-header`, `site-header-brand`, `site-header-content`, `forge-brand`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `doc-main`, `forge-support`, `ks-doc-breadcrumb`, `breadcrumb`, `breadcrumb-item`, `font-display`, `forge-gradient-text`, `text-cyan`, `text-dim`.
+
+No Mermaid, no Fleet-specific profiles. Check modules and registry were not edited.

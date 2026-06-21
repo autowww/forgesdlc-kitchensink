@@ -1,0 +1,50 @@
+## Report: `DET.SURFACE.ELEVATION_TOKEN` handbook page
+
+The full PDCA handbook page is written and verified, but **writes to the canonical path were blocked** from this session (tooling only allowed edits under `tools/website-ux-auditor/design-rules/blender/`). The complete file lives here:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-surface-elevation-token.md`
+
+**Install at the target path** (from kitchensink repo root):
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-surface-elevation-token.md \
+   docs/design/ux-audit/rule-pages/det-surface-elevation-token.md
+```
+
+Optional cleanup after copy:
+
+```bash
+rm -rf tools/website-ux-auditor/design-rules/blender/docs
+```
+
+### `page_version` confirmation
+
+**Exact match:** `dfa0e32571642394bbf6b082920b949482c55bdf097e4c8f459a64ffbb92d23b`
+
+### What was written
+
+| Item | Value |
+|------|--------|
+| **Title** | Surface elevation tokens |
+| **Lane** | deterministic |
+| **Registry** | `implemented`, fingerprint `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| **Source** | `docs/design/ux-audit/deterministic-design-rules.md#det-surface-elevation_token` |
+| **Check module** | `design-rules/deterministic/generated/det-surface-elevation-token.check.js` |
+
+**Sections** (per `RULE_PAGE_SCHEMA.md`): Purpose, Passing signals, Failing signals, Before example, After example, Evidence and remediation, Related rules.
+
+**Aligned with the check implementation:**
+- Sanctioned `var()` prefixes: `--forge-glow-`, `--forge-`, `--ks-`, `--bs-`, `--le-surface`
+- Surface selectors (`.forge-card`, `.glass`, `.ks-nrm-dialog`, modals, `[data-card]`, etc.); card chrome excluded
+- Theme packs may define raw shadows; feature `css/*.css` is scanned
+- Border rings and `@keyframes` excluded; **warn**, max **12** findings
+
+**Before (failing):** `.forge-card.breathe-static` with inline `box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55)` plus KS hash attrs.
+
+**After (passing):** Showcase-style `.glass` / `.glass-amber` / `.forge-card` grid (no inline shadow), plus `.ks-nrm-dialog` with `var(--forge-elevation-modal)` noted in copy.
+
+**Real KS classes used:** `forge-card`, `breathe-static`, `card-label`, `forge-support`, `glass`, `glass-amber`, `section-label text-cyan`, `text-amber`, `ks-nrm-dialog`, `ks-nrm-dialog__head`, `ks-nrm-dialog__title`, `ks-nrm-dialog__close`, `doc-main`, `row g-3`, etc.
+
+**Related rules:** `DET.TOKEN.NO_DRIFT`, `DET.THEME.CONTRAST_MIN`, `DET.CARD.TITLE`, `AI.PREMIUM.ENTERPRISE_FEEL`, `AI.THEME.PERSONALITY_COHERENCE`
+
+The existing bootstrap at `docs/design/ux-audit/rule-pages/det-surface-elevation-token.md` is unchanged until you run the `cp` above. No check modules, registry, or `rule-mappings.js` were edited.

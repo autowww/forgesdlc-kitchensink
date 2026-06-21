@@ -5,7 +5,10 @@ import { fileURLToPath } from 'node:url';
 import { writeManifest } from './rule-page-version.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const src = path.resolve(__dirname, '../../docs/design/ux-audit/rule-pages/ai-premium-enterprise-feel.md');
+const src = path.resolve(
+  __dirname,
+  'docs/design/ux-audit/rule-pages/ai-premium-enterprise-feel.md',
+);
 const dest = path.resolve(__dirname, '../../../../docs/design/ux-audit/rule-pages/ai-premium-enterprise-feel.md');
 await fs.mkdir(path.dirname(dest), { recursive: true });
 await fs.copyFile(src, dest);

@@ -1,0 +1,59 @@
+## Report: `det-app-persistent-chrome.md`
+
+File edits were blocked in this session (write/strReplace/shell all rejected), so the on-disk page may still be the prior version. Below is what was prepared against your sources and what you should have after applying the update.
+
+### Target file
+
+`docs/design/ux-audit/rule-pages/det-app-persistent-chrome.md`
+
+### `page_version` (confirmed)
+
+```
+a5e3e532fe7e4612f8241f9dc6dea95403cc566f17f8a5dc6a816f6bbe8e18c9
+```
+
+Matches `rule-pages.manifest.json` `contentVersion` / `pageVersion` for `DET.APP.PERSISTENT_CHROME`.
+
+### Front matter (intended)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.APP.PERSISTENT_CHROME` |
+| `lane` | `deterministic` |
+| `title` | Persistent app chrome across routes |
+| `summary` | Persistent shell regions outside `main` stay mounted with stable hashes and global nav across crawled routes when the contract promises persistence |
+| `page_version` | `a5e3e532fe7e4612f8241f9dc6dea95403cc566f17f8a5dc6a816f6bbe8e18c9` |
+| `generated_at` | `2026-05-28T18:30:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-app-persistent-chrome` |
+| `related_rules` | `DET.LANDMARKS.REQUIRED`, `DET.CHROME.BOUNDARY`, `DET.NAV.BREADCRUMB`, `DET.NAV.DEDUP`, `DET.APP.FOCUS_TRAP`, `DET.APP.SHELL_INTEGRATION`, `AI.APP.WORKFLOW_CONTINUITY`, `AI.APP.DENSITY_BALANCE` |
+
+### Body (aligned to check + schema)
+
+1. **Purpose** — Route-crawl (`multi_page`) fingerprints `header` / `nav` / `aside` / `footer` / `[data-shell-region]` outside `main`; contract signals from `det-app-persistent-chrome.check.js`; PDCA plan/do/check/adjust.
+2. **Passing / failing signals** — `missing-region`, `nav-drift`, `hash-drift`, `promised-no-regions` (from `findingsFromAppPersistentChromeReport` / `diffPersistentChromeRegions`).
+3. **Before example** — Failing `settings.html`-style shell: `body.museum-studio.forge-app-shell`, `Msm`, `data-persistent-chrome`, header nav drift (`Back` / `Advanced` / `Sign out`), no `nav#app-nav`, tabs inside `main`.
+4. **After example** — Passing fixture pattern from `auditor-tests/.../DET.APP.PERSISTENT_CHROME/fixture-website/`: stable `header` + `nav#app-nav`, `data-shell-regions`, `ks-wizard-flow__session-list` / `ks-wizard-flow__session-item`, route tabs only in `main`.
+5. **Evidence and remediation** — `appPersistentChromeReport.violations[]`, five-step fix list, `analyze-website-ux.mjs` re-crawl.
+6. **Related rules** — Same IDs as front matter.
+
+### Real KS patterns used
+
+From `museum/studio/index.html`, `css/wizard-flow.css`, and the rule’s E2E fixtures:
+
+- Hashes/types: `Msm`, `data-ks-type="desktop-interface"`, `data-ks-name="museum-studio"`
+- Body: `museum-studio`, `forge-app-shell`
+- Contract: `data-persistent-chrome`, `data-shell-regions`, `data-shell-region`, `data-route-contract="persistent-shell"`
+- Typography/UI: `nav-section-label`, `forge-support`, `forge-card`, `card-label`, Bootstrap `btn btn-sm`
+- Wizard rail: `ks-wizard-flow__session-list`, `ks-wizard-flow__session-item`
+
+### Sources read
+
+- `deterministic-design-rules.md` — “Shell regions stable across routes when contract promises persistence” / route crawl
+- `design-rules/deterministic/generated/det-app-persistent-chrome.check.js`
+- `registry.generated.json` fingerprint `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `RULE_PAGE_SCHEMA.md`, fixture `index.html` / `settings.html`
+
+If you approve file writes in this workspace, I can re-apply the full page (main delta vs the version already on disk: `related_rules` in YAML, `generated_at` bump, `body.museum-studio.forge-app-shell` in examples, and `DET.APP.SHELL_INTEGRATION` in related rules). Say if you want that retry.

@@ -21,6 +21,14 @@ Deterministic accessibility campaigns for **any** website, with optional Kitchen
 
 Design rule docs: [`docs/design/a11y-audit/README.md`](../../docs/design/a11y-audit/README.md).
 
+Canonical source docs and catalogs live under `docs/design/a11y-audit/` (`deterministic-a11y-rules.md`, `ai-enabled-a11y-principles.md`, `wcag-criteria-catalog.json`, `wcag3-outcomes-catalog.json`). They are included in studio ruleset release packs and verified with:
+
+```bash
+node workspace-scripts/verify-ruleset-pack-self-contained.mjs --root .
+```
+
+See `workspace-scripts/README.md` at the workspace root for `MANIFEST.md` generation.
+
 ## Setup
 
 ```bash

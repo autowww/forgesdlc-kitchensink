@@ -56,3 +56,33 @@ export function parseHexFromFinding(finding) {
   const m = String(finding?.message || '').match(/#([0-9a-fA-F]{3,8})\b/);
   return m ? `#${m[1]}` : '';
 }
+
+/**
+ * @param {object} finding
+ */
+export function parseExpectedRoleFromFinding(finding) {
+  const kv = parseEvidenceKv(finding?.evidence || '');
+  if (kv.expectedRole) return kv.expectedRole;
+  const m = String(finding?.evidence || '').match(/expectedRole=([a-z]+)/i);
+  return m ? m[1] : '';
+}
+
+/**
+ * @param {object} finding
+ */
+export function parseObservedFontFromFinding(finding) {
+  const kv = parseEvidenceKv(finding?.evidence || '');
+  if (kv.observed) return kv.observed.replace(/^"|"$/g, '');
+  const m = String(finding?.message || '').match(/observed\s+"([^"]+)"/i);
+  return m ? m[1] : '';
+}
+
+/**
+ * @param {object} finding
+ */
+export function parseSelectorFromFinding(finding) {
+  const kv = parseEvidenceKv(finding?.evidence || '');
+  if (kv.selector) return kv.selector.replace(/^"|"$/g, '');
+  const m = String(finding?.evidence || '').match(/selector="([^"]+)"/);
+  return m ? m[1] : '';
+}

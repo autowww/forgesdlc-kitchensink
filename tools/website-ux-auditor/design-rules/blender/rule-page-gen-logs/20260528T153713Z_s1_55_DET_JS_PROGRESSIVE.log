@@ -1,0 +1,188 @@
+I researched the rule anchor, check module, schema, registry metadata, and KS layout patterns, but **file writes to the handbook path were blocked** in this session (Write, StrReplace, and Shell all returned rejected). Below is the intended replacement for `docs/design/ux-audit/rule-pages/det-js-progressive.md` — save it at the absolute path you specified, or ask me to retry the write in a follow-up.
+
+## Report
+
+**Target:** `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-js-progressive.md`
+
+**Replaced:** Bootstrap stub (“Harness bootstrap handbook page”) with a full PDCA handbook page aligned to `det-js-progressive.check.js`.
+
+**`page_version` (confirmed):** `bd3eaea0e12fe06c64420bbf6af200f2022ca4a0c0b4d6916116271a762093e2`
+
+**Front matter:**
+| Field | Value |
+|--------|--------|
+| `title` | Progressive enhancement baseline |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `agent_model` | `composer-2.5-fast` |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `related_rules` | `DET.JS.NO_CONSOLE_ERROR`, `AI.JS.BEHAVIOR_DISCOVERABILITY`, `DET.LANDMARKS.REQUIRED`, `DET.NAV.FOCUS_ORDER`, `AI.MOTION.INTENTIONALITY` |
+
+**Check thresholds documented:** enabled main ≥ **96** words; no-JS effective words ≥ **48** and retention ≥ **38%**; noscript ≥ **12** words when needed; separate `missing-primary-heading` finding.
+
+**KS classes in examples:** `col-lg-9 col-xl-10 doc-main`, `doc-content`, `font-display`, `forge-support`, `forge-section`, `forge-card breathe-link` / `breathe-static`, `card-label`, `section-label`, `bento-grid bento-2`, `ks-doc-breadcrumb`, `forge-diagram ks-diagram-card`, hash attrs (`Hbk`, `Dce`).
+
+**Before example:** Fails because copy and `h1` are injected via `innerHTML` after load; no-JS sees only “Loading chapter…” + thin noscript.
+
+**After example:** Passes with server-rendered `h1`, prose, `bento-grid` cards, static diagram `img`, and a substantive `<noscript>` supplement.
+
+---
+
+Save this as `det-js-progressive.md`:
+
+```markdown
+---
+rule_id: DET.JS.PROGRESSIVE
+lane: deterministic
+title: Progressive enhancement baseline
+summary: Content-heavy pages must expose headlines, body copy, and primary navigation in static HTML; script may enhance charts, modals, and theme polish but must not hide the page story when JavaScript is off.
+page_version: bd3eaea0e12fe06c64420bbf6af200f2022ca4a0c0b4d6916116271a762093e2
+generated_at: 2026-05-29T12:00:00.000Z
+agent_model: composer-2.5-fast
+registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+registry_status: implemented
+source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-js-progressive
+related_rules:
+  - DET.JS.NO_CONSOLE_ERROR
+  - AI.JS.BEHAVIOR_DISCOVERABILITY
+  - DET.LANDMARKS.REQUIRED
+  - DET.NAV.FOCUS_ORDER
+  - AI.MOTION.INTENTIONALITY
+---
+
+## Purpose
+
+Kitchen Sink handbook shells (`handbook_page`, `showcase_page`), marketing layouts, and consumer sites built from `components/layouts.py` are expected to **degrade gracefully**: a reader with JavaScript disabled, a crawler, or a slow bundle should still see the **page intent**—primary headline, explanatory prose, and in-main links—without waiting for `js/` modules (`forge-theme.js`, `portal-nav.js`, `ks-diagram-catalog.js`, chart mounts, and related **Ksj** behaviors).
+
+This deterministic rule compares two DOM snapshots of the same URL:
+
+1. **Enabled** — metrics from the normal crawl (`wordCount`, `h1Count`, in-main links).
+2. **Disabled** — Playwright reloads the page in a context with `javaScriptEnabled: false` and measures visible text inside `main#main` (or the first `main`), visible `h1` count, and `<noscript>` word count.
+
+The check module `design-rules/deterministic/generated/det-js-progressive.check.js` only evaluates pages whose enabled main copy is **substantial** (`MIN_ENABLED_MAIN_WORDS` = **96** words). It flags collapse when effective no-JS words fall below **48** and retention drops below **38%** of the enabled count (noscript text counts toward retention). Separate findings cover **missing `h1` when script is off** and **thin `<noscript>` fallbacks** when main copy still depends on script.
+
+**Plan:** Audit content-heavy routes (handbook chapters, showcase guides, product overviews). **Do:** Emit H1, section headings, and body copy from Python generators or static HTML; gate diagrams, theme chrome, tabs, and chart data behind script. **Check:** `metrics.jsProgressiveReport` shows adequate `disabled.mainWordCount` and `disabled.h1Count`. **Adjust:** Pair with **`AI.JS.BEHAVIOR_DISCOVERABILITY`** for affordances on enhanced controls; use **`DET.JS.NO_CONSOLE_ERROR`** for console hygiene on scripted golden paths—neither replaces this noscript baseline.
+
+## Passing signals
+
+- **`main#main.doc-main`** (handbook column from `layouts.py`) ships a visible **`h1.font-display`**, **`p.forge-support`**, and section blocks (`forge-section`, `forge-card`, `doc-content`) in the initial HTML response—not injected only after `DOMContentLoaded`.
+- **No-JS word retention** is at least **38%** of enabled main words when enabled main is at least **96** words; effective disabled words = `max(mainWordCount, noscriptWordCount)`.
+- **Disabled snapshot** includes at least one visible **`h1`** inside `main` when the enabled page has an **`h1`**.
+- **`<noscript>`** carries a concise intent summary (at least **12** words) when interactive surfaces (charts, diagram modals, theme picker) require script—see `generator/ux_audit_rule_pages.py` (showcase embeds do not execute inline scripts).
+- **Progressive enhancements**—`data-bs-toggle`, `forge-diagram-trigger`, `data-ks-chart`, offcanvas nav—layer on top of readable static copy; disabling script leaves navigation labels and chapter prose intact.
+- **`findingsFromJsProgressiveReport`** returns an empty list for harness pass fixtures and production handbook pages that server-render content.
+- Thin landing stubs (enabled main under **96** words) are **skipped** intentionally—do not rely on this rule alone for sparse pages.
+
+## Failing signals
+
+- **`critical-text-collapse`** (**major** / **critical**): enabled main at least **96** words but no-JS effective words under **48** and retention under **0.38** — evidence like `enabled_main_words=320 nojs_main_words=8 retention=0.03`.
+- **`missing-primary-heading`**: enabled `h1Count` at least **1**, disabled `h1Count` === **0** — headline injected only via script (common SPA / client-render anti-pattern).
+- **`noscript-fallback`**: main still thin without script, `<noscript>` under **12** words, and no stronger collapse finding—readers get no alternate summary.
+- Inline **`<script>`** that replaces `main.innerHTML` or clears the column before paint (harness defect pattern in `generator/bootstrap_missing_rule_pages.py`).
+- **Empty shell**: `main` contains only a mount node (`<div id="app">`) with all copy rendered client-side.
+- **Chart/diagram-only story**: prose and `h1` live inside script-built DOM; static HTML is a loading placeholder under word thresholds.
+- Report **`disabled: null`** with `skippedReason` (timeout, navigation failure)—treat as audit infra issue, not a pass; re-run metrics phase.
+
+## Before example
+
+Failing KS markup: handbook-style `main` with only a brief `<noscript>` line while an inline script replaces the entire column with filler after load—matches the ruleset harness defect fixture.
+
+```html
+<main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main">
+  <noscript>
+    <p class="forge-support mb-3">Enable JavaScript to view this handbook chapter.</p>
+  </noscript>
+  <div id="ks-chapter-root" class="doc-content w-100" aria-busy="true">
+    <p class="forge-support text-muted mb-0">Loading chapter…</p>
+  </div>
+  <script>
+    (function () {
+      const root = document.getElementById('ks-chapter-root');
+      const main = document.getElementById('main');
+      const body = Array(220).fill(
+        'Governed delivery ties human intent to agent execution with review gates and evidence.'
+      ).join(' ');
+      const html =
+        '<h1 class="font-display mb-3">Progressive enhancement</h1>' +
+        '<p class="forge-support mb-4">' + body + '</p>' +
+        '<section class="forge-section py-3"><div class="forge-card breathe-static p-3">' +
+        '<span class="card-label">Outcome</span><p class="forge-support mb-0">Rendered only after script runs.</p>' +
+        '</div></section>';
+      if (root) root.innerHTML = html;
+      else if (main) main.innerHTML = html;
+    })();
+  </script>
+</main>
+```
+
+## After example
+
+Passing KS markup: same handbook shell with server-rendered headline, prose, and cards; script optional for diagram modal and theme only.
+
+```html
+<main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main" hash="Hbk" data-ks-hash="Hbk" data-ks-type="layout" data-ks-name="handbook-page">
+  <nav class="ks-doc-breadcrumb mb-3" aria-label="Breadcrumb">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="/showcase/">Showcase</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Progressive enhancement</li>
+    </ol>
+  </nav>
+  <div class="mx-auto doc-content" style="max-width:56rem">
+    <h1 class="font-display mb-3">Progressive enhancement</h1>
+    <p class="forge-support mb-4">
+      Critical handbook copy ships in static HTML so readers without script still learn the page intent.
+      Charts, diagram lightboxes, and theme polish may load from <code>js/</code> modules, but the headline,
+      section summaries, and primary links remain visible when JavaScript is disabled.
+    </p>
+    <section class="forge-section py-3">
+      <span class="section-label d-block mb-2">Outcomes</span>
+      <div class="bento-grid bento-2">
+        <a href="#baseline" class="forge-card breathe-link p-3 text-decoration-none">
+          <span class="card-label">Baseline</span>
+          <h2 class="h5 mb-0">Static HTML first</h2>
+          <p class="forge-support mb-0">H1, prose, and in-main anchors render without script.</p>
+        </a>
+        <div class="forge-card breathe-static p-3">
+          <span class="card-label">Enhancement</span>
+          <h2 class="h5 mb-0">Scripted layers</h2>
+          <p class="forge-support mb-0">Modals and charts gate behind Ksj behaviors after load.</p>
+        </div>
+      </div>
+    </section>
+    <figure class="forge-diagram ks-diagram-card p-3 mb-0" hash="Dce" data-ks-hash="Dce" data-ks-type="diagram" data-ks-name="architecture-overview">
+      <img src="assets/svg/template-gate-chain.svg" alt="Gate chain overview" class="img-fluid" />
+      <figcaption class="forge-support mt-2 mb-0">Diagram is visible statically; click-to-expand is optional script.</figcaption>
+    </figure>
+  </div>
+  <noscript>
+    <p class="forge-support mt-4 mb-0">
+      JavaScript is off: you still have the full chapter text above. Enable script for diagram lightbox and theme controls.
+    </p>
+  </noscript>
+</main>
+```
+
+## Evidence and remediation
+
+**Evidence:** Metrics phase builds `jsProgressiveReport` via `collectJsProgressiveReport` (Playwright no-JS context, `domcontentloaded`, 20s timeout). Findings cite `enabled_main_words`, `nojs_main_words`, `noscript_words`, `retention`, and optional `url=`. Kinds: `critical-text-collapse`, `missing-primary-heading`, `noscript-fallback`.
+
+**Remediation:**
+
+1. **Stop clearing `main`** — remove boot scripts that `innerHTML`-replace the handbook column; render H1 and body from `components/layouts.py` / site generators.
+2. **Emit the primary `h1` in HTML** — do not wait for React, Vue, or a client router to mount the headline.
+3. **Keep static fallbacks for gated UI** — when charts or modals need script, add at least **12** words in `<noscript>` or ensure static copy already meets **48** words and **38%** retention.
+4. **Separate enhancement from story** — `forge-diagram-trigger`, `data-ks-chart`, and `fs-tab-panel` tabs may require script; chapter narrative and `nav.forge-toc` targets should not.
+5. **Verify** — `node --test tools/website-ux-auditor/auditor-tests/det-js-progressive.test.js`; ruleset harness `auditor-tests/invoke-det-ruleset-harness.sh --only-rule DET.JS.PROGRESSIVE`; re-audit with `analyze-website-ux.mjs` metrics phase.
+
+**Contract alignment:** Interaction-script family contracts should document `noscript_degrade` and `entrypoints` per `docs/design/ux-audit/component-design-ruleset-taxonomy.md` (Interaction scripts row).
+
+## Related rules
+
+- `DET.JS.NO_CONSOLE_ERROR` — golden-path smoke must not throw; independent of noscript readability.
+- `AI.JS.BEHAVIOR_DISCOVERABILITY` — scripted affordances and helper copy when behaviors are non-obvious.
+- `DET.LANDMARKS.REQUIRED` — semantic `main`, `nav`, and `header` landmarks for skip targets.
+- `DET.NAV.FOCUS_ORDER` — keyboard order through chrome after static HTML is present.
+- `AI.MOTION.INTENTIONALITY` — optional motion layers must not replace missing static narrative.
+```
+
+If you want me to apply this on disk, say **retry write** and I will attempt again with elevated permissions.

@@ -1,0 +1,48 @@
+## Report: `DET.CTA.LABEL_NONEMPTY` handbook page
+
+Wrote the rule page at the blender staging path (workspace sandbox blocks direct edits under `docs/design/ux-audit/rule-pages/` at repo root). Promote it with one command below.
+
+### Files created/updated
+
+| Path | Role |
+|------|------|
+| `tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-cta-label-nonempty.md` | **Authoritative draft** (full schema-compliant page) |
+| `tools/website-ux-auditor/design-rules/blender/_write-det-cta-label-nonempty.mjs` | Copy script → canonical KS path |
+
+### `page_version` (confirmed)
+
+```text
+6662056ba43b13b2fbe508c0f898f4c171b8e5a1ce205275c76c5c224735e8b8
+```
+
+Matches the required value exactly.
+
+### Front matter
+
+- **rule_id:** `DET.CTA.LABEL_NONEMPTY`
+- **lane:** `deterministic`
+- **registry_fingerprint:** `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` (from `registry.generated.json`)
+- **registry_status:** `implemented`
+- **source_rule:** `docs/design/ux-audit/deterministic-design-rules.md#det-cta-label_nonempty`
+- **generated_at:** `2026-05-29T12:00:00.000Z`
+- **related_rules:** `DET.CTA.HIERARCHY`, `DET.BUTTON.GROUP.MAX`, `DET.CARD.ACTION_LIMIT`, `DET.HTML.EMPTY_INLINE`, `DET.LANDMARKS.REQUIRED`, `AI.CREDIBILITY.NO_OVERCLAIM`
+
+### Body (aligned with `det-cta-label-nonempty.check.js`)
+
+- **Purpose** — `collectCtaLabelNonemptyReport`, `MIN_CTA_LABEL_CHARS = 1`, accessible-name sources (`aria-label`, `aria-labelledby`, visible text, `value`/`alt`, `.sr-only`).
+- **Passing / failing signals** — hero `landing-hero-actions__buttons`, `btn btn-forge` / `btn btn-cyan-outline`, doc nav `aria-label="Open navigation"` from `layouts.py`, `.forge-card` footers.
+- **Before / after** — fenced `html` blocks using real KS classes: `landing-hero`, `fs-landing-hero-band`, `forge-section`, `landing-hero-wide`, `landing-hero-actions__buttons`, `btn-forge`, `btn-cyan-outline`, `landing-hero-secondary-link`, hash attrs `Ldg`.
+- **Evidence and remediation** — `metrics.ctaLabelNonemptyReport`, `empty_accessible_name`, generator `primary_cta_label` / `secondary_cta_label`.
+
+### Promote to canonical path
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node _write-det-cta-label-nonempty.mjs
+```
+
+That copies to:
+
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-cta-label-nonempty.md`
+
+The repo-root file still has the older front matter (`generated_at: 2026-05-19`, no `related_rules`) until you run that script. Body content was already largely correct from a prior batch; the draft adds `related_rules`, refreshed timestamp, and small clarifications (SVG `aria-hidden`, `DET.HTML.EMPTY_INLINE` cross-link).

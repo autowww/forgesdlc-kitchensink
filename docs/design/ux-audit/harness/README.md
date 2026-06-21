@@ -30,6 +30,11 @@ Ruleset ──► Rule page ──► Detection check ──► Fixture ──�
 
 **Terminology:** “Remediation script” = agent-capable loop; “Remediation script fix” = deterministic After copy (no agent).
 
+## Current coverage snapshot
+
+- [CURRENT-COVERAGE.md](CURRENT-COVERAGE.md) — registry counts, fixer decision summary, matrix gate status (regenerate with `npm run harness:coverage` in `website-ux-auditor`).
+- [RELEASE-NOTES-2026-05-29.md](../RELEASE-NOTES-2026-05-29.md) — pack migration notes for the 2026-05 ruleset campaign.
+
 ## DoR / DoD index
 
 | Artifact | Ready | Done |

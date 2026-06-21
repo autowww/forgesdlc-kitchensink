@@ -1,0 +1,63 @@
+Connection lost, reconnecting (attempt 1)...
+Retry attempt 1...
+Connection lost, reconnecting (attempt 2)...
+Retry attempt 2...
+Connection lost, reconnecting (attempt 3)...
+Retry attempt 3...
+Connection lost, reconnecting (attempt 4)...
+Retry attempt 4...
+Connection lost, reconnecting (attempt 5)...
+Retry attempt 5...
+## Report: `AI.VISUAL.RHYTHM_SUBJECTIVE` handbook page
+
+Wrote the full PDCA rule page to the blender staging path (sandbox blocks direct edits under `forgesdlc-kitchensink/docs/`):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-visual-rhythm-subjective.md`
+
+A publish helper was added: `_write-ai-visual-rhythm-subjective.mjs` (same pattern as `_write-ai-visual-hierarchy.mjs`).
+
+**To land at the required target**, run from the kitchensink repo root:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-ai-visual-rhythm-subjective.mjs
+```
+
+That copies into `docs/design/ux-audit/rule-pages/ai-visual-rhythm-subjective.md`.
+
+### `page_version` (confirmed)
+
+`9fbfe714c08657d840e57a345b04ff9431a6b0dc38d34eda8b2afa605bf99672` — matches the required value and `rule-pages.manifest.json`.
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.VISUAL.RHYTHM_SUBJECTIVE` |
+| `lane` | `ai` |
+| `generated_at` | `2026-05-28T18:12:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` (from `rule-pages.manifest.json`) |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-rhythm-subjective` |
+| `related_rules` | `DET.VISUAL.RHYTHM`, `DET.LAYOUT.GRID_CONSISTENCY`, `DET.SECTION.HEADING`, `AI.VISUAL.HIERARCHY`, `AI.PREMIUM.ENTERPRISE_FEEL`, `AI.CONTEXT.BURDEN_SUBJECTIVE` |
+
+### Body (schema-compliant)
+
+All required `##` sections: **Purpose** (PDCA Plan/Do/Check/Adjust), **Passing signals**, **Failing signals**, **Before example** / **After example** (`html` fences), **Evidence and remediation**, **Related rules**.
+
+**Source anchor** (`ai-enabled-design-principles.md`): *“Do spacing and grouping feel rhythmic, not accidental?”* — signals: repeated motifs; aligned grids.
+
+**AI prompt** (`design-rules/ai/prompts/generated/ai-visual-rhythm-subjective.md`): PDCA overlay stub; handbook page carries the operational detail.
+
+### Before / after — real KS classes verified
+
+Examples use classes from `components/components.py`, `components/marketing_sections.py`, and `css/forge-theme.css` / `forgesdlc-theme.css`, including:
+
+`landing-hero`, `fs-landing-hero-band`, `forge-section`, `landing-hero-wide`, `landing-hero-grid-wrap`, `landing-hero-grid`, `landing-hero-kicker`, `product-landing-title`, `landing-hero-tagline`, `landing-hero-actions`, `section-label`, `forge-card`, `breathe-link`, `breathe-static`, `card-amber`, `card-label`, `forge-support`, `glass`, `fs-landing-section`, `fs-marketing-stat-band`, Bootstrap grid utilities (`g-3 g-lg-4`, `col-md-4`, etc.).
+
+**Before** deliberately fails: `py-2`/`g-1` hero, `col-md-4`/`col-md-6`/`col-md-2` drift, mixed `forge-card` + `glass`, motif break (no `section-label` mid-page), `container-fluid px-1` whiplash.
+
+**After** passes: `landing-hero-wide`, `g-4 g-xl-5 landing-hero-grid`, repeated `forge-section py-5` + `section-label` motif, uniform three-up `col-md-4` cards, hash attrs on bands.
+
+### Note on repo copy
+
+The file at `docs/design/ux-audit/rule-pages/ai-visual-rhythm-subjective.md` in the repo root still has the prior front matter (no `related_rules`, older `generated_at`) until you run the publish script above. Content body was already strong; staging adds front-matter completeness and the `AI.VISUAL.HIERARCHY` related-rule link (showcase-handbook ID from manifest).

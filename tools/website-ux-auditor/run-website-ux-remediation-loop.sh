@@ -157,7 +157,12 @@ Loop flags (stripped before analyze-website-ux.mjs):
   --breadth-crawl, --no-breadth-crawl, --verbose[=N]
   --no-post-agent-build, --no-done-crawl-merge, --all-bars, --no-all-bars
   --fixers-only, --skip-fixers
+  --app, --no-scenario, --smoke-plan PATH, --sync-smoke-plan, --sync-smoke-force
+  --step-agents, --no-step-agents, --legacy-single-agent, --scorer (app crawl only)
+  --external-library-path1=PATH, --external-library-path2=PATH
   --max-iterations N, --target-iterations N, --scorer-no-csv, --show-runner-path
+
+Env: FORGE_UX_APP_MODE=1, FORGE_UX_SYNC_SMOKE_PLAN=1, FORGE_UX_FIX_ROOTS=path1,path2
 
 Examples:
   ./run-website-ux-remediation-loop.sh ~/Code/forge-fleet-website ~/Code/forge-fleet-website/website --watch
@@ -204,8 +209,22 @@ SKIP_CURSOR_AGENT=0
 FORGE_UX_SKIP_FIXERS=0
 FORGE_UX_FIXERS_ONLY=0
 FORGE_UX_FIXERS=1
+FORGE_UX_APP_MODE=0
+FORGE_UX_NO_SCENARIO=0
+FORGE_UX_SYNC_SMOKE_PLAN=0
+FORGE_UX_SYNC_SMOKE_FORCE=0
+FORGE_UX_SMOKE_PLAN=""
+FORGE_UX_STEP_AGENTS=1
+FORGE_UX_APP_SKIP_SCORER=1
+FORGE_UX_APP_INCLUDE_PRIMITIVES=1
+FORGE_UX_APP_SITE_KIND=a11y-studio
+FORGE_UX_LEGACY_SINGLE_AGENT=0
+FORGE_UX_FIX_ROOTS="${FORGE_UX_FIX_ROOTS:-}"
 if [[ "${_FORGE_UX_LEGACY_SINGLE_PASS}" == "1" ]]; then
   FORGE_UX_LOOP_UNTIL_QUALITY_GATE=0
+fi
+if [[ "${FORGE_UX_APP_MODE:-}" == "1" ]]; then
+  FORGE_UX_APP_MODE=1
 fi
 
 _EXTRA_OUT=()
@@ -220,6 +239,7 @@ for arg in "${EXTRA[@]}"; do
       max-iterations) FORGE_UX_LOOP_MAX_ITERATIONS="$arg" ;;
       target-iterations) FORGE_UX_LOOP_TARGET_ITERATIONS="$arg" ;;
       verbose) UX_AUDIT_VERBOSE="$arg" ;;
+      smoke-plan) FORGE_UX_SMOKE_PLAN="$arg" ;;
       *) echo "run-website-ux-remediation-loop: internal error: unknown pair ${_PAIR_NEXT}" >&2; exit 2 ;;
     esac
     _PAIR_NEXT=""
@@ -279,6 +299,19 @@ for arg in "${EXTRA[@]}"; do
     --target-iterations=*) FORGE_UX_LOOP_TARGET_ITERATIONS="${arg#--target-iterations=}" ;;
     --scorer-no-csv) UX_AUDIT_SCORER_NO_CSV=1 ;;
     --show-runner-path) RUN_WEBSITE_UX_LOOP_SHOW_RUNNER_PATH=1 ;;
+    --app) FORGE_UX_APP_MODE=1 ;;
+    --no-scenario) FORGE_UX_NO_SCENARIO=1 ;;
+    --sync-smoke-plan) FORGE_UX_SYNC_SMOKE_PLAN=1 ;;
+    --sync-smoke-force) FORGE_UX_SYNC_SMOKE_FORCE=1 ;;
+    --smoke-plan) _PAIR_NEXT=smoke-plan ;;
+    --smoke-plan=*) FORGE_UX_SMOKE_PLAN="${arg#--smoke-plan=}" ;;
+    --step-agents) FORGE_UX_STEP_AGENTS=1 ;;
+    --no-step-agents) FORGE_UX_STEP_AGENTS=0 ;;
+    --legacy-single-agent) FORGE_UX_LEGACY_SINGLE_AGENT=1 ;;
+    --scorer) FORGE_UX_APP_SKIP_SCORER=0 ;;
+    --external-library-path1=*) FORGE_UX_FIX_ROOTS="${FORGE_UX_FIX_ROOTS:+$FORGE_UX_FIX_ROOTS,}${arg#--external-library-path1=}" ;;
+    --external-library-path2=*) FORGE_UX_FIX_ROOTS="${FORGE_UX_FIX_ROOTS:+$FORGE_UX_FIX_ROOTS,}${arg#--external-library-path2=}" ;;
+    --external-library-path3=*) FORGE_UX_FIX_ROOTS="${FORGE_UX_FIX_ROOTS:+$FORGE_UX_FIX_ROOTS,}${arg#--external-library-path3=}" ;;
     --help|-h) usage; exit 0 ;;
     *) _EXTRA_OUT+=( "$arg" ) ;;
   esac
@@ -367,6 +400,9 @@ PILOT_REGISTRY="${TOOL_DIR}/lib/ux-deterministic-fixers/pilot-registry.json"
 
 forge_ux_export_pilot_det_rule_scope() {
   if [[ -n "${FORGE_UX_ONLY_DETERMINISTIC_RULE_IDS:-}" ]]; then
+    return 0
+  fi
+  if [[ "${FORGE_UX_APP_MODE:-}" == "1" ]]; then
     return 0
   fi
   if [[ "${FORGE_UX_FIXERS:-}" != "1" && "${FORGE_UX_FIXERS_PILOT_AUDIT_SCOPE:-1}" != "1" ]]; then
@@ -577,6 +613,20 @@ _out_echo() {
     printf '%s\n' "$@" >&2
   fi
 }
+
+# shellcheck source=lib/remediation-loop-app-mode.sh
+source "${TOOL_DIR}/lib/remediation-loop-app-mode.sh"
+
+if [[ "${FORGE_UX_APP_MODE:-}" == "1" ]]; then
+  _out_echo "run-website-ux-remediation-loop: app mode (FORGE_UX_RULESET_DOMAIN=app)"
+  forge_ux_sync_smoke_plan_if_requested
+  _app_smoke="$(forge_ux_resolve_smoke_plan)"
+  if [[ "${FORGE_UX_NO_SCENARIO:-}" != "1" && -n "$_app_smoke" ]]; then
+    forge_ux_app_scenario_loop
+    exit $?
+  fi
+  forge_ux_app_crawl_loop
+fi
 
 FORGE_UX_LOOP_WATCH_ACTIVE=0
 _FORGE_UX_DASH_PID=

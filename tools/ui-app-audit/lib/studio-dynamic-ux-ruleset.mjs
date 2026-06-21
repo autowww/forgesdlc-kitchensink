@@ -18,15 +18,25 @@ export const A11Y_STUDIO_UX_DET_EXCLUDED = [
 /** @type {readonly string[]} */
 export const STUDIO_DYNAMIC_UX_RUN = [
   'DET.AMBIENT.Z_INDEX',
+  'DET.APP.BULK_ACTION_SCOPE',
+  'DET.APP.CLIENT_ERROR_LOG_CLEAN',
+  'DET.APP.DATA_REFRESH_STALENESS',
   'DET.APP.DEMO_DISCLOSURE',
+  'DET.APP.DISABLED_REASON',
+  'DET.APP.EMPTY_LOADING_ERROR_SUCCESS',
+  'DET.APP.ERROR_BOUNDARY_RECOVERY',
   'DET.APP.FOCUS_TRAP',
+  'DET.APP.MODAL_DISMISSAL_GUARD',
   'DET.APP.PERSISTENT_CHROME',
   'DET.APP.PRIMARY_CTA',
   'DET.APP.PRIMARY_STATE',
   'DET.APP.PRIMITIVE_STYLES',
+  'DET.APP.ROUTE_DEEPLINK_STATE',
   'DET.APP.SHELL_INTEGRATION',
   'DET.APP.TAB_PANEL',
   'DET.APP.TILE_AFFORDANCE',
+  'DET.APP.TOAST_LIFECYCLE',
+  'DET.APP.WIZARD_PROGRESS_CONTROLS',
   'DET.BUTTON.GROUP.MAX',
   'DET.CARD.ACTION_LIMIT',
   'DET.CARD.TITLE',
@@ -52,6 +62,27 @@ export const STUDIO_DYNAMIC_UX_RUN = [
   'DET.PAGE.VIEWPORT',
   'DET.SECTION.HEADING',
 ];
+
+const PRIMITIVE_ROOT_PROBE =
+  '[data-ks-react-root="true"], [data-ks-type="react-primitive"][data-ks-hash]';
+
+/**
+ * @param {import('playwright').Page} page
+ * @returns {Promise<boolean>}
+ */
+export async function pageHasReactPrimitiveRoots(page) {
+  if (!page) return false;
+  return page.evaluate((selector) => {
+    const nodes = document.querySelectorAll(selector);
+    for (const el of nodes) {
+      const style = window.getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden') continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.width > 1 && rect.height > 1) return true;
+    }
+    return false;
+  }, PRIMITIVE_ROOT_PROBE);
+}
 
 /**
  * Gated by `includePrimitives` (pages with `data-ks-react-root` should pass true).

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PILOT_REGISTRY_PATH = path.join(__dirname, 'pilot-registry.json');
 
-/** @typedef {{ ruleId: string, fixerId: string, verifyMode?: string, harnessModes?: string[] }} PilotRuleEntry */
+/** @typedef {{ ruleId: string, fixerId: string, verifyMode?: string, harnessModes?: string[], planOnly?: boolean, planOnlyReason?: string, productionHandler?: string, pendingRegistry?: boolean }} PilotRuleEntry */
 
 let cached = null;
 

@@ -1,17 +1,12 @@
 #!/usr/bin/env node
+/** Copy staged DET.AMBIENT.Z_INDEX handbook page to KS docs (no manifest write). */
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { writeManifest } from './rule-page-version.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const src = path.resolve(__dirname, '../../docs/design/ux-audit/rule-pages/det-ambient-z-index.md');
+const src = path.resolve(__dirname, 'docs/design/ux-audit/rule-pages/det-ambient-z-index.md');
 const dest = path.resolve(__dirname, '../../../../docs/design/ux-audit/rule-pages/det-ambient-z-index.md');
 await fs.mkdir(path.dirname(dest), { recursive: true });
 await fs.copyFile(src, dest);
 console.log('copied', dest);
-const manifest = await writeManifest(
-  JSON.parse(await fs.readFile(path.resolve(__dirname, '../registry.generated.json'), 'utf8')),
-);
-const row = manifest.rules.find((r) => r.id === 'DET.AMBIENT.Z_INDEX');
-console.log(JSON.stringify(row, null, 2));

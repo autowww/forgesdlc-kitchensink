@@ -12,6 +12,8 @@ import process from 'node:process';
 
 import { createCrawlProgressReporter } from './lib/crawl-progress-line.js';
 import { crawlAndAnalyze, DEFAULT_PAGE_CONCURRENCY, MAX_PAGE_CONCURRENCY } from './lib/crawl.js';
+import { emitSourceStructureBundle } from './lib/emit-source-structure.mjs';
+import { enrichPagesFindingsStructure } from './lib/enrich-findings-structure.js';
 import { loadDesignStandard } from './lib/design-standard.js';
 import {
   buildUxQualityScoreMarkdown,
@@ -85,6 +87,7 @@ Optional:
   --timeout-ms MS          Navigation timeout (default 45000)
   --screenshots           Capture screenshots (default: off — faster scorer runs)
   --no-ux-csv             Skip appending repo-root ux-scoring.csv (default: append)
+  --structure-only        Crawl + source-structure index only (skip legacy/DET checks; env: FORGE_UX_STRUCTURE_ONLY=1)
   --out DIR                Relative to repo; default \`.cursor/reports/forge-ux-quality\`
 
 Progress (stderr, one line per update during crawl): enabled when stderr is a TTY.
@@ -116,6 +119,7 @@ function parseScoreArgs(argv) {
     url: null,
     uxCsv: true,
     maxLinkDepth: SCORER_DEFAULT_MAX_LINK_DEPTH,
+    structureOnly: false,
   };
 
   for (let i = 2; i < argv.length; i += 1) {
@@ -130,6 +134,10 @@ function parseScoreArgs(argv) {
     }
     if (raw === '--no-ux-csv') {
       args.uxCsv = false;
+      continue;
+    }
+    if (raw === '--structure-only') {
+      args.structureOnly = true;
       continue;
     }
     if (!raw.startsWith('--')) throw new Error(`Unexpected positional argument: ${raw}`);
@@ -176,6 +184,7 @@ function parseScoreArgs(argv) {
   }
   if (args.pageConcurrency > MAX_PAGE_CONCURRENCY) args.pageConcurrency = MAX_PAGE_CONCURRENCY;
   if (!Number.isFinite(args.timeoutMs) || args.timeoutMs < 5000) args.timeoutMs = 45000;
+  if (process.env.FORGE_UX_STRUCTURE_ONLY === '1') args.structureOnly = true;
   return args;
 }
 
@@ -261,14 +270,36 @@ async function main() {
         pageConcurrency: args.pageConcurrency,
         repoRoot: path.resolve(args.repo),
         designTheme,
+        structureOnly: args.structureOnly,
       });
     } finally {
       crawlProgress.finish();
     }
 
+    const pagesEnriched = enrichPagesFindingsStructure(crawled.pages);
+    let sourceStructure = null;
+    let structureScores = null;
+    try {
+      const bundle = await emitSourceStructureBundle({
+        outDir: args.out,
+        repoRoot: args.repo,
+        siteUrl: args.site || '',
+        siteKind,
+        pages: pagesEnriched,
+        crawlSummary: crawled.crawlSummary,
+        inventory,
+        visitedUrls: crawled.visitedUrls || [],
+        parentByUrl: crawled.parentByUrl || {},
+      });
+      sourceStructure = bundle.sourceStructure;
+      structureScores = bundle.structureScores;
+    } catch (e) {
+      console.warn(`source-structure: ${String(e?.message ?? e)}`);
+    }
+
     /** @typedef {Awaited<ReturnType<computeUxScores>} UxScores */
     const uxScores = computeUxScores({
-      pages: crawled.pages,
+      pages: pagesEnriched,
       crawlSummary: crawled.crawlSummary,
       staticOnly: false,
       siteKind,
@@ -305,11 +336,14 @@ async function main() {
         screenshots: args.screenshots,
         out: args.out,
       },
-      pagesBrief: crawled.pages.map((p) => ({
+      pagesBrief: pagesEnriched.map((p) => ({
         url: p.url,
         findingCount: (p.findings || []).length,
         score: p.score,
       })),
+      sourceStructure,
+      structureScores,
+      structureOnly: args.structureOnly,
     };
 
     let md = buildUxQualityScoreMarkdown({

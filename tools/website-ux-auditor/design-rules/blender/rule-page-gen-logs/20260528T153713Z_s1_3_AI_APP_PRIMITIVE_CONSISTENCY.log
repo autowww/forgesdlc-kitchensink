@@ -1,0 +1,49 @@
+## Report: `AI.APP.PRIMITIVE_CONSISTENCY` handbook page
+
+### What was written
+
+A full PDCA rule page for **React primitive consistency** — judgment that adjacent KS React primitives on a run console share one token-driven system (states, focus, density, severity), not mixed Bootstrap one-offs.
+
+**Sources used:**
+- `docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-primitive-consistency` — review question: “Do primitives feel like one system?”
+- `design-rules/ai/prompts/generated/ai-app-primitive-consistency.md` — PDCA overlay stub
+- `registry.generated.json` — `registry_status: generated`, fingerprint `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `css/forge-react-primitives.css`, `FAM-react-primitives.md` — verified `ks-fe-*` classes and hashes `Frh`, `Fsb`, `Fwb`, `Fda`
+
+**Sections:** Purpose (PDCA), Passing signals, Failing signals, Before/After HTML, Evidence and remediation, Related rules.
+
+**Refinements vs the prior stub:**
+- Front matter: new `page_version`, `generated_at`, `registry_fingerprint`
+- `related_rules`: added `DET.APP.PRIMITIVE_SOURCE`, `DET.APP.PRIMITIVE_STYLES` (element matrix)
+- Purpose and Related rules cross-link those deterministic gates
+
+**Before example (failing):** `forge-card` + Bootstrap `alert` / `badge bg-warning` + inline-colored stage pills + unmarked `footer`.
+
+**After example (passing):** `ks-fe-run-header`, `ks-fe-banner--failed`, `ks-fe-stagebar--nav`, `ks-fe-actionbar--sticky` with governed hashes and `data-ks-react-root="true"`.
+
+### `page_version` (confirmed in staging)
+
+```
+b27d8893c6d342e2190111978808e92912c5d1936a36e5d4ac8753189e641887
+```
+
+### Workspace note — promote to canonical path
+
+This Cursor workspace is rooted at `tools/website-ux-auditor/design-rules/blender`, so the canonical file was not updated on disk. Complete content is in:
+
+`tools/website-ux-auditor/design-rules/blender/.staging-ai-app-primitive-consistency.md`
+
+Promote with:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-ai-app-primitive-consistency.mjs
+```
+
+Or:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/.staging-ai-app-primitive-consistency.md \
+  docs/design/ux-audit/rule-pages/ai-app-primitive-consistency.md
+```
+
+The orchestrator can then refresh `rule-pages.manifest.json` for this `page_version`. The canonical `docs/design/ux-audit/rule-pages/ai-app-primitive-consistency.md` still has the old `page_version` (`a8fc1f61…`) until you run one of the commands above.

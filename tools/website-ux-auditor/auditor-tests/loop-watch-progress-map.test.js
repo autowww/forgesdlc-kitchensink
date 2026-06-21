@@ -491,6 +491,17 @@ test('buildRulesetGroups groups DET by area', async () => {
   assert.ok(allIds.has('DET.AMBIENT.Z_INDEX'));
 });
 
+test('buildRulesetGroups app domain splits DET.APP', async () => {
+  const registry = await loadDesignRuleRegistry();
+  const groups = buildRulesetGroups(registry, { rulesetDomain: 'app' });
+  const appRow = groups.deterministic.find((g) => g.id === 'ruleset:det:app');
+  assert.ok(appRow, 'expected ruleset:det:app');
+  assert.ok(appRow.ruleIds.includes('DET.APP.PRIMARY_STATE'));
+  const shared = groups.deterministic.find((g) => g.id === 'ruleset:det:shared');
+  assert.ok(shared);
+  assert.ok(shared.ruleIds.includes('DET.LANDMARKS.REQUIRED'));
+});
+
 test('computeRulesetFragmentMatrix aggregates page cells', () => {
   const pageSets = [{ url: 'http://x/a', order: 0 }];
   const matrix = [['audited-major'], ['audited-clean']];

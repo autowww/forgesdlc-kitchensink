@@ -1,0 +1,16 @@
+:root {
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+}
+
+.appTitle {
+  font-family: var(--font-display);
+}
+
+.appBody {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+code {
+  font-family: var(--font-mono);
+}

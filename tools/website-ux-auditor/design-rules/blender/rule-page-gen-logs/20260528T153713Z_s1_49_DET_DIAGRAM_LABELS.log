@@ -1,0 +1,53 @@
+## Report: `DET.DIAGRAM.LABELS` handbook page
+
+Wrote the PDCA rule page from `det-diagram-labels.check.js`, `deterministic-design-rules.md`, `registry.generated.json`, and KS patterns (`ks_diagram_tile_html` in `components/transforms.py`, `DIAGRAM_DETAILS` in `js/showcase.js`, `template-linear-flow.svg` text nodes).
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: cdd10658d7e98dc2a71806809d720e73b9638f91949a17aa43c081cca3179a7f
+```
+
+### Where the file landed
+
+This session’s workspace root is `tools/website-ux-auditor/design-rules/blender`, so writes outside that tree were blocked. The updated page is here:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-diagram-labels.md`
+
+A mirror was also written to:
+
+`tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-diagram-labels.md`
+
+The canonical path you requested is still on the older revision:
+
+`docs/design/ux-audit/rule-pages/det-diagram-labels.md`  
+(`generated_at: 2026-05-19`, no `related_rules` in front matter)
+
+**Copy to canonical (run from kitchensink repo root):**
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-diagram-labels.md \
+   docs/design/ux-audit/rule-pages/det-diagram-labels.md
+rm -rf tools/website-ux-auditor/design-rules/blender/docs
+```
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.DIAGRAM.LABELS` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `related_rules` | `DET.DIAGRAM.ALT`, `DET.DIAGRAM.ASSET_REGISTRY`, `DET.HASH.MARKERS`, `AI.DIAGRAM.SEMANTIC_ACCURACY`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` |
+
+### Content highlights
+
+- **Purpose:** Catalog `items[].node` strings must appear as readable SVG `<text>`/`<tspan>` or `.forge-diagram-ascii-pre` text; thresholds from the check (`MIN_DIAGRAM_LABEL_CHARS=2`, `max(2, 50% legend)`).
+- **Before:** `div.forge-diagram.ks-diagram-tile` with `data-diagram-key="linear"` — inline SVG with only `[subtitle]` placeholders; `gate` tile with **G** instead of **Gate 1** / **Gate 2**.
+- **After:** `linear` uses `assets/svg/template-linear-flow.svg` (Step A–D on surface); `gate` inline SVG with full **Stage 1**, **Gate 1**, … labels; ASCII `figure.forge-diagram-ascii` example.
+- **Evidence:** `diagramLabelsReport`, `diagramLabelsRepoReport`, violation kinds `diagram-labels-no-readable-text` / `diagram-labels-legend-gap`.
+- **KS classes used:** `ks-section`, `forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, `forge-diagram-trigger`, `forge-support`, `forge-diagram-ascii`, `forge-diagram-ascii-pre`, `forge-code` (from `transforms.py` / `ascii_diagram_figure_html`).
+
+No Mermaid, no Fleet-specific profiles. Check modules and registry were not edited. After you copy to the canonical path, the batch orchestrator can refresh `rule-pages.manifest.json` as planned.

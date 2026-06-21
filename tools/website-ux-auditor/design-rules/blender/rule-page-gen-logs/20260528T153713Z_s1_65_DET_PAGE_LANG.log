@@ -1,0 +1,43 @@
+## Report: `DET.PAGE.LANG` handbook page
+
+Wrote and refined the full PDCA rule page. **Direct edits to the canonical target were blocked** by the sandbox (workspace root is `tools/website-ux-auditor/design-rules/blender`). The complete file lives here:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-page-lang.md`
+
+**Promote to the canonical path** (one command):
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/.copy-det-page-lang-to-canonical.sh
+```
+
+That copies into `docs/design/ux-audit/rule-pages/det-page-lang.md` at the Kitchen Sink repo root.
+
+### `page_version` (confirmed)
+
+```
+92d1474ee3f383e7749ee80437fcdb2654c380980a8a8e89c662ac745e0c8d7e
+```
+
+Matches the required value exactly.
+
+### Sources used
+
+| Source | Finding |
+|--------|---------|
+| `deterministic-design-rules.md#det-page-lang` | Pass when `<html lang>` is set appropriately (DOM) |
+| `lang.check.js` | Fails when `metrics.lang` is falsy; remediation `html lang="en"` |
+| `lib/dom-metrics.js` | `lang = document.documentElement.getAttribute('lang')` |
+| `components/layouts.py` | `handbook_page` emits `<html lang="{e(html_lang)}">` (default `en`) |
+| `registry.generated.json` | `implemented`, fingerprint `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+
+### Page contents
+
+- **Front matter:** `rule_id`, `lane`, `title`, `summary`, `page_version`, `generated_at: 2026-05-29T12:00:00.000Z`, `agent_model`, `registry_fingerprint`, `registry_status`, `source_rule`, `related_rules` (`DET.PAGE.TITLE`, `DET.PAGE.VIEWPORT`, `DET.LANDMARKS.REQUIRED`, `DET.PAGE.MODE`)
+- **PDCA sections:** Purpose, Passing signals, Failing signals, Before/After (`html` blocks), Evidence and remediation, Related rules
+- **Before:** bare `<html>` (no `lang`) on a `handbook_page`-style shell
+- **After:** `<html lang="en">` with the same shell
+- **KS classes in examples:** `forge-aurora`, `skip-link`, `container-fluid`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `doc-content`, `section-label`, `font-display`, `forge-support`, `forge-card`, `card-label`
+
+### Canonical file status
+
+`docs/design/ux-audit/rule-pages/det-page-lang.md` at the KS root still has the prior revision (`generated_at: 2026-05-25`, no `related_rules` in front matter). After you run the copy script above, it will match the staging file and the orchestrator can sync `rule-pages.manifest.json`.

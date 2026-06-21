@@ -1,0 +1,51 @@
+## Report: `DET.LANDMARKS.REQUIRED` handbook page
+
+### Target file
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-landmarks-required.md`
+
+Direct edits to that path were blocked in this session. A complete, schema-aligned draft was written here:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-landmarks-required.md`
+
+Sync to the canonical path:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink
+node tools/website-ux-auditor/design-rules/blender/_write-det-landmarks-required.mjs
+```
+
+### `page_version` (confirmed)
+`58d4fac004b41f75b66bee1146ff01cb4a7df42331b22972a5b4e63167cb9b3b`
+
+Matches `rule-pages.manifest.json` and the orchestrator requirement.
+
+### Front matter (staging draft)
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.LANDMARKS.REQUIRED` |
+| `lane` | `deterministic` |
+| `title` | Required document landmarks |
+| `page_version` | `58d4fac004b41f75b66bee1146ff01cb4a7df42331b22972a5b4e63167cb9b3b` |
+| `generated_at` | `2026-05-29T14:30:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-landmarks-required` |
+| `related_rules` | `DET.CHROME.BOUNDARY`, `DET.APP.PERSISTENT_CHROME`, `DET.NAV.FOCUS_ORDER`, `DET.NAV.BREADCRUMB`, `DET.SECTION.HEADING`, `DET.PAGE.MODE` |
+
+The canonical file on disk still has `generated_at: 2026-05-25T12:00:00.000Z` and no `related_rules:` block until you run the copy script.
+
+### Page content (aligned with check + KS)
+Grounded in `det-landmarks-required.check.js` and `components/layouts.py`:
+
+- **Purpose:** One document-level `main`; `nav` when ≥2 outside-main wayfinding links; semantic `header`/`footer` when `.site-header`, `.landing-header`, `.ks-site-footer-region`, etc. are present; no duplicate banner/contentinfo.
+- **Pass/fail signals:** All seven violation kinds from the check (`missing-main`, `duplicate-main`, `missing-nav`, `missing-banner`, `duplicate-banner`, `missing-contentinfo`, `duplicate-contentinfo`).
+- **Before:** `div.site-header`, sidebar links without `nav`, `div.doc-main`, `div.ks-site-footer-region`.
+- **After:** `a.skip-link`, `header.site-header`, `aside.forge-sidebar` + `nav.nav-scroll`, `main#main.doc-main`, `footer.ks-site-footer-region` with **Ksr**/**Ksf** hash attrs.
+- **Evidence:** `landmarksReport` metrics and remediation steps tied to `analyze-website-ux.mjs`.
+
+### Real KS classes used
+`site-header`, `site-header-brand`, `site-header-content`, `forge-brand`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `doc-main`, `forge-card`, `card-label`, `forge-support`, `ks-doc-breadcrumb`, `ks-site-footer-region`, `skip-link`, `landing-header`, `landing-header-navbar`, `fs-landing-main` (referenced in passing signals).
+
+No Mermaid, no Fleet-specific profile.
+
+After you run the copy script, the canonical handbook page will match the staging draft with the confirmed `page_version`.

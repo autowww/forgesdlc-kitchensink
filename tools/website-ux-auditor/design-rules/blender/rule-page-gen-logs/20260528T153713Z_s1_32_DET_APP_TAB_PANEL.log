@@ -1,0 +1,175 @@
+## Report
+
+File writes from this session were blocked (Write/Shell/StrReplace all rejected), so the handbook page on disk is still the short stub. Below is the full replacement for `docs/design/ux-audit/rule-pages/det-app-tab-panel.md` — paste or save it locally.
+
+### Sources used
+
+| Source | Takeaway |
+|--------|----------|
+| `deterministic-design-rules.md#det-app-tab-panel` | Selected `[role="tab"]` must have `aria-selected`, `aria-controls`, and a visible panel |
+| `det-app-tab-panel.check.js` | Violations: `aria-selected-missing`, `missing-aria-controls`, `panel-hidden-or-missing`; `.active` counts as selected |
+| `components/enterprise_marketing.py` → `render_fs_tab_panel()` | Canonical KS pattern: `.fs-tab-panel`, `.fs-tab-panel__tabs`, `aria-controls`, `aria-selected`, `.tab-pane` |
+| `det-js-no-console-error.md` | Real showcase tab markup (`fs-tab-panel`, `nav-tabs`, `forge-card`, etc.) |
+
+### `page_version` confirmation
+
+Front matter **`page_version`** is set exactly to:
+
+`cd5988e61d5012d6ced7da339f98c242cc686c3999672533de58bde548de4a3e`
+
+### KS classes in examples
+
+Before/after use real Kitchen Sink patterns: `fs-tab-panel`, `fs-tab-panel__tabs`, `fs-tab-panel__panes`, `fs-tab-panel__body`, `forge-card`, `forge-support`, `font-display`, `doc-main`, Bootstrap `nav-tabs` / `tab-pane`, and hash attrs aligned with `enterprise_marketing.py`.
+
+### Complete file content
+
+```markdown
+---
+rule_id: DET.APP.TAB_PANEL
+lane: deterministic
+title: App tab panel wiring
+summary: Every tablist's selected tab exposes aria-selected, aria-controls, and a visible tabpanel target.
+page_version: cd5988e61d5012d6ced7da339f98c242cc686c3999672533de58bde548de4a3e
+generated_at: 2026-05-28T20:22:00.000Z
+agent_model: composer-2.5-fast
+registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+registry_status: implemented
+source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-tab-panel
+related_rules:
+  - DET.APP.CONTROL_A11Y
+  - DET.NAV.FOCUS_ORDER
+  - DET.APP.FOCUS_TRAP
+  - DET.JS.NO_CONSOLE_ERROR
+  - DET.LANDMARKS.REQUIRED
+---
+
+## Purpose
+
+Operator and marketing surfaces in Kitchen Sink use **WAI-ARIA tablists**—especially `render_fs_tab_panel()` in `components/enterprise_marketing.py`, which emits **`.fs-tab-panel`**, **`.nav.nav-tabs.fs-tab-panel__tabs`**, Bootstrap **`data-bs-toggle="tab"`**, and paired **`role="tabpanel"`** panes. Screen readers and keyboard users need the **selected** tab to declare which panel is active: `aria-selected="true"`, `aria-controls` pointing at the panel element id, and a panel that is **not** `hidden`, `aria-hidden="true"`, or styled `display:none` / `visibility:hidden`.
+
+`det-app-tab-panel.check.js` scans every `[role="tablist"]` on the page. It resolves the active tab as the first `[role="tab"]` with `aria-selected="true"` or the Bootstrap **`.active`** class; if none match, it evaluates the first tab. Violations: **`aria-selected-missing`**, **`missing-aria-controls`**, **`panel-hidden-or-missing`**.
+
+**Plan:** Audit handbook script demos, enterprise tab sections, and app workspace mode switchers that use `role="tablist"`. **Do:** Mirror the canonical `render_fs_tab_panel()` contract on hand-authored markup. **Check:** `tabPanelReport.violations` is empty after metrics collection. **Adjust:** Sync `aria-selected` with the visible `.active` tab, wire `aria-controls` to pane ids, and show exactly one visible panel per selection.
+
+## Passing signals
+
+- Selected tab has **`aria-selected="true"`**; inactive tabs use **`aria-selected="false"`** (not omitted while visually active).
+- Every selected tab has **`aria-controls`** equal to the **`id`** of its `role="tabpanel"` pane (same ids used in `data-bs-target="#…"`).
+- The controlled panel is **visible**: no `hidden` attribute, no `aria-hidden="true"`, and computed `display` / `visibility` are not hiding it.
+- Inactive panes use Bootstrap **`tab-pane fade`** without **`show active`**, or equivalent `hidden` / `aria-hidden` while the active pane carries **`show active`**.
+- KS tab sections include realistic chrome: **`section.fs-tab-panel`**, **`ul.fs-tab-panel__tabs`**, **`div.tab-content.fs-tab-panel__panes`**, **`div.fs-tab-panel__body`**, and governed hash attrs when emitted from Python (`hash`, `data-ks-hash`, `data-ks-type`, `data-ks-name`).
+- `tabPanelReport.violations` is empty on audited URLs.
+
+## Failing signals
+
+- **`aria-selected-missing`** — tab has **`.active`** / `nav-link active` but `aria-selected` is not **`"true"`** (common when only Bootstrap CSS marks selection).
+- **`missing-aria-controls`** — selected or first tab has no **`aria-controls`**, or `data-bs-target` exists without a matching **`aria-controls`** id reference.
+- **`panel-hidden-or-missing`** — `aria-controls` points at a missing id, or the panel has **`hidden`**, **`aria-hidden="true"`**, or is CSS-hidden while its tab is selected.
+- Multiple panels marked **`show active`** while one tab claims selection—users see one tab label but another panel's content (fix panel visibility, not only tab styles).
+- Tablist inside **`main`** without **`aria-label`** on `[role="tablist"]` (accessibility hygiene; pair with `DET.APP.CONTROL_A11Y` when roles/states on controls are wrong).
+- Evidence shapes: `tablist="#fs-product-tabs" issue=aria-selected-missing`; `issue=missing-aria-controls`; `issue=panel-hidden-or-missing`.
+
+## Before example
+
+Failing KS markup: Overview tab is styled **`.active`** but declares **`aria-selected="false"`**, so the checker treats it as selected via class yet fails the `aria-selected` contract. The overview panel is also **`hidden`** while that tab is the evaluated selection.
+
+```html
+<main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main">
+  <h1 class="font-display mb-3">Product areas</h1>
+  <p class="forge-support mb-3">Tab labels must match the visible panel for screen readers and keyboard users.</p>
+  <section class="fs-tab-panel" hash="Ktj" data-ks-hash="Ktj" data-ks-type="section" data-ks-name="product-tab-panel">
+    <ul class="nav nav-tabs fs-tab-panel__tabs flex-wrap gap-1 border-bottom-0" role="tablist" aria-label="Product areas">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="fs-product-overview-tab" data-bs-toggle="tab"
+          data-bs-target="#fs-product-overview-pane" type="button" role="tab"
+          aria-controls="fs-product-overview-pane" aria-selected="false">Overview</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="fs-product-trust-tab" data-bs-toggle="tab"
+          data-bs-target="#fs-product-trust-pane" type="button" role="tab"
+          aria-controls="fs-product-trust-pane" aria-selected="false">Trust</button>
+      </li>
+    </ul>
+    <div class="tab-content fs-tab-panel__panes">
+      <div class="tab-pane fade" id="fs-product-overview-pane" role="tabpanel"
+        aria-labelledby="fs-product-overview-tab" tabindex="0" hidden>
+        <div class="fs-tab-panel__body pt-3">
+          <div class="forge-card breathe-static p-3">
+            <p class="forge-support mb-0">Overview copy is in the DOM but hidden from assistive tech.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade show active" id="fs-product-trust-pane" role="tabpanel"
+        aria-labelledby="fs-product-trust-tab" tabindex="0">
+        <div class="fs-tab-panel__body pt-3">
+          <div class="forge-card breathe-static p-3">
+            <p class="forge-support mb-0">Trust panel is visible while Overview tab looks selected.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+```
+
+## After example
+
+Passing KS markup: matches `render_fs_tab_panel()`—selected tab, `aria-controls`, and visible panel stay aligned; inactive pane is hidden via Bootstrap classes only.
+
+```html
+<main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main">
+  <h1 class="font-display mb-3">Product areas</h1>
+  <p class="forge-support mb-3">Selected tab, aria-controls, and visible tabpanel stay in sync.</p>
+  <section class="fs-tab-panel" hash="Ktj" data-ks-hash="Ktj" data-ks-type="section" data-ks-name="product-tab-panel">
+    <ul class="nav nav-tabs fs-tab-panel__tabs flex-wrap gap-1 border-bottom-0" role="tablist" aria-label="Product areas">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="fs-product-overview-tab" data-bs-toggle="tab"
+          data-bs-target="#fs-product-overview-pane" type="button" role="tab"
+          aria-controls="fs-product-overview-pane" aria-selected="true">Overview</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="fs-product-trust-tab" data-bs-toggle="tab"
+          data-bs-target="#fs-product-trust-pane" type="button" role="tab"
+          aria-controls="fs-product-trust-pane" aria-selected="false">Trust</button>
+      </li>
+    </ul>
+    <div class="tab-content fs-tab-panel__panes">
+      <div class="tab-pane fade show active" id="fs-product-overview-pane" role="tabpanel"
+        aria-labelledby="fs-product-overview-tab" tabindex="0">
+        <div class="fs-tab-panel__body pt-3">
+          <div class="forge-card breathe-static p-3">
+            <p class="forge-support mb-0">Overview panel is visible and named by the selected tab.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="fs-product-trust-pane" role="tabpanel"
+        aria-labelledby="fs-product-trust-tab" tabindex="0">
+        <div class="fs-tab-panel__body pt-3">
+          <div class="forge-card breathe-static p-3">
+            <p class="forge-support mb-0">Trust panel content remains in the DOM for progressive enhancement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+```
+
+## Evidence and remediation
+
+1. **Reproduce:** Run the website UX auditor metrics phase or open DevTools on pages with **`role="tablist"`** (showcase script demos, enterprise marketing tabs, studio mode bars). Inspect `tabPanelReport.violations` or search for `issue=aria-selected-missing`, `missing-aria-controls`, `panel-hidden-or-missing`.
+2. **Fix selection state:** When Bootstrap toggles **`.active`**, also set **`aria-selected="true"`** on the active tab and **`"false"`** on siblings (see `render_fs_tab_panel()` in `components/enterprise_marketing.py`).
+3. **Wire panels:** Ensure **`aria-controls`** matches the **`id`** on the `role="tabpanel"` element referenced by **`data-bs-target`**. Remove stray **`hidden`** / **`aria-hidden="true"`** from the panel tied to the selected tab.
+4. **Prefer the helper:** New tabbed sections should call **`render_fs_tab_panel()`** instead of copying partial nav markup.
+5. **Verify:** `generator/build_rule_defect_fixtures.py`; `auditor-tests/invoke-det-ruleset-harness.sh --only-rule DET.APP.TAB_PANEL`.
+
+## Related rules
+
+- `DET.APP.CONTROL_A11Y` — interactive primitives and tabs expose correct roles, labels, and keyboard states beyond tab/panel pairing.
+- `DET.NAV.FOCUS_ORDER` — Tab key order through tablists and main content follows visual reading order.
+- `DET.APP.FOCUS_TRAP` — modals and offcanvas overlays keep focus until dismissed (separate from tab/panel visibility).
+- `DET.JS.NO_CONSOLE_ERROR` — tab activation scripts must not throw on golden-path smoke (uses the same `.fs-tab-panel` showcase pattern).
+- `DET.LANDMARKS.REQUIRED` — `main`, `nav`, and complementary regions remain present around tabbed workspace layouts.
+```
+
+If you want this written to disk from here, retry with agent write permissions enabled; I can apply the file in one shot once writes are allowed.

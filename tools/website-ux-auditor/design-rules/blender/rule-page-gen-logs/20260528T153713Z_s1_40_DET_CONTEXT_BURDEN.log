@@ -1,0 +1,39 @@
+## Report: `DET.CONTEXT.BURDEN` rule page
+
+### Written content
+The full handbook page is in the blender staging tree (matches `RULE_PAGE_SCHEMA.md` and `det-context-burden.check.js`):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-context-burden.md`
+
+The **target** file  
+`docs/design/ux-audit/rule-pages/det-context-burden.md`  
+was **not updated** in this session (writes outside the blender workspace were blocked). Promote with:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender && node _write-det-context-burden.mjs
+```
+
+That copies the staged file to the KS canonical path and `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-context-burden.md`.
+
+### `page_version` confirmed
+```yaml
+page_version: 76312a81f40ff67f7c208188f1a03483576b4ede66afb02c84e1dcf3458d24d6
+```
+
+### Front matter (staged file)
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.CONTEXT.BURDEN` |
+| `lane` | `deterministic` |
+| `generated_at` | `2026-05-28T12:00:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `related_rules` | 7 IDs (button group, CTA hierarchy, nav dedup/depth, page mode, two AI context rules) |
+
+### Page highlights
+- **Purpose:** First-screen budgets from `det-context-burden.check.js` — pre-main links ≤10, header nav ≤7, chrome bands ≤4, home first-viewport links ≤28, hero controls ≤3, handbook-inner first-viewport ≤24 (warn).
+- **Before example (fails):** `fs-primary-nav-global` (10 links) + `landing-header`/`landing-nav` (5 more) + `fs-sidebar`/`fs-nav-tier-wrap` + `fs-cross-refs` + four hero `.btn` controls.
+- **After example (passes):** `landing_page` shell — `landing-header-inner`, 5-item `landing-nav`, `fs-landing-main`, two hero buttons + `landing-hero-secondary-link`, `landing-forge-visual`, `fs-landing-body-shell` / `forge-card`.
+- **KS classes verified** against `components/layouts.py`, `components/components.py`, and `css/forgesdlc-theme.css`.
+
+No check modules, `rule-mappings.js`, or registry files were edited.

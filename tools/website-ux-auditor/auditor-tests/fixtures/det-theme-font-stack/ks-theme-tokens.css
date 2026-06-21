@@ -1,0 +1,6 @@
+:root {
+  --bs-body-font-family: "Open Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Proxima Nova Black", "Proxima Nova", "Open Sans", system-ui, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+  --font-label: "Open Sans", system-ui, sans-serif;
+}

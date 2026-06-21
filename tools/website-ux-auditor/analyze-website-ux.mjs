@@ -84,6 +84,8 @@ import { appendDashboardLog, mergeDashboardStateIfWatching } from './lib/ux-loop
 import { appendUxScoringCsv, UX_SCORING_CSV_FILENAME } from './lib/ux-scoring-csv.js';
 import { ensureBlockingStdio } from './lib/piped-stdio-flush.js';
 import { DEFAULT_DEFECT_PLAN_LIMIT, buildRankedDefectClusters } from './lib/defect-remediation-plans.js';
+import { emitSourceStructureBundle } from './lib/emit-source-structure.mjs';
+import { enrichPagesFindingsStructure } from './lib/enrich-findings-structure.js';
 import { DEFAULT_DESIGN_THEME_ID, loadDesignTheme, summarizeDesignTheme } from './lib/design-theme.js';
 
 ensureBlockingStdio();
@@ -1105,7 +1107,7 @@ Ask Cursor Agent to read this master plan and execute child plans in order. This
 ## Plan tree
 
 ${defectPlans.length
-    ? `- [ ] **Defect-first remediation** (top ${defectPlans.length}/${remediationPlanLimit})\n${defectPlans.map((dp) => `  - [ ] ${dp.order.toString().padStart(2, '0')} - ${dp.checkId} (${dp.area}) · est Δ +${Number(dp.estimatedOverallDelta || 0).toFixed(2)} · ${dp.affectedUrls?.length || 0} URL(s)`).join('\n')}`
+    ? `- [ ] **Defect-first remediation** (structure-ordered: layout → component → page-type → local; top ${defectPlans.length}/${remediationPlanLimit})\n${defectPlans.map((dp) => `  - [ ] ${dp.order.toString().padStart(2, '0')} - ${dp.checkId} (${dp.area}) · ${dp.fixLever || 'page-local'} · est Δ +${Number(dp.estimatedOverallDelta || 0).toFixed(2)} · ${dp.affectedUrls?.length || 0} URL(s)`).join('\n')}`
     : '- [ ] **Defect-first remediation**\n  - [ ] No defect clusters found in this run — verify manually and re-run with broader crawl if needed.'}
 
 ## Execution prompt for Cursor
@@ -1184,13 +1186,19 @@ function buildDefectPlan({ defect, inventory, profile, runMeta, siteKind = 'gene
 ## Defect identity
 
 - **checkId:** \`${defect.checkId}\`
+- **ruleId:** \`${defect.ruleId || defect.checkId}\`
 - **area:** \`${defect.area}\`
+- **fix lever:** \`${defect.fixLever || 'page-local'}\`${defect.signatureId ? ` · **signature:** \`${defect.signatureId}\`` : ''}
 - **severity mix:** ${formatSeverityInline(defect.bySeverity)}
 - **major+ count:** ${defect.majorPlusCount}
 - **affected URLs:** ${defect.affectedUrls.length}
 - **estimated overall score delta if this cluster is fixed:** **+${Number(defect.estimatedOverallDelta || 0).toFixed(2)}**
 - **primary scorer dimension:** ${defect.dimensionLabel}
 - **homepage-cap gate involved:** ${defect.hasHomepageGate ? 'yes' : 'no'}
+${defect.fixOnceStrategy ? `- **fix-once strategy:** ${defect.fixOnceStrategy}` : ''}
+${defect.estimatedTokenSavings ? `- **estimated token savings (vs per-URL fixes):** ~${defect.estimatedTokenSavings}` : ''}
+${(defect.regressionUrls || []).length ? `- **regression URLs (targeted re-audit):** ${defect.regressionUrls.map((u) => `\`${u}\``).join(', ')}` : ''}
+${(defect.sources || []).length ? `- **traceability sources:** ${defect.sources.slice(0, 4).map((s) => `\`${s.path}\` (${s.role})`).join(', ')}` : ''}
 
 ${buildKsVisualCatalogRemediationBlock(defect)}
 ## Why this is prioritized
@@ -1231,7 +1239,7 @@ ${rcaBlock}
 ### Check
 
 - [ ] Run build/check commands from this repo.
-- [ ] Re-run scorer and auditor on the same campaign output folder.
+- [ ] Re-run scorer and auditor on the same campaign output folder${(defect.regressionUrls || []).length ? ` using \`--seed-crawl-urls-file\` with regression URLs only (\`--incremental\`)` : ''}.
 - [ ] Verify this cluster's severity count drops and relevant scorer dimension improves.
 
 ### Adjust
@@ -1705,8 +1713,16 @@ function countIncludedTerms(terms, text) {
 
 async function analyzeStaticRepoOnly({ args, inventory }) {
   const siteKindResolved = inferSiteKind(args, inventory);
+  const { detectKsFromRepo, resolveRulesScope } = await import('./lib/detect-ks-site.js');
+  const repoKs = await detectKsFromRepo(args.repo);
+  const rulesScopeResolved = resolveRulesScope({
+    rulesScope: process.env.FORGE_UX_RULES_SCOPE || 'auto',
+    repoScore: repoKs.score,
+    domScore: 0,
+  });
   const designRuleRuntime = await createDesignRuleRuntime({
     onlyDeterministicRuleIds: onlyDeterministicRuleIdsFromEnv(),
+    rulesScopeResolved,
   });
   const candidateFiles = inventory.pageFiles.slice(0, 80);
   const chunks = [];
@@ -1762,7 +1778,11 @@ async function analyzeStaticRepoOnly({ args, inventory }) {
     lowContrast: [],
     ksVisualHashes: [],
   };
-  const ctx = { siteKind: siteKindResolved, repoRoot: path.resolve(args.repo) };
+  const ctx = {
+    siteKind: siteKindResolved,
+    repoRoot: path.resolve(args.repo),
+    rulesScopeResolved,
+  };
   const { findings: legacyRaw, trace: legacyTrace } = runAllChecksWithTrace(metrics, metrics.url, ctx);
   const { findings: deterministicRaw, trace: deterministicTrace } =
     await designRuleRuntime.runDeterministicRulesWithTrace({
@@ -1815,7 +1835,7 @@ async function writePlans({
   args,
   inventory,
   profile,
-  pages,
+  pages: pagesIn,
   standardText,
   designStandard,
   designTheme,
@@ -1828,8 +1848,34 @@ async function writePlans({
   priorUxScoresSourceDisplay = null,
   regressionWave = null,
   uxQualityScoreLoopDelta = null,
+  visitedUrls = [],
+  parentByUrl = {},
   logger,
 }) {
+  const pages = enrichPagesFindingsStructure(pagesIn);
+
+  let sourceStructure = null;
+  let structureScores = null;
+  if (!args.staticOnly && pages.length) {
+    try {
+      const bundle = await emitSourceStructureBundle({
+        outDir: args.out,
+        repoRoot: path.resolve(args.repo),
+        siteUrl: args.site || '',
+        siteKind,
+        pages,
+        crawlSummary,
+        inventory,
+        visitedUrls,
+        parentByUrl,
+      });
+      sourceStructure = bundle.sourceStructure;
+      structureScores = bundle.structureScores;
+    } catch (e) {
+      console.warn(`source-structure: ${String(e?.message ?? e)}`);
+    }
+  }
+
   const uxScores = computeUxScores({
     pages,
     crawlSummary,
@@ -1933,6 +1979,8 @@ async function writePlans({
         priorUxScoresSnapshot,
         uxQualityScoreLoopDelta,
         regressionWave,
+        sourceStructure,
+        structureScores,
         args,
         inventory,
         profile,
@@ -1973,10 +2021,22 @@ async function writePlans({
     limit: args.remediationPlanLimit,
     repoRoot: args.repo,
   });
+  const sourcesBySignature = new Map(
+    (sourceStructure?.principalCatalog?.components || []).map((c) => [c.signatureId, c.sources || []]),
+  );
   const defectPlans = rankedDefects.clusters.map((c) => ({
     ...c,
+    sources: c.signatureId && sourcesBySignature.has(c.signatureId) ? sourcesBySignature.get(c.signatureId) : [],
     fileName: `${c.fileStem}.md`,
   }));
+
+  const topFixOnce = defectPlans.find((d) => d.regressionUrls?.length && d.fixLever !== 'page-local');
+  if (topFixOnce?.regressionUrls?.length) {
+    await writeFile(
+      path.join(args.out, 'fix-once-regression-urls.txt'),
+      `${topFixOnce.regressionUrls.join('\n')}\n`,
+    );
+  }
 
   const rcaEntries = (rca.entries || []).map((r) => ({
     ...r,
@@ -2151,6 +2211,10 @@ async function main() {
     await warnIfDesignStandardChanged(args.out, designStdMeta.sha256);
 
     let pages = [];
+    /** @type {Record<string, string>} */
+    let crawlParentByUrl = {};
+    /** @type {string[]} */
+    let crawlVisitedUrls = [];
     let crawlSummary;
     let precrawlUxScores = null;
     let precrawlCrawlSummary = null;
@@ -2291,7 +2355,14 @@ async function main() {
       mergeDashboardStateIfWatching(args.out, { phase: 'auditor_static_only' });
       uxAuditPhase('[ux-audit] phase=static_only · no Playwright crawl; generating repo-only analysis');
       if (args.scoresFirst) auditDiagStderr('Note: --scores-first is ignored for static-only runs (no Playwright precrawl).');
-      const designRuleRuntime = await createDesignRuleRuntime();
+      const { detectKsFromRepo, resolveRulesScope } = await import('./lib/detect-ks-site.js');
+      const repoKs = await detectKsFromRepo(args.repo);
+      const rulesScopeResolved = resolveRulesScope({
+        rulesScope: process.env.FORGE_UX_RULES_SCOPE || 'auto',
+        repoScore: repoKs.score,
+        domScore: 0,
+      });
+      const designRuleRuntime = await createDesignRuleRuntime({ rulesScopeResolved });
       pages = [await analyzeStaticRepoOnly({ args, inventory })];
       const flat = pages.flatMap((p) => p.findings || []);
       const ruleExecutionCoverage = rollupRuleExecution(pages, {
@@ -2427,6 +2498,8 @@ async function main() {
       }
       pages = crawled.pages;
       crawlSummary = { ...crawled.crawlSummary, deterministicPreflight };
+      crawlParentByUrl = crawled.parentByUrl || {};
+      crawlVisitedUrls = crawled.visitedUrls || [];
 
       if (priorParsedForIncremental && regressionUrls.length) {
         regressionWave = buildRegressionWaveSummary(
@@ -2486,6 +2559,8 @@ async function main() {
       priorUxScoresSourceDisplay,
       regressionWave,
       uxQualityScoreLoopDelta,
+      visitedUrls: crawlVisitedUrls,
+      parentByUrl: crawlParentByUrl,
       logger,
     });
     mergeDashboardStateIfWatching(args.out, {

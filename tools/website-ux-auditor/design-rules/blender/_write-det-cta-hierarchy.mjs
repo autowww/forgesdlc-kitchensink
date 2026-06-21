@@ -6,14 +6,14 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const src = path.resolve(
   __dirname,
-  '../../docs/design/ux-audit/rule-pages/det-cta-hierarchy.md',
+  'docs/design/ux-audit/rule-pages/det-cta-hierarchy.md',
 );
 const dest = path.resolve(
   __dirname,
   '../../../../docs/design/ux-audit/rule-pages/det-cta-hierarchy.md',
 );
 const expected =
-  '96c734fbaeda694dfccadfe33c76c0e18ce82d905b6013754688a044463755af';
+  '455be72677f9d86619b1984fcb7e00cf2896ac0a6816e8e52d3c8d45163b1a1a';
 await fs.mkdir(path.dirname(dest), { recursive: true });
 await fs.copyFile(src, dest);
 const text = await fs.readFile(dest, 'utf8');

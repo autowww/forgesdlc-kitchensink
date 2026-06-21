@@ -13,6 +13,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { parseExternalLibraryPathsFromArgs } from '../fix-roots.mjs';
 import { runDeterministicFixers } from './index.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -30,6 +31,7 @@ function parseArgs(argv) {
     repoOverlay: process.env.FORGE_UX_FIXER_REPO_OVERLAY || '',
     skipVerify: false,
     planPath: '',
+    externalPaths: parseExternalLibraryPathsFromArgs(argv.slice(2)),
   };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
@@ -82,6 +84,7 @@ async function main() {
     repoOverlay: opts.repoOverlay,
     skipVerify: opts.skipVerify,
     planPath: opts.planPath,
+    externalPaths: opts.externalPaths,
   });
   console.error(
     `run-deterministic-fixers: report → ${reportPath} applied=${report.summary.applied} verifyOk=${report.summary.verifyOk} agentRequired=${report.summary.agentRequired}`,

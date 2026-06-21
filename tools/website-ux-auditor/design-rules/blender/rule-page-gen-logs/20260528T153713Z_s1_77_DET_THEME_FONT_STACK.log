@@ -1,0 +1,64 @@
+## Report: `DET.THEME.FONT_STACK` handbook page
+
+### What was written
+
+A full PDCA handbook page for **`DET.THEME.FONT_STACK`** was drafted from:
+
+- Source anchor: `docs/design/ux-audit/deterministic-design-rules.md#det-theme-font_stack`
+- Check module: `design-rules/deterministic/generated/det-theme-font-stack.check.js` (Playwright role sampling + static `css/`/`src/` scan; theme packs define allowlist via `--font-display`, `--font-label`, `--font-mono`, `--bs-body-font-family`)
+- KS patterns: `doc-main`, `site-header`, `section-label`, `font-display`, `forge-support`, `forge-card`, `forge-sidebar`, `nav-section-label`, `nav-rail`, `nav-link`, `doc-mono`, `btn-forge-cyan`
+
+**Sections:** Purpose (with role/token table + Plan/Do/Check/Adjust), Passing signals, Failing signals, Before/After HTML examples, Evidence and remediation (violation table + 4-step PDCA), Related rules.
+
+**Before example (fails):** Inline `.drift-hero` / `.drift-body` plus Impact/Consolas overrides on real KS classes.
+
+**After example (passes):** Same shell with only theme-driven typography (no competing `font-family`).
+
+### `page_version` confirmation
+
+In the completed staging file, front matter is:
+
+```yaml
+page_version: 855117ccb546d0ee21cc5acc6dc802220159feb9e559b67b64419387dde5768a
+```
+
+That matches the required value exactly.
+
+### Promotion to canonical path (action needed)
+
+The Cursor workspace root is `tools/website-ux-auditor/design-rules/blender`, so the full page was written under:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-theme-font-stack.md`
+
+The **canonical** target you specified is still the bootstrap stub:
+
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-theme-font-stack.md`
+
+A promote script was added (same pattern as other rule pages):
+
+`tools/website-ux-auditor/design-rules/blender/_run-copy-det-theme-font-stack.mjs`
+
+Run from the blender directory:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node _run-copy-det-theme-font-stack.mjs
+```
+
+That copies staging → `forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-theme-font-stack.md` and verifies `page_version`.
+
+Or manually:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-theme-font-stack.md \
+   docs/design/ux-audit/rule-pages/det-theme-font-stack.md
+```
+
+(from the **kitchensink repo root**)
+
+### Not changed (per instructions)
+
+- No edits to `det-theme-font-stack.check.js`, `rule-mappings.js`, or `registry.generated.json`
+- No Mermaid; no Fleet-specific profile
+
+After you run the copy script, the orchestrator can refresh `rule-pages.manifest.json` for the batch. If you want, I can retry promotion once the workspace is opened at the kitchensink repo root.

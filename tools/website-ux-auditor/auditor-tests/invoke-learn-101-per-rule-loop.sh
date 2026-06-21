@@ -487,13 +487,6 @@ for rule_id in "${DET_RULES[@]}"; do
     started=1
   fi
 
-  if [[ "${rule_id}" == "DET.THEME.FONT_STACK" ]]; then
-    append_state "$(jq -nc --arg r "${rule_id}" --arg s "blocked" --arg n "stub" --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-      '{ruleId:$r,lane:"deterministic",status:$s,findingsCount:0,agentAttempts:0,metaAgentRan:false,note:$n,ts:$ts}')"
-    echo "invoke-learn-101: ${rule_id} stub — skip" >&2
-    continue
-  fi
-
   rule_dir="${OUT_DIR}/rules/${rule_id}"
   echo "invoke-learn-101: [DET] ${rule_id}" >&2
 

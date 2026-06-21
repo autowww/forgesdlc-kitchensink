@@ -2,6 +2,8 @@ import path from 'node:path';
 
 import { ensureDir } from './files.js';
 import { collectDomMetrics } from './dom-metrics.js';
+import { collectPageStructure } from './collect-page-structure.js';
+import { enrichFindingStructure } from './enrich-findings-structure.js';
 import { runAllChecksWithTrace } from '../checks/index.js';
 import { countMajorPlus } from './severity.js';
 import {
@@ -14,8 +16,14 @@ import { scorePage } from './scoring.js';
 import { pickHighestPriorityQueueItem } from './audit-priority.js';
 import { RulePageTraceStore } from './audit-backlog-trace.js';
 import { createDesignRuleRuntime } from './design-rule-runtime.js';
+import { detectKsFromDomPages, detectKsFromRepo, resolveRulesScope } from './detect-ks-site.js';
 import { clampInt } from './map-limit.js';
 import { rollupRuleExecution } from './rule-execution-rollup.js';
+import { collectGenericWebsitePageReport } from './generic-website-collectors.js';
+import { evaluateCrawlLevelDetRules } from './evaluate-crawl-level-det-rules.mjs';
+import { normalizeCrawlHref, isCrawlableUrl } from './crawl-url.js';
+
+export { normalizeCrawlHref, isCrawlableUrl };
 
 /** Parallel Playwright pages during BFS crawl (auditor default 1; scorer passes 5). */
 export const DEFAULT_PAGE_CONCURRENCY = 1;
@@ -27,17 +35,6 @@ function safeSlug(input) {
     .replace(/[^a-z0-9]+/gi, '-')
     .replace(/^-+|-+$/g, '')
     .slice(0, 80) || 'page';
-}
-
-/** @param {string} raw */
-export function normalizeCrawlHref(raw) {
-  try {
-    const url = new URL(raw);
-    url.hash = '';
-    return url.href;
-  } catch {
-    return null;
-  }
 }
 
 /**
@@ -94,18 +91,6 @@ export function evaluateCrawlHalt(state) {
     return { halt: true, reason: 'major_plus_threshold', gateSeverity: null };
   }
   return { halt: false, reason: null, gateSeverity: null };
-}
-
-export function isCrawlableUrl(raw, origin) {
-  try {
-    const url = new URL(raw);
-    if (url.origin !== origin) return false;
-    if (url.protocol !== 'http:' && url.protocol !== 'https:') return false;
-    if (/\.(png|jpg|jpeg|gif|webp|svg|pdf|zip|xml|json|ico|css|js|map|txt)$/i.test(url.pathname)) return false;
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 function dedupeHrefQueue(items, origin) {
@@ -191,6 +176,7 @@ function dequeueItem(raw, fallbackDepth = 0) {
  *   pageConcurrency?: number,
  *   repoRoot?: string | null,
  *   designTheme?: object | null,
+ *   structureOnly?: boolean,
  * }} opts
  */
 export async function crawlAndAnalyze(opts) {
@@ -225,6 +211,7 @@ export async function crawlAndAnalyze(opts) {
     pageConcurrency: pageConcurrencyOpt,
     repoRoot = null,
     designTheme = null,
+    structureOnly = false,
   } = opts;
 
   const pageConcurrency = clampInt(
@@ -255,6 +242,8 @@ export async function crawlAndAnalyze(opts) {
 
   /** @type {string[]} */
   const visitedOrder = [];
+  /** @type {Record<string, string>} */
+  const parentByUrl = {};
 
   /** @type {Set<string>} */
   const seen = new Set();
@@ -301,12 +290,24 @@ export async function crawlAndAnalyze(opts) {
     });
   await traceStore.load();
 
+  const rulesScopeEnv = process.env.FORGE_UX_RULES_SCOPE || 'auto';
+  let rulesScopeResolved = { effectiveScope: 'generic', ksDriven: false, reason: 'no-repo' };
+  if (repoRoot) {
+    const repoKs = await detectKsFromRepo(repoRoot);
+    rulesScopeResolved = resolveRulesScope({
+      rulesScope: rulesScopeEnv,
+      repoScore: repoKs.score,
+      domScore: 0,
+    });
+  }
+
   const designRuleRuntime = await createDesignRuleRuntime({
     deterministicConcurrency,
     traceStore,
     priorityRuleIds,
     deprioritizedRuleIds,
     onlyDeterministicRuleIds,
+    rulesScopeResolved,
     onDeterministicRuleProgress: (progress) => {
       onProgress?.({
         phase: 'rule_progress',
@@ -383,21 +384,60 @@ export async function crawlAndAnalyze(opts) {
         await page.waitForLoadState('networkidle', { timeout: 5000 });
       } catch {}
       const raw = await collectDomMetrics(page, href);
-      const ctx = { siteKind, repoRoot, designTheme };
-      const { findings: legacyRaw, trace: legacyTrace } = runAllChecksWithTrace(raw, href, ctx);
-      const { findings: deterministicRaw, trace: deterministicTrace } =
-        await designRuleRuntime.runDeterministicRulesWithTrace({
+      if (!structureOnly) {
+        try {
+          raw.genericWebsitePageReport = await collectGenericWebsitePageReport(page);
+        } catch {
+          raw.genericWebsitePageReport = null;
+        }
+      }
+      let structure = null;
+      try {
+        structure = await collectPageStructure(page, href, siteKind);
+      } catch {
+        structure = null;
+      }
+      const gateDetByPageType = process.env.FORGE_UX_DET_PAGE_TYPE_GATE !== '0';
+      const domKs = detectKsFromDomPages([{ metrics: raw }]);
+      if (rulesScopeEnv === 'auto' && domKs.score > 0) {
+        rulesScopeResolved = resolveRulesScope({
+          rulesScope: 'auto',
+          repoScore: rulesScopeResolved.ksDriven ? 1 : 0,
+          domScore: domKs.score,
+        });
+      }
+      const ctx = {
+        siteKind,
+        repoRoot,
+        designTheme,
+        structure,
+        gateDetByPageType,
+        rulesScopeResolved,
+      };
+      let legacyTrace = [];
+      let deterministicTrace = [];
+      let findings = [];
+      if (structureOnly) {
+        findings = [];
+      } else {
+        const legacyResult = runAllChecksWithTrace(raw, href, ctx);
+        legacyTrace = legacyResult.trace;
+        const detResult = await designRuleRuntime.runDeterministicRulesWithTrace({
           metrics: raw,
           url: href,
           page,
           repoRoot,
           ctx,
         });
-      const findings = designRuleRuntime.enrichLegacyFindings(legacyRaw).concat(deterministicRaw);
-      const score = scorePage(raw, findings);
+        deterministicTrace = detResult.trace;
+        const findingsRaw = designRuleRuntime.enrichLegacyFindings(legacyResult.findings).concat(detResult.findings);
+        findings = findingsRaw.map((f) => enrichFindingStructure(f, structure, href));
+      }
+      const score = structureOnly ? 100 : scorePage(raw, findings);
       analyzed = {
         url: href,
         metrics: raw,
+        structure,
         findings,
         score,
         auditWave: waveLabel,
@@ -457,6 +497,7 @@ export async function crawlAndAnalyze(opts) {
           u.hash = '';
           const next = u.href;
           if (isCrawlableUrl(next, origin) && !seen.has(next) && queue.length < maxPages * 8) {
+            if (!parentByUrl[next]) parentByUrl[next] = href;
             queue.push({ href: next, depth: childDepth });
           }
         }
@@ -590,6 +631,40 @@ export async function crawlAndAnalyze(opts) {
 
   await drainCrawlQueue(true);
 
+  let crawlRouteAudit = null;
+  let crawlLevelFindings = [];
+  if (!structureOnly && pages.length && !rulesScopeResolved.ksDriven) {
+    try {
+      const crawlLevel = await evaluateCrawlLevelDetRules({
+        pages,
+        origin,
+        request: context.request,
+      });
+      crawlRouteAudit = crawlLevel.crawlRouteAudit;
+      crawlLevelFindings = crawlLevel.crawlFindings;
+      for (const p of pages) {
+        if (crawlRouteAudit) {
+          p.metrics = { ...(p.metrics || {}), crawlRouteAudit };
+        }
+      }
+      if (crawlLevelFindings.length) {
+        majorPlusAccum += countMajorPlus(crawlLevelFindings);
+        findingAccum += crawlLevelFindings.length;
+        const crawlCounts = countBySeverity(crawlLevelFindings);
+        for (const [k, v] of Object.entries(crawlCounts)) {
+          severityRunTotal[k] = (severityRunTotal[k] || 0) + v;
+        }
+        for (const p of pages) {
+          if (p.metrics && !p.error) {
+            p.score = scorePage(p.metrics, p.findings || []);
+          }
+        }
+      }
+    } catch {
+      crawlRouteAudit = null;
+    }
+  }
+
   await traceStore.save();
 
   onProgress?.({
@@ -647,6 +722,8 @@ export async function crawlAndAnalyze(opts) {
     designRuleRegistryPath: designRuleRuntime.registryPath,
     deterministicImplementedRuleIds: designRuleRuntime.implementedRuleIds,
     ruleExecutionCoverage,
+    crawlRouteAudit,
+    crawlLevelFindingCount: crawlLevelFindings.length,
   };
 
   const visitedUrls = [...visitedOrder];
@@ -654,5 +731,5 @@ export async function crawlAndAnalyze(opts) {
     .map((q) => (q && typeof q === 'object' && 'href' in q ? normalizeCrawlHref(q.href || '') : normalizeCrawlHref(q)))
     .filter(Boolean);
 
-  return { pages, crawlSummary, visitedUrls, queuedUrlsAtStop };
+  return { pages, crawlSummary, visitedUrls, queuedUrlsAtStop, parentByUrl };
 }

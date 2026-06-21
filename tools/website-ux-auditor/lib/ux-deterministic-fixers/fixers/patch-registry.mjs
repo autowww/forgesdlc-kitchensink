@@ -24,9 +24,46 @@ import { runLayoutGridConsistencyFixer } from './layout-grid-consistency.mjs';
 import { runNavBreadcrumbFixer } from './nav-breadcrumb.mjs';
 import { runPageTitleFixer } from './page-title.mjs';
 import { runRepoProductionFixer } from './repo-production.mjs';
-import { runReactKsAttrsFixer } from './react-ks-attrs-fixer.mjs';
+import { runAppPrimitiveMarkersFixer } from './app-primitive-markers-fixer.mjs';
+import { runAppControlA11yFixer } from './app-control-a11y-fixer.mjs';
+import { runAppViteReactFixer } from './app-vite-react-fixer.mjs';
+import { runAppPrimitiveSourceFixer } from './app-primitive-source-fixer.mjs';
+import { runPlanOnlyDeterministicFixer } from './plan-only-fixer.mjs';
+import { getFixerDecision, FIXER_DECISIONS } from '../production-fixer-decisions.mjs';
 
-/** @type {Record<string, (ctx: object) => Promise<{ applied: boolean, filesTouched?: number, adapter?: string, error?: string }>>} */
+/** @type {Record<string, (ctx: object) => Promise<object>>} */
+const HANDLERS = {
+  app_vite_react: runAppViteReactFixer,
+  app_primitive_source: runAppPrimitiveSourceFixer,
+  app_primitive_markers: runAppPrimitiveMarkersFixer,
+  app_control_a11y: runAppControlA11yFixer,
+  repo_production: runRepoProductionFixer,
+  plan_only: runPlanOnlyDeterministicFixer,
+  patch_app_focus_trap: patchAppFocusTrap,
+  nav_breadcrumb: runNavBreadcrumbFixer,
+  hash_markers: runHashMarkersFixer,
+  page_title: runPageTitleFixer,
+  html_empty_inline: runHtmlEmptyInlineFixer,
+  layout_grid: runLayoutGridConsistencyFixer,
+  patch_page_lang: patchPageLang,
+  patch_page_viewport: patchPageViewport,
+  patch_page_mode: patchPageMode,
+  patch_nav_in_page_toc: patchNavInPageToc,
+  patch_landmarks: patchLandmarksRequired,
+  patch_diagram_alt: patchDiagramAlt,
+  patch_cta_label: patchCtaLabelNonempty,
+  patch_cta_hierarchy: patchCtaHierarchy,
+  patch_card_title: patchCardTitle,
+  patch_section_heading: patchSectionHeading,
+  patch_chrome_boundary: patchChromeBoundary,
+  patch_button_group: patchButtonGroupMax,
+  patch_ambient_z: patchAmbientZIndex,
+  patch_motion_reduced: patchMotionReduced,
+  patch_motion_no_autoplay: patchMotionNoAutoplay,
+  patch_nav_dedup: patchNavDedup,
+};
+
+/** @type {Record<string, (ctx: object) => Promise<object>>} */
 export const PRODUCTION_FIXER_BY_RULE = {
   'DET.HASH.MARKERS': runHashMarkersFixer,
   'DET.PAGE.TITLE': runPageTitleFixer,
@@ -59,14 +96,16 @@ export const PRODUCTION_FIXER_BY_RULE = {
   'DET.CONTRACT.PLACEHOLDERS': runRepoProductionFixer,
   'DET.INVENTORY.CROSSWALK': runRepoProductionFixer,
   'DET.TOKEN.NO_DRIFT': runRepoProductionFixer,
+  'DET.THEME.FONT_STACK': runAppViteReactFixer,
   'DET.PY.KS_HASH_ATTRS': runRepoProductionFixer,
   'DET.PY.OPTIONAL_REGIONS': runRepoProductionFixer,
   'DET.SCREENSHOT.STATUS': runRepoProductionFixer,
   'DET.HASH.REGISTRY_ROW': runRepoProductionFixer,
   'DET.DIAGRAM.ASSET_REGISTRY': runRepoProductionFixer,
   'DET.CATALOG.CONTRACT_SPECIFICITY': runRepoProductionFixer,
-  'DET.REACT.KS_ATTRS': runReactKsAttrsFixer,
-  'DET.REACT.A11Y_ROLE': patchLandmarksRequired,
+  'DET.APP.PRIMITIVE_MARKERS': runAppPrimitiveMarkersFixer,
+  'DET.APP.PRIMITIVE_SOURCE': runAppPrimitiveSourceFixer,
+  'DET.APP.CONTROL_A11Y': runAppControlA11yFixer,
   'DET.SURFACE.ELEVATION_TOKEN': patchAmbientZIndex,
   'DET.VISUAL.RHYTHM': runLayoutGridConsistencyFixer,
   'DET.CONTEXT.BURDEN': patchSectionHeading,
@@ -78,16 +117,43 @@ export const PRODUCTION_FIXER_BY_RULE = {
   'DET.NAV.DEPTH': runNavBreadcrumbFixer,
   'DET.NAV.FOCUS_ORDER': runNavBreadcrumbFixer,
   'DET.APP.PERSISTENT_CHROME': runNavBreadcrumbFixer,
+  // App Vite/React-aware production fixers
+  'DET.APP.DEMO_DISCLOSURE': runAppViteReactFixer,
+  'DET.APP.PRIMARY_CTA': runAppViteReactFixer,
+  'DET.APP.PRIMARY_STATE': runAppViteReactFixer,
+  'DET.APP.PRIMITIVE_STYLES': runAppViteReactFixer,
+  'DET.APP.SHELL_INTEGRATION': runAppViteReactFixer,
+  'DET.APP.TAB_PANEL': runAppViteReactFixer,
+  'DET.APP.TILE_AFFORDANCE': runAppViteReactFixer,
+  'DET.RESPONSIVE.NO_HORIZONTAL_OVERFLOW': runAppViteReactFixer,
 };
+
+// Register plan_only and decision-driven handlers
+for (const [ruleId, decision] of Object.entries(FIXER_DECISIONS)) {
+  if (decision.planOnly) {
+    PRODUCTION_FIXER_BY_RULE[ruleId] = runPlanOnlyDeterministicFixer;
+  } else if (decision.productionHandler && HANDLERS[decision.productionHandler]) {
+    PRODUCTION_FIXER_BY_RULE[ruleId] = HANDLERS[decision.productionHandler];
+  }
+}
 
 /**
  * @param {string} ruleId
  * @param {object} ctx
  */
 export async function runProductionFixerForRule(ruleId, ctx) {
-  const fn = PRODUCTION_FIXER_BY_RULE[ruleId];
+  const decision = getFixerDecision(ruleId);
+  let fn = PRODUCTION_FIXER_BY_RULE[ruleId];
+
+  if (ruleId === 'DET.THEME.FONT_STACK') {
+    const viteResult = await runAppViteReactFixer({ ...ctx, ruleId });
+    if (viteResult.applied) return viteResult;
+    return runRepoProductionFixer({ ...ctx, ruleId });
+  }
+
   if (!fn) {
-    return { applied: false, error: `no production fixer for ${ruleId}` };
+    if (decision?.planOnly) fn = runPlanOnlyDeterministicFixer;
+    else return { applied: false, error: `no production fixer for ${ruleId}`, fallbackReason: 'unmapped rule' };
   }
   return fn({ ...ctx, ruleId });
 }

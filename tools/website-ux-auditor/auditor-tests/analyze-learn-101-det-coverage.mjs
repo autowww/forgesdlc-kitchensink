@@ -140,7 +140,6 @@ const coverageNotes = {
     'Counts region boundaries, not visual weight of tables in main.',
   'DET.SCREENSHOT.STATUS':
     'Registry/planned screenshots — not live visual regression.',
-  'DET.THEME.FONT_STACK': 'Stub — not implemented.',
   'DET.CATALOG.CONTRACT_SPECIFICITY': 'Repo YAML contracts — not rendered page DOM.',
   'DET.INVENTORY.CROSSWALK': 'Repo crosswalk — not page UX.',
   'DET.CONTRACT.PATH': 'Repo contract paths.',
@@ -148,8 +147,11 @@ const coverageNotes = {
   'DET.HASH.REGISTRY_ROW': 'Repo registry rows.',
   'DET.PY.OPTIONAL_REGIONS': 'Python source optional regions.',
   'DET.PY.KS_HASH_ATTRS': 'Python ks hash attrs.',
-  'DET.REACT.KS_ATTRS': 'React ks attrs (N/A static HTML).',
-  'DET.REACT.A11Y_ROLE': 'React a11y (N/A static HTML).',
+  'DET.APP.PRIMITIVE_MARKERS': 'React primitive KS markers (N/A static HTML).',
+  'DET.APP.CONTROL_A11Y': 'React primitive control a11y (N/A static HTML).',
+  'DET.APP.PRIMITIVE_SOURCE': 'React primitive source scan (repo only).',
+  'DET.APP.PRIMITIVE_STYLES': 'React primitive stylesheet bundle.',
+  'DET.APP.SHELL_INTEGRATION': 'Bootstrap vs ks-fe integration in app shell.',
 };
 
 /** @type {Array<{ ruleId: string, status: string, findings: number, metrics: string, verdict: string, note: string }>} */
@@ -160,7 +162,6 @@ for (const ruleId of detRules) {
   const tr = traceByRule.get(ruleId);
   const findings = st?.findingsCount ?? tr?.findingsCount ?? 0;
   let status = st?.status || (tr?.status === 'ran' ? 'pass' : 'missing');
-  if (ruleId === 'DET.THEME.FONT_STACK') status = 'blocked-stub';
 
   const metricsFn = metricSummary[ruleId];
   const metrics = metricsFn ? metricsFn(m) : '—';
@@ -171,7 +172,7 @@ for (const ruleId of detRules) {
   else if (coverageNotes[ruleId]) verdict = 'ok-with-gap-note';
   else if (
     ruleId.startsWith('DET.PY.')
-    || ruleId.startsWith('DET.REACT.')
+    || ruleId.startsWith('DET.APP.PRIMITIVE')
     || ruleId.includes('CONTRACT')
     || ruleId.includes('INVENTORY')
     || ruleId.includes('CATALOG')

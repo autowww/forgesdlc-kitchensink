@@ -5,7 +5,7 @@
 export function parseAutomationContractTable(md) {
   const lines = md.split('\n');
   let inTable = false;
-  /** @type {Array<{ docAnchor: string, scenarioId: string | null, tier: string, status: string, testId: string }>} */
+  /** @type {Array<{ docAnchor: string, scenarioId: string | null, tier: string, status: string, testId: string, selectorCell: string }>} */
   const rows = [];
 
   for (const line of lines) {
@@ -28,6 +28,7 @@ export function parseAutomationContractTable(md) {
     if (cells.length < 5) continue;
 
     const anchorCell = cells[0];
+    const selectorCell = cells[1] || '';
     const tier = (cells[2] || '').toLowerCase();
     const status = (cells[3] || '').toLowerCase();
     const testId = cells[4] || '';
@@ -35,7 +36,7 @@ export function parseAutomationContractTable(md) {
     const link = anchorCell.match(/\[([^\]]+)\]\(#([^)]+)\)/);
     const docAnchor = link ? link[2] : anchorCell.replace(/[[\]]/g, '').trim().toLowerCase().replace(/\s+/g, '-');
 
-    rows.push({ docAnchor, scenarioId: null, tier, status, testId });
+    rows.push({ docAnchor, scenarioId: null, tier, status, testId, selectorCell });
   }
 
   return rows;

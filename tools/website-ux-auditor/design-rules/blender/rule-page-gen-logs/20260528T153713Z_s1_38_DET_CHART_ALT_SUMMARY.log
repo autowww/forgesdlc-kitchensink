@@ -1,0 +1,43 @@
+## Report: `DET.CHART.ALT_SUMMARY` handbook page
+
+Wrote the full PDCA rule page at the blender staging path (workspace root is `tools/website-ux-auditor/design-rules/blender`; writes outside that tree were blocked):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-chart-alt-summary.md`
+
+**To sync to the canonical target**, run:
+
+```bash
+cp "/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-chart-alt-summary.md" \
+   "/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-chart-alt-summary.md"
+```
+
+Or: `node tools/website-ux-auditor/design-rules/blender/_copy-det-chart-alt-summary-canonical.mjs`
+
+### `page_version` (confirmed)
+
+`6361e73cea465ffc4414d4215c2557eb97de1755dd17fe38c92bde90dac44cf7`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.CHART.ALT_SUMMARY` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `generated_at` | `2026-05-28T16:42:00.000Z` |
+| `related_rules` | `AI.DATA.INSIGHT_LEGIBILITY`, `DET.DATA.COLOR_ONLY`, `DET.DATA.TABLE_HEADERS`, `DET.DIAGRAM.ALT`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` |
+
+### Content (from check + KS sources)
+
+- **Purpose:** PDCA tied to `det-chart-alt-summary.check.js`, `MIN_CHART_SUMMARY_CHARS` (8), chart roots (`[data-ks-chart]`, `.ks-chart-mount`), ambient exclusions (`.forge-ambient-bg`, `.forge-aurora`, etc.).
+- **Passing / failing signals:** Aligned with `collectChartAltSummaryReport` (aria, `figcaption`, `forge-support`, sr-only, loading state).
+- **Before / after HTML:** Real KS patterns from `data_charts_static.py` / showcase — `ks-section`, `ks-chart-mount`, `data-ks-chart-kind="commit_weekly"`, `forge-support small mb-1`, `forge-card`, hash `Dcs` / `Dca`.
+- **Evidence:** `chartAltSummaryReport`, `missing-chart-alt-summary`, pilot fixer note.
+- **Related rules:** Body + front matter.
+
+### Real KS class names in examples
+
+`ks-section`, `ks-section-title`, `ks-chart-mount`, `forge-support`, `forge-card`, `data-ks-chart`, `data-ks-chart-kind`, `data-ks-chart-state`, `data-ks-chart-url`, hash/data-ks-hash governance on `Dcs` / `Dca`.
+
+No check modules, `rule-mappings.js`, or registry were edited. No Mermaid, no Fleet profile.

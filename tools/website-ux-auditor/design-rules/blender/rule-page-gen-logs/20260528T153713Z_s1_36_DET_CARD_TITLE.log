@@ -1,0 +1,48 @@
+## Report: `DET.CARD.TITLE` handbook page
+
+### Status
+The full rule page is ready at:
+
+`tools/website-ux-auditor/design-rules/blender/_staging-det-card-title.md`
+
+Writes to `docs/design/ux-audit/rule-pages/det-card-title.md` were blocked from this workspace (only the blender tree is writable). The canonical file still has the old `page_version` (`a732dcb3…`). Deploy with:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_staging-det-card-title.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-card-title.md
+```
+
+Then remove the staging file if you do not want it in git.
+
+### `page_version` (required)
+**`1b57231fd335f5339a55c23d0043aeed82a476b154e29f86cdca2d5f37c3eefa`** — set exactly in staging front matter.
+
+### Sources used
+| Source | Takeaway |
+|--------|----------|
+| `deterministic-design-rules.md#det-card-title` | Card must have visible title or `aria-labelledby` |
+| `det-card-title.check.js` | `MIN_CARD_TITLE_CHARS = 2`; roots `.forge-card`, `.card`, `[data-card]`; toolbar/nav exclusions; `cardTitleReport` metrics |
+| `registry.generated.json` | `registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `implemented` |
+| `_for_agents_content.py` / `forge-theme.css` | Real patterns: `forge-card`, `breathe-static` / `breathe-link`, `card-label`, `h5`, `forge-support`, `btn-forge` |
+
+### Page content (PDCA)
+- **Purpose** — Why named cards matter; pass paths (headings, `.card-title`, `.card-label`, `aria-*`); exclusions (toolbar, nav, cookie).
+- **Passing / Failing signals** — Aligned with `collectCardTitleReport` behavior.
+- **Before** — `forge-card breathe-static` with only `forge-support` + `btn-forge` (no title).
+- **After** — `card-label` + `h5` + `forge-support` + hash attrs; extra passing `breathe-link` variant.
+- **Evidence and remediation** — `cardTitleReport`, `missing_card_title`, six-step fix list.
+- **Related rules** — `DET.CARD.ACTION_LIMIT`, `DET.CTA.LABEL_NONEMPTY`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`, `AI.PREMIUM.ENTERPRISE_FEEL` (front matter + body).
+
+### Front matter
+| Field | Value |
+|-------|--------|
+| `rule_id` | `DET.CARD.TITLE` |
+| `lane` | `deterministic` |
+| `page_version` | `1b57231fd335f5339a55c23d0043aeed82a476b154e29f86cdca2d5f37c3eefa` |
+| `generated_at` | `2026-05-28T16:45:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_status` | `implemented` |
+
+No changes were made to `det-card-title.check.js`, `rule-mappings.js`, or `rule-pages.manifest.json` (orchestrator updates manifest after batch).
+
+After you run the `cp` above, `page_version` on the canonical path will match **`1b57231fd335f5339a55c23d0043aeed82a476b154e29f86cdca2d5f37c3eefa`**. I can retry the deploy from here if you widen write access or run the copy locally.

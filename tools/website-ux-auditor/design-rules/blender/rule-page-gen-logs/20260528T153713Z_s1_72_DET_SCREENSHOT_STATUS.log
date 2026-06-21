@@ -1,0 +1,51 @@
+## Report: `DET.SCREENSHOT.STATUS` handbook page
+
+The full PDCA rule page is authored and ready at the blender staging path (this environment cannot write outside the `blender/` workspace root):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-screenshot-status.md`
+
+The canonical target on disk is still the old bootstrap stub until you promote it:
+
+`docs/design/ux-audit/rule-pages/det-screenshot-status.md`
+
+### Promote to canonical (run once)
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node _write-det-screenshot-status.mjs
+```
+
+Or:
+
+```bash
+bash /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/.copy-det-screenshot-status-to-canonical.sh
+```
+
+Both copy staging → `docs/design/ux-audit/rule-pages/det-screenshot-status.md` and verify `page_version`.
+
+### `page_version` (confirmed in staging)
+
+`3df32ff59b36c63479998b1321ecdfed89c1da25b9dd2f3ce5cdbd800f328448`
+
+### Front matter (staging)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.SCREENSHOT.STATUS` |
+| `lane` | `deterministic` |
+| `title` | Visual catalog screenshot status |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `generated_at` | `2026-05-29T18:45:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `related_rules` | `DET.CONTRACT.PATH`, `DET.CATALOG.CONTRACT_SPECIFICITY`, `DET.HASH.MARKERS`, `DET.HASH.REGISTRY_ROW`, `DET.INVENTORY.CROSSWALK`, `AI.CONTRACT.IMPLEMENTATION_USEFULNESS` |
+
+### Body (aligned with `det-screenshot-status.check.js`)
+
+- **Purpose** — Repo-wide metrics rule: `screenshot_status` in `visual-registry.generated.json` must match `docs/design/catalog/screenshots/{HASH}.png`, with documentation for deferred rows. PDCA workflow included.
+- **Passing / failing signals** — `captured-missing-png`, `captured-missing-url`, `undocumented-status`, `unknown-status`; 12-finding cap; independence from `DET.HASH.MARKERS` / `DET.CONTRACT.PATH`.
+- **Before / after HTML** — **Hbk** handbook layout from `showcase/preview-handbook.html` with real KS classes: `container-fluid`, `forge-sidebar`, `nav-scroll`, `nav-rail`, `nav-link`, `forge-brand`, `section-label`, `font-display`, `forge-card`, `card-label`, `forge-support`, `ks-site-footer-region`, plus **Ksr** / **Ksf** chrome hashes.
+- **Evidence and remediation** — `screenshotStatusReport`, capture via `capture-showcase-screenshots.mjs`, `check-visual-catalog.mjs`, harness `invoke-det-ruleset-harness.sh --only-rule DET.SCREENSHOT.STATUS`.
+- **Related rules** — Six linked catalog/hash/contract rules.
+
+No Mermaid, no Fleet-specific content. Check modules and registry were not edited.

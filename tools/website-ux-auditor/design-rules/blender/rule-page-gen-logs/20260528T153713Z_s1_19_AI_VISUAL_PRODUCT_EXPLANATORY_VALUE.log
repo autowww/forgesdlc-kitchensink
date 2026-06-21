@@ -1,0 +1,54 @@
+## Report: `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` handbook page
+
+Wrote and refined the PDCA rule page at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-visual-product-explanatory-value.md`
+
+The Cursor workspace root is the **blender** folder, so writes to the repo-root path were blocked by the sandbox. A publish helper was added: `_write-ai-visual-product-explanatory-value.mjs` (same pattern as `_write-ai-visual-hierarchy.mjs`).
+
+**To land the file at the required target**, run from the kitchensink repo:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-ai-visual-product-explanatory-value.mjs
+```
+
+That copies into `docs/design/ux-audit/rule-pages/ai-visual-product-explanatory-value.md`.
+
+### `page_version` (confirmed)
+
+`4db822e03feca4d2b56b94410012a653e3ca08a7ad5e72cae9d02d813b382d39` — matches the required value and `rule-pages.manifest.json`.
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` |
+| `lane` | `ai` |
+| `generated_at` | `2026-05-28T17:02:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-product-explanatory-value` |
+| `related_rules` | 8 DET/AI companions (diagram alt/labels/registry, chart alt, semantic accuracy, data legibility, premium feel, visual hierarchy) |
+
+### Body (schema-compliant)
+
+All required `##` sections: Purpose (PDCA), Passing signals, Failing signals, Before/After (`html` fences), Evidence and remediation, Related rules.
+
+**Source anchor:** *“Do visuals explain product structure or user benefit—not generic decoration?”* — signals: diagrams tied to claims; captions earn their space.
+
+**AI prompt:** `design-rules/ai/prompts/ai-visual-product-explanatory-value.md` (PDCA framing for detection → caption/contracts → screenshot signs → `DET.*` candidates).
+
+### Refinements vs prior draft
+
+- Added `related_rules` in front matter.
+- Replaced non-existent `generic-cloud.svg` with real `assets/svg/template-kpi-card.svg`.
+- Diagram expand uses catalog key **`gate`** (`openDiagramWithDetail(this, 'gate')`) per `_diagram_gallery.py`.
+- Related rule id updated to **`AI.VISUAL.HIERARCHY`** (manifest id; replaces `AI.VISUAL.HIERARCHY_CONFIDENCE`).
+
+### Real KS patterns in examples
+
+Verified against `components/components.py`, `components/transforms.py`, `components/layouts.py`, and `css/forge-theme.css`:
+
+`landing-hero`, `fs-landing-hero-band`, `landing-forge-visual`, `product-landing-title`, `landing-hero-clarification`, `forge-section`, `section-label`, `forge-card`, `card-amber`, `card-label`, `breathe-link`, `forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, `forge-diagram-trigger`, plus assets `bg-fourier-forge-spectral-animated-01.svg` and `template-gate-chain.svg`.
+
+No Mermaid, no Fleet-specific profiles. Check modules, registry, and manifest were not edited (per instructions).

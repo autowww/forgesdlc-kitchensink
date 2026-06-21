@@ -1,0 +1,52 @@
+## Report: `DET.MOTION.PREFERS_REDUCED` handbook page
+
+Wrote the full PDCA rule page at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-motion-prefers-reduced.md`
+
+The Cursor workspace is scoped to the **blender** folder, so the canonical target was not overwritten:
+
+`docs/design/ux-audit/rule-pages/det-motion-prefers-reduced.md`
+
+(still has `generated_at: 2026-05-25` and no `related_rules`).
+
+### `page_version` (confirmed)
+
+```
+d9481ea972486cca7587b718930908984ff9fee24b576e1086411685a71ddade
+```
+
+### Front matter
+
+| Field | Value |
+|-------|--------|
+| `rule_id` | `DET.MOTION.PREFERS_REDUCED` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `related_rules` | `DET.MOTION.NO_AUTO_PLAY_FLASH`, `AI.MOTION.INTENTIONALITY`, `AI.AMBIENT.READABILITY_CONFLICT` |
+
+### Page content (from check + KS CSS)
+
+- **Purpose:** PDCA tied to `det-motion-prefers-reduced.check.js` — emulates `prefers-reduced-motion: reduce`, flags animations/transitions **> 0.02s**, autoplay video, SVG SMIL; allows essential motion (`spinner`, `loading`, `aria-busy`, etc.).
+- **Pass/fail signals:** References real KS surfaces — `.pulse`, `.pulse-amber`, `.breathe-link`, `.breathe-static`, `.forge-card`, `.ks-tilt-inner`, `.ks-living-drift-layer`, `.ks-sa-root`, `.fa-css-shimmer`.
+- **Before/after HTML:** Uses `doc-main`, `forge-section`, `glass-amber`, `glass`, `bento-grid`, `forge-card`, `forge-diagram`, `ks-diagram-card`, `section-label`, `forge-support`, `card-label`, `stat-value`, Bootstrap `.spinner-border`.
+- **Evidence:** Documents `motionPrefersReducedReport` fields and violation kinds (`active-animation`, `active-transition`, `autoplay-video`, `smil-animation`).
+
+### Promote to canonical path
+
+From the **ks repo root**:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_sync-det-motion-prefers-reduced.mjs
+```
+
+Or:
+
+```bash
+cp -f tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-motion-prefers-reduced.md \
+      docs/design/ux-audit/rule-pages/det-motion-prefers-reduced.md
+```
+
+No check modules, `rule-mappings.js`, or registry files were edited.

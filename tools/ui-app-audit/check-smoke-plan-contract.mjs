@@ -8,6 +8,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import {
+  PRIMARY_ROUTE_SCENARIO_IDS,
+  scenarioIdFromContractRow,
+} from './lib/contract-smoke-sync.mjs';
 import { loadSmokePlan } from './lib/smoke-plan.mjs';
 import { parseAutomationContractTable } from './lib/parse-contract-md.mjs';
 
@@ -20,44 +24,6 @@ function parseArgs(argv) {
     else if (a === '--contract-md' && argv[i + 1]) opts.contractMd = path.resolve(argv[++i]);
   }
   return opts;
-}
-
-const PRIMARY_ROUTE_SCENARIO_IDS = [
-  'route-dashboard',
-  'route-attention',
-  'route-check',
-  'route-registry',
-  'route-run-hub',
-  'route-insights',
-  'route-test-plans',
-  'route-triage',
-  'route-remediation',
-  'route-monitoring',
-  'route-reports',
-  'route-settings',
-  'route-about',
-];
-
-/** Map contract table test ids to smoke-plan scenarioId conventions. */
-function scenarioIdFromContractRow(row) {
-  if (row.scenarioId) return row.scenarioId;
-  const tid = row.testId || '';
-  if (tid.includes('test_primary_routes')) return null;
-  if (tid.includes('test_studio_home_loads')) return 'home-shell';
-  if (tid.includes('test_studio_registry_partial')) return 'registry-overview';
-  if (tid.includes('test_demo_run_hub')) return 'demo-run-hub';
-  if (tid.includes('test_assistant_route_shows')) return 'assistant-route-mount';
-  if (tid.includes('test_demo_insights_does_not_fetch')) return 'demo-insights-no-fetch';
-  if (tid.includes('test_demo_insights_workspace_populated') || tid.includes('test_demo_insights_workspace')) {
-    return 'demo-insights-populated';
-  }
-  if (tid.includes('test_demo_triage_does_not_fetch')) return 'demo-triage-no-fetch';
-  if (tid.includes('test_demo_triage_workspace_populated') || tid.includes('test_demo_triage_workspace')) {
-    return 'demo-triage-populated';
-  }
-  if (tid.includes('integration_real_run')) return null;
-  if (tid.includes('e2e_audit_assistant')) return null;
-  return null;
 }
 
 async function main() {

@@ -1,0 +1,48 @@
+## Report: `DET.LAYOUT.GRID_CONSISTENCY` handbook page
+
+Wrote/replaced the rule page per `RULE_PAGE_SCHEMA.md` and aligned it with `det-layout-grid-consistency.check.js` and KS layout patterns (`doc-main`, `forge-section`, `ks-section`, `section-label`, `forge-support`, `mx-auto doc-content`, **Ksr**, `.ks-doc-toc-flow` / `.ks-doc-toc-prose`).
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: e043020eebc75330527c09d512696bc164c9453c73a9af4848ded50f7dfc9d9a
+```
+
+Matches the required hash exactly.
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.LAYOUT.GRID_CONSISTENCY` |
+| `lane` | `deterministic` |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `related_rules` | `DET.VISUAL.RHYTHM`, `DET.CHROME.BOUNDARY`, `DET.PROSE.LENGTH`, `DET.SECTION.HEADING`, `DET.NAV.IN_PAGE_TOC`, `AI.VISUAL.RHYTHM_SUBJECTIVE` |
+
+### Body (PDCA + four violation kinds)
+
+- **Purpose** — Plan/Do/Check/Adjust tied to `layoutGridConsistencyReport` and check thresholds (32 words, 88%/82% bleed, 920 px measure, 56 px gutter drift, 64 px handbook gap @ 992 px).
+- **Passing / failing signals** — All four `kind` values from the check: `full-bleed-prose`, `gutter-drift`, `excessive-measure`, `handbook-dead-gutter`.
+- **Before** — `main.doc-main` + `forge-section ks-section` with bare `p.forge-support` (no `.doc-content`) and `margin-left:72px` on sibling (matches harness fixture).
+- **After** — Same section wrapped in `mx-auto doc-content` with `max-width:56rem`; notes **Ksr** / `doc-content w-100` + `.ks-doc-toc-prose` pattern.
+- **Evidence and remediation** — Report fields, finding evidence strings, five-step fix order including `content_max_width=None` in `layouts.py`.
+- **Related rules** — Six linked DET/AI rules (including new `DET.NAV.IN_PAGE_TOC`).
+
+### Path note
+
+The Cursor workspace root is `tools/website-ux-auditor/design-rules/blender`, so the updated file was written here:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-layout-grid-consistency.md`
+
+Edits to the canonical Kitchen Sink path were blocked by the sandbox. Copy it into place:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-layout-grid-consistency.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-layout-grid-consistency.md
+```
+
+Then remove the stray duplicate under `blender/docs/` if you do not want it tracked.
+
+No changes were made to check modules, `rule-mappings.js`, or `registry.generated.json`.

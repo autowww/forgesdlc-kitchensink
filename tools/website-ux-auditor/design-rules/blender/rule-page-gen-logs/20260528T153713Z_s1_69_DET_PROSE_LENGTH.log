@@ -1,0 +1,61 @@
+## Report: `DET.PROSE.LENGTH` handbook page
+
+The target file already exists and is largely complete. Tool writes to this path were blocked in this session, so the page on disk may still be the pre-batch version. Below is what the page should contain and what still differs from the orchestrator spec.
+
+### File written (intended)
+
+**Path:** `docs/design/ux-audit/rule-pages/det-prose-length.md`
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.PROSE.LENGTH` |
+| `lane` | `deterministic` |
+| `title` | Prose length and list caps |
+| `page_version` | **`991cd6cb3ca576ebdc351c78ef7a8e413335c6ca82b3f1617f3f4f8ea8f164f8`** (matches required hash) |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-prose-length` |
+| `generated_at` | Should be **2026-05-29** UTC (on disk: `2026-05-25T18:30:00.000Z`) |
+| `related_rules` | **Missing in front matter** on disk; should mirror the Related rules section |
+
+### Rule content (from check + registry)
+
+- **Phase:** metrics (`det-prose-length.check.js`)
+- **Limits:** 85 words/paragraph, 3 bullets/card, 12 items/main prose list
+- **Skips:** platform handbook inner pages; nav/TOC/sidebar lists
+- **Severity:** minor default; major for 4+ long paragraphs or worst &gt;120 words; card-list always major
+
+### Before / after examples (real KS classes)
+
+Both blocks use patterns from `components/components.py`, `presentation.py`, and handbook shells:
+
+- `main.doc-main`, `forge-section`, `ks-section`, `section-label`, `font-display`
+- `forge-support`, `forge-card breathe-static`, `card-label`, `btn-forge-outline`
+- `row` / `col-md-4`, hash governance (`hash`, `data-ks-hash`, `data-ks-type`, `data-ks-name`)
+- **Before:** one dense `p`, 5 card `li`, 14-step `ol` → `long-paragraph`, `card-list`, `prose-list`
+- **After:** two short `p`, 3 card `li` + CTA, 2-item link list inside `.doc-content`
+
+### Gap vs schema (apply locally if writes failed)
+
+Add to front matter:
+
+```yaml
+related_rules:
+  - DET.LAYOUT.GRID_CONSISTENCY
+  - DET.SECTION.HEADING
+  - DET.SECTION.SINGLE_JOB
+  - DET.CONTEXT.BURDEN
+  - DET.HTML.EMPTY_INLINE
+  - AI.CONTEXT.COGNITIVE_CLARITY
+  - AI.NARRATIVE.COHERENCE
+  - AI.TRUST.BOUNDARY_CLARITY
+```
+
+Bump `generated_at` to current UTC.
+
+### `page_version` confirmation
+
+**Required:** `991cd6cb3ca576ebdc351c78ef7a8e413335c6ca82b3f1617f3f4f8ea8f164f8`  
+**On disk (last read):** same value — correct for manifest sync.
+
+If you want this applied in-repo, say so and I can retry the edit (or paste the full file in one shot).

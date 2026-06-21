@@ -1,0 +1,57 @@
+## Report: `det-hash-registry-row.md`
+
+I read the source rule, check module, registry metadata, `RULE_PAGE_SCHEMA.md`, `visual-registry.yaml`, and `showcase/preview-handbook.html`. The handbook page at `docs/design/ux-audit/rule-pages/det-hash-registry-row.md` **already exists** and matches the schema; disk writes from this session were blocked (workspace is `tools/website-ux-auditor/design-rules/blender`), so apply the small deltas below locally if you want the batch-fresh front matter.
+
+### Confirmed `page_version`
+
+```yaml
+page_version: ed4e906c06266fbf3e0b79b20fa2c5994a1eb5a5855215fda05a5edb6607ecad
+```
+
+Matches `rule-pages.manifest.json` and your required hash exactly.
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | PDCA: registry crosswalk in metrics phase; separates `DET.HASH.MARKERS` (pairing) from registry membership and `DET.CONTRACT.PATH` |
+| **Passing / Failing** | Issue kinds from `det-hash-registry-row.check.js`: `unknown-hash`, `type-mismatch`, `deprecated`, `registry-missing`, `registry-duplicate`; 12-finding cap |
+| **Before** | **Hbk** OK; **Ksr** with wrong `data-ks-type="component"`; unregistered **Zzz** hero |
+| **After** | **Hbk** / **Ksr** / **Ksf** aligned with registry (`layout`, `chrome-region`) |
+| **Evidence** | `hashRegistryRowReport`, selectors, remediation via `allocate-visual-hash.mjs`, catalog check, re-audit |
+| **Related rules** | Six cross-links in body |
+
+### Real KS patterns verified
+
+- **Hbk** — `type: layout`, `slug: layout-handbook` in `visual-registry.yaml`; emitted on `showcase/preview-handbook.html` as `container-fluid px-0` with paired markers.
+- **Ksr** — `type: chrome-region`, `aside.forge-sidebar`, contract `chrome/Ksr-doc-sidebar.md`.
+- **Ksf** — `type: chrome-region`, `class="ks-site-footer-region"` in showcase footer.
+- Classes used: `forge-sidebar`, `nav-scroll`, `nav-rail`, `nav-link`, `forge-brand`, `doc-content`, `forge-card`, `section-label`, `forge-support`, `landing-hero`, `forge-section`.
+
+### Recommended front-matter patch (not applied on disk)
+
+Add `related_rules` and refresh `generated_at`:
+
+```yaml
+generated_at: 2026-05-29T20:15:00.000Z
+related_rules:
+  - DET.HASH.MARKERS
+  - DET.CONTRACT.PATH
+  - DET.INVENTORY.CROSSWALK
+  - DET.CATALOG.CONTRACT_SPECIFICITY
+  - DET.PY.KS_HASH_ATTRS
+  - AI.CONTRACT.IMPLEMENTATION_USEFULNESS
+```
+
+Optional body tweaks:
+
+- Purpose: full check path `tools/website-ux-auditor/design-rules/deterministic/generated/det-hash-registry-row.check.js`
+- After example: `class="ks-site-footer-region"` only (matches `preview-handbook.html`); note alignment with that showcase file
+
+### Registry metadata used
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `registry_status`: `implemented`
+- `source_rule`: `docs/design/ux-audit/deterministic-design-rules.md#det-hash-registry-row`
+
+**Summary:** The rule page is complete and schema-compliant with the required `page_version`. Only front matter (`related_rules`, `generated_at`) and optional example polish remain if you want the batch refresh; I could not write those changes from this workspace root. Say if you want me to retry writes with a broader workspace path.

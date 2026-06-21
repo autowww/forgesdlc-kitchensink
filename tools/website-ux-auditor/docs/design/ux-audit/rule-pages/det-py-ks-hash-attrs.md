@@ -14,7 +14,7 @@ related_rules:
   - DET.HASH.REGISTRY_ROW
   - DET.INVENTORY.CROSSWALK
   - DET.CONTRACT.PATH
-  - DET.REACT.KS_ATTRS
+  - DET.APP.PRIMITIVE_MARKERS
   - AI.PY.HTML_AUTHORING_QUALITY
 ---
 
@@ -186,5 +186,5 @@ Module: `design-rules/deterministic/generated/det-py-ks-hash-attrs.check.js` (au
 - `DET.HASH.REGISTRY_ROW` — emitted hash must exist in `visual-registry.generated.json` with matching `data-ks-type`.
 - `DET.INVENTORY.CROSSWALK` — showcase-emitted hashes must be a subset of the registry; no stray token shapes.
 - `DET.CONTRACT.PATH` — registry row resolves to an on-disk design contract.
-- `DET.REACT.KS_ATTRS` — React primitives use `ksVisualAttrs` / `ksReactPrimitiveAttrs` instead of Python helpers.
+- `DET.APP.PRIMITIVE_MARKERS` — React primitives use `ksVisualAttrs` / `ksReactPrimitiveAttrs` instead of Python helpers.
 - `AI.PY.HTML_AUTHORING_QUALITY` — AI review of Python HTML modules; should cite helper usage for visual roots.

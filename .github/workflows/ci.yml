@@ -101,3 +101,19 @@ jobs:
           npm run generate-ai-fixer-registry
           npm run export-axe-catalog
           npm test
+
+  ui-app-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tools/ui-app-audit/package-lock.json
+      - name: npm ci (ui-app-audit)
+        working-directory: tools/ui-app-audit
+        run: npm ci --no-fund --no-audit
+      - name: Test ui-app-audit
+        working-directory: tools/ui-app-audit
+        run: npm test

@@ -1,0 +1,44 @@
+## Report: `AI.JS.BEHAVIOR_DISCOVERABILITY`
+
+Wrote the full PDCA handbook page in staging with the required schema, KS-specific before/after examples, and exact `page_version`. The canonical path under Kitchen Sink root could not be updated from this session (writes outside the blender workspace were blocked); run the one-line copy step below to publish.
+
+### Artifacts
+
+| Role | Path |
+|------|------|
+| **Complete page (authoritative)** | `tools/website-ux-auditor/design-rules/blender/.staging-ai-js-behavior-discoverability.md` |
+| **Blender mirror** | `tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-js-behavior-discoverability.md` |
+| **Copy helper** | `tools/website-ux-auditor/design-rules/blender/_copy-ai-js-behavior-discoverability-canonical.mjs` |
+| **Canonical target** | `docs/design/ux-audit/rule-pages/ai-js-behavior-discoverability.md` |
+
+**Publish to canonical:**
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node _copy-ai-js-behavior-discoverability-canonical.mjs
+```
+
+### `page_version` confirmation
+
+In **staging** (matches your required hash):
+
+`682e546ce56b8a85e9ce9add97e37dc5c05dc4e2fd4350af55b8fd119d17bbe6`
+
+Front matter also sets:
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `generated_at`: `2026-05-28T16:50:00.000Z`
+- `registry_status`: `generated`
+- `related_rules`: `DET.JS.PROGRESSIVE`, `DET.JS.NO_CONSOLE_ERROR`, `DET.MOTION.PREFERS_REDUCED`, `DET.NAV.FOCUS_ORDER`, `DET.APP.FOCUS_TRAP`, `AI.MOTION.INTENTIONALITY`
+
+### Page content summary
+
+Grounded in `ai-enabled-design-principles.md#ai-js-behavior-discoverability` and the AI prompt overlay. Covers **`Ksj`** interaction scripts (diagram modals, offcanvas nav, theme picker, charts).
+
+**Before (failing):** silent `<figure onclick="openDiagramWithDetail(...)">`, no mobile offcanvas opener, icon-only `forge-theme-trigger`.
+
+**After (passing):** `forge-support` helper line, `forge-diagram-trigger` / `ks-diagram-trigger` with ARIA, `btn btn-forge` offcanvas opener targeting `#docNavOffcanvas` (`Kco`), visible `forge-theme-trigger__copy`.
+
+**Real KS classes verified** in `css/forge-theme.css`, `css/docs-theme.css`, and `components/components.py`: `forge-section`, `forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, `forge-diagram-trigger`, `breathe-static`, `forge-support`, `btn-forge`, `offcanvas`, `forge-theme-trigger`, `forge-theme-trigger__copy`.
+
+No Mermaid, no Fleet-specific profiles. Check modules, registry, and manifest were not edited (orchestrator updates manifest after the batch).

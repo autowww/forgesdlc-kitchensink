@@ -3,10 +3,10 @@ rule_id: DET.SCREENSHOT.STATUS
 lane: deterministic
 title: Screenshot Status
 summary: Harness bootstrap handbook page for DET.SCREENSHOT.STATUS.
-page_version: c26222a9937dd2c39c4a8df01bf3d436948bd31675e0456d83a95e5aa31ef459
+page_version: 3df32ff59b36c63479998b1321ecdfed89c1da25b9dd2f3ce5cdbd800f328448
 generated_at: 2026-05-23T13:24:10Z
 agent_model: handbook-version-sync
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-screenshot-status
 related_rules: []

@@ -23,10 +23,24 @@ import { collectDomMetrics } from '../website-ux-auditor/lib/dom-metrics.js';
 import { importPlaywright } from '../website-ux-auditor/lib/playwright-import.js';
 import { isMajorPlus } from '../website-ux-auditor/lib/severity.js';
 import { buildAiAuditBatchManifest } from '../website-ux-auditor/lib/ai-audit-batches.js';
+import { shouldSkipAiAgent } from '../website-ux-auditor/lib/ai-audit-run.mjs';
 
 import { writeStudioRemediationPlan } from './lib/generate-studio-remediation-plan.mjs';
-import { loadSmokePlan, scenarioMatchesTiers, scenarioUrl } from './lib/smoke-plan.mjs';
+import { buildScenarioCoverage, filterScenariosByIds } from './lib/scenario-coverage.mjs';
+import {
+  loadSmokePlan,
+  normalizeScenarioSteps,
+  scenarioMatchesTiers,
+  scenarioStepUrl,
+  scenarioUrl,
+} from './lib/smoke-plan.mjs';
+import { inferAllRoutes } from './lib/vite-react-smoke-inference.mjs';
 import { resolveScenarioLanes } from './lib/scenario-lanes.mjs';
+import {
+  beginScenarioClientErrorCapture,
+  finalizeScenarioClientErrorReport,
+} from './lib/scenario-client-error-capture.mjs';
+import { pageHasReactPrimitiveRoots } from './lib/studio-dynamic-ux-ruleset.mjs';
 import { studioUxDetRuntimeOpts } from './lib/studio-ux-det-policy.mjs';
 import { evaluateStudioQualityGates } from './lib/studio-quality-gate.mjs';
 
@@ -47,6 +61,8 @@ function parseArgs(argv) {
     siteKind: 'a11y-studio',
     enableAiAudit: false,
     emitPlan: false,
+    emitCoverage: false,
+    scenarioIds: [],
   };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
@@ -66,12 +82,21 @@ function parseArgs(argv) {
     else if (a === '--no-ux') opts.ux = false;
     else if (a === '--enable-ai-audit') opts.enableAiAudit = true;
     else if (a === '--emit-plan') opts.emitPlan = true;
+    else if (a === '--emit-coverage') opts.emitCoverage = true;
+    else if (a === '--scenario-id' && argv[i + 1]) opts.scenarioIds.push(argv[++i]);
     else if (a === '-h' || a === '--help') {
       console.log(`Usage: node run-scenario-audit.mjs --site URL --smoke-plan PATH --out-dir DIR
   [--app-repo R] [--tiers smoke,demo] [--lanes axe,det,ux-det]
-  [--site-kind a11y-studio] [--rules-scope app] [--enable-ai-audit] [--emit-plan]`);
+  [--site-kind a11y-studio] [--rules-scope app] [--enable-ai-audit] [--emit-plan] [--emit-coverage]
+  [--scenario-id ID ...]`);
       process.exit(0);
     }
+  }
+  if (process.env.FORGE_STUDIO_ENABLE_AI_AUDIT === '1') {
+    opts.enableAiAudit = true;
+  }
+  if (process.env.FORGE_STUDIO_EMIT_COVERAGE === '1') {
+    opts.emitCoverage = true;
   }
   return opts;
 }
@@ -85,38 +110,53 @@ function safeSlug(s) {
 /**
  * @param {object} opts
  * @param {import('../website-a11y-auditor/lib/a11y-rule-runtime.js').A11yRuleRuntime | null} a11yRuntime
- * @param {Awaited<ReturnType<typeof createDesignRuleRuntime>> | null} uxRuntime
+ * @param {{ runtime: Awaited<ReturnType<typeof createDesignRuleRuntime>> | null, resolve?: (page: import('playwright').Page, scenario: object) => Promise<Awaited<ReturnType<typeof createDesignRuleRuntime>>> } | null} uxRuntimeHolder
  */
-async function runScenario(page, scenario, url, opts, a11yRuntime, uxRuntime, laneSet) {
+async function runScenario(page, scenario, url, opts, a11yRuntime, uxRuntimeHolder, laneSet) {
   /** @type {object[]} */
   const findings = [];
   let metrics = null;
   let error = null;
+  /** @type {ReturnType<typeof beginScenarioClientErrorCapture> | null} */
+  let errorCapture = null;
+  let stepsExecuted = 0;
+
+  const steps = normalizeScenarioSteps(scenario);
+  let currentStepId = steps[0]?.stepId || 'land';
 
   try {
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: opts.timeoutMs });
-    const readyList = [
-      ...(scenario.ready ? [scenario.ready] : []),
-      ...(scenario.ready_selectors || []),
-    ];
-    for (const sel of readyList) {
-      await page.waitForSelector(sel, { state: 'attached', timeout: 45_000 });
-    }
-    if (scenario.assert_text_contains) {
-      const body = await page.locator('body').innerText();
-      if (!body.includes(scenario.assert_text_contains)) {
-        findings.push({
-          checkId: 'scenario-assert',
-          severity: 'major',
-          area: 'smoke-plan',
-          message: `Expected text not found: ${scenario.assert_text_contains}`,
-          evidence: `scenarioId=${scenario.scenarioId}`,
-          remediation: 'Fix copy or update smoke-plan assert_text_contains.',
-        });
-      }
-    }
+    if (steps.length) errorCapture = beginScenarioClientErrorCapture(page);
 
-    for (const step of scenario.steps || []) {
+    for (const step of steps) {
+      currentStepId = step.stepId || 'land';
+      const siteBase = url.replace(/[#?].*$/, '').replace(/\/$/, '') || url;
+      const stepUrl = step.navigate ? scenarioStepUrl(scenario, siteBase, step) : url;
+      if (step.navigate) {
+        await page.goto(stepUrl, { waitUntil: 'domcontentloaded', timeout: opts.timeoutMs });
+      } else if (stepsExecuted === 0) {
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: opts.timeoutMs });
+      }
+      const readyList = [
+        ...(step.ready ? [step.ready] : []),
+        ...(step.ready_selectors || []),
+      ];
+      for (const sel of readyList) {
+        await page.waitForSelector(sel, { state: 'attached', timeout: 45_000 });
+      }
+      if (step.assert_text_contains) {
+        const body = await page.locator('body').innerText();
+        if (!body.includes(step.assert_text_contains)) {
+          findings.push({
+            checkId: 'scenario-assert',
+            severity: 'major',
+            area: 'smoke-plan',
+            message: `Expected text not found: ${step.assert_text_contains}`,
+            evidence: `scenarioId=${scenario.scenarioId} stepId=${currentStepId}`,
+            remediation: 'Fix copy or update smoke-plan assert_text_contains.',
+            stepId: currentStepId,
+          });
+        }
+      }
       if (step?.click) {
         await page.locator(step.click).first().click({ timeout: 15_000 });
       }
@@ -127,6 +167,7 @@ async function runScenario(page, scenario, url, opts, a11yRuntime, uxRuntime, la
       if (step?.press) {
         await page.keyboard.press(step.press);
       }
+      stepsExecuted += 1;
     }
 
     const ctx = {
@@ -149,18 +190,40 @@ async function runScenario(page, scenario, url, opts, a11yRuntime, uxRuntime, la
     if (opts.ux) {
       const raw = await collectDomMetrics(page, url);
       metrics = raw;
+      if (errorCapture) {
+        const scenarioClientErrorReport = finalizeScenarioClientErrorReport(
+          errorCapture.finish({ scenarioId: scenario.scenarioId, stepsExecuted }),
+          { scenarioId: scenario.scenarioId, stepsExecuted },
+        );
+        metrics.scenarioClientErrorReport = scenarioClientErrorReport;
+        metrics.scenario = {
+          id: scenario.scenarioId,
+          tier: scenario.tier || 'smoke',
+          stepsExecuted,
+        };
+      }
       const { findings: uxFindings } = runAllChecksWithTrace(raw, url, ctx);
-      findings.push(...uxFindings);
+      for (const f of uxFindings) {
+        findings.push({ ...f, stepId: f.stepId || currentStepId });
+      }
+
+      let uxRuntime = uxRuntimeHolder?.runtime ?? null;
+      if (laneSet.has('ux-det') && uxRuntimeHolder && !uxRuntime && uxRuntimeHolder.resolve) {
+        uxRuntime = await uxRuntimeHolder.resolve(page, scenario);
+        uxRuntimeHolder.runtime = uxRuntime;
+      }
 
       if (laneSet.has('ux-det') && uxRuntime) {
         const { findings: uxDet } = await uxRuntime.runDeterministicRulesWithTrace({
-          metrics: raw,
+          metrics,
           url,
           page,
           repoRoot: opts.appRepo || process.cwd(),
           ctx,
         });
-        findings.push(...uxDet);
+        for (const f of uxDet) {
+          findings.push({ ...f, stepId: f.stepId || currentStepId });
+        }
       }
     } else {
       metrics = await collectA11yDomMetrics(page, url);
@@ -190,7 +253,16 @@ async function runScenario(page, scenario, url, opts, a11yRuntime, uxRuntime, la
       message: 'Scenario failed to load or assert.',
       evidence: `${url} ${error}`,
       remediation: 'Fix routing, selectors in smoke-plan, or server health.',
+      stepId: currentStepId,
     });
+  } finally {
+    if (errorCapture && !metrics?.scenarioClientErrorReport) {
+      try {
+        errorCapture.finish({ scenarioId: scenario.scenarioId, stepsExecuted });
+      } catch {
+        /* listener cleanup best-effort */
+      }
+    }
   }
 
   return { findings, metrics, error };
@@ -205,7 +277,10 @@ async function main() {
 
   const plan = await loadSmokePlan(opts.smokePlan);
   const siteBase = (plan.baseUrl || opts.site).replace(/\/$/, '');
-  const scenarios = plan.scenarios.filter((s) => scenarioMatchesTiers(opts.tiers, s));
+  let scenarios = plan.scenarios.filter((s) => scenarioMatchesTiers(opts.tiers, s));
+  if (opts.scenarioIds.length) {
+    scenarios = filterScenariosByIds(scenarios, opts.scenarioIds);
+  }
 
   await fs.mkdir(opts.outDir, { recursive: true });
   const screenshotsDir = path.join(opts.outDir, 'screenshots');
@@ -249,15 +324,23 @@ async function main() {
         `[scenario-audit] ${i + 1}/${scenarios.length} ${scenario.scenarioId} lanes=${[...laneSet].join(',')}`,
       );
 
-      let uxRuntime = null;
-      if (laneSet.has('ux-det') && opts.ux && uxRegistry) {
-        const includePrimitives = scenario.include_primitives === true;
-        const uxDetOpts = await studioUxDetRuntimeOpts(opts.siteKind, {
-          registry: uxRegistry,
-          includePrimitives,
-        });
-        uxRuntime = await createDesignRuleRuntime(uxDetOpts);
-      }
+      const uxRuntimeHolder =
+        laneSet.has('ux-det') && opts.ux && uxRegistry
+          ? {
+              runtime: null,
+              async resolve(scenarioPage, scen) {
+                let includePrimitives = scen.include_primitives === true;
+                if (scen.include_primitives !== false && !includePrimitives) {
+                  includePrimitives = await pageHasReactPrimitiveRoots(scenarioPage);
+                }
+                const uxDetOpts = await studioUxDetRuntimeOpts(opts.siteKind, {
+                  registry: uxRegistry,
+                  includePrimitives,
+                });
+                return createDesignRuleRuntime(uxDetOpts);
+              },
+            }
+          : null;
 
       const result = await runScenario(
         page,
@@ -265,7 +348,7 @@ async function main() {
         url,
         opts,
         a11yRuntime,
-        uxRuntime,
+        uxRuntimeHolder,
         laneSet,
       );
       for (const f of result.findings) {
@@ -317,7 +400,7 @@ async function main() {
   const gates = await evaluateStudioQualityGates(allFindings, { waiversPath });
   const { mode: gateMode, pass: gatePass, qualityGate, uxQualityGate } = gates;
 
-  const auditData = {
+  let auditData = {
     schemaVersion: 2,
     auditMode: 'scenario-smoke',
     auditRunId: `scenario-${Date.now()}`,
@@ -351,7 +434,10 @@ async function main() {
   };
 
   if (opts.enableAiAudit) {
-    const skipAi = process.env.FORGE_STUDIO_SKIP_AI_AGENT === '1';
+    const skipAi = shouldSkipAiAgent();
+    const executeAi =
+      process.env.FORGE_STUDIO_EXECUTE_AI_AUDIT === '1' ||
+      process.env.FORGE_UX_ENABLE_AI_AUDIT === '1';
     if (skipAi) {
       auditData.aiAudit = {
         status: 'skipped',
@@ -372,10 +458,42 @@ async function main() {
           'utf8',
         );
         auditData.aiAudit = {
-          status: 'manifest_ready',
+          status: executeAi ? 'execute_pending' : 'manifest_ready',
           batchCount: manifest.batches?.length ?? 0,
           manifestPath: path.join(aiDir, 'manifest.json'),
         };
+        if (executeAi) {
+          const { spawnSync } = await import('node:child_process');
+          const runner = path.resolve(
+            path.dirname(fileURLToPath(import.meta.url)),
+            '../website-ux-auditor/run-website-ux-ai-audit.mjs',
+          );
+          const auditPath = path.join(opts.outDir, 'audit-data.json');
+          await fs.writeFile(auditPath, `${JSON.stringify(auditData, null, 2)}\n`, 'utf8');
+          const runArgs = [
+            runner,
+            '--audit-data',
+            auditPath,
+            '--repo',
+            repoRoot,
+            '--site',
+            opts.site,
+            '--out-dir',
+            opts.outDir,
+            '--execute',
+          ];
+          if (process.env.FORGE_UX_AI_MERGE_INTO_SCORE === '1') runArgs.push('--merge-score');
+          const proc = spawnSync(process.execPath, runArgs, {
+            stdio: 'inherit',
+            env: { ...process.env, FORGE_STUDIO_ENABLE_AI_AUDIT: '1' },
+          });
+          auditData = JSON.parse(await fs.readFile(auditPath, 'utf8'));
+          auditData.aiAudit = {
+            ...(auditData.aiAudit || {}),
+            status: proc.status === 0 ? 'executed' : 'execute_failed',
+            exitCode: proc.status ?? 1,
+          };
+        }
       } catch (e) {
         auditData.aiAudit = {
           status: 'error',
@@ -392,6 +510,25 @@ async function main() {
     const planPath = path.join(opts.outDir, 'forge-studio-remediation.plan.md');
     await writeStudioRemediationPlan(auditData, planPath);
     console.error(`run-scenario-audit: wrote ${planPath}`);
+  }
+
+  if (opts.emitCoverage || process.env.FORGE_STUDIO_EMIT_COVERAGE === '1') {
+    let inferredRoutes = [];
+    if (opts.appRepo) {
+      const inferred = await inferAllRoutes({
+        appRoot: opts.appRepo,
+        existingScenarios: plan.scenarios,
+      });
+      inferredRoutes = inferred.all;
+    }
+    const coverage = buildScenarioCoverage({
+      plan,
+      auditData,
+      inferredRoutes,
+    });
+    const covPath = path.join(opts.outDir, 'scenario-coverage.json');
+    await fs.writeFile(covPath, `${JSON.stringify(coverage, null, 2)}\n`, 'utf8');
+    console.error(`run-scenario-audit: wrote ${covPath}`);
   }
 
   console.error(

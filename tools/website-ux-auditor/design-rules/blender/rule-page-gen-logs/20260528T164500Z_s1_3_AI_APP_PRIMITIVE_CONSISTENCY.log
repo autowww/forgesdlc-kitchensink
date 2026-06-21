@@ -1,0 +1,31 @@
+# AI.APP.PRIMITIVE_CONSISTENCY rule page batch
+
+## page_version (confirmed in staging)
+
+b27d8893c6d342e2190111978808e92912c5d1936a36e5d4ac8753189e641887
+
+## Staging (complete)
+
+tools/website-ux-auditor/design-rules/blender/.staging-ai-app-primitive-consistency.md
+
+## Promote to canonical
+
+node tools/website-ux-auditor/design-rules/blender/_write-ai-app-primitive-consistency.mjs
+
+Or:
+
+cp tools/website-ux-auditor/design-rules/blender/.staging-ai-app-primitive-consistency.md \
+  docs/design/ux-audit/rule-pages/ai-app-primitive-consistency.md
+
+## Front matter updates vs prior page
+
+- registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+- generated_at: 2026-05-28T16:45:00.000Z
+- related_rules: added DET.APP.PRIMITIVE_SOURCE, DET.APP.PRIMITIVE_STYLES
+- Purpose + Related rules: cross-link new DET.* gates
+
+## KS class verification
+
+Before/after examples use classes from css/forge-react-primitives.css:
+forge-card, ks-fe-run-header*, ks-fe-banner*, ks-fe-badge*, ks-fe-stagebar*,
+ks-fe-actionbar*, btn btn-sm; hashes Frh, Fsb, Fwb, Fda per FAM-react-primitives.md

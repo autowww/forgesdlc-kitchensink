@@ -1,0 +1,43 @@
+## Report: `DET.DIAGRAM.ALT` handbook page
+
+Wrote the full PDCA rule page to the blender staging path (canonical KS path was not writable from this session):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-diagram-alt.md`
+
+**Sync to the target file** (orchestrator / you):
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender && node _write-det-diagram-alt.mjs
+```
+
+That copies staging → `docs/design/ux-audit/rule-pages/det-diagram-alt.md`. `_write-det-diagram-alt.mjs` was updated to read from the blender staging path and expect `page_version` `12d4a2e16a8c8ecdb3d36c2b5e52387424279bc1bc966948d369d91e703331e2`.
+
+### `page_version` confirmation
+
+**`page_version: 12d4a2e16a8c8ecdb3d36c2b5e52387424279bc1bc966948d369d91e703331e2`** — set exactly in front matter.
+
+### Front matter (staging)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.DIAGRAM.ALT` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `generated_at` | `2026-05-29T14:22:00.000Z` |
+| `related_rules` | `DET.DIAGRAM.LABELS`, `DET.DIAGRAM.ASSET_REGISTRY`, `DET.CHART.ALT_SUMMARY`, `AI.DIAGRAM.SEMANTIC_ACCURACY`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` |
+
+### Content grounded in check + KS sources
+
+- **Source rule:** decorative vs informative classification must match `role` / `aria-hidden` (`deterministic-design-rules.md#det-diagram-alt`).
+- **Check:** `det-diagram-alt.check.js` — four violation kinds, `MIN_DIAGRAM_ALT_CHARS = 3`, selectors `.forge-diagram`, `.ks-diagram-tile`, `[data-diagram-key]`, `figure.forge-diagram-ascii`, chart/ambient exclusions.
+- **Generator:** `ks_diagram_tile_html` (`role="figure"` + `alt` vs `role="presentation"` + `alt=""` + `aria-hidden`), `ascii_diagram_figure_html` (`figure.forge-diagram-ascii`, `figcaption.forge-diagram-ascii-caption`).
+
+### Before / after examples (real KS classes)
+
+- **Before:** four failures in one `ks-section` — `forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, `forge-diagram-trigger`, `ks-diagram-trigger`, template SVG paths, hash attrs.
+- **After:** passing tile matches generator output; decorative tile uses `role="presentation"`; ASCII block uses `figure.forge-diagram-ascii`, `forge-diagram-ascii-canvas`, `forge-code`, `forge-diagram-ascii-pre`.
+
+### Canonical file status
+
+On disk, `docs/design/ux-audit/rule-pages/det-diagram-alt.md` still has the older front matter (`generated_at: 2026-05-19`, no `related_rules`) until you run the copy script above. Body content is largely aligned; staging adds `related_rules`, refreshed timestamp, `ks-diagram-trigger` in prose, and the corrected ASCII `figure` example.

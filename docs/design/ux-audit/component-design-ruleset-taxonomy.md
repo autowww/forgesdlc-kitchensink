@@ -26,7 +26,7 @@ This document is the **canonical per-level ruleset** for Kitchen Sink UX governa
 | **Purpose** | Provide reusable page scaffolding: columns, sticky regions, content gutters, responsive breakpoints. |
 | **Expected visual role** | Stable grid, predictable section widths, chrome/content separation; layouts feel “designed” not improvised. |
 | **Deterministic checks** | `DET.LAYOUT.GRID_CONSISTENCY`, `DET.CHROME.BOUNDARY`, `DET.VISUAL.RHYTHM`, `DET.HASH.MARKERS`, `DET.CONTRACT.PATH` |
-| **AI-enabled principles** | `AI.VISUAL.HIERARCHY`, `AI.VISUAL.RHYTHM_SUBJECTIVE`, `AI.PREMIUM.ENTERPRISE_FEEL` |
+| **AI-enabled principles** | `AI.VISUAL.HIERARCHY`, `AI.VISUAL.RHYTHM_SUBJECTIVE`, `AI.PREMIUM.ENTERPRISE_FEEL`, `AI.RESPONSIVE.CROSS_DEVICE_COMPREHENSION`, `AI.BRAND.GENERICITY_AND_DIFFERENTIATION` |
 | **Forbidden patterns** | Accidental full-bleed prose; unequal sibling columns without intent; sticky chrome overlapping focus outlines. |
 | **Contract fields required** | `grid_tokens`, `chrome_slots`, `breakpoints`, `section_spacing_token`, `nested_layout_rules`, `layout_preview_hash` |
 
@@ -91,7 +91,7 @@ This document is the **canonical per-level ruleset** for Kitchen Sink UX governa
 | **Purpose** | Drive explicit next actions without forcing premature commitment. |
 | **Expected visual role** | One visually dominant primary per region; secondary/destructive subdued; alignment follows grid. |
 | **Deterministic checks** | `DET.CTA.HIERARCHY`, `DET.CTA.LABEL_NONEMPTY`, `DET.BUTTON.GROUP.MAX`, `DET.CONTRACT.PATH` (when CTA policy is contract-bound) |
-| **AI-enabled principles** | `AI.VISUAL.HIERARCHY`, `AI.CREDIBILITY.NO_OVERCLAIM`, `AI.TRUST.BOUNDARY_CLARITY` |
+| **AI-enabled principles** | `AI.VISUAL.HIERARCHY`, `AI.CREDIBILITY.NO_OVERCLAIM`, `AI.TRUST.BOUNDARY_CLARITY`, `AI.INFORMATION_SCENT.NEXT_STEP`, `AI.ONBOARDING.PROGRESSIVE_DISCLOSURE` |
 | **Forbidden patterns** | Duplicated primaries; “Learn more”-only clusters; aggressive dark patterns; misleading verb labels. |
 | **Contract fields required** | `primary_cta`, `secondary_cta`, `destructive_allowed`, `alignment`, `loading_state`, `hash` |
 
@@ -104,7 +104,7 @@ This document is the **canonical per-level ruleset** for Kitchen Sink UX governa
 | **Purpose** | Present quantitative information legibly: tables, sparklines, chart widgets. |
 | **Expected visual role** | Headers explain units; trends annotated; empty/zero states honest; interactions reversible. |
 | **Deterministic checks** | `DET.DATA.TABLE_HEADERS`, `DET.CHART.ALT_SUMMARY`, `DET.DATA.COLOR_ONLY`, `DET.JS.NO_CONSOLE_ERROR` (interactive charts) |
-| **AI-enabled principles** | `AI.DATA.INSIGHT_LEGIBILITY`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`, `AI.CREDIBILITY.NO_OVERCLAIM` |
+| **AI-enabled principles** | `AI.DATA.INSIGHT_LEGIBILITY`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`, `AI.CREDIBILITY.NO_OVERCLAIM`, `AI.TRUST.DATA_FRESHNESS_PROVENANCE`, `AI.DASHBOARD.ACTIONABILITY_PRIORITY` |
 | **Forbidden patterns** | Chartjunk hiding signal; missing axis labels; tables scanned as images without text alternative policy. |
 | **Contract fields required** | `dataset_shape`, `caption_policy`, `empty_state`, `interaction_contract`, `color_palette_ref`, `hash` |
 
@@ -142,8 +142,8 @@ This document is the **canonical per-level ruleset** for Kitchen Sink UX governa
 |--------|------------|
 | **Purpose** | Studio/shell experiences with persistent chrome, panels, and keyboard-heavy workflows. |
 | **Expected visual role** | Density appropriate to operator tasks; clear panel boundaries; uninterrupted focus contexts. |
-| **Deterministic checks** | `DET.APP.FOCUS_TRAP`, `DET.APP.PERSISTENT_CHROME`, `DET.LANDMARKS.REQUIRED`, `DET.NAV.FOCUS_ORDER` |
-| **AI-enabled principles** | `AI.APP.DENSITY_BALANCE`, `AI.APP.WORKFLOW_CONTINUITY`, `AI.REACT.PRIMITIVE_CONSISTENCY` |
+| **Deterministic checks** | `DET.APP.FOCUS_TRAP`, `DET.APP.PERSISTENT_CHROME`, `DET.APP.PRIMITIVE_MARKERS`, `DET.APP.CONTROL_A11Y`, `DET.APP.DEMO_DISCLOSURE`, `DET.APP.PRIMARY_CTA`, `DET.APP.PRIMARY_STATE`, `DET.APP.TAB_PANEL`, `DET.APP.TILE_AFFORDANCE`, `DET.APP.PRIMITIVE_STYLES`, `DET.APP.SHELL_INTEGRATION`, `DET.LANDMARKS.REQUIRED`, `DET.NAV.FOCUS_ORDER` |
+| **AI-enabled principles** | `AI.APP.DENSITY_BALANCE`, `AI.APP.WORKFLOW_CONTINUITY`, `AI.APP.PRIMITIVE_CONSISTENCY`, `AI.APP.WORKFLOW_RISK_GUARDRAILS`, `AI.FORM.FRICTION_AND_RECOVERY`, `AI.EMPTY_STATE.USEFULNESS`, `AI.ERROR_COPY.REASSURANCE` |
 | **Forbidden patterns** | Modal stacks without trail; panels that resize unpredictably; silent destructive shortcuts. |
 | **Contract fields required** | `shell_regions`, `route_contract`, `density_level`, `shortcut_policy`, `density_a11y_exceptions`, `hash` |
 
@@ -155,8 +155,8 @@ This document is the **canonical per-level ruleset** for Kitchen Sink UX governa
 |--------|------------|
 | **Purpose** | Leaf interactive controls shipped from `react/` with KS visual identity. |
 | **Expected visual role** | Matches system spacing/typography tokens; states visibly distinct; accessible names exposed. |
-| **Deterministic checks** | `DET.REACT.KS_ATTRS`, `DET.REACT.A11Y_ROLE`, `DET.HASH.MARKERS`, `DET.THEME.CONTRAST_MIN` |
-| **AI-enabled principles** | `AI.REACT.PRIMITIVE_CONSISTENCY`, `AI.CONTRACT.IMPLEMENTATION_USEFULNESS`, `AI.PREMIUM.ENTERPRISE_FEEL` |
+| **Deterministic checks** | `DET.APP.PRIMITIVE_MARKERS`, `DET.APP.CONTROL_A11Y`, `DET.APP.PRIMITIVE_SOURCE`, `DET.HASH.MARKERS`, `DET.THEME.CONTRAST_MIN` (implementation detail of §11 app surfaces; no separate `DET.REACT.*` prefix) |
+| **AI-enabled principles** | `AI.APP.PRIMITIVE_CONSISTENCY`, `AI.CONTRACT.IMPLEMENTATION_USEFULNESS`, `AI.PREMIUM.ENTERPRISE_FEEL` |
 | **Forbidden patterns** | One-off CSS bypassing tokens; invisible disabled states; ambiguous icons. |
 | **Contract fields required** | `props_surface`, `states`, `size_scale`, `a11y_notes`, `story_urls`, `hash` |
 

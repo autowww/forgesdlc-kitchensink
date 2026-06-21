@@ -1,0 +1,58 @@
+Connection lost, reconnecting (attempt 1)...
+Retry attempt 1...
+## Report: `DET.PY.OPTIONAL_REGIONS` handbook page
+
+### Status
+
+The full PDCA handbook page is written and ready. Because this Cursor workspace is rooted at `tools/website-ux-auditor/design-rules/blender`, direct writes to `docs/design/ux-audit/rule-pages/` under the Kitchen Sink repo were blocked. The canonical content lives in the blender staging copy; promote it with one command (below).
+
+### `page_version` (confirmed)
+
+`855a50dba569006c705edcf7d346e6220f908e672ab7a26044839f3e45a69106`
+
+### What was written
+
+**Staging (complete, 223 lines):**  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-py-optional-regions.md`
+
+**Promote script:**  
+`tools/website-ux-auditor/design-rules/blender/_write-det-py-optional-regions.mjs`
+
+**Front matter**
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.PY.OPTIONAL_REGIONS` |
+| `lane` | `deterministic` |
+| `title` | Python optional regions |
+| `summary` | Optional slots must omit/collapse when empty—no ghost headings or empty shells |
+| `page_version` | `855a50dba569006c705edcf7d346e6220f908e672ab7a26044839f3e45a69106` |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-py-optional_regions` |
+| `related_rules` | `DET.PY.KS_HASH_ATTRS`, `DET.SECTION.HEADING`, `DET.SECTION.SINGLE_JOB`, `DET.HTML.EMPTY_INLINE`, `AI.PY.HTML_AUTHORING_QUALITY` |
+
+**Body (aligned with `det-py-optional-regions.check.js`)**
+
+- **Purpose** — PDCA for optional Python slots; `ghost-heading` vs `empty-visible-slot`; scanned selectors (`.fs-site-announcement`, `.fs-listing-shell__sidebar`, `.fs-mega-footer__*`, etc.).
+- **Passing / failing signals** — Guards in `layouts.py` and `enterprise_marketing.py`; thresholds `MIN_SLOT_BODY_CHARS=3`, `MIN_HEADING_CHARS=2`, `MIN_VISIBLE_SLOT_HEIGHT=8`.
+- **Before example** — Failing `fs-landing` with ghost `.fs-site-announcement`, `.fs-listing-shell__sidebar`, and empty mega-footer column.
+- **After example** — Passing page with announcement omitted, `fs-listing-shell--single`, populated footer links, plus a populated announcement snippet.
+- **Evidence and remediation** — `optionalRegionsReport`, harness commands, Python fix patterns.
+- **Related rules** — Cross-links as above.
+
+**KS classes used in examples:** `fs-landing`, `fs-site-announcement`, `landing-header`, `landing-hero`, `fs-listing-shell`, `fs-mega-footer`, `forge-card`, `btn-forge`, etc. (from `layouts.py` / `enterprise_marketing.py`).
+
+### Promote to canonical path
+
+Run from the Kitchen Sink repo:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-det-py-optional-regions.mjs
+```
+
+That copies staging → `docs/design/ux-audit/rule-pages/det-py-optional-regions.md` and verifies `page_version`.
+
+The canonical file at `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-py-optional-regions.md` still has the old bootstrap stub until that command runs. If you open the **Kitchen Sink repo root** as the workspace, I can promote it directly in a follow-up.

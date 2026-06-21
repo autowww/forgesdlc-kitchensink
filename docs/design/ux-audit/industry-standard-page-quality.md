@@ -8,7 +8,7 @@ This document ties **common industry expectations** for public web and product U
 |---------------------|-----------------|----------------|
 | Perceivable text/contrast for body UI | `DET.THEME.CONTRAST_MIN` | `AI.AMBIENT.READABILITY_CONFLICT` |
 | Meaningful non-color cues | `DET.DATA.COLOR_ONLY`, `DET.CHART.ALT_SUMMARY` | `AI.DATA.INSIGHT_LEGIBILITY` |
-| Keyboard operability | `DET.NAV.FOCUS_ORDER`, `DET.REACT.A11Y_ROLE`, `DET.APP.FOCUS_TRAP` | `AI.JS.BEHAVIOR_DISCOVERABILITY` |
+| Keyboard operability | `DET.NAV.FOCUS_ORDER`, `DET.APP.CONTROL_A11Y`, `DET.APP.FOCUS_TRAP` | `AI.JS.BEHAVIOR_DISCOVERABILITY` |
 | Reduced motion respect | `DET.MOTION.PREFERS_REDUCED` | `AI.MOTION.INTENTIONALITY` |
 | Landmark structure | `DET.LANDMARKS.REQUIRED`, `DET.SECTION.HEADING` | `AI.CONTEXT.COGNITIVE_CLARITY` |
 

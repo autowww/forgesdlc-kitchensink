@@ -15,7 +15,9 @@ Each finding MUST include the judgment metadata below (in addition to `url`, `se
   "candidateDeterministicRule": "...",
   "hashesOrContractsAffected": ["..."],
   "screenshotOrDomEvidence": "...",
-  "confidence": 0.0
+  "confidence": 0.0,
+  "recommendedFixScope": "copy",
+  "sourceFilesLikelyAffected": ["content/index.md"]
 }
 ```
 
@@ -27,22 +29,35 @@ Each finding MUST include the judgment metadata below (in addition to `url`, `se
 | `hashesOrContractsAffected` | Relevant `hash="XYZ"` / contract paths / registry ids. |
 | `screenshotOrDomEvidence` | What you saw (DOM snippet, screenshot path, or observable on-page signal). |
 | `confidence` | Model confidence in **this** finding, **0.0–1.0** (not severity). |
+| `recommendedFixScope` | Suggested change surface: `copy`, `layout`, `component`, `generator`, `contract`, `theme`, or `multi`. |
+| `sourceFilesLikelyAffected` | Repo-relative paths most likely to change (may mirror `sourceFiles`). |
 
-**Promotion bias:** Prefer turning repeatable issues into **`DET.*`** (or catalog) checks. Use `AI.RULE_DISCOVERY.CANDIDATE_DETERMINISTIC_RULE` when the finding is primarily about discovering or refining that promotion path.
+**Promotion bias:** Prefer turning repeatable issues into **`DET.*`** (or catalog) checks. Record promotion intent in `candidateDeterministicRule` on any finding; do not use a separate scored `principleId` for discovery-only vocabulary (see **Legacy and discovery-only ids**).
 
 ## Canonical AI review principles (required `principleId` set)
 
-These ids are the **primary** judgment lenses. Extended principles later in this doc are optional vocabulary; align new work to these seven where possible.
+These ids are the **primary** judgment lenses for AI batches. They match the **explicit-only** registry selection from matrix/taxonomy (`tools/website-ux-auditor/design-rules/registry.generated.json`). Extended principles later in this doc are optional vocabulary; align new work to these six where possible.
 
 | Principle ID | Review question | Signals looked for |
 |----------------|----------------|-------------------|
 | `AI.PREMIUM.ENTERPRISE_FEEL` | Does this feel deliberate, calm, and confident—not hectic or “template soup”? | Spacing generosity, typographic refinement, consistent radii, purposeful imagery |
-| `AI.VISUAL.HIERARCHY_CONFIDENCE` | Is there a clear focal path where scale, contrast, and grouping make the next read obvious? | Hero → proof → depth; intentional contrast steps; no competing “equal-weight” shouting |
+| `AI.VISUAL.HIERARCHY` | Is there a clear focal path where scale, contrast, and grouping make the next read obvious? | Hero → proof → depth; intentional contrast steps; no competing “equal-weight” shouting |
 | `AI.CONTEXT.COGNITIVE_CLARITY` | Can a first-time reader form a correct mental model in one pass? | Jargon explained before reuse; progressive disclosure; headings match substance |
 | `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` | Do visuals explain product structure or user benefit—not generic decoration? | Diagrams tied to claims; captions earn their space |
-| `AI.GOVERNANCE.CREDIBILITY` | Do trust, boundaries, and claims read as bounded, inspectable, and operator-authentic? | Plain-language trust copy; no overclaim; evidence hooks match reality |
-| `AI.CONTRACT.ACTIONABILITY` | Could an engineer implement from the contract (or paired specs) without guessing UX intent? | Concrete anatomy, states, edge cases; element-specific acceptance signals |
-| `AI.RULE_DISCOVERY.CANDIDATE_DETERMINISTIC_RULE` | Is there a repeatable failure pattern that should become a **`DET.*`** or catalog check? | Stable DOM/copy/layout signals; proposed check id + threshold + fixture |
+| `AI.CREDIBILITY.NO_OVERCLAIM` | Are capabilities stated in bounded, verifiable ways? | Absence of invented certifications, metrics, or logos; trust copy matches inspectable reality |
+| `AI.CONTRACT.IMPLEMENTATION_USEFULNESS` | Could an engineer implement from the contract (or paired specs) without guessing UX intent? | Concrete anatomy, states, edge cases; element-specific acceptance signals |
+
+## Legacy and discovery-only ids
+
+Tooling **normalizes** legacy `principleId` values to the canonical ids above before scoring and gating. These ids may still appear in older prompts or narrative copy but are **not** separate registry AI rules:
+
+| Id | Status | Canonical replacement | Reason |
+|----|--------|----------------------|--------|
+| `AI.VISUAL.HIERARCHY_CONFIDENCE` | legacy | `AI.VISUAL.HIERARCHY` | Renamed for matrix/taxonomy alignment |
+| `AI.GOVERNANCE.CREDIBILITY` | legacy | `AI.CREDIBILITY.NO_OVERCLAIM` | Split into credibility + trust boundary rules in registry |
+| `AI.CONTRACT.ACTIONABILITY` | legacy | `AI.CONTRACT.IMPLEMENTATION_USEFULNESS` | Same judgment lens under explicit registry id |
+| `AI.CONTRACT.FAMILY_COVERAGE_JUSTIFIED` | discovery-only | — | Extended contract vocabulary; not matrix-selected |
+| `AI.RULE_DISCOVERY.CANDIDATE_DETERMINISTIC_RULE` | discovery-only | — | Use `candidateDeterministicRule` metadata instead |
 
 ## Premium & credibility (extended)
 
@@ -91,12 +106,37 @@ These ids are the **primary** judgment lenses. Extended principles later in this
 |----------------|----------------|-------------------|
 | `AI.APP.WORKFLOW_CONTINUITY` | Do panels, tabs, and routes preserve sense of place? | Orientation cues; stable chrome |
 | `AI.APP.DENSITY_BALANCE` | Is information dense without feeling chaotic (ops/console contexts)? | Grouping, labeling, affordances |
+| `AI.APP.WORKFLOW_RISK_GUARDRAILS` | Are destructive or irreversible actions guarded proportionately? | Confirm steps; scope labels; undo where feasible |
+
+## Forms, dashboards, and states
+
+| Principle ID | Review question | Signals looked for |
+|----------------|----------------|-------------------|
+| `AI.FORM.FRICTION_AND_RECOVERY` | Can users recover from mistakes without retyping everything? | Inline errors tied to fields; summary + focus; preserved values |
+| `AI.DASHBOARD.ACTIONABILITY_PRIORITY` | Do operators see what to do next—not only metrics? | Primary actions above vanity counts; stale vs actionable rows |
+| `AI.EMPTY_STATE.USEFULNESS` | Does an empty view explain why and offer a next step? | Cause + permission + CTA; not a bare “No data” |
+| `AI.ERROR_COPY.REASSURANCE` | Do errors reassure and state recovery without blame? | Plain language; what happened; what to do next |
+
+## Navigation, onboarding, and responsive comprehension
+
+| Principle ID | Review question | Signals looked for |
+|----------------|----------------|-------------------|
+| `AI.INFORMATION_SCENT.NEXT_STEP` | Is the next action obvious from labels, hierarchy, and placement? | CTA scent matches user goal; no dead-end nav |
+| `AI.ONBOARDING.PROGRESSIVE_DISCLOSURE` | Is complexity revealed in stages matched to readiness? | Essentials first; advanced depth linked, not dumped |
+| `AI.RESPONSIVE.CROSS_DEVICE_COMPREHENSION` | Does meaning survive mobile/tablet/desktop—not just reflow? | No clipped critical copy; touch targets; readable tables |
+
+## Trust, brand, and data provenance
+
+| Principle ID | Review question | Signals looked for |
+|----------------|----------------|-------------------|
+| `AI.TRUST.DATA_FRESHNESS_PROVENANCE` | Can users judge whether data is current and scoped correctly? | Timestamps; source; refresh affordance; scope labels |
+| `AI.BRAND.GENERICITY_AND_DIFFERENTIATION` | Does the product feel intentionally branded—not generic template soup? | Distinct voice, typography rhythm, purposeful imagery |
 
 ## React & Python surfaces (judgment layer)
 
 | Principle ID | Review question | Signals looked for |
 |----------------|----------------|-------------------|
-| `AI.REACT.PRIMITIVE_CONSISTENCY` | Do primitives feel like one system (states, focus, density)? | Mixed metaphors across controls |
+| `AI.APP.PRIMITIVE_CONSISTENCY` | Do primitives feel like one system (states, focus, density)? | Mixed metaphors across controls |
 | `AI.PY.HTML_AUTHORING_QUALITY` | Does generated HTML read as intentional markup—not accidental nesting soup? | Heading jumps, redundant wrappers |
 
 ## Styles & scripts (judgment layer)

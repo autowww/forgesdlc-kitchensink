@@ -1,0 +1,43 @@
+## Report: `DET.NAV.FOCUS_ORDER` handbook page
+
+### Target file
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-focus-order.md`
+
+### `page_version` (confirmed)
+`a6c89528e5e1f4d1066101500bd5b91290538c8fc03eaa2c8ca104d9f043f579` — matches the required value and `rule-pages.manifest.json`.
+
+### What the page documents (PDCA)
+Aligned with `deterministic-design-rules.md#det-nav-focus_order` and `det-nav-focus-order.check.js`:
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Tab order should follow visual reading order (header → main → complementary → footer); Playwright samples up to 48 tab stops; violation kinds and thresholds (72px vertical, 96px horizontal, 40px row band, 16 suppressed handbook links). |
+| **Passing / Failing** | KS chrome classes (`site-header`, `fs-primary-nav-global` / **Kpn**, `forge-sidebar` / **Ksr**, `ks-doc-toc-rail` / **Ktx**, `main#main`, `ks-site-footer-region` / **Ksf**); evidence shapes from `navFocusOrderReport`. |
+| **Before** | Failing: `flex-row-reverse` on `fs-primary-nav-global-inner` + `tabindex="3"` on hero CTA. |
+| **After** | Passing: LTR nav, skip link, `fs-nav-dropdown__*` pattern, default tabindex, **Ksf** footer. |
+| **Evidence & remediation** | `collectNavFocusOrderReport`, ordered fix steps, harness commands. |
+| **Related rules** | Landmarks, nav depth/dedup/breadcrumb/ToC, focus trap, JS discoverability. |
+
+### Front matter (intended)
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `registry_status`: `implemented`
+- `generated_at`: `2026-05-29T12:00:00.000Z`
+- `related_rules`: `DET.LANDMARKS.REQUIRED`, `DET.NAV.DEPTH`, `DET.NAV.DEDUP`, `DET.NAV.BREADCRUMB`, `DET.NAV.IN_PAGE_TOC`, `DET.APP.FOCUS_TRAP`, `AI.JS.BEHAVIOR_DISCOVERABILITY`
+
+### Write status
+The canonical file already had the full body (Purpose through Related rules) from an earlier pass. This session could not write outside the Cursor workspace root (`tools/website-ux-auditor/design-rules/blender/`). The updated copy with `related_rules` and refreshed `generated_at` is at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-focus-order.md`
+
+**Sync to the canonical path** (from repo root):
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-focus-order.md \
+   docs/design/ux-audit/rule-pages/det-nav-focus-order.md
+rm -rf tools/website-ux-auditor/design-rules/blender/docs
+```
+
+After that, `head` should show `generated_at: 2026-05-29T12:00:00.000Z` and the `related_rules:` block in front matter.
+
+### KS class names in examples (verified)
+From `components/layouts.py` and `components/components.py`: `site-header`, `fs-primary-nav-global`, `fs-primary-nav-global-inner`, `landing-nav-link`, `fs-nav-dropdown__trigger`, `fs-nav-dropdown__link`, `doc-main`, `btn-forge`, `landing-nav-cta`, `ks-site-footer-region`, hash markers **Kpn** / **Ksf**.

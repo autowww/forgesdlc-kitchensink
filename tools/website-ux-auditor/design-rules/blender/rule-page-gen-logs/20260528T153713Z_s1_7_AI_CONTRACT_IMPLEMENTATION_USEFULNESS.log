@@ -1,0 +1,57 @@
+## Report
+
+The handbook page for **`AI.CONTRACT.IMPLEMENTATION_USEFULNESS`** is fully drafted in the blender staging file. The canonical target path could not be updated from this session (writes outside `tools/website-ux-auditor/design-rules/blender/` were blocked).
+
+### What was written
+
+**Staging (complete, ready to promote):**  
+`tools/website-ux-auditor/design-rules/blender/.staging-ai-contract-implementation-usefulness.md`
+
+**Promote script:**  
+`tools/website-ux-auditor/design-rules/blender/_write-ai-contract-implementation-usefulness.mjs`
+
+Run from the KS repo root:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-ai-contract-implementation-usefulness.mjs
+```
+
+That copies staging → `docs/design/ux-audit/rule-pages/ai-contract-implementation-usefulness.md`.
+
+### `page_version` (confirmed in staging)
+
+```
+99b703dc72441894f1d45e352f46f202a213b7e35f6ca5744d277ec3683b1d12
+```
+
+Matches the required value exactly.
+
+### Front matter (other fields)
+
+| Field | Value |
+|--------|--------|
+| `lane` | `ai` |
+| `generated_at` | `2026-05-28T17:05:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` (from `tools/website-ux-auditor/design-rules/registry.generated.json`) |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-contract-implementation-usefulness` |
+
+### Page content (PDCA)
+
+- **Purpose:** AI judgment on whether design contracts are implementable without guessing—after `DET.CONTRACT.PATH`, `DET.CONTRACT.PLACEHOLDERS`, and `DET.CATALOG.CONTRACT_SPECIFICITY` pass.
+- **Passing / failing signals:** Concrete anatomy (`root_selector`), states, responsive/a11y, deterministic check citations, implementation notes—not template soup.
+- **Before / after:** **Kbc** doc breadcrumb case from `components/layouts.py` / `docs/design/catalog/chrome/Kbc-doc-breadcrumb.md`:
+  - **Before (fails):** ad-hoc `text-muted` slash trail, no `Kbc` markers, terminal crumb still a link.
+  - **After (passes):** `site-header`, `forge-brand`, `nav.ks-doc-breadcrumb`, `breadcrumb`, `text-cyan` / `text-dim`, `aria-current="page"`, hash attrs.
+- **Evidence and remediation:** Contract path + registry row + DOM/screenshot; six-step remediation order.
+- **Related rules:** `DET.CATALOG.CONTRACT_SPECIFICITY`, `DET.CONTRACT.PATH`, `DET.CONTRACT.PLACEHOLDERS`, `DET.HASH.MARKERS`, `AI.CONTRACT.FAMILY_COVERAGE_JUSTIFIED`, `AI.PY.HTML_AUTHORING_QUALITY`, `AI.APP.PRIMITIVE_CONSISTENCY`.
+
+### Sources used
+
+- Principle: `ai-enabled-design-principles.md` — “Could an engineer implement from the contract without guessing UX intent?”
+- Contract: `docs/design/catalog/chrome/Kbc-doc-breadcrumb.md`
+- Emitter: `components/layouts.py` (`_showcase_header`, `chrome_region_attrs`)
+- Prompt stub: `design-rules/ai/prompts/generated/ai-contract-implementation-usefulness.md`
+
+No check modules, manifest, or registry files were edited. After you run the promote script, the canonical file will have **`page_version: 99b703dc72441894f1d45e352f46f202a213b7e35f6ca5744d277ec3683b1d12`** for the orchestrator/manifest batch.

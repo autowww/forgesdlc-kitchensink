@@ -73,6 +73,10 @@ If you enable the loop’s post-clean AI pass, review **`ai-audit/ai-audit-repor
 
 For a **portfolio score** over **all** URLs in budget with **no** Major+ governor, prefer **`score-website-ux.mjs`** (`npm run score`). The auditor is tuned for **remediation loops** (default Major+ governor) and emits **plans + RCA**; pair them when you both need breadth scores and prioritized fix lists.
 
+### Source structure and fix-once
+
+After each live audit, read **`source-structure.md`** for page-type and principal-component counts. Fix **one** shared defect at its **`fixLever`** (layout or component source), rebuild the site, then re-audit only **`fix-once-regression-urls.txt`** (or the cluster’s **`regressionUrls`**) with **`--incremental`**. Do not patch every affected URL individually when the cluster shares a **`signatureId`**.
+
 ### Hygiene
 
 - Do not pipe analyzer stdout through **`tail`** in wrappers that buffer indefinitely.

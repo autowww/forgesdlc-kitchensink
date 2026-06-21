@@ -323,6 +323,57 @@
     return '<p class="forge-support mb-0">No submodule diagram.</p>';
   }
 
+  function renderMatrixHeatmap(data) {
+    var rows = (data && data.rows) || [];
+    var cols = (data && data.cols) || [];
+    var cells = (data && data.cells) || [];
+    var label = (data && data.ariaLabel) || 'Matrix heatmap';
+    if (!rows.length || !cols.length) {
+      return '<p class="forge-support mb-0">No matrix data.</p>';
+    }
+    var maxVal = 0;
+    for (var ri = 0; ri < cells.length; ri++) {
+      var rowCells = cells[ri] || [];
+      for (var ci = 0; ci < rowCells.length; ci++) {
+        maxVal = Math.max(maxVal, +rowCells[ci] || 0);
+      }
+    }
+    if (maxVal <= 0) {
+      return '<p class="forge-support mb-0">No matrix values.</p>';
+    }
+    var cellW = 36;
+    var cellH = 28;
+    var labelW = 88;
+    var headerH = 52;
+    var w = labelW + cols.length * cellW + 12;
+    var h = headerH + rows.length * cellH + 12;
+    var parts = [
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + esc(label) + '" style="width:100%;max-width:' + w + 'px;height:auto">',
+      '<rect width="100%" height="100%" fill="transparent"/>'
+    ];
+    for (var c = 0; c < cols.length; c++) {
+      var hx = labelW + c * cellW + cellW / 2;
+      parts.push('<text x="' + hx.toFixed(1) + '" y="14" text-anchor="middle" fill="' + MUTED + '" font-size="8" transform="rotate(-35 ' + hx.toFixed(1) + ' 14)">' + esc(String(cols[c]).slice(0, 14)) + '</text>');
+    }
+    for (var r = 0; r < rows.length; r++) {
+      var y = headerH + r * cellH;
+      parts.push('<text x="' + (labelW - 6).toFixed(1) + '" y="' + (y + cellH * 0.62).toFixed(1) + '" text-anchor="end" fill="' + MUTED + '" font-size="9">' + esc(String(rows[r]).slice(0, 12)) + '</text>');
+      var rowCells2 = cells[r] || [];
+      for (var c2 = 0; c2 < cols.length; c2++) {
+        var val = +(rowCells2[c2] || 0);
+        var intensity = val / maxVal;
+        var fill = 'rgba(6,182,212,' + (0.12 + intensity * 0.78).toFixed(2) + ')';
+        var x = labelW + c2 * cellW;
+        parts.push('<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + (cellW - 2) + '" height="' + (cellH - 2) + '" fill="' + fill + '" rx="2"><title>' + esc(rows[r]) + ' × ' + esc(cols[c2]) + ': ' + val + '</title></rect>');
+        if (val > 0) {
+          parts.push('<text x="' + (x + cellW / 2).toFixed(1) + '" y="' + (y + cellH * 0.62).toFixed(1) + '" text-anchor="middle" fill="#e2e8f0" font-size="8">' + val + '</text>');
+        }
+      }
+    }
+    parts.push('</svg>');
+    return parts.join('');
+  }
+
   var RENDERERS = {
     commit_weekly: renderCommitWeekly,
     commit_daily: renderCommitDaily,
@@ -331,6 +382,7 @@
     loc_share_donut: renderLocDonut,
     compliance_bars: renderComplianceBars,
     extension_heatmap: renderExtensionHeatmap,
+    matrix_heatmap: renderMatrixHeatmap,
     contributors: renderContributorsTable,
     submodule_layout: renderSubmoduleLayout
   };

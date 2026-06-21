@@ -1,0 +1,48 @@
+## Report: `AI.JS.BEHAVIOR_DISCOVERABILITY` handbook page
+
+### Status
+
+Full rule page written in staging and blender mirror. Canonical target may still show old `page_version` until copy runs (sandbox blocked writes outside blender workspace in this session).
+
+### What was written
+
+| Artifact | Path |
+|----------|------|
+| **Staging (complete page)** | `tools/website-ux-auditor/design-rules/blender/.staging-ai-js-behavior-discoverability.md` |
+| **Blender mirror** | `tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-js-behavior-discoverability.md` |
+| **Copy helper** | `tools/website-ux-auditor/design-rules/blender/_copy-ai-js-behavior-discoverability-canonical.mjs` |
+| **Target (after copy)** | `docs/design/ux-audit/rule-pages/ai-js-behavior-discoverability.md` |
+
+**Publish to canonical path:**
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node _copy-ai-js-behavior-discoverability-canonical.mjs
+```
+
+### `page_version` confirmation
+
+In **staging** (authoritative for this batch):
+
+`682e546ce56b8a85e9ce9add97e37dc5c05dc4e2fd4350af55b8fd119d17bbe6`
+
+Also updated in staging front matter:
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `generated_at`: `2026-05-28T16:50:00.000Z`
+- `related_rules`: added `DET.APP.FOCUS_TRAP`
+
+### Sources used
+
+- **Principle:** `ai-enabled-design-principles.md#ai-js-behavior-discoverability` — interactions hinted or documented where non-obvious
+- **Prompt:** `design-rules/ai/prompts/generated/ai-js-behavior-discoverability.md` (PDCA overlay)
+- **KS classes** (from `css/forge-theme.css`, `css/docs-theme.css`, `components/components.py`): `forge-section`, `forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, `forge-diagram-trigger`, `ks-diagram-trigger`, `breathe-static`, `forge-support`, `btn-forge`, `offcanvas`, `forge-theme-trigger`, `forge-theme-trigger__copy`, `openDiagramWithDetail`, hash attrs (`Dce`, `Kco`)
+
+### Page structure (per `RULE_PAGE_SCHEMA.md`)
+
+All required sections: Purpose (PDCA), Passing/Failing signals, Before/After `html` examples, Evidence and remediation, Related rules.
+
+- **Before:** silent `figure` onclick diagram, no mobile offcanvas opener, icon-only theme trigger
+- **After:** `forge-support` helper, `forge-diagram-trigger` + ARIA, `btn btn-forge` offcanvas opener (`Kco`), labeled `forge-theme-trigger__copy`
+
+No Mermaid, no Fleet-specific profiles.

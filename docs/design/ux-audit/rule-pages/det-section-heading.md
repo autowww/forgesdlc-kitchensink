@@ -3,10 +3,10 @@ rule_id: DET.SECTION.HEADING
 lane: deterministic
 title: Section Heading
 summary: Harness bootstrap handbook page for DET.SECTION.HEADING.
-page_version: 2ff2b812e0500ea93c7a80ee609376e1d41b1bd16fb3663295dd87736c8c4226
+page_version: 5dbbdcb613353fdd9dcad1fc61d00103ce2adbe6da97f019c696722c12e651ab
 generated_at: 2026-05-23T13:24:10Z
 agent_model: handbook-version-sync
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-section-heading
 related_rules: []

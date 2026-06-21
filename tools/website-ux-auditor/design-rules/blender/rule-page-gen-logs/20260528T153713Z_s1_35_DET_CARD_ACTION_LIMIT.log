@@ -1,0 +1,56 @@
+## Report: `DET.CARD.ACTION_LIMIT` handbook page
+
+Wrote the full PDCA rule page aligned with `RULE_PAGE_SCHEMA.md`, `det-card-action-limit.check.js`, and KS card patterns from `generator/pages/surfaces.py` and `css/forge-theme.css`.
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: cf2a3260b29e73e441d945311198851f63b343202b7f0e347bb46d35a77408ed
+```
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.CARD.ACTION_LIMIT` |
+| `lane` | `deterministic` |
+| `title` | One primary action per card |
+| `generated_at` | `2026-05-28T18:00:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-card-action-limit` |
+| `related_rules` | `DET.CARD.TITLE`, `DET.CTA.HIERARCHY`, `DET.CTA.LABEL_NONEMPTY`, `DET.BUTTON.GROUP.MAX`, `AI.VISUAL.HIERARCHY` |
+
+### Content (check-aligned)
+
+- **Purpose:** ≤1 primary per card (`MAX_PRIMARY_ACTIONS_PER_CARD = 1`); primaries = `btn-forge` / `btn-primary`; outline/secondary excluded; toolbar-card exemption documented.
+- **Passing / failing signals:** Mirrors card-root detection, toolbar skip, nav exclusion, and severity (`major` / `critical`).
+- **Before:** `.forge-card.breathe-static` with two `btn btn-forge` footer actions (fails).
+- **After:** Same tile with `btn-forge` + `btn-forge-outline` (passes); optional `data-card-kind="toolbar"` + `.btn-toolbar` pattern for multi-primary toolbars.
+- **Evidence and remediation:** `metrics.cardActionLimitReport`, ordered fix steps, re-audit guidance.
+- **Related rules:** All five IDs listed in body and front matter.
+
+### KS class names used (real patterns)
+
+`forge-card`, `breathe-static`, `breathe-link`, `card-label`, `forge-support`, `btn btn-forge`, `btn btn-forge-outline`, `col-md-4`, `d-flex flex-wrap gap-2`, `data-ks-hash`, `toolbar-card`, `btn-toolbar`, `role="toolbar"`.
+
+### Refinements vs prior draft
+
+- Added `related_rules` to front matter (schema requirement).
+- Replaced invalid `motion.div` with plain `div` in HTML examples.
+- Normalized headings to `h5 class="mt-2 mb-1"` (matches `surfaces.py` showcase cards).
+- Updated `generated_at` to current batch UTC.
+
+### File location note
+
+The complete page is at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-card-action-limit.md`
+
+The canonical KS path (`docs/design/ux-audit/rule-pages/det-card-action-limit.md`) still has the older draft (missing `related_rules`, still has `motion.div`). Copy helper added at `_write-det-card-action-limit.mjs` following the same pattern as `_write-det-card-title.mjs`. Run:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-det-card-action-limit.mjs
+```
+
+Or copy manually — the orchestrator should pick this up on the next pagegen batch.

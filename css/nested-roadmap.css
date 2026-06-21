@@ -44,7 +44,7 @@
 
 .ks-nested-roadmap__bc-current {
   font-weight: 700;
-  color: var(--forge-text, #f9fafb);
+  color: var(--forge-text, var(--forge-text-1, inherit));
 }
 
 .ks-nested-roadmap__viewport {
@@ -76,7 +76,7 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--forge-text-3, #9ca3af);
+  color: var(--forge-text-3, var(--forge-text-1, inherit));
   padding: 0.35rem 0.2rem;
   border-bottom: 1px solid var(--forge-border, rgba(255, 255, 255, 0.1));
 }
@@ -84,7 +84,7 @@
 .ks-nrm-track-label {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--forge-text-2, #d1d5db);
+  color: var(--forge-text-2, var(--forge-text-1, inherit));
   padding: 0.5rem 0.35rem 0.5rem 0;
   align-self: center;
 }
@@ -97,7 +97,7 @@
   min-height: var(--ks-nrm-bar-h);
   align-items: center;
   border-radius: 8px;
-  background: color-mix(in srgb, var(--forge-surface-2, #1f2937) 55%, transparent);
+  background: color-mix(in srgb, var(--forge-surface-2, var(--forge-text-1, inherit)) 55%, transparent);
   padding: 0.25rem 0;
 }
 
@@ -115,7 +115,7 @@
   gap: 0.35rem;
   text-align: left;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #0c1220;
+  color: var(--forge-text-1, inherit);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -174,7 +174,7 @@
 }
 
 .ks-nrm-bar--cyan {
-  background: linear-gradient(135deg, #22d3ee, #06b6d4);
+  background: linear-gradient(135deg, var(--forge-text-1, inherit), #06b6d4);
 }
 
 .ks-nrm-bar--emerald {
@@ -182,13 +182,13 @@
 }
 
 .ks-nrm-bar--amber {
-  background: linear-gradient(135deg, #fcd34d, #f59e0b);
-  color: #1a1204;
+  background: linear-gradient(135deg, var(--forge-text-1, inherit), #f59e0b);
+  color: var(--forge-text-1, inherit);
 }
 
 .ks-nrm-bar--violet {
-  background: linear-gradient(135deg, #a78bfa, #7c3aed);
-  color: #f5f3ff;
+  background: linear-gradient(135deg, var(--forge-text-1, inherit), var(--forge-text-1, inherit));
+  color: var(--forge-text-1, inherit);
 }
 
 /* Modal */
@@ -245,7 +245,7 @@
   background: none;
   border: 1px solid var(--forge-border, rgba(255, 255, 255, 0.12));
   border-radius: 8px;
-  color: var(--forge-text-3, #9ca3af);
+  color: var(--forge-text-3, var(--forge-text-1, inherit));
   cursor: pointer;
   width: 32px;
   height: 32px;
@@ -257,9 +257,9 @@
 }
 
 .ks-nrm-dialog__close:hover {
-  color: var(--forge-text, #f3f4f6);
+  color: var(--forge-text, var(--forge-text-1, inherit));
   border-color: var(--forge-border-hover, rgba(255, 255, 255, 0.2));
-  background: var(--forge-surface-2, #1f2937);
+  background: var(--forge-surface-2, var(--forge-text-1, inherit));
 }
 
 .ks-nrm-dialog__close-icon::before {
@@ -277,7 +277,7 @@
   border: 1px solid var(--forge-border, rgba(255, 255, 255, 0.1));
   border-radius: 10px;
   padding: 0.5rem;
-  background: color-mix(in srgb, var(--forge-surface-2, #1f2937) 80%, transparent);
+  background: color-mix(in srgb, var(--forge-surface-2, var(--forge-text-1, inherit)) 80%, transparent);
   max-height: 14rem;
   overflow: auto;
 }
@@ -290,8 +290,8 @@
   padding: 0.55rem 0.7rem;
   font-size: 0.8rem;
   line-height: 1.35;
-  color: var(--forge-text, #f3f4f6);
-  background: var(--forge-surface-2, #1f2937);
+  color: var(--forge-text, var(--forge-text-1, inherit));
+  background: var(--forge-surface-2, var(--forge-text-1, inherit));
   border: 1px solid rgba(6, 182, 212, 0.35);
   border-radius: 8px;
   box-shadow: var(--forge-elevation-tooltip);

@@ -1,0 +1,41 @@
+## Report: `DET.DIAGRAM.ASSET_REGISTRY` handbook page
+
+Wrote the full PDCA rule page at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-diagram-asset-registry.md`
+
+The Cursor workspace is scoped to the **blender** folder, so writes to the canonical KS path were blocked. A publish helper was added: `_write-det-diagram-asset-registry.mjs`.
+
+**Publish to the target path** (run from your machine):
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-det-diagram-asset-registry.mjs
+```
+
+That copies to `docs/design/ux-audit/rule-pages/det-diagram-asset-registry.md` at the Kitchen Sink repo root.
+
+### `page_version` confirmation
+
+Front matter sets **`page_version` exactly to:**
+
+`604982aa5871246f5988431b98954a0107c4eb95b773e28ec569ceb6857db68c`
+
+### What the page covers
+
+| Item | Value |
+|------|--------|
+| **Source rule** | `deterministic-design-rules.md#det-diagram-asset-registry` — diagram families registered under catalog when shipped to consumers |
+| **Check** | `det-diagram-asset-registry.check.js` — repo scan (Ksv/Zxd, catalog ↔ gallery) + DOM (`data-diagram-key`, `assets/svg/` paths) |
+| **Registry** | `registry_fingerprint`: `87724e…b2ff`, `registry_status`: `implemented` |
+| **Related rules** | `DET.DIAGRAM.LABELS`, `DET.DIAGRAM.ALT`, `DET.HASH.MARKERS`, `DET.HASH.REGISTRY_ROW`, `DET.INVENTORY.CROSSWALK`, `AI.DIAGRAM.SEMANTIC_ACCURACY`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE` |
+
+### Before / after (real KS patterns)
+
+- **Before (fails):** invented key `gate-chain-delivery`, unregistered `assets/svg/custom-delivery-flow.svg`, standard tile chrome (`forge-section`, `forge-diagram`, `ks-diagram-tile`, `forge-diagram-trigger`, `ks-diagram-canvas`).
+- **After (passes):** catalog key `gate`, registered `assets/svg/template-gate-chain.svg` (from `_diagram_gallery.py` and **Zxd** `source_paths`), same tile structure as `ks_diagram_tile_html`.
+
+### Finding kinds documented
+
+`missing-diagram-family`, `catalog-key-unmapped`, `gallery-svg-not-registered`, `unknown-diagram-key`, `unregistered-diagram-svg` — aligned with the check module remediation map.
+
+After you run the publish script, the orchestrator can refresh `rule-pages.manifest.json` with `generated_at: 2026-05-29T18:00:00.000Z` and the new `related_rules` block.

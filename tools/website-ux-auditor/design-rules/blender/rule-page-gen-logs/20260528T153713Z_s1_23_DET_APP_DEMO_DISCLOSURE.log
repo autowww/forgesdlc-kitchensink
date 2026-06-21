@@ -1,0 +1,44 @@
+## Report: `DET.APP.DEMO_DISCLOSURE` handbook page
+
+The full PDCA page is authored and verified in the **staging copy** (workspace-writable). The **canonical target** at `docs/design/ux-audit/rule-pages/det-app-demo-disclosure.md` is still the old 43-line bootstrap stub because writes outside the blender workspace were blocked in this session.
+
+### What was written
+
+| Item | Value |
+|------|--------|
+| **Rule** | `DET.APP.DEMO_DISCLOSURE` (deterministic, `trustAndEcosystemTruth`, major) |
+| **Staging path** | `tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-demo-disclosure.md` (119 lines) |
+| **Source anchor** | `deterministic-design-rules.md#det-app-demo-disclosure` |
+| **Check module** | `det-app-demo-disclosure.check.js` — `[data-demo]`, `[data-mock]`, `[data-mock-source="demo"]`; label regex `demo\|sample\|mock\|illustrative`; badges `.badge`, `.chip`, `.studio-demo-label`, `[data-demo-label]` |
+
+**Sections added (per `RULE_PAGE_SCHEMA.md`):**
+
+1. **Purpose** — PDCA framing; why demo islands need in-section labels.
+2. **Passing signals** — visible label in container `innerText` or child badge/chip.
+3. **Failing signals** — chrome-only labels, hidden badges, auditor message/evidence.
+4. **Before example** — failing `data-demo` + `forge-card` / `doc-main` / `data-studio-workspace` (no Demo/Sample/Mock token).
+5. **After example** — passing with `badge bg-secondary studio-demo-label` and “Sample” in `forge-support`.
+6. **Evidence and remediation** — table + harness/auditor commands.
+7. **Related rules** — `AI.TRUST.BOUNDARY_CLARITY`, `AI.CREDIBILITY.NO_OVERCLAIM`, `DET.APP.PRIMARY_STATE`, `DET.APP.PRIMARY_CTA`.
+
+**KS classes used (from `css/forge-theme.css`, layouts, defect fixture):** `doc-main`, `forge-card`, `card-label`, `font-display`, `forge-support`, `badge`, `studio-demo-label`, `data-studio-workspace`, `data-demo`.
+
+### `page_version` confirmation
+
+In the **staging file**, front matter includes exactly:
+
+`page_version: cd55322e6e7b1301f87ed03ae901e3a2eee57b13092552c26d2d03b5c7e52e46`
+
+Also set: `registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `registry_status: implemented`, `agent_model: composer-2.5-fast`, `generated_at: 2026-05-28T18:12:00.000Z`.
+
+### Promote to canonical path (one step)
+
+From the Kitchen Sink repo root:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-det-app-demo-disclosure.mjs
+```
+
+That copies staging → `docs/design/ux-audit/rule-pages/det-app-demo-disclosure.md` (the path you specified). No check modules, `rule-mappings.js`, or registry were edited.
+
+If you want me to retry the canonical write after widening workspace/sandbox to the full KS repo, say so and I can re-run the copy.

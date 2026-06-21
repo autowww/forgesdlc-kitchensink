@@ -92,6 +92,18 @@ Pilot validated the `--enable-agents` path; fixture HTML + prompt tuning remain 
 | `generate-harness-e2e-matrix.mjs` | regenerates [E2E-COVERAGE-MATRIX.md](../../docs/design/ux-audit/harness/E2E-COVERAGE-MATRIX.md) |
 | `npm test` | **554 pass / 21 fail** (2026-05-25; +2 tests from harness smokes; failures unchanged baseline) |
 
+## Phase 7 — Prompt 10 closure (harness matrix + release pack)
+
+| Item | Status |
+|------|--------|
+| `lib/harness-coverage-matrix.mjs` | DET fixture / AI prompt / fixer / Studio allowlist validators |
+| `ruleset-harness-coverage.test.js` | Matrix gates in `npm test` |
+| `e2e-smoke-coverage.test.js` | Generic static audit, KS hash path, scenario scorecard, form DET |
+| `scripts/write-harness-current-coverage.mjs` | Writes [CURRENT-COVERAGE.md](../../docs/design/ux-audit/harness/CURRENT-COVERAGE.md) |
+| [RELEASE-NOTES-2026-05-29.md](../../docs/design/ux-audit/RELEASE-NOTES-2026-05-29.md) | Migration + rule summary |
+| `workbench/pack-studio-ruleset-bundle.sh` | Ships harness summaries + release notes |
+| `workspace-scripts/verify-ruleset-pack-self-contained.mjs` | Requires CURRENT-COVERAGE + closure doc in self-contained packs |
+
 ## Quick re-run commands
 
 ```bash

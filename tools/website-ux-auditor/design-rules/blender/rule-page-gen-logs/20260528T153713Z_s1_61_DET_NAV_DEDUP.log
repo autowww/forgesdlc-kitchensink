@@ -1,0 +1,47 @@
+## Report: `DET.NAV.DEDUP` rule handbook page
+
+Wrote the full PDCA handbook page aligned with `RULE_PAGE_SCHEMA.md`, `det-nav-dedup.check.js`, and KS layout patterns from `components/layouts.py` (`fs-primary-nav-global`, `forge-sidebar`, `ks-doc-breadcrumb`, `site-header`, `nav-scroll`, hash markers **Kpn** / **Ksr** / **Kbc**).
+
+### `page_version` (confirmed)
+
+`6e6aedec08a6c94657b5f8527df68098326e850992fa632d5c52fb6e9b7939f3`
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Chrome bands outside `main`; link graph; `duplicate-destination` vs `duplicate-primary-roots`; breadcrumb exemption; PDCA Plan/Do/Check/Adjust |
+| **Passing signals** | Split **Kpn** / **Ksr** / **Kbc** / offcanvas roles; `CONFLICTING_BAND_PAIRS`; footer & **Ktx** not peers |
+| **Failing signals** | `primary+sidebar` etc.; nested mastheads; evidence token shape |
+| **Before** | `header.site-header nav` + **`Ksr`** both link `/docs/start` — fails |
+| **After** | **`Kpn`** site IA + **`Kbc`** trail + **`Ksr`** section tree — passes |
+| **Evidence & remediation** | `navDedupReport`, finding shape, 5-step fix order, harness command |
+| **Related rules** | 7 IDs in body + front matter |
+
+### Front matter
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `registry_status`: `implemented`
+- `generated_at`: `2026-05-29T16:00:00.000Z`
+- `related_rules`: added (was missing on the canonical file)
+
+### Path note (action needed)
+
+The workspace root is the **blender** folder, so the updated file landed here:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-dedup.md`
+
+Writes to the canonical target were blocked by the sandbox:
+
+`docs/design/ux-audit/rule-pages/det-nav-dedup.md`
+
+The canonical file still has the older front matter (`generated_at: 2026-05-25…`, no `related_rules`). Copy the staging file into place:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-dedup.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-dedup.md
+```
+
+After that, `head` on the canonical file should show `related_rules:` and `generated_at: 2026-05-29T16:00:00.000Z` with the same `page_version` hash above.
+
+No check modules, `rule-mappings.js`, or registry files were edited.

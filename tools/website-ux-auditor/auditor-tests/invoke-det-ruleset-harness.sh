@@ -162,6 +162,12 @@ FORGE_UX_AUDIT_WORKBENCH_ROOT="${FORGE_UX_AUDIT_WORKBENCH_ROOT:-${KS_ROOT}/../wo
 
 OUT_DIR="${UX_AUDIT_OUT_DIR:-${FORGE_UX_AUDIT_WORKBENCH_ROOT}/ux-audit/ruleset-harness-$(date -u +%Y%m%dT%H%M%SZ)}"
 export UX_AUDIT_OUT_DIR="${OUT_DIR}"
+
+# Single-rule harness runs must not inherit the 50-rule pilot fixer scope.
+if [[ -n "${ONLY_RULE}" ]]; then
+  export FORGE_UX_ONLY_DETERMINISTIC_RULE_IDS="${ONLY_RULE}"
+  export FORGE_UX_FIXERS_PILOT_AUDIT_SCOPE=0
+fi
 mkdir -p "${OUT_DIR}"
 
 STATE_JSONL="${OUT_DIR}/state.jsonl"
@@ -224,7 +230,6 @@ mapfile -t ALL_RULES < <(jq -r '
 REMAINING=()
 for rule_id in "${ALL_RULES[@]}"; do
   [[ -z "${rule_id}" ]] && continue
-  [[ "${rule_id}" == "DET.THEME.FONT_STACK" ]] && continue
   if [[ -n "${ONLY_RULE}" && "${rule_id}" != "${ONLY_RULE}" ]]; then
     continue
   fi
@@ -350,6 +355,11 @@ for rule_id in "${REMAINING[@]}"; do
     ' "${FIXTURE_ROOT}/manifest.json" 2>/dev/null || echo "")"
     cp "${FIXTURE_ROOT}/${baseline_html}" "${rule_fixture}/index.html"
     cp "${FIXTURE_ROOT}/${fail_html}" "${rule_fixture}/settings.html"
+  elif [[ "${fixture_mode}" == "repo_overlay" && ! -f "${FIXTURE_ROOT}/website/${slug}-fail.html" ]]; then
+    cat >"${rule_fixture}/index.html" <<'STUB'
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Repo overlay harness</title></head>
+<body><main id="main"><p>Repo overlay deterministic rule — findings from source scan.</p></main></body></html>
+STUB
   else
     cp "${FIXTURE_ROOT}/website/${slug}-fail.html" "${rule_fixture}/index.html"
   fi

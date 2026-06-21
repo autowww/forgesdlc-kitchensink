@@ -1,0 +1,38 @@
+## Report: `AI.CONTEXT.COGNITIVE_CLARITY` rule page
+
+The handbook page is **authored and staged**; the canonical file under `docs/design/ux-audit/rule-pages/` could not be updated from this session (writes and shell to that path were blocked). Run the promotion step below to finish.
+
+### Target file
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-context-cognitive-clarity.md`
+
+### Staged copy (ready to promote)
+`tools/website-ux-auditor/design-rules/blender/.staging-ai-context-cognitive-clarity.md`
+
+### Promotion (run locally)
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender && node _write-ai-context-cognitive-clarity.mjs
+grep '^page_version:' /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-context-cognitive-clarity.md
+```
+
+### `page_version` (required)
+**`6e81c7c0577b957c7d2acb206e7c6be73fbe0d30586eef5655a3fef5df21efb3`** — set in staging; canonical file still has `147f28c0…` until you run the script.
+
+### Front matter (staged)
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.CONTEXT.COGNITIVE_CLARITY` |
+| `lane` | `ai` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-context-cognitive-clarity` |
+| `generated_at` | `2026-05-28T17:12:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+
+### Content summary
+- **Purpose:** First-time readers form a correct mental model in one pass on `landing_page` / `product_page` / `handbook_page`; complements `DET.SECTION.HEADING`, `DET.CONTEXT.BURDEN`, `DET.PROSE.LENGTH`, `DET.NAV.IN_PAGE_TOC`.
+- **PDCA** aligned with `design-rules/ai/prompts/ai-context-cognitive-clarity.md`.
+- **Before/after:** Real KS classes from `components/components.py` — `landing-hero-grid-wrap`, `g-xl-5`, `landing-hero-copy`, `product-landing-title`, `landing-hero-clarification`, `section-label text-cyan`, `forge-card card-amber breathe-link`, `btn btn-forge`, hash markers (`Ldg`, `Sec`).
+- **Related rules:** Added `AI.VISUAL.HIERARCHY_CONFIDENCE`; no Fleet profile; no Mermaid.
+
+### Canonical status
+Until promotion: `page_version: 147f28c00ed45941c1315962642216c8aa994bc2dbb23cf8c520b91f309b0a2a` (manifest will stay **stale** until the orchestrator sees the new hash after you copy staging → canonical).

@@ -91,16 +91,101 @@ function makeClusterKey(checkId, area) {
   return `${String(checkId || 'unknown')}::${String(area || 'misc')}`;
 }
 
+/**
+ * @param {object} finding
+ * @param {object} page
+ */
+function resolveStructureClusterKey(finding, page) {
+  const ruleId = String(finding?.ruleId || finding?.checkId || 'unknown');
+  const signatureId = finding?.signatureId ? String(finding.signatureId) : '';
+  const layoutId = page?.structure?.layout?.id ? String(page.structure.layout.id) : '';
+  const pageTypeId = page?.structure?.pageType?.id ? String(page.structure.pageType.id) : '';
+
+  if (signatureId) {
+    return {
+      key: `sig::${signatureId}::${ruleId}`,
+      fixLever: 'component',
+      signatureId,
+      layoutId: layoutId || null,
+      pageTypeId: pageTypeId || null,
+    };
+  }
+  if (layoutId) {
+    return {
+      key: `layout::${layoutId}::${ruleId}`,
+      fixLever: 'layout',
+      signatureId: null,
+      layoutId,
+      pageTypeId: pageTypeId || null,
+    };
+  }
+  if (pageTypeId) {
+    return {
+      key: `pageType::${pageTypeId}::${ruleId}`,
+      fixLever: 'generator',
+      signatureId: null,
+      layoutId: null,
+      pageTypeId,
+    };
+  }
+  return {
+    key: makeClusterKey(finding?.checkId, finding?.area),
+    fixLever: 'page-local',
+    signatureId: null,
+    layoutId: null,
+    pageTypeId: null,
+  };
+}
+
 function makeFindingRef(pageIdx, findingIdx, finding, page, siteKind) {
   const ctx = pageContext(page?.url || page?.pageUrl || '', siteKind);
+  const structureKey = resolveStructureClusterKey(finding, page);
   return {
     pageIdx,
     findingIdx,
     finding,
     url: page?.url || page?.pageUrl || '',
     isHome: Boolean(ctx.isHome),
-    key: makeClusterKey(finding?.checkId, finding?.area),
+    key: structureKey.key,
+    fixLever: structureKey.fixLever,
+    signatureId: structureKey.signatureId,
+    layoutId: structureKey.layoutId,
+    pageTypeId: structureKey.pageTypeId,
   };
+}
+
+/**
+ * Minimal URL set for fix-once re-audit after a structure-level fix.
+ * @param {Array<ReturnType<typeof makeFindingRef>>} items
+ * @param {Array<{ url?: string, structure?: object }>} pages
+ */
+function buildRegressionUrls(items, pages) {
+  /** @type {Set<string>} */
+  const out = new Set();
+  const homeUrl = items.find((x) => x.isHome)?.url;
+  if (homeUrl) out.add(homeUrl);
+
+  /** @type {Set<string>} */
+  const pageTypesSeen = new Set();
+  for (const item of items) {
+    const pt = pages[item.pageIdx]?.structure?.pageType?.id;
+    if (!pt || pageTypesSeen.has(pt)) continue;
+    pageTypesSeen.add(pt);
+    if (item.url) out.add(item.url);
+  }
+
+  if (out.size === 0) {
+    for (const item of items.slice(0, 5)) {
+      if (item.url) out.add(item.url);
+    }
+  }
+  return [...out].filter(Boolean).slice(0, 8);
+}
+
+function estimatedTokenSavings(findingCount, fixLever) {
+  const perPage = fixLever === 'component' || fixLever === 'layout' ? 8000 : 4000;
+  if (findingCount <= 1) return 0;
+  return (findingCount - 1) * perPage;
 }
 
 function normalizeUrlKey(u) {
@@ -176,8 +261,14 @@ export function buildRankedDefectClusters(opts) {
     if (!items.length) continue;
     const first = items[0];
     const checkId = String(first.finding?.checkId || 'unknown');
+    const ruleId = String(first.finding?.ruleId || checkId);
     const area = String(first.finding?.area || 'misc');
+    const fixLever = first.fixLever || 'page-local';
+    const signatureId = first.signatureId || null;
+    const layoutId = first.layoutId || null;
+    const pageTypeId = first.pageTypeId || null;
     const affectedUrls = [...new Set(items.map((x) => x.url).filter(Boolean))];
+    const regressionUrls = buildRegressionUrls(items, pages);
     const findings = items.map((x) => x.finding);
     const bySeverity = summarizeSeverities(findings);
     const dimensionDamage = summarizeDimensionDamage(findings);
@@ -212,11 +303,24 @@ export function buildRankedDefectClusters(opts) {
     const ksVisualHashes = collectClusterKsHashes(findings, pages, affectedUrls);
     const visualCatalogRefs = resolveRegistryContractsForHashes(repoRoot, ksVisualHashes);
 
+    const tokenSavings = estimatedTokenSavings(findings.length, fixLever);
+
     clusters.push({
       key,
-      slugBase: toSlug(`${checkId}-${area}`),
+      slugBase: toSlug(signatureId ? `${signatureId}-${ruleId}` : `${checkId}-${area}`),
       checkId,
+      ruleId,
       area,
+      fixLever,
+      signatureId,
+      layoutId,
+      pageTypeId,
+      regressionUrls,
+      estimatedTokenSavings: tokenSavings,
+      fixOnceStrategy:
+        fixLever !== 'page-local' && findings.length > 1
+          ? 'Apply one root fix at the shared source, rebuild, then re-audit regressionUrls only.'
+          : null,
       findingCount: findings.length,
       bySeverity,
       topSeverityRank,
@@ -236,7 +340,12 @@ export function buildRankedDefectClusters(opts) {
     });
   }
 
+  const fixLeverOrder = { layout: 0, component: 1, generator: 2, 'page-local': 3 };
+
   clusters.sort((a, b) => {
+    const la = fixLeverOrder[a.fixLever] ?? 9;
+    const lb = fixLeverOrder[b.fixLever] ?? 9;
+    if (la !== lb) return la - lb;
     if (a.hasHomepageGate !== b.hasHomepageGate) return a.hasHomepageGate ? -1 : 1;
     if (a.estimatedOverallDelta !== b.estimatedOverallDelta) return b.estimatedOverallDelta - a.estimatedOverallDelta;
     if (a.majorPlusCount !== b.majorPlusCount) return b.majorPlusCount - a.majorPlusCount;

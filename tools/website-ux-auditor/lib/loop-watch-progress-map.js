@@ -490,24 +490,31 @@ export function buildRuleSetRows(registry) {
 }
 
 /**
- * Group implemented rules into schematic rulesets (DET by registry `area`, AI by id prefix).
+ * Group implemented rules into schematic rulesets (DET by registry `area` or APP domain, AI by id prefix).
  * @param {object} registry
+ * @param {{ rulesetDomain?: 'website' | 'app' }} [opts]
  */
-export function buildRulesetGroups(registry) {
+export function buildRulesetGroups(registry, opts = {}) {
+  const domain = opts.rulesetDomain || process.env.FORGE_UX_RULESET_DOMAIN || 'website';
   /** @type {Map<string, string[]>} */
-  const detByArea = new Map();
+  const detBuckets = new Map();
   for (const r of listImplementedDeterministicRulesSync(registry)) {
-    const area = String(r.area || 'other');
-    if (!detByArea.has(area)) detByArea.set(area, []);
-    detByArea.get(area).push(r.id);
+    let key;
+    if (domain === 'app') {
+      key = String(r.id || '').startsWith('DET.APP.') ? 'app' : 'shared';
+    } else {
+      key = String(r.area || 'other');
+    }
+    if (!detBuckets.has(key)) detBuckets.set(key, []);
+    detBuckets.get(key).push(r.id);
   }
-  const deterministic = [...detByArea.entries()]
+  const deterministic = [...detBuckets.entries()]
     .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([area, ruleIds]) => ({
-      id: `ruleset:det:${area}`,
+    .map(([bucket, ruleIds]) => ({
+      id: `ruleset:det:${bucket}`,
       lane: 'deterministic',
-      label: area,
-      short: area,
+      label: bucket,
+      short: bucket,
       ruleIds,
     }));
 
@@ -1831,7 +1838,9 @@ export function buildLoopWatchProgressMap(outDir, dashboardState, audit, opts = 
   );
   const aiAuditedUrls = readAiAuditedUrlSet(outDir);
   const registry = loadRegistrySync();
-  const rulesets = buildRulesetGroups(registry);
+  const rulesetDomain =
+    process.env.FORGE_UX_RULESET_DOMAIN === 'app' ? 'app' : 'website';
+  const rulesets = buildRulesetGroups(registry, { rulesetDomain });
   const ruleRows = rulesets.all;
   const scoredUrls = loadScoredUrlSet(outDir, new Set(scoreByUrl.keys()));
   const priorPagesByUrl = readPriorAuditPagesByUrl(outDir);

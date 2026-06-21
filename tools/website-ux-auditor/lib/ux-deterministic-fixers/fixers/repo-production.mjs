@@ -7,10 +7,14 @@ const KS_ROOT = path.resolve(__dirname, '../../../..');
 
 import {
   parseContractFromFinding,
+  parseExpectedRoleFromFinding,
   parseHashFromFinding,
   parseHexFromFinding,
+  parseObservedFontFromFinding,
   parsePathFromFinding,
+  parseSelectorFromFinding,
 } from '../finding-parse.mjs';
+import { themeVarHint } from '../../../design-rules/deterministic/generated/det-theme-font-stack.check.js';
 import { resolveCatalogRepoRoot, resolveKsPythonRepoRoot } from '../resolve-catalog-root.mjs';
 
 const REGISTRY_JSON = 'docs/design/catalog/visual-registry.generated.json';
@@ -173,6 +177,55 @@ async function fixInventoryCrosswalk(catalogRoot, findings) {
  * @param {string} catalogRoot
  * @param {object[]} findings
  */
+/**
+ * @param {string} catalogRoot
+ * @param {object[]} findings
+ */
+async function fixThemeFontStack(catalogRoot, findings) {
+  let touched = 0;
+  const seen = new Set();
+  for (const f of findings) {
+    const rel = parsePathFromFinding(f);
+    const expectedRole = parseExpectedRoleFromFinding(f) || 'body';
+    const selector = parseSelectorFromFinding(f);
+    const observed = parseObservedFontFromFinding(f);
+    if (!rel) continue;
+    const key = `${rel}:${selector}:${expectedRole}:${observed}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    const abs = path.join(catalogRoot, rel);
+    const token = themeVarHint(expectedRole);
+    try {
+      let text = await fs.readFile(abs, 'utf8');
+      let next = text;
+      if (selector && observed) {
+        const escapedObs = observed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const selEsc = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const blockRx = new RegExp(
+          `(${selEsc}\\s*\\{[^}]*?)font-family\\s*:[^;}\n]*(?:${escapedObs}[^;}\n]*|[^;}\n]*${escapedObs}[^;}\n]*);`,
+          'i',
+        );
+        next = next.replace(blockRx, `$1font-family: ${token};`);
+      }
+      if (next === text && observed) {
+        const escapedObs = observed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        next = text.replace(
+          new RegExp(`font-family\\s*:\\s*[^;}\n]*${escapedObs}[^;}\n]*;`, 'gi'),
+          `font-family: ${token};`,
+        );
+      }
+      if (next !== text) {
+        await fs.writeFile(abs, next, 'utf8');
+        touched += 1;
+      }
+    } catch {
+      /* missing file */
+    }
+  }
+  return touched;
+}
+
 async function fixTokenNoDrift(catalogRoot, findings) {
   let touched = 0;
   const seen = new Set();
@@ -405,6 +458,9 @@ export async function runRepoProductionFixer(ctx) {
       break;
     case 'DET.TOKEN.NO_DRIFT':
       touched = await fixTokenNoDrift(catalogRoot, findings);
+      break;
+    case 'DET.THEME.FONT_STACK':
+      touched = await fixThemeFontStack(catalogRoot, findings);
       break;
     case 'DET.PY.KS_HASH_ATTRS':
       touched = await fixPyKsHashAttrs(ksRoot, findings);

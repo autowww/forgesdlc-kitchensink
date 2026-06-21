@@ -1,0 +1,47 @@
+## Report: `DET.AMBIENT.Z_INDEX` handbook page
+
+Wrote the full PDCA rule page to the blender staging path (workspace sandbox blocks direct edits under `docs/design/ux-audit/` at the KS repo root).
+
+**Staging file (complete):**  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-ambient-z-index.md`
+
+**Target file (still previous version on disk):**  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-ambient-z-index.md`
+
+**Sync to canonical path:**
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-det-ambient-z-index.mjs
+```
+
+(`_write-det-ambient-z-index.mjs` copies only; it does not touch the registry or manifest.)
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: 54e80db235ce4fc278994d6cdc4ad3aed4e21b93059c53f2d3a57eeb0fc1463a
+```
+
+### Front matter (staging)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.AMBIENT.Z_INDEX` |
+| `lane` | `deterministic` |
+| `generated_at` | `2026-05-28T16:42:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-ambient-z-index` |
+| `related_rules` | `AI.AMBIENT.READABILITY_CONFLICT`, `DET.MOTION.PREFERS_REDUCED`, `AI.MOTION.INTENTIONALITY` |
+
+### Page content (aligned with check module + KS CSS)
+
+- **Purpose:** Documents the **0 / 1 / 2** plane contract from `forge-ambient.css`, `ks-animated-backgrounds.css`, and `ks-living-background.css`; references `det-ambient-z-index.check.js` violation kinds (`pointer-events`, `z-index-high`, `stack-inversion`, `canvas-layer`).
+- **Passing / failing signals:** Selector-level criteria matching the check’s `AMBIENT_BG_SELECTOR` and container selectors.
+- **Before example (fails):** `landing-hero fs-landing-hero-band forge-ambient forge-ambient--mesh-bloom forge-ambient--hero forge-ambient--expressive` with elevated canvas/bg and prose in a bare `<div>` (no `.forge-ambient-content`).
+- **After example (passes):** Same hero band with `.forge-ambient-bg.ks-ambient-bg`, `.forge-ambient-scrim`, `.forge-ambient-content` — matches `generator/pages/forge_ambient.py` snippets.
+- **Evidence and remediation:** `ambientZIndexReport.violations[]` and ordered fix steps.
+- **Related rules:** Body + front matter list the three companion rules above.
+
+No Mermaid, no Fleet-specific profiles, check modules unchanged. Run the sync command above so the orchestrator sees the updated file at the canonical path.

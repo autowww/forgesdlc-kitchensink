@@ -1,0 +1,58 @@
+## Report: `DET.APP.TILE_AFFORDANCE` handbook page
+
+### Status
+
+The full PDCA rule page is written to the **blender staging path** (workspace sandbox blocked direct writes to `docs/design/ux-audit/rule-pages/`):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-tile-affordance.md`
+
+A copy helper was added: `tools/website-ux-auditor/design-rules/blender/_write-det-app-tile-affordance.mjs`
+
+**Promote to the canonical target** (run from your machine):
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-det-app-tile-affordance.mjs
+```
+
+That copies into `docs/design/ux-audit/rule-pages/det-app-tile-affordance.md` without touching the manifest.
+
+The canonical file on disk is still the **42-line stub** until you run that command.
+
+### `page_version` confirmed
+
+```yaml
+page_version: 391e75de16571930c294e2ad7f43f6956cb95774e175dfacdc32656850cca291
+```
+
+Matches `rule-pages.manifest.json` and your required hash exactly.
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Scans `.dashboard-kpi-card` and `[data-studio-tile]`; tiles that look clickable must be proper controls per `det-app-tile-affordance.check.js` |
+| **Passing signals** | `<a href>` navigation tiles, `<button>` / `role="button"` + `tabindex`, static tiles without link styling |
+| **Failing signals** | `<div>` with `dashboard-kpi-card--link` / pointer cursor; `tabindex` without role; major severity |
+| **Before** | Failing `<div class="dashboard-kpi-card … dashboard-kpi-card--link">` with `data-studio-tile`, `dashboard-kpi-card__*`, `dashboard-status-pill` |
+| **After** | Passing `<a class="dashboard-kpi-card … dashboard-kpi-card--link" href="…">` plus alt `<button … tile--link>` pattern |
+| **Evidence** | `metrics.tileAffordanceReport`, harness commands, check module path |
+| **Related rules** | `DET.APP.CONTROL_A11Y`, `DET.APP.PRIMARY_CTA`, `DET.NAV.FOCUS_ORDER`, `DET.APP.FOCUS_TRAP`, `AI.JS.BEHAVIOR_DISCOVERABILITY` |
+
+### Real KS / check-aligned class names
+
+Examples use classes the check actually targets (not the old stub’s `dashboard-tile card`):
+
+- `.dashboard-kpi-card`, `.dashboard-kpi-card--link`, `.dashboard-kpi-card--interactive`, `.dashboard-kpi-card--risk`
+- `.dashboard-kpi-card__label`, `__value`, `__status`
+- `.dashboard-status-pill`, `.dashboard-kpi-row`, `.dashboard-kpi-row__grid`
+- `[data-studio-tile]`, `data-studio-workspace`, `doc-main`
+- `.tile--link` (secondary passing example for in-place actions)
+
+Patterns align with governed dashboard metric cards (e.g. `createDashboardMetricCard` in operator UIs) and with `collectTileAffordanceReport` selectors.
+
+### Front matter
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `registry_status`: `implemented`
+- `agent_model`: `composer-2.5-fast`
+- `generated_at`: `2026-05-28T18:45:00.000Z`

@@ -11,6 +11,7 @@ import {
   DETERMINISTIC_IMPLEMENTATIONS,
   LEGACY_CHECK_ADAPTERS,
 } from './rule-mappings.js';
+import { buildAiRuleGovernanceBlock, validateAiRuleRegistryAlignment } from '../../lib/ai-rule-ids.js';
 import { buildDeterministicRuleRegistryEntries } from './rule-status.js';
 
 const TOOL_ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
@@ -24,11 +25,14 @@ const TAXONOMY_DOC = path.resolve(TOOL_ROOT, '..', '..', 'docs/design/ux-audit/c
 
 const REQUIRED_AI_FINDING_METADATA = [
   'principleId',
+  'severity',
   'deterministicCoverage',
   'candidateDeterministicRule',
   'hashesOrContractsAffected',
   'screenshotOrDomEvidence',
   'confidence',
+  'recommendedFixScope',
+  'sourceFilesLikelyAffected',
 ];
 
 function parseArgs(argv) {
@@ -316,10 +320,20 @@ async function main() {
       }, {}),
     },
     requiredAiFindingMetadata: REQUIRED_AI_FINDING_METADATA,
+    aiRuleGovernance: buildAiRuleGovernanceBlock(),
     deterministicRules,
     aiRules,
     legacyAdapters,
   };
+
+  const alignment = await validateAiRuleRegistryAlignment({
+    registry,
+    aiRulesDocMarkdown: aiMarkdown,
+  });
+  if (!alignment.ok) {
+    const detail = alignment.errors.join('\n  - ');
+    throw new Error(`AI rule registry/doc alignment failed:\n  - ${detail}`);
+  }
 
   const payload = `${JSON.stringify(registry, null, 2)}\n`;
   if (args.write) {

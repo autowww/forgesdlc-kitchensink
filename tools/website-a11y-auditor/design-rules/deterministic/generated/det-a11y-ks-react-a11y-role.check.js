@@ -1,4 +1,4 @@
-import { rule as baseRule, run } from '../../../../website-ux-auditor/design-rules/deterministic/generated/det-react-a11y-role.check.js';
+import { rule as baseRule, run } from '../../../../website-ux-auditor/design-rules/deterministic/generated/det-app-control-a11y.check.js';
 import { wrapRule } from '../../../lib/rule-wrap.mjs';
 
 export const rule = wrapRule(

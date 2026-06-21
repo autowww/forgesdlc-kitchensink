@@ -1,0 +1,37 @@
+## Report: `DET.APP.CONTROL_A11Y` rule page
+
+Wrote the full PDCA handbook page at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-control-a11y.md`
+
+The canonical target  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-app-control-a11y.md`  
+is **outside the current workspace root** (blender only), so it could not be updated from here. It still has the old bootstrap stub. Copy the staged file locally:
+
+```bash
+cp "/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-control-a11y.md" \
+   "/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-app-control-a11y.md"
+```
+
+### `page_version` (confirmed in staged file)
+
+`92c34366a639ff1907da7f8e2f1722cfbd0fec9683b31a9fe9122b4ece1455a1`
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | DOM scan of react-primitive roots per `det-app-control-a11y.check.js` |
+| **Passing / failing** | All seven violation kinds from the check (`missing-accessible-name`, `missing-aria-expanded`, etc.) |
+| **Before** | Failing markup: `ks-tile-dropdown`, `ks-fe-banner`, `ks-fe-actionbar`, `ks-fe-kvgrid` with hashes `Tdc`, `Fsb`, `Fda`, `Fkg` |
+| **After** | Passing markup aligned with `TileDropdownControl`, `ForgeStatusBanner`, `ForgeDecisionActionBar`, `ForgeKeyValueGrid` |
+| **Evidence** | Remediation tied to `react/*.tsx`, FAM contract, harness commands |
+| **Related rules** | Six linked rules in front matter and body |
+
+### Real KS patterns used
+
+- Classes: `ks-tile-dropdown__*`, `ks-fe-banner__*`, `ks-fe-actionbar__*`, `ks-fe-kvgrid__*`, `btn-forge`, `doc-main`
+- Hashes/names from `react/ksVisualAttrs.ts`: `Tdc`, `Fsb`, `Fda`, `Fkg`
+- Front matter: `registry_fingerprint` `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `registry_status: implemented`, `agent_model: composer-2.5-fast`
+
+No check modules, registry, or manifest were edited (per instructions).

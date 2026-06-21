@@ -1,0 +1,50 @@
+## Report: `det-js-no-console-error.md`
+
+File edits were blocked in this session (write/strReplace/shell all rejected), so the on-disk page was not updated. Below is what is already there, what still differs from your PDCA checklist, and the small deltas to apply locally if you want them.
+
+### Confirmed on disk
+
+| Requirement | Status |
+|-------------|--------|
+| **Target path** | `docs/design/ux-audit/rule-pages/det-js-no-console-error.md` |
+| **`page_version`** | `17b81897d0877fb2c19b58e262607083ff98c5619897516856c39cf0521dab35` (matches required value exactly) |
+| **Schema sections** | Purpose, Passing signals, Failing signals, Before/After (`html`), Evidence and remediation, Related rules |
+| **Registry** | `registry_status: implemented`, `registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| **Source anchor** | `docs/design/ux-audit/deterministic-design-rules.md#det-js-no_console_error` |
+| **Check module** | Aligned with `det-js-no-console-error.check.js` (`SMOKE_SELECTORS`, `shouldIgnoreConsoleMessage`, `jsConsoleErrorReport`) |
+
+### Content summary (already written)
+
+The handbook page documents **golden-path Playwright smoke** (up to five clicks on tab/collapse/pill/details/theme/nav toggles) with **no `console` errors or `pageerror` exceptions**.
+
+**Before example (failing):** `fs-tab-panel` / `fs-tab-panel__tabs` / `fs-tab-panel__panes` / `fs-tab-panel__body`, `forge-card breathe-static`, `forge-theme-trigger`, inline script that calls `console.error` and touches undefined `forgeAmbient` on tab click — matches the harness defect pattern.
+
+**After example (passing):** Same structure plus `dropdown-menu` + `data-bs-theme-value` items and `<script src="/js/forge-theme.js" defer>` — matches `components/layouts.py` / `enterprise_marketing.py` patterns.
+
+**Real KS classes used:** `doc-main`, `font-display`, `forge-support`, `fs-tab-panel`, `nav-tabs`, `forge-card`, `forge-theme-trigger`, `dropdown-menu`, hash attrs `hash="Ksj"` / `data-ks-hash="Ksj"`.
+
+### Gaps vs your checklist (minor)
+
+1. **`related_rules` in YAML front matter** — listed under `## Related rules` in the body, but not duplicated in front matter (schema expects both).
+2. **`generated_at`** — still `2026-05-25T20:15:00.000Z`; you asked for UTC now (`2026-05-29`).
+3. **Small alignment tweaks** (optional): Purpose could mention `[data-bs-theme-value]` and `.navbar-toggler[data-bs-toggle="collapse"]` explicitly; Passing signals could list `button.theme-toggle` / `[data-theme-toggle]` like the check’s `SMOKE_SELECTORS`; Related rules could add `DET.APP.CLIENT_ERROR_LOG_CLEAN` (shares `shouldIgnoreConsoleMessage`).
+
+### `page_version` confirmation
+
+**`page_version` = `17b81897d0877fb2c19b58e262607083ff98c5619897516856c39cf0521dab35`** — already correct on disk; no change needed for the orchestrator manifest sync.
+
+---
+
+If you want the file brought fully in line, apply this front-matter block (keep `page_version` unchanged):
+
+```yaml
+generated_at: 2026-05-29T12:00:00.000Z
+related_rules:
+  - DET.JS.PROGRESSIVE
+  - DET.NAV.FOCUS_ORDER
+  - DET.MOTION.PREFERS_REDUCED
+  - DET.APP.CLIENT_ERROR_LOG_CLEAN
+  - AI.JS.BEHAVIOR_DISCOVERABILITY
+```
+
+I can retry the write in a follow-up turn if file edits are enabled again.

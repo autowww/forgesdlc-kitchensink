@@ -1,0 +1,42 @@
+## Report: `DET.APP.PRIMARY_CTA` handbook page
+
+Wrote the full PDCA handbook page at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-primary-cta.md`
+
+The Cursor workspace is scoped to the **blender** folder, so writes to the canonical Kitchen Sink path were blocked. The stub at `docs/design/ux-audit/rule-pages/det-app-primary-cta.md` (repo root) is **not** updated yet.
+
+**Promote to the target path** (run from KS repo root):
+
+```bash
+cp -f tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-primary-cta.md \
+      docs/design/ux-audit/rule-pages/det-app-primary-cta.md
+```
+
+### `page_version` (confirmed)
+
+`8a3d48bb18ed60117a9fbc1044fa7df7f8cbcbf09e1360c0d7b3e19cec1545bf` — matches the required hash exactly in the written file.
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | One dominant action per `[data-studio-workspace]` / `.studio-page`; how `collectPrimaryCtaReport` counts `[data-studio-primary-cta]` and `btn-primary`; distinction from `DET.CTA.HIERARCHY` (marketing heroes count `btn-forge` too). |
+| **Passing / Failing signals** | Visibility rules, disabled exclusion, `metrics.primaryCtaReport`, major/critical severities. |
+| **Before** | Two `btn-primary` buttons in a `studio-page` + `forge-card` toolbar (matches harness fixture). |
+| **After** | One `btn-forge` + `data-studio-primary-cta`; sibling `btn-forge-outline`. |
+| **Evidence** | Remediation table, fixture/harness commands, check module path. |
+| **Related rules** | `DET.APP.PRIMARY_STATE`, `DET.APP.DEMO_DISCLOSURE`, `DET.CTA.HIERARCHY`, `DET.CTA.LABEL.NONEMPTY`, `DET.BUTTON.GROUP.MAX`, `AI.APP.WORKFLOW.CONTINUITY`. |
+
+### Real KS classes in examples
+
+`studio-page`, `doc-main`, `forge-card`, `card-label`, `text-cyan`, `font-display`, `forge-support`, `btn-forge`, `btn-forge-outline`, `btn-primary`, `data-studio-workspace`, `data-studio-primary-cta`.
+
+### Front matter
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `registry_status`: `implemented`
+- `agent_model`: `composer-2.5-fast`
+- `generated_at`: `2026-05-28T19:15:00.000Z`
+
+No check modules, registry, or manifest were edited. After the `cp` above, the canonical file will match the blender copy and be ready for the orchestrator batch.

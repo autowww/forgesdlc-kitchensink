@@ -33,7 +33,7 @@
     "fromMatrixCount": 20,
     "fromTaxonomyCount": 20,
     "fromAiDocCount": 24,
-    "selectedCount": 20
+    "selectedCount": 30
   },
   "versioning": {
     "deterministicRulesVersion": "706df4e3e9577658b6163260b0067b1e9f62219ef048bae0184da8d4cc7631b9",
@@ -46,9 +46,9 @@
     "aiPromptsGenerated": 0
   },
   "deterministicCoverage": {
-    "documentedRuleCount": 59,
-    "implementedCount": 58,
-    "stubCount": 1,
+    "documentedRuleCount": 65,
+    "implementedCount": 65,
+    "stubCount": 0,
     "implementedRuleIds": [
       "DET.AMBIENT.Z_INDEX",
       "DET.APP.CONTROL_A11Y",
@@ -85,6 +85,12 @@
       "DET.INVENTORY.CROSSWALK",
       "DET.JS.NO_CONSOLE_ERROR",
       "DET.JS.PROGRESSIVE",
+      "DET.KS.CONSUMER_ASSET_BUNDLE",
+      "DET.KS.CONTRACT_EXAMPLE_SYNC",
+      "DET.KS.CSS_SCOPE_LEAK",
+      "DET.KS.HASH_SEMANTIC_UNIQUENESS",
+      "DET.KS.PRIMITIVE_VERSION_MATCH",
+      "DET.KS.VISUAL_FAMILY_COVERAGE",
       "DET.LANDMARKS.REQUIRED",
       "DET.LAYOUT.GRID_CONSISTENCY",
       "DET.MOTION.NO_AUTO_PLAY_FLASH",
@@ -106,14 +112,13 @@
       "DET.SECTION.SINGLE_JOB",
       "DET.SURFACE.ELEVATION_TOKEN",
       "DET.THEME.CONTRAST_MIN",
+      "DET.THEME.FONT_STACK",
       "DET.TOKEN.NO_DRIFT",
       "DET.VISUAL.RHYTHM"
     ],
-    "stubRuleIds": [
-      "DET.THEME.FONT_STACK"
-    ],
+    "stubRuleIds": [],
     "byImplementationSource": {
-      "explicit-map": 58
+      "explicit-map": 65
     }
   },
   "requiredAiFindingMetadata": [
@@ -124,6 +129,43 @@
     "screenshotOrDomEvidence",
     "confidence"
   ],
+  "aiRuleGovernance": {
+    "aliases": [
+      { "from": "AI.VISUAL.HIERARCHY_CONFIDENCE", "to": "AI.VISUAL.HIERARCHY" },
+      { "from": "AI.GOVERNANCE.CREDIBILITY", "to": "AI.CREDIBILITY.NO_OVERCLAIM" },
+      { "from": "AI.CONTRACT.ACTIONABILITY", "to": "AI.CONTRACT.IMPLEMENTATION_USEFULNESS" }
+    ],
+    "docOnly": [
+      {
+        "id": "AI.VISUAL.HIERARCHY_CONFIDENCE",
+        "kind": "legacy",
+        "canonicalId": "AI.VISUAL.HIERARCHY",
+        "reason": "Renamed to AI.VISUAL.HIERARCHY for matrix/taxonomy alignment; normalize findings to the canonical id."
+      },
+      {
+        "id": "AI.GOVERNANCE.CREDIBILITY",
+        "kind": "legacy",
+        "canonicalId": "AI.CREDIBILITY.NO_OVERCLAIM",
+        "reason": "Superseded by AI.CREDIBILITY.NO_OVERCLAIM and AI.TRUST.BOUNDARY_CLARITY in explicit-only registry selection."
+      },
+      {
+        "id": "AI.CONTRACT.ACTIONABILITY",
+        "kind": "legacy",
+        "canonicalId": "AI.CONTRACT.IMPLEMENTATION_USEFULNESS",
+        "reason": "Superseded by AI.CONTRACT.IMPLEMENTATION_USEFULNESS in matrix/taxonomy; same judgment lens."
+      },
+      {
+        "id": "AI.CONTRACT.FAMILY_COVERAGE_JUSTIFIED",
+        "kind": "discovery-only",
+        "reason": "Extended contract vocabulary only; not in matrix/taxonomy explicit AI selection."
+      },
+      {
+        "id": "AI.RULE_DISCOVERY.CANDIDATE_DETERMINISTIC_RULE",
+        "kind": "discovery-only",
+        "reason": "Metadata promotion path for candidateDeterministicRule; not a separate scored AI batch rule."
+      }
+    ]
+  },
   "deterministicRules": [
     {
       "id": "DET.AMBIENT.Z_INDEX",
@@ -581,6 +623,90 @@
       "implementationSource": "explicit-map"
     },
     {
+      "id": "DET.KS.CONSUMER_ASSET_BUNDLE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "scope": "ks",
+      "modulePath": "design-rules/deterministic/generated/det-ks-consumer-asset-bundle.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-consumer-asset-bundle",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.KS.CONTRACT_EXAMPLE_SYNC",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "repo",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 7,
+      "scope": "ks",
+      "modulePath": "design-rules/deterministic/generated/det-ks-contract-example-sync.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-contract-example-sync",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.KS.CSS_SCOPE_LEAK",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
+      "scope": "ks",
+      "modulePath": "design-rules/deterministic/generated/det-ks-css-scope-leak.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-css-scope-leak",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.KS.HASH_SEMANTIC_UNIQUENESS",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "scope": "ks",
+      "modulePath": "design-rules/deterministic/generated/det-ks-hash-semantic-uniqueness.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-hash-semantic-uniqueness",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.KS.PRIMITIVE_VERSION_MATCH",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 8,
+      "scope": "ks",
+      "modulePath": "design-rules/deterministic/generated/det-ks-primitive-version-match.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-primitive-version-match",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.KS.VISUAL_FAMILY_COVERAGE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "repo",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "scope": "ks",
+      "modulePath": "design-rules/deterministic/generated/det-ks-visual-family-coverage.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-visual-family-coverage",
+      "implementationSource": "explicit-map"
+    },
+    {
       "id": "DET.LANDMARKS.REQUIRED",
       "lane": "deterministic",
       "status": "implemented",
@@ -856,15 +982,15 @@
     {
       "id": "DET.THEME.FONT_STACK",
       "lane": "deterministic",
-      "status": "stub",
+      "status": "implemented",
       "phase": "metrics",
-      "area": null,
-      "scoreDimension": null,
-      "defaultSeverity": "minor",
-      "priorityWeight": 0,
+      "area": "readability",
+      "scoreDimension": "visualRhythmFirstScreen",
+      "defaultSeverity": "warn",
+      "priorityWeight": 7,
       "modulePath": "design-rules/deterministic/generated/det-theme-font-stack.check.js",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-theme-font_stack",
-      "implementationSource": "generated-stub-locked"
+      "implementationSource": "explicit-map"
     },
     {
       "id": "DET.TOKEN.NO_DRIFT",
@@ -921,6 +1047,76 @@
       "status": "generated",
       "promptPath": "design-rules/ai/prompts/generated/ai-app-workflow-continuity.md",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-workflow-continuity"
+    },
+    {
+      "id": "AI.APP.WORKFLOW_RISK_GUARDRAILS",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-app-workflow-risk-guardrails.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-workflow-risk-guardrails"
+    },
+    {
+      "id": "AI.BRAND.GENERICITY_AND_DIFFERENTIATION",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-brand-genericity-and-differentiation.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-brand-genericity-and-differentiation"
+    },
+    {
+      "id": "AI.DASHBOARD.ACTIONABILITY_PRIORITY",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-dashboard-actionability-priority.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-dashboard-actionability-priority"
+    },
+    {
+      "id": "AI.EMPTY_STATE.USEFULNESS",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-empty-state-usefulness.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-empty-state-usefulness"
+    },
+    {
+      "id": "AI.ERROR_COPY.REASSURANCE",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-error-copy-reassurance.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-error-copy-reassurance"
+    },
+    {
+      "id": "AI.FORM.FRICTION_AND_RECOVERY",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-form-friction-and-recovery.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-form-friction-and-recovery"
+    },
+    {
+      "id": "AI.INFORMATION_SCENT.NEXT_STEP",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-information-scent-next-step.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-information-scent-next-step"
+    },
+    {
+      "id": "AI.ONBOARDING.PROGRESSIVE_DISCLOSURE",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-onboarding-progressive-disclosure.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-onboarding-progressive-disclosure"
+    },
+    {
+      "id": "AI.RESPONSIVE.CROSS_DEVICE_COMPREHENSION",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-responsive-cross-device-comprehension.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-responsive-cross-device-comprehension"
+    },
+    {
+      "id": "AI.TRUST.DATA_FRESHNESS_PROVENANCE",
+      "lane": "ai",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-trust-data-freshness-provenance.md",
+      "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-trust-data-freshness-provenance"
     },
     {
       "id": "AI.CONTEXT.BURDEN_SUBJECTIVE",
@@ -1016,8 +1212,8 @@
     {
       "id": "AI.VISUAL.HIERARCHY",
       "lane": "ai",
-      "status": "generated",
-      "promptPath": "design-rules/ai/prompts/generated/ai-visual-hierarchy.md",
+      "status": "implemented",
+      "promptPath": "design-rules/ai/prompts/ai-visual-hierarchy-confidence.md",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-hierarchy"
     },
     {

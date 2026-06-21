@@ -1,0 +1,40 @@
+## Report: `DET.CATALOG.CONTRACT_SPECIFICITY` handbook page
+
+### Written (staging copy)
+Updated file:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-catalog-contract-specificity.md`
+
+The Cursor workspace root is the **blender** folder, so direct writes to `docs/design/ux-audit/rule-pages/` at the Kitchen Sink repo root were blocked. The full page is in the blender staging path above.
+
+**Sync to the canonical target** (from KS repo root):
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-catalog-contract-specificity.md \
+   docs/design/ux-audit/rule-pages/det-catalog-contract-specificity.md
+```
+
+### `page_version` (confirmed)
+`8cba9be552de740cab12a4c2d508101e424e4e77b17ae0dd898360d47d4890cf`
+
+### Front matter
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.CATALOG.CONTRACT_SPECIFICITY` |
+| `lane` | `deterministic` |
+| `page_version` | `8cba9be552de740cab12a4c2d508101e424e4e77b17ae0dd898360d47d4890cf` |
+| `generated_at` | `2026-05-28T16:12:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `related_rules` | `DET.CONTRACT.PATH`, `DET.CONTRACT.PLACEHOLDERS`, `DET.HASH.MARKERS`, `DET.HASH.REGISTRY_ROW`, `AI.CONTRACT.IMPLEMENTATION_USEFULNESS`, `AI.CONTRACT.FAMILY_COVERAGE_JUSTIFIED` |
+
+### Content (from check + catalog sources)
+- **Purpose:** Repo-scans registry-linked contracts (`own` / `family-covered`); maps source-rule “Expected anatomy / Verification” to enforced headings **`## Expected look`**, **`## Anatomy`**, **`## Forbidden patterns`**, **`## Deterministic checks`**; heuristics from `det-catalog-contract-specificity.check.js` and `tools/design-catalog/lib/contract-specificity.mjs` (thin generics, atmosphere slab, duplicate Expected look, States minors; 12-finding cap).
+- **Before/After:** **Idx** showcase home — failing Bootstrap `card` / `btn-primary` vs passing `forge-card breathe-link`, `card-label`, `forge-support`, `bento-grid bento-3`, `glass forge-stat` (aligned with `generator/pages/index.py`).
+- **Evidence:** `metrics.contractSpecificityReport`, `check-visual-catalog.mjs`, seven-step remediation chain.
+- **Related rules:** Six linked deterministic/AI contract-governance rules.
+
+### KS class names in examples
+`forge-card`, `breathe-link`, `card-amber`, `card-label`, `forge-support`, `font-display`, `bento-grid`, `bento-3`, `glass`, `forge-stat`, `stat-value`, `stat-label`, `text-amber`, `text-cyan` — all from live showcase generator markup.
+
+No check modules, `rule-mappings.js`, or registry files were edited. After you run the `cp` above, the orchestrator can refresh `rule-pages.manifest.json` for this batch.

@@ -1,0 +1,47 @@
+## Report: `DET.APP.PRIMITIVE_MARKERS` handbook page
+
+### Written content (ready)
+
+The full PDCA handbook page is at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-primitive-markers.md`
+
+(Staging copies: `.staging-det-app-primitive-markers.md` and `_write-det-app-primitive-markers.mjs` to publish into KS docs.)
+
+### `page_version` confirmed
+
+```yaml
+page_version: bea28d34baf7530df4a75aaa0348712067b5ef581b6de321e9b1986ab50d8f62
+```
+
+Matches the required hash exactly.
+
+### What the page covers
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | React primitives must use `ksReactPrimitiveAttrs()` from `react/ksVisualAttrs.ts`; DOM scan via `det-app-primitive-markers.check.js` |
+| **Passing** | Full marker set on visible roots: `hash`, `data-ks-hash`, `data-ks-type="react-primitive"`, `data-ks-name`, `data-ks-react-root="true"`; valid **Fsb** / **Fwb** / **Wlc** tokens |
+| **Failing** | All violation kinds from the check module (`missing-data-ks-hash`, `hash-mismatch`, `missing-react-root-flag`, etc.) |
+| **Before** | `ks-fe-banner ks-fe-banner--failed` with `ks-fe-banner__*` internals but **no** hash pair or `data-ks-name` |
+| **After** | Same banner with **Fsb** / `forge-status-banner` and full governed attrs (aligned with `ForgeStatusBanner.tsx` and ecosystem embeds) |
+| **Remediation** | Spread `{...ksReactPrimitiveAttrs('ComponentKey')}`, harness + `build-showcase.py` |
+| **Related** | `DET.HASH.MARKERS`, `DET.APP.PRIMITIVE_SOURCE`, `DET.APP.CONTROL_A11Y`, `DET.APP.PRIMITIVE_STYLES`, `AI.APP.PRIMITIVE_CONSISTENCY` |
+
+Front matter uses `registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `registry_status: implemented`, and `agent_model: composer-2.5-fast`.
+
+### Canonical path still needs one copy step
+
+The target file  
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-app-primitive-markers.md`  
+still has the old bootstrap stub (`title: React Ks Attrs`) because this session’s sandbox only allows writes under the `blender` workspace root.
+
+Run once from your machine:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-det-app-primitive-markers.mjs
+```
+
+That copies the new page into `docs/design/ux-audit/rule-pages/det-app-primitive-markers.md` and validates `title` + `page_version`.
+
+No check modules, `rule-mappings.js`, or registry files were edited (per your instructions).

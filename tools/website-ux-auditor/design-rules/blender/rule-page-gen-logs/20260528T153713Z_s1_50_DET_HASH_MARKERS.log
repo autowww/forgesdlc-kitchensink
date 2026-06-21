@@ -1,0 +1,50 @@
+## Report: `DET.HASH.MARKERS` handbook page
+
+### `page_version` (confirmed)
+
+`bc55bb8357237c518f70fb3ed0e6f0926c99c4068686fe8e8867197e5f1c7d6a` — matches `rule-pages.manifest.json` and your required value.
+
+### What was produced
+
+The full schema-compliant page is written here (workspace write boundary):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-hash-markers.md`
+
+The canonical target you specified could not be overwritten from this session (writes outside `design-rules/blender/` were rejected). The existing file at `docs/design/ux-audit/rule-pages/det-hash-markers.md` is already ~95% complete; it only needs a small sync from the blender copy.
+
+**Sync command (run locally):**
+
+```bash
+cp -f "/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-hash-markers.md" \
+      "/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-hash-markers.md"
+```
+
+### Sources used
+
+| Source | Role |
+|--------|------|
+| `deterministic-design-rules.md#det-hash-markers` | Pass: paired `hash` + `data-ks-hash`, 3-letter ASCII |
+| `det-hash-markers.check.js` | `invalidRaw`, `mismatches`, `incompleteMarkers`, `instanceCountByHash`, cap 10 |
+| `registry.generated.json` | `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `implemented` |
+| `showcase/preview-handbook.html` | Real hashes **Hbk**, **Ksr**, **Vhb**, **Ksf** and classes |
+
+### Page content (PDCA)
+
+- **Purpose** — Governed visual roots need paired markers; metrics via `ksVisualHashReport`; complements `DET.HASH.REGISTRY_ROW`, `DET.CONTRACT.PATH`, `DET.PY.KS_HASH_ATTRS`.
+- **Passing / failing** — Aligned with check module severities and DOM `side` values.
+- **Before** — Failing handbook shell: **Hbk** has only `data-ks-hash`; **Ksr** sidebar has only `hash=`.
+- **After** — Passing shell from showcase: `container-fluid`, `forge-sidebar`, `nav-scroll`, `nav-rail`, `forge-brand`, `ks-site-footer-region`, paired **Hbk** / **Ksr** / **Vhb** / **Ksf**.
+- **Evidence** — PDCA steps + `analyze-website-ux.mjs` / `check-visual-catalog.mjs`.
+- **Related rules** — Six IDs in front matter and body.
+
+### Delta vs current canonical file
+
+After you run `cp` above, the canonical file gains:
+
+1. `related_rules:` in YAML front matter (6 IDs)
+2. `generated_at: 2026-05-29T14:32:00.000Z`
+3. `lib/visual-catalog.js` chain and `ks_catalog_hashes.py` in Purpose
+4. `incompleteMarkers` `side` detail in Failing signals
+5. After example: `style="position:relative"` on main (**Vhb**), footer attribute order matching showcase
+
+No Mermaid, no Fleet profile. Check modules and registry were not edited.

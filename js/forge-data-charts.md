@@ -23,6 +23,7 @@
 | `loc_share_donut` | `{ "rows": [ { "name": "repo", "value": 1000 }, ... ], "top_n": 8 }` |
 | `compliance_bars` | `{ "rows": [ ["repoName", 85], ... ] }` or `{ "rows": [ { "name", "score" } ] }` |
 | `extension_heatmap` | `{ "extensions": [ [".py", 40], ... ], "tracked_files": 120 }` |
+| `matrix_heatmap` | `{ "rows": ["article","form"], "cols": ["footer","hero"], "cells": [[2,1],[0,3]], "ariaLabel": "..." }` |
 | `contributors` | `{ "rows": [ ["12", "Author"], ... ] }` |
 | `submodule_layout` | `{ "svg_fragment": "<svg>...</svg>..." }` (server-rendered escape hatch) |
 

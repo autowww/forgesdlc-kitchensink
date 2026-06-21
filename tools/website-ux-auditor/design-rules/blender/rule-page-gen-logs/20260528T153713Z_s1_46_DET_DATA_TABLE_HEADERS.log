@@ -1,0 +1,63 @@
+## Report: `DET.DATA.TABLE_HEADERS` handbook page
+
+File writes from this session were blocked (workspace root is `tools/website-ux-auditor/design-rules/blender`; the target path is outside it). The canonical file at [`docs/design/ux-audit/rule-pages/det-data-table-headers.md`](/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-data-table-headers.md) **already exists** and is largely schema-complete. Below is what was verified and what still needs a small front-matter update.
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: c2b014237c1a35b505f81d8e70ea6f243a8cb7e2381642ce79c021dce5b9d479
+```
+
+Matches the required orchestrator hash exactly.
+
+### Sources used
+
+| Source | Finding |
+|--------|---------|
+| `deterministic-design-rules.md` | Pass when tables have `<th>` scope or explicit `headers` associations |
+| `det-data-table-headers.check.js` | Flags `no-header-cells` and `th-missing-scope`; valid scopes: `col`, `row`, `colgroup`, `rowgroup`; skips `role="presentation"` |
+| `registry.generated.json` | `registry_status: implemented`, fingerprint `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `components/components.py` `render_table` | Emits `<th scope='col'>` inside `.forge-table-wrap` |
+| `generator/pages/surfaces.py` `sec-tables` | **Failing pattern**: `<th>` without `scope` on `.table.table-striped` |
+| `generator/pages/controls.py` | **Passing pattern**: `<th scope="col">` in `.forge-table-wrap` |
+
+### Schema coverage (on disk)
+
+All required `##` sections are present: Purpose, Passing signals, Failing signals, Before/After (with fenced `html`), Evidence and remediation, Related rules.
+
+Before/after examples use real KS classes: `.ks-section`, `.ks-section-title`, `.forge-support`, `.forge-table-wrap`, `.table`, `.table-striped`, `.table-sm`, `.ks-chart-mount`, `[data-ks-chart]`.
+
+### Gaps vs your spec (apply manually or re-run from KS repo root)
+
+1. **`related_rules` missing from YAML front matter** (listed in body only).
+2. **`generated_at` stale** (`2026-05-19T22:35:00.000Z` → should be `2026-05-29T15:30:00.000Z` or current UTC).
+3. **Optional refinements**: cite `surfaces.py` / `controls.py` by path; strip decorative `hash="Srf"` from before/after so they match `surfaces.py` line-for-line (the failing showcase block has no hash on `<section>`).
+
+Insert after `source_rule:` in front matter:
+
+```yaml
+related_rules:
+  - DET.CHART.ALT_SUMMARY
+  - DET.DATA.COLOR_ONLY
+  - AI.DATA.INSIGHT_LEGIBILITY
+  - DET.LANDMARKS.REQUIRED
+  - AI.VISUAL.PRODUCT_EXPLANATORY_VALUE
+```
+
+### Rule summary (intended page content)
+
+- **Purpose:** Visible data tables must expose programmatic header relationships via `<th scope="…">` or `headers` on every `<td>`.
+- **Pass:** `render_table` / `controls.py` patterns; layout tables with `role="presentation"` excluded.
+- **Fail:** `surfaces.py`-style unscoped `<th>`; grids with no `<th>` and no `headers`; widget tables missing scope after hydration.
+- **Remediate:** Prefer `render_table`; add `scope="col"`; or wire `headers`; re-run `tableHeadersReport`.
+
+### Confirmation
+
+| Field | Value |
+|-------|--------|
+| **Target** | `docs/design/ux-audit/rule-pages/det-data-table-headers.md` |
+| **`page_version`** | `c2b014237c1a35b505f81d8e70ea6f243a8cb7e2381642ce79c021dce5b9d479` ✓ (already on disk) |
+| **`registry_fingerprint`** | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` ✓ |
+| **`registry_status`** | `implemented` ✓ |
+
+To finish the batch item, open the Kitchen Sink repo root in Cursor (not the blender subfolder) and apply the `related_rules` block + `generated_at` bump—or say if you want a follow-up write from a KS-root workspace.

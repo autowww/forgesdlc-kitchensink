@@ -5,7 +5,10 @@ import {
   aggregateAiAuditResults,
   buildAiAuditBatches,
   extractJsonFromAgentText,
+  filterScoreableAiFindings,
+  normalizeAiFinding,
   selectLikelySourceFiles,
+  shouldMergeAiFindingForScoreGate,
 } from '../lib/ai-audit-batches.js';
 
 const inventory = {
@@ -88,6 +91,49 @@ test('extractJsonFromAgentText parses fenced JSON blocks', () => {
   assert.equal(parsed.summary, 'ok');
 });
 
+test('shouldMergeAiFindingForScoreGate excludes covered and low confidence', () => {
+  const ok = normalizeAiFinding({
+    url: 'https://fixture.test/',
+    severity: 'major',
+    principleId: 'AI.EMPTY_STATE.USEFULNESS',
+    deterministicCoverage: 'not-covered',
+    confidence: 0.9,
+    title: 'Empty',
+  });
+  assert.equal(shouldMergeAiFindingForScoreGate(ok), true);
+  assert.equal(
+    shouldMergeAiFindingForScoreGate({ ...ok, deterministicCoverage: 'covered' }),
+    false,
+  );
+  assert.equal(shouldMergeAiFindingForScoreGate({ ...ok, confidence: 0.2 }), false);
+  assert.equal(
+    shouldMergeAiFindingForScoreGate({ ...ok, deterministicCoverage: 'partially-covered' }),
+    true,
+  );
+});
+
+test('filterScoreableAiFindings keeps partially-covered high-confidence items', () => {
+  const findings = [
+    normalizeAiFinding({
+      url: 'https://a/',
+      severity: 'minor',
+      principleId: 'AI.ERROR_COPY.REASSURANCE',
+      deterministicCoverage: 'partially-covered',
+      confidence: 0.8,
+      title: 'harsh error',
+    }),
+    normalizeAiFinding({
+      url: 'https://b/',
+      severity: 'minor',
+      principleId: 'AI.FORM.FRICTION_AND_RECOVERY',
+      deterministicCoverage: 'covered',
+      confidence: 0.95,
+      title: 'covered',
+    }),
+  ];
+  assert.equal(filterScoreableAiFindings(findings).length, 1);
+});
+
 test('aggregateAiAuditResults normalizes findings and parse errors', () => {
   const { data, markdown } = aggregateAiAuditResults({
     auditData: { auditRunId: 'run123', generatedAt: '2026-05-18T00:00:00.000Z' },
@@ -113,7 +159,8 @@ test('aggregateAiAuditResults normalizes findings and parse errors', () => {
   assert.equal(data.parseErrors.length, 1);
   assert.match(markdown, /AI-assisted UX audit/);
   assert.match(markdown, /Weak trust proof/);
-  assert.equal(data.findings[0].principleId, 'AI.GOVERNANCE.CREDIBILITY');
+  assert.equal(data.findings[0].principleId, 'AI.CREDIBILITY.NO_OVERCLAIM');
+  assert.equal(data.findings[0].principleIdAlias, 'AI.GOVERNANCE.CREDIBILITY');
   assert.equal(data.findings[0].candidateDeterministicRule, 'DET.TRUST.HERO_GOVERNANCE_BLOCK presence');
   assert.deepEqual(data.findings[0].hashesOrContractsAffected, ['ABC', 'docs/design/catalog/layouts/foo.md']);
   assert.equal(data.findings[0].screenshotOrDomEvidence, 'Hero lacks governance strip');

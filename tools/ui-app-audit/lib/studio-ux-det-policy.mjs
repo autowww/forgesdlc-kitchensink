@@ -13,7 +13,7 @@ export { A11Y_STUDIO_UX_DET_EXCLUDED };
 
 /**
  * @param {string} siteKind
- * @param {{ registry?: Awaited<ReturnType<typeof loadDesignRuleRegistry>> }} [opts]
+ * @param {{ registry?: Awaited<ReturnType<typeof loadDesignRuleRegistry>>, includePrimitives?: boolean }} [opts]
  * @returns {Promise<{ onlyDeterministicRuleIds: string[], excludeDeterministicRuleIds: string[] }>}
  */
 export async function studioUxDetRuntimeOpts(siteKind, opts = {}) {

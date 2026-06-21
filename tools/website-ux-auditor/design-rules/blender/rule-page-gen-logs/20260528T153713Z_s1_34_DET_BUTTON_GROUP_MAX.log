@@ -1,0 +1,44 @@
+## Report: `DET.BUTTON.GROUP.MAX` rule page
+
+Wrote the full PDCA handbook page at the blender staging path (sandbox blocks direct writes to the Kitchen Sink repo root):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-button-group-max.md`
+
+**Sync to the canonical target** (required — orchestrator expects this path):
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_copy-det-button-group-max-canonical.mjs
+```
+
+That copies into `docs/design/ux-audit/rule-pages/det-button-group-max.md` at the KS root.
+
+### `page_version` (confirmed)
+
+`b7cc93206211ddd3f1dfbb848bad56ec5aec6bc6024f3c745c3c4a1245136f0f`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.BUTTON.GROUP.MAX` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `generated_at` | `2026-05-28T18:12:00.000Z` |
+| `related_rules` | `DET.CTA.HIERARCHY`, `DET.CTA.LABEL_NONEMPTY`, `DET.CONTEXT.BURDEN`, `DET.CARD.ACTION_LIMIT`, `AI.VISUAL.HIERARCHY` |
+
+### Page content (from check + KS sources)
+
+- **Purpose:** Cap horizontal visible actions at **3** (`MAX_VISIBLE_HORIZONTAL_ACTIONS` in `det-button-group-max.check.js`); targets `.landing-hero-actions__buttons`, `.btn-group`, flex rows in `main`, etc.; excludes nav/pagination/cookie chrome.
+- **Passing / failing signals:** Aligned with `buttonGroupMaxReport`, severity major/critical when count > max+1.
+- **Before:** Five `.btn` siblings in `landing-hero-actions__buttons` (fails).
+- **After:** Two buttons (`btn-forge`, `btn-cyan-outline`) plus `landing-hero-secondary-links` / `landing-hero-secondary-link` / `landing-hero-secondary-sep` (passes).
+- **Evidence & remediation:** `metrics.buttonGroupMaxReport`, ordered hero/toolbar fixes, ties to `DET.CTA.HIERARCHY` and `DET.CONTEXT.BURDEN`.
+
+### Real KS class names used
+
+From `components/components.py` and `css/forgesdlc-theme.css`: `landing-hero`, `fs-landing-hero-band`, `forge-section`, `landing-hero-wide`, `landing-hero-grid`, `forge-gradient-text`, `product-landing-title`, `forge-support`, `landing-hero-tagline`, `landing-hero-actions`, `landing-hero-actions__buttons`, `btn btn-forge`, `btn-cyan-outline`, `btn-forge-outline`, `btn-warning`, `landing-hero-secondary-links`, `landing-hero-secondary-link`, `landing-hero-secondary-sep`, plus hash attrs `hash` / `data-ks-hash` / `data-ks-type` / `data-ks-name`.
+
+No Mermaid, no Fleet-specific profiles. Check modules and registry were not edited.
+
+**Note:** On-disk KS `det-button-group-max.md` may still show the older `generated_at` and no `related_rules` until you run the copy script above.

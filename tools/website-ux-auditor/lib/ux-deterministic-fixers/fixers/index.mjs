@@ -7,6 +7,8 @@ import { runNavBreadcrumbFixer } from './nav-breadcrumb.mjs';
 import { runPageTitleFixer } from './page-title.mjs';
 import { runHandbookHtmlPatchFixer } from './handbook-html-patch.mjs';
 import { runRepoProductionFixer } from './repo-production.mjs';
+import { runAppPrimitiveSourceFixer } from './app-primitive-source-fixer.mjs';
+import { runPlanOnlyDeterministicFixer } from './plan-only-fixer.mjs';
 
 /**
  * @param {string} fixerId
@@ -32,6 +34,10 @@ export async function runFixerById(fixerId, ctx) {
       return runLayoutGridConsistencyFixer(ctx);
     case 'handbook_html_patch':
       return runHandbookHtmlPatchFixer(ctx);
+    case 'plan_only':
+      return runPlanOnlyDeterministicFixer(ctx);
+    case 'app_primitive_source':
+      return runAppPrimitiveSourceFixer(ctx);
     default:
       return { applied: false, error: `unknown fixerId: ${fixerId}` };
   }

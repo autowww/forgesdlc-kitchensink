@@ -217,7 +217,9 @@ Return ONLY one JSON object (a fenced JSON block is also acceptable) with this s
       \"evidence\": \"what you saw in the page or file (may mirror screenshotOrDomEvidence)\",
       \"whyMissedByDeterministic\": \"why a rules pass may have missed this\",
       \"sourceFiles\": [\"relative/path.md\"],
+      \"sourceFilesLikelyAffected\": [\"relative/path.md\"],
       \"confidence\": 0.0,
+      \"recommendedFixScope\": \"copy|layout|component|generator|contract|theme|multi\",
       \"remediation\": \"short fix guidance\"
     }
   ]

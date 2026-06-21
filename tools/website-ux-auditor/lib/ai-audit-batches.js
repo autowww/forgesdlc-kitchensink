@@ -2,6 +2,7 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 
 import { inventoryRepo } from './repo-inventory.js';
+import { normalizeAiPrincipleId } from './ai-rule-ids.js';
 import { compareFindingSeverity, isMajorPlus, legacySeverityFrom, severityRank, summarizeBySeverity } from './severity.js';
 
 const KNOWN_SEVERITIES = new Set(['blocker', 'critical', 'major', 'warn', 'minor', 'trivial', 'cosmetic']);
@@ -12,22 +13,125 @@ export const AI_REVIEW_CONTRACT = {
   principlesDocRelative: 'docs/design/ux-audit/ai-enabled-design-principles.md',
   principleIds: [
     'AI.PREMIUM.ENTERPRISE_FEEL',
-    'AI.VISUAL.HIERARCHY_CONFIDENCE',
+    'AI.VISUAL.HIERARCHY',
     'AI.CONTEXT.COGNITIVE_CLARITY',
     'AI.VISUAL.PRODUCT_EXPLANATORY_VALUE',
-    'AI.GOVERNANCE.CREDIBILITY',
-    'AI.CONTRACT.ACTIONABILITY',
-    'AI.RULE_DISCOVERY.CANDIDATE_DETERMINISTIC_RULE',
+    'AI.CREDIBILITY.NO_OVERCLAIM',
+    'AI.CONTRACT.IMPLEMENTATION_USEFULNESS',
   ],
   requiredFindingMetadata: [
     'principleId',
+    'severity',
     'deterministicCoverage',
     'candidateDeterministicRule',
     'hashesOrContractsAffected',
     'screenshotOrDomEvidence',
     'confidence',
+    'recommendedFixScope',
+    'sourceFilesLikelyAffected',
   ],
 };
+
+/** Default minimum confidence (0–1) for AI findings to affect quality gate / audit-data merge. */
+export const DEFAULT_AI_SCORE_CONFIDENCE_MIN = 0.65;
+
+/**
+ * @param {object} [env]
+ */
+export function loadAiScoreGateOptionsFromEnv(env = process.env) {
+  const raw = String(env.FORGE_UX_AI_SCORE_CONFIDENCE_MIN ?? '').trim();
+  const minConfidence =
+    raw && Number.isFinite(Number(raw))
+      ? Math.min(1, Math.max(0, Number(raw)))
+      : DEFAULT_AI_SCORE_CONFIDENCE_MIN;
+  const mergeIntoAuditData =
+    String(env.FORGE_UX_AI_MERGE_INTO_SCORE ?? env.FORGE_UX_AI_MERGE_INTO_AUDIT ?? '0') === '1';
+  return { minConfidence, mergeIntoAuditData };
+}
+
+/**
+ * AI findings merge into score/gate only when confidence is high enough and deterministic
+ * coverage is not already full.
+ * @param {object} finding normalized AI finding
+ * @param {{ minConfidence?: number }} [opts]
+ */
+export function shouldMergeAiFindingForScoreGate(finding, opts = {}) {
+  if (!finding || typeof finding !== 'object') return false;
+  const minConfidence = opts.minConfidence ?? DEFAULT_AI_SCORE_CONFIDENCE_MIN;
+  const coverage = normalizeDeterministicCoverage(finding.deterministicCoverage);
+  if (coverage === 'covered') return false;
+  const confidence = normalizeAiConfidence(finding.confidence);
+  if (confidence < minConfidence) return false;
+  return true;
+}
+
+/**
+ * @param {object[]} findings
+ * @param {{ minConfidence?: number }} [opts]
+ */
+export function filterScoreableAiFindings(findings, opts = {}) {
+  return (findings || []).filter((f) => shouldMergeAiFindingForScoreGate(f, opts));
+}
+
+/**
+ * Map normalized AI finding into audit-data finding shape for gate/scorer.
+ * @param {object} f
+ */
+export function aiFindingToAuditDataFinding(f) {
+  const principleId = f.principleId || '';
+  return {
+    url: f.url || '',
+    severity: f.severity || 'minor',
+    legacySeverity: f.legacySeverity,
+    area: f.guardrail || 'ai-judgment',
+    guardrail: f.guardrail || '',
+    principleId,
+    ruleId: principleId,
+    checkId: principleId,
+    deterministicCoverage: f.deterministicCoverage,
+    candidateDeterministicRule: f.candidateDeterministicRule || '',
+    hashesOrContractsAffected: f.hashesOrContractsAffected || [],
+    screenshotOrDomEvidence: f.screenshotOrDomEvidence || '',
+    message: f.title || f.evidence || '',
+    title: f.title || '',
+    evidence: f.evidence || '',
+    remediation: f.remediation || '',
+    confidence: f.confidence,
+    recommendedFixScope: f.recommendedFixScope || '',
+    sourceFiles: f.sourceFiles || [],
+    sourceFilesLikelyAffected: f.sourceFilesLikelyAffected || f.sourceFiles || [],
+    source: 'ai-assisted',
+    lane: 'ai',
+  };
+}
+
+/**
+ * @param {object} auditData
+ * @param {object[]} findings normalized AI findings
+ * @param {{ minConfidence?: number, onlyScoreable?: boolean }} [opts]
+ */
+export function mergeAiFindingsIntoAuditData(auditData, findings, opts = {}) {
+  const onlyScoreable = opts.onlyScoreable !== false;
+  const list = onlyScoreable
+    ? filterScoreableAiFindings(findings, opts)
+    : (findings || []).map((f) => (f.principleId ? f : normalizeAiFinding(f))).filter(Boolean);
+  const target = auditData.findings || (auditData.findings = []);
+  let added = 0;
+  for (const f of list) {
+    const n = f.principleId ? f : normalizeAiFinding(f);
+    if (!n) continue;
+    target.push(aiFindingToAuditDataFinding(n));
+    added += 1;
+  }
+  auditData.aiFindingsMerged = {
+    ...(auditData.aiFindingsMerged || {}),
+    added,
+    at: new Date().toISOString(),
+    onlyScoreable,
+    minConfidence: opts.minConfidence ?? DEFAULT_AI_SCORE_CONFIDENCE_MIN,
+  };
+  return auditData;
+}
 
 const TOOL_ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const GENERATED_REGISTRY_PATH = path.resolve(TOOL_ROOT, 'design-rules/registry.generated.json');
@@ -318,12 +422,15 @@ export function normalizeAiFinding(rawFinding, fallbackUrl = '') {
     rawFinding.screenshotOrDomEvidence || rawFinding.screenshot_or_dom_evidence || '',
   ).trim();
   const evidence = String(rawFinding.evidence || '').trim();
+  const rawPrincipleId = String(rawFinding.principleId || rawFinding.principle_id || '').trim();
+  const principleId = normalizeAiPrincipleId(rawPrincipleId);
   return {
     url: String(rawFinding.url || fallbackUrl || '').trim(),
     severity,
     legacySeverity: legacySeverityFrom(severity),
     guardrail: String(rawFinding.guardrail || rawFinding.area || '').trim(),
-    principleId: String(rawFinding.principleId || rawFinding.principle_id || '').trim(),
+    principleId,
+    ...(rawPrincipleId && rawPrincipleId !== principleId ? { principleIdAlias: rawPrincipleId } : {}),
     deterministicCoverage: normalizeDeterministicCoverage(rawFinding.deterministicCoverage || rawFinding.deterministic_coverage),
     candidateDeterministicRule: String(rawFinding.candidateDeterministicRule || rawFinding.candidate_deterministic_rule || '').trim(),
     hashesOrContractsAffected: normalizeHashesOrContracts(
@@ -335,7 +442,17 @@ export function normalizeAiFinding(rawFinding, fallbackUrl = '') {
     whyMissedByDeterministic: String(rawFinding.whyMissedByDeterministic || '').trim(),
     remediation: String(rawFinding.remediation || '').trim(),
     confidence: normalizeAiConfidence(rawFinding.confidence),
-    sourceFiles: normalizeSourceFiles(rawFinding.sourceFiles),
+    recommendedFixScope: String(
+      rawFinding.recommendedFixScope || rawFinding.recommended_fix_scope || '',
+    ).trim(),
+    sourceFiles: normalizeSourceFiles(
+      rawFinding.sourceFiles || rawFinding.sourceFilesLikelyAffected || rawFinding.source_files_likely_affected,
+    ),
+    sourceFilesLikelyAffected: normalizeSourceFiles(
+      rawFinding.sourceFilesLikelyAffected ||
+        rawFinding.source_files_likely_affected ||
+        rawFinding.sourceFiles,
+    ),
     source: 'ai-assisted',
   };
 }
@@ -384,7 +501,10 @@ export function aggregateAiAuditResults({
 
   const findings = results.flatMap((x) => x.findings.map((f) => ({ ...f, batchId: x.batchId })));
   findings.sort((a, b) => compareFindingSeverity(a, b) || String(a.title || '').localeCompare(String(b.title || '')));
+  const scoreGateOpts = loadAiScoreGateOptionsFromEnv();
+  const scoreableFindings = filterScoreableAiFindings(findings, scoreGateOpts);
   const bySeverity = summarizeBySeverity(findings);
+  const scoreableBySeverity = summarizeBySeverity(scoreableFindings);
 
   const processedBatchCount = (manifest?.batches || []).length;
   const plannedBatchTotal =
@@ -402,7 +522,16 @@ export function aggregateAiAuditResults({
     deterministicAuditGeneratedAt: auditData?.generatedAt || null,
     totalFindings: findings.length,
     majorPlusFindingCount: findings.filter((f) => isMajorPlus(f.severity)).length,
+    scoreableFindingCount: scoreableFindings.length,
+    scoreableMajorPlusFindingCount: scoreableFindings.filter((f) => isMajorPlus(f.severity)).length,
+    scoreGate: {
+      minConfidence: scoreGateOpts.minConfidence,
+      mergeIntoAuditData: scoreGateOpts.mergeIntoAuditData,
+      excludedFromScoreGate: Math.max(0, findings.length - scoreableFindings.length),
+    },
     findingsBySeverity: bySeverity,
+    scoreableFindingsBySeverity: scoreableBySeverity,
+    scoreableFindings,
     parseErrors,
     ...(batchesPlanned != null && skippedBatches > 0
       ? {
@@ -457,7 +586,13 @@ export function aggregateAiAuditResults({
       lines.push(`### ${f.severity.toUpperCase()} — ${f.title}`);
       lines.push(`- URL: \`${f.url}\``);
       lines.push(`- Guardrail: ${f.guardrail || '—'}`);
-      if (f.principleId) lines.push(`- Principle: \`${f.principleId}\``);
+      if (f.principleId) {
+        lines.push(
+          f.principleIdAlias
+            ? `- Principle: \`${f.principleId}\` (alias from \`${f.principleIdAlias}\`)`
+            : `- Principle: \`${f.principleId}\``,
+        );
+      }
       lines.push(`- Deterministic coverage: ${f.deterministicCoverage || 'not-covered'}`);
       if (f.candidateDeterministicRule) lines.push(`- Candidate deterministic rule: ${f.candidateDeterministicRule}`);
       if (f.hashesOrContractsAffected?.length) {

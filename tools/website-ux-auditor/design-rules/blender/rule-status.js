@@ -40,6 +40,7 @@ export async function resolveDeterministicRuleStatus(ruleId, rulesVersion, overr
       scoreDimension: explicit.scoreDimension || null,
       defaultSeverity: explicit.defaultSeverity || 'minor',
       priorityWeight: Number(explicit.priorityWeight || 0),
+      scope: explicit.scope || 'generic',
       modulePath: explicit.modulePath,
       sourceRule: explicit.sourceRule || null,
       implementationSource: 'explicit-map',

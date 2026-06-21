@@ -1,6 +1,6 @@
 <!-- generated-by: design-rules-blender -->
 <!-- rule-id: AI.THEME.PERSONALITY_COHERENCE -->
-<!-- rules-version: 013774a62681d79900e635229d43808d94a49557290e5701b90b755754a8afcd -->
+<!-- rules-version: e1225bf3177aaa58c659af4857c4ccdf0f9ff72bb2979e5955374ca30b7f7aa8 -->
 # AI.THEME.PERSONALITY_COHERENCE
 
 This AI rule is explicitly referenced in KS UX rule docs (matrix/taxonomy) and runs as a judgment overlay.

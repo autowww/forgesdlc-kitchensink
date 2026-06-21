@@ -1,0 +1,51 @@
+## Report: `DET.APP.FOCUS_TRAP` handbook page
+
+### `page_version` (confirmed in staging)
+
+`fa5dee2e6870a2b15bf5e0e508bc424767e16479167ec419ca40b8adfa8ccc8b`
+
+### Where the full page was written
+
+Sandboxing only allows writes under the blender workspace. The complete, schema-compliant page is here:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-focus-trap.md`
+
+The copy helper was updated to publish from that staging file:
+
+`tools/website-ux-auditor/design-rules/blender/_write-det-app-focus-trap.mjs`
+
+### Publish to the target path (run locally)
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-det-app-focus-trap.mjs
+```
+
+That copies staging → both:
+
+- `docs/design/ux-audit/rule-pages/det-app-focus-trap.md` (KS handbook, your required target)
+- `tools/website-ux-auditor/docs/design/ux-audit/rule-pages/det-app-focus-trap.md` (auditor mirror)
+
+The script asserts `page_version` matches the hash above.
+
+### What the page contains (aligned with `det-app-focus-trap.check.js`)
+
+| Section | Content |
+|--------|---------|
+| **Front matter** | `rule_id`, `lane`, `title`, `summary`, `page_version`, `generated_at` (2026-05-28T18:45:00.000Z), `agent_model`, `registry_fingerprint` (`87724e90…`), `registry_status: implemented`, `source_rule`, `related_rules` (5 IDs) |
+| **Purpose** | Bootstrap `.modal`/`.offcanvas`, `#diagramModal`, `#topicPreviewModal`, custom dialogs; PDCA; probe up to 2 shells |
+| **Passing signals** | Dismiss controls, paired openers, Tab stays in shell, `aria-modal="true"`, `hidden` when closed |
+| **Failing signals** | Table of `no-dismiss`, `no-trigger`, `trap-escape`, `background-tabbable`, `no-focusable`, `missing-aria-modal` + severities |
+| **Before** | Failing HTML: `doc-main`, orphan `#docNavOffcanvas` (no opener/dismiss), open `#diagramModal` without `.diagram-modal-close` |
+| **After** | Passing HTML: `btn btn-forge` + `#docNavOffcanvas` + `btn-close` + canonical diagram fragment + `#topicPreviewModal` with `[data-topic-preview-close]` |
+| **Evidence** | `appFocusTrapReport`, ordered remediation, harness + `patchAppFocusTrap` |
+| **Related rules** | `DET.NAV.FOCUS_ORDER`, `DET.APP.CONTROL_A11Y`, `DET.APP.PERSISTENT_CHROME`, `AI.JS.BEHAVIOR_DISCOVERABILITY`, `AI.APP.DENSITY_BALANCE` |
+
+### KS classes used (from real sources)
+
+From `components/layouts.py`, `diagram_modal_fragment.py`, and `forge-theme.js`: `doc-main`, `forge-diagram`, `btn btn-forge`, `offcanvas offcanvas-start`, `offcanvas-header`, `offcanvas-title font-display`, `offcanvas-body forge-sidebar`, `nav-rail`, `diagram-modal-backdrop`, `diagram-modal`, `diagram-modal-close`, `topic-preview-modal-backdrop`, `data-topic-preview-close`, etc.
+
+### Note on disk at the KS target path
+
+`/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-app-focus-trap.md` already has the correct `page_version` but an older body (no `related_rules` in front matter, older before/after, no violation table). Run the copy script above to replace it with the staging draft.
+
+No check modules, `rule-mappings.js`, or registry files were modified (per your instructions).

@@ -4,7 +4,7 @@
  * Tokens: --ks-script-assembly-* (fall back when certificator :root vars absent)
  */
 :root {
-  --ks-script-assembly-bg: var(--panel, #1a2332);
+  --ks-script-assembly-bg: var(--panel, var(--forge-text-1, inherit));
   --ks-script-assembly-border: var(--border, #30363d);
   --ks-script-assembly-text: var(--text, #e6edf3);
   --ks-script-assembly-muted: var(--muted, #8b9cb3);

@@ -1,0 +1,55 @@
+## Report: `AI.APP.DENSITY_BALANCE` rule page
+
+The handbook page is **fully drafted** with the required schema, PDCA framing, and KS markup. Because this Cursor workspace is rooted at `tools/website-ux-auditor/design-rules/blender`, writes to the canonical KS path were blocked; the content lives in staging and is ready to promote.
+
+### What was written
+
+| Item | Value |
+|------|--------|
+| **Rule** | `AI.APP.DENSITY_BALANCE` (AI lane) |
+| **Source** | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-density-balance` — *“Is information dense without feeling chaotic (ops/console contexts)?”* |
+| **Sections** | Purpose, Passing signals, Failing signals, Before/After (`html`), Evidence and remediation, Related rules |
+| **`page_version`** | `a33a9ed5a288bd4105a55a29ce99d74fe17597c49daea834cf125c609433098e` |
+| **`registry_fingerprint`** | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` (current `registry.generated.json`) |
+| **`registry_status`** | `generated` |
+| **`generated_at`** | `2026-05-28T16:00:00.000Z` |
+
+**Staging (complete page):**  
+`tools/website-ux-auditor/design-rules/blender/.staging-ai-app-density-balance.md`
+
+**Promote helper:**  
+`tools/website-ux-auditor/design-rules/blender/_write-ai-app-density-balance.mjs`
+
+### Before / after (real KS classes)
+
+Verified against `css/workspace-lens.css`, `css/wizard-flow.css`, `css/forge-theme.css`, and `museum/studio/index.html`:
+
+- **Before (fails):** `Msm` desktop shell, mystery `btn btn-sm` icons, ungrouped `<pre>` dumps, duplicate inline nav, shrunk `forge-support`.
+- **After (passes):** `nav-section-label`, `ks-workspace-lens__*`, `ks-wizard-flow__session-list` / `__session-item`, `forge-card` + `card-label`, `ks-wizard-flow__panel` + `__muted`, `data-shell-regions`.
+
+No Mermaid; no Fleet-specific profile.
+
+### Promote to canonical path (required)
+
+The target file still has the **old** `page_version` until you run:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-ai-app-density-balance.mjs
+```
+
+Or:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/.staging-ai-app-density-balance.md \
+   docs/design/ux-audit/rule-pages/ai-app-density-balance.md
+```
+
+(from the Kitchen Sink repo root)
+
+### `page_version` confirmation
+
+In staging (and in the promoted file after the command above):
+
+**`page_version: a33a9ed5a288bd4105a55a29ce99d74fe17597c49daea834cf125c609433098e`**
+
+If you open the workspace at `/home/lzvyahin/Code/forgesdlc-kitchensink` (or approve full-permission shell), I can run the promote step and confirm the canonical file in the same turn.

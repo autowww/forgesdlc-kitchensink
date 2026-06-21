@@ -1,0 +1,51 @@
+## Report: `DET.CHROME.BOUNDARY` handbook page
+
+**Target:** `docs/design/ux-audit/rule-pages/det-chrome-boundary.md`  
+**Status:** The page on disk is already a complete RULE_PAGE_SCHEMA handbook entry. Automated writes from this session were **blocked** (workspace root is `tools/website-ux-auditor/design-rules/blender`, outside `docs/`). Apply the small delta below locally if you want the PDCA refresh.
+
+### Confirmed on disk
+
+| Field | Value |
+|--------|--------|
+| **page_version** | `603dda76edeb8ee339c510ffc7e0d02d5d9b86f983f54f13c0876f4c1f2be5ba` ✓ |
+| **registry_fingerprint** | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` ✓ |
+| **registry_status** | `implemented` ✓ |
+| **Schema sections** | Purpose, Passing signals, Failing signals, Before/After (`html`), Evidence and remediation, Related rules ✓ |
+
+### Source alignment (from `det-chrome-boundary.check.js`)
+
+- Chrome roots: `header`, `footer`, `aside.forge-sidebar`, `.forge-sidebar`, `.site-header`, `.landing-header`, `.ks-site-footer-region`, `[data-shell-region]`
+- Pass cues: border (≥0.5px), box-shadow, background luminance delta ≥ **`MIN_CHROME_BG_LUMINANCE_DELTA` (0.06)**, or `::before`/`::after` separators
+- Scope: outside `main`, overlaps main column, excludes modals/offcanvas/cookie banners
+- Report: `chromeBoundaryReport` → `missing-boundary` violations
+
+### Real KS classes in before/after examples
+
+`site-header`, `site-header-brand`, `site-header-content`, `forge-brand`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `doc-main`, `forge-card`, `card-label`, `forge-support`, `ks-site-footer-region`, `border-top`, `ks-doc-breadcrumb`, `breadcrumb`, hashes **Ksr** / **Ksf** — aligned with `css/docs-theme.css` (`.forge-sidebar { border-right: 1px solid var(--forge-border); }`) and `components/layouts.py` (`.site-header { border-bottom: 1px solid var(--forge-border); }`).
+
+### Recommended delta (not applied here)
+
+1. **Front matter:** set `generated_at: 2026-05-28T16:30:00.000Z` (or current UTC) and add:
+
+```yaml
+related_rules:
+  - DET.LANDMARKS.REQUIRED
+  - DET.LAYOUT.GRID_CONSISTENCY
+  - DET.APP.PERSISTENT_CHROME
+  - DET.NAV.BREADCRUMB
+  - DET.NAV.DEDUP
+  - AI.APP.WORKFLOW_CONTINUITY
+  - AI.VISUAL.HIERARCHY
+```
+
+2. **Purpose / Passing / Failing:** mention `.landing-header`, `MIN_CHROME_BG_LUMINANCE_DELTA`, visibility gate (≥40×24px), and harness `d-none` stripping in `generator/build_rule_defect_fixtures.py`.
+
+3. **Evidence:** point to `det-chrome-boundary.check.js` and `invoke-det-ruleset-harness.sh` for `DET.CHROME.BOUNDARY`.
+
+Before/after HTML blocks can stay as they are; they already demonstrate fail (inline `border-*: none` + matched `var(--forge-bg)`) vs pass (theme borders on **Ksr** / **Ksf**, default `.site-header`).
+
+### page_version confirmation
+
+**`page_version` = `603dda76edeb8ee339c510ffc7e0d02d5d9b86f983f54f13c0876f4c1f2be5ba`** — matches `rule-pages.manifest.json` and your required value.
+
+If you want this written automatically, re-run from the Kitchen Sink repo root or grant write access to `docs/design/ux-audit/rule-pages/` and I can apply the front-matter + refinement patch in one pass.

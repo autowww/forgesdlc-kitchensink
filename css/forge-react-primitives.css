@@ -55,7 +55,7 @@
 
 .ks-fe-banner__desc {
   font-size: 0.88rem;
-  color: var(--le-text, #e2e8f0);
+  color: var(--le-text, var(--forge-text-1, inherit));
   opacity: 0.95;
 }
 
@@ -145,22 +145,22 @@
 
 .ks-fe-badge--success {
   border: 1px solid rgba(34, 197, 94, 0.45);
-  color: #86efac;
+  color: var(--forge-text-1, inherit);
 }
 
 .ks-fe-badge--warning {
   border: 1px solid rgba(245, 158, 11, 0.5);
-  color: #fcd34d;
+  color: var(--forge-text-1, inherit);
 }
 
 .ks-fe-badge--danger {
   border: 1px solid rgba(239, 68, 68, 0.5);
-  color: #fca5a5;
+  color: var(--forge-text-1, inherit);
 }
 
 .ks-fe-badge--info {
   border: 1px solid rgba(6, 182, 212, 0.45);
-  color: #67e8f9;
+  color: var(--forge-text-1, inherit);
 }
 
 .ks-fe-run-header__meta {

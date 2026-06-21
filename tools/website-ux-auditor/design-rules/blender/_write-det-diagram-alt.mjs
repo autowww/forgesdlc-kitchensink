@@ -6,14 +6,14 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const src = path.resolve(
   __dirname,
-  '../../docs/design/ux-audit/rule-pages/det-diagram-alt.md',
+  'docs/design/ux-audit/rule-pages/det-diagram-alt.md',
 );
 const dest = path.resolve(
   __dirname,
   '../../../../docs/design/ux-audit/rule-pages/det-diagram-alt.md',
 );
 const expected =
-  '2a41d2762a8955a191adcfb2803cbf7d10eb49e43c8b575f7545749b36ddb51d';
+  '12d4a2e16a8c8ecdb3d36c2b5e52387424279bc1bc966948d369d91e703331e2';
 await fs.mkdir(path.dirname(dest), { recursive: true });
 await fs.copyFile(src, dest);
 const text = await fs.readFile(dest, 'utf8');

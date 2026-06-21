@@ -3,7 +3,9 @@ import { describe, it } from 'node:test';
 
 import {
   isStudioDynamicUxRuleId,
+  pageHasReactPrimitiveRoots,
   resolveStudioDynamicUxRuleIds,
+  STUDIO_DYNAMIC_UX_PRIMITIVE_RULES,
   STUDIO_DYNAMIC_UX_RUN,
 } from '../lib/studio-dynamic-ux-ruleset.mjs';
 import { loadDesignRuleRegistry } from '../../website-ux-auditor/lib/design-rule-runtime.js';
@@ -22,8 +24,20 @@ describe('studio-dynamic-ux-ruleset', () => {
     assert.ok(STUDIO_DYNAMIC_UX_RUN.includes('DET.APP.DEMO_DISCLOSURE'));
     assert.ok(STUDIO_DYNAMIC_UX_RUN.includes('DET.APP.TAB_PANEL'));
     assert.ok(STUDIO_DYNAMIC_UX_RUN.includes('DET.APP.PRIMITIVE_STYLES'));
+    assert.ok(STUDIO_DYNAMIC_UX_RUN.includes('DET.APP.ROUTE_DEEPLINK_STATE'));
+    assert.ok(STUDIO_DYNAMIC_UX_RUN.includes('DET.APP.CLIENT_ERROR_LOG_CLEAN'));
+    assert.ok(STUDIO_DYNAMIC_UX_RUN.includes('DET.APP.WIZARD_PROGRESS_CONTROLS'));
     assert.ok(!STUDIO_DYNAMIC_UX_RUN.includes('DET.APP.PRIMITIVE_MARKERS'));
     assert.ok(!STUDIO_DYNAMIC_UX_RUN.some((id) => id.startsWith('DET.REACT.')));
+  });
+
+  it('STUDIO_DYNAMIC_UX_PRIMITIVE_RULES lists APP primitive checks', () => {
+    assert.ok(STUDIO_DYNAMIC_UX_PRIMITIVE_RULES.includes('DET.APP.PRIMITIVE_MARKERS'));
+    assert.ok(STUDIO_DYNAMIC_UX_PRIMITIVE_RULES.includes('DET.APP.CONTROL_A11Y'));
+  });
+
+  it('pageHasReactPrimitiveRoots is exported', () => {
+    assert.equal(typeof pageHasReactPrimitiveRoots, 'function');
   });
 
   it('primitive rules resolve only when includePrimitives', async () => {
@@ -39,6 +53,6 @@ describe('studio-dynamic-ux-ruleset', () => {
     const ids = resolveStudioDynamicUxRuleIds(registry);
     assert.ok(ids.includes('DET.SECTION.HEADING'));
     assert.ok(!ids.includes('DET.CONTRACT.PATH'));
-    assert.ok(ids.length >= 30 && ids.length <= 45);
+    assert.ok(ids.length >= 40 && ids.length <= 55);
   });
 });

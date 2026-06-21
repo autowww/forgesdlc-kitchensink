@@ -1,0 +1,46 @@
+## Report: `AI.PREMIUM.ENTERPRISE_FEEL` rule page
+
+Wrote the full handbook page per `RULE_PAGE_SCHEMA.md`. Content is ready at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-premium-enterprise-feel.md`
+
+(and mirrored in `.staging-ai-premium-enterprise-feel.md`).
+
+**Canonical path note:** Writes outside the blender workspace were blocked in this session. The repo already has `_copy-ai-premium-enterprise-feel-canonical.mjs` to promote the page. Run:
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender && node _copy-ai-premium-enterprise-feel-canonical.mjs
+```
+
+### Front matter (confirmed)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.PREMIUM.ENTERPRISE_FEEL` |
+| `lane` | `ai` |
+| `page_version` | **`22fac276efb9e12698672c8c9b297aa012e77f757b8d8f8c04ac75f353af2592`** |
+| `generated_at` | `2026-05-28T16:50:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-premium-enterprise-feel` |
+
+### Page content
+
+- **Purpose** — PDCA framing aligned with the AI prompt; holistic polish on `landing_page` / `product_page` / `forge-card` surfaces; complements `DET.SURFACE.ELEVATION_TOKEN`, `DET.TOKEN.NO_DRIFT`, `DET.LAYOUT.GRID_CONSISTENCY`.
+- **Passing signals** — Calm hero rhythm, consistent card language, Forge typography scale, purposeful imagery, restrained accents.
+- **Failing signals** — Template soup, cramped fold, typography drift, competing accents, decorative filler, hype stacking, broken grid rhythm.
+- **Before example** — Failing HTML: cramped `landing-hero`, inline styles, mixed `forge-card` / `glass` / Bootstrap `card`, four competing CTAs.
+- **After example** — Passing HTML: `fs-landing-hero-band`, `landing-hero-kicker`, `product-landing-title`, `forge-card card-amber breathe-link`, `fs-marketing-stat-band` with `forge-stat--amber` / `forge-stat--cyan`, hash markers.
+- **Evidence and remediation** — Screenshot/DOM capture checklist plus seven ordered remediation steps with `DET.*` promotion guidance.
+- **Related rules** — Eight linked rules in body and front matter.
+
+### KS class verification
+
+Before/after examples use real classes from `components/components.py`, `components/marketing_sections.py`, and `css/forgesdlc-theme.css`, including: `landing-hero`, `fs-landing-hero-band`, `landing-hero-kicker`, `product-landing-title`, `landing-hero-tagline`, `forge-card`, `card-amber`, `breathe-link`, `breathe-static`, `section-label`, `card-label`, `btn-forge`, `btn-cyan-outline`, `fs-marketing-stat-band`, `forge-stat--amber`, `forge-stat--cyan`.
+
+No Mermaid. No Fleet-specific profiles.
+
+### `page_version` confirmation
+
+**`page_version: 22fac276efb9e12698672c8c9b297aa012e77f757b8d8f8c04ac75f353af2592`** — matches the required value exactly in the written file.

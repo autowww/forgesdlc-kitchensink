@@ -1,0 +1,51 @@
+## Report: `DET.DATA.COLOR_ONLY` rule page
+
+The handbook page is authored at the blender staging path (this session cannot write directly to `docs/design/ux-audit/rule-pages/` outside the workspace root).
+
+**Canonical target:** `docs/design/ux-audit/rule-pages/det-data-color-only.md`  
+**Staged copy (complete):** `tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-data-color-only.md`  
+**Copy helper:** `tools/website-ux-auditor/design-rules/blender/_write-det-data-color-only-page.mjs`
+
+Apply to the canonical path:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-det-data-color-only-page.mjs
+```
+
+### `page_version` confirmed
+
+```
+45224ddc5c5bdea31b1bd62397c2388387998e04aaf534340a0452ed9a8a3ab9
+```
+
+### Front matter (staged)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.DATA.COLOR_ONLY` |
+| `lane` | `deterministic` |
+| `title` | Data color redundancy |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-data-color_only` |
+| `related_rules` | `DET.CHART.ALT_SUMMARY`, `DET.DATA.TABLE_HEADERS`, `AI.DATA.INSIGHT_LEGIBILITY`, `AI.VISUAL.PRODUCT_EXPLANATORY_VALUE`, `DET.DIAGRAM.ALT` |
+
+### Content summary (PDCA, from check + KS sources)
+
+- **Purpose:** Metrics-phase `colorOnlyReport` flags color-only encoding in data contexts (`MIN_COLOR_LABEL_CHARS` = 2): missing `.ks-swatch-label`, legend swatches without row text, empty table cells with meaningful `background-color`.
+- **Passing / failing signals:** Aligned with `det-data-color-only.check.js` violation kinds (`ks-swatch-missing-label` major; `legend-swatch-without-label`, `table-cell-color-only` warn).
+- **Before / after HTML:** Real KS classes — `ks-section`, `ks-swatch` / `ks-swatch-box` / `ks-swatch-label`, `ks-chart-mount`, `data-ks-chart`, `lenses-overview-donut-legend` / `lenses-overview-donut-swatch` (matches `forge-data-charts.js`), `forge-table-wrap`, `forge-table`, `forge-support`, hash attrs `Tkn` / `Dcs`.
+- **Evidence & remediation:** `color_only_encoding` evidence; fix via `_for_agents_content.py`, `forge-data-charts.js`, `components/layouts.py`.
+- **Related rules:** Body + front matter list the five linked rules above.
+
+### Delta vs prior on-disk canonical file
+
+The existing canonical page was ~95% complete. Updates in the staged version:
+
+1. Added `related_rules` in YAML front matter  
+2. `generated_at` → `2026-05-29T12:00:00.000Z`  
+3. Remediation source → `generator/pages/_for_agents_content.py` (not `tokens.py`)  
+4. Status tables wrapped in `.forge-table-wrap` in both HTML examples  
+
+Run the copy script above (or `cp` the staged file) so `rule-pages.manifest.json` batch sync sees the updated `generated_at` and `related_rules`. No check modules, registry, or `rule-mappings.js` were changed.

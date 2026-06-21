@@ -1,0 +1,51 @@
+## Report: `AI.DIAGRAM.SEMANTIC_ACCURACY` rule page
+
+The handbook page is **fully authored** with the required `page_version`, but this session **could not write** to the canonical path (`docs/design/ux-audit/rule-pages/ai-diagram-semantic-accuracy.md`) — direct edits and shell were blocked outside the blender workspace. Promote it with one command below.
+
+### What was written
+
+| Field | Value |
+|--------|--------|
+| **rule_id** | `AI.DIAGRAM.SEMANTIC_ACCURACY` |
+| **lane** | `ai` |
+| **page_version** | `8bb03a75ed4ad02de06c7242c8f4cfb9d828437dfb255fb87ae7e543f58d694a` |
+| **registry_fingerprint** | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| **registry_status** | `generated` |
+| **source_rule** | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-diagram-semantic-accuracy` |
+
+**Sections:** Purpose (PDCA), Passing signals, Failing signals, Before/After HTML examples, Evidence and remediation, Related rules.
+
+**Source anchor:** Review question — *Do shapes/arrows match the described mechanism?* Signal — *Mismatch between caption and topology*.
+
+### Before / after (real KS patterns)
+
+- **Before (fails):** `forge-section`, `forge-diagram`, `ks-diagram-tile`, `ks-diagram-canvas`, `template-loop-cycle.svg`, `alt` describing a cycle, `figcaption` claiming a linear gate chain.
+- **After (passes):** Same section shell; `template-gate-chain.svg`; registered catalog key **`gate`** (from `js/ks-diagram-catalog.js`); `forge-diagram-trigger` / `ks-diagram-trigger`; `hash` / `data-ks-hash` on the tile (`Gtc`).
+
+Replaced the prior after example’s unregistered `gate-chain-delivery` key with **`gate`**, matching `DET.DIAGRAM.ASSET_REGISTRY` and the live catalog.
+
+### Promote to canonical path
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_copy-ai-diagram-semantic-accuracy-canonical.mjs
+```
+
+Or:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-diagram-semantic-accuracy.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-diagram-semantic-accuracy.md
+```
+
+Verify:
+
+```bash
+grep '^page_version:' /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-diagram-semantic-accuracy.md
+```
+
+Expected: `page_version: 8bb03a75ed4ad02de06c7242c8f4cfb9d828437dfb255fb87ae7e543f58d694a`
+
+**Staging copy (ready now):**  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-diagram-semantic-accuracy.md`
+
+The canonical file still has the old `page_version` (`b2c3cd48…`) until you run the copy. No Mermaid, no Fleet profile, and no check modules or registry edits were made.

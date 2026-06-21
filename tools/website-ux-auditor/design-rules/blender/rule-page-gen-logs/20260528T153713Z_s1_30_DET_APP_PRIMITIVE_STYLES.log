@@ -1,0 +1,47 @@
+Connection lost, reconnecting (attempt 1)...
+Retry attempt 1...
+## Report: `DET.APP.PRIMITIVE_STYLES` handbook page
+
+The full PDCA page is written at the blender staging path (workspace write boundary):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-primitive-styles.md`
+
+**Publish to the canonical target** (sandbox blocked direct writes to `docs/` outside blender):
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-det-app-primitive-styles.mjs
+```
+
+That copies into `docs/design/ux-audit/rule-pages/det-app-primitive-styles.md` and validates title + `page_version`.
+
+### `page_version` (confirmed in staged file)
+
+`c46becf0f3421283779fd56cbf19e9b3e06aa05ebe4bc0961df91e7d5e36b73f`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.APP.PRIMITIVE_STYLES` |
+| `lane` | `deterministic` |
+| `title` | React primitive stylesheet wiring |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `agent_model` | `composer-2.5-fast` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_styles` |
+
+### Body (all `RULE_PAGE_SCHEMA` sections)
+
+1. **Purpose** — `collectAppPrimitiveStylesReport` checks visible `[data-ks-react-root="true"]` / `[data-ks-type="react-primitive"][data-ks-hash]` roots; requires `forge-react-primitives` in a stylesheet `href` and `ks-fe-*` on each root.
+2. **Passing / Failing signals** — `missing-stylesheet` and `missing-ks-fe-class` (from `det-app-primitive-styles.check.js`).
+3. **Before example** — `ForgeStatusBanner`-style mount with **Fsb** markers but **no** `ks-fe-banner` and no primitives CSS (matches harness defect fixture).
+4. **After example** — links `/css/forge-react-primitives.css` plus real KS classes: `ks-fe-banner`, `ks-fe-banner--failed`, `ks-fe-banner__body`, `ks-fe-banner__title`, `ks-fe-banner__desc`, `ks-fe-banner__actions`, `doc-main`, `section-label`, `font-display`, `btn btn-sm btn-outline-secondary`.
+5. **Evidence and remediation** — analyze/harness steps, CSS link guidance, `build-showcase.py`, escalation to related rules.
+6. **Related rules** — `DET.APP.PRIMITIVE_MARKERS`, `DET.APP.PRIMITIVE_SOURCE`, `DET.APP.SHELL_INTEGRATION`, `DET.APP.CONTROL_A11Y`, `AI.APP.PRIMITIVE_CONSISTENCY`.
+
+### Fixes vs. old stub
+
+- Replaced incorrect `ks-fe-status-banner` with **`ks-fe-banner`** (matches `react/ForgeStatusBanner.tsx` and `css/forge-react-primitives.css`).
+- Added missing **Passing signals** / **Failing signals** sections and full PDCA narrative.
+
+No check modules, registry, or manifest were edited (per instructions). After you run the copy script above, the canonical file at `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-app-primitive-styles.md` will match the staged content with the required `page_version`.

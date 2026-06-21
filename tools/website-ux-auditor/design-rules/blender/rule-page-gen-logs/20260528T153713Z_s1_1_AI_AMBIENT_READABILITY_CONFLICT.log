@@ -1,0 +1,55 @@
+## Report: `AI.AMBIENT.READABILITY_CONFLICT` handbook page
+
+The full rule page is ready at:
+
+`tools/website-ux-auditor/design-rules/blender/.staging-ai-ambient-readability-conflict.md`
+
+Writes to `docs/design/ux-audit/rule-pages/` were blocked in this session (workspace scoped to `design-rules/blender`). The canonical file still has the **old** `page_version` until you copy staging over.
+
+### `page_version` (staging — ready)
+
+```text
+page_version: b96320b80b2e47246d05fe838c39d637c57d4a4b1774263c5e36c697c75ad6a0
+```
+
+### Front matter (updated)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.AMBIENT.READABILITY_CONFLICT` |
+| `lane` | `ai` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `generated` |
+| `generated_at` | `2026-05-28T16:50:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `related_rules` | `DET.AMBIENT.Z_INDEX`, `DET.THEME.CONTRAST_MIN`, `DET.MOTION.PREFERS_REDUCED`, `AI.MOTION.INTENTIONALITY`, **`AI.THEME.PERSONALITY_COHERENCE`** (added) |
+
+### Content (PDCA + schema)
+
+- **Purpose** — AI judgment on ambient vs readability; pairs with `DET.AMBIENT.Z_INDEX` and `DET.THEME.CONTRAST_MIN`; PDCA Plan/Do/Check/Adjust.
+- **Passing / failing signals** — scrim + intensity modifiers, no `opacity-50` hacks, stacked-plane risks.
+- **Before** — `forge-ambient--hero` + `forge-ambient--expressive` + `forge-ambient--mesh-bloom`, no scrim, `forge-support opacity-50`, bare `btn btn-primary`.
+- **After** — `forge-ambient--subtle`, `forge-ambient-scrim`, `forge-card` wrapper; aligned with `generator/pages/forge_ambient.py`.
+- **Evidence and remediation** — screenshot/contrast capture + ordered fix list.
+- **Related rules** — all five IDs in backticks.
+
+### Real KS classes used
+
+`forge-section`, `forge-ambient`, `forge-ambient--mesh-bloom`, `forge-ambient--hero`, `forge-ambient--expressive`, `forge-ambient--subtle`, `forge-ambient--on-dark`, `forge-ambient-bg`, `ks-ambient-bg`, `forge-ambient-scrim`, `forge-ambient-content`, `forge-support`, `forge-card`, `btn btn-primary`, plus `ks-ambient-bg-overlay`, `ks-content`, `#ks-living-scene` in prose (from `css/forge-ambient.css` and `det-ambient-z-index`).
+
+### Finish the canonical target (one command)
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/.staging-ai-ambient-readability-conflict.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-ambient-readability-conflict.md
+```
+
+Then confirm:
+
+```bash
+grep '^page_version:' /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-ambient-readability-conflict.md
+```
+
+Expected: `b96320b80b2e47246d05fe838c39d637c57d4a4b1774263c5e36c697c75ad6a0`.
+
+No check modules, `rule-mappings.js`, or registry edits were made. No Mermaid; no Fleet-specific profiles.

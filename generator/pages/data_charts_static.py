@@ -123,6 +123,19 @@ def render() -> str:
             data={"extensions": [[".py", 40], [".ts", 22]], "tracked_files": 120},
         )
     )
+    blocks.append(
+        render_ks_chart_mount(
+            chart_id="ks-matrix",
+            kind="matrix_heatmap",
+            title="Layout × component matrix",
+            data={
+                "rows": ["article", "form", "listing"],
+                "cols": ["footer", "hero", "form_block"],
+                "cells": [[4, 4, 0], [9, 9, 9], [1, 1, 0]],
+                "ariaLabel": "Layout archetype by component co-occurrence",
+            },
+        )
+    )
     blocks.append("</div>")
     blocks.append(col)
     blocks.append(

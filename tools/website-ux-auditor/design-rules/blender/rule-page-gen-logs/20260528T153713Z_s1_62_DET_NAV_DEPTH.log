@@ -1,0 +1,46 @@
+## Report: `det-nav-depth.md`
+
+Wrote the full PDCA handbook page for **`DET.NAV.DEPTH`** aligned to `RULE_PAGE_SCHEMA.md`, `det-nav-depth.check.js`, and sibling pages (`det-nav-dedup`, `det-nav-focus-order`).
+
+### `page_version` (confirmed)
+
+**`b7e94625988e41288d460143e9a3cec75b6b23c9587218a75540c4611a71ae79`**
+
+### Where the file landed
+
+This session’s workspace root is `tools/website-ux-auditor/design-rules/blender`, so writes to the canonical KS path were blocked. The complete page is at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-depth.md`
+
+The canonical target still lacks the front-matter `related_rules` block and has an older `generated_at`. Promote with:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-depth.md \
+   docs/design/ux-audit/rule-pages/det-nav-depth.md
+```
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.NAV.DEPTH` |
+| `lane` | `deterministic` |
+| `registry_status` | `implemented` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `related_rules` | `DET.NAV.DEDUP`, `DET.NAV.BREADCRUMB`, `DET.NAV.FOCUS_ORDER`, `DET.CONTEXT.BURDEN`, `DET.PAGE.MODE`, `DET.CHROME.BOUNDARY` |
+
+### Page content summary
+
+- **Purpose** — Global nav outside `main` (**`Kpn`**, `landing-nav`) capped at list depth **2** (or **4** with explicit mega-menu markers); deep IA belongs in **`Ksr`** / **`Kco`**. PDCA framing included.
+- **Passing / failing signals** — Mapped to check kinds `nested-flyout-depth` and `mega-depth-exceeded`, with evidence strings from `findingsFromNavDepthReport`.
+- **Before example** — Failing `landing-nav` with four nested `<ul>` tiers (`landing-header`, `landing-nav-link`, `fs-landing-main`).
+- **After example** — Passing shallow **`Kpn`** with one `fs-nav-dropdown` tier; deep links in **`Ksr`** (`forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`).
+- **Evidence and remediation** — Six-step fix order tied to `collectNavDepthReport` and harness command.
+- **Related rules** — Six cross-links in body and front matter.
+
+### Real KS class names used
+
+`fs-primary-nav-global`, `fs-primary-nav-global-inner`, `landing-nav`, `landing-nav-link`, `fs-nav-dropdown`, `fs-nav-dropdown__trigger`, `fs-nav-dropdown__panel`, `fs-nav-dropdown__panel-inner`, `fs-nav-dropdown__link`, `forge-sidebar`, `nav-scroll`, `nav-section-label`, `nav-link`, `fs-layout`, `fs-main`, `fs-brand`, `fs-accent`, `btn-forge`, hash attrs for **Kpn** / **Ksr**.
+
+No Mermaid. No Fleet-specific profiles. Check modules and registry were not edited.

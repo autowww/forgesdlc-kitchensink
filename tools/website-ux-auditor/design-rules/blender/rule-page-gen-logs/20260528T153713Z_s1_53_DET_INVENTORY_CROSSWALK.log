@@ -1,0 +1,61 @@
+## Report: `DET.INVENTORY.CROSSWALK` rule page
+
+The handbook page is ready in the **blender staging** path (writable from this workspace). The **canonical** KS path could not be updated directly from here; sync it with the helper below.
+
+### Staging file (complete, schema-compliant)
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md`
+
+### Sync to canonical target
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender
+node _write-det-inventory-crosswalk.mjs
+```
+
+Or:
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md
+```
+
+### `page_version` (confirmed)
+
+`ba218eea1007cc45cc7d183946b23b31f111f997cdbc07eeee7a0f0cbfe37327`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.INVENTORY.CROSSWALK` |
+| `lane` | `deterministic` |
+| `title` | Showcase inventory crosswalk |
+| `summary` | Showcase-emitted KS hashes ⊆ `visual-registry.generated.json`; no invalid-format tokens |
+| `page_version` | `ba218eea…37327` (exact match required) |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-inventory-crosswalk` |
+| `related_rules` | `DET.HASH.MARKERS`, `DET.HASH.REGISTRY_ROW`, `DET.CONTRACT.PATH`, `DET.DIAGRAM.ASSET_REGISTRY`, `DET.PY.KS_HASH_ATTRS` |
+
+### Body (PDCA)
+
+1. **Purpose** — Repo-wide metrics rule: crosswalk all `showcase/` hashes against `visual-registry.generated.json` via `visual-inventory.generated.json` → `catalogCrosswalk` and `det-inventory-crosswalk.check.js` (cap 12 findings).
+2. **Passing / failing signals** — Aligned with check kinds: `unregistered-emitted`, `stray-token`, `crosswalk-missing`, `crosswalk-error`, inventory skip states.
+3. **Before example** — Failing HTML: unregistered **Zzz** + stray `hash="ABCD"` on `forge-sidebar`, `nav-scroll`, `nav-rail`, `forge-card`, etc.
+4. **After example** — Passing HTML from `showcase/preview-handbook.html`: **Hbk** layout, **Ksr** sidebar, **Ksf** `ks-site-footer-region`, with paired markers and real KS classes (`container-fluid`, `forge-brand`, `section-label`, `font-display`, …).
+5. **Evidence and remediation** — Finding table + PDCA workflow + harness (`build_rule_defect_fixtures.py`, `invoke-det-ruleset-harness.sh --only-rule DET.INVENTORY.CROSSWALK`).
+6. **Related rules** — Five linked deterministic rules (no Fleet profile, no Mermaid).
+
+### KS class / hash verification
+
+- **Passing hashes** **Hbk**, **Ksr**, **Ksf** match `showcase/preview-handbook.html` and `visual-registry.yaml`.
+- **Failing** **Zzz** matches the ruleset harness fixture (`showcase/harness-crosswalk-fail.html`).
+
+### Delta vs existing canonical file
+
+The on-disk `docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md` already had the correct `page_version` but was missing `related_rules` in front matter, had an older `generated_at`, and slightly different passing-signal wording. The staging file fixes those.
+
+After you run the sync command, the orchestrator can update `rule-pages.manifest.json` for this batch. I did not edit check modules, `rule-mappings.js`, or the registry.

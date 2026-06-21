@@ -1,0 +1,60 @@
+Connection lost, reconnecting (attempt 1)...
+Retry attempt 1...
+## Report: `AI.THEME.PERSONALITY_COHERENCE` rule page
+
+The handbook page is **fully authored** with the required schema, `page_version`, and real KS class names. Direct writes to the canonical path were blocked in this environment; the ready-to-promote source is under the blender tree.
+
+### What was written
+
+**Source (ready to promote):**  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-theme-personality-coherence.md`  
+(also mirrored at `.staging-ai-theme-personality-coherence.md`)
+
+**Target (still stale on disk):**  
+`docs/design/ux-audit/rule-pages/ai-theme-personality-coherence.md` — still has old `page_version: c55d81ed…`
+
+**Promote with:**
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_copy-ai-theme-personality-coherence-canonical.mjs
+```
+
+### `page_version` confirmation
+
+In the written source file:
+
+```text
+page_version: d2dff137b5c8562c86972b740359de36e8d97503d82fc14d41a6a5d6e7713aa8
+```
+
+Matches the required value exactly.
+
+### Front matter (updated)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.THEME.PERSONALITY_COHERENCE` |
+| `lane` | `ai` |
+| `page_version` | `d2dff137b5c8562c86972b740359de36e8d97503d82fc14d41a6a5d6e7713aa8` |
+| `generated_at` | `2026-05-28T15:45:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` (current `registry.generated.json`) |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-theme-personality-coherence` |
+
+### Content summary
+
+Anchored to the principle: *“Does the theme reinforce brand temperament without fighting content?”* (accent usage; dark/light balance).
+
+- **Purpose** — PDCA framing; Forge theme packs (`forge-theme.css`, `forgesdlc-theme.css`, `docs-theme.css`); amber/cyan role system vs deterministic token/font/contrast rules.
+- **Passing / failing signals** — Accent role stability, dark foundation, focal `forge-gradient-text`, theme-pack consistency, ambient restraint, typography calm; failures include accent roulette, gradient overload, light/dark whiplash, Bootstrap drift.
+- **Before example** — Failing HTML: inline hex, `btn-success`/`btn-warning`/`btn-info`, multi-line `forge-gradient-text`, `bg-light` band, `card border-info`, purple inline borders.
+- **After example** — Passing HTML from `components/components.py` / `layouts.py` patterns: `landing-hero fs-landing-hero-band`, `landing-hero-kicker`, `product-landing-title`, `btn-forge` + `btn-cyan-outline`, `forge-card card-amber breathe-link`, `glass breathe-static`, hash markers.
+- **Evidence and remediation** — 7-step ordered fix list ending with AI re-run + deterministic companion proposal.
+- **Related rules** — Corrected `AI.VISUAL.HIERARCHY` (registry ID; old page had non-registry `AI.VISUAL.HIERARCHY_CONFIDENCE`).
+
+### Real KS classes verified
+
+Confirmed in `css/forge-theme.css`, `css/forgesdlc-theme.css`, and `components/components.py`:  
+`landing-hero-kicker`, `forge-gradient-text`, `product-landing-title`, `btn-forge`, `btn-cyan-outline`, `forge-card card-amber`, `glass-amber`, `breathe-link`, `fs-landing-hero-band`, `landing-hero-wide`, `forge-ambient--expressive`.
+
+No Mermaid, no Fleet-specific profiles. Check modules, registry, and manifest were not edited (per instructions).

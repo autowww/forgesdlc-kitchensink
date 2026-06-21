@@ -1,0 +1,53 @@
+## Report: `AI.VISUAL.HIERARCHY` handbook page
+
+### Written
+
+Full PDCA rule page (235 lines) is ready at:
+
+- **Canonical mirror (complete):** `tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-visual-hierarchy.md`
+- **Staging copy:** `tools/website-ux-auditor/design-rules/blender/.staging-ai-visual-hierarchy.md`
+- **Copy helper:** `node tools/website-ux-auditor/design-rules/blender/_write-ai-visual-hierarchy-page.mjs` (or updated `_write-ai-visual-hierarchy.mjs`)
+
+The target path `docs/design/ux-audit/rule-pages/ai-visual-hierarchy.md` at the KS repo root **already has the required `page_version`** but is **missing** the `related_rules` front-matter block and other staging updates (`generated_at`, refined Related rules). Run:
+
+```bash
+cp "/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-visual-hierarchy.md" \
+   "/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-visual-hierarchy.md"
+```
+
+### `page_version` confirmed
+
+```text
+page_version: 1c2dfd692b0a56a69be869ad3de96abf48cf5c4aacc00aaa86f1a4fc2931eef1
+```
+
+Matches the required hash exactly (in the complete mirror file).
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.VISUAL.HIERARCHY` |
+| `lane` | `ai` |
+| `page_version` | `1c2dfd692b0a56a69be869ad3de96abf48cf5c4aacc00aaa86f1a4fc2931eef1` |
+| `generated_at` | `2026-05-28T16:50:00.000Z` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-hierarchy` |
+| `related_rules` | `DET.CTA.HIERARCHY`, `DET.BUTTON.GROUP.MAX`, `DET.SECTION.HEADING`, `AI.NARRATIVE.COHERENCE`, `AI.PREMIUM.ENTERPRISE_FEEL`, `AI.CONTEXT.BURDEN_SUBJECTIVE`, `AI.VISUAL.RHYTHM_SUBJECTIVE` |
+
+### Content summary
+
+- **Purpose** — AI judgment on focal path (hero → proof → depth) via scale, contrast, grouping, and CTA weight; complements deterministic CTA/heading rules.
+- **Passing / failing signals** — Tied to real KS classes from `components/components.py` and `css/forgesdlc-theme.css`: `product-landing-title`, `landing-hero-kicker`, `landing-hero-tagline`, `btn-forge`, `btn-cyan-outline`, `landing-hero-secondary-link`, `section-label`, `card-amber`, `breathe-link`, `breathe-static`, `landing-forge-visual`, etc.
+- **Before example** — Failing hero with competing `h2`/`h1`/`h2`, four CTAs, competing `card-amber` stat card, three equal `card-amber` outcome tiles.
+- **After example** — Single `product-landing-title`, primary + outline CTA + secondary link, diagram in `landing-hero-visual`, one accented outcome + two `breathe-static` siblings, mechanism band at lower weight.
+- **Evidence and remediation** — Squint test, DOM capture, 7-step fix order; promotion via `AI.RULE_DISCOVERY.CANDIDATE_DETERMINISTIC_RULE` (removed non-registry `AI.VISUAL.HIERARCHY_CONFIDENCE` cross-links per batch convention).
+
+### Sources
+
+- Registry: `AI.VISUAL.HIERARCHY`, status `generated`, prompt at `design-rules/ai/prompts/generated/ai-visual-hierarchy.md`
+- Principles: focal-path signals align with `AI.VISUAL.HIERARCHY_CONFIDENCE` question in `ai-enabled-design-principles.md` (hero → proof → depth)
+- `industry-standard-page-quality.md` maps clear next step to this rule + `DET.CTA.HIERARCHY`
+
+No Mermaid, no Fleet profiles, no check/registry edits.

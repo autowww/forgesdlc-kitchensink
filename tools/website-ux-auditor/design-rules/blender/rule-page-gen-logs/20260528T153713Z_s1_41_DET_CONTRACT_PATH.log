@@ -1,0 +1,49 @@
+## Report: `DET.CONTRACT.PATH` handbook page
+
+### Status
+
+The full updated page was written, but **sandbox/workspace limits** blocked overwriting the canonical target you specified. The updated file is here:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-contract-path.md`
+
+The file you asked for is still the **previous** version (missing `related_rules` in front matter, older `generated_at`):
+
+`docs/design/ux-audit/rule-pages/det-contract-path.md`
+
+**One-time fix (run from repo root):**
+
+```bash
+cp -f tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-contract-path.md \
+  docs/design/ux-audit/rule-pages/det-contract-path.md
+rm -rf tools/website-ux-auditor/design-rules/blender/docs
+```
+
+### `page_version` (confirmed)
+
+`a26fd0c9c0280afa1d7602dbaf99dda0c572f7e2fad633532b10463afc04607e` — matches manifest and your requirement.
+
+### What the page covers (PDCA)
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Active registry rows with `contract_status: own` or `family-covered` must resolve `contract` / `contract_path` to a real `.md` under `docs/design/catalog/`; implemented via `scanContractPaths` in `det-contract-path.check.js`. |
+| **Passing / Failing** | `empty-path`, `missing-file`, 12-finding cap, `no-registry` skip; aligned with check module. |
+| **Before / After** | **Hbk** handbook shell with **Ksr** sidebar and **Ksf** footer — classes from `components/layouts.py` (`container-fluid px-0`, `forge-sidebar`, `nav-scroll`, `nav-rail`, `forge-card`, `section-label text-cyan`, `ks-site-footer-region`, hash attrs from `layout_shell_attrs` / `chrome_region_attrs`). Before = broken registry path; after = `docs/design/catalog/layouts/Hbk-layout-handbook.md` (on disk in KS). |
+| **Evidence** | Remediation table + `check-visual-catalog.mjs` / `analyze-website-ux.mjs` commands. |
+| **Related rules** | Eight IDs in front matter and body. |
+
+### Front matter (in the updated copy)
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`
+- `registry_status`: `implemented`
+- `generated_at`: `2026-05-29T12:00:00.000Z`
+- `related_rules`: placeholders, catalog specificity, hash registry/markers, inventory crosswalk, screenshot status, both AI contract rules
+
+### Sources used
+
+- `deterministic-design-rules.md` — active rows must reference on-disk contract `.md`
+- `det-contract-path.check.js` — `requiresContractPath`, `empty-path` / `missing-file`, cap 12
+- `visual-registry.yaml` — **Hbk** → `docs/design/catalog/layouts/Hbk-layout-handbook.md`
+- `components/layouts.py` — sidebar/footer markup patterns
+
+No check modules, registry, or manifest were edited (per your instructions). After you run the `cp` above, the canonical path will match the required `page_version` and schema.

@@ -1,0 +1,55 @@
+## Report
+
+The full PDCA handbook page for **`DET.SECTION.SINGLE_JOB`** is written in the blender workspace (this session cannot write outside that tree).
+
+**Written file (262 lines):**  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-section-single-job.md`
+
+**Target file (still bootstrap, 58 lines):**  
+`docs/design/ux-audit/rule-pages/det-section-single-job.md`
+
+### `page_version` (confirmed in written file)
+
+`a02e490ddd88ad710ba66fb729532ee48682de2d853ce6bd6e59cf6b2ac30339`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.SECTION.SINGLE_JOB` |
+| `lane` | `deterministic` |
+| `title` | Section single job |
+| `generated_at` | `2026-05-29T18:00:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-section-single-job` |
+
+### Page content (from `det-section-single-job.check.js`)
+
+- **Purpose** — metrics-phase `sectionSingleJobReport`; major sections ≥45 words / ≥48px; four violation kinds; platform inner skip; Plan/Do/Check/Adjust
+- **Passing signals** — ≤2 intent buckets per `forge-section`; aligned subheadings; no heading–body drift; thematic card grids
+- **Failing signals** — `multi-topic-buckets`, `divergent-subheadings`, `heading-body-drift`, `card-title-sprawl` with evidence strings
+- **Before** — one `forge-section ks-section` with mixed workflow/trust/pricing/ecosystem copy, divergent `h3`s, four unrelated `forge-card breathe-static` tiles (`section-label`, `font-display`, `hash` / `data-ks-hash`)
+- **After** — separate mechanism, trust (three related trust cards), and ecosystem `forge-section` bands
+- **Evidence and remediation** — harness, unit test, split/remediation steps
+- **Related rules** — 11 IDs in front matter and body
+
+No Mermaid; no Fleet-specific profile.
+
+### Promote to canonical path
+
+Run once from the repo:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_run-copy-det-section-single-job.mjs
+```
+
+Or:
+
+```bash
+cp -f /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-section-single-job.md \
+      /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-section-single-job.md
+```
+
+That replaces the bootstrap body while keeping the required **`page_version`**. If you want this promoted automatically in-chat, say so and we can retry when shell/write access to the KS root is available.

@@ -1,0 +1,50 @@
+## Report: `DET.APP.PRIMITIVE_SOURCE` handbook page
+
+### What was written
+
+The full PDCA handbook page is in the blender staging path (same pattern as `det-app-primitive-markers`):
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-app-primitive-source.md`
+
+A promotion script was added:
+
+`tools/website-ux-auditor/design-rules/blender/_write-det-app-primitive-source.mjs`
+
+Direct writes to the canonical target were blocked from this workspace (`tools/website-ux-auditor/design-rules/blender` only allows writes under that tree). **Run the copy script once** to update the file you specified:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-det-app-primitive-source.mjs
+```
+
+That copies staging → `docs/design/ux-audit/rule-pages/det-app-primitive-source.md` and validates `page_version`.
+
+### `page_version` (staging — confirmed)
+
+`2570d3ca3419a0b02824bffb6f7f139345dc20514be9cb84d4143f53455cf44c`
+
+### Page content summary
+
+| Section | Content |
+|--------|---------|
+| **Purpose** | Repo-phase rule: every `KS_REACT_PRIMITIVE` entry in `react/ksVisualAttrs.ts` must have a matching `react/<Key>.tsx` that calls `ksReactPrimitiveAttrs(` — the governed way to emit hash markers (aligned with `det-app-primitive-source.check.js`). |
+| **Passing signals** | All registered `.tsx` files contain the spread; `appPrimitiveSourceReport.issues` empty; built HTML gets full markers for `DET.APP.PRIMITIVE_MARKERS`. |
+| **Failing signals** | Missing spread, missing file on disk, scan skipped without map, cap at 12 findings. |
+| **Before / After** | `ForgeStatusBanner` on a studio run surface: `doc-main`, `section-label`, `ks-fe-banner` / `ks-fe-banner--failed`, `ks-fe-banner__body|__title|__desc|__actions`, `btn btn-sm btn-outline-secondary`. **Before** = hand-pasted partial attrs (no `hash`, no `data-ks-name`). **After** = full spread output (**Fsb**, `forge-status-banner`). |
+| **Evidence** | `analyze-website-ux.mjs --repo`, harness with overlay, fix via `import` + `{...ksReactPrimitiveAttrs('ComponentKey')}`, `FAM-react-primitives.md`. |
+| **Related rules** | `DET.APP.PRIMITIVE_MARKERS`, `DET.HASH.MARKERS`, `DET.APP.CONTROL_A11Y`, `DET.APP.PRIMITIVE_STYLES`, `AI.APP.PRIMITIVE_CONSISTENCY` |
+
+### Front matter (staging)
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` (from `tools/website-ux-auditor/design-rules/registry.generated.json`)
+- `registry_status`: `implemented`
+- `agent_model`: `composer-2.5-fast`
+- `source_rule`: `docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_source`
+
+### Checklist
+
+- Schema sections: all seven required headings present
+- No Mermaid; no Fleet-specific profile
+- Real KS classes in HTML examples (`ks-fe-banner`, `section-label`, `doc-main`, etc.)
+- `page_version` in staging matches required hash exactly
+
+After you run the promotion script, the canonical file at `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-app-primitive-source.md` will match staging with the same `page_version`.

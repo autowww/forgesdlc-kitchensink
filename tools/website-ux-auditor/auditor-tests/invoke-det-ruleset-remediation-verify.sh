@@ -221,7 +221,6 @@ mapfile -t ALL_RULES < <(jq -r '
 REMAINING=()
 for rule_id in "${ALL_RULES[@]}"; do
   [[ -z "${rule_id}" ]] && continue
-  [[ "${rule_id}" == "DET.THEME.FONT_STACK" ]] && continue
   if [[ -n "${ONLY_RULE}" && "${rule_id}" != "${ONLY_RULE}" ]]; then
     continue
   fi

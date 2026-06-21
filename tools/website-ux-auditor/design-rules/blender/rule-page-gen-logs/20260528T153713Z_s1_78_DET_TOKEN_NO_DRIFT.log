@@ -1,0 +1,45 @@
+## Report: `DET.TOKEN.NO_DRIFT` handbook page
+
+### Written content
+
+Replaced the bootstrap stub with a full PDCA handbook page aligned to:
+
+- **Source:** `deterministic-design-rules.md#det-token-no_drift` — forbidden raw hex outside theme allowlist (CSS static scan when policy enabled)
+- **Check:** `det-token-no-drift.check.js` — scans `css/*.css`, theme-pack allowlist, 12-finding cap, sanctioned `--*` / `var()` fallback / pack files
+- **Harness fixture:** `css/harness-token-drift.css` with `#ff00ff` / `#00ff00`
+
+**Sections:** Purpose (PDCA plan), Passing/Failing signals, Before/After HTML examples, Evidence table + remediation steps, Related rules.
+
+**Before/After** use real KS patterns: `doc-main`, `forge-card`, `card-cyan`, `breathe-static`, `card-label`, `font-display`, `forge-support`, `btn btn-forge`, `row g-3`, and tokens from `forge-theme.css` (`--forge-cyan`, `--forge-text-2`, `--forge-surface-2`, `--forge-glow-cyan`, etc.).
+
+### `page_version` (confirmed)
+
+```
+53a3887c59e39d84ed2ca7f199dbceec852ca7bc4163d428d8cbb997c8fab24c
+```
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `agent_model` | `composer-2.5-fast` |
+| `generated_at` | `2026-05-29T20:15:00.000Z` |
+| `related_rules` | `DET.THEME.CONTRAST_MIN`, `DET.THEME.FONT_STACK`, `DET.SURFACE.ELEVATION_TOKEN`, `DET.KS.CSS_SCOPE_LEAK`, `AI.THEME.PERSONALITY_COHERENCE`, `AI.PREMIUM.ENTERPRISE_FEEL` |
+
+### File location (sync needed)
+
+The full page is in the blender workspace:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-token-no-drift.md`
+
+The **canonical** path you requested still has the old bootstrap text (workspace sandbox blocked direct edits there). Copy with:
+
+```bash
+node /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/_write-det-token-no-drift.mjs
+```
+
+That script copies to `docs/design/ux-audit/rule-pages/det-token-no-drift.md` at the Kitchen Sink root and verifies `page_version`.
+
+No changes were made to check modules, `rule-mappings.js`, or `registry.generated.json`.

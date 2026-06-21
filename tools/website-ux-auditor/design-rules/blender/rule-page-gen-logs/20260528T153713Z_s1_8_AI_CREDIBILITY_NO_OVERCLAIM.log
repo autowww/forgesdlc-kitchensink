@@ -1,0 +1,49 @@
+## Report: `AI.CREDIBILITY.NO_OVERCLAIM` handbook page
+
+### Status
+
+The full rule page is ready in staging. This session could not write outside the blender workspace (`docs/design/ux-audit/rule-pages/…` edits and `node` copy were blocked), so the **canonical target file may still show the old `page_version`** until you run the copy step below.
+
+### What was written
+
+| Artifact | Path |
+|----------|------|
+| **Staging (complete page)** | `tools/website-ux-auditor/design-rules/blender/.staging-ai-credibility-no-overclaim.md` |
+| **Copy helper** | `tools/website-ux-auditor/design-rules/blender/_write-ai-credibility-no-overclaim.mjs` |
+| **Target (after copy)** | `docs/design/ux-audit/rule-pages/ai-credibility-no-overclaim.md` |
+
+**Publish to the target path:**
+
+```bash
+cd /home/lzvyahin/Code/forgesdlc-kitchensink
+node tools/website-ux-auditor/design-rules/blender/_write-ai-credibility-no-overclaim.mjs
+```
+
+### `page_version` confirmation
+
+In **staging** (authoritative for this batch):
+
+`5145fa206604bef8448aba698e25bd6581dd7b953d6f95b4e1b665ac45ea4ca9`
+
+Also updated in staging front matter:
+
+- `registry_fingerprint`: `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` (from `registry.generated.json`)
+- `generated_at`: `2026-05-28T16:30:00.000Z`
+- `related_rules`: added `AI.VISUAL.HIERARCHY`
+
+### Sources used
+
+- **Principle:** `ai-enabled-design-principles.md#ai-credibility-no-overclaim` — bounded, verifiable capabilities; no invented certs/metrics/logos
+- **Prompt:** `design-rules/ai/prompts/generated/ai-credibility-no-overclaim.md` (PDCA overlay)
+- **KS classes** (from `components/components.py`, `components/layouts.py`, `css/forge-theme.css`): `landing-hero`, `fs-landing-hero-band`, `landing-hero-kicker`, `product-landing-title`, `landing-hero-tagline`, `landing-hero-clarification`, `landing-hero-actions`, `btn-forge`, `btn-cyan-outline`, `forge-section`, `section-label`, `forge-card`, `card-label`, `card-amber`, `breathe-static`, `breathe-link`, `forge-support`, hash attrs
+
+### Page structure (per `RULE_PAGE_SCHEMA.md`)
+
+All required sections: Purpose (PDCA), Passing/Failing signals, Before/After `html` examples, Evidence and remediation, Related rules.
+
+- **Before:** failing hero with fake SOC 2 / metrics / compliance CTA + placeholder logo grid + cert/performance cards  
+- **After:** bounded hero with `landing-hero-clarification`, real CTAs, three `breathe-link` trust tiles (data / control / evidence)
+
+No Mermaid, no Fleet-specific profiles.
+
+After you run the copy script, line 6 of `docs/design/ux-audit/rule-pages/ai-credibility-no-overclaim.md` should show the `page_version` above; the orchestrator can then refresh `rule-pages.manifest.json`.

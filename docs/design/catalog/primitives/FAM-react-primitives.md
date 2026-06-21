@@ -90,7 +90,7 @@ Dark Forge studio chrome: readable sans-serif body, monospace accents where data
 
 ## Deterministic checks
 
-- Each primitive documents expected `data-ks-type` / `data-ks-name` pairs and hash emission at the root (`DET.REACT.KS_ATTRS`, `DET.HASH.MARKERS`).
+- Each primitive documents expected `data-ks-type` / `data-ks-name` pairs and hash emission at the root (`DET.APP.PRIMITIVE_MARKERS`, `DET.HASH.MARKERS`).
 - Tables and data grids ship header cells and non-color-only status cues (`DET.DATA.TABLE_HEADERS`, `DET.DATA.COLOR_ONLY`).
 - Card and dialog surfaces use sanctioned `var(--forge-*)` / `var(--bs-*)` elevation tokens (`DET.SURFACE.ELEVATION_TOKEN`).
 

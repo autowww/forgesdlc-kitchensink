@@ -1,0 +1,56 @@
+## Report: `AI.PY.HTML_AUTHORING_QUALITY` handbook page
+
+The full PDCA rule page is drafted and matches `RULE_PAGE_SCHEMA.md`. **This environment could not write outside the blender workspace**, so the updated file lives at a staging path. Copy it to the canonical target (one command below).
+
+### Target file (still needs copy)
+
+`docs/design/ux-audit/rule-pages/ai-py-html-authoring-quality.md`
+
+### Staging copy (complete, correct `page_version`)
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-py-html-authoring-quality.md`
+
+### `page_version` (confirmed in staging)
+
+`eddf841cfaab677f10ee5d31210c7f9ae09147211bdb2501e58a5e8c041ec28c`
+
+### Front matter
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.PY.HTML_AUTHORING_QUALITY` |
+| `lane` | `ai` |
+| `page_version` | `eddf841cfaab677f10ee5d31210c7f9ae09147211bdb2501e58a5e8c041ec28c` |
+| `generated_at` | `2026-05-28T17:45:00.000Z` |
+| `agent_model` | `composer-2.5-fast` |
+| `registry_fingerprint` | `6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-py-html-authoring-quality` |
+
+### Content summary
+
+- **Purpose:** AI judgment on whether Python-emitted HTML is intentional (section shells, heading ladder, helper usage), with PDCA tied to `render_section`, `ks_hash_attrs`, and related `DET.*` gates.
+- **Passing / failing signals:** Nesting soup, heading jumps, ghost optional regions, ad-hoc chrome vs `render_breadcrumbs` / `render_alert`.
+- **Before example:** Unclassed wrapper stack, `h1` → `h4` jump, inline margins, no `forge-card` / `render_section`.
+- **After example:** `forge-divider`, `<section class="mb-5">`, `section-label`, `h2`, grid of `forge-card breathe-static` + `card-label` + `h5` + `forge-support` (aligned with `render_section` and showcase `_for_agents_content.py`).
+- **Evidence / remediation:** 7-step fix order; related deterministic rules listed.
+- **Source anchor:** `ai-enabled-design-principles.md` — “Does generated HTML read as intentional markup—not accidental nesting soup?”
+
+### Real KS class names used
+
+`render_section`, `forge-divider`, `section-label`, `font-display`, `forge-gradient-text`, `forge-support`, `forge-card`, `breathe-static`, `card-label`, `row`, `col-md-4`, `mb-5` — from `components/components.py`, `components/presentation.py`, and `generator/pages/_for_agents_content.py`.
+
+### Apply to canonical path
+
+```bash
+cp "/home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-py-html-authoring-quality.md" \
+   "/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/ai-py-html-authoring-quality.md"
+```
+
+Or from the blender directory:
+
+```bash
+node _write-ai-py-html-authoring-quality-page.mjs
+```
+
+The orchestrator can then refresh `rule-pages.manifest.json` with the new `page_version`. I did not edit check modules, `rule-mappings.js`, or the registry. No Mermaid; no Fleet-specific profiles.

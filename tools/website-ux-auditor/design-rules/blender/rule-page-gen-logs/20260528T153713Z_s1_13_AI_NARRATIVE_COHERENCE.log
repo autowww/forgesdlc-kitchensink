@@ -1,0 +1,55 @@
+## Report: `AI.NARRATIVE.COHERENCE` handbook page
+
+Wrote the full PDCA rule page with required schema sections. **Canonical target** (`docs/design/ux-audit/rule-pages/ai-narrative-coherence.md`) could not be updated from this session (writes/shell outside the blender workspace are blocked). Content is ready in the blender tree for one copy step.
+
+### Deliverables (in repo)
+
+| Path | Role |
+|------|------|
+| `tools/website-ux-auditor/design-rules/blender/.staging-ai-narrative-coherence.md` | Source of truth |
+| `tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-narrative-coherence.md` | Mirror (same content) |
+| `tools/website-ux-auditor/design-rules/blender/_write-ai-narrative-coherence-page.mjs` | Copies staging → canonical KS path |
+
+### `page_version` (confirmed in staging)
+
+```text
+page_version: b6ebf728d379d1b4e965405508dc63b6cbca4bc9dd44bf63f07a532e235169a7
+```
+
+### Front matter (highlights)
+
+| Field | Value |
+|-------|--------|
+| `rule_id` | `AI.NARRATIVE.COHERENCE` |
+| `lane` | `ai` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `generated` |
+| `generated_at` | `2026-05-28T17:45:00.000Z` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-narrative-coherence` |
+
+**Related rules** updated vs prior page: added `DET.CTA.HIERARCHY`, `AI.CONTEXT.BURDEN_SUBJECTIVE`; replaced non-registry `AI.VISUAL.HIERARCHY_CONFIDENCE` with `AI.VISUAL.HIERARCHY`.
+
+### Page content
+
+- **Purpose** — problem → outcome → mechanism → next step on `landing_page` / `product_page`; PDCA framing; deterministic companions named (`DET.PAGE.MODE`, `DET.SECTION.*`, `DET.CTA.HIERARCHY`).
+- **Passing / failing signals** — sequencing, CTA timing, cross-band contradictions, reference dumps.
+- **Before / after** — fenced `html` using real KS classes from `components/components.py`: `landing-hero`, `fs-landing-hero-band`, `landing-hero-wide`, `landing-hero-grid`, `product-landing-title`, `landing-hero-tagline`, `landing-hero-clarification`, `landing-hero-actions`, `forge-section`, `section-label`, `forge-card`, `card-amber`, `card-label`, `btn-forge`, `btn-cyan-outline`, hash markers.
+- **Evidence and remediation** — paraphrase test, ordered fix list.
+- **Related rules** — seven deterministic/AI cross-links.
+
+### Deploy to canonical path
+
+From the KS repo root:
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_write-ai-narrative-coherence-page.mjs
+```
+
+Or:
+
+```bash
+cp tools/website-ux-auditor/design-rules/blender/.staging-ai-narrative-coherence.md \
+   docs/design/ux-audit/rule-pages/ai-narrative-coherence.md
+```
+
+The on-disk canonical file still has the older `page_version` (`3e1187c7…`) until you run one of the commands above. The orchestrator can then refresh `rule-pages.manifest.json` against `b6ebf728…`.

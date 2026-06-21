@@ -30,7 +30,7 @@ REGISTRY_PATH = (
 )
 RULE_PAGES_DIR = REPO_ROOT / "docs" / "design" / "ux-audit" / "rule-pages"
 SHOWCASE_ASSETS = REPO_ROOT / "showcase" / "assets"
-EXCLUDED_RULES = frozenset({"DET.THEME.FONT_STACK"})
+EXCLUDED_RULES: frozenset[str] = frozenset()
 
 # Repo-wide DET rules: defect is a minimal registry + contract tree, not page HTML.
 HARNESS_REPO_OVERLAY: dict[str, dict] = {
@@ -93,10 +93,40 @@ HARNESS_REPO_OVERLAY: dict[str, dict] = {
         },
         "registry_entries": [],
     },
+    "DET.THEME.FONT_STACK": {
+        "files": {
+            "css/harness-font-stack-drift.css": (
+                '.harness-font-drift { font-family: "Comic Sans MS", cursive; }\n'
+            ),
+        },
+        "registry_entries": [],
+    },
     "DET.PY.KS_HASH_ATTRS": {
         "files": {
             "generator/harness_manual_hash_string.py": (
                 'BAD = "<div hash=\\"Abx\\" data-ks-hash=\\"Abx\\"></div>"\n'
+            ),
+        },
+        "registry_entries": [],
+    },
+    "DET.APP.PRIMITIVE_SOURCE": {
+        "files": {
+            "react/HarnessStatusBanner.tsx": (
+                "export function HarnessStatusBanner() {\n"
+                "  return (\n"
+                '    <div data-ks-react-root="true" data-ks-type="react-primitive" data-ks-hash="Fsb">\n'
+                "      <span>Harness banner without governed attrs spread</span>\n"
+                "    </div>\n"
+                "  );\n"
+                "}\n"
+            ),
+            "react/ksVisualAttrs.ts": (
+                "export const KS_REACT_PRIMITIVE = {\n"
+                "  HarnessStatusBanner: { hash: 'Fsb', name: 'forge-status-banner' },\n"
+                "} as const;\n"
+                "export function ksReactPrimitiveAttrs(_key: string) {\n"
+                "  return {};\n"
+                "}\n"
             ),
         },
         "registry_entries": [],

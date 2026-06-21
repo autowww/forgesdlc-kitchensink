@@ -3,7 +3,11 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { aggregateAiAuditResults } from './lib/ai-audit-batches.js';
+import {
+  aggregateAiAuditResults,
+  loadAiScoreGateOptionsFromEnv,
+  mergeAiFindingsIntoAuditData,
+} from './lib/ai-audit-batches.js';
 import { ensureDir } from './lib/files.js';
 
 function usage() {
@@ -69,4 +73,11 @@ const { data, markdown } = aggregateAiAuditResults({
 await ensureDir(aiOut);
 await fs.writeFile(path.join(aiOut, 'ai-audit-data.json'), `${JSON.stringify(data, null, 2)}\n`, 'utf8');
 await fs.writeFile(path.join(aiOut, 'ai-audit-report.md'), markdown, 'utf8');
+
+const scoreOpts = loadAiScoreGateOptionsFromEnv();
+if (scoreOpts.mergeIntoAuditData && data.scoreableFindings?.length) {
+  mergeAiFindingsIntoAuditData(auditData, data.scoreableFindings, { minConfidence: scoreOpts.minConfidence });
+  await fs.writeFile(args.audit, `${JSON.stringify(auditData, null, 2)}\n`, 'utf8');
+}
+
 process.stdout.write(`${path.join(aiOut, 'ai-audit-data.json')}\n`);

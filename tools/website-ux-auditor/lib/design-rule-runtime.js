@@ -4,6 +4,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { fingerprintPageContent, ruleModuleFingerprintForMeta } from './audit-backlog-trace.js';
 import { clampInt, mapLimit } from './map-limit.js';
+import { shouldRunDeterministicRuleForPageType } from './det-page-type-gate.js';
+import { ruleScopeEnabled } from './detect-ks-site.js';
 import { makeFinding, SCORE_WEIGHTS } from './severity.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -33,6 +35,10 @@ function normalizeRuleFinding(raw, fallback) {
   finding.priorityWeight = Number(fallback.priorityWeight || 0);
   finding.sourceRule = fallback.sourceRule || null;
   finding.scoreImpactWeight = scoreImpactWeight(finding.severity, finding.priorityWeight);
+  if (raw?.hash) finding.hash = String(raw.hash).trim();
+  if (raw?.signatureId) finding.signatureId = raw.signatureId;
+  if (raw?.structureNodeId) finding.structureNodeId = raw.structureNodeId;
+  if (raw?.taxonomyLevel) finding.taxonomyLevel = raw.taxonomyLevel;
   return finding;
 }
 
@@ -74,6 +80,7 @@ export function listImplementedDeterministicRules(registry) {
  *   excludeDeterministicRuleIds?: string[],
  *   onlyDeterministicRuleIds?: string[] | null,
  *   onDeterministicRuleProgress?: (payload: { url: string, done: number, total: number, ruleId?: string }) => void,
+ *   rulesScopeResolved?: { effectiveScope: string, ksDriven: boolean, reason?: string },
  * }} [opts]
  */
 export async function createDesignRuleRuntime(opts = {}) {
@@ -99,6 +106,11 @@ export async function createDesignRuleRuntime(opts = {}) {
   const priorityRuleIds = opts.priorityRuleIds || [];
   const deprioritizedRuleIds = new Set(opts.deprioritizedRuleIds || []);
   const onDeterministicRuleProgress = opts.onDeterministicRuleProgress || null;
+  const rulesScopeResolved = opts.rulesScopeResolved || {
+    effectiveScope: 'generic',
+    ksDriven: false,
+    reason: 'default',
+  };
 
   async function importRuleModule(modulePath) {
     if (!modulePath) return null;
@@ -132,6 +144,33 @@ export async function createDesignRuleRuntime(opts = {}) {
           ...base,
           status: ruleMeta.status === 'stub' ? 'skipped_stub' : 'skipped_status',
         },
+        findings: [],
+      };
+    }
+
+    if (ruleMeta.phase === 'crawl') {
+      return {
+        index,
+        trace: { ...base, status: 'skipped_crawl_phase' },
+        findings: [],
+      };
+    }
+
+    const pageTypeId = runCtx?.structure?.pageType?.id || 'generic';
+    const gateByPageType = runCtx?.gateDetByPageType !== false;
+    if (!shouldRunDeterministicRuleForPageType(ruleMeta.id, pageTypeId, gateByPageType)) {
+      return {
+        index,
+        trace: { ...base, status: 'skipped_page_type' },
+        findings: [],
+      };
+    }
+
+    const ruleScope = ruleMeta.scope || 'generic';
+    if (!ruleScopeEnabled(ruleScope, rulesScopeResolved)) {
+      return {
+        index,
+        trace: { ...base, status: 'skipped_scope', scope: ruleScope, effectiveScope: rulesScopeResolved.effectiveScope },
         findings: [],
       };
     }
@@ -176,7 +215,11 @@ export async function createDesignRuleRuntime(opts = {}) {
     }
 
     try {
-      const rawFindings = await loaded.run({ metrics, url, page, repoRoot, ctx: runCtx });
+      const runCtxWithScope = {
+        ...(runCtx || {}),
+        rulesScopeResolved,
+      };
+      const rawFindings = await loaded.run({ metrics, url, page, repoRoot, ctx: runCtxWithScope });
       if (!Array.isArray(rawFindings)) {
         const trace = { ...base, status: 'ran', findingsCount: 0, note: 'run() did not return an array' };
         traceStore?.record({
@@ -289,5 +332,6 @@ export async function createDesignRuleRuntime(opts = {}) {
     enrichLegacyFindings,
     runDeterministicRules,
     runDeterministicRulesWithTrace,
+    rulesScopeResolved,
   };
 }

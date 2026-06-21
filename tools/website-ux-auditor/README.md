@@ -57,6 +57,19 @@ Optional **tracking on the auditor** (live runs):
 - **`--prior-ux-scores PATH`** — **`audit-data.json`** or **`ux-quality-score.json`** from an earlier run; **`audit-report.md`** and **`audit-data.json`** gain **`uxScoreDeltaVsPrior`** (overall + pillars) vs **`uxScores`** for **this run’s audit crawl rollup**. Prefer comparing runs with similar crawl modes when possible (`--breadth-crawl` vs default Major+ governor).
 - **`ux-scoring.csv`** (repo root, **gitignored** on Forge site repos) — each **`npm run audit`** / **`npm run score`** run **appends** one CSV row with overall, crawl metadata, and **per-dimension score / raw damage / finding count** for spreadsheets or notebooks. Use **`--no-ux-csv`** to skip (e.g. CI against a read-only fixture).
 
+## App mode (`--app`)
+
+Operator / Studio surfaces use the **same** `run-website-ux-remediation-loop.sh` with **`--app`**:
+
+| Path | When |
+|------|------|
+| **Scenario** | `docs/studio/smoke-plan.yaml` exists (or **`--smoke-plan PATH`**) — delegates to product `run-sealed-studio-smoke.sh`, scenario fixer verify, step agents |
+| **Crawl** | **`--no-scenario`** or no smoke plan — `FORGE_UX_RULES_SCOPE=app`, studio DET allowlist, default **`--no-scorer`** |
+
+Flags: **`--sync-smoke-plan`**, **`--sync-smoke-force`**, **`--step-agents`** / **`--no-step-agents`**, **`--legacy-single-agent`**, **`--external-library-path1=…`** (repeatable; or **`FORGE_UX_FIX_ROOTS`**). Watch dashboard uses **`FORGE_UX_RULESET_DOMAIN=app`** (`ruleset:det:app` vs shared DET).
+
+Product wrapper: [forge-accessibility-leo/scripts/run-sealed-studio-remediation-loop.sh](../../forge-accessibility-leo/scripts/run-sealed-studio-remediation-loop.sh). Smoke-plan MD sync and step agents: [tools/ui-app-audit/README.md](../ui-app-audit/README.md).
+
 ## Early-stop crawl (live audits — auditor only)
 
 By default the Playwright crawler **stops enqueueing further URLs once the cumulative backlog of blocker + critical + major findings reaches `--stop-after-major-plus`** (**10** by default). **`audit-report.md`** still carries **every** finding returned for pages that were analyzed (there is **no output cap tied to ten** beyond a readability “priority sample” heading). **`audit-data.json`** `crawlSummary.crawlMode` distinguishes **`major_plus_early_stop`** (threshold hit), **`major_plus_governed_complete`** (queue/budget exhausted first), or **`full_budget_within_max_pages`** (**`--breadth-crawl`** / **`--stop-disable`**). Plans include crawl outcome prose. Use **`--breadth-crawl`** (`--stop-disable`) on the **auditor** only when you need full breadth inside **`--max-pages`**. The **scorer** never applies Major+ stopping.
@@ -74,7 +87,7 @@ Reuse one **`--out`** directory across verification passes so **`forge-ux-remedi
 
 Kitchen Sink **`tools/website-ux-auditor/run-website-ux-remediation-loop.sh`** accepts **`UX_AUDIT_OUT_DIR`** for a stable campaign folder and auto-adds **`--incremental`** when **`OUT_DIR`** already contains **`audit-data.json`**, unless **`UX_AUDIT_FORCE_FULL=1`**. When **`UX_AUDIT_OUT_DIR`** is unset, each run uses **`FORGE_UX_AUDIT_WORKBENCH_ROOT/ux-audit/<repo-basename>/<UTC>_<random>/`** so artifacts stay **outside** the kitchensink clone: by default the script walks up from **`tools/website-ux-auditor/`** until it finds a directory named **`Code`**, then uses **`<that-hub>/workbench/ux-auditor/`** (override with **`FORGE_UX_AUDIT_WORKBENCH_ROOT`** if your hub folder is not named `Code`). The auditor is **quiet** by default (omit **`UX_AUDIT_VERBOSE`** or set **`UX_AUDIT_VERBOSE=0`**); set **`UX_AUDIT_VERBOSE=1`** or **`2`** for stderr breadcrumbs. The Cursor **`agent`** step defaults to **plain text** output; set **`FORGE_UX_CURSOR_AGENT_VERBOSE=1`** for **`stream-json`** (by default piped through **`agent-stream-summary.mjs`** so **`remediation-agent.log`** and the terminal get **one `[ux-agent] …` line per tool/system event**, not megabyte **`tool_call` result** payloads). Use **`FORGE_UX_AGENT_STREAM_SUMMARY=0`** for raw NDJSON, and **`FORGE_UX_AGENT_RAW_JSONL=/path/to/file.jsonl`** to retain a full raw transcript alongside the summary. Disable the transcript file with **`FORGE_UX_REMEDIATION_AGENT_LOG=`** before the loop, or override the path with **`FORGE_UX_REMEDIATION_AGENT_LOG`**.
 
-**Post-clean AI audit (optional):** By default the remediation loop does **not** run AI. Opt in with **`--ai`** (auditor + forced AI, **no sitewide scorer**) or **`--force-ai-audit`** / **`FORGE_UX_ENABLE_AI_AUDIT=1`** (keeps scorer; runs when **`audit-ai-audit-eligibility.mjs`** reports **PASS** unless forced). Eligibility normally requires quality gate pass, crawl complete within budget, and every implemented DET rule satisfied on each page. **`--ai`** and **`--force-ai-audit`** bypass that check. AI reuses visited URLs, groups them into prompts (**`FORGE_UX_AI_AUDIT_BATCH_SIZE`**, default **1**), and writes **`<out>/ai-audit/`** artifacts. **`FORGE_UX_AI_AUDIT_CONCURRENCY`** (default **3**, max **3**) runs batch agents in parallel. AI output does **not** rewrite **`audit-data.json`**; skipped when **`SKIP_CURSOR_AGENT=1`**.
+**Post-clean AI audit (optional):** By default the remediation loop does **not** run AI (manifest-only / CI-safe). Opt in with **`--ai`** (auditor + forced AI, **no sitewide scorer**) or **`--force-ai-audit`** / **`FORGE_UX_ENABLE_AI_AUDIT=1`** (keeps scorer; runs when **`audit-ai-audit-eligibility.mjs`** reports **PASS** unless forced). Batch execution uses **`cursor-agent-run-ux-audit.sh`**; per-rule execution uses **`node run-website-ux-ai-audit.mjs --execute`**. AI reuses visited URLs, groups them into prompts (**`FORGE_UX_AI_AUDIT_BATCH_SIZE`**, default **1**), and writes **`<out>/ai-audit/`** artifacts. **`FORGE_UX_AI_AUDIT_CONCURRENCY`** (default **3**, max **3**) runs batch agents in parallel. By default AI findings stay in **`ai-audit/ai-audit-data.json`**; set **`FORGE_UX_AI_MERGE_INTO_SCORE=1`** to merge **scoreable** findings into **`audit-data.json`** (confidence ≥ **`FORGE_UX_AI_SCORE_CONFIDENCE_MIN`**, default **0.65**, and **`deterministicCoverage`** is **`not-covered`** or **`partially-covered`**). Skipped when **`SKIP_CURSOR_AGENT=1`**. Remediation fixers: **`lib/ux-ai-fixers/`** (`plan_only`, `remediation_note`, targeted apply pilots).
 
 **Done crawl URLs (session budget):** after each audit pass, **`merge-done-crawl-urls-from-audit.mjs`** **rewrites** **`ux-audit-done-crawl-urls.txt`** to the URLs **visited in that audit** with **zero** Blocker/Critical/Major (same Major+ batch as early-stop). Entries from older runs that were **not** re-audited as clean in this pass are **removed**, so a narrow crawl (for example only `/`) does not leave a stale full-site exclude list. The next auditor invocation receives **`--exclude-crawl-urls-file`** (see **`analyze-website-ux.mjs`**) only when the file fingerprint matches the current design-rule registry (`design-rules/registry.generated.json`), so updated rule packs can re-audit previously clean URLs. The **`--site`** URL is never excluded. Disable merging with **`FORGE_UX_SKIP_DONE_CRAWL_MERGE=1`** on the remediation loop shell.
 
@@ -347,6 +360,10 @@ Generated files:
 ```text
 audit-report.md
 audit-data.json
+source-structure.json
+source-structure.md
+traceability.generated.json
+fix-once-regression-urls.txt
 rca-prompts/*.md
 forge-ux-remediation.plan.md
 00-master-remediation-sequence.md
@@ -358,6 +375,28 @@ screenshots/*.png
 ```
 
 By default the auditor writes up to **10 defect remediation plans** ordered by estimated UX score impact (homepage-cap defects first, then score delta/severity/coverage). Use `--remediation-plan-limit` to override.
+
+### Source structure tree and fix-once remediation
+
+Each live audit builds a **source structure index** (`source-structure.json`):
+
+- **IA tree** from the crawl (parent/child URLs)
+- **Page types**, **layouts**, and **KS-marked components** (`data-ks-hash`, `data-ks-type`, `data-ks-name`) per URL
+- **Principal catalog** — repeatable components/layouts across the site (spread counts)
+- **`traceability.generated.json`** — hash → contract/source paths when the repo embeds the KS visual registry
+
+Findings carry optional **`signatureId`** / **`structureNodeId`** for rollup. **`audit-data.json`** and **`ux-quality-score.json`** include **`structureScores`** (`bySignature`, `byLayout`, `byPageType`, `byUrl`).
+
+Defect clusters group by **shared component signature + rule** first (fix once at the source), then layout, then page type, then legacy `checkId::area`. Plans include **`fixLever`**, **`regressionUrls`**, and **`estimatedTokenSavings`**. The top structure-level cluster writes **`fix-once-regression-urls.txt`** for targeted re-audit:
+
+```bash
+node analyze-website-ux.mjs --repo . --site http://127.0.0.1:PORT/ \
+  --incremental --seed-crawl-urls-file fix-once-regression-urls.txt
+```
+
+**Scorer:** `node score-website-ux.mjs --structure-only` (or `FORGE_UX_STRUCTURE_ONLY=1`) crawls for structure inventory without legacy/DET checks.
+
+**Cost controls:** `FORGE_UX_DET_PAGE_TYPE_GATE=0` disables DET skipping by page type. `FORGE_UX_STRUCTURE_AI=1` writes an `ai-structure/structure-patches.json` template for optional AI-assisted typing (never overwrites deterministic KS fields).
 
 **Run identity:** `audit-report.md`, `forge-ux-remediation.plan.md`, `00-master-remediation-sequence.md`, `NN-defect-*.md`, and `audit-data.json` from the **same** invocation share **`audit_run_id`** and **`generated_at`** (ISO UTC). The CLI prints `Audit run id:` and `Generated at (UTC):` after each run.
 
@@ -456,6 +495,27 @@ Before merging generic layout/CSS/component fixes in **forgesdlc-kitchensink**:
 - **`--no-refresh-plan-status`**: write every YAML todo as `pending`. **Default is to merge** non-`pending` statuses from the existing `forge-ux-remediation.plan.md` in `--out` before overwriting.
 - **`--stop-after-major-plus N`**: stop expanding the crawl queue after **N** blocker/critical/major findings accumulate **across analyzed pages** (default **10**; ignored with **`--breadth-crawl`** / **`--stop-disable`** or **`--static-only`**).
 - **`--breadth-crawl`**, **`--stop-disable`**: crawl within **`--max-pages`** **without** the Major+ queue governor (full breadth crawl).
+
+## Harness coverage matrix (Prompt 10)
+
+Automated gates ensure DET fixtures, AI prompts, fixer decisions, and Studio dynamic allowlists cannot drift silently:
+
+```bash
+npm test -- auditor-tests/ruleset-harness-coverage.test.js auditor-tests/e2e-smoke-coverage.test.js
+npm run harness:coverage    # writes docs/design/ux-audit/harness/CURRENT-COVERAGE.md
+```
+
+See **`auditor-tests/RULESET-HARNESS-CLOSURE.md`** and **`docs/design/ux-audit/RELEASE-NOTES-2026-05-29.md`**.
+
+## Ruleset release packs
+
+Studio ruleset exports (`workbench/studio-ruleset-pack-*`) are built with `workbench/pack-studio-ruleset-bundle.sh`. After packing or when validating a checkout:
+
+```bash
+node workspace-scripts/verify-ruleset-pack-self-contained.mjs --root .
+```
+
+`MANIFEST.md` counts are generated from `design-rules/registry.generated.json` (DET + AI rule arrays), not hand-edited totals. See `workspace-scripts/README.md` at the workspace root.
 
 ## Limitations
 

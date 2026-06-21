@@ -1,0 +1,62 @@
+## Report: `AI.TRUST.BOUNDARY_CLARITY` rule page
+
+### Written
+
+Full handbook page content is ready with the required `page_version` and schema sections. The workspace sandbox only allows writes under `tools/website-ux-auditor/design-rules/blender/`, so the **canonical** target was not updated in this session.
+
+**Authoritative copy (correct `page_version`):**  
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md`
+
+**Staging mirror:**  
+`tools/website-ux-auditor/design-rules/blender/.staging-ai-trust-boundary-clarity.md`
+
+**Copy helper:**  
+`tools/website-ux-auditor/design-rules/blender/_copy-ai-trust-boundary-clarity-canonical.mjs`
+
+Install to the canonical path (from repo root or blender):
+
+```bash
+node tools/website-ux-auditor/design-rules/blender/_copy-ai-trust-boundary-clarity-canonical.mjs
+```
+
+Or:
+
+```bash
+cp -f tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md \
+  docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md
+```
+
+The canonical file at `docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md` still has the **old** `page_version` (`0929fdd3…`) until that copy runs.
+
+### `page_version` confirmed (authored content)
+
+```yaml
+page_version: 05cfeed6895aa8ca26fa395f48d8fcdb271ad70f4e4ab826d0ccbb81537ecf2c
+```
+
+### Front matter (sources)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `AI.TRUST.BOUNDARY_CLARITY` |
+| `lane` | `ai` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `generated` |
+| `source_rule` | `docs/design/ux-audit/ai-enabled-design-principles.md#ai-trust-boundary-clarity` |
+| `agent_model` | `composer-2.5-fast` |
+| `generated_at` | `2026-05-28T16:30:00.000Z` |
+
+### Page content (PDCA)
+
+- **Purpose** — Judges whether **data**, **execution**, and **human-control** boundaries are plain-language and separable (not security/compliance attestation).
+- **Passing / failing signals** — Aligned with the source principle; distinct from `AI.CREDIBILITY.NO_OVERCLAIM` (invented proof vs. vague boundaries).
+- **Before example** — Failing `landing-hero` + single `forge-card` trust blob mixing agents, automation, tenancy, and argv/catalog jargon.
+- **After example** — Passing hero with `landing-hero-clarification` (Data / Execution / Control) plus three `forge-card card-amber breathe-link` tiles.
+- **Evidence and remediation** — Capture/remediation steps + optional `DET.*` promotion for a repeated three-tile pattern.
+- **Related rules** — Seven linked rules including `DET.LANDMARKS.REQUIRED`.
+
+### KS class names used (verified in `components/` and `css/`)
+
+`landing-hero`, `fs-landing-hero-band`, `forge-section`, `landing-hero-wide`, `landing-hero-grid`, `landing-hero-copy`, `landing-hero-kicker`, `product-landing-title`, `forge-gradient-text`, `forge-support`, `landing-hero-tagline`, `landing-hero-clarification`, `landing-hero-actions`, `landing-hero-actions__buttons`, `btn-forge`, `btn-cyan-outline`, `section-label`, `forge-card`, `card-amber`, `card-label`, `breathe-link`, plus `hash` / `data-ks-*` attributes.
+
+No Mermaid; no Fleet-specific audit profile (generic job-execution-plane example only).

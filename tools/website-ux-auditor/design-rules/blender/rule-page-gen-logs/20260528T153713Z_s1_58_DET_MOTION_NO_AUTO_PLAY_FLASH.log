@@ -1,0 +1,68 @@
+## Report: `DET.MOTION.NO_AUTO_PLAY_FLASH` handbook page
+
+Automated file writes were blocked in this session, so the target file on disk was not updated. Below is what was planned and what is already present.
+
+### Target
+
+`docs/design/ux-audit/rule-pages/det-motion-no-auto-play-flash.md`
+
+### `page_version` (confirmed)
+
+```yaml
+page_version: 25c734adab0ed411fecac40fa213d478a166cd7753968f8bc1d735ae5e5845bc
+```
+
+Matches the required hash and `rule-pages.manifest.json` `contentVersion` / `pageVersion`.
+
+### Sources used
+
+| Source | Content |
+|--------|---------|
+| `deterministic-design-rules.md` | WCAG flash threshold; pixel-sampling fallback |
+| `det-motion-no-auto-play-flash.check.js` | `MAX_SAFE_FLASHES_PER_SECOND = 3`, `MIN_SAFE_TOGGLE_CYCLE_SEC ≈ 0.67s`, violation kinds, risky-name regex |
+| `registry.generated.json` | `fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff`, `status: implemented` |
+| `css/forge-theme.css` | `.pulse`, `.pulse-amber` (3s), `.breathe-link` / `.breathe-static` (2.2–2.5s hover) |
+| `css/script-assembly.css` | `.ks-sa-fly-chip`, `ks-sa-fly-in-*` keyframes |
+
+### On-disk page status
+
+The existing page already has all required `##` sections, PDCA Purpose block, before/after `html` examples with real KS classes (`doc-main`, `forge-section`, `glass`, `forge-card`, `stat-value`, `pulse-amber`, `bento-grid`, `breathe-static`, etc.), and evidence/remediation aligned to the check module.
+
+**Gaps vs schema (need a small front-matter patch):**
+
+1. Add `related_rules:` (`DET.MOTION.PREFERS_REDUCED`, `AI.MOTION.INTENTIONALITY`, `AI.AMBIENT.READABILITY_CONFLICT`)
+2. Bump `generated_at` to current UTC (e.g. `2026-05-29T14:22:00.000Z`)
+3. Optional body tweaks: cite `MIN_SAFE_TOGGLE_CYCLE_SEC`, add `data-ks-hash` on stat tiles, mention `ks-sa-fly-in-*` as safe names
+
+### Intended front matter (complete)
+
+```yaml
+---
+rule_id: DET.MOTION.NO_AUTO_PLAY_FLASH
+lane: deterministic
+title: No auto-play flash patterns
+summary: Visible CSS animations and autoplay video must stay below WCAG general flash frequency (more than three flashes per second) and avoid blink/strobe keyframe names.
+page_version: 25c734adab0ed411fecac40fa213d478a166cd7753968f8bc1d735ae5e5845bc
+generated_at: 2026-05-29T14:22:00.000Z
+agent_model: composer-2.5-fast
+registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+registry_status: implemented
+source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-motion-no_auto_play_flash
+related_rules:
+  - DET.MOTION.PREFERS_REDUCED
+  - AI.MOTION.INTENTIONALITY
+  - AI.AMBIENT.READABILITY_CONFLICT
+---
+```
+
+### Rule behavior documented
+
+- **Pass:** No `blink`/`flash`/`strobe`/`seizure`/`flicker` in animation or `@keyframes` names; infinite loops ≥ ~0.67s for on/off toggles; KS `.pulse` / `.pulse-amber` (3s) and hover `.breathe-*` (≥2.2s); no visible autoplay video.
+- **Fail:** `@keyframes blink` + `animation: blink 0.2s infinite`; risky names; visible `<video autoplay>`.
+- **Evidence:** `motionNoAutoPlayFlashReport.violations[]` kinds: `fast-infinite-animation`, `risky-animation-name`, `risky-keyframes-name`, `autoplay-video`.
+
+### Next step
+
+File edits from this agent were rejected. Apply the front-matter patch above (or say **apply the handbook page** and I can retry writes), then run your pagegen/manifest step if that is separate from this batch.
+
+**`page_version` confirmation:** `25c734adab0ed411fecac40fa213d478a166cd7753968f8bc1d735ae5e5845bc` — correct and unchanged.

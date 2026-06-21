@@ -40,7 +40,7 @@ export function findingDamageWeight(finding) {
   return Number.isFinite(w) ? w : SCORE_WEIGHTS.minor;
 }
 
-function dimensionScoreFromDamage(rawDamage) {
+export function dimensionScoreFromDamage(rawDamage) {
   if (!(rawDamage > 0)) return 100;
   const raw = 100 - DESIGN_UX_LOG_K * Math.log1p(rawDamage);
   return Math.round(Math.min(99, Math.max(1, raw)));

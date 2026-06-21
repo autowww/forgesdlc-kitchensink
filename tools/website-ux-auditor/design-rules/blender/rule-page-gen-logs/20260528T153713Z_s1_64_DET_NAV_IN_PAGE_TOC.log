@@ -1,0 +1,56 @@
+## Report: `DET.NAV.IN_PAGE_TOC` handbook page
+
+Wrote/updated the rule page content aligned with `det-nav-in-page-toc.check.js`, `RULE_PAGE_SCHEMA.md`, and real KS patterns from `components/components.py` (`render_toc_sidebar`), `components/layouts.py` (`showcase_page` ToC column), and `forge-theme.css` (`.ks-doc-toc-flow`).
+
+**Target file:** `/home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-in-page-toc.md`
+
+**Note:** Direct edits to that canonical path were blocked in this session. The full updated copy is at:
+
+`tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-in-page-toc.md`
+
+To sync the canonical file, copy that file over the target path (or apply the front-matter patch below).
+
+### `page_version` (confirmed)
+
+```text
+1bcf26a3c8cb00923e44679c0b38dc9a05efe60ede4c6717ad05107dbdd8b083
+```
+
+### Front matter (intended)
+
+| Field | Value |
+|--------|--------|
+| `rule_id` | `DET.NAV.IN_PAGE_TOC` |
+| `lane` | `deterministic` |
+| `registry_fingerprint` | `87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff` |
+| `registry_status` | `implemented` |
+| `source_rule` | `docs/design/ux-audit/deterministic-design-rules.md#det-nav-in_page_toc` |
+| `generated_at` | `2026-05-29T12:00:00.000Z` |
+| `related_rules` | 8 IDs (see below) |
+
+**Canonical file still needs:** `generated_at` bump and `related_rules:` block (body sections were already complete).
+
+### Page content summary
+
+1. **Purpose** — PDCA framing for **Ktx** (`nav.forge-toc` in `.ks-doc-toc-rail` or `.col-lg-4.col-xl-3.order-1.order-lg-2`); doc-hub triggers; thresholds (≥4 `h2`/`h3` or ≥900 words in `main`); pass criteria including rail width ≥140px and link width ≥100px at ≥992px viewport.
+
+2. **Passing / failing signals** — Matches check evidence: `missing_in_page_toc`, `broken_toc_anchor`, `toc_rail_cramped`.
+
+3. **Before example** — `layout-handbook` + **Ksr** (`forge-sidebar`, `#ks-sidebar-aside`) + six `h2` sections in `main` with **no** Ktx → fails.
+
+4. **After example** — Same shell with `.ks-doc-toc-flow` / `.ks-doc-toc-prose` + **Ktx** (`ks-doc-toc-rail`, `nav.forge-toc`, `toc-title`, `nav-link`) → passes.
+
+5. **Evidence and remediation** — `render_toc_sidebar()`, `Ktx-doc-toc-sidebar.md`, harness re-run steps.
+
+6. **Related rules** — `DET.NAV.FOCUS_ORDER`, `DET.NAV.BREADCRUMB`, `DET.NAV.DEPTH`, `DET.NAV.DEDUP`, `DET.SECTION.HEADING`, `DET.LAYOUT.GRID_CONSISTENCY`, `DET.LANDMARKS.REQUIRED`, `AI.CONTEXT.COGNITIVE_CLARITY`.
+
+### Real KS class names used in examples
+
+`layout-handbook`, `site-header`, `site-header-content`, `font-display`, `forge-sidebar`, `forge-support`, `doc-main`, `doc-content`, `ks-doc-toc-flow`, `ks-doc-toc-prose`, `ks-doc-toc-rail`, `forge-toc`, `toc-title`, `nav-link`, chrome hashes **Ksr** / **Ktx**.
+
+### Sync command (if needed)
+
+```bash
+cp /home/lzvyahin/Code/forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/blender/docs/design/ux-audit/rule-pages/det-nav-in-page-toc.md \
+   /home/lzvyahin/Code/forgesdlc-kitchensink/docs/design/ux-audit/rule-pages/det-nav-in-page-toc.md
+```
