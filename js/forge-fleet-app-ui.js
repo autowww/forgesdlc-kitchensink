@@ -32,6 +32,55 @@
     });
   }
 
+  function badgeClass(value, variants) {
+    var key = String(value == null ? "" : value).toLowerCase();
+    if (variants && variants[key]) return variants[key];
+    if (value === true || key === "true" || key === "active" || key === "running") return "fleet-pill st-running";
+    if (value === false || key === "false" || key === "expired") return "fleet-pill st-failed";
+    if (key === "completed" || key === "ok") return "fleet-pill st-completed";
+    return "fleet-pill st-queued";
+  }
+
+  function renderCell(c, row) {
+    var val = row[c.key];
+    if (c.format === "badge") {
+      return (
+        '<span class="' +
+        esc(badgeClass(val, c.variants)) +
+        '">' +
+        esc(val) +
+        "</span>"
+      );
+    }
+    if (c.format === "link") {
+      if (!val) return '<span class="text-body-secondary">—</span>';
+      return (
+        '<a class="btn btn-sm btn-outline-secondary fleet-app-link" href="' +
+        esc(val) +
+        '" target="_blank" rel="noopener">Open</a>'
+      );
+    }
+    if (c.format === "row_action") {
+      var body = {};
+      (c.body_keys || [c.key]).forEach(function (k) {
+        if (row[k] != null && row[k] !== "") body[k] = row[k];
+      });
+      var act = c.action || "";
+      if (!act) return '<span class="text-body-secondary">—</span>';
+      return (
+        '<button type="button" class="btn btn-sm btn-outline-danger fleet-app-action fleet-app-row-action"' +
+        ' data-action="' +
+        esc(act) +
+        '" data-body="' +
+        esc(JSON.stringify(body)) +
+        '">' +
+        esc(c.action_label || c.label || "Run") +
+        "</button>"
+      );
+    }
+    return esc(val);
+  }
+
   function renderWidget(w, ctx) {
     var kind = w.kind || "";
     if (kind === "section") {
@@ -61,6 +110,57 @@
       var cls = v === "danger" ? "alert-danger" : v === "warning" ? "alert-warning" : v === "success" ? "alert-success" : "alert-info";
       return '<div class="alert ' + cls + ' py-2 px-3 small">' + esc(w.text || "") + "</div>";
     }
+    if (kind === "alert_list") {
+      var alerts = (ctx.alerts && ctx.alerts[w.binding]) || [];
+      if (!alerts.length) return "";
+      return alerts
+        .map(function (a) {
+          var av = (a && a.variant) || "info";
+          var acls =
+            av === "danger"
+              ? "alert-danger"
+              : av === "warning"
+                ? "alert-warning"
+                : av === "success"
+                  ? "alert-success"
+                  : "alert-info";
+          return '<div class="alert ' + acls + ' py-2 px-3 small mb-2">' + esc((a && a.text) || "") + "</div>";
+        })
+        .join("");
+    }
+    if (kind === "status_badge") {
+      var sbVal = ctx.kpi && w.binding ? ctx.kpi[w.binding] : "—";
+      return (
+        '<span class="' +
+        esc(badgeClass(sbVal, w.variants)) +
+        ' fleet-app-status-badge" data-binding="' +
+        esc(w.binding || "") +
+        '">' +
+        esc(sbVal) +
+        "</span>"
+      );
+    }
+    if (kind === "toggle") {
+      var checked = !!(ctx.kpi && w.binding && ctx.kpi[w.binding]);
+      var act = w.action || "";
+      var bodyTpl = w.body ? JSON.stringify(w.body) : "";
+      return (
+        '<div class="form-check form-switch fleet-app-toggle mb-2">' +
+        '<input class="form-check-input fleet-app-toggle-input" type="checkbox" role="switch"' +
+        ' data-action="' +
+        esc(act) +
+        '" data-binding="' +
+        esc(w.binding || "") +
+        '" data-body-template="' +
+        esc(bodyTpl) +
+        '"' +
+        (checked ? " checked" : "") +
+        ">" +
+        '<label class="form-check-label">' +
+        esc(w.label || w.binding || "") +
+        "</label></div>"
+      );
+    }
     if (kind === "kpi_row") {
       var items = w.items || [];
       var tiles = items
@@ -77,7 +177,13 @@
           );
         })
         .join("");
-      return '<div class="fleet-tile-row fleet-one-row mb-2" data-fleet-app-kpi="1">' + tiles + "</div>";
+      return (
+        '<div class="fleet-tile-row fleet-one-row mb-2" data-fleet-app-kpi="1" data-binding="' +
+        esc(w.binding || "") +
+        '">' +
+        tiles +
+        "</div>"
+      );
     }
     if (kind === "data_table") {
       var bid = w.binding || "";
@@ -93,19 +199,21 @@
         "</tr></thead>";
       var body =
         "<tbody>" +
-        rows
-          .map(function (row) {
-            return (
-              "<tr>" +
-              cols
-                .map(function (c) {
-                  return "<td>" + esc(row[c.key]) + "</td>";
-                })
-                .join("") +
-              "</tr>"
-            );
-          })
-          .join("") +
+        (rows.length
+          ? rows
+              .map(function (row) {
+                return (
+                  "<tr>" +
+                  cols
+                    .map(function (c) {
+                      return "<td>" + renderCell(c, row) + "</td>";
+                    })
+                    .join("") +
+                  "</tr>"
+                );
+              })
+              .join("")
+          : '<tr><td colspan="' + cols.length + '" class="text-body-secondary">No rows</td></tr>') +
         "</tbody>";
       return (
         '<div class="table-responsive fleet-app-table-wrap" data-binding="' +
@@ -116,14 +224,131 @@
         "</table></div>"
       );
     }
+    if (kind === "event_feed") {
+      var feed = (ctx.events && ctx.events[w.binding]) || [];
+      var lines = feed.length
+        ? feed
+            .slice()
+            .reverse()
+            .map(function (ev) {
+              return (
+                '<div class="fleet-app-event-row small py-1 border-bottom border-secondary-subtle">' +
+                '<span class="fleet-mono text-body-secondary me-2">' +
+                esc(ev.ts || "") +
+                "</span>" +
+                '<span class="badge bg-secondary-subtle text-body-secondary me-2">' +
+                esc(ev.kind || "") +
+                "</span>" +
+                esc(ev.summary || "") +
+                "</div>"
+              );
+            })
+            .join("")
+        : '<p class="small text-body-secondary mb-0">No events yet.</p>';
+      return (
+        '<div class="fleet-app-event-feed mb-2" data-binding="' +
+        esc(w.binding || "") +
+        '">' +
+        (w.title ? '<div class="small text-uppercase text-body-secondary mb-2">' + esc(w.title) + "</div>" : "") +
+        lines +
+        "</div>"
+      );
+    }
     if (kind === "action_button") {
       var act = w.action || "";
+      var abody = w.body ? JSON.stringify(w.body) : "{}";
       return (
         '<button type="button" class="btn btn-sm btn-outline-primary fleet-app-action" data-action="' +
         esc(act) +
+        '" data-body="' +
+        esc(abody) +
         '">' +
         esc(w.label || act) +
         "</button>"
+      );
+    }
+    if (kind === "action_row") {
+      var rowButtons = (w.buttons || [])
+        .map(function (b) {
+          var cls =
+            b.variant === "primary"
+              ? "btn-primary"
+              : b.variant === "ghost"
+                ? "btn-outline-secondary"
+                : "btn-outline-primary";
+          var rowBody = b.body ? JSON.stringify(b.body) : "{}";
+          return (
+            '<button type="button" class="btn btn-sm ' +
+            esc(cls) +
+            ' fleet-app-action" data-action="' +
+            esc(b.action || "") +
+            '" data-body="' +
+            esc(rowBody) +
+            '">' +
+            esc(b.label || b.action || "") +
+            "</button>"
+          );
+        })
+        .join("");
+      return (
+        '<div class="fleet-app-action-row d-flex flex-wrap align-items-center gap-2 mb-3">' +
+        (w.title ? '<div class="small text-body-secondary w-100 mb-1">' + esc(w.title) + "</div>" : "") +
+        rowButtons +
+        "</div>"
+      );
+    }
+    if (kind === "link_button") {
+      var href = w.href || (ctx.kpi && w.binding ? ctx.kpi[w.binding] : "") || "#";
+      return (
+        '<a class="btn btn-sm btn-outline-secondary fleet-app-link-button" href="' +
+        esc(href) +
+        '" target="_blank" rel="noopener">' +
+        esc(w.label || "Open") +
+        "</a>"
+      );
+    }
+    if (kind === "health_card") {
+      var card = ctx.health && w.binding ? ctx.health[w.binding] : null;
+      if (!card || typeof card !== "object") {
+        return (
+          '<p class="small text-body-secondary mb-0">' +
+          esc("Health information is not available yet.") +
+          "</p>"
+        );
+      }
+      var st = String(card.status || "unknown").toLowerCase();
+      var pill =
+        st === "healthy"
+          ? "fleet-pill st-completed"
+          : st === "degraded"
+            ? "fleet-pill st-running"
+            : st === "disabled"
+              ? "fleet-pill st-queued"
+              : "fleet-pill st-failed";
+      var points = (card.points || [])
+        .map(function (line) {
+          return "<li>" + esc(line) + "</li>";
+        })
+        .join("");
+      return (
+        '<div class="fleet-app-health-card border border-secondary-subtle rounded p-3 mb-2" data-binding="' +
+        esc(w.binding || "") +
+        '">' +
+        (w.title ? '<div class="small text-uppercase text-body-secondary mb-2">' + esc(w.title) + "</div>" : "") +
+        '<div class="d-flex flex-wrap align-items-center gap-2 mb-2">' +
+        '<span class="' +
+        esc(pill) +
+        '">' +
+        esc(card.status_label || card.status || "—") +
+        "</span>" +
+        '<span class="fw-semibold">' +
+        esc(card.headline || "") +
+        "</span></div>" +
+        (card.detail
+          ? '<p class="small text-body-secondary mb-2">' + esc(card.detail) + "</p>"
+          : "") +
+        (points ? '<ul class="small mb-0 ps-3">' + points + "</ul>" : "") +
+        "</div>"
       );
     }
     if (kind === "diagnostic_panel") {
@@ -139,8 +364,8 @@
       );
     }
     if (kind === "docs_link") {
-      var href = w.href || ctx.docsIndex || "#";
-      return '<p class="small"><a href="' + esc(href) + '">' + esc(w.label || "Open in-package docs") + "</a></p>";
+      var dhref = w.href || ctx.docsIndex || "#";
+      return '<p class="small"><a href="' + esc(dhref) + '">' + esc(w.label || "Open in-package docs") + "</a></p>";
     }
     return "";
   }
@@ -149,20 +374,76 @@
     var data = [];
     var kpis = [];
     var diag = [];
+    var events = [];
+    var minPoll = spec.poll_ms || 5000;
     function walk(list) {
       (list || []).forEach(function (w) {
         if (w.kind === "data_table" && w.binding) data.push(w.binding);
-        if (w.kind === "diagnostic_panel" && w.binding) diag.push(w.binding);
-        if (w.kind === "kpi_row" && w.items) {
-          w.items.forEach(function (it) {
-            if (it.binding) kpis.push(it.binding);
-          });
+        if (w.kind === "alert_list" && w.binding) data.push(w.binding);
+        if (w.kind === "event_feed" && w.binding) {
+          events.push(w.binding);
+          if (w.poll_ms) minPoll = Math.min(minPoll, w.poll_ms);
         }
+        if (w.kind === "diagnostic_panel" && w.binding) diag.push(w.binding);
+        if (w.kind === "health_card" && w.binding) data.push(w.binding);
+        if (w.kind === "kpi_row") {
+          if (w.binding) data.push(w.binding);
+          if (w.items) {
+            w.items.forEach(function (it) {
+              if (it.binding) kpis.push(it.binding);
+            });
+          }
+        }
+        if (w.kind === "toggle" && w.binding) {
+          data.push("control");
+        }
+        if (w.kind === "status_badge" && w.binding) kpis.push(w.binding);
         if (w.widgets) walk(w.widgets);
       });
     }
     walk(spec.widgets || []);
-    return { data: data, kpis: kpis, diag: diag };
+    return { data: data, kpis: kpis, diag: diag, events: events, minPoll: minPoll };
+  }
+
+  function applyBindingPayload(ctx, binding, j, need) {
+    if (j.rows) ctx.tables[binding] = j.rows;
+    if (j.events) ctx.events[binding] = j.events;
+    if (j.kpi && typeof j.kpi === "object") Object.assign(ctx.kpi, j.kpi);
+    if (j.value != null) ctx.kpi[binding] = j.value;
+    if (j.health_card && typeof j.health_card === "object") {
+      ctx.health = ctx.health || {};
+      ctx.health[binding] = j.health_card;
+    }
+    if (j.alerts && Array.isArray(j.alerts)) {
+      ctx.alerts = ctx.alerts || {};
+      ctx.alerts[binding] = j.alerts;
+    }
+    if (need.diag.indexOf(binding) >= 0) ctx.diag[binding] = j;
+    if (binding === "control" || j.manager_enabled !== undefined || j.daemon_enabled !== undefined) {
+      Object.assign(ctx.kpi, j);
+    }
+  }
+
+  function resolveActionBody(template, value) {
+    if (!template) return {};
+    try {
+      var raw = JSON.stringify(template);
+      raw = raw.replace(/"\{\{value\}\}"/g, JSON.stringify(!!value));
+      raw = raw.replace(/\{\{value\}\}/g, String(!!value));
+      return JSON.parse(raw);
+    } catch (e) {
+      return { enabled: !!value };
+    }
+  }
+
+  function postAction(actionsBase, token, act, body) {
+    return fetch(actionsBase + "/" + encodeURIComponent(act), {
+      method: "POST",
+      headers: Object.assign({ "Content-Type": "application/json" }, authHeaders(token)),
+      body: JSON.stringify(body && typeof body === "object" ? body : {}),
+    }).then(function (r) {
+      return r.json();
+    });
   }
 
   function mount(root, options) {
@@ -173,6 +454,7 @@
     var dataBase = options.dataBase || "";
     var actionsBase = options.actionsBase || "";
     var pollMs = options.pollMs || 5000;
+    var docsIndex = options.docsIndex || "";
     var timer = null;
     var spec = null;
 
@@ -182,19 +464,81 @@
       });
     }
 
+    function wireActions() {
+      root.querySelectorAll(".fleet-app-action").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var act = btn.getAttribute("data-action");
+          if (!act) return;
+          btn.disabled = true;
+          var body = {};
+          var raw = btn.getAttribute("data-body");
+          if (raw) {
+            try {
+              body = JSON.parse(raw);
+            } catch (e) {
+              body = { force: true };
+            }
+          } else {
+            body = {};
+          }
+          postAction(actionsBase, token, act, body)
+            .then(function () {
+              return refresh();
+            })
+            .catch(function () {
+              /* ignore */
+            })
+            .finally(function () {
+              btn.disabled = false;
+            });
+        });
+      });
+      root.querySelectorAll(".fleet-app-toggle-input").forEach(function (input) {
+        input.addEventListener("change", function () {
+          var act = input.getAttribute("data-action");
+          if (!act) return;
+          input.disabled = true;
+          var tpl = null;
+          var rawTpl = input.getAttribute("data-body-template");
+          if (rawTpl) {
+            try {
+              tpl = JSON.parse(rawTpl);
+            } catch (e) {
+              tpl = null;
+            }
+          }
+          var body = resolveActionBody(tpl, input.checked);
+          postAction(actionsBase, token, act, body)
+            .then(function () {
+              return refresh();
+            })
+            .catch(function () {
+              input.checked = !input.checked;
+            })
+            .finally(function () {
+              input.disabled = false;
+            });
+        });
+      });
+    }
+
     function refresh() {
       if (!spec) return Promise.resolve();
       var need = collectBindings(spec);
-      var ctx = { tables: {}, kpi: {}, diag: {} };
+      var ctx = { tables: {}, kpi: {}, diag: {}, events: {}, health: {}, alerts: {}, docsIndex: docsIndex };
       var jobs = [];
-      need.data.concat(need.kpis).concat(need.diag).forEach(function (b) {
+      var seen = {};
+      need.data.concat(need.kpis).concat(need.diag).concat(need.events).forEach(function (b) {
+        if (!b || seen[b]) return;
+        seen[b] = true;
         jobs.push(
-          loadData(b).then(function (j) {
-            if (j.rows) ctx.tables[b] = j.rows;
-            if (j.kpi && typeof j.kpi === "object") Object.assign(ctx.kpi, j.kpi);
-            if (j.value != null) ctx.kpi[b] = j.value;
-            if (need.diag.indexOf(b) >= 0) ctx.diag[b] = j;
-          })
+          loadData(b)
+            .then(function (j) {
+              applyBindingPayload(ctx, b, j, need);
+            })
+            .catch(function () {
+              /* keep partial UI on per-binding failures */
+            })
         );
       });
       return Promise.all(jobs).then(function () {
@@ -204,30 +548,7 @@
           })
           .join("");
         root.innerHTML = html;
-        root.querySelectorAll(".fleet-app-action").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            var act = btn.getAttribute("data-action");
-            if (!act) return;
-            btn.disabled = true;
-            fetch(actionsBase + "/" + encodeURIComponent(act), {
-              method: "POST",
-              headers: Object.assign({ "Content-Type": "application/json" }, authHeaders(token)),
-              body: JSON.stringify({ force: true }),
-            })
-              .then(function (r) {
-                return r.json();
-              })
-              .then(function () {
-                return refresh();
-              })
-              .catch(function () {
-                /* ignore */
-              })
-              .finally(function () {
-                btn.disabled = false;
-              });
-          });
-        });
+        wireActions();
       });
     }
 
@@ -236,6 +557,8 @@
       .then(function (j) {
         spec = j.ui || j;
         if (spec.poll_ms) pollMs = spec.poll_ms;
+        var need = collectBindings(spec);
+        if (need.minPoll) pollMs = Math.min(pollMs, need.minPoll);
         return refresh();
       })
       .catch(function (ex) {
