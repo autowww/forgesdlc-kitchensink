@@ -637,3 +637,16 @@
     .fleet-admin-tablist .nav-link {
       white-space: nowrap;
     }
+
+    /* FAEP v1 declarative app widgets (forge-fleet-app-ui.js) */
+    .fleet-app-section .fleet-app-heading { margin-bottom: 0.75rem; }
+    .fleet-app-table-wrap { max-height: 24rem; overflow: auto; }
+    .fleet-app-diag summary { cursor: pointer; }
+    .fleet-app-host-mount { min-height: 8rem; }
+    #fleet-tab-apps .fleet-app-catalog-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
