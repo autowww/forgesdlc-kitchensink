@@ -81,6 +81,266 @@
     return esc(val);
   }
 
+  var CHANNEL_MONOGRAM = {
+    teams: "T",
+    outlook: "O",
+    linkedin: "in",
+    sharepoint: "S",
+    crm: "C",
+  };
+
+  function surfaceMonogram(row) {
+    var ch = String((row && row.channel_type) || "").toLowerCase();
+    if (CHANNEL_MONOGRAM[ch]) return CHANNEL_MONOGRAM[ch];
+    var sid = String((row && row.surface_id) || "");
+    if (sid.indexOf("outlook") === 0) return "O";
+    if (sid.indexOf("teams") === 0) return "T";
+    return sid.slice(0, 2).toUpperCase() || "?";
+  }
+
+  function tileKey(row) {
+    return String(row.surface_id || "") + "|" + String(row.cdp_url || "");
+  }
+
+  function SurfaceWallController(mountEl) {
+    this.mountEl = mountEl;
+    this.tiles = {};
+    this.timers = {};
+    this.sockets = {};
+    this.blobUrls = {};
+    this.lastFrameAt = {};
+  }
+
+  SurfaceWallController.prototype.destroy = function () {
+    var self = this;
+    Object.keys(self.timers).forEach(function (k) {
+      clearInterval(self.timers[k]);
+    });
+    Object.keys(self.sockets).forEach(function (k) {
+      try {
+        self.sockets[k].close();
+      } catch (e) {
+        /* ignore */
+      }
+    });
+    Object.keys(self.blobUrls).forEach(function (k) {
+      try {
+        URL.revokeObjectURL(self.blobUrls[k]);
+      } catch (e2) {
+        /* ignore */
+      }
+    });
+    self.timers = {};
+    self.sockets = {};
+    self.blobUrls = {};
+    self.tiles = {};
+  };
+
+  SurfaceWallController.prototype.sync = function (rows) {
+    var self = this;
+    var list = Array.isArray(rows) ? rows : [];
+    var seen = {};
+    list.forEach(function (row) {
+      var key = tileKey(row);
+      seen[key] = true;
+      if (!self.tiles[key]) self._createTile(key, row);
+      else self._updateMeta(key, row);
+      self._syncMedia(key, row);
+    });
+    Object.keys(self.tiles).forEach(function (key) {
+      if (!seen[key]) self._removeTile(key);
+    });
+  };
+
+  SurfaceWallController.prototype._removeTile = function (key) {
+    var self = this;
+    if (self.timers[key]) {
+      clearInterval(self.timers[key]);
+      delete self.timers[key];
+    }
+    if (self.sockets[key]) {
+      try {
+        self.sockets[key].close();
+      } catch (e) {
+        /* ignore */
+      }
+      delete self.sockets[key];
+    }
+    if (self.blobUrls[key]) {
+      try {
+        URL.revokeObjectURL(self.blobUrls[key]);
+      } catch (e2) {
+        /* ignore */
+      }
+      delete self.blobUrls[key];
+    }
+    var el = self.tiles[key];
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+    delete self.tiles[key];
+  };
+
+  SurfaceWallController.prototype._tileClass = function (row) {
+    var activity = String(row.activity || "offline");
+    var cls = "fleet-surface-tile fleet-surface-tile--" + activity;
+    if (row.is_hero && activity === "working") cls += " fleet-surface-tile--hero";
+    return cls;
+  };
+
+  SurfaceWallController.prototype._createTile = function (key, row) {
+    var self = this;
+    var el = document.createElement("article");
+    el.className = self._tileClass(row);
+    el.setAttribute("data-surface-key", key);
+    el.innerHTML =
+      '<div class="fleet-surface-tile__frame">' +
+      '<img class="fleet-surface-tile__img" alt="" hidden />' +
+      '<div class="fleet-surface-tile__icon" aria-hidden="true"></div>' +
+      "</div>" +
+      '<div class="fleet-surface-tile__meta">' +
+      '<div class="fleet-surface-tile__title"></div>' +
+      '<div class="fleet-surface-tile__status"></div>' +
+      '<div class="fleet-surface-tile__detail small text-body-secondary"></div>' +
+      "</div>";
+    self.mountEl.appendChild(el);
+    self.tiles[key] = el;
+    self._updateMeta(key, row);
+  };
+
+  SurfaceWallController.prototype._updateMeta = function (key, row) {
+    var el = this.tiles[key];
+    if (!el) return;
+    el.className = this._tileClass(row);
+    var title = el.querySelector(".fleet-surface-tile__title");
+    var status = el.querySelector(".fleet-surface-tile__status");
+    var detail = el.querySelector(".fleet-surface-tile__detail");
+    var icon = el.querySelector(".fleet-surface-tile__icon");
+    if (title) title.textContent = row.display_name || row.surface_id || "";
+    if (status) {
+      var act = String(row.activity || "offline");
+      status.innerHTML =
+        '<span class="' +
+        esc(badgeClass(act === "working" ? "active" : act === "idle" ? "queued" : "expired")) +
+        '">' +
+        esc(act) +
+        "</span>";
+      if (row.teams_stream_disabled) {
+        status.innerHTML +=
+          ' <span class="fleet-pill st-queued" title="Set FORGE_CDP_STREAM_TEAMS=1">stream off</span>';
+      }
+    }
+    if (detail) {
+      var parts = [];
+      if (row.progress) parts.push(row.progress);
+      if (row.progress_message) parts.push(row.progress_message);
+      if (row.sync_run_id) parts.push("run " + row.sync_run_id);
+      if (row.lease_owner) parts.push(row.lease_owner);
+      detail.textContent = parts.join(" · ");
+    }
+    if (icon) icon.textContent = surfaceMonogram(row);
+  };
+
+  SurfaceWallController.prototype._setPreview = function (key, src, isBlob) {
+    var el = this.tiles[key];
+    if (!el) return;
+    var img = el.querySelector(".fleet-surface-tile__img");
+    var icon = el.querySelector(".fleet-surface-tile__icon");
+    if (!img) return;
+    if (src) {
+      img.src = src;
+      img.hidden = false;
+      if (icon) icon.hidden = true;
+    } else {
+      img.removeAttribute("src");
+      img.hidden = true;
+      if (icon) icon.hidden = false;
+    }
+    if (isBlob && this.blobUrls[key]) {
+      try {
+        URL.revokeObjectURL(this.blobUrls[key]);
+      } catch (e) {
+        /* ignore */
+      }
+    }
+    if (isBlob) this.blobUrls[key] = src;
+  };
+
+  SurfaceWallController.prototype._syncMedia = function (key, row) {
+    var self = this;
+    var activity = String(row.activity || "offline");
+
+    if (activity !== "working") {
+      if (self.sockets[key]) {
+        try {
+          self.sockets[key].close();
+        } catch (e) {
+          /* ignore */
+        }
+        delete self.sockets[key];
+      }
+    }
+
+    if (activity === "working" && row.stream_ws_url && !row.teams_stream_disabled) {
+      var sid = String(row.session_id || "");
+      var wsKey = key + "|" + sid;
+      if (self.sockets[key] && self.sockets[key]._fleetSid === sid) return;
+      if (self.sockets[key]) {
+        try {
+          self.sockets[key].close();
+        } catch (e2) {
+          /* ignore */
+        }
+      }
+      if (self.timers[key]) {
+        clearInterval(self.timers[key]);
+        delete self.timers[key];
+      }
+      try {
+        var ws = new WebSocket(row.stream_ws_url);
+        ws.binaryType = "arraybuffer";
+        ws._fleetSid = sid;
+        ws.onmessage = function (ev) {
+          if (!(ev.data instanceof ArrayBuffer)) return;
+          var now = Date.now();
+          if (self.lastFrameAt[key] && now - self.lastFrameAt[key] < 950) return;
+          self.lastFrameAt[key] = now;
+          var blob = new Blob([ev.data], { type: "image/jpeg" });
+          self._setPreview(key, URL.createObjectURL(blob), true);
+        };
+        self.sockets[key] = ws;
+      } catch (e3) {
+        /* ignore */
+      }
+      return;
+    }
+
+    if (activity === "idle" && row.snapshot_href && !row.teams_stream_disabled) {
+      if (self.sockets[key]) {
+        try {
+          self.sockets[key].close();
+        } catch (e4) {
+          /* ignore */
+        }
+        delete self.sockets[key];
+      }
+      var href = row.snapshot_href;
+      function loadSnap() {
+        if (document.visibilityState === "hidden") return;
+        self._setPreview(key, href + (href.indexOf("?") >= 0 ? "&" : "?") + "t=" + Date.now(), false);
+      }
+      if (!self.timers[key]) {
+        loadSnap();
+        self.timers[key] = setInterval(loadSnap, 60000);
+      }
+      return;
+    }
+
+    if (self.timers[key]) {
+      clearInterval(self.timers[key]);
+      delete self.timers[key];
+    }
+    self._setPreview(key, "", false);
+  };
+
   function renderWidget(w, ctx) {
     var kind = w.kind || "";
     if (kind === "section") {
@@ -89,6 +349,18 @@
           return renderWidget(c, ctx);
         })
         .join("");
+      if (w.collapsed && w.title) {
+        return (
+          '<section class="card mb-3 border-secondary-subtle shadow-sm fleet-app-section fleet-app-section--collapsed">' +
+          '<div class="card-body py-3">' +
+          '<details class="fleet-app-section-details">' +
+          '<summary class="h6 text-uppercase text-body-secondary mb-0 fleet-app-section-summary">' +
+          esc(w.title) +
+          '</summary><div class="fleet-app-section__body mt-3">' +
+          inner +
+          "</div></details></div></section>"
+        );
+      }
       return (
         '<section class="card mb-3 border-secondary-subtle shadow-sm fleet-app-section">' +
         '<div class="card-body py-3">' +
@@ -367,6 +639,25 @@
       var dhref = w.href || ctx.docsIndex || "#";
       return '<p class="small"><a href="' + esc(dhref) + '">' + esc(w.label || "Open in-package docs") + "</a></p>";
     }
+    if (kind === "surface_wall") {
+      var bid = w.binding || "surface_wall";
+      var rows = (ctx.tables && ctx.tables[bid]) || [];
+      var empty =
+        rows.length === 0
+          ? '<p class="small text-body-secondary mb-0">No surfaces registered or daemon unreachable.</p>'
+          : "";
+      return (
+        '<div class="fleet-surface-wall-wrap mb-2" data-binding="' +
+        esc(bid) +
+        '">' +
+        (w.title ? '<div class="small text-uppercase text-body-secondary mb-2">' + esc(w.title) + "</div>" : "") +
+        '<div class="fleet-surface-wall" data-fleet-persistent="surface-wall" data-binding="' +
+        esc(bid) +
+        '"></div>' +
+        empty +
+        "</div>"
+      );
+    }
     return "";
   }
 
@@ -379,6 +670,7 @@
     function walk(list) {
       (list || []).forEach(function (w) {
         if (w.kind === "data_table" && w.binding) data.push(w.binding);
+        if (w.kind === "surface_wall" && w.binding) data.push(w.binding);
         if (w.kind === "alert_list" && w.binding) data.push(w.binding);
         if (w.kind === "event_feed" && w.binding) {
           events.push(w.binding);
@@ -457,6 +749,47 @@
     var docsIndex = options.docsIndex || "";
     var timer = null;
     var spec = null;
+    var wallCtrl = null;
+    var wallBinding = "";
+
+    function findSurfaceWallBinding(widgets) {
+      var found = "";
+      function walk(list) {
+        (list || []).forEach(function (w) {
+          if (w.kind === "surface_wall" && w.binding) found = w.binding;
+          if (w.widgets) walk(w.widgets);
+        });
+      }
+      walk(widgets || []);
+      return found;
+    }
+
+    function preserveSurfaceWall() {
+      if (!wallCtrl || !wallBinding) return null;
+      var node = root.querySelector(
+        '.fleet-surface-wall[data-binding="' + wallBinding.replace(/"/g, '\\"') + '"]'
+      );
+      return node || null;
+    }
+
+    function restoreSurfaceWall(saved) {
+      if (!saved) return;
+      var fresh = root.querySelector(
+        '.fleet-surface-wall[data-binding="' + wallBinding.replace(/"/g, '\\"') + '"]'
+      );
+      if (fresh && fresh.parentNode) fresh.parentNode.replaceChild(saved, fresh);
+    }
+
+    function syncSurfaceWall(ctx) {
+      if (!wallBinding) return;
+      var rows = (ctx.tables && ctx.tables[wallBinding]) || [];
+      var node = root.querySelector(
+        '.fleet-surface-wall[data-binding="' + wallBinding.replace(/"/g, '\\"') + '"]'
+      );
+      if (!node) return;
+      if (!wallCtrl) wallCtrl = new SurfaceWallController(node);
+      wallCtrl.sync(rows);
+    }
 
     function loadData(binding) {
       return fetchJson(dataBase + "/" + encodeURIComponent(binding), {
@@ -542,12 +875,16 @@
         );
       });
       return Promise.all(jobs).then(function () {
+        var savedWall = preserveSurfaceWall();
         var html = (spec.widgets || [])
           .map(function (w) {
             return renderWidget(w, ctx);
           })
           .join("");
         root.innerHTML = html;
+        restoreSurfaceWall(savedWall);
+        if (!wallBinding) wallBinding = findSurfaceWallBinding(spec.widgets);
+        syncSurfaceWall(ctx);
         wireActions();
       });
     }
@@ -559,6 +896,7 @@
         if (spec.poll_ms) pollMs = spec.poll_ms;
         var need = collectBindings(spec);
         if (need.minPoll) pollMs = Math.min(pollMs, need.minPoll);
+        wallBinding = findSurfaceWallBinding(spec.widgets);
         return refresh();
       })
       .catch(function (ex) {
@@ -573,6 +911,10 @@
     return {
       destroy: function () {
         if (timer) clearInterval(timer);
+        if (wallCtrl) {
+          wallCtrl.destroy();
+          wallCtrl = null;
+        }
       },
     };
   }
