@@ -93,7 +93,7 @@
   --font-label:   "Open Sans", system-ui, sans-serif;
 
   /* Handbook reading measure and body scale (see docs/design/themes/default/tokens.json) */
-  --ks-prose-max:    min(72ch, 56rem);
+  --ks-prose-max:    56rem;
   --ks-body-size:    1rem;
   --ks-support-size: 0.875rem;
   --bs-body-font-size: var(--ks-body-size);
@@ -2432,6 +2432,25 @@ code {
   fill: var(--forge-cyan) !important;
 }
 
+/* Handbook shell: fixed sidebar rail + flex main from xl (Bootstrap col-lg 3+9 below) */
+@media (min-width: 1200px) {
+  .ks-handbook-shell {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .ks-handbook-shell > .forge-sidebar {
+    flex: 0 0 clamp(10.5rem, 12vw, 14rem);
+    width: clamp(10.5rem, 12vw, 14rem);
+    max-width: 14rem;
+  }
+  .ks-handbook-shell > .ks-handbook-main {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+    width: auto;
+  }
+}
+
 /* Handbook: full main width when left doc sidebar is present; prose measure inside flow column */
 .doc-content.doc-content--with-sidebar {
   max-width: none;
@@ -2493,24 +2512,32 @@ code {
   color: var(--forge-text);
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
   :root {
-    --ks-prose-max: min(85ch, 75rem);
+    --ks-prose-max: 68rem;
     --ks-body-size: 1.0625rem;
     --ks-support-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  :root {
+    --ks-prose-max: 75rem;
+    --ks-body-size: 1.125rem;
+    --ks-support-size: 1rem;
   }
 
   .forge-sidebar .nav-link,
   .forge-toc,
   .forge-toc .nav-link {
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
   }
 
   .doc-content .ks-doc-toc-prose .forge-table-wrap thead th {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
   }
 
   .doc-content .ks-doc-toc-prose .forge-table-wrap tbody td {
-    font-size: 0.9375rem;
+    font-size: 1rem;
   }
 }

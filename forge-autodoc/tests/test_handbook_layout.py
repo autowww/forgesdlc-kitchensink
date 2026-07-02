@@ -35,3 +35,6 @@ def test_handbook_page_uses_hugged_toc_flow_with_sidebar() -> None:
     assert "ks-doc-toc-prose" in html
     assert "ks-doc-toc-rail" in html
     assert "mx-auto doc-content" not in html
+    assert "ks-handbook-shell" in html
+    assert "ks-handbook-main" in html
+    assert "col-xl-10" not in html

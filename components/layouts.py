@@ -460,6 +460,12 @@ MERMAID_SCRIPT = """\
     forgeMermaidRefresh().catch(function () {});
   </script>"""
 
+# Handbook shell: Bootstrap col-lg 3+9 below 1200px; from xl, `.ks-handbook-shell` flex
+# in forge-theme.css gives main the remaining width (sidebar fixed ~10.5–14-nav14rem).
+HANDBOOK_SHELL_ROW = "row g-0 flex-lg-nowrap min-vh-100 ks-handbook-shell"
+HANDBOOK_SIDEBAR_COLS = "col-lg-3 d-none d-lg-flex flex-column p-0"
+HANDBOOK_MAIN_BASE = "col-lg-9 ks-handbook-main px-3 px-md-5"
+
 
 def _resolve_theme_css(theme_css_href: str) -> str:
     """Return the ``<link>`` tag for the Forge theme CSS."""
@@ -516,7 +522,7 @@ def _render_sidebar(
     tag = brand_tagline if brand_tagline is not None else "Handbook · Product-agnostic"
     tag_html = e(tag).replace(" · ", " &middot; ")
     return f"""\
-      <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0"{_chrome_space("doc-sidebar")} style="min-height:100vh;position:sticky;top:{e(sticky_top)};overflow-y:auto;align-self:flex-start;max-height:100vh">
+      <aside class="forge-sidebar {HANDBOOK_SIDEBAR_COLS}"{_chrome_space("doc-sidebar")} style="min-height:100vh;position:sticky;top:{e(sticky_top)};overflow-y:auto;align-self:flex-start;max-height:100vh">
         <div class="px-3 py-3" style="border-bottom:1px solid var(--forge-border)">
           <p class="forge-brand mb-0">
             <span class="brand-icon">F</span>
@@ -536,7 +542,7 @@ def _render_sidebar(
 def _render_sidebar_js_driven(handbook_name: str, subtitle: str) -> str:
     """Sidebar whose content is populated by a client-side JS nav file."""
     return f"""\
-      <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0"{_chrome_space("doc-sidebar")} style="min-height:100vh;position:sticky;top:0;overflow-y:auto">
+      <aside class="forge-sidebar {HANDBOOK_SIDEBAR_COLS}"{_chrome_space("doc-sidebar")} style="min-height:100vh;position:sticky;top:0;overflow-y:auto">
         <div class="px-3 py-3" style="border-bottom:1px solid var(--forge-border)">
           <p class="forge-brand mb-0">
             <span class="brand-icon">F</span>
@@ -739,7 +745,7 @@ def handbook_page(
     mobile_nav_btn = ""
     sidebar_col = ""
     offcanvas_block = ""
-    main_classes = "col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5"
+    main_classes = f"{HANDBOOK_MAIN_BASE} pt-4 pt-lg-5 pb-5"
     if minimal_shell:
         main_classes = "col-12 px-3 px-md-5 pt-4 pt-lg-5 pb-5"
     else:
@@ -786,7 +792,7 @@ def handbook_page(
 {top_shell_html}{THEME_TOGGLE_DROPDOWN}
 {mobile_nav_btn}
   <div {shell_attrs}>
-    <div class="row g-0 flex-lg-nowrap min-vh-100">
+    <div class="{HANDBOOK_SHELL_ROW}">
 {sidebar_col}{offcanvas_block}
       <main id="main" class="{main_classes}" style="position:relative" {ks_page_attrs}>
         {doc_content_open}
@@ -880,10 +886,10 @@ def chapter_page(
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
   </button>
   <div class="container-fluid px-0" {_la_chp}>
-    <div class="row g-0 flex-lg-nowrap min-vh-100">
+    <div class="{HANDBOOK_SHELL_ROW}">
 {_render_sidebar_js_driven(handbook_name, handbook_subtitle)}
 {_render_offcanvas_js_driven(handbook_name)}
-      <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5" style="position:relative" {ks_page_attrs}>
+      <main id="main" class="{HANDBOOK_MAIN_BASE} pt-4 pt-lg-5 pb-5" style="position:relative" {ks_page_attrs}>
         {doc_content_open}
           {header_html}
 {body_flow}
@@ -1122,7 +1128,7 @@ def _showcase_header(
 
 def _showcase_sidebar(sidebar_html: str) -> str:
     return f"""\
-  <aside class="forge-sidebar col-lg-3 col-xl-2 d-none d-lg-flex flex-column p-0" id="ks-sidebar-aside"{_chrome_space("doc-sidebar")}>
+  <aside class="forge-sidebar {HANDBOOK_SIDEBAR_COLS}" id="ks-sidebar-aside"{_chrome_space("doc-sidebar")}>
     <nav class="nav-scroll flex-grow-1 px-2 py-3" style="overflow-y:auto;min-height:0" aria-label="Sections">
       {sidebar_html}
     </nav>
@@ -1247,7 +1253,7 @@ def showcase_page(
 {_shell_outer}
 {_showcase_header(brand_name, brand_subtitle, page_title, breadcrumb_html)}
 
-<div class="row g-0 flex-lg-nowrap min-vh-100">
+<div class="{HANDBOOK_SHELL_ROW}">
 {_showcase_sidebar(sidebar_html)}
 
   <div class="offcanvas offcanvas-start d-lg-none"{_chrome_space("doc-offcanvas")} tabindex="-1" id="docNavOffcanvas" style="background:var(--forge-bg);border-right:1px solid var(--forge-border);max-width:280px">
@@ -1260,7 +1266,7 @@ def showcase_page(
     </div>
   </div>
 
-  <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main" {ks_page_attrs}>
+  <main id="main" class="{HANDBOOK_MAIN_BASE} pt-4 pb-5 doc-main" {ks_page_attrs}>
   {doc_content_open}
 {body_flow}
     {_wrap_site_footer(footer_html)}

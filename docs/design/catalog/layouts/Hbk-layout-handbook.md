@@ -53,7 +53,8 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 ## Responsive behavior
 
 - Below `lg`, **Ksr**/**Ktx** collapse per variant; `main` spans full width with comfortable gutters.
-- At ≥1400px, `--ks-prose-max` widens to `min(85ch, 75rem)`; body/support typography scales up one step.
+- From ≥1200px, `.ks-handbook-shell` flex layout gives `main` the remaining width beside a fixed ~10.5–14rem sidebar (replacing `col-xl-10` dead gutter).
+- At ≥1200px / ≥1400px, `--ks-prose-max` steps to **68rem** / **75rem** (rem only, not `ch`-capped); body/support typography scales up one step.
 - Wide tables/diagrams scroll inside regional containers.
 
 ## Accessibility contract
