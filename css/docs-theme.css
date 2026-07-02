@@ -2439,8 +2439,10 @@ code {
 @media (min-width: 992px) {
   .ks-doc-toc-flow {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(12rem, 16rem);
+    grid-template-columns: minmax(0, var(--ks-prose-max)) minmax(12rem, 16rem);
     gap: 1.5rem;
+    width: fit-content;
+    max-width: 100%;
     align-items: start;
   }
   .ks-doc-toc-flow > .ks-doc-toc-prose {
@@ -2492,8 +2494,23 @@ code {
 }
 
 @media (min-width: 1400px) {
+  :root {
+    --ks-prose-max: min(85ch, 75rem);
+    --ks-body-size: 1.0625rem;
+    --ks-support-size: 0.9375rem;
+  }
+
   .forge-sidebar .nav-link,
+  .forge-toc,
   .forge-toc .nav-link {
     font-size: 0.875rem;
+  }
+
+  .doc-content .ks-doc-toc-prose .forge-table-wrap thead th {
+    font-size: 0.75rem;
+  }
+
+  .doc-content .ks-doc-toc-prose .forge-table-wrap tbody td {
+    font-size: 0.9375rem;
   }
 }

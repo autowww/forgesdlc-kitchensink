@@ -1,6 +1,6 @@
 <!-- generated-by: design-rules-blender -->
 <!-- rule-id: AI.NARRATIVE.COHERENCE -->
-<!-- rules-version: e1225bf3177aaa58c659af4857c4ccdf0f9ff72bb2979e5955374ca30b7f7aa8 -->
+<!-- rules-version: 47749a271e9d176c8205d060ee029907c41b7602fb5cbeacc17feb8d3dc88ff1 -->
 # AI.NARRATIVE.COHERENCE
 
 This AI rule is explicitly referenced in KS UX rule docs (matrix/taxonomy) and runs as a judgment overlay.

@@ -6,9 +6,14 @@ import {
   handbookHasDeadGutter,
   isFullBleedProseRiver,
   MAX_PROSE_MEASURE_PX,
+  proseTocHasDeadGutter,
   run,
   sectionHasGutterDrift,
 } from '../design-rules/deterministic/generated/det-layout-grid-consistency.check.js';
+
+test('MAX_PROSE_MEASURE_PX aligns with xl handbook token', () => {
+  assert.equal(MAX_PROSE_MEASURE_PX, 1200);
+});
 
 test('isFullBleedProseRiver detects unconstrained wide prose', () => {
   assert.equal(isFullBleedProseRiver({
@@ -68,6 +73,24 @@ test('handbookHasDeadGutter flags centered doc-content with large sidebar gap', 
   }), false);
 });
 
+test('proseTocHasDeadGutter flags large gap between prose and ToC rail', () => {
+  assert.equal(proseTocHasDeadGutter({
+    proseRightPx: 400,
+    tocLeftPx: 600,
+    viewportWidthPx: 1440,
+  }), true);
+  assert.equal(proseTocHasDeadGutter({
+    proseRightPx: 400,
+    tocLeftPx: 424,
+    viewportWidthPx: 1440,
+  }), false);
+  assert.equal(proseTocHasDeadGutter({
+    proseRightPx: 400,
+    tocLeftPx: 600,
+    viewportWidthPx: 800,
+  }), false);
+});
+
 test('findingsFromLayoutGridReport maps violation kinds', () => {
   const findings = findingsFromLayoutGridReport({
     violations: [
@@ -92,10 +115,14 @@ test('findingsFromLayoutGridReport maps violation kinds', () => {
         gapSidebarToProsePx: 152,
         docContentUsesMxAuto: true,
       },
+      {
+        kind: 'prose-toc-dead-gutter',
+        gapProseToTocPx: 200,
+      },
     ],
   }, 'https://example.test/landing');
 
-  assert.equal(findings.length, 4);
+  assert.equal(findings.length, 5);
   assert.equal(findings[0].severity, 'warn');
   assert.ok(findings[0].message.includes('text river'));
   assert.ok(findings[1].evidence.includes('gutter_drift'));

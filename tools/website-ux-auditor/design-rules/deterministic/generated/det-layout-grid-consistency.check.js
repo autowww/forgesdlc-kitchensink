@@ -12,8 +12,11 @@ export const MAIN_WIDTH_BLEED_RATIO = 0.88;
 /** Paragraph width vs viewport — catches rivers when main itself is unconstrained. */
 export const VIEWPORT_WIDTH_BLEED_RATIO = 0.82;
 
-/** Max comfortable paragraph measure (px); aligns with KS doc-content ~56rem. */
-export const MAX_PROSE_MEASURE_PX = 920;
+/** Max comfortable paragraph measure (px); aligns with KS --ks-prose-max (75rem on xl). */
+export const MAX_PROSE_MEASURE_PX = 1200;
+
+/** Max px between prose right edge and on-page ToC rail left inside `.ks-doc-toc-flow`. */
+export const MAX_GAP_PROSE_TO_TOC_PX = 96;
 
 /** Max left-edge spread (px) among prose in the same section before gutter drift fires. */
 export const SECTION_LEFT_EDGE_TOLERANCE_PX = 56;
@@ -104,6 +107,18 @@ export function handbookHasDeadGutter(signals) {
 }
 
 /**
+ * @param {{ proseRightPx?: number, tocLeftPx?: number, viewportWidthPx?: number }} signals
+ */
+export function proseTocHasDeadGutter(signals) {
+  const vw = Number(signals?.viewportWidthPx ?? 0);
+  if (vw > 0 && vw < HANDBOOK_LAYOUT_MIN_VIEWPORT_PX) return false;
+  const proseRight = Number(signals?.proseRightPx);
+  const tocLeft = Number(signals?.tocLeftPx);
+  if (!Number.isFinite(proseRight) || !Number.isFinite(tocLeft)) return false;
+  return tocLeft - proseRight > MAX_GAP_PROSE_TO_TOC_PX;
+}
+
+/**
  * @param {{ violations?: Array<Record<string, unknown>> } | null | undefined} report
  * @param {string} [url]
  */
@@ -163,6 +178,17 @@ export function findingsFromLayoutGridReport(report, url = '') {
         remediation:
           'When a handbook page has a left doc sidebar (Ksr), use full-width `main` content (`doc-content w-100` / no `mx-auto`) and constrain prose inside `.ks-doc-toc-prose` only; see `handbook_page` + `forge-theme.css` `.ks-doc-toc-flow`.',
       });
+    } else if (kind === 'prose-toc-dead-gutter') {
+      findings.push({
+        severity: 'warn',
+        area: 'readability',
+        message:
+          'Handbook prose and the on-page ToC rail are separated by a large empty band (grid stretch instead of hugged flow).',
+        evidence:
+          `prose_toc_dead_gutter gap_px=${v.gapProseToTocPx ?? '?'}`,
+        remediation:
+          'Use hugged `.ks-doc-toc-flow` (`width: fit-content`, prose track `minmax(0, var(--ks-prose-max))`) so Ktx sits adjacent to prose; see `forge-theme.css`.',
+      });
     }
   }
 
@@ -184,6 +210,9 @@ export async function collectLayoutGridConsistencyReport(page) {
       VIEWPORT_WIDTH_BLEED_RATIO,
       MAX_PROSE_MEASURE_PX,
       SECTION_LEFT_EDGE_TOLERANCE_PX,
+      MAX_GAP_SIDEBAR_TO_PROSE_PX,
+      MAX_GAP_PROSE_TO_TOC_PX,
+      HANDBOOK_LAYOUT_MIN_VIEWPORT_PX,
       GRID_CONTAINER_SELECTOR,
       PROSE_EXCLUDE_SELECTOR,
     }) => {
@@ -353,6 +382,26 @@ export async function collectLayoutGridConsistencyReport(page) {
         }
       }
 
+      const tocFlow = main.querySelector('.ks-doc-toc-flow');
+      const tocRail = tocFlow?.querySelector('.ks-doc-toc-rail');
+      const proseInFlow = tocFlow?.querySelector('.ks-doc-toc-prose');
+      let gapProseToTocPx = null;
+      if (tocFlow && tocRail && proseInFlow && visible(tocFlow) && visible(tocRail) && visible(proseInFlow)) {
+        const proseRight = Math.round(proseInFlow.getBoundingClientRect().right);
+        const tocLeft = Math.round(tocRail.getBoundingClientRect().left);
+        gapProseToTocPx = tocLeft - proseRight;
+        if (
+          gapProseToTocPx > MAX_GAP_PROSE_TO_TOC_PX
+          && window.innerWidth >= HANDBOOK_LAYOUT_MIN_VIEWPORT_PX
+        ) {
+          violations.push({
+            kind: 'prose-toc-dead-gutter',
+            selectorHint: '.ks-doc-toc-flow',
+            gapProseToTocPx,
+          });
+        }
+      }
+
       return {
         proseSampleCount: sectionLeftEdges.size,
         violations: violations.slice(0, 10),
@@ -371,6 +420,7 @@ export async function collectLayoutGridConsistencyReport(page) {
       MAX_PROSE_MEASURE_PX,
       SECTION_LEFT_EDGE_TOLERANCE_PX,
       MAX_GAP_SIDEBAR_TO_PROSE_PX,
+      MAX_GAP_PROSE_TO_TOC_PX,
       HANDBOOK_LAYOUT_MIN_VIEWPORT_PX,
       GRID_CONTAINER_SELECTOR,
       PROSE_EXCLUDE_SELECTOR,
