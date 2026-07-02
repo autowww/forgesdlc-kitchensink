@@ -35,7 +35,7 @@ Provides the handbook shell: fluid container, doc sidebar rail, optional off-can
 
 Outer `container-fluid` shell; left doc sidebar (`aside.forge-sidebar`); optional mobile off-canvas; `main` column with page marker; footer region when enabled by layout helper.
 
-When both **Ksr** (left doc sidebar) and **Ktx** (on-page ToC) are present, body copy uses **`.ks-doc-toc-flow`** (`width: fit-content`, hugged grid): prose in **`.ks-doc-toc-prose`** (measure `--ks-prose-max`, up to **75rem / 1200px** at ≥1400px) and the ToC rail in **`.ks-doc-toc-rail`**. Do not center **`.doc-content`** with `mx-auto` beside Ksr — that creates handbook dead gutter on wide viewports (see `DET.LAYOUT.GRID_CONSISTENCY`).
+When both **Ksr** (left doc sidebar) and **Ktx** (on-page ToC) are present, body copy uses **`.ks-doc-toc-flow`** (`width: 100%`, full-width grid): prose in **`.ks-doc-toc-prose`** (`1fr`, fills space beside Ktx) and the ToC rail in **`.ks-doc-toc-rail`**. Do not center **`.doc-content`** with `mx-auto` beside Ksr — that creates handbook dead gutter on wide viewports (see `DET.LAYOUT.GRID_CONSISTENCY`).
 
 Registry **root_selector:** `div.container-fluid.px-0`.
 
@@ -53,8 +53,8 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 ## Responsive behavior
 
 - Below `lg`, **Ksr**/**Ktx** collapse per variant; `main` spans full width with comfortable gutters.
-- From ≥1200px, `.ks-handbook-shell` flex layout gives `main` the remaining width beside a fixed ~10.5–14rem sidebar (replacing `col-xl-10` dead gutter).
-- At ≥1200px / ≥1400px, `--ks-prose-max` steps to **68rem** / **75rem** (rem only, not `ch`-capped); body/support typography scales up one step.
+- From ≥1200px, `.ks-handbook-shell` flex layout gives `main` the remaining width beside a fixed **16–20rem** sidebar (`--ks-sidebar-width`); nav/ToC type scales via `--ks-nav-*` / `--ks-toc-*` tokens (≥1rem links at ≥1400px).
+- At ≥1200px / ≥1400px, body/support typography scales up; prose inside `.ks-doc-toc-flow` fills the `1fr` track (full width beside Ktx, no trailing dead gutter).
 - Wide tables/diagrams scroll inside regional containers.
 
 ## Accessibility contract

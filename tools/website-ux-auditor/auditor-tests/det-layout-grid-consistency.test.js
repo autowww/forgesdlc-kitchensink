@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import {
   findingsFromLayoutGridReport,
+  flowHasMainTrailingDeadGutter,
   handbookHasDeadGutter,
   isFullBleedProseRiver,
   MAX_PROSE_MEASURE_PX,
@@ -88,6 +89,19 @@ test('proseTocHasDeadGutter flags large gap between prose and ToC rail', () => {
     proseRightPx: 400,
     tocLeftPx: 600,
     viewportWidthPx: 800,
+  }), false);
+});
+
+test('flowHasMainTrailingDeadGutter flags unused space right of flow', () => {
+  assert.equal(flowHasMainTrailingDeadGutter({
+    flowRightPx: 900,
+    contentRightPx: 1200,
+    viewportWidthPx: 1440,
+  }), true);
+  assert.equal(flowHasMainTrailingDeadGutter({
+    flowRightPx: 1180,
+    contentRightPx: 1200,
+    viewportWidthPx: 1440,
   }), false);
 });
 

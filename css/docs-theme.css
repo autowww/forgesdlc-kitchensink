@@ -93,9 +93,17 @@
   --font-label:   "Open Sans", system-ui, sans-serif;
 
   /* Handbook reading measure and body scale (see docs/design/themes/default/tokens.json) */
-  --ks-prose-max:    56rem;
-  --ks-body-size:    1rem;
-  --ks-support-size: 0.875rem;
+  --ks-prose-max:         56rem;
+  --ks-body-size:         1rem;
+  --ks-support-size:      0.875rem;
+  --ks-sidebar-width:     clamp(16rem, 18vw, 20rem);
+  --ks-toc-rail-width:    clamp(14rem, 16vw, 18rem);
+  --ks-nav-link-size:     0.875rem;
+  --ks-nav-group-size:    0.75rem;
+  --ks-nav-section-size:  0.75rem;
+  --ks-toc-link-size:     0.875rem;
+  --ks-toc-title-size:    0.6875rem;
+  --ks-sidebar-tagline-size: 0.75rem;
   --bs-body-font-size: var(--ks-body-size);
 }
 
@@ -2433,15 +2441,49 @@ code {
 }
 
 /* Handbook shell: fixed sidebar rail + flex main from xl (Bootstrap col-lg 3+9 below) */
+@media (min-width: 992px) {
+  .ks-handbook-shell .forge-sidebar .nav-link {
+    font-size: var(--ks-nav-link-size);
+    padding: 0.5rem 0.65rem 0.5rem 1.65rem;
+  }
+  .ks-handbook-shell .forge-sidebar .nav-group-toggle {
+    font-size: var(--ks-nav-group-size);
+    padding: 0.6rem 0.65rem 0.6rem 1.65rem;
+  }
+  .ks-handbook-shell .forge-sidebar .nav-section-label {
+    font-size: var(--ks-nav-section-size);
+  }
+  .ks-handbook-shell .forge-sidebar .nav-tier-summary {
+    font-size: var(--ks-nav-section-size);
+  }
+  .ks-handbook-shell .forge-sidebar .forge-brand {
+    font-size: 1.125rem;
+  }
+  .ks-handbook-shell .forge-sidebar .forge-sidebar-tagline {
+    font-size: var(--ks-sidebar-tagline-size);
+  }
+
+  .doc-content .ks-doc-toc-rail .forge-toc {
+    font-size: var(--ks-toc-link-size);
+  }
+  .doc-content .ks-doc-toc-rail .forge-toc .nav-link {
+    font-size: var(--ks-toc-link-size);
+    padding: 0.35rem 0 0.35rem 0.85rem;
+  }
+  .doc-content .ks-doc-toc-rail .forge-toc .toc-title {
+    font-size: var(--ks-toc-title-size);
+  }
+}
+
 @media (min-width: 1200px) {
   .ks-handbook-shell {
     display: flex;
     flex-wrap: nowrap;
   }
   .ks-handbook-shell > .forge-sidebar {
-    flex: 0 0 clamp(10.5rem, 12vw, 14rem);
-    width: clamp(10.5rem, 12vw, 14rem);
-    max-width: 14rem;
+    flex: 0 0 var(--ks-sidebar-width);
+    width: var(--ks-sidebar-width);
+    max-width: 20rem;
   }
   .ks-handbook-shell > .ks-handbook-main {
     flex: 1 1 0;
@@ -2458,23 +2500,24 @@ code {
 @media (min-width: 992px) {
   .ks-doc-toc-flow {
     display: grid;
-    grid-template-columns: minmax(0, var(--ks-prose-max)) minmax(12rem, 16rem);
-    gap: 1.5rem;
-    width: fit-content;
-    max-width: 100%;
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, var(--ks-toc-rail-width));
+    gap: clamp(1.5rem, 2.5vw, 2.5rem);
+    width: 100%;
+    max-width: none;
     align-items: start;
   }
   .ks-doc-toc-flow > .ks-doc-toc-prose {
     grid-column: 1;
     grid-row: 1;
     min-width: 0;
-    max-width: var(--ks-prose-max);
+    max-width: none;
   }
   .ks-doc-toc-flow > .ks-doc-toc-rail {
     grid-column: 2;
     grid-row: 1;
     align-self: start;
-    min-width: 12rem;
+    min-width: 14rem;
+    max-width: var(--ks-toc-rail-width);
   }
   .ks-doc-toc-flow > .ks-doc-toc-rail .forge-toc .nav-link {
     white-space: normal;
@@ -2483,9 +2526,13 @@ code {
 }
 
 /* Handbook prose typography (aligned with product .fs-main, without gradient H1) */
-.doc-content .ks-doc-toc-prose,
+.doc-content .ks-doc-toc-flow > .ks-doc-toc-prose,
 .doc-content.ks-doc-prose-measure {
   max-width: var(--ks-prose-max);
+}
+
+.doc-content .ks-doc-toc-flow > .ks-doc-toc-prose {
+  max-width: none;
 }
 
 .doc-content .ks-doc-toc-prose p,
@@ -2517,6 +2564,12 @@ code {
     --ks-prose-max: 68rem;
     --ks-body-size: 1.0625rem;
     --ks-support-size: 0.9375rem;
+    --ks-nav-link-size: 0.9375rem;
+    --ks-nav-group-size: 0.8125rem;
+    --ks-nav-section-size: 0.8125rem;
+    --ks-toc-link-size: 0.9375rem;
+    --ks-toc-title-size: 0.75rem;
+    --ks-sidebar-tagline-size: 0.8125rem;
   }
 }
 
@@ -2525,19 +2578,29 @@ code {
     --ks-prose-max: 75rem;
     --ks-body-size: 1.125rem;
     --ks-support-size: 1rem;
-  }
-
-  .forge-sidebar .nav-link,
-  .forge-toc,
-  .forge-toc .nav-link {
-    font-size: 0.9375rem;
+    --ks-nav-link-size: 1rem;
+    --ks-nav-group-size: 0.875rem;
+    --ks-nav-section-size: 0.875rem;
+    --ks-toc-link-size: 1rem;
+    --ks-toc-title-size: 0.8125rem;
+    --ks-sidebar-tagline-size: 0.875rem;
   }
 
   .doc-content .ks-doc-toc-prose .forge-table-wrap thead th {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
   }
 
   .doc-content .ks-doc-toc-prose .forge-table-wrap tbody td {
-    font-size: 1rem;
+    font-size: 1.0625rem;
+  }
+
+  .doc-content .ks-doc-toc-prose h2,
+  .doc-content.ks-doc-prose-measure h2 {
+    font-size: 1.5rem;
+  }
+
+  .doc-content .ks-doc-toc-prose h3,
+  .doc-content.ks-doc-prose-measure h3 {
+    font-size: 1.2rem;
   }
 }

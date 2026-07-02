@@ -528,7 +528,7 @@ def _render_sidebar(
             <span class="brand-icon">F</span>
             <span class="text-amber">{e(handbook_name)}</span>
           </p>
-          <p class="mt-2 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{tag_html}</p>
+          <p class="mt-2 mb-0 forge-sidebar-tagline" style="font-family:var(--bs-body-font-family);font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{tag_html}</p>
         </div>
         <nav class="nav-scroll flex-grow-1 px-2 py-3" aria-label="Primary navigation">
           <p class="nav-section-label">{e(chapters_label)}</p>
@@ -548,7 +548,7 @@ def _render_sidebar_js_driven(handbook_name: str, subtitle: str) -> str:
             <span class="brand-icon">F</span>
             <span class="text-amber">{e(handbook_name)}</span>
           </p>
-          <p class="mt-2 mb-0" style="font-family:var(--bs-body-font-family);font-size:0.6rem;font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{e(subtitle)}</p>
+          <p class="mt-2 mb-0 forge-sidebar-tagline" style="font-family:var(--bs-body-font-family);font-weight:600;color:var(--forge-text-4);letter-spacing:0.06em">{e(subtitle)}</p>
         </div>
         <nav class="nav-scroll flex-grow-1 px-2 py-3" id="doc-sidebar-nav" aria-label="Primary navigation"></nav>
       </aside>"""

@@ -106,6 +106,21 @@ export function handbookHasDeadGutter(signals) {
   return gap > MAX_GAP_SIDEBAR_TO_PROSE_PX && Boolean(signals.docContentUsesMxAuto);
 }
 
+/** Max px between flow right edge and main/doc-content right (trailing dead gutter). */
+export const MAX_GAP_FLOW_TO_MAIN_RIGHT_PX = 48;
+
+/**
+ * @param {{ flowRightPx?: number, contentRightPx?: number, viewportWidthPx?: number }} signals
+ */
+export function flowHasMainTrailingDeadGutter(signals) {
+  const vw = Number(signals?.viewportWidthPx ?? 0);
+  if (vw > 0 && vw < HANDBOOK_LAYOUT_MIN_VIEWPORT_PX) return false;
+  const flowRight = Number(signals?.flowRightPx);
+  const contentRight = Number(signals?.contentRightPx);
+  if (!Number.isFinite(flowRight) || !Number.isFinite(contentRight)) return false;
+  return contentRight - flowRight > MAX_GAP_FLOW_TO_MAIN_RIGHT_PX;
+}
+
 /**
  * @param {{ proseRightPx?: number, tocLeftPx?: number, viewportWidthPx?: number }} signals
  */
@@ -183,11 +198,22 @@ export function findingsFromLayoutGridReport(report, url = '') {
         severity: 'warn',
         area: 'readability',
         message:
-          'Handbook prose and the on-page ToC rail are separated by a large empty band (grid stretch instead of hugged flow).',
+          'Handbook prose and the on-page ToC rail are separated by a large empty band inside the flow grid.',
         evidence:
           `prose_toc_dead_gutter gap_px=${v.gapProseToTocPx ?? '?'}`,
         remediation:
-          'Use hugged `.ks-doc-toc-flow` (`width: fit-content`, prose track `minmax(0, var(--ks-prose-max))`) so Ktx sits adjacent to prose; see `forge-theme.css`.',
+          'Keep `.ks-doc-toc-flow` at `width: 100%` with prose track `1fr` and ToC rail adjacent; see `forge-theme.css`.',
+      });
+    } else if (kind === 'main-trailing-dead-gutter') {
+      findings.push({
+        severity: 'warn',
+        area: 'readability',
+        message:
+          'Handbook content block ends far before the main column edge, leaving unused space on the right.',
+        evidence:
+          `main_trailing_dead_gutter gap_px=${v.gapFlowToMainRightPx ?? '?'}`,
+        remediation:
+          'Use full-width `.ks-doc-toc-flow` (`width: 100%`, prose `1fr`) so content fills `main` beside the ToC rail.',
       });
     }
   }
@@ -312,6 +338,8 @@ export async function collectLayoutGridConsistencyReport(page) {
         }
 
         if (inGridContainer && paragraphWidthPx > MAX_PROSE_MEASURE_PX) {
+          const inHandbookFlow = Boolean(el.closest('.ks-doc-toc-flow > .ks-doc-toc-prose'));
+          if (inHandbookFlow) continue;
           const hint = selectorHintFor(el);
           const key = `measure:${hint}`;
           if (!seenRiver.has(key)) {
@@ -398,6 +426,21 @@ export async function collectLayoutGridConsistencyReport(page) {
             kind: 'prose-toc-dead-gutter',
             selectorHint: '.ks-doc-toc-flow',
             gapProseToTocPx,
+          });
+        }
+      }
+
+      let gapFlowToMainRightPx = null;
+      if (tocFlow && visible(tocFlow) && docContent && visible(docContent)
+          && window.innerWidth >= HANDBOOK_LAYOUT_MIN_VIEWPORT_PX) {
+        const flowRight = Math.round(tocFlow.getBoundingClientRect().right);
+        const contentRight = Math.round(docContent.getBoundingClientRect().right);
+        gapFlowToMainRightPx = contentRight - flowRight;
+        if (gapFlowToMainRightPx > MAX_GAP_FLOW_TO_MAIN_RIGHT_PX) {
+          violations.push({
+            kind: 'main-trailing-dead-gutter',
+            selectorHint: '.ks-doc-toc-flow',
+            gapFlowToMainRightPx,
           });
         }
       }
