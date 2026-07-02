@@ -778,3 +778,20 @@
     .fleet-app-section--collapsed .fleet-app-section__body {
       margin-top: 0.75rem;
     }
+
+    /* Fleet Apps — About fly-out (admin Apps tab) */
+    .fleet-app-about-offcanvas {
+      --bs-offcanvas-width: min(28rem, 92vw);
+    }
+    .fleet-app-about-release {
+      border: 1px solid var(--bs-border-color-translucent);
+      border-radius: 0.5rem;
+      padding: 0.65rem 0.75rem;
+      background: var(--forge-surface-2, var(--bs-secondary-bg));
+      max-height: 16rem;
+      overflow: auto;
+    }
+    .fleet-app-release-preview {
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }

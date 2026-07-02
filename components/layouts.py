@@ -76,6 +76,42 @@ def _chrome_space(slug: str) -> str:
     return f" {a}" if a else ""
 
 
+def _doc_content_open(*, has_sidebar: bool) -> str:
+    """Open ``.doc-content`` wrapper — full width beside Ksr, or centered measure alone."""
+    if has_sidebar:
+        return '<div class="doc-content w-100 doc-content--with-sidebar">'
+    return '<div class="mx-auto doc-content ks-doc-prose-measure">'
+
+
+def _wrap_toc_rail(toc_html: str) -> str:
+    """Ensure ToC markup is wrapped in ``aside.ks-doc-toc-rail`` for grid flow."""
+    toc_html = toc_html.strip()
+    if not toc_html:
+        return ""
+    if "ks-doc-toc-rail" in toc_html:
+        return toc_html
+    _ktx = chrome_region_attrs("doc-toc-sidebar")
+    _ktx_s = f" {_ktx}" if _ktx else ""
+    return f"""            <aside class="ks-doc-toc-rail"{_ktx_s}>
+{toc_html}
+            </aside>"""
+
+
+def _render_doc_body_flow(*, body_html: str, toc_html: str = "") -> str:
+    """Prose + optional ToC rail using ``.ks-doc-toc-flow`` grid (not Bootstrap cols)."""
+    toc_rail = _wrap_toc_rail(toc_html)
+    if toc_rail:
+        return f"""          <div class="ks-doc-toc-flow">
+            <div class="ks-doc-toc-prose">
+{body_html}
+            </div>
+{toc_rail}
+          </div>"""
+    return f"""          <div class="ks-doc-toc-prose">
+{body_html}
+          </div>"""
+
+
 def _wrap_site_footer(footer_html: str) -> str:
     t = footer_html.strip()
     if not t:
@@ -647,7 +683,6 @@ def handbook_page(
     optional *top_shell_html* (curated top nav).
     """
     ap = asset_href_prefix
-    col_class = "col-lg-8 col-xl-9 order-2 order-lg-1" if toc_sidebar_html else "col-12"
     diagram_scripts = _footer_diagram_scripts(
         has_mermaid,
         has_ks_diagram,
@@ -727,6 +762,13 @@ def handbook_page(
             f'            <p class="section-label text-cyan mb-2">{e(handbook_section_label)}</p>\n'
         )
 
+    has_sidebar = not minimal_shell
+    doc_content_open = _doc_content_open(has_sidebar=has_sidebar)
+    body_flow = _render_doc_body_flow(
+        body_html=body_html,
+        toc_html=toc_sidebar_html,
+    )
+
     return f"""<!DOCTYPE html>
 <html lang="{e(html_lang)}">
 <head>
@@ -747,18 +789,13 @@ def handbook_page(
     <div class="row g-0 flex-lg-nowrap min-vh-100">
 {sidebar_col}{offcanvas_block}
       <main id="main" class="{main_classes}" style="position:relative" {ks_page_attrs}>
-        <div class="mx-auto doc-content" style="max-width:56rem">
+        {doc_content_open}
           <header class="mb-4 pb-3" style="border-bottom:1px solid var(--forge-border)">
 {section_label_html}            <h1 class="font-display" style="font-size:clamp(1.75rem,4vw,2.5rem)">{e(page_title)}</h1>
             <p class="forge-support mt-2 mb-0" style="font-size:1rem">{intro}</p>
           </header>
 {template_banner}
-          <div class="row g-3 g-lg-4">
-            <div class="{col_class}">
-{body_html}
-            </div>
-{toc_sidebar_html}
-          </div>
+{body_flow}
 {canonical_note}
 {nav_buttons}
           {_wrap_site_footer(footer_html)}
@@ -818,6 +855,12 @@ def chapter_page(
     )
     _la_chp = layout_shell_attrs("chapter_page")
 
+    doc_content_open = _doc_content_open(has_sidebar=True)
+    body_flow = _render_doc_body_flow(
+        body_html=main_sections,
+        toc_html=toc_sidebar_html,
+    )
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -841,16 +884,9 @@ def chapter_page(
 {_render_sidebar_js_driven(handbook_name, handbook_subtitle)}
 {_render_offcanvas_js_driven(handbook_name)}
       <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pt-lg-5 pb-5" style="position:relative" {ks_page_attrs}>
-        <div class="mx-auto doc-content" style="max-width:56rem">
+        {doc_content_open}
           {header_html}
-          <div class="row g-3 g-lg-4">
-            <div class="col-lg-8 col-xl-9 order-2 order-lg-1">
-{main_sections}
-            </div>
-            <div class="col-lg-4 col-xl-3 order-1 order-lg-2"{_chrome_space("doc-toc-sidebar")}>
-{toc_sidebar_html}
-            </div>
-          </div>
+{body_flow}
 {canonical_note}
           {nav_buttons}
           {_wrap_site_footer(footer_html)}
@@ -1138,14 +1174,16 @@ def showcase_page(
     has_ks_diagram: bool = False,
     include_diagram_expand_modal: bool = False,
     body_extra_class: str = "",
-    content_max_width: str | None = "56rem",
+    content_max_width: str | None = None,
     ks_layout_symbol: str = "showcase_page",
     ks_page_attrs: str = "",
 ) -> str:
     """Showcase documentation page: unified header + sticky sidebar + content + optional ToC.
 
-    *content_max_width* — CSS length for the inner ``.doc-content`` wrapper (default readable column).
-    Pass ``None`` for a full-width content column (horizontal padding comes from ``main.doc-main``).
+    *content_max_width* — CSS length for the inner ``.doc-content`` wrapper when no doc sidebar
+    is used. With the default showcase sidebar, content is full-width inside ``main`` and
+    readable measure lives on ``.ks-doc-toc-prose`` (see ``forge-theme.css``).
+    Pass a length (e.g. ``"56rem"``) only for sidebar-less showcase pages.
     """
     offcanvas = offcanvas_html or sidebar_html
     diagram_scripts = _footer_diagram_scripts(
@@ -1158,23 +1196,25 @@ def showcase_page(
         f'<script src="{e(src)}"></script>' for src in (extra_js or [])
     )
     toc_col = ""
-    col_class = "col-12"
     if toc_html:
-        col_class = "col-lg-8 col-xl-9 order-2 order-lg-1"
         _ktx = chrome_region_attrs("doc-toc-sidebar")
         _ktx_s = f" {_ktx}" if _ktx else ""
-        toc_col = f"""
-    <div class="col-lg-4 col-xl-3 order-1 order-lg-2"{_ktx_s}>
+        toc_col = f"""            <aside class="ks-doc-toc-rail"{_ktx_s}>
       <nav class="forge-toc" aria-label="On this page">
         <p class="toc-title mb-2">On this page</p>
         {toc_html}
       </nav>
-    </div>"""
+            </aside>"""
 
     if content_max_width is None:
-        doc_content_open = '<div class="doc-content w-100" style="max-width:none">'
+        doc_content_open = '<div class="doc-content w-100 doc-content--with-sidebar">'
     else:
-        doc_content_open = f'<div class="mx-auto doc-content" style="max-width:{e(content_max_width)}">'
+        doc_content_open = (
+            f'<div class="mx-auto doc-content ks-doc-prose-measure" '
+            f'style="max-width:{e(content_max_width)}">'
+        )
+
+    body_flow = _render_doc_body_flow(body_html=body_html, toc_html=toc_col) if toc_html else body_html
 
     _la_show = layout_shell_attrs(ks_layout_symbol)
     _shell_outer = '<div class="container-fluid px-0"'
@@ -1222,12 +1262,7 @@ def showcase_page(
 
   <main id="main" class="col-lg-9 col-xl-10 px-3 px-md-5 pt-4 pb-5 doc-main" {ks_page_attrs}>
   {doc_content_open}
-    <div class="row g-3 g-lg-4">
-    <div class="{col_class}">
-{body_html}
-    </div>
-{toc_col}
-    </div>
+{body_flow}
     {_wrap_site_footer(footer_html)}
   </div>
   </main>

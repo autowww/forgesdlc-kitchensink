@@ -14,6 +14,7 @@
   --fs-shell-max: min(118rem, calc(100vw - 1.5rem));
   /* Fixed `.forge-theme-dropdown` (top-right): keep nav/header text out from under it */
   --fs-theme-toggle-reserve: clamp(8rem, 11.5vw, 11.5rem);
+  /* Marketing band prose cap; handbook pages use --ks-prose-max in forge-theme.css */
   --fs-prose-max: 42rem;
   /* Proxima Nova: add Adobe Fonts kit or @font-face. */
   --fs-font-display: "Proxima Nova Black", "Proxima Nova", "proxima-nova", "Open Sans", system-ui, sans-serif;

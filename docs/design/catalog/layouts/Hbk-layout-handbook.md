@@ -35,6 +35,8 @@ Provides the handbook shell: fluid container, doc sidebar rail, optional off-can
 
 Outer `container-fluid` shell; left doc sidebar (`aside.forge-sidebar`); optional mobile off-canvas; `main` column with page marker; footer region when enabled by layout helper.
 
+When both **Ksr** (left doc sidebar) and **Ktx** (on-page ToC) are present, body copy uses **`.ks-doc-toc-flow`**: prose in **`.ks-doc-toc-prose`** (measure `--ks-prose-max`) and the ToC rail in **`.ks-doc-toc-rail`**. Do not center **`.doc-content`** with `mx-auto` beside Ksr — that creates handbook dead gutter on wide viewports (see `DET.LAYOUT.GRID_CONSISTENCY`).
+
 Registry **root_selector:** `div.container-fluid.px-0`.
 
 ## States

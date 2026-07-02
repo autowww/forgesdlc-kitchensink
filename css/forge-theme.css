@@ -72,7 +72,6 @@
   --bs-body-color:     var(--forge-text);
   /* Proxima Nova: add Adobe Fonts kit or @font-face; "Black" may be a separate family name. */
   --bs-body-font-family: "Open Sans", system-ui, -apple-system, sans-serif;
-  --bs-body-font-size: 0.9375rem;
   --bs-border-color:   var(--forge-border);
 
   /* Bootstrap form alignment (5.3) */
@@ -101,6 +100,12 @@
   --font-display: "Proxima Nova Black", "Proxima Nova", "proxima-nova", "Open Sans", system-ui, sans-serif;
   --font-mono:    "Courier New", Courier, monospace;
   --font-label:   "Open Sans", system-ui, sans-serif;
+
+  /* Handbook reading measure and body scale (see docs/design/themes/default/tokens.json) */
+  --ks-prose-max:    min(72ch, 56rem);
+  --ks-body-size:    1rem;
+  --ks-support-size: 0.875rem;
+  --bs-body-font-size: var(--ks-body-size);
 }
 
 /* =================================================================
@@ -186,7 +191,7 @@ strong { color: var(--forge-text); }
 
 .forge-support {
   color: var(--forge-text-2);
-  font-size: 0.8125rem;
+  font-size: var(--ks-support-size);
   line-height: 1.5;
 }
 h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
@@ -2801,7 +2806,7 @@ code {
     grid-column: 1;
     grid-row: 1;
     min-width: 0;
-    max-width: 56rem;
+    max-width: var(--ks-prose-max);
   }
   .ks-doc-toc-flow > .ks-doc-toc-rail {
     grid-column: 2;
@@ -2812,5 +2817,42 @@ code {
   .ks-doc-toc-flow > .ks-doc-toc-rail .forge-toc .nav-link {
     white-space: normal;
     overflow-wrap: anywhere;
+  }
+}
+
+/* Handbook prose typography (aligned with product .fs-main, without gradient H1) */
+.doc-content .ks-doc-toc-prose,
+.doc-content.ks-doc-prose-measure {
+  max-width: var(--ks-prose-max);
+}
+
+.doc-content .ks-doc-toc-prose p,
+.doc-content .ks-doc-toc-prose li,
+.doc-content.ks-doc-prose-measure p,
+.doc-content.ks-doc-prose-measure li {
+  line-height: 1.65;
+}
+
+.doc-content .ks-doc-toc-prose h2,
+.doc-content.ks-doc-prose-measure h2 {
+  font-size: 1.35rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--forge-border);
+  color: var(--forge-amber);
+}
+
+.doc-content .ks-doc-toc-prose h3,
+.doc-content.ks-doc-prose-measure h3 {
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  color: var(--forge-text);
+}
+
+@media (min-width: 1400px) {
+  .forge-sidebar .nav-link,
+  .forge-toc .nav-link {
+    font-size: 0.875rem;
   }
 }
