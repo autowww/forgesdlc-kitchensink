@@ -2805,6 +2805,17 @@ code {
     font-size: var(--ks-nav-link-size);
     padding: 0.5rem 0.65rem 0.5rem 1.65rem;
   }
+  .ks-handbook-shell .forge-sidebar .doc-sidebar-link {
+    font-size: var(--ks-nav-link-size);
+    padding: 0.5rem 0.65rem 0.5rem 0.85rem;
+  }
+  .ks-handbook-shell .forge-sidebar .doc-sidebar-heading {
+    font-size: var(--ks-nav-group-size);
+  }
+  .ks-handbook-shell .forge-sidebar .doc-sidebar-sublink {
+    font-size: calc(var(--ks-nav-link-size) * 0.9375);
+    padding: 0.4rem 0.55rem 0.4rem 1rem;
+  }
   .ks-handbook-shell .forge-sidebar .nav-group-toggle {
     font-size: var(--ks-nav-group-size);
     padding: 0.6rem 0.65rem 0.6rem 1.65rem;
