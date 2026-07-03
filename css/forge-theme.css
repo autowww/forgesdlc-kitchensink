@@ -2929,6 +2929,94 @@ code {
   color: var(--forge-text);
 }
 
+/* Kbc — document header (handbook chapter chrome) */
+.ks-doc-header {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--forge-border);
+}
+
+.ks-doc-header__title {
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--forge-text);
+  margin: 0 0 0.75rem;
+}
+
+.ks-doc-header__lede {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--forge-text-muted);
+  margin: 0 0 1rem;
+  max-width: 72ch;
+}
+
+.ks-doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  font-size: var(--ks-support-size, 0.9375rem);
+  color: var(--forge-text-muted);
+}
+
+.ks-doc-meta__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ks-doc-meta__badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.25rem;
+  background: rgba(255, 193, 7, 0.12);
+  color: var(--forge-amber);
+  border: 1px solid rgba(255, 193, 7, 0.25);
+}
+
+.ks-doc-breadcrumb .ks-doc-breadcrumb__trail {
+  font-size: var(--ks-support-size, 0.9375rem);
+  margin-bottom: 0;
+}
+
+.ks-doc-breadcrumb .breadcrumb-item a {
+  color: var(--forge-text-muted);
+  text-decoration: none;
+}
+
+.ks-doc-breadcrumb .breadcrumb-item a:hover {
+  color: var(--forge-amber);
+  text-decoration: underline;
+}
+
+.ks-doc-breadcrumb .breadcrumb-item.active {
+  color: var(--forge-text);
+}
+
+/* Handbook tables — readable density (no table-sm) */
+.forge-table-handbook {
+  font-size: 0.9375rem;
+}
+
+.forge-table-handbook thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--forge-surface-elevated, var(--forge-surface));
+  border-bottom-width: 2px;
+}
+
+.forge-table-handbook td,
+.forge-table-handbook th {
+  padding: 0.55rem 0.75rem;
+  vertical-align: top;
+}
+
 @media (min-width: 1200px) {
   :root {
     --ks-prose-max: 68rem;

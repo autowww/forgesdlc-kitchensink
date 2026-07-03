@@ -38,3 +38,38 @@ def test_handbook_page_uses_hugged_toc_flow_with_sidebar() -> None:
     assert "ks-handbook-shell" in html
     assert "ks-handbook-main" in html
     assert "col-xl-10" not in html
+
+
+def test_assemble_handbook_page_emits_doc_header_with_breadcrumbs() -> None:
+    ks_root = Path(__file__).resolve().parents[2]
+    from forge_autodoc.page import assemble_handbook_page
+
+    html = assemble_handbook_page(
+        kitchensink_root=ks_root,
+        browser_title="Test",
+        handbook_name="Handbook",
+        page_title="Autonomy levels",
+        intro="How teams choose agent autonomy.",
+        body_html="<h2 id=\"intro\">Introduction</h2><p>Body copy.</p>",
+        toc=[("intro", "Introduction", 2)],
+        sidebar_html="<nav></nav>",
+        offcanvas_html="<nav></nav>",
+        prev_link=None,
+        next_link=None,
+        canonical_md="https://github.com/example/repo/blob/main/page.md",
+        is_template=False,
+        show_canonical_note=False,
+        breadcrumb_items=[
+            ("index.html", "Handbook"),
+            ("sdlc--index.html", "SDLC"),
+            (None, "Autonomy levels"),
+        ],
+        page_type="guide",
+        canonical_source_href="https://github.com/example/repo/blob/main/page.md",
+    )
+
+    assert "ks-doc-header" in html
+    assert "ks-doc-breadcrumb" in html
+    assert "ks-doc-meta" in html
+    assert "Autonomy levels" in html
+    assert "How teams choose agent autonomy." in html

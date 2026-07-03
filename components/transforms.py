@@ -85,13 +85,19 @@ def resolve_ks_diagram_tile_alt(
     )
 
 
-def enhance_tables(html_text: str) -> str:
+def enhance_tables(html_text: str, *, handbook: bool = True) -> str:
     """Add Forge-themed responsive wrapper and classes to bare ``<table>`` elements."""
-    html_text = html_text.replace(
-        "<table>",
-        '<div class="forge-table-wrap mt-2 mb-3">'
-        '<table class="table table-sm table-striped mb-0">',
-    )
+    if handbook:
+        table_open = (
+            '<div class="forge-table-wrap mt-2 mb-3">'
+            '<table class="table table-striped mb-0 forge-table-handbook">'
+        )
+    else:
+        table_open = (
+            '<div class="forge-table-wrap mt-2 mb-3">'
+            '<table class="table table-sm table-striped mb-0">'
+        )
+    html_text = html_text.replace("<table>", table_open)
     html_text = html_text.replace("</table>", "</table></div>")
     html_text = html_text.replace("<thead>", "<thead>")
     return html_text
@@ -472,7 +478,7 @@ def extract_toc(html_text: str) -> list[tuple[str, str, int]]:
     return toc
 
 
-def apply_all(html_text: str) -> tuple[str, bool, bool]:
+def apply_all(html_text: str, *, handbook: bool = True) -> tuple[str, bool, bool]:
     """Apply all standard transforms in canonical order.
 
     Returns ``(html, has_mermaid, has_ks_diagram)``.
@@ -482,7 +488,7 @@ def apply_all(html_text: str) -> tuple[str, bool, bool]:
     html_text, has_mermaid = convert_mermaid_blocks(html_text)
     html_text, _, ascii_modal = convert_ascii_diagram_blocks(html_text)
     html_text, has_ks_svg = convert_ks_diagram_blocks(html_text)
-    html_text = enhance_tables(html_text)
+    html_text = enhance_tables(html_text, handbook=handbook)
     html_text = enhance_blockquotes(html_text)
     html_text = enhance_code_blocks(html_text)
     has_ks_diagram = has_ks_svg or ascii_modal

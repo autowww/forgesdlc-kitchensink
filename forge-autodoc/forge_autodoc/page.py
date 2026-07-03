@@ -48,6 +48,10 @@ def assemble_handbook_page(
     handbook_section_label_override: str | None = None,
     minimal_shell: bool = False,
     extra_head_metas_html: str = "",
+    breadcrumb_items: list[tuple[str | None, str]] | None = None,
+    page_type: str = "",
+    canonical_source_href: str = "",
+    canonical_source_label: str = "Source",
 ) -> str:
     """Render fragments into a complete document using KS ``handbook_page``."""
     ensure_kitchensink_importable(kitchensink_root)
@@ -57,6 +61,7 @@ def assemble_handbook_page(
     from components import (
         render_canonical_note,
         render_footer,
+        render_handbook_doc_header,
         render_nav_buttons,
         render_template_banner,
         render_toc_sidebar,
@@ -109,6 +114,21 @@ def assemble_handbook_page(
         else chrome.get("handbook.section_label", "Handbook")
     )
 
+    page_type_label = page_type.strip()
+    if page_type_label:
+        page_type_label = page_type_label.replace("_", " ").title()
+
+    doc_header = render_handbook_doc_header(
+        page_title,
+        intro,
+        breadcrumb_items=breadcrumb_items,
+        section_label=section_label if not breadcrumb_items else "",
+        page_type=page_type_label,
+        last_updated=when,
+        canonical_source_href=canonical_source_href or (canonical_md if show_canonical_note else ""),
+        canonical_source_label=canonical_source_label,
+    )
+
     hp_kwargs = dict(
         browser_title=browser_title,
         handbook_name=handbook_name,
@@ -143,6 +163,7 @@ def assemble_handbook_page(
         top_shell_html=top_shell_html,
         handbook_sidebar_brand_tagline=handbook_sidebar_brand_tagline,
         extra_head_metas_html=extra_head_metas_html,
+        doc_header_html=doc_header,
         ks_page_attrs=page_main_attrs("handbook-chapter"),
     )
     filtered_hp = {k: v for k, v in hp_kwargs.items() if k in _hp_sig.parameters}

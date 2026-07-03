@@ -12,7 +12,7 @@ def apply_handbook_body_transforms(kitchensink_root: Path, html: str) -> tuple[s
     ensure_kitchensink_importable(kitchensink_root)
     from transforms import apply_all
 
-    return apply_all(html)
+    return apply_all(html, handbook=True)
 
 
 def extract_toc_from_html(kitchensink_root: Path, html: str) -> list[tuple[str, str, int]]:

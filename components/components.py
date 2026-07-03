@@ -512,13 +512,69 @@ def render_breadcrumbs(
                 f'<li class="breadcrumb-item">'
                 f'<a href="{e(href)}">{e(label)}</a></li>'
             )
-    ol = '<ol class="breadcrumb small mb-3">' + "".join(items) + "</ol>"
+    ol = '<ol class="breadcrumb ks-doc-breadcrumb__trail mb-0">' + "".join(items) + "</ol>"
     _bc = chrome_region_attrs("doc-breadcrumb")
     _bx = f" {_bc}" if _bc else ""
     return (
-        f'<nav class="ks-doc-breadcrumb" aria-label="Breadcrumb"{_bx}>'
+        f'<nav class="ks-doc-breadcrumb mb-3" aria-label="Breadcrumb"{_bx}>'
         f"{ol}"
         f"</nav>"
+    )
+
+
+def render_handbook_doc_header(
+    page_title: str,
+    lede: str,
+    *,
+    breadcrumb_items: list[tuple[str | None, str]] | None = None,
+    section_label: str = "",
+    page_type: str = "",
+    last_updated: str = "",
+    canonical_source_href: str = "",
+    canonical_source_label: str = "Source",
+) -> str:
+    """Handbook document header: Kbc trail, title, lede, metadata row (Hbk contract)."""
+    bc_html = ""
+    if breadcrumb_items and len(breadcrumb_items) >= 2:
+        bc_html = render_breadcrumbs(breadcrumb_items)
+
+    lbl = ""
+    if section_label.strip() and not bc_html:
+        lbl = (
+            f'<p class="section-label text-cyan mb-2">{e(section_label.strip())}</p>'
+        )
+
+    meta_parts: list[str] = []
+    if page_type.strip():
+        meta_parts.append(
+            f'<span class="ks-doc-meta__badge badge rounded-pill '
+            f'text-bg-secondary">{e(page_type.strip())}</span>'
+        )
+    if last_updated.strip():
+        meta_parts.append(
+            f'<span class="ks-doc-meta__item">Updated <time datetime="{e(last_updated.strip())}">'
+            f"{e(last_updated.strip())}</time></span>"
+        )
+    if canonical_source_href.strip():
+        meta_parts.append(
+            f'<span class="ks-doc-meta__item"><a href="{e(canonical_source_href.strip())}" '
+            f'rel="noopener">{e(canonical_source_label)}</a></span>'
+        )
+    meta_html = ""
+    if meta_parts:
+        meta_html = (
+            '<p class="ks-doc-meta forge-support mb-0 mt-3">'
+            + " · ".join(meta_parts)
+            + "</p>"
+        )
+
+    return (
+        '<header class="ks-doc-header">'
+        f"{bc_html}{lbl}"
+        f'<h1 class="font-display ks-doc-header__title">{e(page_title)}</h1>'
+        f'<p class="ks-doc-header__lede mt-2 mb-0">{e(lede)}</p>'
+        f"{meta_html}"
+        "</header>"
     )
 
 

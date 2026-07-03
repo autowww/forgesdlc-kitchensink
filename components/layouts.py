@@ -665,6 +665,7 @@ def handbook_page(
     json_ld_script: str = "",
     extra_head_metas_html: str = "",
     ks_page_attrs: str = "",
+    doc_header_html: str = "",
 ) -> str:
     """Complete HTML page for an auto-generated handbook entry.
 
@@ -763,9 +764,20 @@ def handbook_page(
 """
 
     section_label_html = ""
-    if handbook_section_label.strip():
+    if handbook_section_label.strip() and not doc_header_html.strip():
         section_label_html = (
             f'            <p class="section-label text-cyan mb-2">{e(handbook_section_label)}</p>\n'
+        )
+
+    if doc_header_html.strip():
+        page_header_html = doc_header_html
+    else:
+        page_header_html = (
+            '          <header class="mb-4 pb-3" style="border-bottom:1px solid var(--forge-border)">\n'
+            f"{section_label_html}"
+            f'            <h1 class="font-display" style="font-size:clamp(1.75rem,4vw,2.5rem)">{e(page_title)}</h1>\n'
+            f'            <p class="forge-support mt-2 mb-0" style="font-size:1rem">{intro}</p>\n'
+            "          </header>\n"
         )
 
     has_sidebar = not minimal_shell
@@ -796,11 +808,7 @@ def handbook_page(
 {sidebar_col}{offcanvas_block}
       <main id="main" class="{main_classes}" style="position:relative" {ks_page_attrs}>
         {doc_content_open}
-          <header class="mb-4 pb-3" style="border-bottom:1px solid var(--forge-border)">
-{section_label_html}            <h1 class="font-display" style="font-size:clamp(1.75rem,4vw,2.5rem)">{e(page_title)}</h1>
-            <p class="forge-support mt-2 mb-0" style="font-size:1rem">{intro}</p>
-          </header>
-{template_banner}
+{page_header_html}{template_banner}
 {body_flow}
 {canonical_note}
 {nav_buttons}
