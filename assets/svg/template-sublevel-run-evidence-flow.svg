@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 756 200" width="756" height="200" role="img" aria-labelledby="title desc">
+  <title id="title">Sub-level run evidence flow template</title>
+  <desc id="desc">Placeholder linear flow from campaign item through driver, assay gate, and dual-wiki trace. Replace bracketed labels with content-specific values in consuming repos.</desc>
+  <rect width="100%" height="100%" fill="none"/>
+  <text x="378" y="18" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-weight="700" font-size="12" fill="#06B6D4">[Title  sub-level run evidence flow]</text>
+  <g font-family="system-ui, sans-serif">
+    <rect x="24" y="56" width="140" height="72" rx="5" fill="#1e3a5f" stroke="#06B6D4" stroke-width="1"/>
+    <text x="94" y="78" text-anchor="middle" fill="#fff" font-weight="700" font-size="9">[Campaign item]</text>
+    <text x="94" y="96" text-anchor="middle" fill="#cbd5e1" font-size="7.5">[goal / target]</text>
+    <text x="94" y="112" text-anchor="middle" fill="#94a3b8" font-size="7">[sub-level claim]</text>
+    <rect x="200" y="56" width="120" height="72" rx="5" fill="#1e3a5f" stroke="#06B6D4" stroke-width="1"/>
+    <text x="260" y="84" text-anchor="middle" fill="#fff" font-weight="700" font-size="9">[Driver]</text>
+    <text x="260" y="102" text-anchor="middle" fill="#cbd5e1" font-size="7.5">[bounded loop]</text>
+    <rect x="356" y="56" width="120" height="72" rx="5" fill="#744210" stroke="#f59e0b" stroke-width="1"/>
+    <text x="416" y="84" text-anchor="middle" fill="#fff" font-weight="700" font-size="9">[Assay gate]</text>
+    <text x="416" y="102" text-anchor="middle" fill="#fde68a" font-size="7.5">[sub-level check]</text>
+    <rect x="512" y="44" width="220" height="96" rx="5" fill="#285e61" stroke="#059669" stroke-width="1"/>
+    <text x="622" y="66" text-anchor="middle" fill="#fff" font-weight="700" font-size="9">[Dual-wiki trace]</text>
+    <text x="622" y="84" text-anchor="middle" fill="#6ee7b7" font-size="8" font-weight="700">[M + H]</text>
+    <text x="528" y="104" fill="#d1fae5" font-size="7.5">[machine/  source of truth]</text>
+    <text x="528" y="120" fill="#d1fae5" font-size="7.5">[human/report.md  derived]</text>
+  </g>
+  <g stroke="#0e7490" stroke-width="1.5" fill="none">
+    <path d="M 164 92 L 200 92"/>
+    <path d="M 320 92 L 356 92"/>
+    <path d="M 476 92 L 512 92"/>
+  </g>
+  <g fill="#708090">
+    <polygon points="200,92 194,88 194,96"/>
+    <polygon points="356,92 350,88 350,96"/>
+    <polygon points="512,92 506,88 506,96"/>
+  </g>
+  <text x="378" y="178" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  assay enforces declared sub-level evidence before the run counts as done]</text>
+</svg>

@@ -270,6 +270,35 @@ _FAMILIES: list[dict] = [
         ],
     },
     {
+        "section_id": "fam-autonomy-methodology",
+        "name": "Autonomy methodology",
+        "desc": "Forge autonomy ladder, sub-level run evidence, and maturity score composition — content instances live in Blueprints and Platform handbooks.",
+        "family_mermaid_html": (
+            '<p class="forge-support small mb-2">SVG-first methodology diagrams; no diagram-as-code grammar. '
+            "Content instances: <code>methodology-autonomy-ladder-l1-l4-grades.svg</code> and siblings in Blueprints.</p>"
+        ),
+        "items": [
+            {
+                "key": "autonomy-ladder",
+                "svg": "template-autonomy-ladder-grades.svg",
+                "label": "autonomy-ladder-grades",
+                "mermaid": [],
+            },
+            {
+                "key": "sublevel-run-flow",
+                "svg": "template-sublevel-run-evidence-flow.svg",
+                "label": "sublevel-run-evidence-flow",
+                "mermaid": [],
+            },
+            {
+                "key": "maturity-score",
+                "svg": "template-maturity-score-composition.svg",
+                "label": "maturity-score-composition",
+                "mermaid": [],
+            },
+        ],
+    },
+    {
         "section_id": "fam-specialized",
         "name": "Specialized",
         "desc": "Heatmaps and other dense matrices — not in default bundle as first-class grammars.",
