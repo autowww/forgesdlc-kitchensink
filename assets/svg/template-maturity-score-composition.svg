@@ -3,7 +3,7 @@
   <title id="title">Maturity score composition template</title>
   <desc id="desc">Placeholder stacked bar showing four weighted score components. Replace bracketed labels and percentages with content-specific values in consuming repos.</desc>
   <rect width="100%" height="100%" fill="none"/>
-  <text x="340" y="18" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-weight="700" font-size="12" fill="#06B6D4">[Title  maturity score composition (0100)]</text>
+  <text x="340" y="18" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-weight="700" font-size="12" fill="#06B6D4">[Title — maturity score composition (0–100)]</text>
   <g font-family="system-ui, sans-serif">
     <rect x="80" y="48" width="520" height="36" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
     <rect x="80" y="48" width="208" height="36" rx="4" fill="#1e3a5f" stroke="#06B6D4" stroke-width="1"/>
@@ -23,5 +23,5 @@
     <text x="496" y="120" text-anchor="middle" fill="#64748b" font-size="7">[signal description]</text>
     <text x="574" y="120" text-anchor="middle" fill="#64748b" font-size="7">[signal description]</text>
   </g>
-  <text x="340" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note  score = weighted sum of normalized component signals]</text>
+  <text x="340" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8.5" fill="#708090">[Footer note — score = weighted sum of normalized component signals]</text>
 </svg>
