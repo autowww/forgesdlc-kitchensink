@@ -522,6 +522,141 @@
     }
   }
 
+  /* ------------------------------------------------------------------
+   * Enriched flow figures (.forge-diagram-flow): Expand flyout.
+   * Data comes from the embedded script.forge-flow-data JSON payload.
+   * ------------------------------------------------------------------ */
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function readFlowPayload(figure) {
+    var node = figure.querySelector('script.forge-flow-data');
+    if (!node) return null;
+    try {
+      var data = JSON.parse(node.textContent || '');
+      return data && data.nodes && data.nodes.length ? data : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function flowModalCanvasHtml(data) {
+    var html = '';
+    if (data.summary) {
+      html += '<p class="forge-flow-modal__summary">' + escapeHtml(data.summary) + '</p>';
+    }
+    html += '<ol class="forge-flow-list forge-flow-list--modal">';
+    for (var i = 0; i < data.nodes.length; i++) {
+      var n = data.nodes[i];
+      html += '<li class="forge-flow-step" data-node="' + escapeHtml(n.label) + '">';
+      html += '<span class="forge-flow-step__label">' + escapeHtml(n.label) + '</span>';
+      if (n.detail) {
+        html += '<span class="forge-flow-step__detail">' + escapeHtml(n.detail) + '</span>';
+      }
+      html += '</li>';
+    }
+    html += '</ol>';
+    return html;
+  }
+
+  function flowModalDetailHtml(data) {
+    var html = '<p class="detail-title">' + escapeHtml(data.title || 'Flow steps') + '</p>';
+    for (var i = 0; i < data.nodes.length; i++) {
+      var n = data.nodes[i];
+      html += '<div class="detail-item" data-node="' + escapeHtml(n.label) + '">';
+      html += '<p class="detail-term" style="color:' + colorMap.cyan + ';">' + escapeHtml(n.label) + '</p>';
+      var desc = n.more || n.detail || '';
+      if (n.detail && n.more && n.detail !== n.more) {
+        desc = n.detail + ' — ' + n.more;
+      }
+      html += '<p class="detail-desc">' + escapeHtml(desc) + '</p>';
+      html += '</div>';
+    }
+    return html;
+  }
+
+  function bindFlowModalHover(canvas, detail) {
+    function stepFor(target) {
+      return target && target.closest ? target.closest('.forge-flow-step') : null;
+    }
+    function itemFor(target) {
+      return target && target.closest ? target.closest('.detail-item') : null;
+    }
+    function setActive(nodeName, on) {
+      var steps = canvas.querySelectorAll('.forge-flow-step');
+      var i;
+      for (i = 0; i < steps.length; i++) {
+        if (steps[i].getAttribute('data-node') === nodeName) {
+          steps[i].classList.toggle('highlight', on);
+        }
+      }
+      var di = findDetailItem(detail, nodeName);
+      if (di) {
+        di.classList.toggle('highlight', on);
+        if (on) di.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }
+    canvas.addEventListener('mouseover', function (ev) {
+      var step = stepFor(ev.target);
+      if (step) setActive(step.getAttribute('data-node'), true);
+    });
+    canvas.addEventListener('mouseout', function (ev) {
+      var step = stepFor(ev.target);
+      if (!step) return;
+      var rel = ev.relatedTarget;
+      if (rel && step.contains(rel)) return;
+      setActive(step.getAttribute('data-node'), false);
+    });
+    detail.addEventListener('mouseover', function (ev) {
+      var item = itemFor(ev.target);
+      if (item) setActive(item.getAttribute('data-node'), true);
+    });
+    detail.addEventListener('mouseout', function (ev) {
+      var item = itemFor(ev.target);
+      if (!item) return;
+      var rel = ev.relatedTarget;
+      if (rel && item.contains(rel)) return;
+      setActive(item.getAttribute('data-node'), false);
+    });
+  }
+
+  window.openFlowDetailModal = function (trigger) {
+    var figure = trigger && trigger.closest ? trigger.closest('.forge-diagram-flow') : null;
+    if (!figure) return;
+    var data = readFlowPayload(figure);
+    if (!data) return;
+
+    var canvas = document.getElementById('diagramModalCanvas');
+    var detail = document.getElementById('diagramModalDetail');
+    var title = document.getElementById('diagramModalTitle');
+    if (!canvas) return;
+
+    if (title) title.textContent = data.title || 'Expanded diagram';
+    canvas.innerHTML = flowModalCanvasHtml(data);
+    if (detail) {
+      detail.innerHTML = flowModalDetailHtml(data);
+      bindFlowModalHover(canvas, detail);
+    }
+
+    if (typeof window.forgeApplyDiagramModalOpen === 'function') {
+      window.forgeApplyDiagramModalOpen();
+    } else {
+      var dm = document.getElementById('diagramModal');
+      if (dm) {
+        dm.classList.add('active');
+        dm.removeAttribute('hidden');
+        dm.setAttribute('aria-hidden', 'false');
+      }
+    }
+    document.body.style.overflow = 'hidden';
+  };
+
   var _prevCloseDiagramModal = window.closeDiagramModal;
   window.closeDiagramModal = function () {
     if (window.forgeKsDiagramModalHover && window.forgeKsDiagramModalHover.clear) {

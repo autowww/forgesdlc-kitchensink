@@ -2877,3 +2877,64 @@ entries:
     emit_marker_in_showcase: false
     category: library-consumer
     emits_html: true
+  - family: forge-autodoc
+    aliases: []
+    parent_hash: null
+    child_hashes: []
+    accessibility_notes: Section labelled by heading; icons are aria-hidden.
+    responsive_notes: Two-column list grid collapses to one column below md.
+    owner: forge-ks
+    last_reviewed: "2026-07-03"
+    notes: Rendered from page-contract `agent_contract` frontmatter (Hydration v2 Phase 3).
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Agt
+    name: Agent contract panel
+    slug: agent-contract-panel
+    type: component
+    status: active
+    source_paths:
+      - forge-autodoc/forge_autodoc/agent_contract.py
+    source_symbols:
+      - render_agent_contract_panel
+    root_selector: section.forge-agent-contract
+    contract: docs/design/catalog/components/Agt-agent-contract-panel.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: planned
+    emit_marker_in_showcase: false
+    category: component
+    emits_html: true
+  - family: python-components
+    aliases: []
+    parent_hash: Kpr
+    child_hashes: []
+    accessibility_notes: Figure role group with aria-label; Expand button uses aria-haspopup=dialog; step list is an ordered list.
+    responsive_notes: Head row (title + toolbar) stacks below 576px; step cards stretch full width.
+    owner: forge-ks
+    last_reviewed: "2026-07-06"
+    notes: "Enriched blueprint-diagram fence (node/detail/more metadata) — compact HTML flow with Expand flyout via diagram modal."
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ai-website-standard.md
+    hash: Flw
+    name: Enriched flow diagram figure
+    slug: flow-diagram-figure
+    type: component
+    status: active
+    source_paths:
+      - components/diagram_flow.py
+      - js/ks-diagram-modal.js
+    source_symbols:
+      - flow_diagram_figure_html
+    root_selector: figure.forge-diagram-flow
+    contract: docs/design/catalog/components/Flw-flow-diagram-figure.md
+    contract_status: own
+    showcase_url: null
+    screenshot_url: null
+    screenshot_status: planned
+    emit_marker_in_showcase: false
+    category: component
+    emits_html: true

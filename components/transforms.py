@@ -26,6 +26,7 @@ from diagram_catalog import (
     resolve_diagram_src,
     valid_diagram_keys,
 )
+from diagram_flow import flow_diagram_figure_html
 
 _GENERIC_ALT_PHRASES = frozenset(
     {
@@ -44,6 +45,20 @@ _GENERIC_ALT_CF = frozenset(s.casefold() for s in _GENERIC_ALT_PHRASES)
 
 def _is_generic_alt(text: str) -> bool:
     return text.strip().casefold() in _GENERIC_ALT_CF
+
+
+def _alt_to_vertical_flow(alt: str) -> str:
+    """Turn descriptive ``alt:`` prose with arrows into a readable monospace flow."""
+    text = alt.strip()
+    parts = [p.strip() for p in re.split(r"\s*(?:→|->|--►|—>| through )\s*", text, flags=re.I) if p.strip()]
+    if len(parts) >= 2:
+        lines: list[str] = []
+        for i, part in enumerate(parts):
+            lines.append(part)
+            if i < len(parts) - 1:
+                lines.extend(["    |", "    v"])
+        return "\n".join(lines)
+    return text
 
 
 def _resolve_ks_diagram_display_alt_caption(
@@ -202,7 +217,8 @@ def _parse_ks_diagram_body(raw: str) -> dict[str, object]:
 
 
 _META_LINE_KS = re.compile(
-    r"^(key|alt|caption|expand|decorative|src|fallback_ascii)\s*:\s*(.*)$",
+    r"^(key|alt|caption|expand|decorative|src|fallback_ascii"
+    r"|title|summary|node|detail|more)\s*:\s*(.*)$",
     re.IGNORECASE,
 )
 
@@ -251,7 +267,17 @@ def _parse_ks_diagram_fence(raw: str) -> tuple[dict[str, object], str]:
         elif name == "decorative":
             meta["decorative"] = val.lower() in ("1", "true", "yes", "on")
             i += 1
-        elif name in ("key", "alt", "src", "caption"):
+        elif name == "node":
+            nodes = meta.setdefault("nodes", [])
+            if isinstance(nodes, list):
+                nodes.append({"label": val})
+            i += 1
+        elif name in ("detail", "more"):
+            nodes = meta.get("nodes")
+            if isinstance(nodes, list) and nodes:
+                nodes[-1][name] = val
+            i += 1
+        elif name in ("key", "alt", "src", "caption", "title", "summary"):
             meta[name] = val
             i += 1
         else:
@@ -296,6 +322,135 @@ def _parse_ascii_diagram_body(raw: str) -> tuple[dict[str, object], str]:
         i += 1
     ascii_body = "\n".join(lines[i:])
     return meta, ascii_body
+
+
+_ASCII_CONNECTOR_LINE = re.compile(r"^[\s|v↓▼+\\\-─>►→·]+$", re.UNICODE)
+
+
+def _ascii_diagram_text_lines(ascii_body: str) -> list[str]:
+    lines: list[str] = []
+    for raw in ascii_body.splitlines():
+        line = raw.strip()
+        if not line or _ASCII_CONNECTOR_LINE.match(line):
+            continue
+        lines.append(line)
+    return lines
+
+
+def _split_ascii_title_and_nodes(ascii_body: str) -> tuple[str, list[str]]:
+    chunks = ascii_body.strip().split("\n\n", 1)
+    if len(chunks) == 2:
+        title = chunks[0].strip().splitlines()[0].strip()
+        nodes = _ascii_diagram_text_lines(chunks[1])
+        if nodes:
+            return title, nodes
+    nodes = _ascii_diagram_text_lines(ascii_body)
+    if len(nodes) >= 2:
+        return nodes[0], nodes[1:]
+    return "", nodes
+
+
+def _svg_text(text: str, *, x: float, y: float, anchor: str = "start", **attrs: object) -> str:
+    esc = html_mod.escape(text, quote=False)
+    extra = "".join(f' {k}="{html_mod.escape(str(v), quote=True)}"' for k, v in attrs.items())
+    return f'<text x="{x}" y="{y}" text-anchor="{anchor}"{extra}>{esc}</text>'
+
+
+def ascii_flow_to_inline_svg(ascii_body: str) -> str:
+    """Render labeled monospace flows as a simple stacked-box SVG (default diagram view)."""
+    title, nodes = _split_ascii_title_and_nodes(ascii_body)
+    if not title and not nodes:
+        return ""
+    box_w = 640
+    box_h = 44
+    arrow_h = 22
+    pad_x = 40
+    title_h = 28 if title else 0
+    n = max(len(nodes), 1)
+    height = pad_x + title_h + n * box_h + max(0, n - 1) * arrow_h + pad_x
+    width = 720
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" '
+        f'width="{width}" height="{height}" role="img" class="ks-diagram-inline-svg">'
+    ]
+    if title:
+        parts.append(
+            _svg_text(
+                title,
+                x=width / 2,
+                y=26,
+                anchor="middle",
+                **{
+                    "font-family": "system-ui, Segoe UI, sans-serif",
+                    "font-size": "13",
+                    "font-weight": "700",
+                    "fill": "#06B6D4",
+                },
+            )
+        )
+    y = pad_x + title_h
+    draw_nodes = nodes if nodes else [title]
+    for idx, label in enumerate(draw_nodes):
+        fill = "#1e293b" if idx == 0 and len(draw_nodes) > 1 else "#1e3a5f"
+        parts.append(
+            f'<rect x="{pad_x}" y="{y}" width="{box_w}" height="{box_h}" rx="6" '
+            f'fill="{fill}" stroke="#334155"/>'
+        )
+        parts.append(
+            _svg_text(
+                label[:120],
+                x=pad_x + 16,
+                y=y + 27,
+                **{
+                    "font-family": "system-ui, Segoe UI, sans-serif",
+                    "font-size": "11",
+                    "fill": "#E2E8F0",
+                },
+            )
+        )
+        if idx < len(draw_nodes) - 1:
+            ax = width / 2
+            ay = y + box_h
+            parts.append(
+                f'<path d="M {ax} {ay} L {ax} {ay + arrow_h - 6}" stroke="#64748B" '
+                f'stroke-width="1.5" fill="none"/>'
+            )
+            parts.append(
+                f'<path d="M {ax - 5} {ay + arrow_h - 10} L {ax} {ay + arrow_h - 4} '
+                f'L {ax + 5} {ay + arrow_h - 10}" stroke="#64748B" stroke-width="1.5" fill="none"/>'
+            )
+        y += box_h + arrow_h
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def inline_svg_diagram_tile_html(*, svg_markup: str, alt: str) -> str:
+    esc_alt = html_mod.escape(alt, quote=True)
+    return (
+        f'<div class="forge-diagram breathe-static ks-diagram-tile ks-diagram-tile--inline" '
+        f'role="figure" aria-label="{esc_alt}">'
+        f'<div class="ks-diagram-canvas ks-diagram-canvas--inline">{svg_markup}</div>'
+        "</div>"
+    )
+
+
+def _diagram_dual_group_aria(
+    *,
+    parsed: dict[str, object],
+    alt: str,
+    caption: str,
+    key_str: str,
+    decorative: bool,
+) -> str:
+    if decorative:
+        return "Diagram with ASCII fallback"
+    if alt and not _is_generic_alt(alt):
+        return alt
+    if caption:
+        return caption
+    if key_str in valid_diagram_keys():
+        return diagram_key_accessibility_label(key_str)
+    return "Diagram with ASCII fallback"
 
 
 def ascii_diagram_figure_html(meta: dict[str, object], ascii_body: str) -> str:
@@ -515,6 +670,13 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool, bool]:
         key_str = str(key_val).strip() if key_val else ""
         src_str = str(src_val).strip() if src_val else ""
         expand_flag = bool(parsed.get("expand")) or fence_expandable
+        nodes_meta = parsed.get("nodes")
+        if isinstance(nodes_meta, list) and nodes_meta and not src_str:
+            # Enriched flow fence: node/detail/more metadata drives an HTML flow
+            # figure with an Expand flyout (ks-diagram-modal.js).
+            if fallback_ascii.strip():
+                has_dual = True
+            return flow_diagram_figure_html(parsed, fallback_ascii)
         href, _ = resolve_diagram_src(
             key=key_str if key_str else None,
             src=src_str if src_str else None,
@@ -536,25 +698,48 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool, bool]:
         )
         fallback = fallback_ascii.strip()
         if not fallback:
+            if not src_str:
+                raw_alt = str(parsed.get("alt") or "").strip()
+                if raw_alt and not _is_generic_alt(raw_alt):
+                    return ascii_diagram_figure_html(
+                        parsed, _alt_to_vertical_flow(raw_alt)
+                    )
+                return ""
             return tile
         if not src_str:
-            # Labeled monospace flow is authoritative; catalog templates are not shown
-            # without a content ``src:`` (generic Role A / Step B tiles mislead readers).
+            # Labeled monospace flow: generated inline SVG (default) + ASCII toggle.
             if expand_flag and key_str and key_str not in keys:
                 raise ValueError(f"diagram fence: unknown key {key_str!r}")
+            caption = str(parsed.get("caption") or "").strip()
+            group_aria = _diagram_dual_group_aria(
+                parsed=parsed,
+                alt=alt,
+                caption=caption,
+                key_str=key_str,
+                decorative=decorative,
+            )
+            svg_markup = ascii_flow_to_inline_svg(fallback)
+            if svg_markup:
+                has_dual = True
+                inline_tile = inline_svg_diagram_tile_html(svg_markup=svg_markup, alt=group_aria)
+                return dual_diagram_figure_html(
+                    svg_tile_html=inline_tile,
+                    ascii_body=fallback,
+                    aria_label=group_aria,
+                    caption=caption,
+                    default_view="svg",
+                    template_toggle=False,
+                )
             return ascii_diagram_figure_html(parsed, fallback)
         has_dual = True
         caption = str(parsed.get("caption") or "").strip()
-        if decorative:
-            group_aria = "Diagram with ASCII fallback"
-        elif alt and not _is_generic_alt(alt):
-            group_aria = alt
-        elif caption:
-            group_aria = caption
-        elif key_str in keys:
-            group_aria = diagram_key_accessibility_label(key_str)
-        else:
-            group_aria = "Diagram with ASCII fallback"
+        group_aria = _diagram_dual_group_aria(
+            parsed=parsed,
+            alt=alt,
+            caption=caption,
+            key_str=key_str,
+            decorative=decorative,
+        )
         return dual_diagram_figure_html(
             svg_tile_html=tile,
             ascii_body=fallback,

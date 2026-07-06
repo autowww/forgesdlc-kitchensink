@@ -61,7 +61,7 @@ fallback_ascii: |
 ```
 ````
 
-Dual-view toggle (`ks-diagram-view-toggle.js`) loads only when a fence has **both** `src:` and `fallback_ascii`. Without `fallback_ascii`, only the SVG tile is emitted.
+Dual-view toggle (`ks-diagram-view-toggle.js`) loads only when a fence has **both** `src:` and `fallback_ascii`. With `src:` alone, only the content SVG tile is emitted.
 
 **ASCII-only fence** (sketch in monospace, no SVG):
 
@@ -76,13 +76,65 @@ caption: ASCII sketch — same key as the SVG tile below
 ```
 ````
 
-**SVG tile** (polished figure for slides or print):
+**Content SVG** (polished figure for slides or print):
 
 ````markdown
 ```blueprint-diagram
-key: linear
+src: sdlc/docs/assets/my-labeled-flow.svg
 alt: Three-step handoff
 ```
 ````
 
-Both use the same catalog `key: linear` so the optional `expand: true` path opens the same legend modal for the template.
+A fence with only `key:` (no `src:` and no `fallback_ascii`) is **not** rendered in handbook HTML — catalog template tiles are placeholders for the showcase gallery, not reader-facing figures.
+
+## Enriched flow fences (`node:` / `detail:` / `more:`)
+
+A `blueprint-diagram` fence (no `src:`) may carry **per-node enrichment**. When at
+least one `node:` line is present, the fence renders as the **enriched flow
+figure** (`figure.forge-diagram-flow`, hash `Flw`) instead of the generated
+inline SVG: an HTML step list where every step shows its label plus a one-line
+`detail:`, with an **Expand** button that opens a flyout (shared diagram modal)
+showing the flow beside a per-step deep-dive panel (`more:` text).
+
+Metadata fields (all optional except `node:`):
+
+| Field | Where it appears |
+|---|---|
+| `title:` | Compact figure heading + flyout modal title |
+| `summary:` | One-liner under the title; intro paragraph in the flyout |
+| `node:` | Starts a flow step; value is the step label |
+| `detail:` | One short sentence under the owning `node:` label (compact + flyout) |
+| `more:` | Deeper explanation, flyout detail panel only |
+| `fallback_ascii:` | Keeps the ASCII toggle panel (recommended for agent readers) |
+
+`detail:` and `more:` attach to the **most recent** `node:` line. Values are
+single logical lines (no wrapping continuation).
+
+````markdown
+```blueprint-diagram
+key: linear
+alt: RAG answer flow from question to cited answer
+title: RAG answer flow
+summary: How a question becomes a governed, cited answer.
+node: rag_query_plan
+detail: Optional planner that decomposes the question.
+more: Emits targeted sub-queries so retrieval covers every aspect of the ask.
+node: Retriever
+detail: Collects ranked chunks into an EvidencePack.
+more: Default adapter wraps build_context_pack (repo scan + rank + trim) — no vector DB required.
+node: answer_from_evidence
+detail: Drafts the answer strictly from retrieved evidence.
+fallback_ascii: |
+  rag_query_plan
+      |
+      v
+  Retriever
+      |
+      v
+  answer_from_evidence
+```
+````
+
+Enrichment is **per page**: the same flow can carry different `detail:`/`more:`
+text on different pages, matching the surrounding context. When `src:` is
+present the enrichment fields are ignored (content SVG stays primary).

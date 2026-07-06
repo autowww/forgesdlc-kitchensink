@@ -1,22 +1,22 @@
 # Visual inventory (generated)
 
-- Generated: 2026-05-19
-- Total items: 369
+- Generated: 2026-07-06
+- Total items: 853
 
 ## By type
-- **diagram-or-asset:** 79
-- **design-terminology:** 76
-- **component:** 59
-- **generated-showcase-page:** 29
-- **page-instance:** 23
+- **design-terminology:** 542
+- **diagram-or-asset:** 82
+- **component:** 60
+- **generated-showcase-page:** 35
+- **page-instance:** 27
+- **visual-style:** 23
 - **museum-surface-asset:** 23
-- **visual-style:** 22
-- **interaction-module:** 18
+- **interaction-module:** 20
 - **primitive:** 10
 - **layout:** 9
 - **layout-preview:** 7
 - **chrome-region:** 6
-- **python-component-anchor:** 4
+- **python-component-anchor:** 5
 - **visual-helper:** 1
 - **showcase-app-source:** 1
 - **desktop-interface:** 1
@@ -32,12 +32,14 @@
 - [layout] `components/layouts.py` — listing_page
 - [layout] `components/layouts.py` — gallery_page
 - [layout] `components/layouts.py` — split_page
+- [chrome-region] `components/layouts.py` — Chrome region: doc-toc-sidebar
 - [chrome-region] `components/layouts.py` — Chrome region: site-footer
 - [chrome-region] `components/layouts.py` — Chrome region: doc-breadcrumb
-- [chrome-region] `components/layouts.py` — Chrome region: doc-toc-sidebar
 - [chrome-region] `components/layouts.py` — Chrome region: doc-sidebar
 - [chrome-region] `components/layouts.py` — Chrome region: doc-offcanvas
 - [chrome-region] `components/layouts.py` — Chrome region: product-primary-nav
+- [page-instance] `generator/pages/a11y_audit_ecosystem.py` — Showcase page: a11y-audit-ecosystem
+- [page-instance] `generator/pages/a11y_audit_rules.py` — Showcase page: a11y-audit-rules
 - [page-instance] `generator/pages/controls.py` — Showcase page: controls
 - [page-instance] `generator/pages/data_charts_api.py` — Showcase page: data-charts-api
 - [page-instance] `generator/pages/data_charts_static.py` — Showcase page: data-charts-static
@@ -60,6 +62,8 @@
 - [page-instance] `generator/pages/surfaces.py` — Showcase page: surfaces
 - [page-instance] `generator/pages/svg_backgrounds.py` — Showcase page: svg-backgrounds
 - [page-instance] `generator/pages/tokens.py` — Showcase page: tokens
+- [page-instance] `generator/pages/ux_audit_ecosystem.py` — Showcase page: ux-audit-ecosystem
+- [page-instance] `generator/pages/ux_audit_rules.py` — Showcase page: ux-audit-rules
 - [layout-preview] `generator/layout_previews.py` — Layout preview preview-split.html
 - [layout-preview] `generator/layout_previews.py` — Layout preview preview-handbook.html
 - [layout-preview] `generator/layout_previews.py` — Layout preview preview-chapter.html
@@ -84,6 +88,7 @@
 - [component] `components/components.py` — components/components.py:render_template_banner
 - [component] `components/components.py` — components/components.py:render_canonical_note
 - [component] `components/components.py` — components/components.py:render_breadcrumbs
+- [component] `components/components.py` — components/components.py:render_handbook_doc_header
 - [component] `components/components.py` — components/components.py:render_nav_buttons
 - [component] `components/components.py` — components/components.py:render_external_sources_section
 - [component] `components/components.py` — components/components.py:render_flow_details_section
@@ -128,6 +133,7 @@
 - [component] `components/roadmap_date_editor.py` — components/roadmap_date_editor.py:render_roadmap_date_editor
 - [component] `components/transforms.py` — components/transforms.py:render_ascii_diagram_fence
 - [python-component-anchor] `components/diagram_catalog.py` — Python components module (helpers-only): components/diagram_catalog.py
+- [python-component-anchor] `components/diagram_flow.py` — Python components module (helpers-only): components/diagram_flow.py
 - [python-component-anchor] `components/ks_catalog_hashes.py` — Python components module (helpers-only): components/ks_catalog_hashes.py
 - [python-component-anchor] `components/ks_hash_attrs.py` — Python components module (helpers-only): components/ks_hash_attrs.py
 - [python-component-anchor] `components/living_background.py` — Python components module (helpers-only): components/living_background.py
@@ -156,6 +162,7 @@
 - [visual-style] `css/forgesdlc-pack-minimal.css` — css/forgesdlc-pack-minimal.css
 - [visual-style] `css/forgesdlc-pack-showcase.css` — css/forgesdlc-pack-showcase.css
 - [visual-style] `css/forgesdlc-theme.css` — css/forgesdlc-theme.css
+- [visual-style] `css/fs-sticker-board.css` — css/fs-sticker-board.css
 - [visual-style] `css/ks-animated-backgrounds.css` — css/ks-animated-backgrounds.css
 - [visual-style] `css/ks-living-background.css` — css/ks-living-background.css
 - [visual-style] `css/nested-roadmap.css` — css/nested-roadmap.css
@@ -168,6 +175,7 @@
 - [interaction-module] `js/docs-nav.js` — js/docs-nav.js
 - [interaction-module] `js/forge-ambient.js` — js/forge-ambient.js
 - [interaction-module] `js/forge-data-charts.js` — js/forge-data-charts.js
+- [interaction-module] `js/forge-fleet-app-ui.js` — js/forge-fleet-app-ui.js
 - [interaction-module] `js/forge-theme.js` — js/forge-theme.js
 - [interaction-module] `js/fs-home-expand-tiles.js` — js/fs-home-expand-tiles.js
 - [interaction-module] `js/fs-nav-dropdown.js` — js/fs-nav-dropdown.js
@@ -175,6 +183,7 @@
 - [interaction-module] `js/ks-animated-backgrounds.js` — js/ks-animated-backgrounds.js
 - [interaction-module] `js/ks-diagram-catalog.js` — js/ks-diagram-catalog.js
 - [interaction-module] `js/ks-diagram-modal.js` — js/ks-diagram-modal.js
+- [interaction-module] `js/ks-diagram-view-toggle.js` — js/ks-diagram-view-toggle.js
 - [interaction-module] `js/ks-living-motion.js` — js/ks-living-motion.js
 - [interaction-module] `js/ks-tilt-tiles.js` — js/ks-tilt-tiles.js
 - [interaction-module] `js/nested-roadmap.js` — js/nested-roadmap.js
@@ -231,6 +240,7 @@
 - [diagram-or-asset] `assets/svg/living/motifs/sparse-frame-01.svg` — assets/svg/living/motifs/sparse-frame-01.svg
 - [diagram-or-asset] `assets/svg/living/motifs/trace-flow-01.svg` — assets/svg/living/motifs/trace-flow-01.svg
 - [diagram-or-asset] `assets/svg/template-area-chart.svg` — assets/svg/template-area-chart.svg
+- [diagram-or-asset] `assets/svg/template-autonomy-ladder-grades.svg` — assets/svg/template-autonomy-ladder-grades.svg
 - [diagram-or-asset] `assets/svg/template-bar-chart.svg` — assets/svg/template-bar-chart.svg
 - [diagram-or-asset] `assets/svg/template-board-columns.svg` — assets/svg/template-board-columns.svg
 - [diagram-or-asset] `assets/svg/template-bullet-chart.svg` — assets/svg/template-bullet-chart.svg
@@ -245,6 +255,7 @@
 - [diagram-or-asset] `assets/svg/template-line-chart.svg` — assets/svg/template-line-chart.svg
 - [diagram-or-asset] `assets/svg/template-linear-flow.svg` — assets/svg/template-linear-flow.svg
 - [diagram-or-asset] `assets/svg/template-loop-cycle.svg` — assets/svg/template-loop-cycle.svg
+- [diagram-or-asset] `assets/svg/template-maturity-score-composition.svg` — assets/svg/template-maturity-score-composition.svg
 - [diagram-or-asset] `assets/svg/template-nested-donut.svg` — assets/svg/template-nested-donut.svg
 - [diagram-or-asset] `assets/svg/template-network.svg` — assets/svg/template-network.svg
 - [diagram-or-asset] `assets/svg/template-org-chart.svg` — assets/svg/template-org-chart.svg
@@ -256,155 +267,277 @@
 - [diagram-or-asset] `assets/svg/template-sequence.svg` — assets/svg/template-sequence.svg
 - [diagram-or-asset] `assets/svg/template-stacked-bar.svg` — assets/svg/template-stacked-bar.svg
 - [diagram-or-asset] `assets/svg/template-state-machine.svg` — assets/svg/template-state-machine.svg
+- [diagram-or-asset] `assets/svg/template-sublevel-run-evidence-flow.svg` — assets/svg/template-sublevel-run-evidence-flow.svg
 - [diagram-or-asset] `assets/svg/template-swimlane.svg` — assets/svg/template-swimlane.svg
 - [diagram-or-asset] `assets/svg/template-timeline.svg` — assets/svg/template-timeline.svg
 - [diagram-or-asset] `assets/svg/template-tree.svg` — assets/svg/template-tree.svg
 - [diagram-or-asset] `assets/svg/template-venn.svg` — assets/svg/template-venn.svg
 - [diagram-or-asset] `assets/svg/template-waterfall.svg` — assets/svg/template-waterfall.svg
-- [design-terminology] `docs/design/catalog/ONTOLOGY.md` — Design doc docs/design/catalog/ONTOLOGY.md
-- [design-terminology] `docs/design/catalog/README.md` — Design doc docs/design/catalog/README.md
-- [design-terminology] `docs/design/catalog/chrome/Kbc-doc-breadcrumb.md` — Design doc docs/design/catalog/chrome/Kbc-doc-breadcrumb.md
-- [design-terminology] `docs/design/catalog/chrome/Kco-doc-offcanvas.md` — Design doc docs/design/catalog/chrome/Kco-doc-offcanvas.md
-- [design-terminology] `docs/design/catalog/chrome/Kpn-product-primary-nav.md` — Design doc docs/design/catalog/chrome/Kpn-product-primary-nav.md
-- [design-terminology] `docs/design/catalog/chrome/Ksf-site-footer.md` — Design doc docs/design/catalog/chrome/Ksf-site-footer.md
-- [design-terminology] `docs/design/catalog/chrome/Ksr-doc-sidebar.md` — Design doc docs/design/catalog/chrome/Ksr-doc-sidebar.md
-- [design-terminology] `docs/design/catalog/chrome/Ktx-doc-toc-sidebar.md` — Design doc docs/design/catalog/chrome/Ktx-doc-toc-sidebar.md
-- [design-terminology] `docs/design/catalog/components/Kpr-fam-python-renderers.md` — Design doc docs/design/catalog/components/Kpr-fam-python-renderers.md
-- [design-terminology] `docs/design/catalog/consumer-site-hash-verification.md` — Design doc docs/design/catalog/consumer-site-hash-verification.md
-- [design-terminology] `docs/design/catalog/contract-template.md` — Design doc docs/design/catalog/contract-template.md
-- [design-terminology] `docs/design/catalog/desktop-interfaces/Msm-museum-studio.md` — Design doc docs/design/catalog/desktop-interfaces/Msm-museum-studio.md
-- [design-terminology] `docs/design/catalog/diagrams/Ksv-fam-svg.md` — Design doc docs/design/catalog/diagrams/Ksv-fam-svg.md
-- [design-terminology] `docs/design/catalog/interactions/Ksj-fam-scripts.md` — Design doc docs/design/catalog/interactions/Ksj-fam-scripts.md
-- [design-terminology] `docs/design/catalog/layouts/Chp-layout-chapter.md` — Design doc docs/design/catalog/layouts/Chp-layout-chapter.md
-- [design-terminology] `docs/design/catalog/layouts/Gly-layout-gallery.md` — Design doc docs/design/catalog/layouts/Gly-layout-gallery.md
-- [design-terminology] `docs/design/catalog/layouts/Hbk-layout-handbook.md` — Design doc docs/design/catalog/layouts/Hbk-layout-handbook.md
-- [design-terminology] `docs/design/catalog/layouts/Ldg-layout-landing.md` — Design doc docs/design/catalog/layouts/Ldg-layout-landing.md
-- [design-terminology] `docs/design/catalog/layouts/Lst-layout-listing.md` — Design doc docs/design/catalog/layouts/Lst-layout-listing.md
-- [design-terminology] `docs/design/catalog/layouts/Mkt-layout-marketing.md` — Design doc docs/design/catalog/layouts/Mkt-layout-marketing.md
-- [design-terminology] `docs/design/catalog/layouts/Prd-layout-product.md` — Design doc docs/design/catalog/layouts/Prd-layout-product.md
-- [design-terminology] `docs/design/catalog/layouts/Shw-layout-showcase.md` — Design doc docs/design/catalog/layouts/Shw-layout-showcase.md
-- [design-terminology] `docs/design/catalog/layouts/Spl-layout-split.md` — Design doc docs/design/catalog/layouts/Spl-layout-split.md
-- [design-terminology] `docs/design/catalog/page-types/Fad-forge-autodoc.md` — Design doc docs/design/catalog/page-types/Fad-forge-autodoc.md
-- [design-terminology] `docs/design/catalog/page-types/Kdt-fam-design-terminology.md` — Design doc docs/design/catalog/page-types/Kdt-fam-design-terminology.md
-- [design-terminology] `docs/design/catalog/page-types/Ks-page-type-design-guidelines.md` — Design doc docs/design/catalog/page-types/Ks-page-type-design-guidelines.md
-- [design-terminology] `docs/design/catalog/pages/Ctr-controls.md` — Design doc docs/design/catalog/pages/Ctr-controls.md
-- [design-terminology] `docs/design/catalog/pages/Dca-data-charts-api.md` — Design doc docs/design/catalog/pages/Dca-data-charts-api.md
-- [design-terminology] `docs/design/catalog/pages/Dce-diagram-code-examples.md` — Design doc docs/design/catalog/pages/Dce-diagram-code-examples.md
-- [design-terminology] `docs/design/catalog/pages/Dcs-data-charts-static.md` — Design doc docs/design/catalog/pages/Dcs-data-charts-static.md
-- [design-terminology] `docs/design/catalog/pages/Dgm-diagrams.md` — Design doc docs/design/catalog/pages/Dgm-diagrams.md
-- [design-terminology] `docs/design/catalog/pages/Enm-enterprise-marketing.md` — Design doc docs/design/catalog/pages/Enm-enterprise-marketing.md
-- [design-terminology] `docs/design/catalog/pages/Fag-for-agents.md` — Design doc docs/design/catalog/pages/Fag-for-agents.md
-- [design-terminology] `docs/design/catalog/pages/Fam-forge-ambient.md` — Design doc docs/design/catalog/pages/Fam-forge-ambient.md
-- [design-terminology] `docs/design/catalog/pages/Frp-forge-react-primitives.md` — Design doc docs/design/catalog/pages/Frp-forge-react-primitives.md
-- [design-terminology] `docs/design/catalog/pages/Hdc-handbook-chapter.md` — Design doc docs/design/catalog/pages/Hdc-handbook-chapter.md
-- [design-terminology] `docs/design/catalog/pages/Idx-index.md` — Design doc docs/design/catalog/pages/Idx-index.md
-- [design-terminology] `docs/design/catalog/pages/Kcm-ks-creation-mindmap.md` — Design doc docs/design/catalog/pages/Kcm-ks-creation-mindmap.md
-- [design-terminology] `docs/design/catalog/pages/Kra-fam-showcase-react-app.md` — Design doc docs/design/catalog/pages/Kra-fam-showcase-react-app.md
-- [design-terminology] `docs/design/catalog/pages/Lvg-living-background.md` — Design doc docs/design/catalog/pages/Lvg-living-background.md
-- [design-terminology] `docs/design/catalog/pages/Lyt-layouts.md` — Design doc docs/design/catalog/pages/Lyt-layouts.md
-- [design-terminology] `docs/design/catalog/pages/Mtn-motion.md` — Design doc docs/design/catalog/pages/Mtn-motion.md
-- [design-terminology] `docs/design/catalog/pages/Nav-navigation.md` — Design doc docs/design/catalog/pages/Nav-navigation.md
-- [design-terminology] `docs/design/catalog/pages/Ndr-nested-roadmap.md` — Design doc docs/design/catalog/pages/Ndr-nested-roadmap.md
-- [design-terminology] `docs/design/catalog/pages/Pnz-presentation.md` — Design doc docs/design/catalog/pages/Pnz-presentation.md
-- [design-terminology] `docs/design/catalog/pages/Rpl-react-primitives-live.md` — Design doc docs/design/catalog/pages/Rpl-react-primitives-live.md
-- [design-terminology] `docs/design/catalog/pages/Sgb-svg-backgrounds.md` — Design doc docs/design/catalog/pages/Sgb-svg-backgrounds.md
-- [design-terminology] `docs/design/catalog/pages/Slt-split-layout.md` — Design doc docs/design/catalog/pages/Slt-split-layout.md
-- [design-terminology] `docs/design/catalog/pages/Srf-surfaces.md` — Design doc docs/design/catalog/pages/Srf-surfaces.md
-- [design-terminology] `docs/design/catalog/pages/Tkn-tokens.md` — Design doc docs/design/catalog/pages/Tkn-tokens.md
-- [design-terminology] `docs/design/catalog/pages/Vcp-preview-chapter.md` — Design doc docs/design/catalog/pages/Vcp-preview-chapter.md
-- [design-terminology] `docs/design/catalog/pages/Vhb-preview-handbook.md` — Design doc docs/design/catalog/pages/Vhb-preview-handbook.md
-- [design-terminology] `docs/design/catalog/pages/Vlg-preview-listing.md` — Design doc docs/design/catalog/pages/Vlg-preview-listing.md
-- [design-terminology] `docs/design/catalog/pages/Vln-preview-landing.md` — Design doc docs/design/catalog/pages/Vln-preview-landing.md
-- [design-terminology] `docs/design/catalog/pages/Vmk-preview-marketing.md` — Design doc docs/design/catalog/pages/Vmk-preview-marketing.md
-- [design-terminology] `docs/design/catalog/pages/Vpd-preview-product.md` — Design doc docs/design/catalog/pages/Vpd-preview-product.md
-- [design-terminology] `docs/design/catalog/pages/Vsp-preview-split.md` — Design doc docs/design/catalog/pages/Vsp-preview-split.md
-- [design-terminology] `docs/design/catalog/primitives/FAM-react-primitives.md` — Design doc docs/design/catalog/primitives/FAM-react-primitives.md
-- [design-terminology] `docs/design/catalog/screenshots/README.md` — Design doc docs/design/catalog/screenshots/README.md
-- [design-terminology] `docs/design/catalog/screenshots/screenshot-capture-report.md` — Design doc docs/design/catalog/screenshots/screenshot-capture-report.md
-- [design-terminology] `docs/design/catalog/sections/README.md` — Design doc docs/design/catalog/sections/README.md
-- [design-terminology] `docs/design/catalog/styles/Ksc-fam-styles.md` — Design doc docs/design/catalog/styles/Ksc-fam-styles.md
-- [design-terminology] `docs/design/catalog/visual-inventory.generated.md` — Design doc docs/design/catalog/visual-inventory.generated.md
-- [design-terminology] `docs/design/catalog/visual-registry-coverage.md` — Design doc docs/design/catalog/visual-registry-coverage.md
-- [design-terminology] `docs/design/forge-enterprise-ai-website-standard-v2-addendum.md` — Design doc docs/design/forge-enterprise-ai-website-standard-v2-addendum.md
-- [design-terminology] `docs/design/forge-enterprise-ai-website-standard.md` — Design doc docs/design/forge-enterprise-ai-website-standard.md
-- [design-terminology] `docs/design/forge-enterprise-ui.md` — Design doc docs/design/forge-enterprise-ui.md
-- [design-terminology] `docs/design/lenses-studio-shell.md` — Design doc docs/design/lenses-studio-shell.md
-- [design-terminology] `docs/design/ux-audit/README.md` — Design doc docs/design/ux-audit/README.md
-- [design-terminology] `docs/design/ux-audit/ai-enabled-design-principles.md` — Design doc docs/design/ux-audit/ai-enabled-design-principles.md
-- [design-terminology] `docs/design/ux-audit/component-design-ruleset-taxonomy.md` — Design doc docs/design/ux-audit/component-design-ruleset-taxonomy.md
-- [design-terminology] `docs/design/ux-audit/deterministic-design-rules.md` — Design doc docs/design/ux-audit/deterministic-design-rules.md
-- [design-terminology] `docs/design/ux-audit/element-level-ruleset-matrix.md` — Design doc docs/design/ux-audit/element-level-ruleset-matrix.md
-- [design-terminology] `docs/design/ux-audit/industry-standard-page-quality.md` — Design doc docs/design/ux-audit/industry-standard-page-quality.md
-- [design-terminology] `docs/design/wizard-flow-studio.md` — Design doc docs/design/wizard-flow-studio.md
-- [design-terminology] `docs/PAGE-LAYOUT-TAXONOMY.md` — PAGE-LAYOUT-TAXONOMY
-- [generated-showcase-page] `showcase/controls.html` — Generated showcase HTML: controls.html
-- [generated-showcase-page] `showcase/data-charts-api.html` — Generated showcase HTML: data-charts-api.html
-- [generated-showcase-page] `showcase/data-charts-static.html` — Generated showcase HTML: data-charts-static.html
-- [generated-showcase-page] `showcase/diagram-code-examples.html` — Generated showcase HTML: diagram-code-examples.html
-- [generated-showcase-page] `showcase/diagrams.html` — Generated showcase HTML: diagrams.html
-- [generated-showcase-page] `showcase/enterprise-marketing.html` — Generated showcase HTML: enterprise-marketing.html
-- [generated-showcase-page] `showcase/for-agents.html` — Generated showcase HTML: for-agents.html
-- [generated-showcase-page] `showcase/forge-ambient.html` — Generated showcase HTML: forge-ambient.html
-- [generated-showcase-page] `showcase/forge-react-primitives.html` — Generated showcase HTML: forge-react-primitives.html
-- [generated-showcase-page] `showcase/index.html` — Generated showcase HTML: index.html
-- [generated-showcase-page] `showcase/ks-creation-mindmap.html` — Generated showcase HTML: ks-creation-mindmap.html
-- [generated-showcase-page] `showcase/layouts.html` — Generated showcase HTML: layouts.html
-- [generated-showcase-page] `showcase/living-background.html` — Generated showcase HTML: living-background.html
-- [generated-showcase-page] `showcase/motion.html` — Generated showcase HTML: motion.html
-- [generated-showcase-page] `showcase/navigation.html` — Generated showcase HTML: navigation.html
-- [generated-showcase-page] `showcase/nested-roadmap.html` — Generated showcase HTML: nested-roadmap.html
-- [generated-showcase-page] `showcase/presentation.html` — Generated showcase HTML: presentation.html
-- [generated-showcase-page] `showcase/preview-chapter.html` — Generated showcase HTML: preview-chapter.html
-- [generated-showcase-page] `showcase/preview-handbook.html` — Generated showcase HTML: preview-handbook.html
-- [generated-showcase-page] `showcase/preview-landing.html` — Generated showcase HTML: preview-landing.html
-- [generated-showcase-page] `showcase/preview-listing.html` — Generated showcase HTML: preview-listing.html
-- [generated-showcase-page] `showcase/preview-marketing.html` — Generated showcase HTML: preview-marketing.html
-- [generated-showcase-page] `showcase/preview-product.html` — Generated showcase HTML: preview-product.html
-- [generated-showcase-page] `showcase/preview-split.html` — Generated showcase HTML: preview-split.html
-- [generated-showcase-page] `showcase/react-primitives-live.html` — Generated showcase HTML: react-primitives-live.html
-- [generated-showcase-page] `showcase/split-layout.html` — Generated showcase HTML: split-layout.html
-- [generated-showcase-page] `showcase/surfaces.html` — Generated showcase HTML: surfaces.html
-- [generated-showcase-page] `showcase/svg-backgrounds.html` — Generated showcase HTML: svg-backgrounds.html
-- [generated-showcase-page] `showcase/tokens.html` — Generated showcase HTML: tokens.html
-- [museum-surface-asset] `museum/studio/assets/AgenticBridgePage-Bp215oP-.js` — Museum studio asset: assets/AgenticBridgePage-Bp215oP-.js
-- [museum-surface-asset] `museum/studio/assets/BlueprintsWizardHub-B7QEdR4V.js` — Museum studio asset: assets/BlueprintsWizardHub-B7QEdR4V.js
-- [museum-surface-asset] `museum/studio/assets/BlueprintsWizardLayout-WheM6hfS.js` — Museum studio asset: assets/BlueprintsWizardLayout-WheM6hfS.js
-- [museum-surface-asset] `museum/studio/assets/BlueprintsWizardSessionPage-BoO2r1Ph.js` — Museum studio asset: assets/BlueprintsWizardSessionPage-BoO2r1Ph.js
-- [museum-surface-asset] `museum/studio/assets/BoardEditorPage-Bj7I3ae8.js` — Museum studio asset: assets/BoardEditorPage-Bj7I3ae8.js
-- [museum-surface-asset] `museum/studio/assets/BoardHubPage-CKDO9fdK.js` — Museum studio asset: assets/BoardHubPage-CKDO9fdK.js
-- [museum-surface-asset] `museum/studio/assets/MethodologyBridgePages-Ds70Sm91.js` — Museum studio asset: assets/MethodologyBridgePages-Ds70Sm91.js
-- [museum-surface-asset] `museum/studio/assets/OverviewChartsPage-DURPSfYQ.js` — Museum studio asset: assets/OverviewChartsPage-DURPSfYQ.js
-- [museum-surface-asset] `museum/studio/assets/PlanMatrixPage-DrYJmUCo.js` — Museum studio asset: assets/PlanMatrixPage-DrYJmUCo.js
-- [museum-surface-asset] `museum/studio/assets/PlanPage-Z_zVH7PW.js` — Museum studio asset: assets/PlanPage-Z_zVH7PW.js
-- [museum-surface-asset] `museum/studio/assets/TimelinePage-Dplnk-aa.js` — Museum studio asset: assets/TimelinePage-Dplnk-aa.js
-- [museum-surface-asset] `museum/studio/assets/blueprintsWizard-HYZhnW1x.js` — Museum studio asset: assets/blueprintsWizard-HYZhnW1x.js
-- [museum-surface-asset] `museum/studio/assets/boards-KUTjXUXI.js` — Museum studio asset: assets/boards-KUTjXUXI.js
-- [museum-surface-asset] `museum/studio/assets/index-BS2w9f2K.css` — Museum studio asset: assets/index-BS2w9f2K.css
-- [museum-surface-asset] `museum/studio/assets/index-BmGHD6a3.js` — Museum studio asset: assets/index-BmGHD6a3.js
-- [museum-surface-asset] `museum/studio/assets/page-BKpbe3oQ.js` — Museum studio asset: assets/page-BKpbe3oQ.js
-- [museum-surface-asset] `museum/studio/assets/react-dom-DFrNY_9T.js` — Museum studio asset: assets/react-dom-DFrNY_9T.js
-- [museum-surface-asset] `museum/studio/assets/studioVisibleCopy-XG6KIFpY.js` — Museum studio asset: assets/studioVisibleCopy-XG6KIFpY.js
-- [museum-surface-asset] `museum/studio/assets/wizardAsyncUi-D_DjIJiG.js` — Museum studio asset: assets/wizardAsyncUi-D_DjIJiG.js
-- [museum-surface-asset] `museum/studio/assets/wizardSessionMapping-BF3q1Q81.js` — Museum studio asset: assets/wizardSessionMapping-BF3q1Q81.js
-- [museum-surface-asset] `museum/studio/assets/wizardSessionMapping-EG4fCDL6.css` — Museum studio asset: assets/wizardSessionMapping-EG4fCDL6.css
-- [museum-surface-asset] `museum/studio/favicon.svg` — Museum studio asset: favicon.svg
-- [museum-surface-asset] `museum/studio/icons.svg` — Museum studio asset: icons.svg
-- [desktop-interface] `museum/studio/index.html` — Museum studio shell
-- [library-consumer] `forge-autodoc/forge_autodoc/page.py` — Forge autodoc handbook assembler
-- [page-instance] `forge-autodoc/forge_autodoc/page.py` — Handbook chapter main (autodoc handbook_page <main>)
+- [design-terminology] `docs/design/a11y-audit/README.md` — Design doc docs/design/a11y-audit/README.md
+- [design-terminology] `docs/design/a11y-audit/a11y-tooling-stub-inventory.md` — Design doc docs/design/a11y-audit/a11y-tooling-stub-inventory.md
+- [design-terminology] `docs/design/a11y-audit/ai-enabled-a11y-principles.md` — Design doc docs/design/a11y-audit/ai-enabled-a11y-principles.md
+- [design-terminology] `docs/design/a11y-audit/auditor-ecosystem.md` — Design doc docs/design/a11y-audit/auditor-ecosystem.md
+- [design-terminology] `docs/design/a11y-audit/axe-unmappable-rules.md` — Design doc docs/design/a11y-audit/axe-unmappable-rules.md
+- [design-terminology] `docs/design/a11y-audit/compliance-profiles.md` — Design doc docs/design/a11y-audit/compliance-profiles.md
+- [design-terminology] `docs/design/a11y-audit/deterministic-a11y-rules.md` — Design doc docs/design/a11y-audit/deterministic-a11y-rules.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/README.md` — Design doc docs/design/a11y-audit/rule-pages/README.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/RULE_PAGE_SCHEMA.md` — Design doc docs/design/a11y-audit/rule-pages/RULE_PAGE_SCHEMA.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-audio-control.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-audio-control.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-change-on-request.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-change-on-request.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-consistent-nav-judgment.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-consistent-nav-judgment.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-context-help.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-context-help.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-error-prevention.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-error-prevention.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-form-error-association.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-form-error-association.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-interruptions.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-interruptions.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-keyboard-no-exception.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-keyboard-no-exception.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-keyboard-task-flow.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-keyboard-task-flow.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-media-alternatives.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-media-alternatives.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-multiple-ways.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-multiple-ways.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-pointer-gestures-judgment.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-pointer-gestures-judgment.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-pronunciation.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-pronunciation.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-re-authentication.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-re-authentication.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-reading-level.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-reading-level.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-sensory-instructions.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-sensory-instructions.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-timing-adjustable.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-timing-adjustable.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-unusual-words.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-unusual-words.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-generic-visual-presentation.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-generic-visual-presentation.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-ks-handbook-sidebar-labels.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-ks-handbook-sidebar-labels.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/ai-a11y-ks-region-labeling.md` — Design doc docs/design/a11y-audit/rule-pages/ai-a11y-ks-region-labeling.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-accessible-authentication.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-accessible-authentication.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-app-focus-trap.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-app-focus-trap.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-autoplay-audio.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-autoplay-audio.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-change-on-request.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-change-on-request.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-character-shortcuts.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-character-shortcuts.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-concurrent-input.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-concurrent-input.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-consistent-help.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-consistent-help.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-consistent-labels.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-consistent-labels.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-consistent-nav.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-consistent-nav.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-context-help.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-context-help.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-contrast-enhanced.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-contrast-enhanced.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-contrast.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-contrast.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-data-table-headers.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-data-table-headers.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-diagram-alt.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-diagram-alt.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-dragging-movements.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-dragging-movements.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-error-prevention.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-error-prevention.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-flash-threshold.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-flash-threshold.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-appearance.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-appearance.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-context-change.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-context-change.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-not-obscured.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-not-obscured.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-obscured-enhanced.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-obscured-enhanced.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-order.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-focus-order.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-glossary-abbr.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-glossary-abbr.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-hover-focus-content.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-hover-focus-content.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-images-alt.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-images-alt.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-images-of-text.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-images-of-text.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-input-context-change.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-input-context-change.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-input-purpose.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-input-purpose.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-interruptions.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-interruptions.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-keyboard-access.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-keyboard-access.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-label-in-name.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-label-in-name.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-labels-instructions.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-labels-instructions.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-landmarks.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-landmarks.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-lang-of-parts.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-lang-of-parts.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-lang.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-lang.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-link-purpose.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-link-purpose.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-low-background-audio.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-low-background-audio.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-media-tracks.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-media-tracks.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-motion-actuation.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-motion-actuation.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-motion-flash.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-motion-flash.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-motion-reduced.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-motion-reduced.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-multiple-ways.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-multiple-ways.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-non-text-contrast.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-non-text-contrast.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-orientation.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-orientation.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-page-location.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-page-location.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-pause-stop-hide.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-pause-stop-hide.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-pointer-cancellation.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-pointer-cancellation.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-pointer-gestures.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-pointer-gestures.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-re-authentication.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-re-authentication.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-reading-level-heuristic.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-reading-level-heuristic.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-reading-order.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-reading-order.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-redundant-entry.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-redundant-entry.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-resize-text.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-resize-text.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-section-headings.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-section-headings.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-sensory-cues.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-sensory-cues.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-status-messages.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-status-messages.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-target-size-min.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-target-size-min.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-text-spacing.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-text-spacing.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-timing.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-timing.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-title.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-title.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-use-of-color.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-use-of-color.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-viewport.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-viewport.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-visual-presentation-aaa.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-visual-presentation-aaa.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-breadcrumb.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-breadcrumb.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-handbook-single-h1.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-handbook-single-h1.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-hash-markers.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-hash-markers.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-py-hash-attrs.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-py-hash-attrs.md
+- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-react-a11y-role.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-react-a11y-role.md
+- [design-terminology] `docs/design/a11y-audit/standards/README.md` — Design doc docs/design/a11y-audit/standards/README.md
+- [design-terminology] `docs/design/a11y-audit/standards/manual-test-playbooks.md` — Design doc docs/design/a11y-audit/standards/manual-test-playbooks.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag20a.md` — Design doc docs/design/a11y-audit/standards/wcag20a.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag20aa.md` — Design doc docs/design/a11y-audit/standards/wcag20aa.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag20aaa.md` — Design doc docs/design/a11y-audit/standards/wcag20aaa.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag21a.md` — Design doc docs/design/a11y-audit/standards/wcag21a.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag21aa.md` — Design doc docs/design/a11y-audit/standards/wcag21aa.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag21aaa.md` — Design doc docs/design/a11y-audit/standards/wcag21aaa.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag22a.md` — Design doc docs/design/a11y-audit/standards/wcag22a.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag22aa.md` — Design doc docs/design/a11y-audit/standards/wcag22aa.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag22aaa.md` — Design doc docs/design/a11y-audit/standards/wcag22aaa.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag30bronze.md` — Design doc docs/design/a11y-audit/standards/wcag30bronze.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag30gold.md` — Design doc docs/design/a11y-audit/standards/wcag30gold.md
+- [design-terminology] `docs/design/a11y-audit/standards/wcag30silver.md` — Design doc docs/design/a11y-audit/standards/wcag30silver.md
+- [design-terminology] `docs/design/a11y-audit/standards-matrix.md` — Design doc docs/design/a11y-audit/standards-matrix.md
+- [design-terminology] `docs/design/a11y-audit/standards-packs.md` — Design doc docs/design/a11y-audit/standards-packs.md
+- [design-terminology] `docs/design/a11y-audit/standards-traceability-gaps.md` — Design doc docs/design/a11y-audit/standards-traceability-gaps.md
+- [design-terminology] `docs/design/a11y-audit/standards-traceability-matrix.md` — Design doc docs/design/a11y-audit/standards-traceability-matrix.md
+- [design-terminology] `docs/design/a11y-audit/standards-traceability.md` — Design doc docs/design/a11y-audit/standards-traceability.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.1.1-non-text-content.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.1.1-non-text-content.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.2.1-audio-only-and-video-only-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.2.1-audio-only-and-video-only-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.2.2-captions-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.2.2-captions-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.2.4-captions-live.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.2.4-captions-live.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.2.5-audio-description-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.2.5-audio-description-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.3.1-info-and-relationships.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.3.1-info-and-relationships.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.3.2-meaningful-sequence.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.3.2-meaningful-sequence.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.3.3-sensory-characteristics.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.3.3-sensory-characteristics.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.4.1-use-of-color.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.4.1-use-of-color.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.4.2-audio-control.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.4.2-audio-control.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.4.3-contrast-minimum.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.4.3-contrast-minimum.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.4.4-resize-text.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.4.4-resize-text.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/1.4.5-images-of-text.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/1.4.5-images-of-text.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.1.1-keyboard.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.1.1-keyboard.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.1.2-no-keyboard-trap.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.1.2-no-keyboard-trap.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.2.1-timing-adjustable.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.2.1-timing-adjustable.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.2.2-pause-stop-hide.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.2.2-pause-stop-hide.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.3.1-three-flashes-or-below-threshold.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.3.1-three-flashes-or-below-threshold.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.4.1-bypass-blocks.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.4.1-bypass-blocks.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.4.2-page-titled.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.4.2-page-titled.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.4.3-focus-order.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.4.3-focus-order.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.4.4-link-purpose-in-context.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.4.4-link-purpose-in-context.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.4.5-multiple-ways.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.4.5-multiple-ways.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.4.6-headings-and-labels.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.4.6-headings-and-labels.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/2.4.7-focus-visible.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/2.4.7-focus-visible.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.1.1-language-of-page.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.1.1-language-of-page.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.1.2-language-of-parts.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.1.2-language-of-parts.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.2.1-on-focus.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.2.1-on-focus.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.2.2-on-input.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.2.2-on-input.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.2.3-consistent-navigation.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.2.3-consistent-navigation.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.2.4-consistent-identification.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.2.4-consistent-identification.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.3.1-error-identification.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.3.1-error-identification.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.3.2-labels-or-instructions.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.3.2-labels-or-instructions.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.3.3-error-suggestion.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.3.3-error-suggestion.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/3.3.4-error-prevention-legal-financial-data.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/3.3.4-error-prevention-legal-financial-data.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/4.1.1-parsing.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/4.1.1-parsing.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.0/sc/4.1.2-name-role-value.md` — Design doc docs/design/a11y-audit/wcag/2.0/sc/4.1.2-name-role-value.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.1.1-non-text-content.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.1.1-non-text-content.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.2.1-audio-only-and-video-only-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.2.1-audio-only-and-video-only-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.2.2-captions-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.2.2-captions-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.2.4-captions-live.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.2.4-captions-live.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.2.5-audio-description-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.2.5-audio-description-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.3.1-info-and-relationships.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.3.1-info-and-relationships.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.3.2-meaningful-sequence.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.3.2-meaningful-sequence.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.3.3-sensory-characteristics.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.3.3-sensory-characteristics.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.3.4-orientation.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.3.4-orientation.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.3.5-identify-input-purpose.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.3.5-identify-input-purpose.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.4.1-use-of-color.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.4.1-use-of-color.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.4.10-reflow.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.4.10-reflow.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.4.11-non-text-contrast.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.4.11-non-text-contrast.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.4.12-text-spacing.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.4.12-text-spacing.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.4.13-content-on-hover-or-focus.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.4.13-content-on-hover-or-focus.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.4.2-audio-control.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.4.2-audio-control.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.4.3-contrast-minimum.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.4.3-contrast-minimum.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.4.4-resize-text.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.4.4-resize-text.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/1.4.5-images-of-text.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/1.4.5-images-of-text.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.1.1-keyboard.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.1.1-keyboard.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.1.2-no-keyboard-trap.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.1.2-no-keyboard-trap.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.1.4-character-key-shortcuts.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.1.4-character-key-shortcuts.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.2.1-timing-adjustable.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.2.1-timing-adjustable.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.2.2-pause-stop-hide.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.2.2-pause-stop-hide.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.3.1-three-flashes-or-below-threshold.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.3.1-three-flashes-or-below-threshold.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.4.1-bypass-blocks.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.4.1-bypass-blocks.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.4.2-page-titled.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.4.2-page-titled.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.4.3-focus-order.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.4.3-focus-order.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.4.4-link-purpose-in-context.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.4.4-link-purpose-in-context.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.4.5-multiple-ways.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.4.5-multiple-ways.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.4.6-headings-and-labels.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.4.6-headings-and-labels.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.4.7-focus-visible.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.4.7-focus-visible.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.5.1-pointer-gestures.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.5.1-pointer-gestures.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.5.2-pointer-cancellation.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.5.2-pointer-cancellation.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.5.3-label-in-name.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.5.3-label-in-name.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/2.5.4-motion-actuation.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/2.5.4-motion-actuation.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.1.1-language-of-page.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.1.1-language-of-page.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.1.2-language-of-parts.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.1.2-language-of-parts.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.2.1-on-focus.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.2.1-on-focus.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.2.2-on-input.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.2.2-on-input.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.2.3-consistent-navigation.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.2.3-consistent-navigation.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.2.4-consistent-identification.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.2.4-consistent-identification.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.3.1-error-identification.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.3.1-error-identification.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.3.2-labels-or-instructions.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.3.2-labels-or-instructions.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.3.3-error-suggestion.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.3.3-error-suggestion.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/3.3.4-error-prevention-legal-financial-data.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/3.3.4-error-prevention-legal-financial-data.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/4.1.1-parsing.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/4.1.1-parsing.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/4.1.2-name-role-value.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/4.1.2-name-role-value.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/4.1.3-status-messages.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/4.1.3-status-messages.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.1.1-non-text-content.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.1.1-non-text-content.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.2-captions-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.2-captions-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.4-captions-live.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.4-captions-live.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.5-audio-description-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.5-audio-description-prerecorded.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.1-info-and-relationships.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.1-info-and-relationships.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.2-meaningful-sequence.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.2-meaningful-sequence.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.3-sensory-characteristics.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.3-sensory-characteristics.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.4-orientation.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.4-orientation.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.5-identify-input-purpose.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.5-identify-input-purpose.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.1-use-of-color.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.1-use-of-color.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.10-reflow.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.10-reflow.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.11-non-text-contrast.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.11-non-text-contrast.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.12-text-spacing.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.12-text-spacing.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.13-content-on-hover-or-focus.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.13-content-on-hover-or-focus.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.2-audio-control.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.2-audio-control.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.3-contrast-minimum.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.3-contrast-minimum.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.4-resize-text.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.4-resize-text.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.5-images-of-text.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.5-images-of-text.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.1.1-keyboard.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.1.1-keyboard.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.1.2-no-keyboard-trap.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.1.2-no-keyboard-trap.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.1.4-character-key-shortcuts.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.1.4-character-key-shortcuts.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.2.1-timing-adjustable.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.2.1-timing-adjustable.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.2.2-pause-stop-hide.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.2.2-pause-stop-hide.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.3.1-three-flashes-or-below-threshold.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.3.1-three-flashes-or-below-threshold.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.1-bypass-blocks.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.1-bypass-blocks.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.11-focus-not-obscured-minimum.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.11-focus-not-obscured-minimum.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.2-page-titled.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.2-page-titled.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.3-focus-order.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.3-focus-order.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.4-link-purpose-in-context.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.4-link-purpose-in-context.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.5-multiple-ways.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.5-multiple-ways.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.6-headings-and-labels.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.6-headings-and-labels.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.7-focus-visible.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.7-focus-visible.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.1-pointer-gestures.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.1-pointer-gestures.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.2-pointer-cancellation.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.2-pointer-cancellation.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.3-label-in-name.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.3-label-in-name.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.4-motion-actuation.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.4-motion-actuation.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.7-dragging-movements.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.7-dragging-movements.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.8-target-size-minimum.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.8-target-size-minimum.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.1.1-language-of-page.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.1.1-language-of-page.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.1.2-language-of-parts.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.1.2-language-of-parts.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.2.1-on-focus.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.2.1-on-focus.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.2.2-on-input.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.2.2-on-input.md
+- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.2.3-consistent-navigation.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.2.3-consistent-navigation.md
+
+… 353 more rows in JSON …
 
 ## Catalog crosswalk (registry JSON + showcase scan)
 
-- Registry rows: 91 (active: 91)
-- Distinct hashes in registry: 91
-- Distinct hashes in showcase HTML/JS scan: 54
+- Registry rows: 3 (active: 3)
+- Distinct hashes in registry: 3
+- Distinct hashes in showcase HTML/JS scan: 44
 - Emit-marker gaps (expected in showcase, not seen in scan): 0
 - Contract path missing on disk: 0
 - Contracts with TBD/TODO/FIXME (non-strict): 0
-- Screenshot PNGs present (catalog dir): 48 / 91
-- Screenshot PNGs present (showcase dir): 0 / 91
+- Screenshot PNGs present (catalog dir): 0 / 3
+- Screenshot PNGs present (showcase dir): 0 / 3
 - Registry expects PNG but neither path exists: 0
-- `family-covered` rows: 37
-- Parent rows listing children: 6
-- Broad-family candidates (medium+ risk): 5
+- `family-covered` rows: 1
+- Parent rows listing children: 0
+- Broad-family candidates (medium+ risk): 0
 

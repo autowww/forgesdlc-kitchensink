@@ -155,6 +155,7 @@ Handbook and product-site generators run Markdown through HTML transforms that r
 - ` ```blueprint-diagram ` — inline tile (no lightbox)
 - ` ```blueprint-diagram-expand ` — tile opens modal with catalog legend when `key:` matches a known template
 - ` ```blueprint-diagram-ascii ` — monospace ASCII / box-drawing in the diagram shell; optional `key:` / `alt:` / `caption:` / `expand:` prefix (same modal behavior as SVG when `expand:` is true and `key:` is valid)
+- **Enriched flow** — a ` ```blueprint-diagram ` fence (no `src:`) with `node:` / `detail:` / `more:` metadata (plus optional `title:` / `summary:`) renders an HTML step flow with per-step one-liners and an **Expand** flyout for deep-dive text; see [`docs/ascii-to-ks-diagrams.md`](docs/ascii-to-ks-diagrams.md) § Enriched flow fences
 
 **Legacy aliases** (still accepted by transforms): ` ```ks-diagram ` / ` ```ks-diagram-expand `; ASCII: ` ```ks-diagram-ascii `.
 
