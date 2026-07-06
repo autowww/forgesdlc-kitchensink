@@ -79,6 +79,9 @@ def resolve_diagram_src(*, key: str | None, src: str | None) -> tuple[str, str]:
     """
     if src and str(src).strip():
         raw = str(src).strip().lstrip("/")
+        if raw.startswith("platform-handbook-assets/"):
+            name = raw.split("/")[-1]
+            return raw, name
         if ".." in raw or raw.startswith("http"):
             raise ValueError(f"Invalid ks-diagram src: {src!r}")
         href = raw if raw.startswith("assets/") else f"assets/{raw}"

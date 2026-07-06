@@ -2022,6 +2022,37 @@ code {
   animation: breathe-cyan 2.5s ease-in-out infinite;
 }
 
+/* SVG tile + optional ASCII fallback toggle (``fallback_ascii`` in blueprint-diagram fence) */
+.forge-diagram.forge-diagram-dual {
+  position: relative;
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+}
+.forge-diagram-dual__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.65rem;
+}
+.forge-diagram-dual__panel--ascii .forge-diagram-ascii-pre {
+  margin-bottom: 0;
+  line-height: 1.22;
+  font-size: 0.78rem;
+  font-variant-ligatures: none;
+  white-space: pre;
+  overflow-x: auto;
+  background: transparent;
+  border: none;
+  padding: 0.35rem 0;
+}
+.forge-diagram-dual__panel--ascii .forge-diagram-ascii-pre code {
+  color: var(--forge-text-2);
+  background: transparent;
+}
+.forge-diagram-dual .forge-diagram-ascii-caption {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
 .diagram-modal-backdrop {
   display: none;
   position: fixed;

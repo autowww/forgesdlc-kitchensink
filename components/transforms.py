@@ -196,12 +196,24 @@ def convert_mermaid_blocks(html_text: str) -> tuple[str, bool]:
 
 
 def _parse_ks_diagram_body(raw: str) -> dict[str, object]:
-    """Parse fenced body: YAML-ish ``key:`` / ``alt:`` / ``expand:`` / ``src:`` or a single-line key."""
+    """Parse fenced body metadata only (no ``fallback_ascii`` body)."""
+    meta, _ = _parse_ks_diagram_fence(raw)
+    return meta
+
+
+_META_LINE_KS = re.compile(
+    r"^(key|alt|caption|expand|decorative|src|fallback_ascii)\s*:\s*(.*)$",
+    re.IGNORECASE,
+)
+
+
+def _parse_ks_diagram_fence(raw: str) -> tuple[dict[str, object], str]:
+    """Parse ``blueprint-diagram`` fence: metadata prefix + optional ``fallback_ascii`` body."""
     text = html_mod.unescape(raw).strip()
     if not text:
         raise ValueError("diagram fence is empty")
-    out: dict[str, object] = {}
-    first_line = text.split("\n", 1)[0].strip()
+    lines = text.split("\n")
+    first_line = lines[0].strip()
     if ":" not in first_line:
         tok = first_line.split()[0].strip()
         if not tok:
@@ -212,29 +224,45 @@ def _parse_ks_diagram_body(raw: str) -> dict[str, object]:
             "caption": "",
             "expand": False,
             "decorative": False,
-        }
-    for line in text.splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
+        }, ""
+    meta: dict[str, object] = {}
+    fallback_ascii = ""
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip() if line else ""
+        if not stripped or stripped.startswith("#"):
+            i += 1
             continue
-        if ":" not in line:
-            continue
-        name, _, val = line.partition(":")
-        name = name.strip().lower()
-        val = val.strip().strip('"').strip("'")
-        if name in ("expand", "trigger"):
-            out["expand"] = val.lower() in ("1", "true", "yes", "on")
+        m = _META_LINE_KS.match(stripped)
+        if not m:
+            break
+        name, val = m.group(1).lower(), m.group(2).strip().strip('"').strip("'")
+        if name == "fallback_ascii":
+            if val in ("|", ">", ""):
+                i += 1
+                fallback_ascii = "\n".join(lines[i:]).rstrip("\n")
+                break
+            fallback_ascii = val
+            i += 1
+        elif name in ("expand", "trigger"):
+            meta["expand"] = val.lower() in ("1", "true", "yes", "on")
+            i += 1
         elif name == "decorative":
-            out["decorative"] = val.lower() in ("1", "true", "yes", "on")
-        elif name in ("key", "alt", "src", "title", "caption"):
-            out[name if name != "title" else "alt"] = val
-    if "expand" not in out:
-        out["expand"] = False
-    if "decorative" not in out:
-        out["decorative"] = False
-    if "caption" not in out:
-        out["caption"] = ""
-    return out
+            meta["decorative"] = val.lower() in ("1", "true", "yes", "on")
+            i += 1
+        elif name in ("key", "alt", "src", "caption"):
+            meta[name] = val
+            i += 1
+        else:
+            i += 1
+    if "expand" not in meta:
+        meta["expand"] = False
+    if "decorative" not in meta:
+        meta["decorative"] = False
+    if "caption" not in meta:
+        meta["caption"] = ""
+    return meta, fallback_ascii
 
 
 _META_LINE_ASCII = re.compile(
@@ -398,13 +426,53 @@ def ks_diagram_tile_html(
     )
 
 
-def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool]:
+def dual_diagram_figure_html(
+    *,
+    svg_tile_html: str,
+    ascii_body: str,
+    aria_label: str,
+    caption: str = "",
+) -> str:
+    """Wrap an SVG tile with optional ASCII fallback and a view toggle toolbar."""
+    esc_content = html_mod.escape(ascii_body)
+    esc_aria = html_mod.escape(aria_label, quote=True)
+    figcaption = ""
+    if caption:
+        figcaption = (
+            f'<figcaption class="forge-diagram-ascii-caption forge-support small">'
+            f"{html_mod.escape(caption)}</figcaption>"
+        )
+    ascii_panel = (
+        '<div class="forge-diagram-dual__panel forge-diagram-dual__panel--ascii" '
+        'data-panel="ascii" hidden>'
+        '<pre class="forge-code forge-diagram-ascii-pre">'
+        f'<code class="language-text">{esc_content}</code></pre>'
+        "</div>"
+    )
+    return (
+        f'<figure class="forge-diagram forge-diagram-dual breathe-static" '
+        f'data-diagram-view="svg" role="group" aria-label="{esc_aria}">'
+        '<div class="forge-diagram-dual__toolbar">'
+        '<button type="button" class="forge-diagram-view-toggle btn btn-sm btn-outline-secondary" '
+        'aria-pressed="false" data-label-svg="Diagram view" data-label-ascii="ASCII view">'
+        "ASCII view</button>"
+        "</div>"
+        '<div class="forge-diagram-dual__panel forge-diagram-dual__panel--svg" data-panel="svg">'
+        f"{svg_tile_html}"
+        "</div>"
+        f"{ascii_panel}"
+        f"{figcaption}"
+        "</figure>"
+    )
+
+
+def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool, bool]:
     """Replace diagram fenced blocks (Markdown ``language-*`` classes) with static SVG tiles.
 
     Supports public fence names ``blueprint-diagram`` / ``blueprint-diagram-expand`` and
     legacy ``ks-diagram`` / ``ks-diagram-expand`` for backward compatibility.
 
-    Returns ``(transformed_html, has_ks_diagram)``.
+    Returns ``(transformed_html, has_ks_diagram, has_ks_diagram_dual)``.
     """
     pattern_expand = (
         r'<pre><code class="language-blueprint-diagram-expand">(.*?)</code></pre>'
@@ -418,11 +486,13 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool]:
     has_ks = bool(re.search(pattern_expand, html_text, re.DOTALL)) or bool(
         re.search(pattern_plain, html_text, re.DOTALL)
     )
+    has_dual = False
     keys = valid_diagram_keys()
 
     def _replace(m: re.Match, fence_expandable: bool) -> str:
+        nonlocal has_dual
         raw = m.group(1) or m.group(2) or ""
-        parsed = _parse_ks_diagram_body(raw)
+        parsed, fallback_ascii = _parse_ks_diagram_fence(raw)
         key_val = parsed.get("key")
         src_val = parsed.get("src")
         key_str = str(key_val).strip() if key_val else ""
@@ -440,12 +510,33 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool]:
         alt, decorative = _resolve_ks_diagram_display_alt_caption(
             parsed, key_str=key_str, src_str=src_str
         )
-        return ks_diagram_tile_html(
+        tile = ks_diagram_tile_html(
             img_href=href,
             alt=alt,
             diagram_key=catalog_key,
             expandable=expand_flag,
             decorative=decorative,
+        )
+        fallback = fallback_ascii.strip()
+        if not fallback:
+            return tile
+        has_dual = True
+        caption = str(parsed.get("caption") or "").strip()
+        if decorative:
+            group_aria = "Diagram with ASCII fallback"
+        elif alt and not _is_generic_alt(alt):
+            group_aria = alt
+        elif caption:
+            group_aria = caption
+        elif key_str in keys:
+            group_aria = diagram_key_accessibility_label(key_str)
+        else:
+            group_aria = "Diagram with ASCII fallback"
+        return dual_diagram_figure_html(
+            svg_tile_html=tile,
+            ascii_body=fallback,
+            aria_label=group_aria,
+            caption=caption,
         )
 
     result = re.sub(
@@ -460,7 +551,7 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool]:
         result,
         flags=re.DOTALL,
     )
-    return result, has_ks
+    return result, has_ks, has_dual
 
 
 def extract_toc(html_text: str) -> list[tuple[str, str, int]]:
@@ -478,18 +569,19 @@ def extract_toc(html_text: str) -> list[tuple[str, str, int]]:
     return toc
 
 
-def apply_all(html_text: str, *, handbook: bool = True) -> tuple[str, bool, bool]:
+def apply_all(html_text: str, *, handbook: bool = True) -> tuple[str, bool, bool, bool]:
     """Apply all standard transforms in canonical order.
 
-    Returns ``(html, has_mermaid, has_ks_diagram)``.
+    Returns ``(html, has_mermaid, has_ks_diagram, has_ks_diagram_dual)``.
     ``has_ks_diagram`` is true when SVG template fences and/or ASCII fences with
     ``expand:`` and a valid catalog ``key:`` are present (diagram legend modal).
+    ``has_ks_diagram_dual`` is true when any SVG fence includes ``fallback_ascii``.
     """
     html_text, has_mermaid = convert_mermaid_blocks(html_text)
     html_text, _, ascii_modal = convert_ascii_diagram_blocks(html_text)
-    html_text, has_ks_svg = convert_ks_diagram_blocks(html_text)
+    html_text, has_ks_svg, has_dual = convert_ks_diagram_blocks(html_text)
     html_text = enhance_tables(html_text, handbook=handbook)
     html_text = enhance_blockquotes(html_text)
     html_text = enhance_code_blocks(html_text)
     has_ks_diagram = has_ks_svg or ascii_modal
-    return html_text, has_mermaid, has_ks_diagram
+    return html_text, has_mermaid, has_ks_diagram, has_dual

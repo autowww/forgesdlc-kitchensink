@@ -52,12 +52,39 @@ from forge_autodoc.sidebar import (
     build_grouped_manifest_sidebar,
     build_sidebar_links,
 )
+from forge_autodoc.agent_contract import render_agent_contract_panel
+from forge_autodoc.source_map import emit_docs_source_map
 from forge_autodoc.text import plain_text_from_first_paragraph
 from forge_autodoc.transforms_api import apply_handbook_body_transforms, extract_toc_from_html
 
 
 # Markdown links to sibling/relative ``*.md`` files (not images: exclude leading ``!``).
 _RE_MD_MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]*\]\(\s*([^)#\s]+\.md)\s*(?:#[^)]*)?\s*\)")
+
+
+def _agent_contract_panel_for(md_text: str) -> str:
+    """Render the ``agent_contract`` frontmatter block (page contract v1) if present.
+
+    Uses a full YAML parse because the flat frontmatter parser cannot read the
+    nested block.
+    """
+    lines = md_text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return ""
+    end = None
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            end = i
+            break
+    if end is None:
+        return ""
+    try:
+        fm = yaml.safe_load("\n".join(lines[1:end]))
+    except yaml.YAMLError:
+        return ""
+    if not isinstance(fm, dict):
+        return ""
+    return render_agent_contract_panel(fm.get("agent_contract") or {})
 
 HANDBOOK_NAV_ORDER_DEFAULT = 10_000
 
@@ -600,7 +627,10 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
         body_html = markdown_to_handbook_html(maintainer_banner + body_md)
         body_html = _rewrite_relative_md_links(body_html, md_path, root, href_by_md)
         body_html = neutralize_repo_artifact_links(body_html)
-        body_html, _hm, has_ks = apply_handbook_body_transforms(cfg.kitchensink, body_html)
+        body_html, _hm, has_ks, has_ks_dual = apply_handbook_body_transforms(cfg.kitchensink, body_html)
+        agent_panel = _agent_contract_panel_for(text)
+        if agent_panel:
+            body_html = body_html + agent_panel
         intro = plain_text_from_first_paragraph(body_html)
         toc = extract_toc_from_html(cfg.kitchensink, body_html)
         is_template = md_path.name.endswith(".template.md")
@@ -865,6 +895,7 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             canonical_md=canon,
             is_template=is_template,
             has_ks_diagram=has_ks,
+            has_ks_diagram_dual=has_ks_dual,
             show_canonical_note=cfg.show_canonical_note,
             chrome_overrides=cfg.chrome_overrides,
             meta_description=meta_description,
@@ -929,6 +960,15 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             file=sys.stderr,
         )
         return -1
+
+    if not dry_run:
+        sm_path = emit_docs_source_map(
+            cfg.output_dir,
+            site=hb_name,
+            pages=pages,
+            meta_by_rel=meta_by_rel,
+        )
+        print(f"  Generated {sm_path.name}")
 
     print(
         f"build-site: emitted {len(pages)} page(s); handbook sidebar lists {len(nav_pages)} page(s)",

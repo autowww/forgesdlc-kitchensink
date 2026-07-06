@@ -491,6 +491,7 @@ def _footer_diagram_scripts(
     theme_js_href: str,
     *,
     include_diagram_expand_modal: bool = False,
+    has_ks_diagram_dual: bool = False,
 ) -> str:
     """Diagram modal zoom + diagram runtime + KS catalog/modal (optional), after ``forge-theme.js``."""
     parts: list[str] = []
@@ -502,6 +503,10 @@ def _footer_diagram_scripts(
     if has_ks_diagram:
         parts.append(f'  <script src="{e(base + "/ks-diagram-catalog.js")}" defer></script>')
         parts.append(f'  <script src="{e(base + "/ks-diagram-modal.js")}" defer></script>')
+    if has_ks_diagram_dual:
+        parts.append(
+            f'  <script src="{e(base + "/ks-diagram-view-toggle.js")}" defer></script>'
+        )
     if has_mermaid:
         parts.append(MERMAID_SCRIPT.rstrip())
     return "\n".join(parts)
@@ -645,6 +650,7 @@ def handbook_page(
     footer_html: str,
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    has_ks_diagram_dual: bool = False,
     theme_css_href: str = "templates/forge-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
     include_diagram_expand_modal: bool = False,
@@ -695,6 +701,7 @@ def handbook_page(
         has_ks_diagram,
         theme_js_href,
         include_diagram_expand_modal=include_diagram_expand_modal,
+        has_ks_diagram_dual=has_ks_diagram_dual,
     )
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
@@ -843,6 +850,7 @@ def chapter_page(
     footer_html: str,
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    has_ks_diagram_dual: bool = False,
     extra_scripts: list[str] | None = None,
     theme_css_href: str = "assets/docs-theme.css",
     theme_js_href: str = "assets/forge-theme.js",
@@ -860,6 +868,7 @@ def chapter_page(
         has_ks_diagram,
         theme_js_href,
         include_diagram_expand_modal=include_diagram_expand_modal,
+        has_ks_diagram_dual=has_ks_diagram_dual,
     )
     extra = "\n".join(
         f'  <script src="{e(src)}"></script>' for src in (extra_scripts or [])
@@ -935,6 +944,7 @@ def product_page(
     lens: str | None = None,
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    has_ks_diagram_dual: bool = False,
     theme_css_href: str = "assets/forgesdlc-theme.css",
     extra_css: str = "",
     theme_js_href: str = "assets/forge-theme.js",
@@ -965,6 +975,7 @@ def product_page(
         has_ks_diagram,
         theme_js_href,
         include_diagram_expand_modal=include_diagram_expand_modal,
+        has_ks_diagram_dual=has_ks_diagram_dual,
     )
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
@@ -1186,6 +1197,7 @@ def showcase_page(
     theme_js_href: str = "assets/forge-theme.js",
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    has_ks_diagram_dual: bool = False,
     include_diagram_expand_modal: bool = False,
     body_extra_class: str = "",
     content_max_width: str | None = None,
@@ -1205,6 +1217,7 @@ def showcase_page(
         has_ks_diagram,
         theme_js_href,
         include_diagram_expand_modal=include_diagram_expand_modal,
+        has_ks_diagram_dual=has_ks_diagram_dual,
     )
     extra_scripts = "\n".join(
         f'<script src="{e(src)}"></script>' for src in (extra_js or [])
@@ -1494,6 +1507,7 @@ def marketing_page(
     include_theme_toggle: bool = False,
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    has_ks_diagram_dual: bool = False,
     include_diagram_expand_modal: bool = False,
     extra_scripts: str = "",
     announcement_html: str = "",
@@ -1541,6 +1555,7 @@ def marketing_page(
         has_ks_diagram,
         theme_js_href,
         include_diagram_expand_modal=include_diagram_expand_modal,
+        has_ks_diagram_dual=has_ks_diagram_dual,
     )
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
@@ -1632,6 +1647,7 @@ def listing_page(
     include_theme_toggle: bool = False,
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    has_ks_diagram_dual: bool = False,
     include_diagram_expand_modal: bool = False,
     extra_scripts: str = "",
     announcement_html: str = "",
@@ -1669,6 +1685,7 @@ def listing_page(
         has_ks_diagram,
         theme_js_href,
         include_diagram_expand_modal=include_diagram_expand_modal,
+        has_ks_diagram_dual=has_ks_diagram_dual,
     )
     diagram_modal = (
         render_diagram_expand_modal_html() if include_diagram_expand_modal else ""
@@ -1773,6 +1790,7 @@ def gallery_page(
     theme_js_href: str = "assets/forge-theme.js",
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    has_ks_diagram_dual: bool = False,
     include_diagram_expand_modal: bool = False,
     ks_page_attrs: str = "",
 ) -> str:
@@ -1822,6 +1840,7 @@ def split_page(
     theme_js_href: str = "assets/forge-theme.js",
     has_mermaid: bool = False,
     has_ks_diagram: bool = False,
+    has_ks_diagram_dual: bool = False,
     include_diagram_expand_modal: bool = False,
     ks_page_attrs: str = "",
 ) -> str:

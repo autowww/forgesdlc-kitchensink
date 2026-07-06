@@ -19,7 +19,7 @@ class DiagramAltTests(unittest.TestCase):
         from transforms import convert_ks_diagram_blocks
 
         md_html = '<pre><code class="language-blueprint-diagram">key: linear\nalt: Diagram\n</code></pre>'
-        out, _ = convert_ks_diagram_blocks(md_html)
+        out, _, _ = convert_ks_diagram_blocks(md_html)
         self.assertNotIn('alt="Diagram"', out)
         self.assertIn("Linear flow diagram template", out)
         self.assertIn('role="figure"', out)
@@ -31,7 +31,7 @@ class DiagramAltTests(unittest.TestCase):
             '<pre><code class="language-blueprint-diagram">key: linear\n'
             "alt: Diagram\ncaption: Sprint cadence overview\n</code></pre>"
         )
-        out, _ = convert_ks_diagram_blocks(md_html)
+        out, _, _ = convert_ks_diagram_blocks(md_html)
         self.assertIn('alt="Sprint cadence overview"', out)
 
     def test_decorative_tile_empty_alt(self) -> None:
@@ -41,7 +41,7 @@ class DiagramAltTests(unittest.TestCase):
             '<pre><code class="language-blueprint-diagram">key: linear\n'
             "decorative: true\n</code></pre>"
         )
-        out, _ = convert_ks_diagram_blocks(md_html)
+        out, _, _ = convert_ks_diagram_blocks(md_html)
         self.assertRegex(out, r'alt=""')
         self.assertIn('aria-hidden="true"', out)
         self.assertIn('role="presentation"', out)
@@ -50,7 +50,7 @@ class DiagramAltTests(unittest.TestCase):
         from transforms import convert_ks_diagram_blocks
 
         md_html = '<pre><code class="language-blueprint-diagram-expand">key: linear\n</code></pre>'
-        out, _ = convert_ks_diagram_blocks(md_html)
+        out, _, _ = convert_ks_diagram_blocks(md_html)
         self.assertIn("forge-diagram-trigger", out)
         self.assertIn("openDiagramWithDetail", out)
 
@@ -58,7 +58,7 @@ class DiagramAltTests(unittest.TestCase):
         from transforms import convert_ks_diagram_blocks
 
         md_html = '<pre><code class="language-blueprint-diagram">linear\n</code></pre>'
-        out, _ = convert_ks_diagram_blocks(md_html)
+        out, _, _ = convert_ks_diagram_blocks(md_html)
         self.assertIn("Linear flow diagram template", out)
 
     def test_ascii_generic_alt_uses_catalog(self) -> None:
@@ -68,6 +68,32 @@ class DiagramAltTests(unittest.TestCase):
         md_html = f'<pre><code class="language-blueprint-diagram-ascii">{body}</code></pre>'
         out, _, _ = convert_ascii_diagram_blocks(md_html)
         self.assertIn("Linear flow diagram template", out)
+
+
+    def test_dual_view_toggle_when_fallback_ascii(self) -> None:
+        from transforms import convert_ks_diagram_blocks
+
+        body = (
+            "key: linear\nalt: Three-step handoff\nfallback_ascii: |\n"
+            "  A --> B --> C\n"
+        )
+        md_html = f'<pre><code class="language-blueprint-diagram">{body}</code></pre>'
+        out, has_ks, has_dual = convert_ks_diagram_blocks(md_html)
+        self.assertTrue(has_ks)
+        self.assertTrue(has_dual)
+        self.assertIn("forge-diagram-dual", out)
+        self.assertIn("forge-diagram-view-toggle", out)
+        self.assertIn("A --&gt; B --&gt; C", out)
+        self.assertIn("ks-diagram-tile", out)
+
+    def test_no_toggle_without_fallback_ascii(self) -> None:
+        from transforms import convert_ks_diagram_blocks
+
+        md_html = '<pre><code class="language-blueprint-diagram">key: linear\n</code></pre>'
+        out, _, has_dual = convert_ks_diagram_blocks(md_html)
+        self.assertFalse(has_dual)
+        self.assertNotIn("forge-diagram-dual", out)
+        self.assertIn("ks-diagram-tile", out)
 
 
 if __name__ == "__main__":

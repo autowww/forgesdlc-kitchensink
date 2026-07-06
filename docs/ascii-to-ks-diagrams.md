@@ -33,7 +33,22 @@ Charts (bars, lines, pies, etc.) map to the **Charts & metrics** and related fam
 
 ## Side-by-side example
 
-**ASCII fence** (sketch in monospace):
+**Dual-view fence** (SVG default + toggle to ASCII when `fallback_ascii` is set):
+
+````markdown
+```blueprint-diagram
+key: linear
+alt: Three-step handoff
+fallback_ascii: |
+  +------+     +------+     +------+
+  |  A   | --> |  B   | --> |  C   |
+  +------+     +------+     +------+
+```
+````
+
+Readers see the SVG tile first; a toolbar **ASCII view** button swaps to the monospace sketch (and back). Pages with dual-view figures load `ks-diagram-view-toggle.js`. Without `fallback_ascii`, only the SVG tile is emitted (no toggle).
+
+**ASCII-only fence** (sketch in monospace, no SVG):
 
 ````markdown
 ```blueprint-diagram-ascii
