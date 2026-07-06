@@ -432,6 +432,8 @@ def dual_diagram_figure_html(
     ascii_body: str,
     aria_label: str,
     caption: str = "",
+    default_view: str = "svg",
+    template_toggle: bool = False,
 ) -> str:
     """Wrap an SVG tile with optional ASCII fallback and a view toggle toolbar."""
     esc_content = html_mod.escape(ascii_body)
@@ -442,22 +444,37 @@ def dual_diagram_figure_html(
             f'<figcaption class="forge-diagram-ascii-caption forge-support small">'
             f"{html_mod.escape(caption)}</figcaption>"
         )
+    view = "ascii" if default_view == "ascii" else "svg"
+    svg_hidden = " hidden" if view == "ascii" else ""
+    ascii_hidden = "" if view == "ascii" else " hidden"
+    if template_toggle:
+        label_svg = "Template view"
+        label_ascii = "Labeled view"
+        btn_label = label_svg if view == "ascii" else label_ascii
+        pressed = "true" if view == "ascii" else "false"
+    else:
+        label_svg = "Diagram view"
+        label_ascii = "ASCII view"
+        btn_label = label_ascii if view == "svg" else label_svg
+        pressed = "false" if view == "svg" else "true"
     ascii_panel = (
         '<div class="forge-diagram-dual__panel forge-diagram-dual__panel--ascii" '
-        'data-panel="ascii" hidden>'
+        f'data-panel="ascii"{ascii_hidden}>'
         '<pre class="forge-code forge-diagram-ascii-pre">'
         f'<code class="language-text">{esc_content}</code></pre>'
         "</div>"
     )
     return (
         f'<figure class="forge-diagram forge-diagram-dual breathe-static" '
-        f'data-diagram-view="svg" role="group" aria-label="{esc_aria}">'
+        f'data-diagram-view="{view}" role="group" aria-label="{esc_aria}">'
         '<div class="forge-diagram-dual__toolbar">'
         '<button type="button" class="forge-diagram-view-toggle btn btn-sm btn-outline-secondary" '
-        'aria-pressed="false" data-label-svg="Diagram view" data-label-ascii="ASCII view">'
-        "ASCII view</button>"
+        f'aria-pressed="{pressed}" data-label-svg="{html_mod.escape(label_svg, quote=True)}" '
+        f'data-label-ascii="{html_mod.escape(label_ascii, quote=True)}">'
+        f"{btn_label}</button>"
         "</div>"
-        '<div class="forge-diagram-dual__panel forge-diagram-dual__panel--svg" data-panel="svg">'
+        f'<div class="forge-diagram-dual__panel forge-diagram-dual__panel--svg" '
+        f'data-panel="svg"{svg_hidden}>'
         f"{svg_tile_html}"
         "</div>"
         f"{ascii_panel}"
@@ -532,11 +549,14 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool, bool]:
             group_aria = diagram_key_accessibility_label(key_str)
         else:
             group_aria = "Diagram with ASCII fallback"
+        labeled_fallback = bool(fallback) and not src_str
         return dual_diagram_figure_html(
             svg_tile_html=tile,
             ascii_body=fallback,
             aria_label=group_aria,
             caption=caption,
+            default_view="ascii" if labeled_fallback else "svg",
+            template_toggle=labeled_fallback and bool(key_str),
         )
 
     result = re.sub(

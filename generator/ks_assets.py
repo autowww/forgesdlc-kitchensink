@@ -43,6 +43,7 @@ def copy_forge_theme_core(kitchensink_root: Path, dest_assets: Path) -> list[str
         "diagram-modal-zoom.js",
         "ks-diagram-catalog.js",
         "ks-diagram-modal.js",
+        "ks-diagram-view-toggle.js",
     ):
         p = kitchensink_root / "js" / ks_js
         if p.is_file():
@@ -175,6 +176,7 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
         "diagram-modal-zoom.js",
         "ks-diagram-catalog.js",
         "ks-diagram-modal.js",
+        "ks-diagram-view-toggle.js",
         "nested-roadmap.js",
     ):
         src = ks_js / js_name

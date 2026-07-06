@@ -85,6 +85,23 @@ class DiagramAltTests(unittest.TestCase):
         self.assertIn("forge-diagram-view-toggle", out)
         self.assertIn("A --&gt; B --&gt; C", out)
         self.assertIn("ks-diagram-tile", out)
+        self.assertIn('data-diagram-view="ascii"', out)
+        self.assertIn("Template view", out)
+        self.assertNotIn('data-panel="ascii" hidden', out)
+
+    def test_dual_view_src_keeps_svg_default(self) -> None:
+        from transforms import convert_ks_diagram_blocks
+
+        body = (
+            "src: custom/foo.svg\nalt: Custom flow\nfallback_ascii: |\n"
+            "  step one\n"
+        )
+        md_html = f'<pre><code class="language-blueprint-diagram">{body}</code></pre>'
+        out, _, has_dual = convert_ks_diagram_blocks(md_html)
+        self.assertTrue(has_dual)
+        self.assertIn('data-diagram-view="svg"', out)
+        self.assertIn("ASCII view", out)
+        self.assertIn('data-panel="ascii" hidden', out)
 
     def test_no_toggle_without_fallback_ascii(self) -> None:
         from transforms import convert_ks_diagram_blocks

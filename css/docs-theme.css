@@ -2032,6 +2032,9 @@ code {
   justify-content: flex-end;
   margin-bottom: 0.65rem;
 }
+.forge-diagram-dual__panel[hidden] {
+  display: none !important;
+}
 .forge-diagram-dual__panel--ascii .forge-diagram-ascii-pre {
   margin-bottom: 0;
   line-height: 1.22;

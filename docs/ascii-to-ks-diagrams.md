@@ -33,7 +33,22 @@ Charts (bars, lines, pies, etc.) map to the **Charts & metrics** and related fam
 
 ## Side-by-side example
 
-**Dual-view fence** (SVG default + toggle to ASCII when `fallback_ascii` is set):
+**Dual-view fence with content SVG** (`src:` — SVG default, **ASCII view** toggle):
+
+````markdown
+```blueprint-diagram
+src: sdlc/docs/assets/my-labeled-flow.svg
+alt: Three-step handoff
+fallback_ascii: |
+  +------+     +------+     +------+
+  |  A   | --> |  B   | --> |  C   |
+  +------+     +------+     +------+
+```
+````
+
+**Dual-view fence with catalog key only** (labeled ASCII default, **Template view** toggle):
+
+When `fallback_ascii` is set without `src:`, the labeled monospace flow is shown first; the catalog template is optional via **Template view** (not a misleading default).
 
 ````markdown
 ```blueprint-diagram
@@ -46,7 +61,7 @@ fallback_ascii: |
 ```
 ````
 
-Readers see the SVG tile first; a toolbar **ASCII view** button swaps to the monospace sketch (and back). Pages with dual-view figures load `ks-diagram-view-toggle.js`. Without `fallback_ascii`, only the SVG tile is emitted (no toggle).
+Pages with dual-view figures load `ks-diagram-view-toggle.js` (copied with other handbook assets). Without `fallback_ascii`, only the SVG tile is emitted (no toggle).
 
 **ASCII-only fence** (sketch in monospace, no SVG):
 
