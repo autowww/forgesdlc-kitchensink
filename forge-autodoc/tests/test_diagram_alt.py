@@ -70,11 +70,30 @@ class DiagramAltTests(unittest.TestCase):
         self.assertIn("Linear flow diagram template", out)
 
 
+    def test_fallback_without_src_is_ascii_only(self) -> None:
+        from transforms import convert_ks_diagram_blocks
+
+        body = (
+            "key: swimlane\nalt: L0 assisted flow\nfallback_ascii: |\n"
+            "  [Human operator]\n"
+            "        |\n"
+            "        v\n"
+        )
+        md_html = f'<pre><code class="language-blueprint-diagram">{body}</code></pre>'
+        out, has_ks, has_dual = convert_ks_diagram_blocks(md_html)
+        self.assertTrue(has_ks)
+        self.assertFalse(has_dual)
+        self.assertIn("forge-diagram-ascii", out)
+        self.assertNotIn("forge-diagram-dual", out)
+        self.assertNotIn("forge-diagram-view-toggle", out)
+        self.assertNotIn("template-swimlane", out)
+        self.assertIn("[Human operator]", out)
+
     def test_dual_view_toggle_when_fallback_ascii(self) -> None:
         from transforms import convert_ks_diagram_blocks
 
         body = (
-            "key: linear\nalt: Three-step handoff\nfallback_ascii: |\n"
+            "src: custom/foo.svg\nalt: Three-step handoff\nfallback_ascii: |\n"
             "  A --> B --> C\n"
         )
         md_html = f'<pre><code class="language-blueprint-diagram">{body}</code></pre>'
@@ -84,24 +103,8 @@ class DiagramAltTests(unittest.TestCase):
         self.assertIn("forge-diagram-dual", out)
         self.assertIn("forge-diagram-view-toggle", out)
         self.assertIn("A --&gt; B --&gt; C", out)
-        self.assertIn("ks-diagram-tile", out)
-        self.assertIn('data-diagram-view="ascii"', out)
-        self.assertIn("Template view", out)
-        self.assertNotIn('data-panel="ascii" hidden', out)
-
-    def test_dual_view_src_keeps_svg_default(self) -> None:
-        from transforms import convert_ks_diagram_blocks
-
-        body = (
-            "src: custom/foo.svg\nalt: Custom flow\nfallback_ascii: |\n"
-            "  step one\n"
-        )
-        md_html = f'<pre><code class="language-blueprint-diagram">{body}</code></pre>'
-        out, _, has_dual = convert_ks_diagram_blocks(md_html)
-        self.assertTrue(has_dual)
         self.assertIn('data-diagram-view="svg"', out)
         self.assertIn("ASCII view", out)
-        self.assertIn('data-panel="ascii" hidden', out)
 
     def test_no_toggle_without_fallback_ascii(self) -> None:
         from transforms import convert_ks_diagram_blocks

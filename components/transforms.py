@@ -537,6 +537,12 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool, bool]:
         fallback = fallback_ascii.strip()
         if not fallback:
             return tile
+        if not src_str:
+            # Labeled monospace flow is authoritative; catalog templates are not shown
+            # without a content ``src:`` (generic Role A / Step B tiles mislead readers).
+            if expand_flag and key_str and key_str not in keys:
+                raise ValueError(f"diagram fence: unknown key {key_str!r}")
+            return ascii_diagram_figure_html(parsed, fallback)
         has_dual = True
         caption = str(parsed.get("caption") or "").strip()
         if decorative:
@@ -549,14 +555,13 @@ def convert_ks_diagram_blocks(html_text: str) -> tuple[str, bool, bool]:
             group_aria = diagram_key_accessibility_label(key_str)
         else:
             group_aria = "Diagram with ASCII fallback"
-        labeled_fallback = bool(fallback) and not src_str
         return dual_diagram_figure_html(
             svg_tile_html=tile,
             ascii_body=fallback,
             aria_label=group_aria,
             caption=caption,
-            default_view="ascii" if labeled_fallback else "svg",
-            template_toggle=labeled_fallback and bool(key_str),
+            default_view="svg",
+            template_toggle=False,
         )
 
     result = re.sub(

@@ -46,9 +46,9 @@ fallback_ascii: |
 ```
 ````
 
-**Dual-view fence with catalog key only** (labeled ASCII default, **Template view** toggle):
+**Labeled flow without content SVG** (`fallback_ascii` only, optional `key:` for `expand:` modal):
 
-When `fallback_ascii` is set without `src:`, the labeled monospace flow is shown first; the catalog template is optional via **Template view** (not a misleading default).
+Catalog template tiles are **not** shown when `src:` is omitted — readers see the labeled monospace flow in the diagram shell. Add a content SVG under your repo `docs/assets/` when the primary view should be graphical.
 
 ````markdown
 ```blueprint-diagram
@@ -61,7 +61,7 @@ fallback_ascii: |
 ```
 ````
 
-Pages with dual-view figures load `ks-diagram-view-toggle.js` (copied with other handbook assets). Without `fallback_ascii`, only the SVG tile is emitted (no toggle).
+Dual-view toggle (`ks-diagram-view-toggle.js`) loads only when a fence has **both** `src:` and `fallback_ascii`. Without `fallback_ascii`, only the SVG tile is emitted.
 
 **ASCII-only fence** (sketch in monospace, no SVG):
 
