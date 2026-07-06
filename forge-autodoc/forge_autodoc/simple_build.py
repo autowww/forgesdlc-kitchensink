@@ -56,6 +56,7 @@ from forge_autodoc.agent_contract import render_agent_contract_panel
 from forge_autodoc.source_map import emit_docs_source_map
 from forge_autodoc.text import plain_text_from_first_paragraph
 from forge_autodoc.transforms_api import apply_handbook_body_transforms, extract_toc_from_html
+from forge_autodoc.html_assets import cache_bust_handbook_img_src
 
 
 # Markdown links to sibling/relative ``*.md`` files (not images: exclude leading ``!``).
@@ -628,6 +629,7 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
         body_html = _rewrite_relative_md_links(body_html, md_path, root, href_by_md)
         body_html = neutralize_repo_artifact_links(body_html)
         body_html, _hm, has_ks, has_ks_dual = apply_handbook_body_transforms(cfg.kitchensink, body_html)
+        body_html = cache_bust_handbook_img_src(body_html, assets_dir)
         agent_panel = _agent_contract_panel_for(text)
         if agent_panel:
             body_html = body_html + agent_panel
