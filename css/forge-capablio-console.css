@@ -1,0 +1,365 @@
+/* forge-capablio-console.css — Capablio /app consoles (end-user, admin, operator).
+ * Requires forge-theme.css (+ forge-light-theme.css via @import in theme).
+ * Offline-safe: no CDN; vendored under forge360/ui/static/ks/css/.
+ *
+ * Classes: .cap-shell-*, legacy .app-header / .console-* bridged below.
+ */
+
+/* Legacy Capablio token bridge → Forge */
+:root {
+  --bg: var(--forge-bg, #0a0e17);
+  --bg-elevated: var(--forge-surface, #111827);
+  --bg-card: var(--forge-surface-2, #1a2235);
+  --border: color-mix(in srgb, var(--forge-border, rgba(6, 182, 212, 0.12)) 280%, transparent);
+  --text: var(--forge-text, #f1f5f9);
+  --text-muted: var(--forge-text-2, #94a3b8);
+  --accent: var(--forge-cyan, #06b6d4);
+  --accent-dim: var(--forge-cyan-dim, rgba(6, 182, 212, 0.1));
+  --positive: var(--forge-emerald, #10b981);
+  --radius: 0.5rem;
+  --space: 1rem;
+  --font: var(--bs-body-font-family, "Open Sans", system-ui, sans-serif);
+}
+
+body.cap-console-body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font);
+  background: var(--forge-bg);
+  color: var(--forge-text);
+  line-height: 1.5;
+}
+
+.cap-shell-header,
+.app-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--forge-border);
+  background: linear-gradient(180deg, var(--forge-surface) 0%, var(--forge-bg) 100%);
+  box-shadow: var(--forge-elevation-panel, 0 10px 36px rgba(0, 0, 0, 0.38));
+}
+
+.cap-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.cap-brand__name,
+.app-header h1,
+.cap-shell-header h1 {
+  margin: 0;
+  font-family: var(--font-display, inherit);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--forge-amber, #f59e0b) 0%, var(--forge-cyan, #06b6d4) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cap-brand__tagline,
+.app-header .tagline,
+.cap-shell-header .tagline {
+  margin: 0;
+  color: var(--forge-text-2);
+  font-size: 0.875rem;
+}
+
+.cap-shell-main,
+.console-panel,
+.login-panel,
+.survey-panel,
+.home-panel,
+.import-panel,
+.pdp-panel,
+.account-panel {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.login-panel,
+.survey-panel,
+.home-panel,
+.import-panel,
+.pdp-panel,
+.account-panel {
+  max-width: 720px;
+}
+
+.cap-nav-grid,
+.home-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.cap-nav-grid .btn,
+.home-nav .btn,
+.home-nav a.btn {
+  margin: 0;
+  text-align: left;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--forge-border);
+  background: var(--forge-surface-2);
+  color: var(--forge-text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cap-nav-grid .btn:hover,
+.home-nav .btn:hover,
+.home-nav a.btn:hover {
+  border-color: var(--forge-cyan);
+  box-shadow: var(--forge-glow-cyan);
+}
+
+.cap-tabs,
+.console-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 1rem 0 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--forge-border);
+}
+
+.cap-tabs button,
+.console-tabs button {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--forge-text-2);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font: inherit;
+}
+
+.cap-tabs button.active,
+.console-tabs button.active {
+  color: var(--forge-text);
+  border-color: var(--forge-border);
+  background: var(--forge-surface-2);
+  box-shadow: inset 0 0 0 1px rgba(6, 182, 212, 0.08);
+}
+
+.cap-table,
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.cap-table th,
+.cap-table td,
+.data-table th,
+.data-table td {
+  border: 1px solid var(--forge-border);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.cap-table th,
+.data-table th {
+  background: var(--forge-surface);
+  color: var(--forge-text-2);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background: var(--forge-surface);
+}
+
+.cap-callout,
+.callout {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--forge-border);
+  background: var(--forge-surface-2);
+  font-size: 0.9rem;
+  margin: 0.75rem 0;
+  box-shadow: var(--forge-elevation-detail-item);
+}
+
+.cap-callout.warn,
+.callout.warn {
+  border-color: color-mix(in srgb, var(--forge-amber) 55%, var(--forge-border));
+  background: color-mix(in srgb, var(--forge-amber-dim) 40%, var(--forge-surface-2));
+}
+
+.cap-status,
+.status-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border: 1px solid var(--forge-border);
+  letter-spacing: 0.02em;
+}
+
+.status-draft { color: var(--forge-text-3); }
+.status-invited { color: var(--forge-cyan); border-color: color-mix(in srgb, var(--forge-cyan) 40%, transparent); }
+.status-collecting { color: var(--forge-amber); border-color: color-mix(in srgb, var(--forge-amber) 40%, transparent); }
+.status-completed,
+.status-wrapped,
+.status-active { color: var(--forge-emerald); border-color: color-mix(in srgb, var(--forge-emerald) 40%, transparent); }
+.status-suspended { color: #f87171; border-color: rgba(248, 113, 113, 0.45); }
+
+.btn {
+  margin-top: 0.75rem;
+  margin-right: 0.5rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--forge-border);
+  border-radius: var(--radius);
+  background: var(--forge-surface-2);
+  color: var(--forge-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--forge-cyan);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn.primary {
+  background: var(--forge-cyan-dim);
+  border-color: var(--forge-cyan);
+  color: var(--forge-text);
+  box-shadow: var(--forge-glow-cyan);
+}
+
+.btn.link-btn {
+  border: none;
+  background: transparent;
+  color: var(--forge-text-2);
+  text-decoration: underline;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.cap-form-grid,
+.form-grid {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 520px;
+}
+
+.cap-form-grid label,
+.form-grid label,
+.login-panel label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--forge-text-2);
+  margin-bottom: 0.25rem;
+}
+
+.cap-form-grid input,
+.cap-form-grid select,
+.cap-form-grid textarea,
+.form-grid input,
+.form-grid select,
+.form-grid textarea,
+.login-panel input {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--forge-border);
+  border-radius: var(--radius);
+  background: var(--forge-surface);
+  color: var(--forge-text);
+  font: inherit;
+}
+
+.cap-form-grid input:focus,
+.form-grid input:focus,
+.login-panel input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--forge-cyan);
+  box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.22);
+}
+
+.key-import-section,
+.key-strip,
+.results-card,
+.email-card,
+.subject-tools {
+  border: 1px solid var(--forge-border);
+  border-radius: var(--radius);
+  background: var(--forge-surface-2);
+  box-shadow: var(--forge-elevation-detail-item);
+}
+
+#chat,
+#pdp-chat {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: var(--radius);
+  box-shadow: var(--forge-elevation-panel);
+}
+
+.msg.bot {
+  background: var(--forge-surface-2);
+  border: 1px solid var(--forge-border);
+}
+
+.msg.user {
+  background: var(--forge-cyan-dim);
+  border: 1px solid color-mix(in srgb, var(--forge-cyan) 45%, transparent);
+}
+
+.progress-track {
+  background: var(--forge-surface-2);
+  border: 1px solid var(--forge-border);
+}
+
+#progress-bar {
+  background: linear-gradient(90deg, var(--forge-cyan), var(--forge-amber));
+}
+
+.hint,
+.login-panel .hint {
+  color: var(--forge-text-2);
+  font-size: 0.875rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--forge-cyan);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .cap-nav-grid,
+  .home-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .cap-shell-header,
+  .app-header {
+    padding: 0.85rem 1rem;
+  }
+}
