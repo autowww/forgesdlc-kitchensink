@@ -1,0 +1,389 @@
+/* forge-capablio-app-shell.css — Capablio enterprise app shell (product_page pattern).
+ * Requires forge-theme.css (vendored with forge-light-theme inlined).
+ * Scope: html[data-fs-pack="enterprise"] on /app consoles.
+ * Offline-safe; no CDN.
+ */
+
+:root {
+  --cap-top-band-h: 3.75rem;
+  --cap-sidebar-w: 16.5rem;
+  --cap-workspace-pad: 1.5rem;
+  --bg: var(--forge-bg, #0a0e17);
+  --bg-elevated: var(--forge-surface, #111827);
+  --bg-card: var(--forge-surface-2, #1a2235);
+  --border: color-mix(in srgb, var(--forge-border, rgba(6, 182, 212, 0.12)) 280%, transparent);
+  --text: var(--forge-text, #f1f5f9);
+  --text-muted: var(--forge-text-2, #94a3b8);
+  --accent: var(--forge-cyan, #06b6d4);
+  --radius: 0.5rem;
+  --font: var(--bs-body-font-family, "Open Sans", system-ui, sans-serif);
+}
+
+body.cap-app-shell,
+body.cap-console-body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font);
+  background: var(--forge-bg);
+  color: var(--forge-text);
+  line-height: 1.5;
+}
+
+/* —— Top band —— */
+.cap-top-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  min-height: var(--cap-top-band-h);
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid var(--forge-border);
+  background: linear-gradient(180deg, var(--forge-surface) 0%, var(--forge-bg) 100%);
+  box-shadow: var(--forge-elevation-panel, 0 10px 36px rgba(0, 0, 0, 0.38));
+}
+
+.cap-top-band__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 10rem;
+}
+
+.cap-brand__name,
+.cap-top-band__title {
+  margin: 0;
+  font-family: var(--font-display, inherit);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--forge-amber) 0%, var(--forge-cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cap-brand__tagline,
+.cap-top-band__subtitle {
+  margin: 0;
+  color: var(--forge-text-2);
+  font-size: 0.8rem;
+}
+
+.cap-top-band__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: var(--forge-text-2);
+}
+
+.cap-top-band__user {
+  color: var(--forge-text);
+  font-weight: 600;
+}
+
+.cap-support-badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--forge-amber);
+  border: 1px solid color-mix(in srgb, var(--forge-amber) 45%, transparent);
+  background: color-mix(in srgb, var(--forge-amber-dim) 50%, transparent);
+}
+
+/* —— App grid: sidebar + workspace —— */
+.cap-app-grid {
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+  width: 100%;
+  min-height: 0;
+}
+
+.cap-app-grid > .forge-sidebar {
+  width: var(--cap-sidebar-w);
+  flex-shrink: 0;
+  min-height: calc(100vh - var(--cap-top-band-h));
+  max-height: calc(100vh - var(--cap-top-band-h));
+  overflow-y: auto;
+  padding: 0.75rem 0.65rem 1.5rem;
+}
+
+.cap-workspace {
+  flex: 1;
+  min-width: 0;
+  padding: var(--cap-workspace-pad);
+  overflow-y: auto;
+  max-width: none;
+  margin: 0;
+  width: auto;
+}
+
+.cap-workspace .console-panel,
+.cap-workspace > main {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Sidebar nav buttons (vanilla JS) */
+.forge-sidebar .cap-nav-link,
+.forge-sidebar button.cap-nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--forge-text-2);
+  padding: 0.45rem 0.55rem;
+  border-radius: var(--radius);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 0;
+}
+
+.forge-sidebar .cap-nav-link:hover,
+.forge-sidebar button.cap-nav-link:hover {
+  color: var(--forge-text);
+  background: var(--forge-surface-2);
+  border-color: var(--forge-border);
+}
+
+.forge-sidebar .cap-nav-link.active,
+.forge-sidebar button.cap-nav-link.active {
+  color: var(--forge-text);
+  background: var(--forge-surface-2);
+  border-color: color-mix(in srgb, var(--forge-cyan) 35%, var(--forge-border));
+  box-shadow: inset 0 0 0 1px rgba(6, 182, 212, 0.08);
+}
+
+.forge-sidebar a.cap-nav-link--console {
+  font-size: 0.875rem;
+}
+
+/* —— Page chrome —— */
+.cap-page-header {
+  margin-bottom: 1.25rem;
+}
+
+.cap-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--forge-text-2);
+  margin: 0 0 0.35rem;
+}
+
+.cap-breadcrumb__sep {
+  opacity: 0.5;
+}
+
+.cap-page-header h1 {
+  margin: 0.15rem 0 0.35rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.cap-page-header__subtitle {
+  margin: 0;
+  color: var(--forge-text-2);
+  font-size: 0.9rem;
+  max-width: 52rem;
+}
+
+.cap-page-header__actions {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cap-page-header__actions .btn {
+  margin-top: 0;
+}
+
+/* —— Panels (enterprise pack matte) —— */
+html[data-fs-pack="enterprise"] .cap-panel {
+  border: 1px solid var(--forge-border);
+  border-radius: var(--radius);
+  background: var(--forge-surface-2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+html[data-fs-pack="enterprise"] .cap-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--forge-border);
+  background: color-mix(in srgb, var(--forge-surface) 80%, var(--forge-bg));
+}
+
+html[data-fs-pack="enterprise"] .cap-panel__head h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+html[data-fs-pack="enterprise"] .cap-panel__body {
+  padding: 1rem;
+}
+
+.cap-stat-band {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+html[data-fs-pack="enterprise"] .cap-stat {
+  padding: 0.75rem 0.85rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--forge-border);
+  background: var(--forge-surface);
+}
+
+.cap-stat__label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--forge-text-2);
+  margin: 0 0 0.25rem;
+}
+
+.cap-stat__value {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* —— Dashboard cards (end-user home) —— */
+.cap-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+html[data-fs-pack="enterprise"] .cap-dash-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--forge-border);
+  border-radius: var(--radius);
+  background: var(--forge-surface-2);
+  color: var(--forge-text);
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+  min-height: 6.5rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+html[data-fs-pack="enterprise"] .cap-dash-card:hover {
+  border-color: color-mix(in srgb, var(--forge-cyan) 45%, var(--forge-border));
+  box-shadow: var(--forge-glow-cyan, 0 0 0 1px rgba(6, 182, 212, 0.15));
+}
+
+.cap-dash-card__title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.cap-dash-card__desc {
+  font-size: 0.82rem;
+  color: var(--forge-text-2);
+  line-height: 1.45;
+}
+
+/* —— Pre-auth (sign-in) —— */
+.cap-pre-auth {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem 3rem;
+}
+
+.cap-auth-card {
+  width: 100%;
+  max-width: 28rem;
+  padding: 1.5rem;
+  border: 1px solid var(--forge-border);
+  border-radius: var(--radius);
+  background: var(--forge-surface-2);
+  box-shadow: var(--forge-elevation-panel);
+}
+
+.cap-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.cap-toolbar .btn {
+  margin-top: 0;
+}
+
+.cap-toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--forge-text-2);
+}
+
+.tenant-name-link {
+  color: var(--forge-cyan);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.table-actions .btn {
+  margin: 0;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.82rem;
+}
+
+.console-section {
+  scroll-margin-top: 1rem;
+}
+
+@media (max-width: 900px) {
+  .cap-app-grid {
+    flex-direction: column;
+  }
+
+  .cap-app-grid > .forge-sidebar {
+    width: 100%;
+    max-height: none;
+    min-height: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--forge-border);
+  }
+}

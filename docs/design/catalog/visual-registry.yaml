@@ -93,6 +93,39 @@ entries:
     aliases: []
     parent_hash: null
     child_hashes: []
+    accessibility_notes: Sidebar tier accordion; focus visible on nav links
+    responsive_notes: Sidebar stacks above workspace below 900px
+    owner: forge-ks
+    last_reviewed: "2026-07-14"
+    notes: Capablio SaaS /app consoles (operator, org admin, end-user shell)
+    hash_exception_reason: null
+    design_standard_refs:
+      - docs/design/forge-enterprise-ui.md
+      - docs/design/catalog/page-types/Ks-page-type-design-guidelines.md
+    hash: Cap
+    name: Capablio app shell
+    slug: layout-capablio-app-shell
+    type: layout
+    status: active
+    source_paths:
+      - css/forge-capablio-app-shell.css
+      - css/forge-capablio-console.css
+    source_symbols:
+      - cap-app-grid
+      - cap-workspace
+    root_selector: div.cap-app-grid
+    contract: docs/design/catalog/layouts/Cap-layout-app-shell.md
+    contract_status: own
+    showcase_url: ""
+    screenshot_url: ""
+    screenshot_status: planned
+    emit_marker_in_showcase: false
+    category: layout
+    emits_html: true
+  - family: layouts
+    aliases: []
+    parent_hash: null
+    child_hashes: []
     accessibility_notes: null
     responsive_notes: null
     owner: forge-ks

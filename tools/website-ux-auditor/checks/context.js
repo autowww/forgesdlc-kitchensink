@@ -6,7 +6,7 @@
 const HANDBOOK_INNER_SITE_KINDS = new Set(['platform', 'lenses', 'fleet', 'lcdl']);
 
 /** Sealed Studio / operator app shells — marketing and handbook landing heuristics are out of scope. */
-export const APP_SHELL_SITE_KINDS = new Set(['a11y-studio', 'app-shell']);
+export const APP_SHELL_SITE_KINDS = new Set(['a11y-studio', 'app-shell', 'capablio']);
 
 export function pageContext(url, siteKind) {
   let pathname = '';

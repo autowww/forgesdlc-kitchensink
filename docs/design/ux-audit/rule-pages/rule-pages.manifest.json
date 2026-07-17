@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-02T12:17:20.534Z",
+  "generatedAt": "2026-07-14T14:54:48.083Z",
   "registryFingerprint": "f70362d74e30747d7bded2454fdf9df1b242105b43b77e0b677885855b32f278",
-  "registryGeneratedAt": "2026-07-02T12:17:19.258Z",
+  "registryGeneratedAt": "2026-07-14T14:54:47.124Z",
   "rulePagesDir": "docs/design/ux-audit/rule-pages",
   "showcaseHtmlDir": "ux-audit-rules",
   "summary": {
     "total": 119,
     "deterministic": 89,
     "ai": 30,
-    "current": 0,
-    "stale": 105,
+    "current": 1,
+    "stale": 104,
     "missing": 14
   },
   "rules": [
@@ -561,16 +561,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-ambient-z-index.md",
       "htmlPath": "ux-audit-rules/det-ambient-z-index.html",
       "contentVersion": "710b2d56e2d42bcba0c515eef10b223ef323e0d35c0355f4a1563024a2c26187",
-      "pageVersion": "c85b9d27a8f29b758a41bb53c76bfb4ec754f10bf5d2ec9e8eafeebd799ea335",
-      "generatedAt": "2026-05-19T18:30:00.000Z",
-      "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "pageVersion": "710b2d56e2d42bcba0c515eef10b223ef323e0d35c0355f4a1563024a2c26187",
+      "generatedAt": "2026-05-19T12:00:00Z",
+      "agentModel": "",
+      "registryFingerprint": "",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ambient-z-index",
       "modulePath": "design-rules/deterministic/generated/det-ambient-z-index.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "first-screen",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.BULK_ACTION_SCOPE",
@@ -1532,7 +1532,7 @@
       "registryStatus": "implemented",
       "mdPath": "docs/design/ux-audit/rule-pages/det-layout-grid-consistency.md",
       "htmlPath": "ux-audit-rules/det-layout-grid-consistency.html",
-      "contentVersion": "41971f579e7f55688c8cd9ccfbd17a0a6b437849135fdef4323fd0906d43316c",
+      "contentVersion": "e998f4f36860ad3282de1914bd885a4dc2ba8d280dec24447272e053e1129e58",
       "pageVersion": "c712bdd2575f6dc25d95725261f7cec1bcae2af0f85ce49b5bfaa02b2636a97d",
       "generatedAt": "2026-05-25T14:00:00.000Z",
       "agentModel": "composer-2.5-fast",

@@ -14,6 +14,7 @@ import fs from 'node:fs';
 import fsp from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { pathToFileURL } from 'node:url';
 
 import {
   SCHEMA_VERSION,
@@ -177,6 +178,7 @@ Incremental campaign (reuse one --out folder across runs):
   --incremental-regression-max-pages N   Cap URLs pulled from audit-data.previous.json for the regression wave (default: 40).
   --exclude-crawl-urls-file PATH   Same-origin URLs (one per line, # comments) treated as already visited: skip re-audit and link expansion from those URLs so --max-pages budget can reach other pages. The --site URL is never excluded.
   --seed-crawl-urls-file PATH    Pre-seed the crawl queue with every URL/path (one per line) so unlinked static HTML is still audited (full site disk coverage).
+  --crawl-auth-module PATH       ESM module exporting prepareCrawlPage(page, href, { request }) — runs before each crawl navigation (mock auth, etc.).
   --verbose, --verbose=N       Stderr diagnostics ([incremental], [crawl], …); level 2 via N=2. Alias: --debug-log.
                                Env mirror: UX_AUDIT_VERBOSE=1|2.
 
@@ -187,7 +189,7 @@ Deterministic rule coverage:
                                    Env: FORGE_UX_DETERMINISTIC_RULE_CONCURRENCY · FORGE_UX_AUDIT_STOP_AFTER_BACKLOG · FORGE_UX_AUDIT_TRACE_DISABLE=1
 
 Site kinds:
-  forgesdlc | lcdl | fleet | lenses | platform | generic | auto
+  forgesdlc | lcdl | fleet | lenses | platform | generic | capablio | a11y-studio | app-shell | auto
 `;
 }
 
@@ -223,6 +225,7 @@ function parseArgs(argv) {
     incrementalRegressionMaxPages: 40,
     excludeCrawlUrlsFile: null,
     seedCrawlUrlsFile: null,
+    crawlAuthModule: null,
     verbose: 0,
     remediationPlanLimit: DEFAULT_DEFECT_PLAN_LIMIT,
     skipPreflightDeterministic: false,
@@ -320,6 +323,7 @@ function parseArgs(argv) {
       'incrementalRegressionMaxPages',
       'excludeCrawlUrlsFile',
       'seedCrawlUrlsFile',
+      'crawlAuthModule',
       'remediationPlanLimit',
     ];
     if (!needsValue.includes(key)) {
@@ -383,6 +387,11 @@ function parseArgs(argv) {
     args.seedCrawlUrlsFile = path.isAbsolute(args.seedCrawlUrlsFile)
       ? path.normalize(args.seedCrawlUrlsFile)
       : path.resolve(args.repo, args.seedCrawlUrlsFile);
+  }
+  if (args.crawlAuthModule) {
+    args.crawlAuthModule = path.isAbsolute(args.crawlAuthModule)
+      ? path.normalize(args.crawlAuthModule)
+      : path.resolve(args.repo, args.crawlAuthModule);
   }
   return args;
 }
@@ -2301,6 +2310,17 @@ async function main() {
 
     const excludeCrawlHrefs = loadExcludeCrawlHrefsFromFile(args.excludeCrawlUrlsFile);
     const seedCrawlHrefs = loadExcludeCrawlHrefsFromFile(args.seedCrawlUrlsFile);
+    /** @type {((page: import('playwright').Page, href: string, ctx: { request: import('playwright').APIRequestContext }) => Promise<void>) | null} */
+    let crawlAuthPrepare = null;
+    if (args.crawlAuthModule) {
+      const mod = await import(pathToFileURL(args.crawlAuthModule).href);
+      const fn = mod.prepareCrawlPage ?? mod.default;
+      if (typeof fn === 'function') crawlAuthPrepare = fn;
+      else {
+        throw new Error(`--crawl-auth-module must export prepareCrawlPage: ${args.crawlAuthModule}`);
+      }
+      uxAuditPhase(`[ux-audit] phase=auth · crawlAuthModule=${relativeFromRepo(args.repo, args.crawlAuthModule)}`);
+    }
     const traceStore = new RulePageTraceStore({
       outDir: args.out,
       disabled: args.rulePageTraceDisabled,
@@ -2426,6 +2446,7 @@ async function main() {
             excludeCrawlHrefs,
             seedCrawlHrefs,
             designTheme,
+            crawlAuthPrepare,
           });
         } finally {
           precrawlProg.finish();
@@ -2492,6 +2513,7 @@ async function main() {
           excludeCrawlHrefs,
           seedCrawlHrefs,
           designTheme,
+          crawlAuthPrepare,
         });
       } finally {
         crawlProg.finish();

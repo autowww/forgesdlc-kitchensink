@@ -79,7 +79,7 @@ Optional:
   --start "npm run dev"     Start server before crawling
   --ready-url URL          Probe URL when --start is used (default: --site)
   --theme THEME            Design theme id under docs/design/themes/<id>. Default: ${DEFAULT_DESIGN_THEME_ID}
-  --site-kind KIND         lenses | lcdl | fleet | platform | forgesdlc | generic | auto
+  --site-kind KIND         lenses | lcdl | fleet | platform | forgesdlc | capablio | a11y-studio | app-shell | generic | auto
   --max-pages N            Default ${SCORER_DEFAULT_MAX_PAGES}; hard cap prevents runaway crawl
   --max-link-depth N       Link hops from \`--site\` (start = 0). Omit for **no depth limit** (full site within --max-pages)
   --page-concurrency N     Parallel pages during crawl (default ${SCORER_DEFAULT_PAGE_CONCURRENCY}, max ${MAX_PAGE_CONCURRENCY})

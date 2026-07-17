@@ -133,6 +133,8 @@ export function collectPageStructureInBrowser(pageUrl) {
     pageTypeId = 'handbook-chapter';
   } else if (document.querySelector('[role="tablist"], .nav-tabs')) {
     pageTypeId = 'reference';
+  } else if (document.querySelector('.cap-app-grid')) {
+    pageTypeId = 'app-shell';
   } else if (bodyText.includes('dashboard') || document.querySelector('[role="dialog"]')) {
     pageTypeId = 'app-shell';
   }

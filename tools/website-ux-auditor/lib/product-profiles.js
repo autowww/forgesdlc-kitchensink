@@ -99,12 +99,24 @@ export const PRODUCT_PROFILES = {
     pageMode: 'app',
     homepageShell: { ...HOMEPAGE_SHELL_DEFAULTS, maxSidebarOffcanvasLinksBlocker: 999 },
   },
+  capablio: {
+    name: 'Capablio',
+    oneLiner: '360 feedback and tenant operations on the Cap enterprise app shell.',
+    promise: 'Run surveys, imports, and tenant admin from one governed shell.',
+    primaryAudience: 'HR, managers, tenant admins, and platform operators',
+    preferredStory: 'sign-in -> workspace -> action -> evidence -> report',
+    homepageMustUseProductShell: false,
+    handbookShellAllowedOnlyBeyondHome: false,
+    pageMode: 'app',
+    homepageShell: { ...HOMEPAGE_SHELL_DEFAULTS, maxSidebarOffcanvasLinksBlocker: 999 },
+  },
 };
 
 export function inferSiteKind(args, inventory) {
   if (args.siteKind && args.siteKind !== 'auto') return PRODUCT_PROFILES[args.siteKind] ? args.siteKind : 'generic';
   const haystack = [args.site || '', inventory.packageName || '', inventory.framework || '', ...inventory.topFiles.slice(0, 80)].join(' ').toLowerCase();
-  for (const kind of ['a11y-studio', 'app-shell', 'forgesdlc', 'lenses', 'lcdl', 'fleet', 'platform']) {
+  if (/capablio|forge360|feedback-360/.test(haystack)) return 'capablio';
+  for (const kind of ['capablio', 'a11y-studio', 'app-shell', 'forgesdlc', 'lenses', 'lcdl', 'fleet', 'platform']) {
     if (haystack.includes(kind)) return kind;
   }
   if (/forge[-_]?accessibility|a11ystudio/.test(haystack.replace(/-/g, ''))) return 'a11y-studio';

@@ -177,6 +177,7 @@ function dequeueItem(raw, fallbackDepth = 0) {
  *   repoRoot?: string | null,
  *   designTheme?: object | null,
  *   structureOnly?: boolean,
+ *   crawlAuthPrepare?: ((page: import('playwright').Page, href: string, ctx: { request: import('playwright').APIRequestContext }) => Promise<void>) | null,
  * }} opts
  */
 export async function crawlAndAnalyze(opts) {
@@ -212,6 +213,7 @@ export async function crawlAndAnalyze(opts) {
     repoRoot = null,
     designTheme = null,
     structureOnly = false,
+    crawlAuthPrepare = null,
   } = opts;
 
   const pageConcurrency = clampInt(
@@ -379,6 +381,9 @@ export async function crawlAndAnalyze(opts) {
     let analyzed;
     let collectedLinks = [];
     try {
+      if (crawlAuthPrepare) {
+        await crawlAuthPrepare(page, href, { request: context.request });
+      }
       await page.goto(href, { waitUntil: 'domcontentloaded', timeout: timeoutMs });
       try {
         await page.waitForLoadState('networkidle', { timeout: 5000 });
