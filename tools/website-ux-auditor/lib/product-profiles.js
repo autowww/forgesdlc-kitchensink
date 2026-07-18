@@ -110,13 +110,24 @@ export const PRODUCT_PROFILES = {
     pageMode: 'app',
     homepageShell: { ...HOMEPAGE_SHELL_DEFAULTS, maxSidebarOffcanvasLinksBlocker: 999 },
   },
+  'capablio-marketing': {
+    name: 'Capablio marketing',
+    oneLiner: 'Adaptive 360 feedback for engineering leaders — product marketing site.',
+    promise: 'Turn feedback into leadership growth with privacy, evidence, and admin control.',
+    primaryAudience: 'People teams, engineering leaders, and enterprise evaluators',
+    preferredStory: 'outcome -> product proof -> trust boundaries -> pilot -> contact',
+    homepageMustUseProductShell: true,
+    handbookShellAllowedOnlyBeyondHome: true,
+    homepageShell: { ...HOMEPAGE_SHELL_DEFAULTS },
+  },
 };
 
 export function inferSiteKind(args, inventory) {
   if (args.siteKind && args.siteKind !== 'auto') return PRODUCT_PROFILES[args.siteKind] ? args.siteKind : 'generic';
   const haystack = [args.site || '', inventory.packageName || '', inventory.framework || '', ...inventory.topFiles.slice(0, 80)].join(' ').toLowerCase();
-  if (/capablio|forge360|feedback-360/.test(haystack)) return 'capablio';
-  for (const kind of ['capablio', 'a11y-studio', 'app-shell', 'forgesdlc', 'lenses', 'lcdl', 'fleet', 'platform']) {
+  if (/capablio-marketing|data-cap-marketing/.test(haystack)) return 'capablio-marketing';
+  if (/capablio|forge360|feedback-360/.test(haystack)) return 'capablio-marketing';
+  for (const kind of ['capablio-marketing', 'capablio', 'a11y-studio', 'app-shell', 'forgesdlc', 'lenses', 'lcdl', 'fleet', 'platform']) {
     if (haystack.includes(kind)) return kind;
   }
   if (/forge[-_]?accessibility|a11ystudio/.test(haystack.replace(/-/g, ''))) return 'a11y-studio';

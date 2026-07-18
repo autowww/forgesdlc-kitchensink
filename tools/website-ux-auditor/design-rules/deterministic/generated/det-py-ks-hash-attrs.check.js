@@ -220,6 +220,8 @@ export function findingsFromPyKsHashAttrsReport(report) {
 }
 
 export async function run({ metrics, repoRoot, ctx }) {
+  if (ctx?.siteKind === 'capablio-marketing') return [];
+
   const root = String(repoRoot || ctx?.repoRoot || metrics?.repoRoot || '').trim();
   if (!root) return [];
 

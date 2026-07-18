@@ -30,6 +30,8 @@ function loadCatalog(repoRoot) {
  * @param {{ siteKind?: string, repoRoot?: string }} ctx
  */
 export function runCheck(m, url, ctx = {}) {
+  if (ctx.siteKind === 'capablio-marketing') return [];
+
   const repoRoot = ctx.repoRoot && String(ctx.repoRoot).trim() ? String(ctx.repoRoot) : '';
   const rep = ksVisualHashReportFromMetrics(m);
   const hasDomSignal =

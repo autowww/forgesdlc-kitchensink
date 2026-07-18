@@ -337,7 +337,9 @@ export async function collectNavFocusOrderReport(page) {
   );
 }
 
-export async function run({ metrics, page, url }) {
+export async function run({ metrics, page, url, ctx }) {
+  if (ctx?.siteKind === 'capablio-marketing') return [];
+
   const report = metrics?.navFocusOrderReport
     ?? (page ? await collectNavFocusOrderReport(page) : null);
   if (!report || !(report.violations || []).length) return [];

@@ -52,9 +52,20 @@ export async function collectDomMetrics(page, href) {
         textStart: textOf(el).slice(0, 180),
       }));
       const images = qsRoot('img').filter(visible).map((el) => ({ alt: el.getAttribute('alt') || '', top: Math.round(el.getBoundingClientRect().top) }));
+      const isAboveFold = (el) => {
+        const r = el.getBoundingClientRect();
+        return visible(el) && r.top < 900 && r.bottom > 0;
+      };
+      const isDeepestTextCarrier = (el) => {
+        for (const child of el.children) {
+          if (!visible(child)) continue;
+          if (textOf(child).length > 0) return false;
+        }
+        return true;
+      };
       const aboveFoldText = norm(
         qsRoot('*')
-          .filter((el) => visible(el) && el.getBoundingClientRect().top < 900 && el.getBoundingClientRect().bottom > 0)
+          .filter((el) => isAboveFold(el) && isDeepestTextCarrier(el))
           .map(textOf)
           .filter(Boolean)
           .join(' '),

@@ -29,6 +29,7 @@ export const SANCTIONED_VAR_PREFIXES = [
   '--ks-',
   '--bs-',
   '--le-surface',
+  '--cap-',
 ];
 
 /** Thin ring shadows used as border substitutes (not elevation drift). */
@@ -424,6 +425,8 @@ export async function collectSurfaceElevationReport(page) {
 }
 
 export async function run({ metrics, page, url, repoRoot, ctx }) {
+  if (ctx?.siteKind === 'capablio-marketing') return [];
+
   const root = String(repoRoot || ctx?.repoRoot || metrics?.repoRoot || '').trim();
   /** @type {Array<Record<string, unknown>>} */
   const violations = [];

@@ -189,7 +189,7 @@ Deterministic rule coverage:
                                    Env: FORGE_UX_DETERMINISTIC_RULE_CONCURRENCY · FORGE_UX_AUDIT_STOP_AFTER_BACKLOG · FORGE_UX_AUDIT_TRACE_DISABLE=1
 
 Site kinds:
-  forgesdlc | lcdl | fleet | lenses | platform | generic | capablio | a11y-studio | app-shell | auto
+  forgesdlc | lcdl | fleet | lenses | platform | generic | capablio | capablio-marketing | a11y-studio | app-shell | auto
 `;
 }
 

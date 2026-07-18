@@ -410,6 +410,11 @@ export async function collectMobileNavInteractionReport(page) {
   /** @type {Array<Record<string, unknown>>} */
   const violations = [];
 
+  await page.waitForFunction(
+    () => typeof window.bootstrap !== 'undefined' && window.bootstrap.Collapse,
+    { timeout: 8000 },
+  ).catch(() => {});
+
   const toggle = page.locator(
     '[aria-controls][aria-expanded], .navbar-toggler, [data-bs-toggle="offcanvas"], button[class*="menu"], button[class*="nav-toggle"]',
   ).first();
@@ -421,20 +426,23 @@ export async function collectMobileNavInteractionReport(page) {
   }
 
   try {
-    await toggle.click({ timeout: 3000 });
-    await page.waitForTimeout(200);
+    await toggle.scrollIntoViewIfNeeded();
+    await toggle.click({ timeout: 5000, force: true });
+    await page.waitForTimeout(350);
     const openState = await page.evaluate(() => {
       const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
       const panel =
         document.querySelector('[role="dialog"][aria-modal="true"]')
         || document.querySelector('.offcanvas.show, .offcanvas.showing, nav.offcanvas')
+        || document.querySelector('.navbar-collapse.show, #capMainNav.show, .collapse.show')
         || document.querySelector('[class*="mobile-nav"][class*="open"], [data-nav-open="true"]');
       const bodyLocked = document.body.style.overflow === 'hidden'
         || document.documentElement.classList.contains('modal-open')
-        || document.body.classList.contains('offcanvas-open');
+        || document.body.classList.contains('offcanvas-open')
+        || document.body.classList.contains('cap-nav-open');
       const closeBtn = panel
-        ? panel.querySelector('[aria-label*="close" i], button.close, [data-bs-dismiss], .btn-close')
-        : null;
+        ? panel.querySelector('[aria-label*="close" i], button.close, [data-bs-dismiss], .btn-close, .cap-header__close')
+        : document.querySelector('.cap-header__close, [aria-label*="close" i].cap-header__close');
       const closeLabel = closeBtn
         ? norm(closeBtn.getAttribute('aria-label') || closeBtn.textContent)
         : '';
@@ -457,7 +465,9 @@ export async function collectMobileNavInteractionReport(page) {
       violations.push({ issue: 'body-scroll-not-locked' });
     }
 
-    const close = page.locator('[aria-label*="close" i], button.close, [data-bs-dismiss], .btn-close').first();
+    const close = page.locator(
+      '[aria-label*="close" i], button.close, [data-bs-dismiss], .btn-close, .cap-header__close',
+    ).first();
     if (await close.count()) {
       await close.click({ timeout: 2000 }).catch(() => {});
       await page.waitForTimeout(150);
@@ -466,7 +476,9 @@ export async function collectMobileNavInteractionReport(page) {
     }
 
     const closed = await page.evaluate(() => {
-      const openPanel = document.querySelector('.offcanvas.show, [role="dialog"][aria-modal="true"]');
+      const openPanel = document.querySelector(
+        '.offcanvas.show, [role="dialog"][aria-modal="true"], .navbar-collapse.show, #capMainNav.show, .collapse.show',
+      );
       const expanded = document.querySelector('[aria-expanded="true"]');
       return !openPanel && !expanded;
     });

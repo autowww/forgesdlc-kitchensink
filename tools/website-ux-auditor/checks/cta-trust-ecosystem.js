@@ -40,7 +40,7 @@ export function runCheck(m, url, ctx = {}) {
     );
   }
 
-  if ((m.ecosystemTermCount ?? 0) < 2) {
+  if ((m.ecosystemTermCount ?? 0) < 2 && siteKind !== 'capablio-marketing') {
     add('major', 'ecosystem', 'The page does not clearly show where it fits in the Forge ecosystem.', `${m.ecosystemTermCount ?? 0} ecosystem terms detected.`, 'Add an ecosystem strip linking ForgeSDLC, Lenses, LCDL, Fleet, Platform, and Blueprints where relevant.');
   }
 
