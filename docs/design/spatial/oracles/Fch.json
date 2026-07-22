@@ -1,0 +1,30 @@
+{
+  "hash": "Fch",
+  "slug": "flip-choice",
+  "showcase_anchor": "#sec-flip-choice",
+  "scenarios": [
+    {
+      "id": "fch-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Fch\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "fch-select-alt",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "click",
+          "selector": "[data-ks-hash='Fch'] input[type='radio']:not(:checked)"
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Fch\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

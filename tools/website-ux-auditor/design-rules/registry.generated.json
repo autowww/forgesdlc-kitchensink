@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-18T11:35:03.509Z",
+  "generatedAt": "2026-07-22T05:22:29.273Z",
   "blender": {
     "version": 1,
     "entry": "design-rules/blender/design-rules-blender.mjs"
   },
-  "fingerprint": "f70362d74e30747d7bded2454fdf9df1b242105b43b77e0b677885855b32f278",
+  "fingerprint": "540764779552a2988421c6f1827290c7c170fedd7e868333b135b9d488ccb0e7",
   "sources": {
     "deterministicRulesDoc": {
       "path": "docs/design/ux-audit/deterministic-design-rules.md",
-      "sha256": "dc02f83c11f4f37c047db7901beabf4df2b904f963afe6eec2390a8145cc54cc"
+      "sha256": "14421f098db389b21117457c9a02a143bebce5732fb6bc806cf8ea24e0df7e7c"
     },
     "aiRulesDoc": {
       "path": "docs/design/ux-audit/ai-enabled-design-principles.md",
@@ -36,19 +36,19 @@
     "selectedCount": 30
   },
   "versioning": {
-    "deterministicRulesVersion": "dc02f83c11f4f37c047db7901beabf4df2b904f963afe6eec2390a8145cc54cc",
+    "deterministicRulesVersion": "14421f098db389b21117457c9a02a143bebce5732fb6bc806cf8ea24e0df7e7c",
     "aiRulesVersion": "47749a271e9d176c8205d060ee029907c41b7602fb5cbeacc17feb8d3dc88ff1",
     "overrideVersionApplied": false,
     "policy": "Generated files are not rewritten when embedded rules-version matches, unless --override-version is passed."
   },
   "generatedLibrary": {
-    "deterministicChecksGenerated": 0,
+    "deterministicChecksGenerated": 6,
     "aiPromptsGenerated": 0
   },
   "deterministicCoverage": {
-    "documentedRuleCount": 89,
-    "implementedCount": 87,
-    "stubCount": 2,
+    "documentedRuleCount": 94,
+    "implementedCount": 88,
+    "stubCount": 6,
     "implementedRuleIds": [
       "DET.AMBIENT.Z_INDEX",
       "DET.APP.BULK_ACTION_SCOPE",
@@ -130,6 +130,7 @@
       "DET.SEARCH.FILTER_STATE",
       "DET.SECTION.HEADING",
       "DET.SECTION.SINGLE_JOB",
+      "DET.SPATIAL.HASH_ROOT",
       "DET.STATUS.FEEDBACK_REGION",
       "DET.SURFACE.ELEVATION_TOKEN",
       "DET.TABLE.RESPONSIVE_CONTROLS",
@@ -139,11 +140,15 @@
       "DET.VISUAL.RHYTHM"
     ],
     "stubRuleIds": [
+      "DET.SPATIAL.ORACLE_PRESENT",
+      "DET.SPATIAL.POINTER_COARSE_SKIP",
+      "DET.SPATIAL.PRESERVE_3D_SUPPORT",
+      "DET.SPATIAL.REDUCED_MOTION_STATIC",
       "DET.THEME.RADIUS_SHADOW_TOKEN_DRIFT",
       "DET.THEME.SPACING_TOKEN_DRIFT"
     ],
     "byImplementationSource": {
-      "explicit-map": 87
+      "explicit-map": 88
     }
   },
   "requiredAiFindingMetadata": [
@@ -1323,6 +1328,72 @@
       "modulePath": "design-rules/deterministic/generated/det-section-single-job.check.js",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-section-single-job",
       "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.SPATIAL.HASH_ROOT",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "visual-catalog",
+      "scoreDimension": "visualCatalogGovernance",
+      "defaultSeverity": "minor",
+      "priorityWeight": 7,
+      "scope": "generic",
+      "modulePath": "design-rules/deterministic/generated/det-spatial-hash-root.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-spatial-hash_root",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.SPATIAL.ORACLE_PRESENT",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-spatial-oracle-present.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-spatial-oracle_present",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.SPATIAL.POINTER_COARSE_SKIP",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-spatial-pointer-coarse-skip.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-spatial-pointer_coarse_skip",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.SPATIAL.PRESERVE_3D_SUPPORT",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-spatial-preserve-3d-support.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-spatial-preserve_3d_support",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.SPATIAL.REDUCED_MOTION_STATIC",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-spatial-reduced-motion-static.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-spatial-reduced_motion_static",
+      "implementationSource": "generated-stub-locked"
     },
     {
       "id": "DET.STATUS.FEEDBACK_REGION",

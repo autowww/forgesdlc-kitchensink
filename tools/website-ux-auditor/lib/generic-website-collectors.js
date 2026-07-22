@@ -368,7 +368,6 @@ export async function collectGenericWebsitePageReport(page) {
           wordCount,
         },
         internalLinks: internalLinks.slice(0, 120),
-        overflowByViewport,
         formViolations: formViolations.slice(0, 8),
         searchViolations: searchViolations.slice(0, 6),
         tableViolations: tableViolations.slice(0, 8),
@@ -397,6 +396,7 @@ export async function collectGenericWebsitePageReport(page) {
 
   return {
     ...domReport,
+    overflowByViewport,
     mobileNavReport,
   };
 }
@@ -434,7 +434,7 @@ export async function collectMobileNavInteractionReport(page) {
       const panel =
         document.querySelector('[role="dialog"][aria-modal="true"]')
         || document.querySelector('.offcanvas.show, .offcanvas.showing, nav.offcanvas')
-        || document.querySelector('.navbar-collapse.show, #capMainNav.show, .collapse.show')
+        || document.querySelector('#capMainNav.show, .navbar-collapse.show')
         || document.querySelector('[class*="mobile-nav"][class*="open"], [data-nav-open="true"]');
       const bodyLocked = document.body.style.overflow === 'hidden'
         || document.documentElement.classList.contains('modal-open')
@@ -477,10 +477,13 @@ export async function collectMobileNavInteractionReport(page) {
 
     const closed = await page.evaluate(() => {
       const openPanel = document.querySelector(
-        '.offcanvas.show, [role="dialog"][aria-modal="true"], .navbar-collapse.show, #capMainNav.show, .collapse.show',
+        '.offcanvas.show, [role="dialog"][aria-modal="true"], .navbar-collapse.show, #capMainNav.show',
       );
-      const expanded = document.querySelector('[aria-expanded="true"]');
-      return !openPanel && !expanded;
+      const navToggle = document.querySelector(
+        '[aria-controls="capMainNav"], .cap-header__toggle, header .navbar-toggler',
+      );
+      const toggleExpanded = navToggle?.getAttribute('aria-expanded') === 'true';
+      return !openPanel && !toggleExpanded;
     });
     if (!closed) violations.push({ issue: 'nav-does-not-close' });
   } catch {

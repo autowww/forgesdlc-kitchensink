@@ -1,0 +1,31 @@
+{
+  "hash": "Srl",
+  "slug": "spatial-rail",
+  "showcase_anchor": "#sec-spatial-rail",
+  "scenarios": [
+    {
+      "id": "srl-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Srl\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "srl-scroll-coverflow",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "scroll",
+          "selector": "[data-ks-hash='Srl']",
+          "x": 200
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Srl\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

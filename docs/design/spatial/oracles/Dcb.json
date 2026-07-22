@@ -1,0 +1,32 @@
+{
+  "hash": "Dcb",
+  "slug": "draggable-cube",
+  "showcase_anchor": "#sec-draggable-cube",
+  "scenarios": [
+    {
+      "id": "dcb-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dcb\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "dcb-drag-rotate",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "drag",
+          "selector": "[data-ks-hash='Dcb'] .ks-cube--draggable__scene",
+          "dx": 80,
+          "dy": 40
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dcb\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

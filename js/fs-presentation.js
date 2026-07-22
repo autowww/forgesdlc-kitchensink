@@ -329,6 +329,102 @@
   // -----------------------------------------------------------------
   // Horizontal rail
   // -----------------------------------------------------------------
+  function wireRailScrollHints(root, scroller) {
+    function itemNodes() {
+      return Array.prototype.slice.call(scroller.querySelectorAll('.fs-rail__item'));
+    }
+
+    function trackPad() {
+      var track = scroller.querySelector('.fs-rail__track');
+      if (!track) return 16;
+      return parseFloat(window.getComputedStyle(track).paddingLeft) || 16;
+    }
+
+    function updateHints() {
+      var maxScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth - 2);
+      root.classList.toggle('fs-rail--at-start', scroller.scrollLeft <= 2);
+      root.classList.toggle('fs-rail--at-end', scroller.scrollLeft >= maxScroll);
+    }
+
+    function activeIndex() {
+      var list = itemNodes();
+      if (!list.length) return 0;
+      var anchor = scroller.scrollLeft + trackPad();
+      var best = 0;
+      var bestDist = Infinity;
+      list.forEach(function (el, i) {
+        var dist = Math.abs(el.offsetLeft - anchor);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      return best;
+    }
+
+    function scrollToIndex(index, direction) {
+      var list = itemNodes();
+      if (!list.length) return;
+      index = Math.max(0, Math.min(list.length - 1, index));
+      var item = list[index];
+      var pad = trackPad();
+      var target;
+      if (index === list.length - 1 && direction === 'next') {
+        target = item.offsetLeft + item.offsetWidth - scroller.clientWidth + pad;
+      } else if (index === 0 && direction === 'prev') {
+        target = 0;
+      } else {
+        target = item.offsetLeft - pad;
+      }
+      target = Math.max(0, Math.min(scroller.scrollWidth - scroller.clientWidth, target));
+      scroller.scrollTo({
+        left: target,
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+      });
+    }
+
+    function bindZone(selector, direction) {
+      var zone = root.querySelector(selector);
+      if (!zone) return;
+      var timer = null;
+      function step() {
+        var idx = activeIndex();
+        var nextIdx = direction === 'next' ? idx + 1 : idx - 1;
+        if (nextIdx < 0 || nextIdx >= itemNodes().length) return;
+        scrollToIndex(nextIdx, direction);
+      }
+      zone.addEventListener('mouseenter', function () {
+        step();
+        timer = window.setInterval(step, 850);
+      });
+      zone.addEventListener('mouseleave', function () {
+        if (timer) window.clearInterval(timer);
+        timer = null;
+      });
+      zone.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        step();
+      });
+    }
+
+    bindZone('.fs-rail__zone--prev', 'prev');
+    bindZone('.fs-rail__zone--next', 'next');
+
+    scroller.addEventListener(
+      'wheel',
+      function (ev) {
+        if (Math.abs(ev.deltaY) <= Math.abs(ev.deltaX)) return;
+        scroller.scrollLeft += ev.deltaY;
+        ev.preventDefault();
+      },
+      { passive: false }
+    );
+
+    scroller.addEventListener('scroll', updateHints, { passive: true });
+    window.addEventListener('resize', updateHints);
+    updateHints();
+  }
+
   function wireRail(root) {
     if (root._fsRailWired) return;
     root._fsRailWired = true;
@@ -362,6 +458,10 @@
     if (!parseBool(root.getAttribute('data-fs-rail-arrows'), true)) {
       if (prevBtn) prevBtn.hidden = true;
       if (nextBtn) nextBtn.hidden = true;
+    }
+
+    if (parseBool(root.getAttribute('data-fs-rail-hints'), false)) {
+      wireRailScrollHints(root, scroller);
     }
 
     if (parseBool(root.getAttribute('data-fs-rail-wheel'), false)) {

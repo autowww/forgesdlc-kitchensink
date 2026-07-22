@@ -17,6 +17,9 @@ Prioritized gaps versus common **enterprise marketing** patterns (and Figma Comm
 | BL-19 | **`render_tab_panel`** — accessible Bootstrap tablist + tab panels | component, css, js | SaaS, Landing | Same module; requires Bootstrap JS |
 | BL-20 | **`render_faq_section`** — Bootstrap accordion FAQ | component, css, js | SaaS, Landing | Same module |
 | BL-21 | **Listing helpers** — `render_listing_shell`, `render_listing_pagination`, `render_listing_empty_state` | component, css | Business, Blog | Same module |
+| BL-22 | **Consumer marketing primitives** — centered hero, steps band, zigzag features, media showcase grid | component, css | Landing, SaaS | [`components/consumer_marketing.py`](../components/consumer_marketing.py), `forgesdlc-pack-consumer.css`, preview `showcase/consumer-marketing.html` |
+| BL-23 | **Section swimlanes** — stacked title dock under header (garage-door collapse, max 3 lanes) | component, css, js | Landing, SaaS | `css/fs-section-swimlanes.css`, `js/ks-section-swimlanes.js`, `showcase/section-swimlanes.html`; extends BL-03 scrollspy direction |
+| BL-06 | **Alternating feature row** (zigzag image + copy) | component, css | Landing, SaaS | `render_alternating_feature_row` in `consumer_marketing.py` |
 | BL-14 | **Showcase demo** — `enterprise-marketing.html` exercises tabs, FAQ, mega footer, `listing_page` | doc | — | [`generator/pages/enterprise_marketing.py`](../generator/pages/enterprise_marketing.py) |
 | BL-15 | **Layouts + For agents inventory** — `listing_page` in layouts demo, modal preview, `_for_agents_content.py` | doc | — | [`layouts_demo.py`](../generator/pages/layouts_demo.py), [`showcase.js`](../js/showcase.js) |
 
@@ -31,7 +34,6 @@ Prioritized gaps versus common **enterprise marketing** patterns (and Figma Comm
 | BL-03 | **Marketing scrollspy / horizontal section nav** (sticky anchor bar under header, `forgesdlc-theme.css`) | layout, css, js | Landing, SaaS |
 | BL-04 | **Video / ambient-motion hero** fragment (`prefers-reduced-motion`, poster, no autoplay abuse) | component, css, js | Landing |
 | BL-05 | **Pricing / plan feature matrix** (highlight column, sticky header row, a11y) | component, css | SaaS |
-| BL-06 | **Alternating feature row** (zigzag image + copy) | component, css | Landing, SaaS |
 | BL-07 | **Event / webinar card** (date badge, timezone, CTA) | component, css | Business |
 | BL-08 | **Press / news list row** (date, category, headline) | component, css | Business, Blog |
 | BL-09 | **Trust badge strip** (certifications, analyst — not client logos) | component, css | Business |

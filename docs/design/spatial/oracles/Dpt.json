@@ -1,0 +1,16 @@
+{
+  "hash": "Dpt",
+  "slug": "display-depth",
+  "showcase_anchor": "#sec-display-depth",
+  "scenarios": [
+    {
+      "id": "dpt-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dpt\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

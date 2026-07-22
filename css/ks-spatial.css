@@ -1,0 +1,587 @@
+/**
+ * KS spatial layer — depth tokens, 3D primitives, tactile form variants.
+ * Pair with js/ks-pointer-depth.js and js/ks-tilt-tiles.js.
+ */
+:root {
+  --ks-perspective: 1100px;
+  --ks-perspective-near: 800px;
+  --ks-translate-z-lift: 8px;
+  --ks-translate-z-deep: 24px;
+  --ks-tilt-max: 10deg;
+  --ks-tactile-shadow-raised: 0 4px 12px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --ks-tactile-shadow-recessed: inset 0 3px 8px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Container-query depth scaling */
+.ks-spatial-cq {
+  container-type: inline-size;
+  container-name: ks-spatial;
+}
+@container ks-spatial (max-width: 420px) {
+  .ks-spatial-cq {
+    --ks-perspective: clamp(600px, 90vw, 900px);
+    --ks-translate-z-lift: 4px;
+  }
+}
+
+@supports not (transform-style: preserve-3d) {
+  .ks-spatial-fallback-flat .ks-tilt-inner,
+  .ks-spatial-fallback-flat .ks-card--flip__inner,
+  .ks-spatial-fallback-flat .ks-cube-scene {
+    transform: none !important;
+  }
+}
+
+/* Pointer depth CSS vars (set by ks-pointer-depth.js) */
+.ks-pointer-depth {
+  --ks-rx: 0deg;
+  --ks-ry: 0deg;
+  --ks-light-angle: 135deg;
+}
+
+/* Tilt (shared with forge-theme; extended here) */
+.ks-tilt-wrap,
+.ks-parallax-wrap {
+  perspective: var(--ks-perspective);
+  perspective-origin: center center;
+}
+.ks-tilt-inner,
+.ks-parallax-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.2, 0.85, 0.25, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.ks-tilt-wrap--tracking .ks-tilt-inner,
+.ks-parallax-wrap--tracking .ks-parallax-inner {
+  transition: none;
+}
+
+/* CSS-only tilt zones */
+.ks-tilt--css {
+  perspective: var(--ks-perspective);
+  position: relative;
+}
+.ks-tilt--css__zones {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  z-index: 2;
+}
+.ks-tilt--css__zones label {
+  cursor: pointer;
+  margin: 0;
+}
+.ks-tilt--css__zones input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.ks-tilt--css__inner {
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
+  backface-visibility: hidden;
+}
+.ks-tilt--css__zones input:nth-child(1):checked ~ .ks-tilt--css__inner {
+  transform: rotateX(8deg) rotateY(-8deg);
+}
+.ks-tilt--css__zones input:nth-child(2):checked ~ .ks-tilt--css__inner {
+  transform: rotateX(8deg) rotateY(0deg);
+}
+.ks-tilt--css__zones input:nth-child(3):checked ~ .ks-tilt--css__inner {
+  transform: rotateX(8deg) rotateY(8deg);
+}
+.ks-tilt--css__zones input:nth-child(4):checked ~ .ks-tilt--css__inner {
+  transform: rotateX(0deg) rotateY(-8deg);
+}
+.ks-tilt--css__zones input:nth-child(5):checked ~ .ks-tilt--css__inner {
+  transform: rotateX(0deg) rotateY(0deg) translateZ(var(--ks-translate-z-lift));
+}
+.ks-tilt--css__zones input:nth-child(6):checked ~ .ks-tilt--css__inner {
+  transform: rotateX(0deg) rotateY(8deg);
+}
+.ks-tilt--css__zones input:nth-child(7):checked ~ .ks-tilt--css__inner {
+  transform: rotateX(-8deg) rotateY(-8deg);
+}
+.ks-tilt--css__zones input:nth-child(8):checked ~ .ks-tilt--css__inner {
+  transform: rotateX(-8deg) rotateY(0deg);
+}
+.ks-tilt--css__zones input:nth-child(9):checked ~ .ks-tilt--css__inner {
+  transform: rotateX(-8deg) rotateY(8deg);
+}
+
+/* Flip card */
+.ks-card--flip {
+  perspective: var(--ks-perspective);
+}
+.ks-card--flip__inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  min-height: 10rem;
+}
+.ks-card--flip.is-flipped .ks-card--flip__inner,
+.ks-card--flip__trigger:checked ~ .ks-card--flip__inner {
+  transform: rotateY(180deg);
+}
+.ks-card--flip__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: inherit;
+}
+.ks-card--flip__face--back {
+  transform: rotateY(180deg);
+}
+
+/* Holo card */
+.ks-card--holo {
+  --holo-angle: 135deg;
+  perspective: var(--ks-perspective);
+}
+.ks-card--holo__inner {
+  position: relative;
+  transform-style: preserve-3d;
+  border-radius: inherit;
+  overflow: hidden;
+  transform: rotateX(var(--ks-rx, 0deg)) rotateY(var(--ks-ry, 0deg));
+  transition: transform 0.2s ease;
+}
+.ks-card--holo__inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    var(--holo-angle),
+    rgba(6, 182, 212, 0.15),
+    rgba(245, 158, 11, 0.2),
+    rgba(139, 92, 246, 0.15)
+  );
+  mix-blend-mode: color-dodge;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+.ks-card--holo__glare {
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(
+    circle at var(--ks-glare-x, 50%) var(--ks-glare-y, 50%),
+    rgba(255, 255, 255, 0.25),
+    transparent 45%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Zigzag 3D divider */
+.ks-divider--zigzag-3d {
+  --zig-size: 12px;
+  --zig-depth: 4px;
+  height: calc(var(--zig-size) * 2);
+  background: conic-gradient(
+      from 45deg at 50% 0%,
+      var(--forge-surface-2) 0 25%,
+      var(--forge-bg) 0 50%
+    )
+    0 0 / var(--zig-size) var(--zig-size);
+  -webkit-mask: repeating-linear-gradient(
+    90deg,
+    #000 0 calc(var(--zig-size) / 2),
+    transparent 0 var(--zig-size)
+  );
+  mask: repeating-linear-gradient(
+    90deg,
+    #000 0 calc(var(--zig-size) / 2),
+    transparent 0 var(--zig-size)
+  );
+  filter: drop-shadow(0 var(--zig-depth) 0 rgba(0, 0, 0, 0.35));
+}
+
+/* Volumetric display type */
+.ks-display--depth {
+  perspective: var(--ks-perspective);
+  transform-style: preserve-3d;
+}
+.ks-display--depth__text {
+  display: inline-block;
+  transform: rotateX(8deg) translateZ(var(--ks-translate-z-deep));
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.ks-display--depth.is-scroll-tilt .ks-display--depth__text {
+  transition: transform 0.3s ease;
+}
+
+/* Cube glow button */
+.ks-btn--cube {
+  perspective: 600px;
+  display: inline-block;
+}
+.ks-btn--cube__scene {
+  display: inline-grid;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--ks-rx, 0deg)) rotateY(var(--ks-ry, 0deg));
+  transition: transform 0.2s ease;
+}
+.ks-btn--cube__face {
+  grid-area: 1 / 1;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.35rem;
+  background: linear-gradient(135deg, var(--forge-cyan), var(--forge-amber));
+  color: var(--forge-bg);
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+  backface-visibility: hidden;
+}
+
+/* Volumetric switch */
+.ks-switch--volumetric {
+  position: relative;
+  width: 3.5rem;
+  height: 2rem;
+  perspective: 400px;
+}
+.ks-switch--volumetric input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+.ks-switch--volumetric__track {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--forge-surface-2);
+  box-shadow: var(--ks-tactile-shadow-recessed);
+  transform-style: preserve-3d;
+  transition: background 0.25s ease;
+}
+.ks-switch--volumetric__thumb {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--forge-text);
+  box-shadow: var(--ks-tactile-shadow-raised);
+  transform: translateZ(6px);
+  transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.ks-switch--volumetric input:checked ~ .ks-switch--volumetric__track {
+  background: var(--forge-cyan);
+}
+.ks-switch--volumetric input:checked ~ .ks-switch--volumetric__thumb {
+  transform: translateX(1.5rem) translateZ(6px);
+}
+
+/* Neumorphic switch variant */
+.ks-switch--tactile .ks-switch--volumetric__track {
+  background: var(--forge-bg);
+  box-shadow: var(--ks-tactile-shadow-recessed), 0 0 0 1px var(--forge-border);
+}
+
+/* Tactile range */
+.ks-range--tactile {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: var(--forge-surface-2);
+  box-shadow: var(--ks-tactile-shadow-recessed);
+}
+.ks-range--tactile::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--forge-cyan));
+  box-shadow: var(--ks-tactile-shadow-raised);
+  cursor: pointer;
+}
+.ks-range--tactile::-moz-range-thumb {
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--forge-cyan));
+  box-shadow: var(--ks-tactile-shadow-raised);
+  cursor: pointer;
+}
+
+/* Flip choice */
+.ks-choice--flip {
+  perspective: 500px;
+  display: inline-block;
+}
+.ks-choice--flip input {
+  position: absolute;
+  opacity: 0;
+}
+.ks-choice--flip__piece {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--forge-surface-2);
+  box-shadow: var(--ks-tactile-shadow-raised);
+  transform-style: preserve-3d;
+  transition: transform 0.45s ease;
+  cursor: pointer;
+}
+.ks-choice--flip input:checked + .ks-choice--flip__piece {
+  transform: rotateY(180deg);
+  background: var(--forge-cyan);
+}
+
+/* Holo badge */
+.ks-badge--holo {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.35rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--forge-surface-2);
+  transform: rotateX(var(--ks-rx, 0deg)) rotateY(var(--ks-ry, 0deg));
+  transition: transform 0.2s ease;
+}
+.ks-badge--holo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.2) 45%,
+    transparent 60%
+  );
+  transform: translateX(var(--ks-shimmer-x, -100%));
+}
+
+/* Inner-frame parallax */
+.ks-media--frame-parallax {
+  overflow: hidden;
+  border-radius: inherit;
+}
+.ks-media--frame-parallax__inner {
+  transform: translateZ(var(--ks-translate-z-lift))
+    scale(1.05);
+  transition: transform 0.3s ease;
+}
+.ks-media--frame-parallax:hover .ks-media--frame-parallax__inner {
+  transform: translateZ(calc(var(--ks-translate-z-lift) * 2)) scale(1.08);
+}
+
+/* Cube gallery */
+.ks-cube-gallery {
+  perspective: 900px;
+  width: min(280px, 100%);
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+.ks-cube-gallery__scene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-15deg) rotateY(var(--ks-cube-y, 0deg));
+  transition: transform 0.5s ease;
+}
+.ks-cube-gallery__face {
+  position: absolute;
+  inset: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  backface-visibility: hidden;
+}
+.ks-cube-gallery__face--front {
+  transform: translateZ(100px);
+}
+.ks-cube-gallery__face--back {
+  transform: rotateY(180deg) translateZ(100px);
+}
+.ks-cube-gallery__face--right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+.ks-cube-gallery__face--left {
+  transform: rotateY(-90deg) translateZ(100px);
+}
+.ks-cube-gallery__face--top {
+  transform: rotateX(90deg) translateZ(100px);
+}
+.ks-cube-gallery__face--bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+}
+
+/* Draggable cube */
+.ks-cube--draggable {
+  perspective: 800px;
+  touch-action: none;
+}
+.ks-cube--draggable__scene {
+  transform-style: preserve-3d;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+  position: relative;
+}
+.ks-cube--draggable__face {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--forge-surface-2);
+  border: 1px solid var(--forge-border);
+  backface-visibility: hidden;
+  transition: opacity 0.15s ease;
+}
+
+/* Tunnel ambient */
+.ks-ambient--tunnel {
+  position: relative;
+  overflow: hidden;
+  min-height: 12rem;
+  perspective: 500px;
+  background: var(--forge-bg);
+}
+.ks-ambient--tunnel__grid {
+  position: absolute;
+  inset: -50%;
+  background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 48px,
+      rgba(6, 182, 212, 0.15) 48px,
+      rgba(6, 182, 212, 0.15) 50px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 48px,
+      rgba(6, 182, 212, 0.1) 48px,
+      rgba(6, 182, 212, 0.1) 50px
+    );
+  transform: rotateX(75deg) translateZ(-100px);
+  animation: ks-tunnel-drift 8s linear infinite;
+}
+@keyframes ks-tunnel-drift {
+  from {
+    transform: rotateX(75deg) translateZ(-100px) translateY(0);
+  }
+  to {
+    transform: rotateX(75deg) translateZ(-100px) translateY(50px);
+  }
+}
+
+/* Perspective section stage */
+.ks-section--perspective-stage {
+  perspective: var(--ks-perspective);
+  padding: 2rem 0;
+}
+.ks-section--perspective-stage__layer {
+  transform: translateZ(var(--ks-translate-z-lift));
+}
+
+/* Isometric tile */
+.ks-tile--iso {
+  transform: rotateX(60deg) rotateZ(-45deg) scale(0.85);
+  transform-style: preserve-3d;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.ks-tile--iso:hover {
+  transform: rotateX(60deg) rotateZ(-45deg) scale(0.88) translateZ(8px);
+}
+
+/* Depth dial */
+@property --ks-dial-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.ks-dial--depth {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  background: conic-gradient(
+    from var(--ks-dial-angle),
+    var(--forge-cyan),
+    var(--forge-amber),
+    var(--forge-cyan)
+  );
+  box-shadow: var(--ks-tactile-shadow-recessed), inset 0 0 20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ks-dial--depth__value {
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background: var(--forge-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  transform: translateZ(12px);
+}
+
+/* Spatial rail (coverflow) */
+.fs-rail--spatial {
+  perspective: 1200px;
+  overflow: visible;
+}
+.fs-rail--spatial .fs-rail__track {
+  transform-style: preserve-3d;
+}
+.fs-rail--spatial .fs-rail__item {
+  transform: rotateY(var(--ks-rail-ry, 0deg)) translateZ(var(--ks-rail-z, 0px));
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+.fs-rail--spatial .fs-rail__item.is-center {
+  --ks-rail-z: 40px;
+  --ks-rail-ry: 0deg;
+}
+.fs-rail--spatial .fs-rail__item.is-side {
+  --ks-rail-z: 0px;
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-tilt-inner,
+  .ks-parallax-inner,
+  .ks-card--flip__inner,
+  .ks-card--holo__inner,
+  .ks-btn--cube__scene,
+  .ks-cube-gallery__scene,
+  .ks-ambient--tunnel__grid,
+  .ks-dial--depth {
+    transition: none !important;
+    animation: none !important;
+  }
+  .ks-card--flip.is-flipped .ks-card--flip__inner,
+  .ks-card--flip__trigger:checked ~ .ks-card--flip__inner {
+    transform: none;
+  }
+  .ks-card--flip__face--back {
+    display: none;
+  }
+  .ks-ambient--tunnel__grid {
+    opacity: 0.35;
+  }
+}

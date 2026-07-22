@@ -1,0 +1,30 @@
+{
+  "hash": "Mpx",
+  "slug": "media-parallax",
+  "showcase_anchor": "#sec-media-parallax",
+  "scenarios": [
+    {
+      "id": "mpx-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Mpx\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "mpx-hover-lift",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "hover",
+          "selector": "[data-ks-hash='Mpx']"
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Mpx\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

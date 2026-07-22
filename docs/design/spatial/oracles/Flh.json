@@ -1,0 +1,31 @@
+{
+  "hash": "Flh",
+  "slug": "floating-header",
+  "showcase_anchor": "#sec-floating-header",
+  "scenarios": [
+    {
+      "id": "flh-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Flh\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "flh-scroll-offset",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "scroll",
+          "selector": "[data-ks-hash='Flh']",
+          "y": 120
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Flh\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

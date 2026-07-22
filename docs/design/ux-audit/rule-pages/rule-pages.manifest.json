@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-14T14:54:48.083Z",
+  "generatedAt": "2026-07-18T11:35:04.182Z",
   "registryFingerprint": "f70362d74e30747d7bded2454fdf9df1b242105b43b77e0b677885855b32f278",
-  "registryGeneratedAt": "2026-07-14T14:54:47.124Z",
+  "registryGeneratedAt": "2026-07-18T11:35:03.509Z",
   "rulePagesDir": "docs/design/ux-audit/rule-pages",
   "showcaseHtmlDir": "ux-audit-rules",
   "summary": {
@@ -1838,7 +1838,7 @@
       "registryStatus": "implemented",
       "mdPath": "docs/design/ux-audit/rule-pages/det-py-ks-hash-attrs.md",
       "htmlPath": "ux-audit-rules/det-py-ks-hash-attrs.html",
-      "contentVersion": "4fea9c93b33a70063c408a032feeaf150d7d5599bb92857b506c0508209b3022",
+      "contentVersion": "96656606f976c0d17d0d8cd5f915642b6ed4f3c7c0cbe36664f082b5901f8a5e",
       "pageVersion": "2714cbe739f8cd59a730c408f5fd8b07d826fbff93b3ad3707bc7ff0aab86d03",
       "generatedAt": "2026-05-25T16:20:00.000Z",
       "agentModel": "composer-2.5-fast",
@@ -2018,7 +2018,7 @@
       "registryStatus": "implemented",
       "mdPath": "docs/design/ux-audit/rule-pages/det-surface-elevation-token.md",
       "htmlPath": "ux-audit-rules/det-surface-elevation-token.html",
-      "contentVersion": "b383d85465e1d4bbd1e5828308ec4ef7835019be130234e77d965746950780e6",
+      "contentVersion": "a39c374bdfa82539587f39e4416b84f3c86365c12e4e49b3583fdf82672645ae",
       "pageVersion": "dfa0e32571642394bbf6b082920b949482c55bdf097e4c8f459a64ffbb92d23b",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",

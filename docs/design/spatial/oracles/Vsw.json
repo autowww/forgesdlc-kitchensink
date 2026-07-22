@@ -1,0 +1,30 @@
+{
+  "hash": "Vsw",
+  "slug": "volumetric-switch",
+  "showcase_anchor": "#sec-volumetric-switch",
+  "scenarios": [
+    {
+      "id": "vsw-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Vsw\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "vsw-toggle-on",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "click",
+          "selector": "[data-ks-hash='Vsw'] input[type='checkbox']"
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Vsw\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

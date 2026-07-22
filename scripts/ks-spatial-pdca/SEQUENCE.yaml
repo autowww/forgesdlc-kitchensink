@@ -1,0 +1,147 @@
+# KS spatial effects PDCA — phase order and dependencies
+# Usage: consumed by pdca-orchestrate.sh and pdca-run-phase.sh
+
+waves:
+  wave-foundation:
+    phases: [S00, S01, S02]
+  wave-components:
+    phases: [S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22]
+  plan-only:
+    phases: [S00, S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22]
+
+phases:
+  S00:
+    title: Architecture spike
+    kind: foundation
+    depends_on: []
+    docs_only: false
+  S01:
+    title: Dual-wiki spike
+    kind: foundation
+    depends_on: [S00]
+    docs_only: false
+  S02:
+    title: Test harness spike
+    kind: foundation
+    depends_on: [S01]
+    docs_only: false
+  S03:
+    title: Flip / reveal card
+    kind: component
+    hash: Flp
+    slug: flip-card
+    depends_on: [S02]
+  S04:
+    title: CSS-only pointer tilt zones
+    kind: component
+    hash: Tlz
+    slug: tilt-css
+    depends_on: [S02]
+  S05:
+    title: Holographic interactive card
+    kind: component
+    hash: Hol
+    slug: holo-card
+    depends_on: [S02]
+  S06:
+    title: 3D zig-zag section divider
+    kind: component
+    hash: Zzg
+    slug: zigzag-divider
+    depends_on: [S02]
+  S07:
+    title: Volumetric display typography
+    kind: component
+    hash: Dpt
+    slug: display-depth
+    depends_on: [S02]
+  S08:
+    title: Cube-glow CTA button
+    kind: component
+    hash: Cgb
+    slug: cube-glow-button
+    depends_on: [S02]
+  S09:
+    title: Volumetric toggle switch
+    kind: component
+    hash: Vsw
+    slug: volumetric-switch
+    depends_on: [S02]
+  S10:
+    title: Tactile range slider
+    kind: component
+    hash: Rng
+    slug: tactile-range
+    depends_on: [S02]
+  S11:
+    title: Flip choice control
+    kind: component
+    hash: Fch
+    slug: flip-choice
+    depends_on: [S02]
+  S12:
+    title: Holographic badge
+    kind: component
+    hash: Hbd
+    slug: holo-badge
+    depends_on: [S02]
+  S13:
+    title: Inner-frame media parallax
+    kind: component
+    hash: Mpx
+    slug: media-parallax
+    depends_on: [S02, S00]
+  S14:
+    title: 6-face cube media gallery
+    kind: component
+    hash: Cbg
+    slug: cube-gallery
+    depends_on: [S02, S00]
+  S15:
+    title: Draggable cube + face lighting
+    kind: component
+    hash: Dcb
+    slug: draggable-cube
+    depends_on: [S02, S00]
+  S16:
+    title: Warp tunnel hero ambient
+    kind: component
+    hash: Tun
+    slug: tunnel-ambient
+    depends_on: [S02]
+  S17:
+    title: Perspective section staging
+    kind: component
+    hash: Pst
+    slug: perspective-stage
+    depends_on: [S02]
+  S18:
+    title: Isometric elevated tile
+    kind: component
+    hash: Iso
+    slug: isometric-tile
+    depends_on: [S02]
+  S19:
+    title: Scroll-linked floating headers
+    kind: component
+    hash: Flh
+    slug: floating-header
+    depends_on: [S02, S07]
+  S20:
+    title: "@property depth dial / metrics"
+    kind: component
+    hash: Dil
+    slug: depth-dial
+    depends_on: [S02]
+  S21:
+    title: Neumorphic tactile switch variant
+    kind: component
+    hash: Nsw
+    slug: neumorphic-switch
+    depends_on: [S02, S09]
+  S22:
+    title: Spatial presentation rail (coverflow)
+    kind: component
+    hash: Srl
+    slug: spatial-rail
+    depends_on: [S02, S00]

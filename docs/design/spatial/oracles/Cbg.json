@@ -1,0 +1,32 @@
+{
+  "hash": "Cbg",
+  "slug": "cube-gallery",
+  "showcase_anchor": "#sec-cube-gallery",
+  "scenarios": [
+    {
+      "id": "cbg-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cbg\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "cbg-pointer-rotate",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "mouse_move",
+          "selector": "[data-ks-hash='Cbg']",
+          "x": 0.8,
+          "y": 0.5
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cbg\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

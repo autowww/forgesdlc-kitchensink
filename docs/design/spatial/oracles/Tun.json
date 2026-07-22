@@ -1,0 +1,25 @@
+{
+  "hash": "Tun",
+  "slug": "tunnel-ambient",
+  "showcase_anchor": "#sec-tunnel",
+  "scenarios": [
+    {
+      "id": "tun-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Tun\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "tun-reduced-motion",
+      "prefers_reduced_motion": true,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Tun\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

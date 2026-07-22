@@ -52,6 +52,12 @@ jobs:
         run: node tools/design-catalog/check-visual-catalog.mjs --repo . --registry docs/design/catalog/visual-registry.yaml --showcase showcase
       - name: Design catalog negative fixture
         run: bash tools/design-catalog/verify-bad-fixture.sh
+      - name: npm ci (spatial effects verifier)
+        working-directory: tools/spatial-effects-verifier
+        run: npm ci
+      - name: Test spatial effects verifier
+        working-directory: tools/spatial-effects-verifier
+        run: npm test
       - name: Test forge-autodoc
         run: pytest forge-autodoc/tests -q
       - name: npm ci (Forge Website UX Auditor)

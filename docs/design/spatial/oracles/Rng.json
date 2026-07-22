@@ -1,0 +1,31 @@
+{
+  "hash": "Rng",
+  "slug": "tactile-range",
+  "showcase_anchor": "#sec-tactile-range",
+  "scenarios": [
+    {
+      "id": "rng-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Rng\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "rng-value-change",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "fill",
+          "selector": "[data-ks-hash='Rng']",
+          "value": "75"
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Rng\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

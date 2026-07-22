@@ -1,0 +1,43 @@
+{
+  "hash": "Flp",
+  "slug": "flip-card",
+  "showcase_anchor": "#sec-flip-card",
+  "scenarios": [
+    {
+      "id": "flp-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Flp\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "flp-reduced-motion",
+      "prefers_reduced_motion": true,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Flp\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "flp-flip-toggle",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "click",
+          "selector": "[data-ks-hash='Flp'] .ks-card--flip__trigger-label"
+        },
+        {
+          "type": "wait",
+          "ms": 300
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Flp\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

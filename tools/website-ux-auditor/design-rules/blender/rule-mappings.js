@@ -614,6 +614,15 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     priorityWeight: 8,
     sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-motion-prefers_reduced',
   },
+  'DET.SPATIAL.HASH_ROOT': {
+    modulePath: 'design-rules/deterministic/generated/det-spatial-hash-root.check.js',
+    status: 'implemented',
+    defaultSeverity: 'minor',
+    area: 'visual-catalog',
+    scoreDimension: 'visualCatalogGovernance',
+    priorityWeight: 7,
+    sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-spatial-hash_root',
+  },
   'DET.HASH.MARKERS': {
     modulePath: 'design-rules/deterministic/generated/det-hash-markers.check.js',
     status: 'implemented',

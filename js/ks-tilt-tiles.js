@@ -1,26 +1,14 @@
 /**
  * Cursor-driven perspective tilt / parallax for tiles.
+ * Uses ks-pointer-depth.js when available.
  *
- * Markup (tilt): <div class="ks-tilt-wrap" data-ks-tilt> + child .ks-tilt-inner
- * Markup (parallax alias): <div class="ks-parallax-wrap" data-ks-parallax> + child .ks-parallax-inner
- * Optional: data-ks-tilt-max / data-ks-parallax-max (degrees, default 10, cap 24).
- *
- * Skipped when prefers-reduced-motion is set or pointer is coarse.
+ * Markup: .ks-tilt-wrap[data-ks-tilt] + child .ks-tilt-inner
+ * Optional: data-ks-tilt-max (degrees, default 10, cap 24).
  */
 (function () {
   "use strict";
 
-  var mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var mqCoarse = window.matchMedia("(pointer: coarse)");
-
-  function parseMax(wrap) {
-    var v =
-      wrap.getAttribute("data-ks-parallax-max") ||
-      wrap.getAttribute("data-ks-tilt-max");
-    var n = v != null ? parseFloat(v) : 10;
-    if (!isFinite(n) || n <= 0) return 10;
-    return Math.min(n, 24);
-  }
+  var KPD = typeof window !== "undefined" ? window.KsPointerDepth : null;
 
   function findInner(wrap) {
     return (
@@ -37,16 +25,9 @@
     }
   }
 
-  function bind(wrap) {
-    if (wrap.dataset.ksTileParallaxBound) return;
-    wrap.dataset.ksTileParallaxBound = "1";
-    var inner = findInner(wrap);
-    if (!inner) return;
-
-    var maxDeg = parseMax(wrap);
-
+  function bindLegacy(wrap, inner, maxDeg) {
     function off() {
-      return mqReduce.matches || mqCoarse.matches;
+      return KPD ? KPD.disabled() : false;
     }
 
     function onMove(ev) {
@@ -54,14 +35,22 @@
       setTracking(wrap, true);
       var r = wrap.getBoundingClientRect();
       if (r.width < 1 || r.height < 1) return;
-      var mx = ((ev.clientX - r.left) / r.width - 0.5) * 2;
-      var my = ((ev.clientY - r.top) / r.height - 0.5) * 2;
-      mx = Math.max(-1, Math.min(1, mx));
-      my = Math.max(-1, Math.min(1, my));
-      var rx = -my * maxDeg;
-      var ry = mx * maxDeg;
+      var p = KPD
+        ? KPD.normalizedPointer(r, ev.clientX, ev.clientY)
+        : { mx: 0, my: 0 };
+      if (!KPD) {
+        var mx = ((ev.clientX - r.left) / r.width - 0.5) * 2;
+        var my = ((ev.clientY - r.top) / r.height - 0.5) * 2;
+        p = {
+          mx: Math.max(-1, Math.min(1, mx)),
+          my: Math.max(-1, Math.min(1, my)),
+        };
+      }
+      var t = KPD
+        ? KPD.tiltDegrees(p.mx, p.my, maxDeg)
+        : { rx: -p.my * maxDeg, ry: p.mx * maxDeg };
       inner.style.transform =
-        "rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateZ(8px)";
+        "rotateX(" + t.rx + "deg) rotateY(" + t.ry + "deg) translateZ(8px)";
     }
 
     function onLeave() {
@@ -74,8 +63,37 @@
     wrap.addEventListener("pointercancel", onLeave);
   }
 
+  function bind(wrap) {
+    if (wrap.dataset.ksTileParallaxBound) return;
+    wrap.dataset.ksTileParallaxBound = "1";
+    var inner = findInner(wrap);
+    if (!inner) return;
+
+    var maxDeg = KPD ? KPD.parseMaxDeg(wrap, 10) : 10;
+
+    if (KPD) {
+      KPD.bind(wrap, {
+        inner: inner,
+        maxDeg: maxDeg,
+        onTransform: function (transform) {
+          if (transform) setTracking(wrap, true);
+          else setTracking(wrap, false);
+        },
+      });
+      return;
+    }
+
+    bindLegacy(wrap, inner, maxDeg);
+  }
+
   function init() {
     document.querySelectorAll("[data-ks-tilt], [data-ks-parallax]").forEach(bind);
+    document
+      .querySelectorAll("[data-ks-holo], [data-ks-pointer-depth]")
+      .forEach(function (el) {
+        if (!KPD || el.dataset.ksPointerDepthBound) return;
+        KPD.bind(el, { mode: "css-vars", maxDeg: KPD.parseMaxDeg(el, 12) });
+      });
   }
 
   if (document.readyState === "loading") {

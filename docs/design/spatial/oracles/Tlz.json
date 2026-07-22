@@ -1,0 +1,30 @@
+{
+  "hash": "Tlz",
+  "slug": "tilt-css",
+  "showcase_anchor": "#sec-tilt-css",
+  "scenarios": [
+    {
+      "id": "tlz-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Tlz\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "tlz-zone-select",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "click",
+          "selector": "[data-ks-hash='Tlz'] .ks-tilt--css__zones label:nth-child(5) input"
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Tlz\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

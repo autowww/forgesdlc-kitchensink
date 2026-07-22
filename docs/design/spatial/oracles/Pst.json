@@ -1,0 +1,16 @@
+{
+  "hash": "Pst",
+  "slug": "perspective-stage",
+  "showcase_anchor": "#sec-perspective-stage",
+  "scenarios": [
+    {
+      "id": "pst-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Pst\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

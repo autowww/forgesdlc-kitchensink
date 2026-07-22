@@ -1,0 +1,16 @@
+{
+  "hash": "Zzg",
+  "slug": "zigzag-divider",
+  "showcase_anchor": "#sec-zigzag",
+  "scenarios": [
+    {
+      "id": "zzg-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Zzg\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+/**
+ * fs-rail — horizontal scroll-snap rail (cards, logos, media).
+ * Load after forge-theme / product tokens. Behavior: fs-presentation.js
+ */
+
+.fs-rail {
+  position: relative;
+  width: 100%;
+  max-width: var(--fs-shell-max, 72rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fs-rail__controls {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.fs-rail__arrow {
+  flex-shrink: 0;
+  width: 2.35rem;
+  align-self: stretch;
+  min-height: 5rem;
+  border-radius: 10px;
+  border: 1px solid var(--fs-border, rgba(15, 23, 42, 0.12));
+  background: rgba(17, 24, 39, 0.65);
+  color: var(--fs-text, #0f172a);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.fs-rail__arrow:hover {
+  border-color: rgba(6, 182, 212, 0.35);
+}
+
+.fs-rail__arrow:focus-visible {
+  outline: 2px solid var(--fs-cyan, #06b6d4);
+  outline-offset: 2px;
+}
+
+.fs-rail__arrow svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.fs-rail__viewport {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.fs-rail__scroller {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1rem;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+.fs-rail__track {
+  display: flex;
+  flex-direction: row;
+  gap: var(--fs-rail-gap, 1.25rem);
+  padding: 0.35rem 0 0.75rem;
+}
+
+.fs-rail--peek .fs-rail__item {
+  flex: 0 0 calc((100% - var(--fs-rail-gap, 0.85rem) * 2) / 2.35);
+  max-width: 22rem;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .fs-rail--peek .fs-rail__item {
+    flex: 0 0 calc((100% - var(--fs-rail-gap, 0.85rem) * 3) / 3.35);
+  }
+}
+
+/* Larger editorial peek — ~2 cards visible with sliver of the next */
+.fs-rail--peek-lg .fs-rail__item {
+  flex: 0 0 clamp(16.5rem, calc((100vw - 4.5rem) / 2.08), 30rem);
+  max-width: none;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .fs-rail--peek-lg .fs-rail__item {
+    flex: 0 0 clamp(18rem, calc((100vw - 5.5rem) / 2.12), 32rem);
+  }
+}
+
+@media (min-width: 1200px) {
+  .fs-rail--peek-lg .fs-rail__item {
+    flex: 0 0 clamp(19rem, calc((min(100vw, 1320px) - 6rem) / 2.15), 34rem);
+  }
+}
+
+.fs-rail--cards .fs-rail__item {
+  min-width: 0;
+}
+
+.fs-rail--cards .fs-rail__item > a,
+.fs-rail--cards .fs-rail__item > .forge-card {
+  height: 100%;
+}
+
+.fs-rail--logos .fs-rail__item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  min-height: 3rem;
+  opacity: 0.85;
+}
+
+.fs-rail--logos .fs-rail__item img {
+  max-height: 2rem;
+  width: auto;
+  max-width: 6rem;
+  object-fit: contain;
+  filter: grayscale(0.25);
+}
+
+/* Scroll-hints — drag/touch scroll with edge fades + decorative arrows (not controls) */
+.fs-rail--scroll-hints {
+  --fs-rail-fade-bg: var(--fs-bg, #fff);
+  max-width: none;
+}
+
+.fs-rail--scroll-hints .fs-rail__scroller {
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.fs-rail--scroll-hints .fs-rail__scroller:active {
+  cursor: grabbing;
+}
+
+.fs-rail--scroll-hints .fs-rail__scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.fs-rail--scroll-hints .fs-rail__track {
+  padding-inline: 1rem;
+  width: max-content;
+  min-width: 100%;
+}
+
+.fs-rail__zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(3.5rem, 11vw, 6.5rem);
+  z-index: 4;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+}
+
+.fs-rail__zone--prev {
+  left: 0;
+}
+
+.fs-rail__zone--next {
+  right: 0;
+}
+
+.fs-rail__zone:focus-visible {
+  outline: 2px solid var(--fs-cyan, #06b6d4);
+  outline-offset: -2px;
+}
+
+.fs-rail__zone .fs-rail__fade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.fs-rail__fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(2.5rem, 8vw, 5.5rem);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.fs-rail__fade--start {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--fs-rail-fade-bg) 0%,
+    color-mix(in srgb, var(--fs-rail-fade-bg) 72%, transparent) 55%,
+    transparent 100%
+  );
+}
+
+.fs-rail__fade--end {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--fs-rail-fade-bg) 0%,
+    color-mix(in srgb, var(--fs-rail-fade-bg) 72%, transparent) 55%,
+    transparent 100%
+  );
+}
+
+.fs-rail__hint {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  pointer-events: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--fs-text, #0f172a) 14%, transparent);
+  background: color-mix(in srgb, var(--fs-rail-fade-bg, #fff) 92%, transparent);
+  color: var(--fs-text, #0f172a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
+  opacity: 0.92;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.fs-rail__hint svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.fs-rail--at-start .fs-rail__zone--prev,
+.fs-rail--at-start .fs-rail__fade--start,
+.fs-rail--at-start .fs-rail__hint--prev {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fs-rail--at-end .fs-rail__zone--next,
+.fs-rail--at-end .fs-rail__fade--end,
+.fs-rail--at-end .fs-rail__hint--next {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 767.98px) {
+  .fs-rail__hint {
+    width: 2.5rem;
+    height: 2.5rem;
+    opacity: 0.75;
+  }
+
+  .fs-rail__hint svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}

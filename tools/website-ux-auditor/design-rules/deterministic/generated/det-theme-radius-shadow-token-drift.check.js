@@ -1,6 +1,6 @@
 // generated-by: design-rules-blender
 // rule-id: DET.THEME.RADIUS_SHADOW_TOKEN_DRIFT
-// rules-version: dc02f83c11f4f37c047db7901beabf4df2b904f963afe6eec2390a8145cc54cc
+// rules-version: 14421f098db389b21117457c9a02a143bebce5732fb6bc806cf8ea24e0df7e7c
 export const rule = {
   id: 'DET.THEME.RADIUS_SHADOW_TOKEN_DRIFT',
   lane: 'deterministic',

@@ -1,0 +1,16 @@
+{
+  "hash": "Dil",
+  "slug": "depth-dial",
+  "showcase_anchor": "#sec-depth-dial",
+  "scenarios": [
+    {
+      "id": "dil-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dil\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "hash": "Hbd",
+  "slug": "holo-badge",
+  "showcase_anchor": "#sec-holo-badge",
+  "scenarios": [
+    {
+      "id": "hbd-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Hbd\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "hbd-pointer-move",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "hover",
+          "selector": "[data-ks-hash='Hbd']"
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Hbd\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

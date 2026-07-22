@@ -1,0 +1,45 @@
+{
+  "hash": "Hol",
+  "slug": "holo-card",
+  "showcase_anchor": "#sec-holo-card",
+  "scenarios": [
+    {
+      "id": "hol-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Hol\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "hol-pointer-move",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "hover",
+          "selector": "[data-ks-hash='Hol']"
+        },
+        {
+          "type": "mouse_move",
+          "selector": "[data-ks-hash='Hol']",
+          "x": 0.7,
+          "y": 0.3
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Hol\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "hol-reduced-motion",
+      "prefers_reduced_motion": true,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Hol\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

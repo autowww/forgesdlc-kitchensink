@@ -158,6 +158,20 @@ Scoped to **KS-driven** sites (`rulesScope` `ks` / `auto` when repo or DOM detec
 | `DET.JS.NO_CONSOLE_ERROR` | Scripted interactions emit no uncaught errors on golden paths (showcase smoke). | Playwright |
 | `DET.JS.PROGRESSIVE` | Critical content visible without script; enhancements gated. | DOM with JS disabled |
 
+## Spatial / 3D primitives (`DET.SPATIAL.*`)
+
+Scoped to KS spatial showcase and pages emitting spatial hashes (`Flp`, `Hol`, `Tlz`, …).
+
+| Rule ID | Check (pass condition) | Typical evidence |
+|---------|-------------------------|------------------|
+| `DET.SPATIAL.HASH_ROOT` | Spatial hash roots on page have paired `hash` / `data-ks-hash` markers. | DOM metrics / `ksVisualHashReport` |
+| `DET.SPATIAL.ORACLE_PRESENT` | Each active spatial registry hash has `docs/design/spatial/oracles/<HASH>.json` on disk. | Repo scan (metrics phase) |
+| `DET.SPATIAL.PRESERVE_3D_SUPPORT` | `ks-spatial.css` includes `@supports not (transform-style: preserve-3d)` fallback rules. | CSS static scan |
+| `DET.SPATIAL.REDUCED_MOTION_STATIC` | Spatial rotations/parallax disabled or flattened under `prefers-reduced-motion`. | Playwright emulation + oracle scenarios |
+| `DET.SPATIAL.POINTER_COARSE_SKIP` | `ks-pointer-depth.js` / `ks-tilt-tiles.js` skip tracking when pointer is coarse. | Script guard / oracle |
+
+**Verification toolchain:** `tools/spatial-effects-verifier/` (Playwright oracles) and LCDL `ks_spatial_effect_evaluate_v1`.
+
 ## Generic website (marketing / docs / product)
 
 Scoped to **generic** sites (`rulesScope` `generic` / `auto` when not KS-driven). Route rules run at **crawl** phase; others run per page from `metrics.genericWebsitePageReport`.

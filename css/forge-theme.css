@@ -846,10 +846,10 @@ h1, h2, h3, h4, h5, h6 { color: var(--forge-text); }
   color: var(--forge-text);
 }
 
-/* Cursor-driven perspective tilt / parallax — pair with js/ks-tilt-tiles.js */
+/* Cursor-driven perspective tilt — extended in ks-spatial.css; pair with ks-pointer-depth.js + ks-tilt-tiles.js */
 .ks-tilt-wrap,
 .ks-parallax-wrap {
-  perspective: 1100px;
+  perspective: var(--ks-perspective, 1100px);
   perspective-origin: center center;
 }
 .ks-tilt-inner,

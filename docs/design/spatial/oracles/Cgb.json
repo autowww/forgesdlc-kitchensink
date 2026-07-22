@@ -1,0 +1,30 @@
+{
+  "hash": "Cgb",
+  "slug": "cube-glow-button",
+  "showcase_anchor": "#sec-cube-btn",
+  "scenarios": [
+    {
+      "id": "cgb-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cgb\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "cgb-pointer-hover",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "hover",
+          "selector": "[data-ks-hash='Cgb']"
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cgb\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

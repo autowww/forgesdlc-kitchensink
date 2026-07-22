@@ -40,6 +40,10 @@ Bulleted structure from outer root through major regions; mention landmark roles
 
 Default, interactive, empty, loading, error, reduced-motion—only what applies.
 
+## Spatial behavior
+
+For 3D / pointer-driven surfaces: document pointer, keyboard, `prefers-reduced-motion`, coarse-pointer, and `@supports (transform-style: preserve-3d)` fallback. List oracle scenario IDs from `docs/design/spatial/oracles/<HASH>.json` that must pass in Playwright verification.
+
 ## Variants
 
 Authorized visual or density variants; when to select each.

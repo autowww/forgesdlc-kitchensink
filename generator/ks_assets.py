@@ -107,7 +107,14 @@ def sync_product_site_assets(
     else:
         warnings.append("fs-presentation.js missing — presentation carousels/rails will not run")
 
-    for site_js in ("fs-nav-dropdown.js", "fs-home-expand-tiles.js", "ks-tilt-tiles.js"):
+    for site_js in (
+        "fs-nav-dropdown.js",
+        "fs-home-expand-tiles.js",
+        "ks-pointer-depth.js",
+        "ks-tilt-tiles.js",
+        "ks-spatial-cube.js",
+        "ks-spatial-rail.js",
+    ):
         p = kitchensink_root / "js" / site_js
         if p.is_file():
             shutil.copy2(p, dest_assets / site_js)
@@ -127,12 +134,12 @@ def sync_product_site_assets(
         else:
             warnings.append(f"{lb} missing — living background motion may not run")
 
-    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css"):
+    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css", "ks-spatial.css"):
         p = kitchensink_root / "css" / lb_css
         if p.is_file():
             shutil.copy2(p, dest_assets / lb_css)
         else:
-            warnings.append(f"{lb_css} missing — living background styles incomplete")
+            warnings.append(f"{lb_css} missing — living background / spatial styles incomplete")
 
     nrm_css = kitchensink_root / "css" / "nested-roadmap.css"
     if nrm_css.is_file():
@@ -188,10 +195,20 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
         if p.is_file():
             shutil.copy2(p, dest_assets / lb)
 
-    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css"):
+    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css", "ks-spatial.css"):
         p = kitchensink_root / "css" / lb_css
         if p.is_file():
             shutil.copy2(p, dest_assets / lb_css)
+
+    for spatial_js in (
+        "ks-pointer-depth.js",
+        "ks-tilt-tiles.js",
+        "ks-spatial-cube.js",
+        "ks-spatial-rail.js",
+    ):
+        src = ks_js / spatial_js
+        if src.is_file():
+            shutil.copy2(src, dest_assets / spatial_js)
 
     for fa_css in ("forge-ambient.css", "forge-ambient-themes.css"):
         p = kitchensink_root / "css" / fa_css

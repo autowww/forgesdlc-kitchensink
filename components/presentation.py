@@ -17,8 +17,37 @@ PreviewMode = Literal["none", "link", "topic-preview", "lightbox"]
 StageVariant = Literal["hero", "gallery", "testimonial"]
 RailVariant = Literal["cards", "logos", "media"]
 LogoMode = Literal["grid", "rail", "marquee"]
-Align = Literal["start", "center"]
+PeekSize = Literal["default", "lg"]
 
+
+def _rail_hint_svg(direction: Literal["prev", "next"]) -> str:
+    if direction == "prev":
+        d = "M15 18l-6-6 6-6"
+    else:
+        d = "M9 18l6-6-6-6"
+    return (
+        f'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+        f'<path d="{d}" fill="none" stroke="currentColor" stroke-width="2" '
+        'stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    )
+
+
+def _rail_scroll_hints_chrome() -> str:
+    prev = (
+        '<button type="button" class="fs-rail__zone fs-rail__zone--prev" '
+        'aria-label="Show previous items">'
+        '<span class="fs-rail__fade fs-rail__fade--start" aria-hidden="true"></span>'
+        f'<span class="fs-rail__hint fs-rail__hint--prev" aria-hidden="true">{_rail_hint_svg("prev")}</span>'
+        "</button>"
+    )
+    nxt = (
+        '<button type="button" class="fs-rail__zone fs-rail__zone--next" '
+        'aria-label="Show next items">'
+        '<span class="fs-rail__fade fs-rail__fade--end" aria-hidden="true"></span>'
+        f'<span class="fs-rail__hint fs-rail__hint--next" aria-hidden="true">{_rail_hint_svg("next")}</span>'
+        "</button>"
+    )
+    return prev + nxt
 
 @dataclass
 class StageSlide:
@@ -301,6 +330,8 @@ def render_card_rail(
     rail_id: str = "fs-card-rail",
     show_arrows: bool = True,
     peek: bool = True,
+    peek_size: PeekSize = "default",
+    scroll_hints: bool = False,
     rail_wheel: bool = False,
 ) -> str:
     """Horizontal card scroller (``fs-rail--cards``)."""
@@ -309,6 +340,8 @@ def render_card_rail(
         variant="cards",
         show_arrows=show_arrows,
         peek=peek,
+        peek_size=peek_size,
+        scroll_hints=scroll_hints,
         rail_wheel=rail_wheel,
         rail_id=rail_id,
     )
@@ -320,6 +353,8 @@ def render_rail(
     variant: RailVariant = "cards",
     show_arrows: bool = True,
     peek: bool = True,
+    peek_size: PeekSize = "default",
+    scroll_hints: bool = False,
     rail_wheel: bool = False,
     rail_id: str = "fs-rail",
 ) -> str:
@@ -327,7 +362,8 @@ def render_rail(
     if not items:
         return ""
     rid = rail_id.replace(" ", "-")
-    peek_c = "fs-rail--peek" if peek else ""
+    peek_mod = "fs-rail--peek-lg" if peek_size == "lg" else ("fs-rail--peek" if peek else "")
+    hints_mod = "fs-rail--scroll-hints" if scroll_hints else ""
     mod = f"fs-rail--{variant}"
     cells = []
     for it in items:
@@ -346,16 +382,28 @@ def render_rail(
             )
     inner = "".join(cells)
     wheel = "true" if rail_wheel else "false"
-    arrows = "true" if show_arrows else "false"
+    arrows = "false" if scroll_hints else ("true" if show_arrows else "false")
+    hints = "true" if scroll_hints else "false"
+    track = f'<div class="fs-rail__track">{inner}</div>'
+    scroller = f'<div class="fs-rail__scroller">{track}</div>'
+    if scroll_hints:
+        body = (
+            '<div class="fs-rail__viewport">'
+            f"{_rail_scroll_hints_chrome()}{scroller}"
+            "</div>"
+        )
+    else:
+        body = (
+            '<div class="fs-rail__controls">'
+            '<button type="button" class="fs-rail__arrow fs-rail__arrow--prev" aria-label="Scroll left"></button>'
+            f"{scroller}"
+            '<button type="button" class="fs-rail__arrow fs-rail__arrow--next" aria-label="Scroll right"></button>'
+            "</div>"
+        )
     return (
-        f'<div class="fs-rail {mod} {peek_c}" id="{e(rid)}" data-fs-rail '
-        f'data-fs-rail-arrows="{arrows}" data-fs-rail-wheel="{wheel}">'
-        '<div class="fs-rail__controls">'
-        '<button type="button" class="fs-rail__arrow fs-rail__arrow--prev" aria-label="Scroll left"></button>'
-        '<div class="fs-rail__scroller"><div class="fs-rail__track">'
-        f"{inner}</div></div>"
-        '<button type="button" class="fs-rail__arrow fs-rail__arrow--next" aria-label="Scroll right"></button>'
-        "</div></div>"
+        f'<div class="fs-rail {mod} {peek_mod} {hints_mod}" id="{e(rid)}" data-fs-rail '
+        f'data-fs-rail-arrows="{arrows}" data-fs-rail-hints="{hints}" data-fs-rail-wheel="{wheel}">'
+        f"{body}</div>"
     )
 
 

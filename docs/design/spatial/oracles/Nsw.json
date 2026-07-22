@@ -1,0 +1,30 @@
+{
+  "hash": "Nsw",
+  "slug": "neumorphic-switch",
+  "showcase_anchor": "#sec-neumorphic-switch",
+  "scenarios": [
+    {
+      "id": "nsw-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Nsw\"]",
+        "threshold": 1.0
+      }
+    },
+    {
+      "id": "nsw-toggle-on",
+      "prefers_reduced_motion": false,
+      "actions": [
+        {
+          "type": "click",
+          "selector": "[data-ks-hash='Nsw'] input[type='checkbox']"
+        }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Nsw\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

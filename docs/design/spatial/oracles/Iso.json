@@ -1,0 +1,16 @@
+{
+  "hash": "Iso",
+  "slug": "isometric-tile",
+  "showcase_anchor": "#sec-iso-tile",
+  "scenarios": [
+    {
+      "id": "iso-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Iso\"]",
+        "threshold": 1.0
+      }
+    }
+  ]
+}

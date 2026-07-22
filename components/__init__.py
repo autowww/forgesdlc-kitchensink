@@ -28,6 +28,13 @@ try:
         render_mega_footer,
         render_tab_panel,
     )
+    from .consumer_marketing import (  # noqa: F401
+        render_alternating_feature_row,
+        render_alternating_features_section,
+        render_centered_display_hero,
+        render_media_showcase_grid,
+        render_steps_band,
+    )
 except ImportError:
     from components import *  # noqa: F401,F403
     from marketing_sections import (  # noqa: F401
@@ -63,6 +70,16 @@ except ImportError:
             render_listing_shell,
             render_mega_footer,
             render_tab_panel,
+        )
+    except ImportError:
+        pass
+    try:
+        from consumer_marketing import (  # noqa: F401
+            render_alternating_feature_row,
+            render_alternating_features_section,
+            render_centered_display_hero,
+            render_media_showcase_grid,
+            render_steps_band,
         )
     except ImportError:
         pass

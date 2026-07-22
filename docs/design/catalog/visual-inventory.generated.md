@@ -1,17 +1,17 @@
 # Visual inventory (generated)
 
-- Generated: 2026-07-06
-- Total items: 853
+- Generated: 2026-07-22
+- Total items: 955
 
 ## By type
-- **design-terminology:** 542
+- **design-terminology:** 596
+- **component:** 85
 - **diagram-or-asset:** 82
-- **component:** 60
-- **generated-showcase-page:** 35
-- **page-instance:** 27
-- **visual-style:** 23
+- **generated-showcase-page:** 39
+- **page-instance:** 31
+- **visual-style:** 30
+- **interaction-module:** 28
 - **museum-surface-asset:** 23
-- **interaction-module:** 20
 - **primitive:** 10
 - **layout:** 9
 - **layout-preview:** 7
@@ -40,9 +40,11 @@
 - [chrome-region] `components/layouts.py` — Chrome region: product-primary-nav
 - [page-instance] `generator/pages/a11y_audit_ecosystem.py` — Showcase page: a11y-audit-ecosystem
 - [page-instance] `generator/pages/a11y_audit_rules.py` — Showcase page: a11y-audit-rules
+- [page-instance] `generator/pages/consumer_marketing.py` — Showcase page: consumer-marketing
 - [page-instance] `generator/pages/controls.py` — Showcase page: controls
 - [page-instance] `generator/pages/data_charts_api.py` — Showcase page: data-charts-api
 - [page-instance] `generator/pages/data_charts_static.py` — Showcase page: data-charts-static
+- [page-instance] `generator/pages/data_tables.py` — Showcase page: data-tables
 - [page-instance] `generator/pages/diagram_code_examples.py` — Showcase page: diagram-code-examples
 - [page-instance] `generator/pages/diagrams.py` — Showcase page: diagrams
 - [page-instance] `generator/pages/enterprise_marketing.py` — Showcase page: enterprise-marketing
@@ -58,6 +60,8 @@
 - [page-instance] `generator/pages/nested_roadmap.py` — Showcase page: nested-roadmap
 - [page-instance] `generator/pages/presentation.py` — Showcase page: presentation
 - [page-instance] `generator/pages/react_primitives_live.py` — Showcase page: react-primitives-live
+- [page-instance] `generator/pages/section_swimlanes.py` — Showcase page: section-swimlanes
+- [page-instance] `generator/pages/spatial-effects.py` — Showcase page: spatial-effects
 - [page-instance] `generator/pages/split_layout_demo.py` — Showcase page: split-layout
 - [page-instance] `generator/pages/surfaces.py` — Showcase page: surfaces
 - [page-instance] `generator/pages/svg_backgrounds.py` — Showcase page: svg-backgrounds
@@ -109,6 +113,11 @@
 - [component] `components/components.py` — components/components.py:render_product_footer
 - [component] `components/components.py` — components/components.py:render_topic_preview_trigger
 - [component] `components/components.py` — components/components.py:render_ks_chart_mount
+- [component] `components/consumer_marketing.py` — components/consumer_marketing.py:render_centered_display_hero
+- [component] `components/consumer_marketing.py` — components/consumer_marketing.py:render_steps_band
+- [component] `components/consumer_marketing.py` — components/consumer_marketing.py:render_alternating_feature_row
+- [component] `components/consumer_marketing.py` — components/consumer_marketing.py:render_alternating_features_section
+- [component] `components/consumer_marketing.py` — components/consumer_marketing.py:render_media_showcase_grid
 - [component] `components/diagram_modal_fragment.py` — components/diagram_modal_fragment.py:render_diagram_expand_modal_html
 - [component] `components/enterprise_marketing.py` — components/enterprise_marketing.py:render_mega_footer
 - [component] `components/enterprise_marketing.py` — components/enterprise_marketing.py:render_tab_panel
@@ -131,6 +140,26 @@
 - [component] `components/presentation.py` — components/presentation.py:render_gallery_carousel
 - [component] `components/presentation.py` — components/presentation.py:render_testimonial_slider
 - [component] `components/roadmap_date_editor.py` — components/roadmap_date_editor.py:render_roadmap_date_editor
+- [component] `components/spatial.py` — components/spatial.py:render_flip_card
+- [component] `components/spatial.py` — components/spatial.py:render_tilt_css_card
+- [component] `components/spatial.py` — components/spatial.py:render_holo_card
+- [component] `components/spatial.py` — components/spatial.py:render_zigzag_divider
+- [component] `components/spatial.py` — components/spatial.py:render_display_depth
+- [component] `components/spatial.py` — components/spatial.py:render_cube_glow_button
+- [component] `components/spatial.py` — components/spatial.py:render_volumetric_switch
+- [component] `components/spatial.py` — components/spatial.py:render_tactile_range
+- [component] `components/spatial.py` — components/spatial.py:render_flip_choice
+- [component] `components/spatial.py` — components/spatial.py:render_holo_badge
+- [component] `components/spatial.py` — components/spatial.py:render_media_frame_parallax
+- [component] `components/spatial.py` — components/spatial.py:render_cube_gallery
+- [component] `components/spatial.py` — components/spatial.py:render_draggable_cube
+- [component] `components/spatial.py` — components/spatial.py:render_tunnel_ambient
+- [component] `components/spatial.py` — components/spatial.py:render_perspective_stage
+- [component] `components/spatial.py` — components/spatial.py:render_iso_tile
+- [component] `components/spatial.py` — components/spatial.py:render_floating_header
+- [component] `components/spatial.py` — components/spatial.py:render_depth_dial
+- [component] `components/spatial.py` — components/spatial.py:render_spatial_rail
+- [component] `components/spatial.py` — components/spatial.py:render_spatial_rail_item
 - [component] `components/transforms.py` — components/transforms.py:render_ascii_diagram_fence
 - [python-component-anchor] `components/diagram_catalog.py` — Python components module (helpers-only): components/diagram_catalog.py
 - [python-component-anchor] `components/diagram_flow.py` — Python components module (helpers-only): components/diagram_flow.py
@@ -151,20 +180,27 @@
 - [visual-style] `css/docs-theme.css` — css/docs-theme.css
 - [visual-style] `css/forge-ambient-themes.css` — css/forge-ambient-themes.css
 - [visual-style] `css/forge-ambient.css` — css/forge-ambient.css
+- [visual-style] `css/forge-capablio-app-shell.css` — css/forge-capablio-app-shell.css
+- [visual-style] `css/forge-capablio-console.css` — css/forge-capablio-console.css
 - [visual-style] `css/forge-data-charts.css` — css/forge-data-charts.css
+- [visual-style] `css/forge-data-table.css` — css/forge-data-table.css
 - [visual-style] `css/forge-fleet-admin.css` — css/forge-fleet-admin.css
 - [visual-style] `css/forge-light-theme.css` — css/forge-light-theme.css
 - [visual-style] `css/forge-react-primitives.css` — css/forge-react-primitives.css
 - [visual-style] `css/forge-theme.css` — css/forge-theme.css
+- [visual-style] `css/forgesdlc-pack-consumer.css` — css/forgesdlc-pack-consumer.css
 - [visual-style] `css/forgesdlc-pack-contrast.css` — css/forgesdlc-pack-contrast.css
 - [visual-style] `css/forgesdlc-pack-enterprise.css` — css/forgesdlc-pack-enterprise.css
 - [visual-style] `css/forgesdlc-pack-focus.css` — css/forgesdlc-pack-focus.css
 - [visual-style] `css/forgesdlc-pack-minimal.css` — css/forgesdlc-pack-minimal.css
 - [visual-style] `css/forgesdlc-pack-showcase.css` — css/forgesdlc-pack-showcase.css
 - [visual-style] `css/forgesdlc-theme.css` — css/forgesdlc-theme.css
+- [visual-style] `css/fs-rail.css` — css/fs-rail.css
+- [visual-style] `css/fs-section-swimlanes.css` — css/fs-section-swimlanes.css
 - [visual-style] `css/fs-sticker-board.css` — css/fs-sticker-board.css
 - [visual-style] `css/ks-animated-backgrounds.css` — css/ks-animated-backgrounds.css
 - [visual-style] `css/ks-living-background.css` — css/ks-living-background.css
+- [visual-style] `css/ks-spatial.css` — css/ks-spatial.css
 - [visual-style] `css/nested-roadmap.css` — css/nested-roadmap.css
 - [visual-style] `css/script-assembly.css` — css/script-assembly.css
 - [visual-style] `css/svg-background-gallery.css` — css/svg-background-gallery.css
@@ -181,11 +217,19 @@
 - [interaction-module] `js/fs-nav-dropdown.js` — js/fs-nav-dropdown.js
 - [interaction-module] `js/fs-presentation.js` — js/fs-presentation.js
 - [interaction-module] `js/ks-animated-backgrounds.js` — js/ks-animated-backgrounds.js
+- [interaction-module] `js/ks-data-table.js` — js/ks-data-table.js
 - [interaction-module] `js/ks-diagram-catalog.js` — js/ks-diagram-catalog.js
 - [interaction-module] `js/ks-diagram-modal.js` — js/ks-diagram-modal.js
 - [interaction-module] `js/ks-diagram-view-toggle.js` — js/ks-diagram-view-toggle.js
+- [interaction-module] `js/ks-filter-toolbar.js` — js/ks-filter-toolbar.js
 - [interaction-module] `js/ks-living-motion.js` — js/ks-living-motion.js
+- [interaction-module] `js/ks-org-tree-table.js` — js/ks-org-tree-table.js
+- [interaction-module] `js/ks-pointer-depth.js` — js/ks-pointer-depth.js
+- [interaction-module] `js/ks-section-swimlanes.js` — js/ks-section-swimlanes.js
+- [interaction-module] `js/ks-spatial-cube.js` — js/ks-spatial-cube.js
+- [interaction-module] `js/ks-spatial-rail.js` — js/ks-spatial-rail.js
 - [interaction-module] `js/ks-tilt-tiles.js` — js/ks-tilt-tiles.js
+- [interaction-module] `js/ks-tree-combobox.js` — js/ks-tree-combobox.js
 - [interaction-module] `js/nested-roadmap.js` — js/nested-roadmap.js
 - [interaction-module] `js/portal-nav.js` — js/portal-nav.js
 - [interaction-module] `js/roadmap-dates.js` — js/roadmap-dates.js
@@ -479,65 +523,21 @@
 - [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/4.1.2-name-role-value.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/4.1.2-name-role-value.md
 - [design-terminology] `docs/design/a11y-audit/wcag/2.1/sc/4.1.3-status-messages.md` — Design doc docs/design/a11y-audit/wcag/2.1/sc/4.1.3-status-messages.md
 - [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.1.1-non-text-content.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.1.1-non-text-content.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.1-audio-only-and-video-only-prerecorded.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.2-captions-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.2-captions-prerecorded.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.3-audio-description-or-media-alternative-prerecorded.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.4-captions-live.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.4-captions-live.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.2.5-audio-description-prerecorded.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.2.5-audio-description-prerecorded.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.1-info-and-relationships.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.1-info-and-relationships.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.2-meaningful-sequence.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.2-meaningful-sequence.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.3-sensory-characteristics.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.3-sensory-characteristics.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.4-orientation.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.4-orientation.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.3.5-identify-input-purpose.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.3.5-identify-input-purpose.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.1-use-of-color.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.1-use-of-color.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.10-reflow.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.10-reflow.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.11-non-text-contrast.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.11-non-text-contrast.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.12-text-spacing.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.12-text-spacing.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.13-content-on-hover-or-focus.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.13-content-on-hover-or-focus.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.2-audio-control.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.2-audio-control.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.3-contrast-minimum.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.3-contrast-minimum.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.4-resize-text.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.4-resize-text.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/1.4.5-images-of-text.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/1.4.5-images-of-text.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.1.1-keyboard.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.1.1-keyboard.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.1.2-no-keyboard-trap.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.1.2-no-keyboard-trap.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.1.4-character-key-shortcuts.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.1.4-character-key-shortcuts.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.2.1-timing-adjustable.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.2.1-timing-adjustable.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.2.2-pause-stop-hide.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.2.2-pause-stop-hide.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.3.1-three-flashes-or-below-threshold.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.3.1-three-flashes-or-below-threshold.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.1-bypass-blocks.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.1-bypass-blocks.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.11-focus-not-obscured-minimum.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.11-focus-not-obscured-minimum.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.2-page-titled.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.2-page-titled.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.3-focus-order.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.3-focus-order.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.4-link-purpose-in-context.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.4-link-purpose-in-context.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.5-multiple-ways.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.5-multiple-ways.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.6-headings-and-labels.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.6-headings-and-labels.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.4.7-focus-visible.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.4.7-focus-visible.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.1-pointer-gestures.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.1-pointer-gestures.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.2-pointer-cancellation.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.2-pointer-cancellation.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.3-label-in-name.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.3-label-in-name.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.4-motion-actuation.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.4-motion-actuation.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.7-dragging-movements.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.7-dragging-movements.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/2.5.8-target-size-minimum.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/2.5.8-target-size-minimum.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.1.1-language-of-page.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.1.1-language-of-page.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.1.2-language-of-parts.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.1.2-language-of-parts.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.2.1-on-focus.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.2.1-on-focus.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.2.2-on-input.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.2.2-on-input.md
-- [design-terminology] `docs/design/a11y-audit/wcag/2.2/sc/3.2.3-consistent-navigation.md` — Design doc docs/design/a11y-audit/wcag/2.2/sc/3.2.3-consistent-navigation.md
 
-… 353 more rows in JSON …
+… 455 more rows in JSON …
 
 ## Catalog crosswalk (registry JSON + showcase scan)
 
-- Registry rows: 3 (active: 3)
-- Distinct hashes in registry: 3
-- Distinct hashes in showcase HTML/JS scan: 44
+- Registry rows: 102 (active: 102)
+- Distinct hashes in registry: 102
+- Distinct hashes in showcase HTML/JS scan: 101
 - Emit-marker gaps (expected in showcase, not seen in scan): 0
 - Contract path missing on disk: 0
 - Contracts with TBD/TODO/FIXME (non-strict): 0
-- Screenshot PNGs present (catalog dir): 0 / 3
-- Screenshot PNGs present (showcase dir): 0 / 3
-- Registry expects PNG but neither path exists: 0
-- `family-covered` rows: 1
-- Parent rows listing children: 0
-- Broad-family candidates (medium+ risk): 0
+- Screenshot PNGs present (catalog dir): 48 / 102
+- Screenshot PNGs present (showcase dir): 0 / 102
+- Registry expects PNG but neither path exists: 11
+- `family-covered` rows: 37
+- Parent rows listing children: 8
+- Broad-family candidates (medium+ risk): 5
 
