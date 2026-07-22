@@ -9,7 +9,7 @@
       "actions": [],
       "expect": {
         "root_selector": "[data-ks-hash=\"Mpx\"]",
-        "threshold": 1.0
+        "threshold": 1
       }
     },
     {
@@ -23,8 +23,9 @@
       ],
       "expect": {
         "root_selector": "[data-ks-hash=\"Mpx\"]",
-        "threshold": 1.0
+        "threshold": 1
       }
     }
-  ]
+  ],
+  "showcase_page": "spatial-surfaces.html"
 }

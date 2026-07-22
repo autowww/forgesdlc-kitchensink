@@ -1,0 +1,17 @@
+{
+  "hash": "Fcs",
+  "slug": "filter-chip-scroller",
+  "showcase_page": "controls.html",
+  "showcase_anchor": "#sec-filter-chip-scroller",
+  "scenarios": [
+    {
+      "id": "fcs-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Fcs\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

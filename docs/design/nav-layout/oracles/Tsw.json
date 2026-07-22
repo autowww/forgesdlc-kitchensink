@@ -1,0 +1,17 @@
+{
+  "hash": "Tsw",
+  "slug": "tab-swimlane-sync",
+  "showcase_page": "navigation.html",
+  "showcase_anchor": "#sec-tab-swimlane-sync",
+  "scenarios": [
+    {
+      "id": "tss-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Tsw\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

@@ -85,31 +85,41 @@
   transition: transform 0.35s ease;
   backface-visibility: hidden;
 }
-.ks-tilt--css__zones input:nth-child(1):checked ~ .ks-tilt--css__inner {
+/* :has() — inner is not a sibling of zone inputs (they sit inside labels). */
+.ks-tilt--css:has(.ks-tilt--css__zones label:nth-child(1) input:checked)
+  .ks-tilt--css__inner {
   transform: rotateX(8deg) rotateY(-8deg);
 }
-.ks-tilt--css__zones input:nth-child(2):checked ~ .ks-tilt--css__inner {
+.ks-tilt--css:has(.ks-tilt--css__zones label:nth-child(2) input:checked)
+  .ks-tilt--css__inner {
   transform: rotateX(8deg) rotateY(0deg);
 }
-.ks-tilt--css__zones input:nth-child(3):checked ~ .ks-tilt--css__inner {
+.ks-tilt--css:has(.ks-tilt--css__zones label:nth-child(3) input:checked)
+  .ks-tilt--css__inner {
   transform: rotateX(8deg) rotateY(8deg);
 }
-.ks-tilt--css__zones input:nth-child(4):checked ~ .ks-tilt--css__inner {
+.ks-tilt--css:has(.ks-tilt--css__zones label:nth-child(4) input:checked)
+  .ks-tilt--css__inner {
   transform: rotateX(0deg) rotateY(-8deg);
 }
-.ks-tilt--css__zones input:nth-child(5):checked ~ .ks-tilt--css__inner {
+.ks-tilt--css:has(.ks-tilt--css__zones label:nth-child(5) input:checked)
+  .ks-tilt--css__inner {
   transform: rotateX(0deg) rotateY(0deg) translateZ(var(--ks-translate-z-lift));
 }
-.ks-tilt--css__zones input:nth-child(6):checked ~ .ks-tilt--css__inner {
+.ks-tilt--css:has(.ks-tilt--css__zones label:nth-child(6) input:checked)
+  .ks-tilt--css__inner {
   transform: rotateX(0deg) rotateY(8deg);
 }
-.ks-tilt--css__zones input:nth-child(7):checked ~ .ks-tilt--css__inner {
+.ks-tilt--css:has(.ks-tilt--css__zones label:nth-child(7) input:checked)
+  .ks-tilt--css__inner {
   transform: rotateX(-8deg) rotateY(-8deg);
 }
-.ks-tilt--css__zones input:nth-child(8):checked ~ .ks-tilt--css__inner {
+.ks-tilt--css:has(.ks-tilt--css__zones label:nth-child(8) input:checked)
+  .ks-tilt--css__inner {
   transform: rotateX(-8deg) rotateY(0deg);
 }
-.ks-tilt--css__zones input:nth-child(9):checked ~ .ks-tilt--css__inner {
+.ks-tilt--css:has(.ks-tilt--css__zones label:nth-child(9) input:checked)
+  .ks-tilt--css__inner {
   transform: rotateX(-8deg) rotateY(8deg);
 }
 
@@ -214,6 +224,7 @@
   font-weight: 800;
   letter-spacing: -0.03em;
 }
+.ks-display--depth--float .ks-display--depth__text,
 .ks-display--depth.is-scroll-tilt .ks-display--depth__text {
   transition: transform 0.3s ease;
 }
@@ -323,10 +334,18 @@
 .ks-choice--flip {
   perspective: 500px;
   display: inline-block;
+  position: relative;
+  cursor: pointer;
 }
 .ks-choice--flip input {
   position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   opacity: 0;
+  z-index: 2;
+  cursor: pointer;
 }
 .ks-choice--flip__piece {
   display: block;
@@ -337,7 +356,7 @@
   box-shadow: var(--ks-tactile-shadow-raised);
   transform-style: preserve-3d;
   transition: transform 0.45s ease;
-  cursor: pointer;
+  pointer-events: none;
 }
 .ks-choice--flip input:checked + .ks-choice--flip__piece {
   transform: rotateY(180deg);
@@ -372,6 +391,11 @@
 .ks-media--frame-parallax {
   overflow: hidden;
   border-radius: inherit;
+  perspective: var(--ks-perspective);
+  transform-style: preserve-3d;
+}
+.ks-media--frame-parallax__inner {
+  transform-style: preserve-3d;
 }
 .ks-media--frame-parallax__inner {
   transform: translateZ(var(--ks-translate-z-lift))
@@ -491,10 +515,12 @@
 /* Perspective section stage */
 .ks-section--perspective-stage {
   perspective: var(--ks-perspective);
+  transform-style: preserve-3d;
   padding: 2rem 0;
 }
 .ks-section--perspective-stage__layer {
   transform: translateZ(var(--ks-translate-z-lift));
+  transform-style: preserve-3d;
 }
 
 /* Isometric tile */
@@ -544,7 +570,12 @@
 /* Spatial rail (coverflow) */
 .fs-rail--spatial {
   perspective: 1200px;
-  overflow: visible;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x proximity;
+}
+.fs-rail--spatial .fs-rail__item {
+  scroll-snap-align: center;
 }
 .fs-rail--spatial .fs-rail__track {
   transform-style: preserve-3d;

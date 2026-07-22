@@ -1,0 +1,17 @@
+{
+  "hash": "Pgt",
+  "slug": "pagination-tactile",
+  "showcase_page": "controls.html",
+  "showcase_anchor": "#sec-pagination-tactile",
+  "scenarios": [
+    {
+      "id": "pgt-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Pgt\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

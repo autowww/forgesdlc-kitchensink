@@ -1,0 +1,17 @@
+{
+  "hash": "Bdt",
+  "slug": "breadcrumb-depth",
+  "showcase_page": "navigation.html",
+  "showcase_anchor": "#sec-breadcrumb-depth",
+  "scenarios": [
+    {
+      "id": "bdt-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Bdt\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

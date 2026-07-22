@@ -1,0 +1,17 @@
+{
+  "hash": "Ssd",
+  "slug": "sticky-section-dock",
+  "showcase_page": "navigation.html",
+  "showcase_anchor": "#sec-sticky-section-dock",
+  "scenarios": [
+    {
+      "id": "ssd-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Ssd\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

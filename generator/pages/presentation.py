@@ -8,6 +8,7 @@ from marketing_sections import (
     render_marketing_stat_band,
     render_people_showcase,
 )
+from nav_layout import render_editorial_peek_rail, render_editorial_peek_rail_item
 from presentation import (
     LogoItem,
     RailItem,
@@ -41,16 +42,20 @@ PAGE = {
         ("sec-testimonial", "fs-testimonial-slider"),
         ("sec-actions", "Slide actions · link, preview, lightbox"),
         ("sec-marketing-sections", "Marketing sections · stat band, case study, people"),
+        ("sec-editorial-peek-rail", "Editorial peek rail"),
     ],
 }
 
 
 def extra_css() -> str:
-    return '  <link rel="stylesheet" href="assets/forgesdlc-theme.css" />\n'
+    return (
+        '  <link rel="stylesheet" href="assets/forgesdlc-theme.css" />\n'
+        '  <link rel="stylesheet" href="assets/ks-nav-layout.css" />\n'
+    )
 
 
 def extra_js_paths() -> list[str]:
-    return ["assets/fs-presentation.js"]
+    return ["assets/fs-presentation.js", "assets/ks-peek-rail.js"]
 
 
 def _img(name: str) -> str:
@@ -460,5 +465,22 @@ def render() -> str:
   {case_study_demo}
   <p class="section-label text-cyan mb-2 mt-4"><code>render_people_showcase</code></p>
   {people_demo}
+</section>
+
+<section id="sec-editorial-peek-rail" class="ks-section">
+  <h2 class="ks-section-title">Editorial peek rail</h2>
+  <p class="forge-support mb-3">Peek rail with keyboard arrow scroll controls.</p>
+  {render_editorial_peek_rail("".join(
+      render_editorial_peek_rail_item(
+          f'<div class="forge-card p-3"><span class="card-label">Story {i}</span>'
+          f'<p class="mb-0 forge-support">Editorial card {i}</p></div>'
+      )
+      for i in range(1, 7)
+  ))}
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">Expected behavior</p>
+    <p class="mb-1"><code>ks-editorial-peek-rail</code></p>
+    <p class="mb-0 forge-support">Arrow buttons and keyboard scroll the peek rail.</p>
+  </div>
 </section>
 """

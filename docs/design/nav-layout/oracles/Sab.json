@@ -1,0 +1,17 @@
+{
+  "hash": "Sab",
+  "slug": "sticky-action-bar",
+  "showcase_page": "controls.html",
+  "showcase_anchor": "#sec-sticky-action-bar",
+  "scenarios": [
+    {
+      "id": "sab-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Sab\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

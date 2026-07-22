@@ -1,0 +1,17 @@
+{
+  "hash": "Bsc",
+  "slug": "bottom-sheet",
+  "showcase_page": "overlays-transitions.html",
+  "showcase_anchor": "#sec-bottom-sheet",
+  "scenarios": [
+    {
+      "id": "bsc-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Bsc\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

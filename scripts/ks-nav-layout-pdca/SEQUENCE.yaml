@@ -1,0 +1,147 @@
+# KS nav-layout PDCA — phase order and dependencies
+
+waves:
+  wave-foundation:
+    phases: [N00, N01, N02]
+  wave-components:
+    phases: [N03, N04, N05, N06, N07, N08, N09, N10, N11, N12, N13, N14, N15, N16, N17, N18, N19, N20, N21, N22]
+  wave-release:
+    phases: [N23]
+
+phases:
+  N00:
+    title: Architecture spike
+    kind: foundation
+    depends_on: []
+  N01:
+    title: Dual-wiki spike
+    kind: foundation
+    depends_on: [N00]
+  N02:
+    title: Test harness spike
+    kind: foundation
+    depends_on: [N01]
+  N03:
+    title: Sticky section dock
+    kind: component
+    hash: Ssd
+    slug: sticky-section-dock
+    depends_on: [N02]
+  N04:
+    title: Scroll-spy TOC
+    kind: component
+    hash: Stc
+    slug: scroll-spy-toc
+    depends_on: [N02]
+  N05:
+    title: Chapter progress
+    kind: component
+    hash: Cpb
+    slug: chapter-progress
+    depends_on: [N02]
+  N06:
+    title: Breadcrumb depth
+    kind: component
+    hash: Bdt
+    slug: breadcrumb-depth
+    depends_on: [N02]
+  N07:
+    title: Mobile nav sheet
+    kind: component
+    hash: Mns
+    slug: mobile-nav-sheet
+    depends_on: [N02]
+  N08:
+    title: Mega menu
+    kind: component
+    hash: Mmg
+    slug: mega-menu
+    depends_on: [N02]
+  N09:
+    title: Segmented control
+    kind: component
+    hash: Svc
+    slug: segmented-control
+    depends_on: [N02]
+  N10:
+    title: Stepper wizard
+    kind: component
+    hash: Swz
+    slug: stepper-wizard
+    depends_on: [N02]
+  N11:
+    title: Pagination tactile
+    kind: component
+    hash: Pgt
+    slug: pagination-tactile
+    depends_on: [N02]
+  N12:
+    title: Filter chip scroller
+    kind: component
+    hash: Fcs
+    slug: filter-chip-scroller
+    depends_on: [N02]
+  N13:
+    title: Governed combobox
+    kind: component
+    hash: Gcb
+    slug: governed-combobox
+    depends_on: [N02]
+  N14:
+    title: Disclosure stack
+    kind: component
+    hash: Dst
+    slug: disclosure-stack
+    depends_on: [N02]
+  N15:
+    title: Split pane resizer
+    kind: component
+    hash: Spr
+    slug: split-pane-resizer
+    depends_on: [N02]
+  N16:
+    title: Anchor jump menu
+    kind: component
+    hash: Ajm
+    slug: anchor-jump-menu
+    depends_on: [N02]
+  N17:
+    title: Tab swimlane sync
+    kind: component
+    hash: Tsw
+    slug: tab-swimlane-sync
+    depends_on: [N03]
+  N18:
+    title: Sticky action bar
+    kind: component
+    hash: Sab
+    slug: sticky-action-bar
+    depends_on: [N02]
+  N19:
+    title: Command palette
+    kind: component
+    hash: Cps
+    slug: command-palette
+    depends_on: [N02]
+  N20:
+    title: Bottom sheet
+    kind: component
+    hash: Bsc
+    slug: bottom-sheet
+    depends_on: [N02]
+  N21:
+    title: View transition hero
+    kind: component
+    hash: Vth
+    slug: view-transition-hero
+    depends_on: [N02]
+  N22:
+    title: Editorial peek rail
+    kind: component
+    hash: Epr
+    slug: editorial-peek-rail
+    depends_on: [N02]
+  N23:
+    title: Release propagate
+    kind: release
+    depends_on: [N22]

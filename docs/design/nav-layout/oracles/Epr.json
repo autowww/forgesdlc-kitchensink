@@ -1,0 +1,17 @@
+{
+  "hash": "Epr",
+  "slug": "editorial-peek-rail",
+  "showcase_page": "presentation.html",
+  "showcase_anchor": "#sec-editorial-peek-rail",
+  "scenarios": [
+    {
+      "id": "epr-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Epr\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

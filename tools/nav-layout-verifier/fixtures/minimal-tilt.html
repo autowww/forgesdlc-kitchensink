@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Minimal tilt fixture</title>
+  <style>
+    .tilt-root {
+      perspective: 800px;
+      width: 240px;
+      padding: 1rem;
+    }
+    .tilt-inner {
+      transform-style: preserve-3d;
+      transition: transform 120ms ease;
+      background: #1a2233;
+      color: #f8fafc;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .tilt-root.is-tilted .tilt-inner {
+      transform: rotateX(12deg) rotateY(-18deg) translateZ(24px);
+    }
+    .tilt-root.is-flat .tilt-inner {
+      transform: none;
+    }
+    button {
+      margin-top: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="tilt-root is-flat" data-ks-hash="Tlz" data-ks-type="component" id="tilt-root">
+    <div class="tilt-inner" id="tilt-inner">
+      <p>Minimal tilt fixture</p>
+      <button type="button" id="tilt-toggle">Toggle tilt</button>
+    </div>
+  </div>
+  <script>
+    document.getElementById('tilt-toggle').addEventListener('click', () => {
+      const root = document.getElementById('tilt-root');
+      root.classList.toggle('is-tilted');
+      root.classList.toggle('is-flat');
+    });
+  </script>
+</body>
+</html>

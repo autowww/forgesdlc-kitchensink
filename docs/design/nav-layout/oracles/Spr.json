@@ -1,0 +1,17 @@
+{
+  "hash": "Spr",
+  "slug": "split-pane-resizer",
+  "showcase_page": "layout-shells.html",
+  "showcase_anchor": "#sec-split-pane-resizer",
+  "scenarios": [
+    {
+      "id": "spr-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Spr\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

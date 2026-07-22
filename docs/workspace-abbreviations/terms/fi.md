@@ -30,7 +30,7 @@ forge-intelligence/
 
 ## How it fits the ecosystem
 
-Handbook via fiw → forge-intelligence-handbook. Schemas referenced by fp ADR-0009.
+Handbook via fiw → forge-intelligence-handbook (intelligence.forgesdlc.com). Schemas referenced by fp ADR-0009.
 
 ## Typical usage in plans and chat
 

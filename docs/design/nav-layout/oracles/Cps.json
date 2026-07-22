@@ -1,0 +1,17 @@
+{
+  "hash": "Cps",
+  "slug": "command-palette",
+  "showcase_page": "overlays-transitions.html",
+  "showcase_anchor": "#sec-command-palette",
+  "scenarios": [
+    {
+      "id": "cps-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cps\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

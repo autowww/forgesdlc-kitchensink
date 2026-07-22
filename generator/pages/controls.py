@@ -1,4 +1,4 @@
-"""Controls page — buttons, badges, callouts, code blocks, forms, dropdowns."""
+"""Controls page — buttons, badges, callouts, code blocks, forms, dropdowns, nav-layout controls."""
 from __future__ import annotations
 
 from components import (
@@ -10,11 +10,20 @@ from components import (
     render_form_textarea,
     render_topic_preview_trigger,
 )
+from nav_layout import (
+    render_disclosure_stack,
+    render_filter_chip_scroller,
+    render_governed_combobox,
+    render_pagination_tactile,
+    render_segmented_control,
+    render_sticky_action_bar,
+    render_stepper_wizard,
+)
 
 PAGE = {
     "slug": "controls",
     "title": "Controls",
-    "intro": "Buttons, badges, callouts, forms, and Bootstrap menus styled for Forge.",
+    "intro": "Buttons, badges, callouts, forms, and nav-layout control primitives.",
     "family": "Components",
     "layout": "showcase",
     "order": 3,
@@ -28,13 +37,39 @@ PAGE = {
         ("sec-dropdown", "Action dropdown"),
         ("sec-advanced-widgets", "Beyond Bootstrap"),
         ("sec-topic-preview", "Topic preview card"),
+        ("sec-segmented-control", "Segmented control"),
+        ("sec-stepper-wizard", "Stepper wizard"),
+        ("sec-pagination-tactile", "Pagination tactile"),
+        ("sec-filter-chip-scroller", "Filter chip scroller"),
+        ("sec-governed-combobox", "Governed combobox"),
+        ("sec-disclosure-stack", "Disclosure stack"),
+        ("sec-sticky-action-bar", "Sticky action bar"),
     ],
 }
 
 
 def extra_css() -> str:
-    """Product-site card + embed rules live in forgesdlc-theme (loaded after forge-theme)."""
-    return '  <link rel="stylesheet" href="assets/forgesdlc-theme.css" />\n'
+    return (
+        '  <link rel="stylesheet" href="assets/forgesdlc-theme.css" />\n'
+        '  <link rel="stylesheet" href="assets/ks-nav-layout.css" />\n'
+    )
+
+
+def extra_js_paths() -> list[str]:
+    return [
+        "assets/ks-nav-shared.js",
+        "assets/ks-segmented-control.js",
+        "assets/ks-stepper-wizard.js",
+    ]
+
+
+def _bc(classes: str, behavior: str) -> str:
+    return (
+        f'<div class="forge-callout forge-callout-surface mt-3">'
+        f'<p class="callout-label">Expected behavior</p>'
+        f'<p class="mb-1"><code>{classes}</code></p>'
+        f'<p class="mb-0 forge-support">{behavior}</p></div>'
+    )
 
 
 def render() -> str:
@@ -297,4 +332,46 @@ def render() -> str:
     <p class="callout-label">Python / API</p>
     <p class="mb-0"><code>render_topic_preview_trigger(href=…, title=…, description=…, eyebrow=…)</code> · JS: <code>openTopicPreviewModal</code> · query: <code>fs-embed=1</code> + <code>fs-preview-rail=1</code></p>
   </div>
+</section>
+
+<section id="sec-segmented-control" class="ks-section">
+  <h2 class="ks-section-title">Segmented control</h2>
+  {render_segmented_control("ctrl-view", [("list", "List"), ("grid", "Grid"), ("doc", "Doc")])}
+  {_bc("ks-segmented", "Radio group styled as segmented control.")}
+</section>
+
+<section id="sec-stepper-wizard" class="ks-section">
+  <h2 class="ks-section-title">Stepper wizard</h2>
+  {render_stepper_wizard()}
+  {_bc("ks-stepper", "Back/Next updates aria-current step.")}
+</section>
+
+<section id="sec-pagination-tactile" class="ks-section">
+  <h2 class="ks-section-title">Pagination tactile</h2>
+  {render_pagination_tactile()}
+  {_bc("ks-pagination-tactile", "Raised tactile page buttons.")}
+</section>
+
+<section id="sec-filter-chip-scroller" class="ks-section">
+  <h2 class="ks-section-title">Filter chip scroller</h2>
+  {render_filter_chip_scroller()}
+  {_bc("ks-filter-chip-scroller", "Horizontal chip rail with scroll snap.")}
+</section>
+
+<section id="sec-governed-combobox" class="ks-section">
+  <h2 class="ks-section-title">Governed combobox</h2>
+  {render_governed_combobox()}
+  {_bc("ks-governed-combobox", "Accessible combobox listbox pattern.")}
+</section>
+
+<section id="sec-disclosure-stack" class="ks-section">
+  <h2 class="ks-section-title">Disclosure stack</h2>
+  {render_disclosure_stack()}
+  {_bc("ks-disclosure-stack", "Depth-stacked details panels.")}
+</section>
+
+<section id="sec-sticky-action-bar" class="ks-section">
+  <h2 class="ks-section-title">Sticky action bar</h2>
+  {render_sticky_action_bar()}
+  {_bc("ks-sticky-action-bar", "Sticky bottom toolbar for page actions.")}
 </section>"""

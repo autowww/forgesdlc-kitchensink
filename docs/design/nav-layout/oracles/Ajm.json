@@ -1,0 +1,17 @@
+{
+  "hash": "Ajm",
+  "slug": "anchor-jump-menu",
+  "showcase_page": "navigation.html",
+  "showcase_anchor": "#sec-anchor-jump-menu",
+  "scenarios": [
+    {
+      "id": "ajm-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Ajm\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

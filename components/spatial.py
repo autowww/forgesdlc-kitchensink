@@ -60,14 +60,17 @@ def render_flip_card(
 
 def render_tilt_css_card(inner_html: str, *, extra_class: str = "") -> str:
     """CSS-only 9-zone tilt (no JS)."""
-    zones = "".join(
-        f'<label><input type="radio" name="tilt-zone-{id(inner_html)}" /></label>'
-        for _ in range(9)
-    )
+    zones = []
+    for i in range(9):
+        checked = " checked" if i == 4 else ""
+        zones.append(
+            f'<label><input type="radio" name="tilt-zone-{id(inner_html)}"{checked} /></label>'
+        )
+    zones_html = "".join(zones)
     cls = f"ks-tilt--css ks-spatial-cq {extra_class}".strip()
     return (
         f'<div class="{e(cls)}" {_attrs(HASH_TILT_CSS, "tilt-css")}>'
-        f'<div class="ks-tilt--css__zones">{zones}</div>'
+        f'<div class="ks-tilt--css__zones">{zones_html}</div>'
         f'<div class="ks-tilt--css__inner forge-card p-3">{inner_html}</div>'
         f"</div>"
     )

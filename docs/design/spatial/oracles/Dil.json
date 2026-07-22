@@ -9,8 +9,9 @@
       "actions": [],
       "expect": {
         "root_selector": "[data-ks-hash=\"Dil\"]",
-        "threshold": 1.0
+        "threshold": 1
       }
     }
-  ]
+  ],
+  "showcase_page": "spatial-controls.html"
 }

@@ -1,0 +1,17 @@
+{
+  "hash": "Dst",
+  "slug": "disclosure-stack",
+  "showcase_page": "controls.html",
+  "showcase_anchor": "#sec-disclosure-stack",
+  "scenarios": [
+    {
+      "id": "dst-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dst\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

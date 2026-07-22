@@ -1,0 +1,17 @@
+{
+  "hash": "Cpb",
+  "slug": "chapter-progress",
+  "showcase_page": "layout-shells.html",
+  "showcase_anchor": "#sec-chapter-progress",
+  "scenarios": [
+    {
+      "id": "cpb-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cpb\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

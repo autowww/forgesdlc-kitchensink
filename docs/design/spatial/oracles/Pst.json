@@ -9,8 +9,9 @@
       "actions": [],
       "expect": {
         "root_selector": "[data-ks-hash=\"Pst\"]",
-        "threshold": 1.0
+        "threshold": 1
       }
     }
-  ]
+  ],
+  "showcase_page": "spatial-ambient.html"
 }

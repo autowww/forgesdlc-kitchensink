@@ -172,6 +172,19 @@ Scoped to KS spatial showcase and pages emitting spatial hashes (`Flp`, `Hol`, `
 
 **Verification toolchain:** `tools/spatial-effects-verifier/` (Playwright oracles) and LCDL `ks_spatial_effect_evaluate_v1`.
 
+## Nav & layout primitives (`DET.NAVLAYOUT.*`)
+
+Scoped to KS nav-layout showcase pages and components emitting nav-layout hashes (`Ssd`, `Stc`, `Cpb`, …).
+
+| Rule ID | Check (pass condition) | Typical evidence |
+|---------|-------------------------|------------------|
+| `DET.NAVLAYOUT.HASH_ROOT` | Nav-layout hash roots on page have paired `hash` / `data-ks-hash` markers. | DOM metrics / `ksVisualHashReport` |
+| `DET.NAVLAYOUT.ORACLE_PRESENT` | Each active nav-layout registry hash has `docs/design/nav-layout/oracles/<HASH>.json` on disk. | Repo scan |
+| `DET.NAVLAYOUT.FOCUS_TRAP` | Overlay primitives (command palette, mega-menu) trap focus while open. | Playwright keyboard scenarios |
+| `DET.NAVLAYOUT.REDUCED_MOTION` | View transitions and motion-heavy nav effects respect `prefers-reduced-motion`. | Playwright emulation |
+
+**Verification toolchain:** `tools/nav-layout-verifier/` and LCDL `ks_nav_layout_effect_evaluate_v1`.
+
 ## Generic website (marketing / docs / product)
 
 Scoped to **generic** sites (`rulesScope` `generic` / `auto` when not KS-driven). Route rules run at **crawl** phase; others run per page from `metrics.genericWebsitePageReport`.

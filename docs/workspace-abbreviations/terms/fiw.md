@@ -4,7 +4,7 @@ audience: public
 handbook_area: blueprints
 learning_level: reference
 nav_title: "fiw — Forge Intelligence handbook shell"
-description: "Private handbook deploy for Intelligence — forge-intelligence submodule + kitchensink → forge-intelligence-handbook.
+description: "Private handbook deploy for Intelligence — forge-intelligence submodule + kitchensink → forge-intelligence-handbook (intelligence.forgesdlc.com).
 "
 term_abbr: "fiw"
 term_category: "handbook_shell"
@@ -12,7 +12,7 @@ term_category: "handbook_shell"
 
 # fiw — Forge Intelligence handbook shell
 
-Private handbook deploy for Intelligence — forge-intelligence submodule + kitchensink → forge-intelligence-handbook.
+Private handbook deploy for Intelligence — forge-intelligence submodule + kitchensink → forge-intelligence-handbook (intelligence.forgesdlc.com).
 
 
 ## What it is
@@ -29,7 +29,7 @@ forge-intelligence-website/
 
 ## How it fits the ecosystem
 
-Markdown source in fi repo; fiw holds deploy wiring and Firebase config.
+Markdown source in fi repo; fiw holds deploy wiring and Firebase config. Custom domain intelligence.forgesdlc.com.
 
 ## Typical usage in plans and chat
 

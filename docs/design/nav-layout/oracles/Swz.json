@@ -1,0 +1,17 @@
+{
+  "hash": "Swz",
+  "slug": "stepper-wizard",
+  "showcase_page": "controls.html",
+  "showcase_anchor": "#sec-stepper-wizard",
+  "scenarios": [
+    {
+      "id": "swz-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Swz\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

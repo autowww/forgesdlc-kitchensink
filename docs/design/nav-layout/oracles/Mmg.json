@@ -1,0 +1,17 @@
+{
+  "hash": "Mmg",
+  "slug": "mega-menu",
+  "showcase_page": "navigation.html",
+  "showcase_anchor": "#sec-mega-menu",
+  "scenarios": [
+    {
+      "id": "mmg-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Mmg\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

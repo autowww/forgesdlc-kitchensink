@@ -114,12 +114,32 @@ def sync_product_site_assets(
         "ks-tilt-tiles.js",
         "ks-spatial-cube.js",
         "ks-spatial-rail.js",
+        "ks-spatial-scroll.js",
     ):
         p = kitchensink_root / "js" / site_js
         if p.is_file():
             shutil.copy2(p, dest_assets / site_js)
         else:
             warnings.append(f"{site_js} missing — landing nav, home tiles, or tilt tiles may not work")
+
+    for nav_js in (
+        "ks-nav-shared.js",
+        "ks-docs-toc-scrollspy.js",
+        "ks-chapter-progress.js",
+        "ks-mega-menu.js",
+        "ks-segmented-control.js",
+        "ks-stepper-wizard.js",
+        "ks-split-pane.js",
+        "ks-anchor-jump.js",
+        "ks-tab-swimlane.js",
+        "ks-command-palette.js",
+        "ks-bottom-sheet.js",
+        "ks-view-transitions.js",
+        "ks-peek-rail.js",
+    ):
+        p = kitchensink_root / "js" / nav_js
+        if p.is_file():
+            shutil.copy2(p, dest_assets / nav_js)
 
     nrm_js = kitchensink_root / "js" / "nested-roadmap.js"
     if nrm_js.is_file():
@@ -134,7 +154,7 @@ def sync_product_site_assets(
         else:
             warnings.append(f"{lb} missing — living background motion may not run")
 
-    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css", "ks-spatial.css"):
+    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css", "ks-spatial.css", "ks-nav-layout.css"):
         p = kitchensink_root / "css" / lb_css
         if p.is_file():
             shutil.copy2(p, dest_assets / lb_css)
@@ -195,7 +215,7 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
         if p.is_file():
             shutil.copy2(p, dest_assets / lb)
 
-    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css", "ks-spatial.css"):
+    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css", "ks-spatial.css", "ks-nav-layout.css"):
         p = kitchensink_root / "css" / lb_css
         if p.is_file():
             shutil.copy2(p, dest_assets / lb_css)
@@ -205,10 +225,30 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
         "ks-tilt-tiles.js",
         "ks-spatial-cube.js",
         "ks-spatial-rail.js",
+        "ks-spatial-scroll.js",
     ):
         src = ks_js / spatial_js
         if src.is_file():
             shutil.copy2(src, dest_assets / spatial_js)
+
+    for nav_js in (
+        "ks-nav-shared.js",
+        "ks-docs-toc-scrollspy.js",
+        "ks-chapter-progress.js",
+        "ks-mega-menu.js",
+        "ks-segmented-control.js",
+        "ks-stepper-wizard.js",
+        "ks-split-pane.js",
+        "ks-anchor-jump.js",
+        "ks-tab-swimlane.js",
+        "ks-command-palette.js",
+        "ks-bottom-sheet.js",
+        "ks-view-transitions.js",
+        "ks-peek-rail.js",
+    ):
+        src = ks_js / nav_js
+        if src.is_file():
+            shutil.copy2(src, dest_assets / nav_js)
 
     for fa_css in ("forge-ambient.css", "forge-ambient-themes.css"):
         p = kitchensink_root / "css" / fa_css

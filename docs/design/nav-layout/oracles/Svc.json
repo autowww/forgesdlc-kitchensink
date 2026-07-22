@@ -1,0 +1,17 @@
+{
+  "hash": "Svc",
+  "slug": "segmented-control",
+  "showcase_page": "controls.html",
+  "showcase_anchor": "#sec-segmented-control",
+  "scenarios": [
+    {
+      "id": "svc-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Svc\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

@@ -1,10 +1,25 @@
-"""Navigation page — sidebar nav demo, flow diagram, breadcrumbs."""
+"""Navigation page — sidebar nav demo, flow diagram, breadcrumbs, nav-layout primitives."""
 from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "components"))
+
+from nav_layout import (  # noqa: E402
+    render_anchor_jump_menu,
+    render_breadcrumb_depth,
+    render_mega_menu,
+    render_mobile_nav_sheet,
+    render_scroll_spy_toc,
+    render_sticky_section_dock,
+    render_tab_swimlane_sync,
+)
 
 PAGE = {
     "slug": "navigation",
     "title": "Navigation",
-    "intro": "Sidebar nav patterns, flow diagrams, breadcrumbs.",
+    "intro": "Sidebar nav patterns, flow diagrams, breadcrumbs, and nav-layout primitives.",
     "family": "Components",
     "layout": "showcase",
     "order": 4,
@@ -12,12 +27,43 @@ PAGE = {
         ("sec-sidebar", "Sidebar nav"),
         ("sec-workspace-lens", "Workspace Lens"),
         ("sec-flow", "Flow diagram"),
+        ("sec-sticky-section-dock", "Sticky section dock"),
+        ("sec-scroll-spy-toc", "Scroll-spy TOC"),
+        ("sec-breadcrumb-depth", "Breadcrumb depth"),
+        ("sec-mobile-nav-sheet", "Mobile nav sheet"),
+        ("sec-mega-menu", "Mega menu"),
+        ("sec-anchor-jump-menu", "Anchor jump menu"),
+        ("sec-tab-swimlane-sync", "Tab swimlane sync"),
     ],
 }
 
 
 def extra_css() -> str:
-    return '  <link rel="stylesheet" href="assets/workspace-lens.css" />\n'
+    return (
+        '  <link rel="stylesheet" href="assets/workspace-lens.css" />\n'
+        '  <link rel="stylesheet" href="assets/ks-nav-layout.css" />\n'
+        '  <link rel="stylesheet" href="assets/fs-section-swimlanes.css" />\n'
+    )
+
+
+def extra_js_paths() -> list[str]:
+    return [
+        "assets/ks-nav-shared.js",
+        "assets/ks-docs-toc-scrollspy.js",
+        "assets/ks-mega-menu.js",
+        "assets/ks-anchor-jump.js",
+        "assets/ks-tab-swimlane.js",
+        "assets/ks-section-swimlanes.js",
+    ]
+
+
+def _bc(classes: str, behavior: str) -> str:
+    return (
+        f'<div class="forge-callout forge-callout-surface mt-3">'
+        f'<p class="callout-label">Expected behavior</p>'
+        f'<p class="mb-1"><code>{classes}</code></p>'
+        f'<p class="mb-0 forge-support">{behavior}</p></div>'
+    )
 
 _CHEVRON = (
     '<svg class="doc-sidebar-chevron" width="14" height="14" viewBox="0 0 16 16" '
@@ -158,4 +204,46 @@ def render() -> str:
     <p class="callout-label">Classes</p>
     <p class="mb-0"><code>.forge-flow</code> · <code>.forge-flow-node</code> · <code>.node-active</code> · <code>.forge-flow-arrow</code></p>
   </div>
+</section>
+
+<section id="sec-sticky-section-dock" class="ks-section">
+  <h2 class="ks-section-title">Sticky section dock</h2>
+  {render_sticky_section_dock()}
+  {_bc("ks-nav-dock", "Scroll collapses section titles into swimlane dock (ForgeSectionSwimlanes).")}
+</section>
+
+<section id="sec-scroll-spy-toc" class="ks-section">
+  <h2 class="ks-section-title">Scroll-spy TOC</h2>
+  {render_scroll_spy_toc()}
+  {_bc("ks-scroll-spy-toc", "ToC links highlight active section on scroll.")}
+</section>
+
+<section id="sec-breadcrumb-depth" class="ks-section">
+  <h2 class="ks-section-title">Breadcrumb depth</h2>
+  {render_breadcrumb_depth()}
+  {_bc("ks-breadcrumb-depth", "Current crumb lifted with depth shadow.")}
+</section>
+
+<section id="sec-mobile-nav-sheet" class="ks-section">
+  <h2 class="ks-section-title">Mobile nav sheet</h2>
+  {render_mobile_nav_sheet()}
+  {_bc("ks-mobile-nav-sheet", "Bootstrap offcanvas nav with depth panel shadow.")}
+</section>
+
+<section id="sec-mega-menu" class="ks-section">
+  <h2 class="ks-section-title">Mega menu</h2>
+  {render_mega_menu()}
+  {_bc("ks-mega-menu", "Expandable multi-column panel; Escape closes.")}
+</section>
+
+<section id="sec-anchor-jump-menu" class="ks-section">
+  <h2 class="ks-section-title">Anchor jump menu</h2>
+  {render_anchor_jump_menu()}
+  {_bc("ks-anchor-jump", "Horizontal sticky bar with scroll-spy active state.")}
+</section>
+
+<section id="sec-tab-swimlane-sync" class="ks-section">
+  <h2 class="ks-section-title">Tab swimlane sync</h2>
+  {render_tab_swimlane_sync()}
+  {_bc("ks-tab-swimlane", "Tabs scroll to sections; swimlane dock tracks lanes.")}
 </section>"""

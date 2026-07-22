@@ -1,0 +1,17 @@
+{
+  "hash": "Gcb",
+  "slug": "governed-combobox",
+  "showcase_page": "controls.html",
+  "showcase_anchor": "#sec-governed-combobox",
+  "scenarios": [
+    {
+      "id": "gcb-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Gcb\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

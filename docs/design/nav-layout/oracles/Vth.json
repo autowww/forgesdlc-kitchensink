@@ -1,0 +1,17 @@
+{
+  "hash": "Vth",
+  "slug": "view-transition-hero",
+  "showcase_page": "overlays-transitions.html",
+  "showcase_anchor": "#sec-view-transition-hero",
+  "scenarios": [
+    {
+      "id": "vth-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Vth\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

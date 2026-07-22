@@ -1,0 +1,17 @@
+{
+  "hash": "Mns",
+  "slug": "mobile-nav-sheet",
+  "showcase_page": "navigation.html",
+  "showcase_anchor": "#sec-mobile-nav-sheet",
+  "scenarios": [
+    {
+      "id": "mns-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Mns\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

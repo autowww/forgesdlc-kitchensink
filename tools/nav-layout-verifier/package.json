@@ -1,0 +1,17 @@
+{
+  "name": "@forge/ks-nav-layout-verifier",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Playwright oracle verification for KS spatial effects.",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "install-browsers": "playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.56.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

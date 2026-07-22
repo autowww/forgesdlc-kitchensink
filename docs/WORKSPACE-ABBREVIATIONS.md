@@ -78,7 +78,7 @@ Repo folders are under ~/Code/ unless noted; handbook shells deploy to Firebase 
 |------|---------|-----------|
 | **bpw** | Public static handbook generator for blueprints.forgesdlc.com — consumes bp and ks submodules. | [open](workspace-abbreviations/terms/bpw.md) |
 | **ffw** | Private handbook deploy for Fleet — forge-fleet submodule + kitchensink → Firebase fleet-2f1d3. | [open](workspace-abbreviations/terms/ffw.md) |
-| **fiw** | Private handbook deploy for Intelligence — forge-intelligence submodule + kitchensink → forge-intelligence-handbook. | [open](workspace-abbreviations/terms/fiw.md) |
+| **fiw** | Private handbook deploy for Intelligence — forge-intelligence submodule + kitchensink → forge-intelligence-handbook (int | [open](workspace-abbreviations/terms/fiw.md) |
 | **flsw** | Private Firebase deploy shell for the Lenses handbook — submodules forge-lenses + kitchensink. | [open](workspace-abbreviations/terms/flsw.md) |
 | **flw** | Private handbook deploy for LCDL — forge-lcdl submodule + kitchensink → Firebase lcdl-542d8. | [open](workspace-abbreviations/terms/flw.md) |
 | **fpw** | Private handbook deploy for Platform — forge-platform submodule + kitchensink → forge-platform-1541d. | [open](workspace-abbreviations/terms/fpw.md) |

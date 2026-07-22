@@ -78,7 +78,6 @@ async function main() {
     process.exit(strict ? 1 : 0);
   }
 
-  const pageUrl = buildShowcaseUrl(showcaseDir, baseUrl);
   /** @type {Array<{ hash: string, slug: string, pass: boolean, score: number }>} */
   const summary = [];
   let failed = 0;
@@ -86,6 +85,9 @@ async function main() {
   for (const fileName of oracleFiles) {
     const oraclePath = path.join(oraclesDir, fileName);
     const oracle = JSON.parse(await readFile(oraclePath, 'utf8'));
+    const pageFile = oracle.showcase_page || 'spatial-effects.html';
+    const normalizedBase = baseUrl.replace(/\/$/, '');
+    const pageUrl = `${normalizedBase}/${pageFile}`;
     const targetUrl = oracle.showcase_anchor ? `${pageUrl}${oracle.showcase_anchor}` : pageUrl;
     const collected = await runOracleScenarios(oracle, { url: targetUrl });
     const report = compareOracle(oracle, collected);

@@ -1,0 +1,17 @@
+{
+  "hash": "Stc",
+  "slug": "scroll-spy-toc",
+  "showcase_page": "navigation.html",
+  "showcase_anchor": "#sec-scroll-spy-toc",
+  "scenarios": [
+    {
+      "id": "stc-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Stc\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}
