@@ -18,7 +18,7 @@ Default shows front; checked trigger rotates inner ~180deg on Y; reduced motion 
 
 ## Oracle scenarios
 
-`flp-dom-present`, `flp-reduced-motion`, `flp-flip-toggle`
+`flp-dom-present`, `flp-reduced-motion`, `flp-flip-toggle`, `flp-stack-variant`
 
 Machine oracle: [`../oracles/Flp.json`](../oracles/Flp.json) · Contract: [`../../catalog/components/Flp-flip-card.md`](../../catalog/components/Flp-flip-card.md)
 

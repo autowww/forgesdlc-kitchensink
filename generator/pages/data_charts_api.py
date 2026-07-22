@@ -1,71 +1,42 @@
-"""Data charts — fetch same JSON bundle via URL (mirrors lenses API shape)."""
+"""Data charts — fetch JSON bundle (Dca)."""
 from __future__ import annotations
 
-from components import render_ks_chart_mount
+from chart_showcase.common import extra_css, extra_js_paths, render_catalog_body
+from chart_showcase.demos import API_SAMPLE_URL, CATEGORIES
 
 PAGE = {
     "slug": "data-charts-api",
     "title": "Data charts (API fetch)",
-    "intro": "Same chart kinds as static page; data loaded with fetch from assets/data-charts-api-sample.json.",
+    "intro": "Charts loaded via fetch — per-kind mocks and full bundle.",
     "family": "Diagrams & charts",
     "layout": "showcase",
     "order": 13,
-    "toc": [("sec-dc-api", "Overview"), ("sec-dc-api-kinds", "Fetched charts")],
+    "hash": "Dca",
+    "toc": [("sec-dc-api", "Overview")],
 }
 
 
-def extra_css() -> str:
-    return '<link rel="stylesheet" href="assets/forge-data-charts.css">'
+def _build_toc() -> list[tuple[str, str]]:
+    items = [("sec-dc-api", "Overview"), ("sec-dc-api-bundle", "Bundle demo")]
+    for cat_id, label, _slug in CATEGORIES:
+        if cat_id == "filters":
+            continue
+        items.append((f"sec-dc-api-{cat_id}", label))
+    return items
 
 
-def extra_js_paths() -> list[str]:
-    return ["assets/forge-data-charts.js"]
+PAGE["toc"] = _build_toc()
 
 
 def render() -> str:
-    base = "assets/data-charts-api-sample.json"
-    kinds = [
-        ("commit_weekly", "Weekly commits"),
-        ("commit_daily", "Daily commits"),
-        ("loc_added_horizontal", "Lines added"),
-        ("loc_total_bars", "Total LoC"),
-        ("loc_share_donut", "LoC donut"),
-        ("compliance_bars", "Compliance"),
-        ("extension_heatmap", "Extensions"),
-        ("contributors", "Contributors"),
-        ("submodule_layout", "Submodule layout"),
-    ]
-    parts = [
-        """<section id="sec-dc-api" class="ks-section">
-  <h2 class="ks-section-title">API-shaped bundle</h2>
-  <p class="forge-support mb-4">Each mount uses <code>data-ks-chart-url</code> pointing at a static JSON file
-  with a <code>charts</code> object (same envelope as forge-lenses). In lenses, the URL is
-  <code>/api/project/&lt;name&gt;/chart-data</code> or <code>/api/chart-data/overview</code>.
-  See also <a href="data-charts-static.html">Data charts (static JSON)</a>.
-  For static SVG diagram tiles and diagram-as-code samples, see <a href="diagrams.html">Diagram templates</a> and
-  <a href="diagram-code-examples.html">Diagram-as-code examples</a>.</p>
-</section>""",
-        '<section id="sec-dc-api-kinds" class="ks-section">',
-        '<h2 class="ks-section-title">Charts</h2>',
-        '<div class="row g-4">',
-    ]
-    for kind, title in kinds:
-        parts.append('<div class="col-12 col-xl-6">')
-        parts.append(
-            render_ks_chart_mount(
-                chart_id="api-" + kind.replace("_", "-"),
-                kind=kind,
-                title=title,
-                data_url=base,
-            )
-        )
-        parts.append("</div>")
-    parts.append("</div></section>")
-    parts.append(
-        """<script>
-document.addEventListener('DOMContentLoaded', function() {
-  if (window.ForgeDataCharts) { window.ForgeDataCharts.mountAll(document); }
-});
-</script>"""
-    )
-    return "\n".join(parts)
+    intro = f"""<section id="sec-dc-api" class="ks-section" hash="Dca" data-ks-hash="Dca" data-ks-name="data-charts-api">
+  <h2 class="ks-section-title">API fetch catalog</h2>
+  <p class="forge-support mb-4">Mocks mirror <code>GET /api/project/&lt;name&gt;/chart-data</code> in forge-lenses.
+  <a href="data-charts.html">Hub</a> · <a href="data-charts-static.html">Static pairs</a>.</p>
+</section>
+<section id="sec-dc-api-bundle" class="ks-section">
+  <h2 class="ks-section-title">Full bundle</h2>
+  <p class="forge-support mb-3">Single fetch returns all chart payloads — use for overview dashboards.</p>
+  <p class="forge-support small mb-0"><code>{API_SAMPLE_URL}</code></p>
+</section>"""
+    return render_catalog_body(tier="api", page_hash="Dca", intro_html=intro)

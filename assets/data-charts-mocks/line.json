@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "line": {
+      "categories": [
+        "W1",
+        "W2",
+        "W3",
+        "W4"
+      ],
+      "series": [
+        {
+          "name": "p95 ms",
+          "values": [
+            120,
+            110,
+            95,
+            88
+          ]
+        }
+      ]
+    }
+  }
+}

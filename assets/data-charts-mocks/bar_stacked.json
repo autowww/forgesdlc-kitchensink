@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "bar_stacked": {
+      "categories": [
+        "Team A",
+        "Team B"
+      ],
+      "series": [
+        {
+          "name": "Done",
+          "values": [
+            18,
+            22
+          ]
+        },
+        {
+          "name": "WIP",
+          "values": [
+            6,
+            4
+          ]
+        }
+      ]
+    }
+  }
+}

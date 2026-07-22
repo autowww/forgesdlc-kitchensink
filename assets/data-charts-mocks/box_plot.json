@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "box_plot": {
+      "boxes": [
+        {
+          "name": "Team A",
+          "min": 10,
+          "q1": 20,
+          "median": 28,
+          "q3": 35,
+          "max": 42
+        },
+        {
+          "name": "Team B",
+          "min": 5,
+          "q1": 15,
+          "median": 22,
+          "q3": 38,
+          "max": 50
+        }
+      ]
+    }
+  }
+}

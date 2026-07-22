@@ -13,20 +13,20 @@
       }
     },
     {
-      "id": "iso-wave2-mode",
+      "id": "iso-keypad-variant",
       "prefers_reduced_motion": false,
       "actions": [],
       "expect": {
-        "root_selector": "[data-ks-hash=\"Iso\"]",
+        "root_selector": ".ks-tile--iso-keypad[data-ks-hash=\"Iso\"]",
         "threshold": 1
       }
     },
     {
-      "id": "isomet-wave2-mode",
+      "id": "iso-grid-variant",
       "prefers_reduced_motion": false,
       "actions": [],
       "expect": {
-        "root_selector": "[data-ks-hash=\"Iso\"]",
+        "root_selector": ".ks-iso-cube-grid[data-ks-hash=\"Iso\"]",
         "threshold": 1
       }
     }

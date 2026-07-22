@@ -18,7 +18,7 @@ Static volumetric headline.
 
 ## Oracle scenarios
 
-`dpt-dom-present`
+`dpt-dom-present`, `dpt-spiral-variant`
 
 Machine oracle: [`../oracles/Dpt.json`](../oracles/Dpt.json) · Contract: [`../../catalog/components/Dpt-display-depth.md`](../../catalog/components/Dpt-display-depth.md)
 

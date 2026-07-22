@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "extension_heatmap": {
+      "extensions": [
+        [
+          ".py",
+          40
+        ],
+        [
+          ".ts",
+          22
+        ]
+      ],
+      "tracked_files": 120
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "bubble": {
+      "points": [
+        {
+          "x": 2,
+          "y": 3,
+          "size": 10
+        },
+        {
+          "x": 4,
+          "y": 6,
+          "size": 25
+        },
+        {
+          "x": 6,
+          "y": 5,
+          "size": 15
+        }
+      ]
+    }
+  }
+}

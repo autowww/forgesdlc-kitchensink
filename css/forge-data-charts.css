@@ -3,8 +3,18 @@
   opacity: 0.85;
 }
 
-[data-ks-chart][data-ks-chart-state="loading"] {
-  min-height: 2.5rem;
+[data-ks-chart][data-ks-chart-state="ready"] {
+  min-height: 4rem;
+}
+
+.ks-chart-demo-section .ks-chart-mount {
+  min-height: 5rem;
+}
+
+.ks-chart-mount svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .lenses-ext-bar {

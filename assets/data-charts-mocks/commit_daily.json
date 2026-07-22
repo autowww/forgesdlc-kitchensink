@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "commit_daily": {
+      "series": [
+        {
+          "day": "2025-03-28",
+          "count": 3
+        },
+        {
+          "day": "2025-03-29",
+          "count": 1
+        },
+        {
+          "day": "2025-03-30",
+          "count": 2
+        }
+      ]
+    }
+  }
+}

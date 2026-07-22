@@ -44,6 +44,7 @@ from a11y_audit_rule_pages import (  # noqa: E402
     write_a11y_audit_rule_pages,
 )
 from ks_catalog_hashes import page_main_attrs  # noqa: E402
+from chart_showcase.mocks import write_api_mocks  # noqa: E402
 from layouts import (  # noqa: E402
     gallery_page,
     landing_page,
@@ -373,10 +374,23 @@ def _copy_assets():
     for js in (REPO_ROOT / "js").glob("*.js"):
         shutil.copy2(js, assets_out / js.name)
 
+    charts_src = REPO_ROOT / "js" / "charts"
+    if charts_src.is_dir():
+        charts_out = assets_out / "charts"
+        charts_out.mkdir(parents=True, exist_ok=True)
+        for cjs in sorted(charts_src.glob("*.js")):
+            shutil.copy2(cjs, charts_out / cjs.name)
+
     assets_misc = REPO_ROOT / "assets"
     if assets_misc.is_dir():
         for aj in assets_misc.glob("*.json"):
             shutil.copy2(aj, assets_out / aj.name)
+        mocks_src = assets_misc / "data-charts-mocks"
+        if mocks_src.is_dir():
+            mocks_out = assets_out / "data-charts-mocks"
+            if mocks_out.exists():
+                shutil.rmtree(mocks_out)
+            shutil.copytree(mocks_src, mocks_out)
 
     svg_out = assets_out / "svg"
     svg_src = REPO_ROOT / "assets" / "svg"
@@ -404,6 +418,9 @@ def main():
     if OUTPUT_DIR.exists():
         shutil.rmtree(OUTPUT_DIR)
     OUTPUT_DIR.mkdir(parents=True)
+
+    mock_count = write_api_mocks(REPO_ROOT / "assets")
+    print(f"[showcase] Wrote {mock_count} chart API mocks + bundle")
 
     _copy_assets()
     print("[showcase] Assets copied")

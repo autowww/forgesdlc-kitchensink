@@ -1,26 +1,23 @@
-# Gcb — Governed Combobox
+## Governed combobox (Gcb)
 
-**Hash:** `Gcb` · **Type:** component · **Family:** nav-layout · **Status:** active
+Programmatic flat-list combobox via `createGovernedCombobox` / `createTreeCombobox` with `visualHash: "Gcb"`.
 
-Source: `components/nav_layout.py::render_governed_combobox` · Showcase: `controls.html` `#sec-governed-combobox`
+### JS API
 
-## Purpose
-
-Governed nav-layout primitive: governed combobox.
-
-## Expected look
-
-See showcase section `#sec-governed-combobox` on `controls.html`.
-
-## Deterministic checks
-
-Oracle scenarios (see `docs/design/nav-layout/oracles/Gcb.json`):
-
-- **gcb-dom-present** — root `[data-ks-hash="Gcb"]` visible; threshold 1.0 after scenario actions.
-
-## Root element
-
-```html
-<div class="ks-nav--governed-combobox" hash="Gcb" data-ks-hash="Gcb"
-     data-ks-type="component" data-ks-name="governed-combobox">
+```javascript
+import { createGovernedCombobox } from "./assets/ks-governed-combobox.js";
+const api = createGovernedCombobox(host, {
+  items: [{ value: "sdlc", label: "SDLC" }],
+  onChange: (item) => {},
+});
+api.getValue();
+api.setValue("sdlc");
+api.destroy();
 ```
+
+Auto-init: `[data-ks-combobox]` + optional `<script type="application/json" data-ks-combobox-data>`.
+
+### Deterministic checks
+
+- Root `[data-ks-hash="Gcb"]` visible
+- Trigger opens panel (`forge-tree-combobox--open`)

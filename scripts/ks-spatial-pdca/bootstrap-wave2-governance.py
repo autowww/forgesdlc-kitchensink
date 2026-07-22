@@ -98,6 +98,82 @@ FF_ROWS: list[tuple[int, str, str, str, str]] = [
 ]
 
 
+UPGRADE_ORACLE_SCENARIOS: dict[str, dict] = {
+    "S24": {
+        "id": "cbg-photo-mode",
+        "prefers_reduced_motion": False,
+        "actions": [],
+        "expect": {
+            "root_selector": '.ks-cube-gallery--photo[data-ks-hash="Cbg"]',
+            "threshold": 1,
+        },
+    },
+    "S25": {
+        "id": "srl-orbit-mode",
+        "prefers_reduced_motion": False,
+        "actions": [],
+        "expect": {
+            "root_selector": '.fs-rail--orbit[data-ks-hash="Srl"]',
+            "threshold": 1,
+        },
+    },
+    "S26": {
+        "id": "flp-stack-variant",
+        "prefers_reduced_motion": False,
+        "actions": [],
+        "expect": {
+            "root_selector": '.ks-card--flip-stack[data-ks-hash="Flp"]',
+            "threshold": 1,
+        },
+    },
+    "S27": {
+        "id": "dpt-spiral-variant",
+        "prefers_reduced_motion": False,
+        "actions": [],
+        "expect": {
+            "root_selector": '.ks-display--depth--spiral[data-ks-hash="Dpt"]',
+            "threshold": 1,
+        },
+    },
+    "S28": {
+        "id": "tun-warp-variant",
+        "prefers_reduced_motion": False,
+        "actions": [],
+        "expect": {
+            "root_selector": '.ks-ambient--tunnel--warp[data-ks-hash="Tun"]',
+            "threshold": 1,
+        },
+    },
+    "S29": {
+        "id": "iso-keypad-variant",
+        "prefers_reduced_motion": False,
+        "actions": [],
+        "expect": {
+            "root_selector": '.ks-tile--iso-keypad[data-ks-hash="Iso"]',
+            "threshold": 1,
+        },
+    },
+    "S30": {
+        "id": "iso-grid-variant",
+        "prefers_reduced_motion": False,
+        "actions": [],
+        "expect": {
+            "root_selector": '.ks-iso-cube-grid[data-ks-hash="Iso"]',
+            "threshold": 1,
+        },
+    },
+    "S31": {
+        "id": "hol-illumination-variant",
+        "prefers_reduced_motion": False,
+        "actions": [],
+        "expect": {
+            "root_selector": '.ks-card--holo--illumination[data-ks-hash="Hol"]',
+            "threshold": 1,
+        },
+    },
+}
+
+
 def ff_url(page: int, slug: str) -> str:
     base = "https://freefrontend.com/css-3d-examples/"
     if page > 1:
@@ -254,15 +330,10 @@ def bootstrap_components(wave: dict) -> None:
                 ensure_contract(h, slug, title)
                 seen_hashes.add(h)
         elif ph.get("kind") == "upgrade":
-            extra = [
-                {
-                    "id": f"{slug.replace('-', '')[:6]}-wave2-mode",
-                    "prefers_reduced_motion": False,
-                    "actions": [],
-                    "expect": {"root_selector": f'[data-ks-hash="{h}"]', "threshold": 1},
-                }
-            ]
-            ensure_oracle(h, slug, page, anchor, extra)
+            scenario = UPGRADE_ORACLE_SCENARIOS.get(phase_id)
+            if scenario:
+                extra = [scenario]
+                ensure_oracle(h, slug, page, anchor, extra)
 
 
 def ensure_ifn_artifacts() -> None:

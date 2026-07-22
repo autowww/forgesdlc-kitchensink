@@ -13,29 +13,11 @@
       }
     },
     {
-      "id": "dis-dom-present",
+      "id": "dpt-spiral-variant",
       "prefers_reduced_motion": false,
       "actions": [],
       "expect": {
-        "root_selector": "[data-ks-hash=\"Dpt\"]",
-        "threshold": 1
-      }
-    },
-    {
-      "id": "dis-wave2-mode",
-      "prefers_reduced_motion": false,
-      "actions": [],
-      "expect": {
-        "root_selector": "[data-ks-hash=\"Dpt\"]",
-        "threshold": 1
-      }
-    },
-    {
-      "id": "displa-wave2-mode",
-      "prefers_reduced_motion": false,
-      "actions": [],
-      "expect": {
-        "root_selector": "[data-ks-hash=\"Dpt\"]",
+        "root_selector": ".ks-display--depth--spiral[data-ks-hash=\"Dpt\"]",
         "threshold": 1
       }
     }

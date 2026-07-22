@@ -12,6 +12,17 @@
         "root_selector": "[data-ks-hash=\"Svc\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "svc-set-value",
+      "prefers_reduced_motion": false,
+      "actions": [
+        { "type": "click", "selector": "[data-ks-hash=\"Svc\"] input[value=\"grid\"]" }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Svc\"] .ks-segmented__item.is-active",
+        "threshold": 1
+      }
     }
   ]
 }

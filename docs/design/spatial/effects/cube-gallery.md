@@ -18,7 +18,7 @@ Pointer X maps to scene rotation.
 
 ## Oracle scenarios
 
-`cbg-dom-present`, `cbg-pointer-rotate`
+`cbg-dom-present`, `cbg-pointer-rotate`, `cbg-photo-mode`
 
 Machine oracle: [`../oracles/Cbg.json`](../oracles/Cbg.json) · Contract: [`../../catalog/components/Cbg-cube-gallery.md`](../../catalog/components/Cbg-cube-gallery.md)
 

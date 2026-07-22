@@ -12,6 +12,17 @@
         "root_selector": "[data-ks-hash=\"Swz\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "swz-next-step",
+      "prefers_reduced_motion": false,
+      "actions": [
+        { "type": "click", "selector": "[data-ks-hash=\"Swz\"] [data-ks-step-next]" }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Swz\"] .ks-stepper__step.is-current:nth-child(3)",
+        "threshold": 1
+      }
     }
   ]
 }

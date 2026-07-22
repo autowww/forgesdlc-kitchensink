@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "loc_share_donut": {
+      "rows": [
+        {
+          "name": "repo-a",
+          "value": 42000
+        },
+        {
+          "name": "repo-b",
+          "value": 12000
+        },
+        {
+          "name": "repo-c",
+          "value": 8000
+        }
+      ],
+      "top_n": 8
+    }
+  }
+}

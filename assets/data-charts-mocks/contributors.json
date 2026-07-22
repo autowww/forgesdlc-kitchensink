@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "contributors": {
+      "rows": [
+        [
+          "42",
+          "Ada"
+        ],
+        [
+          "12",
+          "Bob"
+        ]
+      ]
+    }
+  }
+}

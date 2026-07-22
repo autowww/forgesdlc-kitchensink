@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "commit_weekly": {
+      "series": [
+        {
+          "week": "2025-W09",
+          "count": 4
+        },
+        {
+          "week": "2025-W10",
+          "count": 7
+        },
+        {
+          "week": "2025-W11",
+          "count": 3
+        }
+      ]
+    }
+  }
+}

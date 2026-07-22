@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "combo_line_column": {
+      "categories": [
+        "W1",
+        "W2",
+        "W3",
+        "W4"
+      ],
+      "columns": [
+        {
+          "name": "Requests",
+          "values": [
+            1000,
+            1200,
+            1400,
+            1600
+          ]
+        }
+      ],
+      "lines": [
+        {
+          "name": "Error %",
+          "values": [
+            2.1,
+            1.8,
+            1.4,
+            1.1
+          ]
+        }
+      ]
+    }
+  }
+}

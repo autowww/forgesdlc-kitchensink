@@ -1,15 +1,15 @@
 # Visual inventory (generated)
 
 - Generated: 2026-07-22
-- Total items: 1194
+- Total items: 1201
 
 ## By type
 - **design-terminology:** 725
 - **component:** 158
 - **diagram-or-asset:** 82
-- **interaction-module:** 49
-- **generated-showcase-page:** 45
-- **page-instance:** 37
+- **interaction-module:** 60
+- **generated-showcase-page:** 43
+- **page-instance:** 35
 - **visual-style:** 34
 - **museum-surface-asset:** 23
 - **primitive:** 10
@@ -42,8 +42,6 @@
 - [page-instance] `generator/pages/a11y_audit_rules.py` — Showcase page: a11y-audit-rules
 - [page-instance] `generator/pages/consumer_marketing.py` — Showcase page: consumer-marketing
 - [page-instance] `generator/pages/controls.py` — Showcase page: controls
-- [page-instance] `generator/pages/data_charts_api.py` — Showcase page: data-charts-api
-- [page-instance] `generator/pages/data_charts_static.py` — Showcase page: data-charts-static
 - [page-instance] `generator/pages/data_tables.py` — Showcase page: data-tables
 - [page-instance] `generator/pages/diagram_code_examples.py` — Showcase page: diagram-code-examples
 - [page-instance] `generator/pages/diagrams.py` — Showcase page: diagrams
@@ -290,6 +288,17 @@
 - [visual-style] `css/tile-dropdown.css` — css/tile-dropdown.css
 - [visual-style] `css/wizard-flow.css` — css/wizard-flow.css
 - [visual-style] `css/workspace-lens.css` — css/workspace-lens.css
+- [interaction-module] `js/charts/comparison.js` — js/charts/comparison.js
+- [interaction-module] `js/charts/core.js` — js/charts/core.js
+- [interaction-module] `js/charts/correlation.js` — js/charts/correlation.js
+- [interaction-module] `js/charts/distribution.js` — js/charts/distribution.js
+- [interaction-module] `js/charts/flow.js` — js/charts/flow.js
+- [interaction-module] `js/charts/kpi.js` — js/charts/kpi.js
+- [interaction-module] `js/charts/legacy.js` — js/charts/legacy.js
+- [interaction-module] `js/charts/part-to-whole.js` — js/charts/part-to-whole.js
+- [interaction-module] `js/charts/slicer.js` — js/charts/slicer.js
+- [interaction-module] `js/charts/table.js` — js/charts/table.js
+- [interaction-module] `js/charts/trend.js` — js/charts/trend.js
 - [interaction-module] `js/diagram-modal-zoom.js` — js/diagram-modal-zoom.js
 - [interaction-module] `js/docs-nav.js` — js/docs-nav.js
 - [interaction-module] `js/forge-ambient.js` — js/forge-ambient.js
@@ -514,24 +523,15 @@
 - [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-use-of-color.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-use-of-color.md
 - [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-viewport.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-viewport.md
 - [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-generic-visual-presentation-aaa.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-generic-visual-presentation-aaa.md
-- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-breadcrumb.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-breadcrumb.md
-- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-handbook-single-h1.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-handbook-single-h1.md
-- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-hash-markers.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-hash-markers.md
-- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-py-hash-attrs.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-py-hash-attrs.md
-- [design-terminology] `docs/design/a11y-audit/rule-pages/det-a11y-ks-react-a11y-role.md` — Design doc docs/design/a11y-audit/rule-pages/det-a11y-ks-react-a11y-role.md
-- [design-terminology] `docs/design/a11y-audit/standards/README.md` — Design doc docs/design/a11y-audit/standards/README.md
-- [design-terminology] `docs/design/a11y-audit/standards/manual-test-playbooks.md` — Design doc docs/design/a11y-audit/standards/manual-test-playbooks.md
-- [design-terminology] `docs/design/a11y-audit/standards/wcag20a.md` — Design doc docs/design/a11y-audit/standards/wcag20a.md
-- [design-terminology] `docs/design/a11y-audit/standards/wcag20aa.md` — Design doc docs/design/a11y-audit/standards/wcag20aa.md
 
-… 694 more rows in JSON …
+… 701 more rows in JSON …
 
 ## Catalog crosswalk (registry JSON + showcase scan)
 
 - Registry rows: 193 (active: 193)
 - Distinct hashes in registry: 193
-- Distinct hashes in showcase HTML/JS scan: 167
-- Emit-marker gaps (expected in showcase, not seen in scan): 0
+- Distinct hashes in showcase HTML/JS scan: 166
+- Emit-marker gaps (expected in showcase, not seen in scan): 1
 - Contract path missing on disk: 4
 - Contracts with TBD/TODO/FIXME (non-strict): 0
 - Screenshot PNGs present (catalog dir): 48 / 193

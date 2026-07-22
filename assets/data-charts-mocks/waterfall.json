@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "waterfall": {
+      "steps": [
+        {
+          "label": "Start",
+          "value": 100,
+          "type": "total"
+        },
+        {
+          "label": "Revenue",
+          "value": 40,
+          "type": "increase"
+        },
+        {
+          "label": "Cost",
+          "value": -25,
+          "type": "decrease"
+        },
+        {
+          "label": "End",
+          "value": 115,
+          "type": "total"
+        }
+      ]
+    }
+  }
+}

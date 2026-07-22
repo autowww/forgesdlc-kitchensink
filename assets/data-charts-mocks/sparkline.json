@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "sparkline": {
+      "values": [
+        3,
+        5,
+        4,
+        7,
+        6,
+        8,
+        9
+      ]
+    }
+  }
+}

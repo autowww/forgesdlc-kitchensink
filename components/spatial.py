@@ -262,3 +262,28 @@ def render_spatial_rail(items_html: str) -> str:
 
 def render_spatial_rail_item(card_html: str) -> str:
     return f'<div class="fs-rail__item flex-shrink-0" style="width:14rem">{card_html}</div>'
+
+
+# Wave 2 v2 modes — implementations in spatial_wave2; re-exported here for discoverability.
+try:
+    from .spatial_wave2 import (
+        render_cube_gallery_photo,
+        render_display_depth_spiral,
+        render_flip_card_stack,
+        render_holo_card_illumination,
+        render_iso_cube_grid,
+        render_iso_keypad,
+        render_spatial_rail_orbit,
+        render_tunnel_warp,
+    )
+except ImportError:
+    from spatial_wave2 import (  # type: ignore[no-redef]
+        render_cube_gallery_photo,
+        render_display_depth_spiral,
+        render_flip_card_stack,
+        render_holo_card_illumination,
+        render_iso_cube_grid,
+        render_iso_keypad,
+        render_spatial_rail_orbit,
+        render_tunnel_warp,
+    )

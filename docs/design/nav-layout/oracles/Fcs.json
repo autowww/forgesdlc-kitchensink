@@ -12,6 +12,17 @@
         "root_selector": "[data-ks-hash=\"Fcs\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "fcs-chip-select",
+      "prefers_reduced_motion": false,
+      "actions": [
+        { "type": "click", "selector": "[data-ks-hash=\"Fcs\"] .ks-filter-chip:nth-child(2)" }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Fcs\"] .ks-filter-chip.is-active[aria-pressed=\"true\"]",
+        "threshold": 1
+      }
     }
   ]
 }

@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "area_stacked": {
+      "categories": [
+        "Jan",
+        "Feb",
+        "Mar"
+      ],
+      "series": [
+        {
+          "name": "Organic",
+          "values": [
+            40,
+            55,
+            70
+          ]
+        },
+        {
+          "name": "Paid",
+          "values": [
+            20,
+            25,
+            30
+          ]
+        }
+      ]
+    }
+  }
+}

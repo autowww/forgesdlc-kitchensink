@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "column_clustered": {
+      "categories": [
+        "Q1",
+        "Q2",
+        "Q3"
+      ],
+      "series": [
+        {
+          "name": "North",
+          "values": [
+            42,
+            38,
+            51
+          ]
+        },
+        {
+          "name": "South",
+          "values": [
+            28,
+            35,
+            40
+          ]
+        }
+      ]
+    }
+  }
+}

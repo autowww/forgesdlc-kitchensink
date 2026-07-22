@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "histogram": {
+      "bins": [
+        {
+          "label": "0-10",
+          "count": 5
+        },
+        {
+          "label": "10-20",
+          "count": 12
+        },
+        {
+          "label": "20-30",
+          "count": 7
+        }
+      ]
+    }
+  }
+}

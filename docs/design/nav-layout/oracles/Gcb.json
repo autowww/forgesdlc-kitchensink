@@ -12,6 +12,17 @@
         "root_selector": "[data-ks-hash=\"Gcb\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "gcb-open-panel",
+      "prefers_reduced_motion": false,
+      "actions": [
+        { "type": "click", "selector": "[data-ks-hash=\"Gcb\"] .forge-tree-combobox__trigger" }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Gcb\"] .forge-tree-combobox--open",
+        "threshold": 1
+      }
     }
   ]
 }

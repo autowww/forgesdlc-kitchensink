@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "loc_added_horizontal": {
+      "rows": [
+        {
+          "name": "repo-a",
+          "value": 120
+        },
+        {
+          "name": "repo-b",
+          "value": 45
+        }
+      ]
+    }
+  }
+}

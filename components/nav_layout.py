@@ -1,6 +1,8 @@
 """Nav & layout KS component emitters — hash-governed HTML fragments."""
 from __future__ import annotations
 
+import json
+
 try:
     from .components import e, render_breadcrumbs
     from .ks_hash_attrs import ks_hash_attrs
@@ -154,13 +156,19 @@ def render_segmented_control(
     )
 
 
-def render_stepper_wizard(*, wizard_id: str = "ks-stepper") -> str:
-    steps = ["Plan", "Build", "Verify", "Ship"]
+def render_stepper_wizard(
+    *,
+    wizard_id: str = "ks-stepper",
+    steps: list[str] | None = None,
+    current_index: int = 1,
+) -> str:
+    step_labels = steps or ["Plan", "Build", "Verify", "Ship"]
     items = ""
-    for i, label in enumerate(steps, start=1):
-        current = ' aria-current="step"' if i == 2 else ""
+    for i, label in enumerate(step_labels, start=1):
+        current = ' aria-current="step"' if i == current_index + 1 else ""
+        is_current = i == current_index + 1
         items += (
-            f'<li class="ks-stepper__step{" is-current" if i == 2 else ""}"{current}>'
+            f'<li class="ks-stepper__step{" is-current" if is_current else ""}"{current}>'
             f'<span class="ks-stepper__num">{i}</span><span class="ks-stepper__label">{e(label)}</span></li>'
         )
     return (
@@ -174,45 +182,61 @@ def render_stepper_wizard(*, wizard_id: str = "ks-stepper") -> str:
     )
 
 
-def render_pagination_tactile(*, page_id: str = "ks-pgt") -> str:
+def render_pagination_tactile(
+    *,
+    page_id: str = "ks-pgt",
+    page: int = 1,
+    total_pages: int = 3,
+) -> str:
     return (
-        f'<nav class="ks-pagination-tactile" aria-label="Pagination" id="{e(page_id)}" '
-        f'{_attrs(HASH_PGT, "pagination-tactile")}>'
-        f'<button type="button" class="ks-pagination-tactile__btn" aria-label="Previous">‹</button>'
-        f'<button type="button" class="ks-pagination-tactile__btn is-active" aria-current="page">1</button>'
-        f'<button type="button" class="ks-pagination-tactile__btn">2</button>'
-        f'<button type="button" class="ks-pagination-tactile__btn">3</button>'
-        f'<button type="button" class="ks-pagination-tactile__btn" aria-label="Next">›</button>'
-        f"</nav>"
+        f'<div id="{e(page_id)}-host" data-ks-pagination data-page="{page}" '
+        f'data-total-pages="{total_pages}" {_attrs(HASH_PGT, "pagination-tactile")}></div>'
     )
 
 
-def render_filter_chip_scroller(*, toolbar_id: str = "ks-fcs") -> str:
-    chips = ["All", "Guides", "API", "Patterns", "Tools", "Release notes"]
-    chip_html = "".join(
-        f'<button type="button" class="ks-filter-chip{" is-active" if i == 0 else ""}" '
-        f'aria-pressed="{"true" if i == 0 else "false"}">{e(c)}</button>'
-        for i, c in enumerate(chips)
-    )
+def render_filter_chip_scroller(
+    *,
+    toolbar_id: str = "ks-fcs",
+    chips: list[tuple[str, str]] | None = None,
+    value: str | None = None,
+    multi: bool = False,
+) -> str:
+    default_chips = chips or [
+        ("all", "All"),
+        ("guides", "Guides"),
+        ("api", "API"),
+        ("patterns", "Patterns"),
+        ("tools", "Tools"),
+        ("release-notes", "Release notes"),
+    ]
+    chip_data = [{"value": v, "label": lbl} for v, lbl in default_chips]
+    chips_json = e(json.dumps(chip_data, separators=(",", ":")))
+    val = value if value is not None else default_chips[0][0]
+    multi_attr = ' data-multi="true"' if multi else ""
+    value_attr = f' data-value="{e(val)}"'
     return (
-        f'<div class="ks-filter-chip-scroller" id="{e(toolbar_id)}" data-ks-filter-chips '
-        f'{_attrs(HASH_FCS, "filter-chip-scroller")}>'
-        f'<div class="ks-filter-chip-scroller__track">{chip_html}</div></div>'
+        f'<div class="ks-filter-chip-scroller-host" id="{e(toolbar_id)}" data-ks-filter-chips '
+        f'data-chips="{chips_json}"{multi_attr}{value_attr} '
+        f'{_attrs(HASH_FCS, "filter-chip-scroller")}></div>'
     )
 
 
-def render_governed_combobox(*, combo_id: str = "ks-gcb") -> str:
+def render_governed_combobox(
+    *,
+    combo_id: str = "ks-gcb",
+    label: str = "Topic",
+    placeholder: str = "Search topics…",
+    items: list[tuple[str, str]] | None = None,
+) -> str:
+    rows = items or [("sdlc", "SDLC"), ("pdlc", "PDLC"), ("agents", "Agents")]
+    payload = {"items": [{"value": v, "label": lbl} for v, lbl in rows]}
+    data_json = json.dumps(payload, separators=(",", ":"))
     return (
-        f'<div class="ks-governed-combobox forge-tree-combobox" id="{e(combo_id)}" '
-        f'data-ks-combobox {_attrs(HASH_GCB, "governed-combobox")}>'
-        f'<label class="form-label" for="{e(combo_id)}-input">Topic</label>'
-        f'<input type="text" class="form-control" id="{e(combo_id)}-input" role="combobox" '
-        f'aria-expanded="false" aria-controls="{e(combo_id)}-list" autocomplete="off" '
-        f'placeholder="Search topics…" />'
-        f'<ul class="ks-governed-combobox__list" id="{e(combo_id)}-list" role="listbox" hidden>'
-        f'<li role="option" data-value="sdlc">SDLC</li>'
-        f'<li role="option" data-value="pdlc">PDLC</li>'
-        f'<li role="option" data-value="agents">Agents</li></ul></div>'
+        f'<div class="ks-governed-combobox-host" id="{e(combo_id)}" data-ks-combobox '
+        f'data-label="{e(label)}" data-placeholder="{e(placeholder)}" '
+        f'{_attrs(HASH_GCB, "governed-combobox")}>'
+        f'<script type="application/json" data-ks-combobox-data>{data_json}</script>'
+        f"</div>"
     )
 
 
@@ -295,12 +319,21 @@ def render_tab_swimlane_sync(*, sync_id: str = "ks-tab-swimlane") -> str:
     )
 
 
-def render_sticky_action_bar(*, bar_id: str = "ks-sab") -> str:
+def render_sticky_action_bar(
+    *,
+    bar_id: str = "ks-sab",
+    actions: list[tuple[str, str, str]] | None = None,
+) -> str:
+    rows = actions or [
+        ("save", "Save draft", "secondary"),
+        ("publish", "Publish", "primary"),
+    ]
+    payload = [{"id": a, "label": lbl, "variant": var} for a, lbl, var in rows]
+    actions_json = e(json.dumps(payload, separators=(",", ":")))
     return (
-        f'<div class="ks-sticky-action-bar" id="{e(bar_id)}" role="toolbar" '
-        f'aria-label="Page actions" {_attrs(HASH_SAB, "sticky-action-bar")}>'
-        f'<button type="button" class="btn btn-sm btn-outline-secondary">Save draft</button>'
-        f'<button type="button" class="btn btn-sm btn-primary">Publish</button></div>'
+        f'<div class="ks-sticky-action-bar-host" id="{e(bar_id)}" data-ks-sticky-action-bar '
+        f'data-actions="{actions_json}" role="toolbar" aria-label="Page actions" '
+        f'{_attrs(HASH_SAB, "sticky-action-bar")}></div>'
     )
 
 

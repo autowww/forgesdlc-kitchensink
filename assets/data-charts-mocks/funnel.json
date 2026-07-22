@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "funnel": {
+      "stages": [
+        {
+          "label": "Visit",
+          "value": 1000
+        },
+        {
+          "label": "Signup",
+          "value": 400
+        },
+        {
+          "label": "Trial",
+          "value": 200
+        },
+        {
+          "label": "Paid",
+          "value": 80
+        }
+      ]
+    }
+  }
+}

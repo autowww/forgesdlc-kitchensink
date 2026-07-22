@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "compliance_bars": {
+      "rows": [
+        [
+          "alpha",
+          88
+        ],
+        [
+          "beta",
+          62
+        ],
+        [
+          "gamma",
+          40
+        ]
+      ]
+    }
+  }
+}

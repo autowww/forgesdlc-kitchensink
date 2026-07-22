@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "kpi_card": {
+      "label": "Active users",
+      "value": "1,240",
+      "delta": "+8.2%",
+      "trend": "up"
+    }
+  }
+}

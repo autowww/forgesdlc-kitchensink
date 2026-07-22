@@ -18,7 +18,7 @@ Static iso pose.
 
 ## Oracle scenarios
 
-`iso-dom-present`
+`iso-dom-present`, `iso-keypad-variant`, `iso-grid-variant`
 
 Machine oracle: [`../oracles/Iso.json`](../oracles/Iso.json) · Contract: [`../../catalog/components/Iso-isometric-tile.md`](../../catalog/components/Iso-isometric-tile.md)
 

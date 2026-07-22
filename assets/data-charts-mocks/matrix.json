@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "matrix": {
+      "row_headers": [
+        "2024",
+        "2025"
+      ],
+      "col_headers": [
+        "Q1",
+        "Q2"
+      ],
+      "cells": [
+        [
+          10,
+          12
+        ],
+        [
+          14,
+          16
+        ]
+      ]
+    }
+  }
+}

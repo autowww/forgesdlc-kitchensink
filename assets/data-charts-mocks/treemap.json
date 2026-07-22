@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "treemap": {
+      "rows": [
+        {
+          "name": "Platform",
+          "value": 50
+        },
+        {
+          "name": "Product",
+          "value": 30
+        },
+        {
+          "name": "Ops",
+          "value": 20
+        }
+      ]
+    }
+  }
+}

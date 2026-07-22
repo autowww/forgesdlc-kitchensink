@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "bullet": {
+      "label": "Revenue",
+      "actual": 72,
+      "poor": 50,
+      "satisfactory": 70,
+      "good": 90
+    }
+  }
+}

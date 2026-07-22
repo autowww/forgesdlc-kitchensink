@@ -3,11 +3,11 @@
   "generatedAt": "2026-07-22",
   "repoRoot": "/home/lzvyahin/Code/forgesdlc-kitchensink",
   "summary": {
-    "total": 1194,
+    "total": 1201,
     "byType": {
       "layout": 9,
       "chrome-region": 6,
-      "page-instance": 37,
+      "page-instance": 35,
       "layout-preview": 7,
       "component": 158,
       "visual-helper": 1,
@@ -15,10 +15,10 @@
       "primitive": 10,
       "showcase-app-source": 1,
       "visual-style": 34,
-      "interaction-module": 49,
+      "interaction-module": 60,
       "diagram-or-asset": 82,
       "design-terminology": 725,
-      "generated-showcase-page": 45,
+      "generated-showcase-page": 43,
       "museum-surface-asset": 23,
       "desktop-interface": 1,
       "library-consumer": 1
@@ -267,32 +267,6 @@
       "source_symbol": "controls",
       "visual_root_selector": "main#main or main",
       "showcase_path_guess": "showcase/controls.html",
-      "needs_own_contract": false,
-      "family_group": "showcase-pages",
-      "confidence": "high",
-      "notes": "PAGE slug from generator/pages module"
-    },
-    {
-      "proposed_name": "Showcase page: data-charts-api",
-      "proposed_slug": "data-charts-api",
-      "proposed_type": "page-instance",
-      "source_path": "generator/pages/data_charts_api.py",
-      "source_symbol": "data_charts_api",
-      "visual_root_selector": "main#main or main",
-      "showcase_path_guess": "showcase/data-charts-api.html",
-      "needs_own_contract": false,
-      "family_group": "showcase-pages",
-      "confidence": "high",
-      "notes": "PAGE slug from generator/pages module"
-    },
-    {
-      "proposed_name": "Showcase page: data-charts-static",
-      "proposed_slug": "data-charts-static",
-      "proposed_type": "page-instance",
-      "source_path": "generator/pages/data_charts_static.py",
-      "source_symbol": "data_charts_static",
-      "visual_root_selector": "main#main or main",
-      "showcase_path_guess": "showcase/data-charts-static.html",
       "needs_own_contract": false,
       "family_group": "showcase-pages",
       "confidence": "high",
@@ -3495,6 +3469,149 @@
       "family_group": "css-styles",
       "confidence": "high",
       "notes": "class: desktop-app-style"
+    },
+    {
+      "proposed_name": "js/charts/comparison.js",
+      "proposed_slug": "comparison",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/comparison.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/core.js",
+      "proposed_slug": "core",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/core.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/correlation.js",
+      "proposed_slug": "correlation",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/correlation.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/distribution.js",
+      "proposed_slug": "distribution",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/distribution.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/flow.js",
+      "proposed_slug": "flow",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/flow.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/kpi.js",
+      "proposed_slug": "kpi",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/kpi.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/legacy.js",
+      "proposed_slug": "legacy",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/legacy.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/part-to-whole.js",
+      "proposed_slug": "part-to-whole",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/part-to-whole.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/slicer.js",
+      "proposed_slug": "slicer",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/slicer.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/table.js",
+      "proposed_slug": "table",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/table.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
+    },
+    {
+      "proposed_name": "js/charts/trend.js",
+      "proposed_slug": "trend",
+      "proposed_type": "interaction-module",
+      "source_path": "js/charts/trend.js",
+      "source_symbol": null,
+      "visual_root_selector": "n/a",
+      "showcase_path_guess": "various",
+      "needs_own_contract": false,
+      "family_group": "js-modules",
+      "confidence": "medium",
+      "notes": "interaction-module"
     },
     {
       "proposed_name": "js/diagram-modal-zoom.js",
@@ -14690,32 +14807,6 @@
       "notes": "Static output from generator/build-showcase.py (regenerate after source changes)"
     },
     {
-      "proposed_name": "Generated showcase HTML: data-charts-api.html",
-      "proposed_slug": "data-charts-api",
-      "proposed_type": "generated-showcase-page",
-      "source_path": "showcase/data-charts-api.html",
-      "source_symbol": null,
-      "visual_root_selector": "main, body",
-      "showcase_path_guess": "showcase/data-charts-api.html",
-      "needs_own_contract": false,
-      "family_group": "showcase-output",
-      "confidence": "high",
-      "notes": "Static output from generator/build-showcase.py (regenerate after source changes)"
-    },
-    {
-      "proposed_name": "Generated showcase HTML: data-charts-static.html",
-      "proposed_slug": "data-charts-static",
-      "proposed_type": "generated-showcase-page",
-      "source_path": "showcase/data-charts-static.html",
-      "source_symbol": null,
-      "visual_root_selector": "main, body",
-      "showcase_path_guess": "showcase/data-charts-static.html",
-      "needs_own_contract": false,
-      "family_group": "showcase-output",
-      "confidence": "high",
-      "notes": "Static output from generator/build-showcase.py (regenerate after source changes)"
-    },
-    {
       "proposed_name": "Generated showcase HTML: data-tables.html",
       "proposed_slug": "data-tables",
       "proposed_type": "generated-showcase-page",
@@ -15551,7 +15642,7 @@
   "catalogCrosswalk": {
     "registry": {
       "row_count": 193,
-      "generatedAt": "2026-07-22T06:45:49.609Z",
+      "generatedAt": "2026-07-22T07:24:42.198Z",
       "by_type": {
         "layout": 10,
         "page": 29,
@@ -15577,7 +15668,7 @@
       "active_rows": 193
     },
     "showcase_dir": "showcase",
-    "emitted_hash_count": 167,
+    "emitted_hash_count": 166,
     "emitted_hashes": [
       "Abx",
       "Ajm",
@@ -15598,7 +15689,6 @@
       "Ctr",
       "Cur",
       "Dbf",
-      "Dca",
       "Dcb",
       "Dce",
       "Dck",
@@ -15754,6 +15844,7 @@
       "Bru",
       "Cap",
       "DVN",
+      "Dca",
       "Ech",
       "FXK",
       "Fad",
@@ -15808,7 +15899,13 @@
       "Xyz",
       "Zzz"
     ],
-    "emit_marker_gaps": [],
+    "emit_marker_gaps": [
+      {
+        "hash": "Dca",
+        "name": "Data charts API",
+        "slug": "data-charts-api"
+      }
+    ],
     "contracts": {
       "missing_or_empty": [
         {
@@ -17354,7 +17451,7 @@
       ]
     },
     "source_inventory": {
-      "distinct_source_paths_in_inventory": 712
+      "distinct_source_paths_in_inventory": 719
     }
   }
 }

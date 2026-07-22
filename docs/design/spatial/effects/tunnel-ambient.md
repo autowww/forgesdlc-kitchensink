@@ -18,7 +18,7 @@ Animated drift; static grid when prefers-reduced-motion.
 
 ## Oracle scenarios
 
-`tun-dom-present`, `tun-reduced-motion`
+`tun-dom-present`, `tun-reduced-motion`, `tun-warp-variant`
 
 Machine oracle: [`../oracles/Tun.json`](../oracles/Tun.json) · Contract: [`../../catalog/components/Tun-tunnel-ambient.md`](../../catalog/components/Tun-tunnel-ambient.md)
 

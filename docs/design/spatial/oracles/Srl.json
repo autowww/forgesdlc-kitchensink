@@ -28,29 +28,11 @@
       }
     },
     {
-      "id": "spa-dom-present",
+      "id": "srl-orbit-mode",
       "prefers_reduced_motion": false,
       "actions": [],
       "expect": {
-        "root_selector": "[data-ks-hash=\"Srl\"]",
-        "threshold": 1
-      }
-    },
-    {
-      "id": "spa-wave2-mode",
-      "prefers_reduced_motion": false,
-      "actions": [],
-      "expect": {
-        "root_selector": "[data-ks-hash=\"Srl\"]",
-        "threshold": 1
-      }
-    },
-    {
-      "id": "spatia-wave2-mode",
-      "prefers_reduced_motion": false,
-      "actions": [],
-      "expect": {
-        "root_selector": "[data-ks-hash=\"Srl\"]",
+        "root_selector": ".fs-rail--orbit[data-ks-hash=\"Srl\"]",
         "threshold": 1
       }
     }

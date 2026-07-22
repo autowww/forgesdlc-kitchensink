@@ -57,7 +57,7 @@ def render() -> str:
 <section id="sec-diagrams" class="ks-section">
   <h2 class="ks-section-title">SVG Diagram Type Templates</h2>
   <p class="forge-support mb-3"><strong>{_DIAGRAM_TEMPLATE_COUNT} static SVG</strong> archetypes (Forge palette: cyan / amber / slate surfaces), extensible over time — aligned with diagram-as-code in the same design system: each family explains the closest native grammars, and each card lists matching types (e.g. flowchart, gantt, <code>xychart-beta</code>). Click a card for the modal legend. Scroll to <a href="#sec-diagram-parallels">diagram-as-code parallels</a> for live samples per template key, or <a href="diagram-code-examples.html">Diagram-as-code examples</a> for the full <code>mermaid@10</code> catalog (sequence, state, class, ER, C4, Git graph, …).</p>
-  <p class="forge-support mb-4">For <strong>JSON-driven metrics charts</strong> (same <code>charts</code> envelope as forge-lenses), see <a href="data-charts-static.html">Data charts (static JSON)</a> and <a href="data-charts-api.html">Data charts (API fetch)</a>.</p>
+  <p class="forge-support mb-4">For <strong>JSON-driven metrics charts</strong> (same <code>charts</code> envelope as forge-lenses), see the <a href="data-charts.html">Data charts hub</a> (<a href="data-charts-static.html">static</a> · <a href="data-charts-api.html">API fetch</a>).</p>
 </section>"""
     ascii_section = f"""\
 <section id="sec-diagram-ascii" class="ks-section">

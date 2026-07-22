@@ -12,6 +12,15 @@
         "root_selector": "[data-ks-hash=\"Sab\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "sab-toolbar-buttons",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Sab\"] .ks-sticky-action-bar button",
+        "threshold": 2
+      }
     }
   ]
 }

@@ -12,6 +12,17 @@
         "root_selector": "[data-ks-hash=\"Pgt\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "pgt-page-click",
+      "prefers_reduced_motion": false,
+      "actions": [
+        { "type": "click", "selector": "[data-ks-hash=\"Pgt\"] .ks-pagination-tactile__btn:nth-child(3)" }
+      ],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Pgt\"] .ks-pagination-tactile__btn.is-active[aria-current=\"page\"]",
+        "threshold": 1
+      }
     }
   ]
 }

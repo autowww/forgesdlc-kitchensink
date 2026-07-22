@@ -40,29 +40,11 @@
       }
     },
     {
-      "id": "fli-dom-present",
+      "id": "flp-stack-variant",
       "prefers_reduced_motion": false,
       "actions": [],
       "expect": {
-        "root_selector": "[data-ks-hash=\"Flp\"]",
-        "threshold": 1
-      }
-    },
-    {
-      "id": "fli-wave2-mode",
-      "prefers_reduced_motion": false,
-      "actions": [],
-      "expect": {
-        "root_selector": "[data-ks-hash=\"Flp\"]",
-        "threshold": 1
-      }
-    },
-    {
-      "id": "flipca-wave2-mode",
-      "prefers_reduced_motion": false,
-      "actions": [],
-      "expect": {
-        "root_selector": "[data-ks-hash=\"Flp\"]",
+        "root_selector": ".ks-card--flip-stack[data-ks-hash=\"Flp\"]",
         "threshold": 1
       }
     }

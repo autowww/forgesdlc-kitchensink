@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "scatter": {
+      "points": [
+        {
+          "x": 1,
+          "y": 2,
+          "label": "a"
+        },
+        {
+          "x": 2,
+          "y": 4,
+          "label": "b"
+        },
+        {
+          "x": 3,
+          "y": 5,
+          "label": "c"
+        },
+        {
+          "x": 4,
+          "y": 7,
+          "label": "d"
+        }
+      ]
+    }
+  }
+}

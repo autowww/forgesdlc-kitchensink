@@ -22,20 +22,11 @@
       }
     },
     {
-      "id": "tun-wave2-mode",
+      "id": "tun-warp-variant",
       "prefers_reduced_motion": false,
       "actions": [],
       "expect": {
-        "root_selector": "[data-ks-hash=\"Tun\"]",
-        "threshold": 1
-      }
-    },
-    {
-      "id": "tunnel-wave2-mode",
-      "prefers_reduced_motion": false,
-      "actions": [],
-      "expect": {
-        "root_selector": "[data-ks-hash=\"Tun\"]",
+        "root_selector": ".ks-ambient--tunnel--warp[data-ks-hash=\"Tun\"]",
         "threshold": 1
       }
     }

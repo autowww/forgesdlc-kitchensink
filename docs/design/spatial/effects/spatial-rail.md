@@ -18,7 +18,7 @@ Scroll updates --ks-rail-ry and --ks-rail-z per item.
 
 ## Oracle scenarios
 
-`srl-dom-present`, `srl-scroll-coverflow`
+`srl-dom-present`, `srl-scroll-coverflow`, `srl-orbit-mode`
 
 Machine oracle: [`../oracles/Srl.json`](../oracles/Srl.json) · Contract: [`../../catalog/components/Srl-spatial-rail.md`](../../catalog/components/Srl-spatial-rail.md)
 

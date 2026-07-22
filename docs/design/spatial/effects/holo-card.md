@@ -18,7 +18,7 @@ Idle neutral tilt; pointer move updates glare; reduced motion dampens motion.
 
 ## Oracle scenarios
 
-`hol-dom-present`, `hol-pointer-move`, `hol-reduced-motion`
+`hol-dom-present`, `hol-pointer-move`, `hol-reduced-motion`, `hol-illumination-variant`
 
 Machine oracle: [`../oracles/Hol.json`](../oracles/Hol.json) · Contract: [`../../catalog/components/Hol-holo-card.md`](../../catalog/components/Hol-holo-card.md)
 

@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "table": {
+      "columns": [
+        "Region",
+        "Revenue",
+        "Growth"
+      ],
+      "rows": [
+        [
+          "North",
+          "120k",
+          "8%"
+        ],
+        [
+          "South",
+          "95k",
+          "5%"
+        ]
+      ]
+    }
+  }
+}

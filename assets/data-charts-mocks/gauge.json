@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "gauge": {
+      "label": "SLO",
+      "value": 92,
+      "min": 0,
+      "max": 100,
+      "target": 95
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "matrix_heatmap": {
+      "rows": [
+        "article",
+        "form",
+        "listing"
+      ],
+      "cols": [
+        "footer",
+        "hero",
+        "form_block"
+      ],
+      "cells": [
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          9,
+          9,
+          9
+        ],
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      "ariaLabel": "Layout archetype by component co-occurrence"
+    }
+  }
+}

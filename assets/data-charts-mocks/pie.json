@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "pie": {
+      "rows": [
+        {
+          "name": "A",
+          "value": 45
+        },
+        {
+          "name": "B",
+          "value": 30
+        },
+        {
+          "name": "C",
+          "value": 25
+        }
+      ]
+    }
+  }
+}

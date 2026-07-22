@@ -14,7 +14,7 @@ Governed 3D and depth primitives for Kitchen Sink showcase and consumer sites.
 
 Live demos: showcase page **Spatial & 3D Effects** (`generator/pages/spatial-effects.py`).
 
-Emitters: `components/spatial.py` · Wave 2: `components/spatial_wave2.py`, `components/nav_layout.py` (`Ifn`) · Styles: `css/ks-spatial.css`, `css/ks-spatial-wave2.css` · Scripts: `js/ks-pointer-depth.js`, `js/ks-tilt-tiles.js`, `js/ks-spatial-cube.js`, `js/ks-spatial-rail.js`.
+Emitters: `components/spatial.py` (Wave 1 + v2 re-exports) · Wave 2: `components/spatial_wave2.py`, `components/nav_layout.py` (`Ifn`) · Styles: `css/ks-spatial.css`, `css/ks-spatial-wave2.css` · Scripts: `js/ks-pointer-depth.js`, `js/ks-tilt-tiles.js`, `js/ks-spatial-cube.js`, `js/ks-spatial-rail.js`.
 
 **FreeFrontend traceability:** [freefrontend-traceability.md](freefrontend-traceability.md) (79-row matrix, pages 1–3).
 
@@ -24,7 +24,8 @@ Category showcase pages: `spatial-surfaces`, `spatial-controls`, `spatial-ambien
 
 1. Build showcase (`python3 generator/build-showcase.py`).
 2. Run spatial verifier (`tools/spatial-effects-verifier/`) against oracle JSON.
-3. Each oracle scenario must pass with `expect.threshold` **1.0** on `root_selector`.
+3. Run render unit tests (`pytest tests/test_spatial_wave2_render.py`).
+4. Each oracle scenario must pass with `expect.threshold` **1.0** on `root_selector`.
 
 See [ORACLE-SCHEMA.md](ORACLE-SCHEMA.md) for JSON field definitions.
 

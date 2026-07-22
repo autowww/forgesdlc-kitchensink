@@ -1,0 +1,61 @@
+# KS dynamic UI API remediation — phase order
+
+waves:
+  wave-foundation:
+    phases: [D00, D01]
+  wave-p0:
+    phases: [D02, D03, D04, D05]
+  wave-imperative:
+    phases: [D06, D07]
+  wave-forms:
+    phases: [D08]
+  wave-docs:
+    phases: [D09]
+  wave-release:
+    phases: [D10, D11, D12]
+
+phases:
+  D00:
+    title: Architecture + API doc
+    depends_on: []
+  D01:
+    title: Test harness spike
+    depends_on: [D00]
+  D02:
+    title: Pagination tactile (Pgt)
+    hash: Pgt
+    depends_on: [D01]
+  D03:
+    title: Filter chip scroller (Fcs)
+    hash: Fcs
+    depends_on: [D01]
+  D04:
+    title: Sticky action bar (Sab)
+    hash: Sab
+    depends_on: [D01]
+  D05:
+    title: Governed combobox (Gcb)
+    hash: Gcb
+    depends_on: [D01]
+  D06:
+    title: Segmented + stepper APIs
+    hashes: [Svc, Swz]
+    depends_on: [D02, D03, D04, D05]
+  D07:
+    title: Python mounts for data widgets
+    depends_on: [D06]
+  D08:
+    title: Form controller
+    depends_on: [D07]
+  D09:
+    title: Docs + showcase inventory
+    depends_on: [D08]
+  D10:
+    title: KS Firebase deploy
+    depends_on: [D09]
+  D11:
+    title: Consumer propagate + public deploy
+    depends_on: [D10]
+  D12:
+    title: Parity drift gate
+    depends_on: [D11]

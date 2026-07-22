@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "ribbon": {
+      "categories": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "series": [
+        {
+          "name": "A",
+          "values": [
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "name": "B",
+          "values": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "C",
+          "values": [
+            2,
+            3,
+            1
+          ]
+        }
+      ]
+    }
+  }
+}

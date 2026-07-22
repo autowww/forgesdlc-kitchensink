@@ -1284,20 +1284,93 @@ def render_ks_chart_mount(
     data: dict[str, object] | None = None,
     data_url: str | None = None,
     title: str = "",
+    insight: str = "",
+    ks_hash: str = "",
+    group: str = "",
 ) -> str:
     """Mount point for ``forge-data-charts.js`` (inline *data* or fetch *data_url*)."""
     tid = e(chart_id)
     k = e(kind)
+    insight_id = f"{chart_id}-insight"
     attrs = [
         f'id="{tid}"',
         'class="ks-chart-mount mb-3"',
         'data-ks-chart',
         f'data-ks-chart-kind="{k}"',
     ]
+    if ks_hash:
+        h = e(ks_hash)
+        attrs.append(f'hash="{h}"')
+        attrs.append(f'data-ks-hash="{h}"')
+    if group:
+        attrs.append(f'data-ks-chart-group="{e(group)}"')
+    if insight:
+        attrs.append(f'aria-describedby="{e(insight_id)}"')
     if data is not None:
         raw = json.dumps(data, separators=(",", ":"))
         attrs.append(f'data-ks-chart-json="{e(raw)}"')
     if data_url is not None:
         attrs.append(f'data-ks-chart-url="{e(data_url)}"')
     cap = f'<p class="forge-support small mb-1"><strong>{e(title)}</strong> · <code>{k}</code></p>' if title else ""
-    return f'{cap}<div {" ".join(attrs)}></div>'
+    insight_line = ""
+    if insight:
+        insight_line = (
+            f'<p id="{e(insight_id)}" class="forge-support small mb-2" data-chart-summary>{e(insight)}</p>'
+        )
+    return f'{cap}{insight_line}<div {" ".join(attrs)}></div>'
+
+
+def _render_widget_mount(
+    mount_id: str,
+    *,
+    data_attr: str,
+    config: dict[str, object],
+    ks_hash: str = "",
+    ks_name: str = "",
+    extra_class: str = "",
+) -> str:
+    """Empty host + JSON config script for tier-C JS factories."""
+    mid = e(mount_id)
+    attrs = [f'id="{mid}"', f'data-{data_attr}=""']
+    if extra_class:
+        attrs.append(f'class="{e(extra_class)}"')
+    if ks_hash:
+        h = e(ks_hash)
+        attrs.append(f'hash="{h}"')
+        attrs.append(f'data-ks-hash="{h}"')
+    if ks_name:
+        attrs.append(f'data-ks-type="component"')
+        attrs.append(f'data-ks-name="{e(ks_name)}"')
+    raw = json.dumps(config, separators=(",", ":"))
+    return (
+        f'<div {" ".join(attrs)}></div>'
+        f'<script type="application/json" data-{data_attr}-config>{raw}</script>'
+    )
+
+
+def render_data_table_mount(mount_id: str, config: dict[str, object]) -> str:
+    return _render_widget_mount(
+        mount_id, data_attr="ks-data-table", config=config, ks_hash="Dtb", ks_name="data-table"
+    )
+
+
+def render_filter_toolbar_mount(mount_id: str, config: dict[str, object]) -> str:
+    return _render_widget_mount(
+        mount_id, data_attr="ks-filter-toolbar", config=config, ks_hash="Ftb", ks_name="filter-toolbar"
+    )
+
+
+def render_tree_combobox_mount(mount_id: str, config: dict[str, object]) -> str:
+    return _render_widget_mount(
+        mount_id, data_attr="ks-tree-combobox", config=config, ks_hash="Tcb", ks_name="tree-combobox"
+    )
+
+
+def render_governed_combobox_mount(mount_id: str, config: dict[str, object]) -> str:
+    return _render_widget_mount(
+        mount_id,
+        data_attr="ks-governed-combobox",
+        config=config,
+        ks_hash="Gcb",
+        ks_name="governed-combobox",
+    )

@@ -29,29 +29,11 @@
       }
     },
     {
-      "id": "cub-dom-present",
+      "id": "cbg-photo-mode",
       "prefers_reduced_motion": false,
       "actions": [],
       "expect": {
-        "root_selector": "[data-ks-hash=\"Cbg\"]",
-        "threshold": 1
-      }
-    },
-    {
-      "id": "cub-wave2-mode",
-      "prefers_reduced_motion": false,
-      "actions": [],
-      "expect": {
-        "root_selector": "[data-ks-hash=\"Cbg\"]",
-        "threshold": 1
-      }
-    },
-    {
-      "id": "cubega-wave2-mode",
-      "prefers_reduced_motion": false,
-      "actions": [],
-      "expect": {
-        "root_selector": "[data-ks-hash=\"Cbg\"]",
+        "root_selector": ".ks-cube-gallery--photo[data-ks-hash=\"Cbg\"]",
         "threshold": 1
       }
     }

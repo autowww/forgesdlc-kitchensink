@@ -577,6 +577,17 @@ def render_body() -> str:
   </div>
 </section>
 
+<section id="ag-dynamic-ui" class="ks-section">
+  <h2 class="ks-section-title">Dynamic UI · tier-C factories</h2>
+  {_spec_dl([
+    ("Purpose", "Programmatic control surfaces for app shells: mount, get/set value, onChange, destroy."),
+    ("Docs", "<code>docs/design/dynamic-ui/API.md</code> · showcase <a href=\"controls.html\">controls.html</a> · <a href=\"data-tables.html\">data-tables.html</a>"),
+    ("Factories", "<code>createPaginationTactile</code> (Pgt), <code>createFilterChipScroller</code> (Fcs), <code>createStickyActionBar</code> (Sab), <code>createGovernedCombobox</code> (Gcb), <code>createSegmentedControl</code> (Svc), <code>createStepperWizard</code> (Swz), <code>createFormController</code>, <code>createDataTable</code> (Dtb), <code>createFilterToolbar</code> (Ftb), <code>createTreeCombobox</code> (Tcb)"),
+    ("Python mounts", "<code>render_data_table_mount</code>, <code>render_filter_toolbar_mount</code>, <code>render_tree_combobox_mount</code>, <code>render_governed_combobox_mount</code> in <code>components.components</code>"),
+    ("Nav emitters", "<code>render_pagination_tactile</code>, <code>render_filter_chip_scroller</code>, <code>render_governed_combobox</code>, <code>render_sticky_action_bar</code> in <code>nav_layout.py</code> emit <code>data-ks-*</code> hosts for auto-init."),
+  ])}
+</section>
+
 <section id="ag-nav-sidebar" class="ks-section">
   <h2 class="ks-section-title">Navigation · Sidebar patterns</h2>
   {_spec_dl([

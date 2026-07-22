@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "scope": "mock",
+  "charts": {
+    "area": {
+      "categories": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr"
+      ],
+      "series": [
+        {
+          "name": "Users",
+          "values": [
+            100,
+            130,
+            155,
+            180
+          ]
+        }
+      ]
+    }
+  }
+}

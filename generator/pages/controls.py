@@ -60,6 +60,12 @@ def extra_js_paths() -> list[str]:
         "assets/ks-nav-shared.js",
         "assets/ks-segmented-control.js",
         "assets/ks-stepper-wizard.js",
+        "assets/ks-pagination-tactile.js",
+        "assets/ks-filter-chip-scroller.js",
+        "assets/ks-sticky-action-bar.js",
+        "assets/ks-governed-combobox.js",
+        "assets/ks-tree-combobox.js",
+        "assets/ks-form-controller.js",
     ]
 
 
@@ -137,18 +143,29 @@ def render() -> str:
     )
 
     forms_validation_block = """
-<div class="forge-form-panel mt-2">
+<div class="forge-form-panel mt-2" id="ks-form-validation-demo" data-ks-form>
   <div class="mb-3">
     <label class="form-label" for="ks-val-bad">Work email</label>
-    <input type="email" class="form-control is-invalid" id="ks-val-bad" value="not-an-email" autocomplete="off" aria-invalid="true" aria-describedby="ks-val-bad-inv" />
+    <input type="email" class="form-control" id="ks-val-bad" name="email" value="not-an-email" autocomplete="off" aria-describedby="ks-val-bad-inv" />
     <div id="ks-val-bad-inv" class="invalid-feedback">Enter a valid email address.</div>
   </div>
   <div class="mb-0">
     <label class="form-label" for="ks-val-ok">Artifact ID</label>
-    <input type="text" class="form-control is-valid" id="ks-val-ok" value="KS-2048" readonly aria-describedby="ks-val-okfb" />
+    <input type="text" class="form-control" id="ks-val-ok" name="artifact_id" value="KS-2048" readonly aria-describedby="ks-val-okfb" />
     <div id="ks-val-okfb" class="valid-feedback">Synced with registry.</div>
   </div>
 </div>
+<script type="module">
+import { createFormController } from "./assets/ks-form-controller.js";
+createFormController(document.getElementById("ks-form-validation-demo"), {
+  validate(values) {
+    const errors = {};
+    const email = String(values.email || "");
+    if (!email.includes("@")) errors.email = "Enter a valid email address.";
+    return errors;
+  },
+});
+</script>
 """.strip()
 
     action_dropdown_block = """
@@ -165,39 +182,44 @@ def render() -> str:
 
     advanced_widgets_block = """
 <p class="forge-support mb-3">
-  Bootstrap covers primitives; data-heavy apps usually add focused libraries. Scope third-party roots inside
-  <code>.forge-widget-host</code> so overrides stay predictable.
+  Bootstrap covers primitives; data-heavy apps use KS tier-C factories inside
+  <code>.forge-widget-host</code>. Python mount helpers:
+  <code>render_data_table_mount()</code>, <code>render_filter_toolbar_mount()</code>,
+  <code>render_tree_combobox_mount()</code>, <code>render_governed_combobox_mount()</code>.
+  See <code>data-tables.html</code> and <code>docs/design/dynamic-ui/API.md</code>.
 </p>
-<div class="forge-widget-host mb-4" role="region" aria-label="Placeholder widget host">
-  <p class="small text-secondary mb-0">Example host — drop a grid, picker, or combobox mount node here.</p>
-</div>
 <div class="forge-table-wrap mt-2">
   <table class="table table-sm mb-0">
     <thead><tr>
       <th scope="col">Need</th>
-      <th scope="col">Bootstrap 5.3</th>
-      <th scope="col">Typical add-on</th>
+      <th scope="col">KS factory</th>
+      <th scope="col">Typical add-on (when KS is not enough)</th>
     </tr></thead>
     <tbody>
       <tr>
-        <td>Editable / spreadsheet grid</td>
-        <td>Read-only table styles only</td>
-        <td>Tabulator, Handsontable, AG Grid (+ KS CSS wrapper)</td>
+        <td>Sortable / paginated data table</td>
+        <td><code>createDataTable</code> · <code>render_data_table_mount</code></td>
+        <td>—</td>
       </tr>
       <tr>
-        <td>Searchable or multi-select field</td>
-        <td><code>&lt;select&gt;</code> or static dropdown</td>
-        <td>Tom Select, Choices.js, Select2</td>
+        <td>Search + filter toolbar</td>
+        <td><code>createFilterToolbar</code> · <code>render_filter_toolbar_mount</code></td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Searchable combobox</td>
+        <td><code>createTreeCombobox</code> / <code>createGovernedCombobox</code></td>
+        <td>Tom Select for multi-select tags</td>
+      </tr>
+      <tr>
+        <td>Editable / spreadsheet grid</td>
+        <td>Read-only <code>render_table</code> styles only</td>
+        <td>Tabulator, Handsontable, AG Grid</td>
       </tr>
       <tr>
         <td>Date / time picking</td>
         <td>None in core</td>
-        <td>Flatpickr, Tempus Dominus, or native <code>type="date"</code></td>
-      </tr>
-      <tr>
-        <td>Sortable data tables (remote data)</td>
-        <td>None</td>
-        <td>Same grid libraries + thin fetch layer</td>
+        <td>Flatpickr, Tempus Dominus, native <code>type="date"</code></td>
       </tr>
     </tbody>
   </table>
@@ -293,10 +315,14 @@ def render() -> str:
 <section id="sec-forms-validation" class="ks-section">
   <h2 class="ks-section-title">Validation states</h2>
   <p class="forge-support mb-3">
-    Use <code>.is-invalid</code> / <code>.is-valid</code> with <code>.invalid-feedback</code> and <code>.valid-feedback</code>,
-    or <code>.was-validated</code> on a <code>&lt;form&gt;</code> for browser constraint hints.
+    Use <code>createFormController(root, &#123; validate &#125;)</code> for programmatic validation on
+    <code>render_form_*</code> markup, or <code>.is-invalid</code> / <code>.is-valid</code> classes manually.
   </p>
   {forms_validation_block}
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">JS API</p>
+    <p class="mb-0"><code>createFormController</code> · <code>getValues()</code> · <code>setValues()</code> · <code>setErrors()</code> · event <code>ks-form-change</code></p>
+  </div>
 </section>
 
 <section id="sec-dropdown" class="ks-section">
@@ -337,31 +363,51 @@ def render() -> str:
 <section id="sec-segmented-control" class="ks-section">
   <h2 class="ks-section-title">Segmented control</h2>
   {render_segmented_control("ctrl-view", [("list", "List"), ("grid", "Grid"), ("doc", "Doc")])}
-  {_bc("ks-segmented", "Radio group styled as segmented control.")}
+  {_bc("ks-segmented", "Radio group styled as segmented control; createSegmentedControl get/set API.")}
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">JS API</p>
+    <p class="mb-0"><code>createSegmentedControl(root, &#123; onChange &#125;)</code> · <code>getValue()</code> · <code>setValue()</code></p>
+  </div>
 </section>
 
 <section id="sec-stepper-wizard" class="ks-section">
   <h2 class="ks-section-title">Stepper wizard</h2>
   {render_stepper_wizard()}
-  {_bc("ks-stepper", "Back/Next updates aria-current step.")}
+  {_bc("ks-stepper", "Back/Next updates aria-current step; createStepperWizard get/set API.")}
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">JS API</p>
+    <p class="mb-0"><code>createStepperWizard(root, &#123; onChange, steps &#125;)</code> · <code>getValue()</code> · <code>setValue(stepIndex)</code></p>
+  </div>
 </section>
 
 <section id="sec-pagination-tactile" class="ks-section">
   <h2 class="ks-section-title">Pagination tactile</h2>
   {render_pagination_tactile()}
-  {_bc("ks-pagination-tactile", "Raised tactile page buttons.")}
+  {_bc("ks-pagination-tactile", "Raised tactile page buttons; page changes via createPaginationTactile.")}
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">JS API</p>
+    <p class="mb-0"><code>createPaginationTactile(container, &#123; page, totalPages, onChange &#125;)</code> · auto-init <code>data-ks-pagination</code></p>
+  </div>
 </section>
 
 <section id="sec-filter-chip-scroller" class="ks-section">
   <h2 class="ks-section-title">Filter chip scroller</h2>
   {render_filter_chip_scroller()}
-  {_bc("ks-filter-chip-scroller", "Horizontal chip rail with scroll snap.")}
+  {_bc("ks-filter-chip-scroller", "Horizontal chip rail; selection via createFilterChipScroller.")}
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">JS API</p>
+    <p class="mb-0"><code>createFilterChipScroller</code> · differs from <code>createFilterToolbar</code> (search + selects on data-tables page)</p>
+  </div>
 </section>
 
 <section id="sec-governed-combobox" class="ks-section">
   <h2 class="ks-section-title">Governed combobox</h2>
   {render_governed_combobox()}
-  {_bc("ks-governed-combobox", "Accessible combobox listbox pattern.")}
+  {_bc("ks-governed-combobox", "Flat-list combobox via createGovernedCombobox (Gcb hash).")}
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">JS API</p>
+    <p class="mb-0"><code>createGovernedCombobox</code> wraps <code>createTreeCombobox</code> · auto-init <code>data-ks-combobox</code></p>
+  </div>
 </section>
 
 <section id="sec-disclosure-stack" class="ks-section">
@@ -373,5 +419,9 @@ def render() -> str:
 <section id="sec-sticky-action-bar" class="ks-section">
   <h2 class="ks-section-title">Sticky action bar</h2>
   {render_sticky_action_bar()}
-  {_bc("ks-sticky-action-bar", "Sticky bottom toolbar for page actions.")}
+  {_bc("ks-sticky-action-bar", "Sticky bottom toolbar; actions via createStickyActionBar.")}
+  <div class="forge-callout forge-callout-surface mt-3">
+    <p class="callout-label">JS API</p>
+    <p class="mb-0"><code>createStickyActionBar(container, &#123; actions, onAction &#125;)</code> · event <code>ks-sticky-action</code></p>
+  </div>
 </section>"""

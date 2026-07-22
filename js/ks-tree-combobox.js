@@ -35,6 +35,7 @@ function itemSubtitle(item) {
  * @param {object} options
  */
 export function createTreeCombobox(container, options = {}) {
+  let destroyed = false;
   const state = {
     open: false,
     query: "",
@@ -47,13 +48,17 @@ export function createTreeCombobox(container, options = {}) {
   const byParent = childrenByParent(options.orgUnits || []);
   (byParent.get("root") || []).forEach((u) => state.orgExpanded.add(String(u.id)));
 
+  const visualHash = options.visualHash || "Tcb";
+  const ksName = options.ksName || "tree-combobox";
+  const rootClass = options.rootClass || "forge-tree-combobox";
+
   container.innerHTML = "";
   const inlinePanel = options.panelLayout === "inline";
-  const root = el("div", "forge-tree-combobox", {
-    hash: "Tcb",
-    "data-ks-hash": "Tcb",
+  const root = el("div", rootClass, {
+    hash: visualHash,
+    "data-ks-hash": visualHash,
     "data-ks-type": "component",
-    "data-ks-name": "tree-combobox",
+    "data-ks-name": ksName,
   });
   if (inlinePanel) {
     root.classList.add("forge-tree-combobox--inline");
@@ -314,16 +319,45 @@ export function createTreeCombobox(container, options = {}) {
     closePanel();
   }
 
+  function emitChange(item) {
+    root.dispatchEvent(
+      new CustomEvent("ks-tree-combobox-change", {
+        detail: { value: state.value, item },
+        bubbles: true,
+      })
+    );
+  }
+
+  const originalOnChange = options.onChange;
+  options.onChange = (item) => {
+    if (originalOnChange) originalOnChange(item);
+    emitChange(item);
+  };
+
   return {
     setValue(id) {
+      if (destroyed) return;
       state.value = id;
       paintTrigger();
     },
     setItems(items) {
+      if (destroyed) return;
       state.items = items;
       if (state.open) paintList();
     },
     getValue: () => state.value,
     close: closePanel,
+    destroy() {
+      destroyed = true;
+      container.innerHTML = "";
+    },
+    refresh(next = {}) {
+      if (destroyed) return this;
+      if (next.items) state.items = next.items;
+      if (next.value != null) state.value = next.value;
+      paintTrigger();
+      if (state.open) paintList();
+      return this;
+    },
   };
 }
