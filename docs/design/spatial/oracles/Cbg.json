@@ -27,6 +27,33 @@
         "root_selector": "[data-ks-hash=\"Cbg\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "cub-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cbg\"]",
+        "threshold": 1
+      }
+    },
+    {
+      "id": "cub-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cbg\"]",
+        "threshold": 1
+      }
+    },
+    {
+      "id": "cubega-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cbg\"]",
+        "threshold": 1
+      }
     }
   ],
   "showcase_page": "spatial-rails.html"

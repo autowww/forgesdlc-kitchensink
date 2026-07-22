@@ -1,0 +1,17 @@
+{
+  "hash": "Fld",
+  "slug": "fold-accordion",
+  "showcase_anchor": "#sec-fold-accordion",
+  "showcase_page": "spatial-surfaces.html",
+  "scenarios": [
+    {
+      "id": "fol-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Fld\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

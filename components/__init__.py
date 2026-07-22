@@ -15,6 +15,12 @@ try:
         render_nested_roadmap,
         render_nested_roadmap_modal_shell,
     )
+    from .roadmap import (  # noqa: F401
+        get_roadmap_demo_doc,
+        render_roadmap_dynamic,
+        render_roadmap_editable,
+        render_roadmap_static,
+    )
     from .roadmap_date_editor import (  # noqa: F401
         render_roadmap_date_editor,
         roadmap_date_editor_script_url,

@@ -1,0 +1,17 @@
+{
+  "hash": "Hud",
+  "slug": "hud-space-panel",
+  "showcase_anchor": "#sec-hud-space",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "hud-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Hud\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

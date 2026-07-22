@@ -1,0 +1,17 @@
+{
+  "hash": "Fck",
+  "slug": "flip-clock-counter",
+  "showcase_anchor": "#sec-flip-clock",
+  "showcase_page": "spatial-controls.html",
+  "scenarios": [
+    {
+      "id": "fli-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Fck\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

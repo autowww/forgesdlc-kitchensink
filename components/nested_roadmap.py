@@ -275,40 +275,14 @@ def render_nested_roadmap(
     """
     Emit root ``.ks-nested-roadmap`` + JSON config; optionally the shared modal shell.
 
-    Parameters
-    ----------
-    config
-        Must include ``version``, ``title``, ``columns``, ``tracks``, ``bars``.
-    roadmap_id
-        Stable id for this instance (multiple instances per page use distinct ids).
-    include_modal_shell
-        Set False on second+ instance if the shell was already emitted. Only one
-        roadmap per page should use the default modal id ``ksNestedRoadmapModal``;
-        multiple instances need distinct ``data-ks-nrm-modal`` targets and matching shells.
+    Delegates to ``roadmap.render_roadmap_dynamic`` (hash ``Rmd``).
     """
-    hid = e(roadmap_id)
-    payload = _json_for_script_tag(config)
+    from roadmap import render_roadmap_dynamic
 
-    shell = render_nested_roadmap_modal_shell() if include_modal_shell else ""
-
-    return (
-        shell
-        + f'<div class="ks-nested-roadmap" id="{hid}" data-ks-nested-roadmap="1" '
-        f'data-ks-nrm-modal="ksNestedRoadmapModal">'
-        f'<script type="application/json" data-ks-nrm-config>{payload}</script>'
-        f'<div class="ks-nested-roadmap__chrome">'
-        f'<div class="ks-nested-roadmap__nav d-flex flex-wrap align-items-center gap-2 mb-2">'
-        f'<button type="button" class="btn btn-sm btn-outline-secondary ks-nrm-up" '
-        f'data-ks-nrm-up hidden>Up one level</button>'
-        f'<button type="button" class="btn btn-sm btn-outline-secondary ks-nrm-root" '
-        f'data-ks-nrm-root hidden>Reset to root</button>'
-        f"</div>"
-        f'<div class="ks-nested-roadmap__title h5 mb-2" role="navigation" aria-label="Roadmap trail">'
-        f'<span class="ks-nested-roadmap__breadcrumb forge-support" data-ks-nrm-bc></span>'
-        f"</div>"
-        f"</div>"
-        f'<div class="ks-nested-roadmap__viewport" data-ks-nrm-viewport></div>'
-        f"</div>"
+    return render_roadmap_dynamic(
+        config,
+        roadmap_id=roadmap_id,
+        include_modal_shell=include_modal_shell,
     )
 
 

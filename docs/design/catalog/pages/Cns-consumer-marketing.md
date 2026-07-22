@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/consumer_marketing.py
-showcase_url: "https://ks.forgesdlc.com/showcase/consumer-marketing.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Cns.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/consumer-marketing.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Cns.png"
 screenshot_status: "planned"
 ---
 
@@ -18,7 +18,7 @@ screenshot_status: "planned"
 - **Name:** Consumer marketing
 - **Type:** page
 - **Source paths:** `generator/pages/consumer_marketing.py`
-- **Showcase URL:** https://ks.forgesdlc.com/showcase/consumer-marketing.html
+- **Showcase URL:** https://ks.forgesdlc.com/cases/showcase/consumer-marketing.html
 
 ## Purpose
 

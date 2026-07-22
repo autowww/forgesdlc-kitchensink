@@ -293,7 +293,7 @@
         line = dockLineY();
       }
 
-      setActiveLane(lanes.length ? lanes[0].id : null);
+      setActiveLane(lanes.length ? lanes[lanes.length - 1].id : null);
 
       if (revealed && lanes.length) {
         scheduleSync();
@@ -302,7 +302,9 @@
 
     function laneSlotMetrics() {
       var headerH = measureHeader();
-      var laneCount = dock.querySelectorAll(".fs-section-swimlane").length;
+      var laneCount = dock.querySelectorAll(
+        ".fs-section-swimlane:not(.fs-section-swimlane--morph-pending)"
+      ).length;
       var pad = Math.min(32, Math.max(16, window.innerWidth * 0.03));
       return {
         top: headerH + laneCount * laneHeight + laneHeight * 0.22,
@@ -343,7 +345,7 @@
         );
       }
       removeLaneForSection(id);
-      setActiveLane(lanes.length ? lanes[0].id : null);
+      setActiveLane(lanes.length ? lanes[lanes.length - 1].id : null);
       updateDockHeight();
     }
 
@@ -388,11 +390,11 @@
     function commitLane(id, title, btn) {
       removeLaneForSection(id);
       if (!btn.parentNode) {
-        dock.insertBefore(btn, dock.firstChild);
+        dock.appendChild(btn);
       }
-      lanes.unshift({ id: id, title: title, el: btn });
+      lanes.push({ id: id, title: title, el: btn });
       while (lanes.length > maxLanes) {
-        var dropped = lanes.pop();
+        var dropped = lanes.shift();
         dropped.el.remove();
         var evicted = findSectionById(dropped.id);
         if (evicted) {
@@ -461,7 +463,6 @@
 
       var btn = createLaneButton(id, title);
       btn.classList.add("fs-section-swimlane--morph-pending");
-      dock.insertBefore(btn, dock.firstChild);
       dock.removeAttribute("hidden");
 
       var morph = document.createElement("div");

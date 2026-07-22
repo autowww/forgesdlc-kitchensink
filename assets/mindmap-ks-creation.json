@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "title": "Kitchen Sink",
+  "root": {
+    "id": "root",
+    "label": "Kitchen Sink",
+    "children": [
+      {
+        "id": "prompt-themes",
+        "label": "Prompt themes",
+        "children": [
+          { "id": "one-repo", "label": "One shared repo" },
+          { "id": "submodule", "label": "Submodule to sites" },
+          { "id": "palette", "label": "Match Forge palette" },
+          { "id": "docs-shell", "label": "Docs shell parity" },
+          { "id": "diagrams-code", "label": "Diagrams as code" },
+          { "id": "agent-rules", "label": "Agent-facing rules" }
+        ]
+      },
+      {
+        "id": "planning",
+        "label": "Planning",
+        "children": [
+          { "id": "audit-dup", "label": "Audit duplication" },
+          { "id": "token-surfaces", "label": "Token and surfaces" },
+          { "id": "layouts-inv", "label": "layouts.py inventory" },
+          { "id": "gen-embed", "label": "Generator embed pattern" },
+          { "id": "showcase-ref", "label": "Showcase as reference" },
+          { "id": "propagation", "label": "Propagation story" }
+        ]
+      }
+    ]
+  }
+}

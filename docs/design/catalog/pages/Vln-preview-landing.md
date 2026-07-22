@@ -5,8 +5,8 @@ type: "layout-preview"
 status: "active"
 source_paths:
   - generator/layout_previews.py
-showcase_url: "https://ks.forgesdlc.com/showcase/preview-landing.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Vln.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/preview-landing.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Vln.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** layout-preview
 - **Category:** layout-preview
 - **Source paths:** `generator/layout_previews.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/preview-landing.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Vln.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/preview-landing.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Vln.png — status **planned**
 
 ## Purpose
 

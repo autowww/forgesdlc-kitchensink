@@ -14,7 +14,11 @@ Governed 3D and depth primitives for Kitchen Sink showcase and consumer sites.
 
 Live demos: showcase page **Spatial & 3D Effects** (`generator/pages/spatial-effects.py`).
 
-Emitters: `components/spatial.py` · Styles: `css/ks-spatial.css` · Scripts: `js/ks-pointer-depth.js`, `js/ks-tilt-tiles.js`, `js/ks-spatial-cube.js`, `js/ks-spatial-rail.js`.
+Emitters: `components/spatial.py` · Wave 2: `components/spatial_wave2.py`, `components/nav_layout.py` (`Ifn`) · Styles: `css/ks-spatial.css`, `css/ks-spatial-wave2.css` · Scripts: `js/ks-pointer-depth.js`, `js/ks-tilt-tiles.js`, `js/ks-spatial-cube.js`, `js/ks-spatial-rail.js`.
+
+**FreeFrontend traceability:** [freefrontend-traceability.md](freefrontend-traceability.md) (79-row matrix, pages 1–3).
+
+Category showcase pages: `spatial-surfaces`, `spatial-controls`, `spatial-ambient`, `spatial-rails`.
 
 ## Verification
 
@@ -48,3 +52,47 @@ See [ORACLE-SCHEMA.md](ORACLE-SCHEMA.md) for JSON field definitions.
 | `Dil` | depth-dial | [effects/depth-dial.md](effects/depth-dial.md) | [oracles/Dil.json](oracles/Dil.json) |
 | `Nsw` | neumorphic-switch | [effects/neumorphic-switch.md](effects/neumorphic-switch.md) | [oracles/Nsw.json](oracles/Nsw.json) |
 | `Srl` | spatial-rail | [effects/spatial-rail.md](effects/spatial-rail.md) | [oracles/Srl.json](oracles/Srl.json) |
+
+## Wave 2 (S23–S67)
+
+Governed primitives for FreeFrontend CSS 3D **Yes/Partial** coverage. Phase map: [`wave2-registry.yaml`](wave2-registry.yaml). PDCA waves: `wave-traceability`, `wave-upgrades`, `wave-controls`, `wave-surfaces-rails`, `wave-ambient`, `wave-optional`.
+
+| Hash | Slug | Maintainer doc | Oracle |
+|------|------|----------------|--------|
+| `Fck` | flip-clock-counter | [effects/flip-clock-counter.md](effects/flip-clock-counter.md) | [oracles/Fck.json](oracles/Fck.json) |
+| `Tlj` | tilt-js | [effects/tilt-js.md](effects/tilt-js.md) | [oracles/Tlj.json](oracles/Tlj.json) |
+| `Pmg` | pro-mode-guard-toggle | [effects/pro-mode-guard-toggle.md](effects/pro-mode-guard-toggle.md) | [oracles/Pmg.json](oracles/Pmg.json) |
+| `Vrk` | vertical-rocker-switch | [effects/vertical-rocker-switch.md](effects/vertical-rocker-switch.md) | [oracles/Vrk.json](oracles/Vrk.json) |
+| `Bkm` | css-bookmark | [effects/css-bookmark.md](effects/css-bookmark.md) | [oracles/Bkm.json](oracles/Bkm.json) |
+| `Kbd` | rgb-keyboard | [effects/rgb-keyboard.md](effects/rgb-keyboard.md) | [oracles/Kbd.json](oracles/Kbd.json) |
+| `Clf` | cube-login-form | [effects/cube-login-form.md](effects/cube-login-form.md) | [oracles/Clf.json](oracles/Clf.json) |
+| `Lgt` | shapes-lights-rig | [effects/shapes-lights-rig.md](effects/shapes-lights-rig.md) | [oracles/Lgt.json](oracles/Lgt.json) |
+| `Crg` | ring-carousel | [effects/ring-carousel.md](effects/ring-carousel.md) | [oracles/Crg.json](oracles/Crg.json) |
+| `Opg` | orbital-photo-gallery | [effects/orbital-photo-gallery.md](effects/orbital-photo-gallery.md) | [oracles/Opg.json](oracles/Opg.json) |
+| `Stn` | stellar-slide-navigator | [effects/stellar-slide-navigator.md](effects/stellar-slide-navigator.md) | [oracles/Stn.json](oracles/Stn.json) |
+| `Vtc` | vertical-team-carousel | [effects/vertical-team-carousel.md](effects/vertical-team-carousel.md) | [oracles/Vtc.json](oracles/Vtc.json) |
+| `Bkf` | book-page-flip | [effects/book-page-flip.md](effects/book-page-flip.md) | [oracles/Bkf.json](oracles/Bkf.json) |
+| `Fld` | fold-accordion | [effects/fold-accordion.md](effects/fold-accordion.md) | [oracles/Fld.json](oracles/Fld.json) |
+| `Fan` | card-fan | [effects/card-fan.md](effects/card-fan.md) | [oracles/Fan.json](oracles/Fan.json) |
+| `Dck` | card-deck-stack | [effects/card-deck-stack.md](effects/card-deck-stack.md) | [oracles/Dck.json](oracles/Dck.json) |
+| `Vnl` | vinyl-sleeve-media | [effects/vinyl-sleeve-media.md](effects/vinyl-sleeve-media.md) | [oracles/Vnl.json](oracles/Vnl.json) |
+| `Stf` | scroll-flip-strip | [effects/scroll-flip-strip.md](effects/scroll-flip-strip.md) | [oracles/Stf.json](oracles/Stf.json) |
+| `Erc` | rolling-cube-404 | [effects/rolling-cube-404.md](effects/rolling-cube-404.md) | [oracles/Erc.json](oracles/Erc.json) |
+| `Mph` | morph-polyhedron | [effects/morph-polyhedron.md](effects/morph-polyhedron.md) | [oracles/Mph.json](oracles/Mph.json) |
+| `Tmb` | tumbling-cubes | [effects/tumbling-cubes.md](effects/tumbling-cubes.md) | [oracles/Tmb.json](oracles/Tmb.json) |
+| `Hex` | hex-tunnel | [effects/hex-tunnel.md](effects/hex-tunnel.md) | [oracles/Hex.json](oracles/Hex.json) |
+| `Glb` | math-globe | [effects/math-globe.md](effects/math-globe.md) | [oracles/Glb.json](oracles/Glb.json) |
+| `Orb` | sphere-family | [effects/sphere-family.md](effects/sphere-family.md) | [oracles/Orb.json](oracles/Orb.json) |
+| `Slp` | scroll-layer-parallax | [effects/scroll-layer-parallax.md](effects/scroll-layer-parallax.md) | [oracles/Slp.json](oracles/Slp.json) |
+| `Cur` | curtain-reveal | [effects/curtain-reveal.md](effects/curtain-reveal.md) | [oracles/Cur.json](oracles/Cur.json) |
+| `Twr` | tower-cubes-loader | [effects/tower-cubes-loader.md](effects/tower-cubes-loader.md) | [oracles/Twr.json](oracles/Twr.json) |
+| `Ifn` | fisheye-depth-nav | [effects/fisheye-depth-nav.md](effects/fisheye-depth-nav.md) | [oracles/Ifn.json](oracles/Ifn.json) |
+| `Mch` | linear-circular-motion | [effects/linear-circular-motion.md](effects/linear-circular-motion.md) | [oracles/Mch.json](oracles/Mch.json) |
+| `Dot` | simplest-dots | [effects/simplest-dots.md](effects/simplest-dots.md) | [oracles/Dot.json](oracles/Dot.json) |
+| `Xsc` | sphere-cube-intersection | [effects/sphere-cube-intersection.md](effects/sphere-cube-intersection.md) | [oracles/Xsc.json](oracles/Xsc.json) |
+| `Bbl` | bubbly-grid | [effects/bubbly-grid.md](effects/bubbly-grid.md) | [oracles/Bbl.json](oracles/Bbl.json) |
+| `Hud` | hud-space-panel | [effects/hud-space-panel.md](effects/hud-space-panel.md) | [oracles/Hud.json](oracles/Hud.json) |
+| `Pry` | fractured-pyramid | [effects/fractured-pyramid.md](effects/fractured-pyramid.md) | [oracles/Pry.json](oracles/Pry.json) |
+| `Dbf` | conf-data-block | [effects/conf-data-block.md](effects/conf-data-block.md) | [oracles/Dbf.json](oracles/Dbf.json) |
+
+**v2 modes** on existing hashes (same oracle files, new scenarios): `Cbg` photo, `Srl` orbit, `Flp` stack, `Dpt` spiral, `Tun` warp, `Iso` keypad/grid, `Hol` illumination.

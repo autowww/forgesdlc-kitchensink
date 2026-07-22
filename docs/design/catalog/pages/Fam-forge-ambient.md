@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/forge_ambient.py
-showcase_url: "https://ks.forgesdlc.com/showcase/forge-ambient.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Fam.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/forge-ambient.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Fam.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/forge_ambient.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/forge-ambient.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Fam.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/forge-ambient.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Fam.png — status **planned**
 
 ## Purpose
 

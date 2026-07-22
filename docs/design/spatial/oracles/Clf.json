@@ -1,0 +1,17 @@
+{
+  "hash": "Clf",
+  "slug": "cube-login-form",
+  "showcase_anchor": "#sec-cube-login",
+  "showcase_page": "spatial-controls.html",
+  "scenarios": [
+    {
+      "id": "cub-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Clf\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

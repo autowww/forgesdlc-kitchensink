@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/surfaces.py
-showcase_url: "https://ks.forgesdlc.com/showcase/surfaces.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Srf.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/surfaces.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Srf.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/surfaces.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/surfaces.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Srf.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/surfaces.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Srf.png — status **planned**
 
 ## Purpose
 

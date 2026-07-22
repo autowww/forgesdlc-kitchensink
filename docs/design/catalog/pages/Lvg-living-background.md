@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/living_background_system.py
-showcase_url: "https://ks.forgesdlc.com/showcase/living-background.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Lvg.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/living-background.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Lvg.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/living_background_system.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/living-background.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Lvg.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/living-background.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Lvg.png — status **planned**
 
 ## Purpose
 

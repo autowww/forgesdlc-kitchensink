@@ -1,0 +1,17 @@
+{
+  "hash": "Xsc",
+  "slug": "sphere-cube-intersection",
+  "showcase_anchor": "#sec-intersection",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "sph-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Xsc\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

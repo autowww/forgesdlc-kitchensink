@@ -1,0 +1,17 @@
+{
+  "hash": "Dot",
+  "slug": "simplest-dots",
+  "showcase_anchor": "#sec-dots",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "sim-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dot\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "hash": "Cur",
+  "slug": "curtain-reveal",
+  "showcase_anchor": "#sec-curtain-reveal",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "cur-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Cur\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

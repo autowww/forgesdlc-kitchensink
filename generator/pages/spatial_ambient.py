@@ -19,6 +19,7 @@ from spatial_showcase_common import (  # noqa: E402
     SPATIAL_JS_SCROLL,
     behavior_callout,
 )
+from spatial_wave2_showcase import ambient_sections  # noqa: E402
 
 PAGE = {
     "slug": "spatial-ambient",
@@ -33,6 +34,24 @@ PAGE = {
         ("sec-tunnel", "Tunnel ambient"),
         ("sec-perspective-stage", "Perspective stage"),
         ("sec-floating-header", "Floating header"),
+        ("sec-display-spiral", "Text spiral"),
+        ("sec-tunnel-warp", "Warp tunnel"),
+        ("sec-error-cube", "404 cube"),
+        ("sec-morph-poly", "Morph polyhedron"),
+        ("sec-tumbling-cubes", "Tumbling cubes"),
+        ("sec-hex-tunnel", "Hex tunnel"),
+        ("sec-math-globe", "Math globe"),
+        ("sec-sphere-family", "Sphere family"),
+        ("sec-scroll-parallax", "Scroll parallax"),
+        ("sec-curtain-reveal", "Curtain reveal"),
+        ("sec-tower-cubes", "Tower cubes"),
+        ("sec-linear-motion", "Linear motion"),
+        ("sec-dots", "Dots field"),
+        ("sec-intersection", "Intersection"),
+        ("sec-bubbly", "Bubbly"),
+        ("sec-hud-space", "HUD space"),
+        ("sec-fractured-pyramid", "Fractured pyramid"),
+        ("sec-conf-block", "Conf block"),
     ],
 }
 
@@ -47,7 +66,7 @@ def extra_js_paths() -> list[str]:
 
 def render() -> str:
     bc = behavior_callout
-    return f"""\
+    base = f"""\
 <div class="forge-callout forge-callout-cyan mb-4" id="sec-intro">
   <p class="callout-label mb-1">Category</p>
   <p class="mb-0">Ambient depth from the <a href="spatial-effects.html">Spatial hub</a>.</p>
@@ -77,3 +96,4 @@ def render() -> str:
   {bc("ks-display--depth--float", "Scroll-linked volumetric headline variant.")}
 </section>
 """
+    return base + ambient_sections()

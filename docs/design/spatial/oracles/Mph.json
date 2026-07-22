@@ -1,0 +1,17 @@
+{
+  "hash": "Mph",
+  "slug": "morph-polyhedron",
+  "showcase_anchor": "#sec-morph-poly",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "mor-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Mph\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

@@ -365,3 +365,26 @@ def render_editorial_peek_rail(items_html: str) -> str:
 
 def render_editorial_peek_rail_item(card_html: str) -> str:
     return f'<div class="fs-rail__item flex-shrink-0" style="width:14rem">{card_html}</div>'
+
+
+def render_fisheye_depth_nav(*, nav_id: str = "ksFisheyeNav") -> str:
+    """Fisheye 3D parallax nav strip (Wave 2 Ifn)."""
+    try:
+        from .ks_hash_attrs import ks_hash_attrs
+    except ImportError:
+        from ks_hash_attrs import ks_hash_attrs
+    attrs = ks_hash_attrs("Ifn", "component", "fisheye-depth-nav")
+    links = (
+        ("Overview", "#"),
+        ("Controls", "spatial-controls.html"),
+        ("Ambient", "spatial-ambient.html"),
+        ("Rails", "spatial-rails.html"),
+    )
+    items = "".join(
+        f'<a class="ks-nav--fisheye__link" href="{href}">{label}</a>' for label, href in links
+    )
+    return (
+        f'<nav class="ks-nav--fisheye ks-pointer-depth" id="{nav_id}" {attrs} '
+        f'data-ks-pointer-max="12" aria-label="Fisheye depth navigation">'
+        f'<div class="ks-nav--fisheye__track">{items}</div></nav>'
+    )

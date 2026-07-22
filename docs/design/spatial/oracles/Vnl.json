@@ -1,0 +1,17 @@
+{
+  "hash": "Vnl",
+  "slug": "vinyl-sleeve-media",
+  "showcase_anchor": "#sec-vinyl-sleeve",
+  "showcase_page": "spatial-surfaces.html",
+  "scenarios": [
+    {
+      "id": "vin-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Vnl\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

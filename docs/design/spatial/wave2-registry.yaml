@@ -1,0 +1,367 @@
+# KS spatial Wave 2 — phase/hash registry (S23–S67)
+# Source: FreeFrontend CSS 3D Yes/Partial coverage plan
+
+waves:
+  traceability: [S23]
+  upgrades: [S24, S25, S26, S27, S28, S29, S30, S31, S32]
+  controls: [S33, S34, S35, S36, S37, S38, S39, S40]
+  surfaces_rails: [S41, S42, S43, S44, S45, S46, S47, S48, S49, S50]
+  ambient: [S51, S52, S53, S54, S55, S56, S57, S58, S59, S60]
+  optional: [S61, S62, S63, S64, S65, S66, S67]
+
+phases:
+  S23:
+    title: Wave 2 traceability spike
+    kind: foundation
+    depends_on: [S22]
+  S24:
+    title: Cube gallery photo mode
+    kind: upgrade
+    hash: Cbg
+    slug: cube-gallery
+    showcase_page: spatial-rails.html
+    showcase_anchor: "#sec-cube-gallery-photo"
+    depends_on: [S14]
+  S25:
+    title: Spatial rail orbit mode
+    kind: upgrade
+    hash: Srl
+    slug: spatial-rail
+    showcase_page: spatial-rails.html
+    showcase_anchor: "#sec-spatial-rail-orbit"
+    depends_on: [S22]
+  S26:
+    title: Flip card stack variant
+    kind: upgrade
+    hash: Flp
+    slug: flip-card
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-flip-stack"
+    depends_on: [S03]
+  S27:
+    title: Display depth spiral variant
+    kind: upgrade
+    hash: Dpt
+    slug: display-depth
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-display-spiral"
+    depends_on: [S07]
+  S28:
+    title: Tunnel warp variant
+    kind: upgrade
+    hash: Tun
+    slug: tunnel-ambient
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-tunnel-warp"
+    depends_on: [S16]
+  S29:
+    title: Isometric keypad variant
+    kind: upgrade
+    hash: Iso
+    slug: isometric-tile
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-iso-keypad"
+    depends_on: [S18]
+  S30:
+    title: Isometric cube grid variant
+    kind: upgrade
+    hash: Iso
+    slug: isometric-tile
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-iso-grid"
+    depends_on: [S18]
+  S31:
+    title: Holo card illumination variant
+    kind: upgrade
+    hash: Hol
+    slug: holo-card
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-holo-illumination"
+    depends_on: [S05]
+  S32:
+    title: Flip clock counter
+    kind: component
+    hash: Fck
+    slug: flip-clock-counter
+    showcase_page: spatial-controls.html
+    showcase_anchor: "#sec-flip-clock"
+    depends_on: [S02]
+  S33:
+    title: JS pointer tilt surface
+    kind: component
+    hash: Tlj
+    slug: tilt-js
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-tilt-js"
+    depends_on: [S00]
+  S34:
+    title: Pro-mode guard toggle
+    kind: component
+    hash: Pmg
+    slug: pro-mode-guard-toggle
+    showcase_page: spatial-controls.html
+    showcase_anchor: "#sec-pro-mode-guard"
+    depends_on: [S09]
+  S35:
+    title: Vertical rocker switch
+    kind: component
+    hash: Vrk
+    slug: vertical-rocker-switch
+    showcase_page: spatial-controls.html
+    showcase_anchor: "#sec-rocker-switch"
+    depends_on: [S09]
+  S36:
+    title: CSS bookmark control
+    kind: component
+    hash: Bkm
+    slug: css-bookmark
+    showcase_page: spatial-controls.html
+    showcase_anchor: "#sec-css-bookmark"
+    depends_on: [S02]
+  S37:
+    title: Flip clock counter duplicate skip
+    kind: skip
+    hash: Fck
+    slug: flip-clock-counter
+    depends_on: [S32]
+  S38:
+    title: RGB keyboard surface
+    kind: component
+    hash: Kbd
+    slug: rgb-keyboard
+    showcase_page: spatial-controls.html
+    showcase_anchor: "#sec-rgb-keyboard"
+    depends_on: [S29]
+  S39:
+    title: Cube login form shell
+    kind: component
+    hash: Clf
+    slug: cube-login-form
+    showcase_page: spatial-controls.html
+    showcase_anchor: "#sec-cube-login"
+    depends_on: [S02]
+  S40:
+    title: Shapes and lights rig
+    kind: component
+    hash: Lgt
+    slug: shapes-lights-rig
+    showcase_page: spatial-controls.html
+    showcase_anchor: "#sec-lights-rig"
+    depends_on: [S02]
+  S41:
+    title: CSS ring carousel
+    kind: component
+    hash: Crg
+    slug: ring-carousel
+    showcase_page: spatial-rails.html
+    showcase_anchor: "#sec-ring-carousel"
+    depends_on: [S22]
+  S42:
+    title: Orbital photo gallery
+    kind: component
+    hash: Opg
+    slug: orbital-photo-gallery
+    showcase_page: spatial-rails.html
+    showcase_anchor: "#sec-orbital-gallery"
+    depends_on: [S00]
+  S43:
+    title: Stellar slide navigator
+    kind: component
+    hash: Stn
+    slug: stellar-slide-navigator
+    showcase_page: spatial-rails.html
+    showcase_anchor: "#sec-stellar-nav"
+    depends_on: [S22]
+  S44:
+    title: Vertical team carousel
+    kind: component
+    hash: Vtc
+    slug: vertical-team-carousel
+    showcase_page: spatial-rails.html
+    showcase_anchor: "#sec-vertical-carousel"
+    depends_on: [S22]
+  S45:
+    title: Book page flip
+    kind: component
+    hash: Bkf
+    slug: book-page-flip
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-book-flip"
+    depends_on: [S03]
+  S46:
+    title: Fold accordion
+    kind: component
+    hash: Fld
+    slug: fold-accordion
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-fold-accordion"
+    depends_on: [S02]
+  S47:
+    title: Card fan
+    kind: component
+    hash: Fan
+    slug: card-fan
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-card-fan"
+    depends_on: [S11]
+  S48:
+    title: Card deck stack
+    kind: component
+    hash: Dck
+    slug: card-deck-stack
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-card-deck"
+    depends_on: [S03]
+  S49:
+    title: Vinyl sleeve media
+    kind: component
+    hash: Vnl
+    slug: vinyl-sleeve-media
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-vinyl-sleeve"
+    depends_on: [S05]
+  S50:
+    title: Scroll flip strip
+    kind: component
+    hash: Stf
+    slug: scroll-flip-strip
+    showcase_page: spatial-rails.html
+    showcase_anchor: "#sec-scroll-flip"
+    depends_on: [S22]
+  S51:
+    title: Rolling cube 404 scene
+    kind: component
+    hash: Erc
+    slug: rolling-cube-404
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-error-cube"
+    depends_on: [S14]
+  S52:
+    title: Morph polyhedron loader
+    kind: component
+    hash: Mph
+    slug: morph-polyhedron
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-morph-poly"
+    depends_on: [S02]
+  S53:
+    title: Tumbling cubes ambient
+    kind: component
+    hash: Tmb
+    slug: tumbling-cubes
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-tumbling-cubes"
+    depends_on: [S02]
+  S54:
+    title: Hex tunnel ambient
+    kind: component
+    hash: Hex
+    slug: hex-tunnel
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-hex-tunnel"
+    depends_on: [S16]
+  S55:
+    title: Math globe ambient
+    kind: component
+    hash: Glb
+    slug: math-globe
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-math-globe"
+    depends_on: [S02]
+  S56:
+    title: Sphere family ambient
+    kind: component
+    hash: Orb
+    slug: sphere-family
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-sphere-family"
+    depends_on: [S02]
+  S57:
+    title: Scroll layer parallax
+    kind: component
+    hash: Slp
+    slug: scroll-layer-parallax
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-scroll-parallax"
+    depends_on: [S17, S19]
+  S58:
+    title: Curtain reveal
+    kind: component
+    hash: Cur
+    slug: curtain-reveal
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-curtain-reveal"
+    depends_on: [S02]
+  S59:
+    title: Tower cubes loader
+    kind: component
+    hash: Twr
+    slug: tower-cubes-loader
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-tower-cubes"
+    depends_on: [S02]
+  S60:
+    title: Fisheye depth nav
+    kind: component
+    hash: Ifn
+    slug: fisheye-depth-nav
+    showcase_page: spatial-surfaces.html
+    showcase_anchor: "#sec-fisheye-nav"
+    depends_on: [S00]
+    emitter: nav_layout
+  S61:
+    title: Linear circular motion
+    kind: component
+    hash: Mch
+    slug: linear-circular-motion
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-linear-motion"
+    depends_on: [S02]
+  S62:
+    title: Simplest dots ambient
+    kind: component
+    hash: Dot
+    slug: simplest-dots
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-dots"
+    depends_on: [S02]
+  S63:
+    title: Sphere cube intersection
+    kind: component
+    hash: Xsc
+    slug: sphere-cube-intersection
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-intersection"
+    depends_on: [S56]
+  S64:
+    title: Bubbly grid ambient
+    kind: component
+    hash: Bbl
+    slug: bubbly-grid
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-bubbly"
+    depends_on: [S02]
+  S65:
+    title: HUD in space panel
+    kind: component
+    hash: Hud
+    slug: hud-space-panel
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-hud-space"
+    depends_on: [S02]
+  S66:
+    title: Fractured pyramid
+    kind: component
+    hash: Pry
+    slug: fractured-pyramid
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-fractured-pyramid"
+    depends_on: [S02]
+  S67:
+    title: FF conf data block
+    kind: component
+    hash: Dbf
+    slug: conf-data-block
+    showcase_page: spatial-ambient.html
+    showcase_anchor: "#sec-conf-block"
+    depends_on: [S02]

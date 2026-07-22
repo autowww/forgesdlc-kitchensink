@@ -17,6 +17,7 @@ from spatial import (  # noqa: E402
 )
 
 from spatial_showcase_common import SPATIAL_CSS, SPATIAL_JS_POINTER, behavior_callout  # noqa: E402
+from spatial_wave2_showcase import controls_sections  # noqa: E402
 
 PAGE = {
     "slug": "spatial-controls",
@@ -34,6 +35,13 @@ PAGE = {
         ("sec-holo-badge", "Holographic badge"),
         ("sec-depth-dial", "Depth dial"),
         ("sec-neumorphic-switch", "Neumorphic switch"),
+        ("sec-flip-clock", "Flip clock"),
+        ("sec-pro-mode-guard", "Pro-mode guard"),
+        ("sec-rocker-switch", "Rocker switch"),
+        ("sec-css-bookmark", "CSS bookmark"),
+        ("sec-rgb-keyboard", "RGB keyboard"),
+        ("sec-cube-login", "Cube login"),
+        ("sec-lights-rig", "Lights rig"),
     ],
 }
 
@@ -48,7 +56,7 @@ def extra_js_paths() -> list[str]:
 
 def render() -> str:
     bc = behavior_callout
-    return f"""\
+    base = f"""\
 <div class="forge-callout forge-callout-cyan mb-4" id="sec-intro">
   <p class="callout-label mb-1">Category</p>
   <p class="mb-0">Control primitives from the <a href="spatial-effects.html">Spatial hub</a>.</p>
@@ -99,3 +107,4 @@ def render() -> str:
   {bc("ks-switch--tactile", "Recessed neumorphic track variant.")}
 </section>
 """
+    return base + controls_sections()

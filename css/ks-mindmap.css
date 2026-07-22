@@ -1,0 +1,126 @@
+/* KS mind-map — static, dynamic, editable tiers */
+
+.ks-mindmap {
+  --ks-mm-bg: #ffffff;
+  --ks-mm-text: #0f172a;
+  --ks-mm-border: #cbd5e1;
+  --ks-mm-accent: #0f766e;
+  --ks-mm-muted: #64748b;
+  --ks-mm-line: #94a3b8;
+  margin: 1rem 0;
+}
+
+.ks-mindmap__viewport {
+  overflow: auto;
+  border: 1px solid var(--ks-mm-border);
+  border-radius: 8px;
+  background: var(--ks-mm-bg);
+  padding: 0.5rem;
+}
+
+.ks-mindmap--static .ks-mindmap__viewport svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.ks-mindmap--static.ks-mindmap--printable .ks-mindmap__viewport.forge-diagram-trigger {
+  cursor: zoom-in;
+}
+
+.ks-mindmap--dynamic .ks-mindmap__viewport,
+.ks-mindmap--editable .ks-mindmap__viewport {
+  min-height: 280px;
+}
+
+.ks-mindmap--dynamic svg,
+.ks-mindmap--editable svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.ks-mindmap__node {
+  cursor: pointer;
+}
+
+.ks-mindmap__node:focus {
+  outline: 2px solid var(--ks-mm-accent);
+  outline-offset: 2px;
+}
+
+.ks-mindmap__node rect {
+  transition: fill 0.15s ease, stroke 0.15s ease;
+}
+
+.ks-mindmap__node:hover rect,
+.ks-mindmap__node.is-selected rect {
+  stroke: var(--ks-mm-accent);
+}
+
+.ks-mindmap__node.is-selected rect {
+  fill: #f0fdfa;
+}
+
+.ks-mindmap__chevron {
+  fill: var(--ks-mm-muted);
+  cursor: pointer;
+}
+
+.ks-mindmap__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.ks-mindmap__editor {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ks-mindmap__label-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 28rem;
+}
+
+.ks-mindmap__status.is-ok {
+  color: #0f766e;
+}
+
+.ks-mindmap__status.is-error {
+  color: #b91c1c;
+}
+
+.ks-mindmap--narrow .ks-mindmap__viewport {
+  min-height: 360px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-mindmap__node rect,
+  .ks-mindmap g[data-ks-mm-anim] {
+    transition: none !important;
+  }
+}
+
+@media print {
+  .ks-mindmap--static.ks-mindmap--printable .ks-mindmap__viewport {
+    border: none;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .ks-mindmap--static.ks-mindmap--printable svg {
+    max-width: 100%;
+  }
+
+  .landing-header,
+  .forge-sidebar,
+  .ks-mindmap__toolbar,
+  .ks-mindmap__label-field {
+    display: none !important;
+  }
+}

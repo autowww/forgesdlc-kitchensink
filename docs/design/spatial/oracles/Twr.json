@@ -1,0 +1,17 @@
+{
+  "hash": "Twr",
+  "slug": "tower-cubes-loader",
+  "showcase_anchor": "#sec-tower-cubes",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "tow-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Twr\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

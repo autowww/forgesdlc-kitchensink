@@ -1,0 +1,17 @@
+{
+  "hash": "Vtc",
+  "slug": "vertical-team-carousel",
+  "showcase_anchor": "#sec-vertical-carousel",
+  "showcase_page": "spatial-rails.html",
+  "scenarios": [
+    {
+      "id": "ver-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Vtc\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

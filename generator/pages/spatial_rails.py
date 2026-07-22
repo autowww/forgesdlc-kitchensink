@@ -20,6 +20,7 @@ from spatial_showcase_common import (  # noqa: E402
     SPATIAL_JS_RAIL,
     behavior_callout,
 )
+from spatial_wave2_showcase import rails_sections  # noqa: E402
 
 PAGE = {
     "slug": "spatial-rails",
@@ -33,6 +34,13 @@ PAGE = {
         ("sec-cube-gallery", "Cube gallery"),
         ("sec-draggable-cube", "Draggable cube"),
         ("sec-spatial-rail", "Spatial rail"),
+        ("sec-cube-gallery-photo", "Photo cube"),
+        ("sec-spatial-rail-orbit", "Orbit rail"),
+        ("sec-ring-carousel", "Ring carousel"),
+        ("sec-orbital-gallery", "Orbital gallery"),
+        ("sec-stellar-nav", "Stellar navigator"),
+        ("sec-vertical-carousel", "Vertical carousel"),
+        ("sec-scroll-flip", "Scroll flip strip"),
     ],
 }
 
@@ -54,7 +62,7 @@ def render() -> str:
         for i in range(1, 6)
     )
     bc = behavior_callout
-    return f"""\
+    base = f"""\
 <div class="forge-callout forge-callout-cyan mb-4" id="sec-intro">
   <p class="callout-label mb-1">Category</p>
   <p class="mb-0">Rail and gallery primitives from the <a href="spatial-effects.html">Spatial hub</a>.</p>
@@ -79,3 +87,4 @@ def render() -> str:
   {bc("fs-rail--spatial", "Scroll updates --ks-rail-ry and --ks-rail-z per item.")}
 </section>
 """
+    return base + rails_sections()

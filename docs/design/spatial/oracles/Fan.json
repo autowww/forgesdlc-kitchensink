@@ -1,0 +1,17 @@
+{
+  "hash": "Fan",
+  "slug": "card-fan",
+  "showcase_anchor": "#sec-card-fan",
+  "showcase_page": "spatial-surfaces.html",
+  "scenarios": [
+    {
+      "id": "car-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Fan\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "hash": "Kbd",
+  "slug": "rgb-keyboard",
+  "showcase_anchor": "#sec-rgb-keyboard",
+  "showcase_page": "spatial-controls.html",
+  "scenarios": [
+    {
+      "id": "rgb-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Kbd\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

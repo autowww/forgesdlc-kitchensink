@@ -20,6 +20,24 @@
         "root_selector": "[data-ks-hash=\"Tun\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "tun-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Tun\"]",
+        "threshold": 1
+      }
+    },
+    {
+      "id": "tunnel-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Tun\"]",
+        "threshold": 1
+      }
     }
   ],
   "showcase_page": "spatial-ambient.html"

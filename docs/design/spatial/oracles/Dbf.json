@@ -1,0 +1,17 @@
+{
+  "hash": "Dbf",
+  "slug": "conf-data-block",
+  "showcase_anchor": "#sec-conf-block",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "con-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dbf\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

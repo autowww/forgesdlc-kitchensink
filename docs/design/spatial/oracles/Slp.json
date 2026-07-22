@@ -1,0 +1,17 @@
+{
+  "hash": "Slp",
+  "slug": "scroll-layer-parallax",
+  "showcase_anchor": "#sec-scroll-parallax",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "scr-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Slp\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

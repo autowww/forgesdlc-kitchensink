@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/split_layout_demo.py
-showcase_url: "https://ks.forgesdlc.com/showcase/split-layout.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Slt.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/split-layout.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Slt.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/split_layout_demo.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/split-layout.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Slt.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/split-layout.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Slt.png — status **planned**
 
 ## Purpose
 

@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/data_charts_static.py
-showcase_url: "https://ks.forgesdlc.com/showcase/data-charts-static.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Dcs.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/data-charts-static.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Dcs.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/data_charts_static.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/data-charts-static.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Dcs.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/data-charts-static.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Dcs.png — status **planned**
 
 ## Purpose
 

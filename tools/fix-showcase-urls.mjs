@@ -173,4 +173,8 @@ await patchSpatialOracles();
 await patchNavOracles();
 await patchMdGlob(path.join(REPO, 'docs/design/catalog/components'), SPATIAL_PAGE);
 await patchMdGlob(path.join(REPO, 'docs/design/catalog/components'), NAV_PAGE);
+await patchMdGlob(path.join(REPO, 'docs/design/catalog/pages'), SPATIAL_PAGE);
+await patchMdGlob(path.join(REPO, 'docs/design/catalog/pages'), NAV_PAGE);
+await patchMdGlob(path.join(REPO, 'docs/design/catalog/styles'), SPATIAL_PAGE);
+await patchMdGlob(path.join(REPO, 'docs/design/catalog/styles'), NAV_PAGE);
 console.log('done');

@@ -1,0 +1,17 @@
+{
+  "hash": "Mch",
+  "slug": "linear-circular-motion",
+  "showcase_anchor": "#sec-linear-motion",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "lin-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Mch\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

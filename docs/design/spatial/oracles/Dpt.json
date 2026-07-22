@@ -11,6 +11,33 @@
         "root_selector": "[data-ks-hash=\"Dpt\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "dis-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dpt\"]",
+        "threshold": 1
+      }
+    },
+    {
+      "id": "dis-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dpt\"]",
+        "threshold": 1
+      }
+    },
+    {
+      "id": "displa-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dpt\"]",
+        "threshold": 1
+      }
     }
   ],
   "showcase_page": "spatial-ambient.html"

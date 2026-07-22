@@ -7,7 +7,19 @@ import { importPlaywright } from './playwright-import.js';
 async function runActions(page, actions = []) {
   for (const action of actions) {
     if (action.type === 'click' && action.selector) {
-      await page.click(action.selector);
+      const locator = page.locator(action.selector).first();
+      await locator.scrollIntoViewIfNeeded();
+      const tagName = await locator.evaluate((el) => el.tagName.toLowerCase()).catch(() => '');
+      if (tagName === 'input') {
+        const inputType = await locator.getAttribute('type').catch(() => '');
+        if (inputType === 'radio' || inputType === 'checkbox') {
+          await locator.check({ force: true });
+        } else {
+          await locator.click({ force: true });
+        }
+      } else {
+        await locator.click({ force: true });
+      }
       await page.waitForTimeout(50);
     }
   }
@@ -57,13 +69,13 @@ export async function runScenario(scenario, options) {
   }
 
   const context = await browser.newContext();
+  const page = await context.newPage();
   if (scenario.prefers_reduced_motion) {
-    await context.emulateMedia({ reducedMotion: 'reduce' });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
   } else {
-    await context.emulateMedia({ reducedMotion: 'no-preference' });
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
   }
 
-  const page = await context.newPage();
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     await runActions(page, scenario.actions || []);

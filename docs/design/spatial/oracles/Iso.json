@@ -11,6 +11,24 @@
         "root_selector": "[data-ks-hash=\"Iso\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "iso-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Iso\"]",
+        "threshold": 1
+      }
+    },
+    {
+      "id": "isomet-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Iso\"]",
+        "threshold": 1
+      }
     }
   ],
   "showcase_page": "spatial-surfaces.html"

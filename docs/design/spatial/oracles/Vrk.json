@@ -1,0 +1,17 @@
+{
+  "hash": "Vrk",
+  "slug": "vertical-rocker-switch",
+  "showcase_anchor": "#sec-rocker-switch",
+  "showcase_page": "spatial-controls.html",
+  "scenarios": [
+    {
+      "id": "ver-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Vrk\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

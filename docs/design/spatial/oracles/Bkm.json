@@ -1,0 +1,17 @@
+{
+  "hash": "Bkm",
+  "slug": "css-bookmark",
+  "showcase_anchor": "#sec-css-bookmark",
+  "showcase_page": "spatial-controls.html",
+  "scenarios": [
+    {
+      "id": "css-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Bkm\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/enterprise_marketing.py
-showcase_url: "https://ks.forgesdlc.com/showcase/enterprise-marketing.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Enm.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/enterprise-marketing.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Enm.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/enterprise_marketing.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/enterprise-marketing.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Enm.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/enterprise-marketing.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Enm.png — status **planned**
 
 ## Purpose
 

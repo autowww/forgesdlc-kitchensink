@@ -145,3 +145,286 @@ phases:
     hash: Srl
     slug: spatial-rail
     depends_on: [S02, S00]
+
+  wave-traceability:
+    phases: ['S23']
+  wave-upgrades:
+    phases: ['S24', 'S25', 'S26', 'S27', 'S28', 'S29', 'S30', 'S31', 'S32']
+  wave-controls:
+    phases: ['S33', 'S34', 'S35', 'S36', 'S37', 'S38', 'S39', 'S40']
+  wave-surfaces-rails:
+    phases: ['S41', 'S42', 'S43', 'S44', 'S45', 'S46', 'S47', 'S48', 'S49', 'S50']
+  wave-ambient:
+    phases: ['S51', 'S52', 'S53', 'S54', 'S55', 'S56', 'S57', 'S58', 'S59', 'S60']
+  wave-optional:
+    phases: ['S61', 'S62', 'S63', 'S64', 'S65', 'S66', 'S67']
+  plan-only:
+    phases: [S00, S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30, S31, S32, S33, S34, S35, S36, S37, S38, S39, S40, S41, S42, S43, S44, S45, S46, S47, S48, S49, S50, S51, S52, S53, S54, S55, S56, S57, S58, S59, S60, S61, S62, S63, S64, S65, S66, S67]
+  S23:
+    title: Wave 2 traceability spike
+    kind: foundation
+    depends_on: ['S22']
+  S24:
+    title: Cube gallery photo mode
+    kind: upgrade
+    hash: Cbg
+    slug: cube-gallery
+    depends_on: ['S14']
+  S25:
+    title: Spatial rail orbit mode
+    kind: upgrade
+    hash: Srl
+    slug: spatial-rail
+    depends_on: ['S22']
+  S26:
+    title: Flip card stack variant
+    kind: upgrade
+    hash: Flp
+    slug: flip-card
+    depends_on: ['S03']
+  S27:
+    title: Display depth spiral variant
+    kind: upgrade
+    hash: Dpt
+    slug: display-depth
+    depends_on: ['S07']
+  S28:
+    title: Tunnel warp variant
+    kind: upgrade
+    hash: Tun
+    slug: tunnel-ambient
+    depends_on: ['S16']
+  S29:
+    title: Isometric keypad variant
+    kind: upgrade
+    hash: Iso
+    slug: isometric-tile
+    depends_on: ['S18']
+  S30:
+    title: Isometric cube grid variant
+    kind: upgrade
+    hash: Iso
+    slug: isometric-tile
+    depends_on: ['S18']
+  S31:
+    title: Holo card illumination variant
+    kind: upgrade
+    hash: Hol
+    slug: holo-card
+    depends_on: ['S05']
+  S32:
+    title: Flip clock counter
+    kind: component
+    hash: Fck
+    slug: flip-clock-counter
+    depends_on: ['S02']
+  S33:
+    title: JS pointer tilt surface
+    kind: component
+    hash: Tlj
+    slug: tilt-js
+    depends_on: ['S00']
+  S34:
+    title: Pro-mode guard toggle
+    kind: component
+    hash: Pmg
+    slug: pro-mode-guard-toggle
+    depends_on: ['S09']
+  S35:
+    title: Vertical rocker switch
+    kind: component
+    hash: Vrk
+    slug: vertical-rocker-switch
+    depends_on: ['S09']
+  S36:
+    title: CSS bookmark control
+    kind: component
+    hash: Bkm
+    slug: css-bookmark
+    depends_on: ['S02']
+  S37:
+    title: Flip clock counter duplicate skip
+    kind: skip
+    hash: Fck
+    slug: flip-clock-counter
+    depends_on: ['S32']
+  S38:
+    title: RGB keyboard surface
+    kind: component
+    hash: Kbd
+    slug: rgb-keyboard
+    depends_on: ['S29']
+  S39:
+    title: Cube login form shell
+    kind: component
+    hash: Clf
+    slug: cube-login-form
+    depends_on: ['S02']
+  S40:
+    title: Shapes and lights rig
+    kind: component
+    hash: Lgt
+    slug: shapes-lights-rig
+    depends_on: ['S02']
+  S41:
+    title: CSS ring carousel
+    kind: component
+    hash: Crg
+    slug: ring-carousel
+    depends_on: ['S22']
+  S42:
+    title: Orbital photo gallery
+    kind: component
+    hash: Opg
+    slug: orbital-photo-gallery
+    depends_on: ['S00']
+  S43:
+    title: Stellar slide navigator
+    kind: component
+    hash: Stn
+    slug: stellar-slide-navigator
+    depends_on: ['S22']
+  S44:
+    title: Vertical team carousel
+    kind: component
+    hash: Vtc
+    slug: vertical-team-carousel
+    depends_on: ['S22']
+  S45:
+    title: Book page flip
+    kind: component
+    hash: Bkf
+    slug: book-page-flip
+    depends_on: ['S03']
+  S46:
+    title: Fold accordion
+    kind: component
+    hash: Fld
+    slug: fold-accordion
+    depends_on: ['S02']
+  S47:
+    title: Card fan
+    kind: component
+    hash: Fan
+    slug: card-fan
+    depends_on: ['S11']
+  S48:
+    title: Card deck stack
+    kind: component
+    hash: Dck
+    slug: card-deck-stack
+    depends_on: ['S03']
+  S49:
+    title: Vinyl sleeve media
+    kind: component
+    hash: Vnl
+    slug: vinyl-sleeve-media
+    depends_on: ['S05']
+  S50:
+    title: Scroll flip strip
+    kind: component
+    hash: Stf
+    slug: scroll-flip-strip
+    depends_on: ['S22']
+  S51:
+    title: Rolling cube 404 scene
+    kind: component
+    hash: Erc
+    slug: rolling-cube-404
+    depends_on: ['S14']
+  S52:
+    title: Morph polyhedron loader
+    kind: component
+    hash: Mph
+    slug: morph-polyhedron
+    depends_on: ['S02']
+  S53:
+    title: Tumbling cubes ambient
+    kind: component
+    hash: Tmb
+    slug: tumbling-cubes
+    depends_on: ['S02']
+  S54:
+    title: Hex tunnel ambient
+    kind: component
+    hash: Hex
+    slug: hex-tunnel
+    depends_on: ['S16']
+  S55:
+    title: Math globe ambient
+    kind: component
+    hash: Glb
+    slug: math-globe
+    depends_on: ['S02']
+  S56:
+    title: Sphere family ambient
+    kind: component
+    hash: Orb
+    slug: sphere-family
+    depends_on: ['S02']
+  S57:
+    title: Scroll layer parallax
+    kind: component
+    hash: Slp
+    slug: scroll-layer-parallax
+    depends_on: ['S17', 'S19']
+  S58:
+    title: Curtain reveal
+    kind: component
+    hash: Cur
+    slug: curtain-reveal
+    depends_on: ['S02']
+  S59:
+    title: Tower cubes loader
+    kind: component
+    hash: Twr
+    slug: tower-cubes-loader
+    depends_on: ['S02']
+  S60:
+    title: Fisheye depth nav
+    kind: component
+    hash: Ifn
+    slug: fisheye-depth-nav
+    depends_on: ['S00']
+  S61:
+    title: Linear circular motion
+    kind: component
+    hash: Mch
+    slug: linear-circular-motion
+    depends_on: ['S02']
+  S62:
+    title: Simplest dots ambient
+    kind: component
+    hash: Dot
+    slug: simplest-dots
+    depends_on: ['S02']
+  S63:
+    title: Sphere cube intersection
+    kind: component
+    hash: Xsc
+    slug: sphere-cube-intersection
+    depends_on: ['S56']
+  S64:
+    title: Bubbly grid ambient
+    kind: component
+    hash: Bbl
+    slug: bubbly-grid
+    depends_on: ['S02']
+  S65:
+    title: HUD in space panel
+    kind: component
+    hash: Hud
+    slug: hud-space-panel
+    depends_on: ['S02']
+  S66:
+    title: Fractured pyramid
+    kind: component
+    hash: Pry
+    slug: fractured-pyramid
+    depends_on: ['S02']
+  S67:
+    title: FF conf data block
+    kind: component
+    hash: Dbf
+    slug: conf-data-block
+    depends_on: ['S02']

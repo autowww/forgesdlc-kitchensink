@@ -1,0 +1,17 @@
+{
+  "hash": "Tlj",
+  "slug": "tilt-js",
+  "showcase_anchor": "#sec-tilt-js",
+  "showcase_page": "spatial-surfaces.html",
+  "scenarios": [
+    {
+      "id": "til-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Tlj\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "hash": "Ifn",
+  "slug": "fisheye-depth-nav",
+  "showcase_anchor": "#sec-fisheye-nav",
+  "showcase_page": "spatial-surfaces.html",
+  "scenarios": [
+    {
+      "id": "fis-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Ifn\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

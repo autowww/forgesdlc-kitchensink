@@ -1,0 +1,110 @@
+/* KS roadmap — static print, editable chrome, drag handles */
+
+.ks-roadmap {
+  --ks-rm-accent: #0e7490;
+  --ks-rm-border: #cbd5e1;
+  --ks-rm-bg: #ffffff;
+  margin: 1rem 0;
+}
+
+.ks-roadmap__viewport {
+  overflow: auto;
+  border: 1px solid var(--ks-rm-border);
+  border-radius: 8px;
+  background: var(--ks-rm-bg);
+  padding: 0.5rem;
+}
+
+.ks-roadmap--static .ks-roadmap__viewport svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.ks-roadmap--static.ks-roadmap--printable .ks-roadmap__viewport.forge-diagram-trigger {
+  cursor: zoom-in;
+}
+
+.ks-roadmap__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.ks-roadmap__editor {
+  display: grid;
+  gap: 1rem;
+}
+
+.ks-roadmap__date-table {
+  border: 1px solid var(--ks-rm-border);
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.ks-roadmap__status.is-ok {
+  color: #0f766e;
+}
+
+.ks-roadmap__status.is-error {
+  color: #b91c1c;
+}
+
+.ks-roadmap--editable .ks-nrm-bar--editable {
+  cursor: grab;
+  position: relative;
+}
+
+.ks-roadmap--editable .ks-nrm-bar--editable.is-dragging {
+  cursor: grabbing;
+  opacity: 0.85;
+}
+
+.ks-roadmap--editable .ks-nrm-bar--selected {
+  outline: 2px solid var(--ks-rm-accent);
+  outline-offset: 2px;
+}
+
+.ks-roadmap__resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: ew-resize;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.ks-roadmap__resize-handle--left {
+  left: 0;
+}
+
+.ks-roadmap__resize-handle--right {
+  right: 0;
+}
+
+.ks-nrm-bar--editable:hover .ks-roadmap__resize-handle,
+.ks-nrm-bar--editable:focus-within .ks-roadmap__resize-handle {
+  opacity: 0.6;
+  background: color-mix(in srgb, var(--ks-rm-accent) 30%, transparent);
+}
+
+@media print {
+  .ks-roadmap--static.ks-roadmap--printable .ks-roadmap__viewport {
+    border: none;
+    padding: 0;
+  }
+
+  .ks-roadmap__toolbar,
+  .ks-roadmap__date-table {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-roadmap__resize-handle {
+    transition: none;
+  }
+}

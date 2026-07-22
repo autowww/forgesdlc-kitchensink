@@ -63,12 +63,12 @@
     if (pref === 'light') return 'light';
     if (pref === 'dark') return 'dark';
     if (pref === 'auto') return mediaDark() ? 'dark' : 'light';
-    return 'dark';
+    return 'light';
   }
 
   function syncToggleUi() {
     var pref = storedPreference();
-    var labelKey = pref === 'light' || pref === 'dark' || pref === 'auto' ? pref : 'dark';
+    var labelKey = pref === 'light' || pref === 'dark' || pref === 'auto' ? pref : 'light';
     var labels = { light: 'Light', dark: 'Dark', auto: 'System' };
     document.querySelectorAll('.forge-theme-dropdown').forEach(function (root) {
       root.setAttribute('data-forge-pref', labelKey);
@@ -79,7 +79,7 @@
       el.classList.toggle('active', isSel);
     });
     document.querySelectorAll('.forge-theme-current').forEach(function (el) {
-      el.textContent = labels[labelKey] || 'Dark';
+      el.textContent = labels[labelKey] || 'Light';
     });
   }
 
@@ -88,7 +88,7 @@
     document.documentElement.setAttribute('data-bs-theme', t);
     try {
       window.dispatchEvent(
-        new CustomEvent('forge-theme-applied', { detail: { effective: t, preference: storedPreference() || 'dark' } })
+        new CustomEvent('forge-theme-applied', { detail: { effective: t, preference: storedPreference() || 'light' } })
       );
     } catch (err) { /* ignore */ }
     syncToggleUi();

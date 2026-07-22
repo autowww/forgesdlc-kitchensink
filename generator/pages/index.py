@@ -12,15 +12,30 @@ PAGE = {
 }
 
 
+# Curated masthead links only — full catalogue lives in the index card grid
+# (DET.CONTEXT.BURDEN / DET.NAV.DEPTH: 4–7 top-level destinations).
+CURATED_NAV_SLUGS: tuple[str, ...] = (
+    "tokens",
+    "surfaces",
+    "controls",
+    "navigation",
+    "spatial-effects",
+    "layouts",
+    "for-agents",
+)
+
+
 def nav_links(pages: list[dict]) -> str:
+    by_slug = {p["slug"]: p for p in pages}
     links = []
-    for p in pages:
-        if p["slug"] == "index":
+    for slug in CURATED_NAV_SLUGS:
+        page = by_slug.get(slug)
+        if not page:
             continue
         links.append(
-            f'<a href="{p["slug"]}.html">{p["title"]}</a>'
+            f'<a class="landing-nav-link" href="{slug}.html">{page["title"]}</a>'
         )
-    return "\n    ".join(links)
+    return "\n      ".join(links)
 
 
 def hero_html() -> str:

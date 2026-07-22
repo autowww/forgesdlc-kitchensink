@@ -1,0 +1,17 @@
+{
+  "hash": "Glb",
+  "slug": "math-globe",
+  "showcase_anchor": "#sec-math-globe",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "mat-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Glb\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

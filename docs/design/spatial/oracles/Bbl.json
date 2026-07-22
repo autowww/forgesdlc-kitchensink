@@ -1,0 +1,17 @@
+{
+  "hash": "Bbl",
+  "slug": "bubbly-grid",
+  "showcase_anchor": "#sec-bubbly",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "bub-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Bbl\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

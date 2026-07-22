@@ -147,11 +147,11 @@ FONT_LINKS = (
 # Inline before CSS to avoid a flash of the wrong ``data-bs-theme`` (must match forge-theme.js).
 FORGE_COLOR_SCHEME_INIT = """\
   <script>
-  (function(){try{var m=document.cookie.match(/(?:^|;)\\s*forge_color_scheme=([^;]*)/);var v=m?decodeURIComponent(m[1].trim()):'';var mq=window.matchMedia('(prefers-color-scheme: dark)');var t='dark';if(v==='light')t='light';else if(v==='dark')t='dark';else if(v==='auto')t=mq.matches?'dark':'light';document.documentElement.setAttribute('data-bs-theme',t);}catch(e){}})();
+  (function(){try{var m=document.cookie.match(/(?:^|;)\\s*forge_color_scheme=([^;]*)/);var v=m?decodeURIComponent(m[1].trim()):'';var mq=window.matchMedia('(prefers-color-scheme: dark)');var t='light';if(v==='light')t='light';else if(v==='dark')t='dark';else if(v==='auto')t=mq.matches?'dark':'light';document.documentElement.setAttribute('data-bs-theme',t);}catch(e){}})();
   </script>"""
 
 THEME_TOGGLE_DROPDOWN = """\
-<div class="dropdown forge-theme-dropdown position-fixed top-0 end-0 m-2" style="z-index:1050" data-forge-pref="dark">
+<div class="dropdown forge-theme-dropdown position-fixed top-0 end-0 m-2" style="z-index:1050" data-forge-pref="light">
   <button type="button" class="forge-theme-trigger dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" id="forgeThemeMenu" aria-haspopup="true" aria-label="Appearance and color theme" title="Theme">
     <span class="forge-theme-trigger__aurora" aria-hidden="true"></span>
     <span class="forge-theme-trigger__inner">
@@ -162,21 +162,21 @@ THEME_TOGGLE_DROPDOWN = """\
       </span>
       <span class="forge-theme-trigger__copy">
         <span class="forge-theme-eyebrow">Appearance</span>
-        <span class="forge-theme-current">Dark</span>
+        <span class="forge-theme-current">Light</span>
       </span>
       <svg class="forge-theme-chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
     </span>
   </button>
   <ul class="dropdown-menu dropdown-menu-end forge-theme-menu" aria-labelledby="forgeThemeMenu">
     <li>
-      <button type="button" class="dropdown-item forge-theme-option" data-forge-color-scheme="light">
+      <button type="button" class="dropdown-item forge-theme-option active" data-forge-color-scheme="light">
         <svg class="forge-theme-opt-ico" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/></svg>
         <span>Light</span>
         <svg class="forge-theme-tick" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
       </button>
     </li>
     <li>
-      <button type="button" class="dropdown-item forge-theme-option active" data-forge-color-scheme="dark">
+      <button type="button" class="dropdown-item forge-theme-option" data-forge-color-scheme="dark">
         <svg class="forge-theme-opt-ico" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <span>Dark</span>
         <svg class="forge-theme-tick" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>

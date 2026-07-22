@@ -605,7 +605,10 @@ entries:
 - family: showcase-pages
   aliases: []
   parent_hash: null
-  child_hashes: []
+  child_hashes:
+  - Rms
+  - Rmd
+  - Rme
   accessibility_notes: null
   responsive_notes: null
   owner: forge-ks
@@ -621,6 +624,7 @@ entries:
   status: active
   source_paths:
   - generator/pages/nested_roadmap.py
+  - components/roadmap.py
   source_symbols:
   - nested_roadmap
   root_selector: main#main
@@ -695,7 +699,10 @@ entries:
 - family: showcase-pages
   aliases: []
   parent_hash: null
-  child_hashes: []
+  child_hashes:
+  - Mms
+  - Mmd
+  - Mme
   accessibility_notes: null
   responsive_notes: null
   owner: forge-ks
@@ -711,6 +718,7 @@ entries:
   status: active
   source_paths:
   - generator/pages/ks_creation_mindmap.py
+  - components/mindmap.py
   source_symbols:
   - ks_creation_mindmap
   root_selector: main#main
@@ -3055,7 +3063,7 @@ entries:
   owner: forge-ks
   last_reviewed: '2026-07-19'
   notes: Org-unit hierarchy with lazy user loads.
-  hash_exception_reason: null
+  hash_exception_reason: Repeated letter t in established org-tree-table hash.
   design_standard_refs:
   - docs/design/forge-enterprise-ai-website-standard.md
   hash: Ott
@@ -3077,6 +3085,8 @@ entries:
   emit_marker_in_showcase: true
   category: component
   emits_html: true
+
+
 - family: showcase-pages
   aliases: []
   parent_hash: null
@@ -3269,8 +3279,8 @@ entries:
   - fs-section-swimlane
   - ForgeSectionSwimlanes
   root_selector: div.fs-section-swimlanes
-  contract: ''
-  contract_status: family-covered
+  contract: docs/design/catalog/components/Fsw-section-swimlanes.md
+  contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/section-swimlanes.html
   screenshot_url: null
   screenshot_status: planned
@@ -3323,34 +3333,19 @@ entries:
   source_symbols: []
   root_selector: null
   contract: docs/design/catalog/styles/Ksp-fam-spatial.md
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-effects.html
+  screenshot_url: null
+  screenshot_status: planned
+  emits_html: false
+- family: pages
   aliases: []
   parent_hash: Ksp
-  child_hashes:
-  - Flp
-  - Tlz
-  - Hol
-  - Zzg
-  - Dpt
-  - Cgb
-  - Vsw
-  - Rng
-  - Fch
-  - Hbd
-  - Mpx
-  - Cbg
-  - Dcb
-  - Tun
-  - Pst
-  - Iso
-  - Flh
-  - Dil
-  - Nsw
-  - Srl
+  child_hashes: []
   accessibility_notes: Each section documents expected spatial behavior.
   responsive_notes: Showcase page uses ks-spatial-cq on demos.
   owner: forge-ks
   last_reviewed: '2026-07-22'
-  notes: Spatial effects dual-wiki handbook page.
+  notes: Spatial effects dual-wiki handbook hub.
   hash_exception_reason: null
   design_standard_refs:
   - docs/design/forge-enterprise-ai-website-standard.md
@@ -3993,6 +3988,1122 @@ entries:
   emit_marker_in_showcase: true
   emits_html: true
 
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/flip-clock-counter.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Fck.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S32).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Fck
+  name: Flip Clock Counter
+  slug: flip-clock-counter
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Fck"]'
+  contract: docs/design/catalog/components/Fck-flip-clock-counter.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-controls.html#sec-flip-clock
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/tilt-js.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Tlj.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S33).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Tlj
+  name: Tilt Js
+  slug: tilt-js
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Tlj"]'
+  contract: docs/design/catalog/components/Tlj-tilt-js.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-surfaces.html#sec-tilt-js
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/pro-mode-guard-toggle.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Pmg.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S34).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Pmg
+  name: Pro Mode Guard Toggle
+  slug: pro-mode-guard-toggle
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Pmg"]'
+  contract: docs/design/catalog/components/Pmg-pro-mode-guard-toggle.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-controls.html#sec-pro-mode-guard
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/vertical-rocker-switch.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Vrk.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S35).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Vrk
+  name: Vertical Rocker Switch
+  slug: vertical-rocker-switch
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Vrk"]'
+  contract: docs/design/catalog/components/Vrk-vertical-rocker-switch.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-controls.html#sec-rocker-switch
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/css-bookmark.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Bkm.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S36).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Bkm
+  name: Css Bookmark
+  slug: css-bookmark
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Bkm"]'
+  contract: docs/design/catalog/components/Bkm-css-bookmark.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-controls.html#sec-css-bookmark
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/rgb-keyboard.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Kbd.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S38).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Kbd
+  name: Rgb Keyboard
+  slug: rgb-keyboard
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Kbd"]'
+  contract: docs/design/catalog/components/Kbd-rgb-keyboard.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-controls.html#sec-rgb-keyboard
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/cube-login-form.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Clf.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S39).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Clf
+  name: Cube Login Form
+  slug: cube-login-form
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Clf"]'
+  contract: docs/design/catalog/components/Clf-cube-login-form.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-controls.html#sec-cube-login
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/shapes-lights-rig.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Lgt.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S40).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Lgt
+  name: Shapes Lights Rig
+  slug: shapes-lights-rig
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Lgt"]'
+  contract: docs/design/catalog/components/Lgt-shapes-lights-rig.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-controls.html#sec-lights-rig
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/ring-carousel.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Crg.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S41).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Crg
+  name: Ring Carousel
+  slug: ring-carousel
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Crg"]'
+  contract: docs/design/catalog/components/Crg-ring-carousel.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-rails.html#sec-ring-carousel
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/orbital-photo-gallery.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Opg.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S42).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Opg
+  name: Orbital Photo Gallery
+  slug: orbital-photo-gallery
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Opg"]'
+  contract: docs/design/catalog/components/Opg-orbital-photo-gallery.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-rails.html#sec-orbital-gallery
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/stellar-slide-navigator.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Stn.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S43).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Stn
+  name: Stellar Slide Navigator
+  slug: stellar-slide-navigator
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Stn"]'
+  contract: docs/design/catalog/components/Stn-stellar-slide-navigator.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-rails.html#sec-stellar-nav
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/vertical-team-carousel.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Vtc.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S44).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Vtc
+  name: Vertical Team Carousel
+  slug: vertical-team-carousel
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Vtc"]'
+  contract: docs/design/catalog/components/Vtc-vertical-team-carousel.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-rails.html#sec-vertical-carousel
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/book-page-flip.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Bkf.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S45).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Bkf
+  name: Book Page Flip
+  slug: book-page-flip
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Bkf"]'
+  contract: docs/design/catalog/components/Bkf-book-page-flip.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-surfaces.html#sec-book-flip
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/fold-accordion.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Fld.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S46).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Fld
+  name: Fold Accordion
+  slug: fold-accordion
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Fld"]'
+  contract: docs/design/catalog/components/Fld-fold-accordion.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-surfaces.html#sec-fold-accordion
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/card-fan.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Fan.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S47).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Fan
+  name: Card Fan
+  slug: card-fan
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Fan"]'
+  contract: docs/design/catalog/components/Fan-card-fan.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-surfaces.html#sec-card-fan
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/card-deck-stack.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Dck.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S48).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Dck
+  name: Card Deck Stack
+  slug: card-deck-stack
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Dck"]'
+  contract: docs/design/catalog/components/Dck-card-deck-stack.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-surfaces.html#sec-card-deck
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/vinyl-sleeve-media.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Vnl.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S49).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Vnl
+  name: Vinyl Sleeve Media
+  slug: vinyl-sleeve-media
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Vnl"]'
+  contract: docs/design/catalog/components/Vnl-vinyl-sleeve-media.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-surfaces.html#sec-vinyl-sleeve
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/scroll-flip-strip.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Stf.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S50).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Stf
+  name: Scroll Flip Strip
+  slug: scroll-flip-strip
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Stf"]'
+  contract: docs/design/catalog/components/Stf-scroll-flip-strip.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-rails.html#sec-scroll-flip
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/rolling-cube-404.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Erc.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S51).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Erc
+  name: Rolling Cube 404
+  slug: rolling-cube-404
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Erc"]'
+  contract: docs/design/catalog/components/Erc-rolling-cube-404.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-error-cube
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/morph-polyhedron.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Mph.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S52).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Mph
+  name: Morph Polyhedron
+  slug: morph-polyhedron
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Mph"]'
+  contract: docs/design/catalog/components/Mph-morph-polyhedron.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-morph-poly
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/tumbling-cubes.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Tmb.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S53).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Tmb
+  name: Tumbling Cubes
+  slug: tumbling-cubes
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Tmb"]'
+  contract: docs/design/catalog/components/Tmb-tumbling-cubes.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-tumbling-cubes
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/hex-tunnel.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Hex.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S54).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Hex
+  name: Hex Tunnel
+  slug: hex-tunnel
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Hex"]'
+  contract: docs/design/catalog/components/Hex-hex-tunnel.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-hex-tunnel
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/math-globe.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Glb.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S55).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Glb
+  name: Math Globe
+  slug: math-globe
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Glb"]'
+  contract: docs/design/catalog/components/Glb-math-globe.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-math-globe
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/sphere-family.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Orb.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S56).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Orb
+  name: Sphere Family
+  slug: sphere-family
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Orb"]'
+  contract: docs/design/catalog/components/Orb-sphere-family.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-sphere-family
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/scroll-layer-parallax.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Slp.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S57).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Slp
+  name: Scroll Layer Parallax
+  slug: scroll-layer-parallax
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Slp"]'
+  contract: docs/design/catalog/components/Slp-scroll-layer-parallax.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-scroll-parallax
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/curtain-reveal.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Cur.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S58).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Cur
+  name: Curtain Reveal
+  slug: curtain-reveal
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Cur"]'
+  contract: docs/design/catalog/components/Cur-curtain-reveal.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-curtain-reveal
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/tower-cubes-loader.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Twr.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S59).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Twr
+  name: Tower Cubes Loader
+  slug: tower-cubes-loader
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Twr"]'
+  contract: docs/design/catalog/components/Twr-tower-cubes-loader.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-tower-cubes
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/fisheye-depth-nav.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Ifn.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S60).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Ifn
+  name: Fisheye Depth Nav
+  slug: fisheye-depth-nav
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Ifn"]'
+  contract: docs/design/catalog/components/Ifn-fisheye-depth-nav.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-surfaces.html#sec-fisheye-nav
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/linear-circular-motion.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Mch.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S61).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Mch
+  name: Linear Circular Motion
+  slug: linear-circular-motion
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Mch"]'
+  contract: docs/design/catalog/components/Mch-linear-circular-motion.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-linear-motion
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/simplest-dots.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Dot.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S62).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Dot
+  name: Simplest Dots
+  slug: simplest-dots
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Dot"]'
+  contract: docs/design/catalog/components/Dot-simplest-dots.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-dots
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/sphere-cube-intersection.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Xsc.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S63).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Xsc
+  name: Sphere Cube Intersection
+  slug: sphere-cube-intersection
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Xsc"]'
+  contract: docs/design/catalog/components/Xsc-sphere-cube-intersection.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-intersection
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/bubbly-grid.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Bbl.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S64).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Bbl
+  name: Bubbly Grid
+  slug: bubbly-grid
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Bbl"]'
+  contract: docs/design/catalog/components/Bbl-bubbly-grid.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-bubbly
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/hud-space-panel.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Hud.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S65).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Hud
+  name: Hud Space Panel
+  slug: hud-space-panel
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Hud"]'
+  contract: docs/design/catalog/components/Hud-hud-space-panel.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-hud-space
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/fractured-pyramid.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Pry.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S66).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Pry
+  name: Fractured Pyramid
+  slug: fractured-pyramid
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Pry"]'
+  contract: docs/design/catalog/components/Pry-fractured-pyramid.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-fractured-pyramid
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: python-components
+  aliases: []
+  parent_hash: Ksp
+  child_hashes: []
+  accessibility_notes: See docs/design/spatial/effects/conf-data-block.md
+  responsive_notes: See oracle scenarios in docs/design/spatial/oracles/Dbf.json
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  notes: Spatial Wave 2 primitive (S67).
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Dbf
+  name: Conf Data Block
+  slug: conf-data-block
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/spatial_wave2.py
+  - css/ks-spatial-wave2.css
+  source_symbols: []
+  root_selector: '[data-ks-hash="Dbf"]'
+  contract: docs/design/catalog/components/Dbf-conf-data-block.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html#sec-conf-block
+  screenshot_url: null
+  screenshot_status: planned
+  emit_marker_in_showcase: true
+  emits_html: true
+
+- family: css-styles
+  aliases: []
+  parent_hash: null
+  child_hashes:
+  - Ssd
+  - Stc
+  - Cpb
+  - Bdt
+  - Mns
+  - Mmg
+  - Svc
+  - Swz
+  - Pgt
+  - Fcs
+  - Gcb
+  - Dst
+  - Spr
+  - Ajm
+  - Tsw
+  - Sab
+  - Cps
+  - Bsc
+  - Vth
+  - Epr
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Knl
   name: Nav & Layout Controls
   slug: nav-layout
@@ -4005,12 +5116,19 @@ entries:
   source_symbols: []
   root_selector: null
   contract: docs/design/catalog/styles/Knl-fam-nav-layout.md
+  notes: Nav-layout primitive family — verified via nav-layout-verifier.
+  emits_html: false
+- family: python-components
   aliases: []
   parent_hash: null
-  child_hashes: ['Ssd', 'Stc', 'Cpb', 'Bdt', 'Mns', 'Mmg', 'Svc', 'Swz', 'Pgt', 'Fcs', 'Gcb', 'Dst', 'Spr', 'Ajm', 'Tsw', 'Sab', 'Cps', 'Bsc', 'Vth', 'Epr']
-  notes: Nav-layout primitive family — verified via nav-layout-verifier.
-
-
+  child_hashes: []
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Ssd
   name: Sticky Section Dock
   slug: sticky-section-dock
@@ -4026,11 +5144,18 @@ entries:
   contract: docs/design/catalog/components/Ssd-sticky-section-dock.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/navigation.html#sec-sticky-section-dock
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Stc
   name: Scroll Spy Toc
   slug: scroll-spy-toc
@@ -4046,11 +5171,18 @@ entries:
   contract: docs/design/catalog/components/Stc-scroll-spy-toc.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/navigation.html#sec-scroll-spy-toc
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Cpb
   name: Chapter Progress
   slug: chapter-progress
@@ -4066,11 +5198,18 @@ entries:
   contract: docs/design/catalog/components/Cpb-chapter-progress.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/layout-shells.html#sec-chapter-progress
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Bdt
   name: Breadcrumb Depth
   slug: breadcrumb-depth
@@ -4086,11 +5225,18 @@ entries:
   contract: docs/design/catalog/components/Bdt-breadcrumb-depth.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/navigation.html#sec-breadcrumb-depth
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Mns
   name: Mobile Nav Sheet
   slug: mobile-nav-sheet
@@ -4106,11 +5252,18 @@ entries:
   contract: docs/design/catalog/components/Mns-mobile-nav-sheet.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/navigation.html#sec-mobile-nav-sheet
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Mmg
   name: Mega Menu
   slug: mega-menu
@@ -4126,11 +5279,18 @@ entries:
   contract: docs/design/catalog/components/Mmg-mega-menu.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/navigation.html#sec-mega-menu
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Svc
   name: Segmented Control
   slug: segmented-control
@@ -4146,11 +5306,18 @@ entries:
   contract: docs/design/catalog/components/Svc-segmented-control.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/controls.html#sec-segmented-control
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Swz
   name: Stepper Wizard
   slug: stepper-wizard
@@ -4166,11 +5333,18 @@ entries:
   contract: docs/design/catalog/components/Swz-stepper-wizard.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/controls.html#sec-stepper-wizard
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Pgt
   name: Pagination Tactile
   slug: pagination-tactile
@@ -4186,11 +5360,18 @@ entries:
   contract: docs/design/catalog/components/Pgt-pagination-tactile.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/controls.html#sec-pagination-tactile
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Fcs
   name: Filter Chip Scroller
   slug: filter-chip-scroller
@@ -4206,11 +5387,18 @@ entries:
   contract: docs/design/catalog/components/Fcs-filter-chip-scroller.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/controls.html#sec-filter-chip-scroller
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Gcb
   name: Governed Combobox
   slug: governed-combobox
@@ -4226,11 +5414,18 @@ entries:
   contract: docs/design/catalog/components/Gcb-governed-combobox.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/controls.html#sec-governed-combobox
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Dst
   name: Disclosure Stack
   slug: disclosure-stack
@@ -4246,11 +5441,18 @@ entries:
   contract: docs/design/catalog/components/Dst-disclosure-stack.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/controls.html#sec-disclosure-stack
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Spr
   name: Split Pane Resizer
   slug: split-pane-resizer
@@ -4266,11 +5468,18 @@ entries:
   contract: docs/design/catalog/components/Spr-split-pane-resizer.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/layout-shells.html#sec-split-pane-resizer
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Ajm
   name: Anchor Jump Menu
   slug: anchor-jump-menu
@@ -4286,11 +5495,18 @@ entries:
   contract: docs/design/catalog/components/Ajm-anchor-jump-menu.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/navigation.html#sec-anchor-jump-menu
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Tsw
   name: Tab Swimlane Sync
   slug: tab-swimlane-sync
@@ -4306,11 +5522,18 @@ entries:
   contract: docs/design/catalog/components/Tsw-tab-swimlane-sync.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/navigation.html#sec-tab-swimlane-sync
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Sab
   name: Sticky Action Bar
   slug: sticky-action-bar
@@ -4326,11 +5549,18 @@ entries:
   contract: docs/design/catalog/components/Sab-sticky-action-bar.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/controls.html#sec-sticky-action-bar
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Cps
   name: Command Palette
   slug: command-palette
@@ -4346,11 +5576,18 @@ entries:
   contract: docs/design/catalog/components/Cps-command-palette.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/overlays-transitions.html#sec-command-palette
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Bsc
   name: Bottom Sheet
   slug: bottom-sheet
@@ -4366,11 +5603,18 @@ entries:
   contract: docs/design/catalog/components/Bsc-bottom-sheet.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/overlays-transitions.html#sec-bottom-sheet
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Vth
   name: View Transition Hero
   slug: view-transition-hero
@@ -4386,11 +5630,18 @@ entries:
   contract: docs/design/catalog/components/Vth-view-transition-hero.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/overlays-transitions.html#sec-view-transition-hero
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: python-components
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Epr
   name: Editorial Peek Rail
   slug: editorial-peek-rail
@@ -4406,11 +5657,18 @@ entries:
   contract: docs/design/catalog/components/Epr-editorial-peek-rail.md
   contract_status: own
   showcase_url: https://ks.forgesdlc.com/cases/showcase/presentation.html#sec-editorial-peek-rail
-  parent_hash: Knl
-  child_hashes: []
   notes: Nav-layout primitive — verified via nav-layout-verifier.
-
-
+  emits_html: true
+- family: pages
+  aliases: []
+  parent_hash: Knl
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Ssf
   name: Spatial Surfaces
   slug: spatial-surfaces
@@ -4422,10 +5680,18 @@ entries:
   root_selector: main
   contract: docs/design/catalog/pages/Ssf-spatial-surfaces.md
   showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-surfaces.html
+  emit_marker_in_showcase: true
+  emits_html: true
+- family: pages
+  aliases: []
   parent_hash: Ksp
-  child_hashes: []
-
-
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Ssc
   name: Spatial Controls
   slug: spatial-controls
@@ -4437,10 +5703,18 @@ entries:
   root_selector: main
   contract: docs/design/catalog/pages/Ssc-spatial-controls.md
   showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-controls.html
+  emit_marker_in_showcase: true
+  emits_html: true
+- family: pages
+  aliases: []
   parent_hash: Ksp
-  child_hashes: []
-
-
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Ssa
   name: Spatial Ambient
   slug: spatial-ambient
@@ -4452,10 +5726,18 @@ entries:
   root_selector: main
   contract: docs/design/catalog/pages/Ssa-spatial-ambient.md
   showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-ambient.html
+  emit_marker_in_showcase: true
+  emits_html: true
+- family: pages
+  aliases: []
   parent_hash: Ksp
-  child_hashes: []
-
-
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
   hash: Ssr
   name: Spatial Rails
   slug: spatial-rails
@@ -4467,6 +5749,249 @@ entries:
   root_selector: main
   contract: docs/design/catalog/pages/Ssr-spatial-rails.md
   showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-rails.html
-  parent_hash: Ksp
-  child_hashes: []
+  emit_marker_in_showcase: true
+  emits_html: true
+- family: mindmap
+  aliases: []
+  parent_hash: null
+  child_hashes:
+  - Mms
+  - Mmd
+  - Mme
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: Repeated letter m in mind-map family style hash.
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Kmm
+  name: Mind-map family
+  slug: fam-mindmap
+  type: style-family
+  category: style
+  status: active
+  source_paths:
+  - css/ks-mindmap.css
+  - components/mindmap.py
+  - js/ks-mindmap-layout.js
+  - js/ks-mindmap.js
+  - js/ks-mindmap-editable.js
+  source_symbols: []
+  root_selector: null
+  contract: docs/design/catalog/styles/Kmm-fam-mindmap.md
+  notes: Shared JSON tree contract v1; static, dynamic, and editable tiers.
+  emits_html: false
 
+
+- family: mindmap
+  aliases: []
+  parent_hash: Kmm
+  child_hashes: []
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Mms
+  name: Mind-map static
+  slug: mindmap-static
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/mindmap.py
+  - css/ks-mindmap.css
+  source_symbols:
+  - render_mindmap_static
+  root_selector: '[data-ks-hash="Mms"]'
+  contract: docs/design/catalog/components/Mms-mindmap-static.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/ks-creation-mindmap.html#sec-mindmap-static
+  notes: Server-rendered inline SVG; print-friendly.
+  emits_html: true
+- family: mindmap
+  aliases: []
+  parent_hash: Kmm
+  child_hashes: []
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Mmd
+  name: Mind-map dynamic
+  slug: mindmap-dynamic
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/mindmap.py
+  - css/ks-mindmap.css
+  - js/ks-mindmap-layout.js
+  - js/ks-mindmap.js
+  source_symbols:
+  - render_mindmap_dynamic
+  root_selector: '[data-ks-hash="Mmd"]'
+  contract: docs/design/catalog/components/Mmd-mindmap-dynamic.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/ks-creation-mindmap.html#sec-mindmap-dynamic
+  notes: Collapse/reflow; narrow viewport vertical stack.
+  emits_html: true
+- family: mindmap
+  aliases: []
+  parent_hash: Kmm
+  child_hashes: []
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Mme
+  name: Mind-map editable
+  slug: mindmap-editable
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/mindmap.py
+  - css/ks-mindmap.css
+  - js/ks-mindmap-layout.js
+  - js/ks-mindmap.js
+  - js/ks-mindmap-editable.js
+  source_symbols:
+  - render_mindmap_editable
+  root_selector: '[data-ks-hash="Mme"]'
+  contract: docs/design/catalog/components/Mme-mindmap-editable.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/ks-creation-mindmap.html#sec-mindmap-editable-static
+  notes: GET load + POST save; sessionStorage demo fallback.
+  emits_html: true
+- family: roadmap
+  aliases: []
+  parent_hash: null
+  child_hashes:
+  - Rms
+  - Rmd
+  - Rme
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Krm
+  name: Roadmap family
+  slug: fam-roadmap
+  type: style-family
+  category: style
+  status: active
+  source_paths:
+  - css/ks-roadmap.css
+  - components/roadmap.py
+  - js/ks-roadmap-layout.js
+  - js/ks-roadmap.js
+  - js/ks-roadmap-drag.js
+  - js/ks-roadmap-editable.js
+  source_symbols: []
+  root_selector: null
+  contract: docs/design/catalog/styles/Krm-fam-roadmap.md
+  notes: Shared RoadmapDocument v2 contract; static, dynamic, editable tiers.
+  emits_html: false
+- family: roadmap
+  aliases: []
+  parent_hash: Krm
+  child_hashes: []
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Rms
+  name: Roadmap static
+  slug: roadmap-static
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/roadmap.py
+  - css/ks-roadmap.css
+  source_symbols:
+  - render_roadmap_static
+  root_selector: '[data-ks-hash="Rms"]'
+  contract: docs/design/catalog/components/Rms-roadmap-static.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/nested-roadmap.html#sec-roadmap-static
+  notes: Server-rendered SVG swimlane; print-friendly.
+  emits_html: true
+- family: roadmap
+  aliases: []
+  parent_hash: Krm
+  child_hashes: []
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Rmd
+  name: Roadmap dynamic
+  slug: roadmap-dynamic
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/roadmap.py
+  - css/ks-roadmap.css
+  - css/nested-roadmap.css
+  - js/ks-roadmap.js
+  source_symbols:
+  - render_roadmap_dynamic
+  root_selector: '[data-ks-hash="Rmd"]'
+  contract: docs/design/catalog/components/Rmd-roadmap-dynamic.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/nested-roadmap.html#sec-roadmap-dynamic
+  notes: Nested drill-down grid with modal and breadcrumbs.
+  emits_html: true
+- family: roadmap
+  aliases: []
+  parent_hash: Krm
+  child_hashes: []
+  accessibility_notes: null
+  responsive_notes: null
+  owner: forge-ks
+  last_reviewed: '2026-07-22'
+  hash_exception_reason: null
+  design_standard_refs:
+  - docs/design/forge-enterprise-ai-website-standard.md
+  hash: Rme
+  name: Roadmap editable
+  slug: roadmap-editable
+  type: component
+  category: component
+  status: active
+  source_paths:
+  - components/roadmap.py
+  - components/roadmap_date_editor.py
+  - css/ks-roadmap.css
+  - js/ks-roadmap-layout.js
+  - js/ks-roadmap-drag.js
+  - js/ks-roadmap-editable.js
+  source_symbols:
+  - render_roadmap_editable
+  root_selector: '[data-ks-hash="Rme"]'
+  contract: docs/design/catalog/components/Rme-roadmap-editable.md
+  contract_status: own
+  showcase_url: https://ks.forgesdlc.com/cases/showcase/nested-roadmap.html#sec-roadmap-editable-static
+  notes: Drag move/resize + unified date table; GET/POST v2 save.
+  emits_html: true

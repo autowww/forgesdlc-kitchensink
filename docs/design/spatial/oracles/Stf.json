@@ -1,0 +1,17 @@
+{
+  "hash": "Stf",
+  "slug": "scroll-flip-strip",
+  "showcase_anchor": "#sec-scroll-flip",
+  "showcase_page": "spatial-rails.html",
+  "scenarios": [
+    {
+      "id": "scr-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Stf\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

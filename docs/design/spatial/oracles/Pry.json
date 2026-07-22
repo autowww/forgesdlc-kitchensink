@@ -1,0 +1,17 @@
+{
+  "hash": "Pry",
+  "slug": "fractured-pyramid",
+  "showcase_anchor": "#sec-fractured-pyramid",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "fra-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Pry\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

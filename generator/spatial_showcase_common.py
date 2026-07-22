@@ -11,7 +11,10 @@ def behavior_callout(classes: str, behavior: str) -> str:
     )
 
 
-SPATIAL_CSS = '<link rel="stylesheet" href="assets/ks-spatial.css">'
+SPATIAL_CSS = (
+    '<link rel="stylesheet" href="assets/ks-spatial.css">'
+    '<link rel="stylesheet" href="assets/ks-spatial-wave2.css">'
+)
 
 SPATIAL_JS_POINTER = [
     "assets/ks-pointer-depth.js",

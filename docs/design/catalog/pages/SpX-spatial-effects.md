@@ -5,7 +5,7 @@ type: page
 status: active
 source_paths:
   - generator/pages/spatial-effects.py
-showcase_url: https://ks.forgesdlc.com/showcase/spatial-effects.html
+showcase_url: https://ks.forgesdlc.com/cases/showcase/spatial-effects.html
 screenshot_status: planned
 ---
 

@@ -1,0 +1,17 @@
+{
+  "hash": "Crg",
+  "slug": "ring-carousel",
+  "showcase_anchor": "#sec-ring-carousel",
+  "showcase_page": "spatial-rails.html",
+  "scenarios": [
+    {
+      "id": "rin-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Crg\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

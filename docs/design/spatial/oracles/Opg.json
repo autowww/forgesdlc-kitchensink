@@ -1,0 +1,17 @@
+{
+  "hash": "Opg",
+  "slug": "orbital-photo-gallery",
+  "showcase_anchor": "#sec-orbital-gallery",
+  "showcase_page": "spatial-rails.html",
+  "scenarios": [
+    {
+      "id": "orb-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Opg\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "hash": "Pmg",
+  "slug": "pro-mode-guard-toggle",
+  "showcase_anchor": "#sec-pro-mode-guard",
+  "showcase_page": "spatial-controls.html",
+  "scenarios": [
+    {
+      "id": "pro-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Pmg\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

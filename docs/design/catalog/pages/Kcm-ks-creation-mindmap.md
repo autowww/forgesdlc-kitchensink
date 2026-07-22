@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/ks_creation_mindmap.py
-showcase_url: "https://ks.forgesdlc.com/showcase/ks-creation-mindmap.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Kcm.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/ks-creation-mindmap.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Kcm.png"
 screenshot_status: "planned"
 ---
 
@@ -19,17 +19,27 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/ks_creation_mindmap.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/ks-creation-mindmap.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Kcm.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/ks-creation-mindmap.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Kcm.png — status **planned**
 
 ## Purpose
 
-Showcase museum page **ks-creation-mindmap** (`generator/pages/ks-creation-mindmap.py`) documenting KS creation mindmap patterns for KS maintainers and consumers.
+Showcase page **ks-creation-mindmap** documenting the **Kmm** mind-map family: static (`Mms`), dynamic (`Mmd`), and editable (`Mme`) tiers sharing JSON tree contract v1.
 
 ## Expected look
 
-- **Mindmap** diagram emphasizes relational IA—labels legible, connectors calm against dark canvas.
-- Export/preview variants preserve contrast for PNG captures ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- **Static (`Mms`):** light printable SVG, orthogonal connectors, modal zoom on click.
+- **Dynamic (`Mmd`):** collapse/reflow; vertical stack under 480px.
+- **Editable (`Mme`):** toolbar + inline label edit; API demo loads `assets/mindmap-ks-creation.json`.
+
+## Sections
+
+| Anchor | Hash | Content |
+|--------|------|---------|
+| `#sec-mindmap-static` | Mms | `render_mindmap_static` |
+| `#sec-mindmap-dynamic` | Mmd | `render_mindmap_dynamic` |
+| `#sec-mindmap-editable-static` | Mme | editable static mode |
+| `#sec-mindmap-editable-api` | Mme | editable dynamic + GET load |
 
 ## Anatomy
 

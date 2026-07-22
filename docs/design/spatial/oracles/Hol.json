@@ -40,6 +40,24 @@
         "root_selector": "[data-ks-hash=\"Hol\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "hol-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Hol\"]",
+        "threshold": 1
+      }
+    },
+    {
+      "id": "holoca-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Hol\"]",
+        "threshold": 1
+      }
     }
   ],
   "showcase_page": "spatial-surfaces.html"

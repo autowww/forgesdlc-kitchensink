@@ -1,0 +1,17 @@
+{
+  "hash": "Erc",
+  "slug": "rolling-cube-404",
+  "showcase_anchor": "#sec-error-cube",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "rol-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Erc\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

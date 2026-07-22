@@ -1,0 +1,17 @@
+{
+  "hash": "Stn",
+  "slug": "stellar-slide-navigator",
+  "showcase_anchor": "#sec-stellar-nav",
+  "showcase_page": "spatial-rails.html",
+  "scenarios": [
+    {
+      "id": "ste-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Stn\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

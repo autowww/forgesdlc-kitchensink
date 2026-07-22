@@ -1,0 +1,17 @@
+{
+  "hash": "Hex",
+  "slug": "hex-tunnel",
+  "showcase_anchor": "#sec-hex-tunnel",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "hex-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Hex\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

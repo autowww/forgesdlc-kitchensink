@@ -1,0 +1,17 @@
+{
+  "hash": "Orb",
+  "slug": "sphere-family",
+  "showcase_anchor": "#sec-sphere-family",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "sph-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Orb\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

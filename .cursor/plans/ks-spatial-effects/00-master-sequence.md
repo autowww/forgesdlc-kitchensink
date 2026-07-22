@@ -1,6 +1,6 @@
 # 00 — Master sequence (KS spatial effects)
 
-Governed spatial-effects campaign for **forgesdlc-kitchensink**: architecture foundation, dual-wiki corpus, Playwright oracle verification, and one PDCA phase per spatial primitive (20 components).
+Governed spatial-effects campaign for **forgesdlc-kitchensink**: architecture foundation, dual-wiki corpus, Playwright oracle verification, Wave 1 primitives (S03–S22), and Wave 2 FreeFrontend Yes/Partial expansion (S23–S67).
 
 **Orchestration:** `scripts/ks-spatial-pdca/`  
 **Prompts:** `docs/prompts/ks-spatial-pdca/`  
@@ -13,6 +13,7 @@ Do **not** edit the attached Cursor plan file; this master sequence is the opera
 | Criterion | Evidence |
 |-----------|----------|
 | 20 spatial primitives shipped | Registry rows + hash markers in showcase HTML |
+| Wave 2 FF Yes/Partial | S23 traceability + S24–S67 primitives/modes ([`freefrontend-traceability.md`](../../../docs/design/spatial/freefrontend-traceability.md)) |
 | Dual-wiki parity | Maintainer spec + design contract + showcase section per effect |
 | Actual vs expected | Oracle JSON + `tools/spatial-effects-verifier/` + optional LCDL evaluate task |
 | PDCA orchestration | `pdca-orchestrate.sh` runs S00→S22 with gate files |
@@ -25,6 +26,7 @@ S00 (css/js foundation)
   → S01 (docs + showcase hub + hash allocation)
     → S02 (verifier + DET bootstrap + tilt golden path)
       → S03…S22 (one component per phase)
+        → S23 (traceability) → S24…S67 (Wave 2)
 ```
 
 **Extra dependencies** (see `scripts/ks-spatial-pdca/SEQUENCE.yaml`):
@@ -32,8 +34,22 @@ S00 (css/js foundation)
 - S13–S15, S22 also depend on S00 (pointer / presentation touchpoints)
 - S19 depends on S07
 - S21 depends on S09
+- S24 depends on S14; S25/S43/S44 depend on S22; S28 on S16; S27 on S07; S29–S30 on S18; S31 on S05; S40 before S31 showcase refresh; S57 on S17 + S19
 
 Consumer propagation (`sync-kitchensink-and-rebuild.sh`) is **out of scope** per phase; optional manual release after S22 GREEN.
+
+## Wave 2 index (S23–S67)
+
+| Wave | Phases | Content |
+|------|--------|---------|
+| traceability | S23 | FF matrix, `wave2-registry.yaml`, hash allocation |
+| upgrades | S24–S32 | v2 modes on `Cbg`, `Srl`, `Flp`, `Dpt`, `Tun`, `Iso`, `Hol`; `Fck` flip clock |
+| controls | S33–S40 | `Tlj`, `Pmg`, `Vrk`, `Bkm`, `Kbd`, `Clf`, `Lgt` (S37 skip = duplicate `Fck`) |
+| surfaces-rails | S41–S50 | `Crg`, `Opg`, `Stn`, `Vtc`, `Bkf`, `Fld`, `Fan`, `Dck`, `Vnl`, `Stf` |
+| ambient | S51–S60 | `Erc`, `Mph`, `Tmb`, `Hex`, `Glb`, `Orb`, `Slp`, `Cur`, `Twr`, `Ifn` |
+| optional | S61–S67 | `Mch`, `Dot`, `Xsc`, `Bbl`, `Hud`, `Pry`, `Dbf` |
+
+Hash note: `Fcc` / `C3r` / `Err` were renamed to **`Fck`**, **`Crg`**, **`Erc`** (three distinct letters required by `ks_hash_attrs`).
 
 ## Phase index
 
@@ -84,6 +100,13 @@ Consumer propagation (`sync-kitchensink-and-rebuild.sh`) is **out of scope** per
 cd forgesdlc-kitchensink
 ./scripts/ks-spatial-pdca/pdca-orchestrate.sh wave-foundation   # S00–S02
 ./scripts/ks-spatial-pdca/pdca-orchestrate.sh wave-components   # S03–S22
+./scripts/ks-spatial-pdca/pdca-orchestrate.sh wave-traceability # S23
+./scripts/ks-spatial-pdca/pdca-orchestrate.sh wave-upgrades       # S24–S32
+./scripts/ks-spatial-pdca/pdca-orchestrate.sh wave-controls     # S33–S40
+./scripts/ks-spatial-pdca/pdca-orchestrate.sh wave-surfaces-rails
+./scripts/ks-spatial-pdca/pdca-orchestrate.sh wave-ambient      # S51–S60
+./scripts/ks-spatial-pdca/pdca-orchestrate.sh wave-optional     # S61–S67
+./scripts/ks-spatial-pdca/pdca-orchestrate.sh wave2-all         # S23–S67
 ./scripts/ks-spatial-pdca/pdca-run-phase.sh S05 check           # single phase
 ```
 

@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/nested_roadmap.py
-showcase_url: "https://ks.forgesdlc.com/showcase/nested-roadmap.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Ndr.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/nested-roadmap.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Ndr.png"
 screenshot_status: "planned"
 ---
 
@@ -19,17 +19,27 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/nested_roadmap.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/nested-roadmap.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Ndr.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/nested-roadmap.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Ndr.png — status **planned**
 
 ## Purpose
 
-Showcase museum page **nested-roadmap** (`generator/pages/nested-roadmap.py`) documenting Nested roadmap patterns for KS maintainers and consumers.
+Showcase page **nested-roadmap** documenting the **Krm** roadmap family: static (`Rms`), dynamic drill-down (`Rmd`), and editable drag + date table (`Rme`) with RoadmapDocument v2.
+
+## Sections
+
+| Anchor | Hash | Content |
+|--------|------|---------|
+| `#sec-roadmap-static` | Rms | `render_roadmap_static` |
+| `#sec-roadmap-dynamic` | Rmd | `render_roadmap_dynamic` |
+| `#sec-roadmap-editable-static` | Rme | editable static mode |
+| `#sec-roadmap-editable-api` | Rme | editable dynamic + GET load |
 
 ## Expected look
 
-- **Nested roadmap** visuals emphasize hierarchical delivery arcs—nodes readable at zoomed-out scale.
-- Color encodes phase without relying on color alone (labels/icons accompany) ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
+- **Static:** light SVG swimlane, print-friendly.
+- **Dynamic:** nested drill-down grid with modal and breadcrumbs (unchanged behavior).
+- **Editable:** swimlane bars with drag handles + synced Initial/Target date table.
 
 ## Anatomy
 

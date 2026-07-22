@@ -1,0 +1,17 @@
+{
+  "hash": "Lgt",
+  "slug": "shapes-lights-rig",
+  "showcase_anchor": "#sec-lights-rig",
+  "showcase_page": "spatial-controls.html",
+  "scenarios": [
+    {
+      "id": "sha-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Lgt\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

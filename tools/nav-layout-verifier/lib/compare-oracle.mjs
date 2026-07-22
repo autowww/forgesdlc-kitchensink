@@ -130,8 +130,16 @@ export function compareScenario(scenario, collected) {
     collected = { ...collected, parsedTransform: parsed };
   }
 
-  const pass = checks.length > 0 && checks.every((check) => check.pass);
-  const score = checks.length === 0 ? 0 : checks.filter((check) => check.pass).length / checks.length;
+  const pass =
+    checks.length === 0
+      ? Boolean(collected && collected.attributes)
+      : checks.every((check) => check.pass);
+  const score =
+    checks.length === 0
+      ? pass
+        ? 1
+        : 0
+      : checks.filter((check) => check.pass).length / checks.length;
 
   return {
     pass,

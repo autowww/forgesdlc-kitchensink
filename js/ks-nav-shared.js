@@ -32,13 +32,22 @@
     trapFocus: trapFocus,
   };
 
+  function headerSelectorForDock() {
+    if (document.querySelector(".site-header")) return ".site-header";
+    if (document.querySelector(".swim-demo-header")) return ".swim-demo-header";
+    return ".cap-header";
+  }
+
   function initDocks() {
     if (!global.ForgeSectionSwimlanes) return;
     document.querySelectorAll(".ks-nav-dock").forEach(function (el) {
       var dock = el.querySelector(".fs-section-swimlanes");
       if (!dock || !dock.id || dock.dataset.ksNavDockBound) return;
       dock.dataset.ksNavDockBound = "1";
-      global.ForgeSectionSwimlanes.init({ dockSelector: "#" + dock.id });
+      global.ForgeSectionSwimlanes.init({
+        dockSelector: "#" + dock.id,
+        headerSelector: headerSelectorForDock(),
+      });
     });
   }
 

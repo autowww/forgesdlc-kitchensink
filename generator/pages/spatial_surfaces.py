@@ -17,6 +17,7 @@ from spatial import (  # noqa: E402
 )
 
 from spatial_showcase_common import SPATIAL_CSS, SPATIAL_JS_POINTER, behavior_callout  # noqa: E402
+from spatial_wave2_showcase import surfaces_upgrade_sections  # noqa: E402
 
 PAGE = {
     "slug": "spatial-surfaces",
@@ -33,6 +34,17 @@ PAGE = {
         ("sec-zigzag", "Zigzag divider"),
         ("sec-media-parallax", "Media parallax"),
         ("sec-iso-tile", "Isometric tile"),
+        ("sec-flip-stack", "Flip stack"),
+        ("sec-holo-illumination", "Holo illumination"),
+        ("sec-iso-keypad", "Isometric keypad"),
+        ("sec-iso-grid", "Cube grid"),
+        ("sec-tilt-js", "JS pointer tilt"),
+        ("sec-book-flip", "Book flip"),
+        ("sec-fold-accordion", "Fold accordion"),
+        ("sec-card-fan", "Card fan"),
+        ("sec-card-deck", "Card deck"),
+        ("sec-vinyl-sleeve", "Vinyl sleeve"),
+        ("sec-fisheye-nav", "Fisheye nav"),
     ],
 }
 
@@ -47,7 +59,7 @@ def extra_js_paths() -> list[str]:
 
 def render() -> str:
     bc = behavior_callout
-    return f"""\
+    base = f"""\
 <div class="forge-callout forge-callout-cyan mb-4" id="sec-intro">
   <p class="callout-label mb-1">Category</p>
   <p class="mb-0">Surface primitives from the <a href="spatial-effects.html">Spatial hub</a>.
@@ -98,3 +110,4 @@ def render() -> str:
   {bc("ks-tile--iso", "rotateX(60deg) rotateZ(-45deg) elevated tile.")}
 </section>
 """
+    return base + surfaces_upgrade_sections()

@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/forge_react_primitives.py
-showcase_url: "https://ks.forgesdlc.com/showcase/forge-react-primitives.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Frp.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/forge-react-primitives.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Frp.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/forge_react_primitives.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/forge-react-primitives.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Frp.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/forge-react-primitives.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Frp.png — status **planned**
 
 ## Purpose
 

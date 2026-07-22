@@ -1,0 +1,17 @@
+{
+  "hash": "Bkf",
+  "slug": "book-page-flip",
+  "showcase_anchor": "#sec-book-flip",
+  "showcase_page": "spatial-surfaces.html",
+  "scenarios": [
+    {
+      "id": "boo-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Bkf\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

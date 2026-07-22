@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/diagram_code_examples.py
-showcase_url: "https://ks.forgesdlc.com/showcase/diagram-code-examples.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Dce.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/diagram-code-examples.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Dce.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/diagram_code_examples.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/diagram-code-examples.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Dce.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/diagram-code-examples.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Dce.png — status **planned**
 
 ## Purpose
 

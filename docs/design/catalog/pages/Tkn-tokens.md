@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/tokens.py
-showcase_url: "https://ks.forgesdlc.com/showcase/tokens.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Tkn.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/tokens.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Tkn.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/tokens.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/tokens.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Tkn.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/tokens.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Tkn.png — status **planned**
 
 ## Purpose
 

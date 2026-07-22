@@ -1,0 +1,17 @@
+{
+  "hash": "Dck",
+  "slug": "card-deck-stack",
+  "showcase_anchor": "#sec-card-deck",
+  "showcase_page": "spatial-surfaces.html",
+  "scenarios": [
+    {
+      "id": "car-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Dck\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

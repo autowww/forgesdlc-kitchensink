@@ -26,6 +26,33 @@
         "root_selector": "[data-ks-hash=\"Srl\"]",
         "threshold": 1
       }
+    },
+    {
+      "id": "spa-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Srl\"]",
+        "threshold": 1
+      }
+    },
+    {
+      "id": "spa-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Srl\"]",
+        "threshold": 1
+      }
+    },
+    {
+      "id": "spatia-wave2-mode",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Srl\"]",
+        "threshold": 1
+      }
     }
   ],
   "showcase_page": "spatial-rails.html"

@@ -154,7 +154,13 @@ def sync_product_site_assets(
         else:
             warnings.append(f"{lb} missing — living background motion may not run")
 
-    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css", "ks-spatial.css", "ks-nav-layout.css"):
+    for lb_css in (
+        "ks-animated-backgrounds.css",
+        "ks-living-background.css",
+        "ks-spatial.css",
+        "ks-spatial-wave2.css",
+        "ks-nav-layout.css",
+    ):
         p = kitchensink_root / "css" / lb_css
         if p.is_file():
             shutil.copy2(p, dest_assets / lb_css)
@@ -215,7 +221,13 @@ def sync_handbook_ks_assets(kitchensink_root: Path, dest_assets: Path) -> None:
         if p.is_file():
             shutil.copy2(p, dest_assets / lb)
 
-    for lb_css in ("ks-animated-backgrounds.css", "ks-living-background.css", "ks-spatial.css", "ks-nav-layout.css"):
+    for lb_css in (
+        "ks-animated-backgrounds.css",
+        "ks-living-background.css",
+        "ks-spatial.css",
+        "ks-spatial-wave2.css",
+        "ks-nav-layout.css",
+    ):
         p = kitchensink_root / "css" / lb_css
         if p.is_file():
             shutil.copy2(p, dest_assets / lb_css)

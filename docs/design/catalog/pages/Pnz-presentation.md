@@ -5,8 +5,8 @@ type: "page"
 status: "active"
 source_paths:
   - generator/pages/presentation.py
-showcase_url: "https://ks.forgesdlc.com/showcase/presentation.html"
-screenshot_url: "https://ks.forgesdlc.com/showcase/screenshots/Pnz.png"
+showcase_url: "https://ks.forgesdlc.com/cases/showcase/presentation.html"
+screenshot_url: "https://ks.forgesdlc.com/cases/showcase/screenshots/Pnz.png"
 screenshot_status: "planned"
 ---
 
@@ -19,8 +19,8 @@ screenshot_status: "planned"
 - **Type:** page
 - **Category:** page
 - **Source paths:** `generator/pages/presentation.py`
-- **Showcase URL / status:** https://ks.forgesdlc.com/showcase/presentation.html (active preview page)
-- **Screenshot URL / status:** https://ks.forgesdlc.com/showcase/screenshots/Pnz.png — status **planned**
+- **Showcase URL / status:** https://ks.forgesdlc.com/cases/showcase/presentation.html (active preview page)
+- **Screenshot URL / status:** https://ks.forgesdlc.com/cases/showcase/screenshots/Pnz.png — status **planned**
 
 ## Purpose
 

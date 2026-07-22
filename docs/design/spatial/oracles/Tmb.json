@@ -1,0 +1,17 @@
+{
+  "hash": "Tmb",
+  "slug": "tumbling-cubes",
+  "showcase_anchor": "#sec-tumbling-cubes",
+  "showcase_page": "spatial-ambient.html",
+  "scenarios": [
+    {
+      "id": "tum-dom-present",
+      "prefers_reduced_motion": false,
+      "actions": [],
+      "expect": {
+        "root_selector": "[data-ks-hash=\"Tmb\"]",
+        "threshold": 1
+      }
+    }
+  ]
+}

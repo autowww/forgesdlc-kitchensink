@@ -32,7 +32,7 @@ def render_remediated_page(rule_id: str, after_html: str, title: str) -> str:
 <head>
   <meta charset="utf-8" />
   <script>
-  (function(){{try{{var m=document.cookie.match(/(?:^|;)\\s*forge_color_scheme=([^;]*)/);var v=m?decodeURIComponent(m[1].trim()):'';var mq=window.matchMedia('(prefers-color-scheme: dark)');var t='dark';if(v==='light')t='light';else if(v==='dark')t='dark';else if(v==='auto')t=mq.matches?'dark':'light';document.documentElement.setAttribute('data-bs-theme',t);}}catch(e){{}}}})();
+  (function(){{try{{var m=document.cookie.match(/(?:^|;)\\s*forge_color_scheme=([^;]*)/);var v=m?decodeURIComponent(m[1].trim()):'';var mq=window.matchMedia('(prefers-color-scheme: dark)');var t='light';if(v==='light')t='light';else if(v==='dark')t='dark';else if(v==='auto')t=mq.matches?'dark':'light';document.documentElement.setAttribute('data-bs-theme',t);}}catch(e){{}}}})();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Remediated harness fixture for {rule_id} — paired hash markers on every governed visual root." />
@@ -46,18 +46,18 @@ def render_remediated_page(rule_id: str, after_html: str, title: str) -> str:
 <body>
 <div class="forge-aurora"></div>
 <a href="#main" class="skip-link">Skip to content</a>
-<div class="dropdown forge-theme-dropdown position-fixed top-0 end-0 m-2" style="z-index:1050" data-forge-pref="dark">
+<div class="dropdown forge-theme-dropdown position-fixed top-0 end-0 m-2" style="z-index:1050" data-forge-pref="light">
   <button type="button" class="forge-theme-trigger dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" id="forgeThemeMenu" aria-haspopup="true" aria-label="Appearance and color theme" title="Theme">
     <span class="forge-theme-trigger__inner">
       <span class="forge-theme-trigger__copy">
         <span class="forge-theme-eyebrow">Appearance</span>
-        <span class="forge-theme-current">Dark</span>
+        <span class="forge-theme-current">Light</span>
       </span>
     </span>
   </button>
   <ul class="dropdown-menu dropdown-menu-end forge-theme-menu" aria-labelledby="forgeThemeMenu">
-    <li><button type="button" class="dropdown-item forge-theme-option" data-forge-color-scheme="light"><span>Light</span></button></li>
-    <li><button type="button" class="dropdown-item forge-theme-option active" data-forge-color-scheme="dark"><span>Dark</span></button></li>
+    <li><button type="button" class="dropdown-item forge-theme-option active" data-forge-color-scheme="light"><span>Light</span></button></li>
+    <li><button type="button" class="dropdown-item forge-theme-option" data-forge-color-scheme="dark"><span>Dark</span></button></li>
     <li><button type="button" class="dropdown-item forge-theme-option" data-forge-color-scheme="auto"><span>System</span></button></li>
   </ul>
 </div>
