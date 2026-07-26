@@ -522,6 +522,35 @@ def render_breadcrumbs(
     )
 
 
+def render_policy_badge(policy_status: str) -> str:
+    """Status pill for policy/reference pages (enterprise handbook chrome)."""
+    status = policy_status.strip().lower()
+    if not status:
+        return ""
+    tone = "text-bg-secondary"
+    if status in ("defined", "accepted", "demonstrated", "canonical"):
+        tone = "text-bg-success"
+    elif status in ("draft", "proposed", "experimental"):
+        tone = "text-bg-warning"
+    label = policy_status.strip().replace("_", " ").title()
+    return (
+        f'<span class="ks-policy-badge badge rounded-pill {tone}">{e(label)}</span>'
+    )
+
+
+def render_platform_hub_callout(hub_url: str, *, label: str = "Platform hub") -> str:
+    """Cyan callout linking to a canonical Platform architecture hub."""
+    url = hub_url.strip()
+    if not url:
+        return ""
+    return (
+        '<aside class="forge-callout forge-callout-cyan ks-platform-hub-callout my-3" role="note">'
+        f'<p class="callout-label text-cyan mb-1">{e(label)}</p>'
+        f'<p class="forge-support mb-0"><a href="{e(url)}">{e(url)}</a></p>'
+        "</aside>"
+    )
+
+
 def render_handbook_doc_header(
     page_title: str,
     lede: str,
@@ -529,6 +558,7 @@ def render_handbook_doc_header(
     breadcrumb_items: list[tuple[str | None, str]] | None = None,
     section_label: str = "",
     page_type: str = "",
+    policy_status: str = "",
     last_updated: str = "",
     canonical_source_href: str = "",
     canonical_source_label: str = "Source",
@@ -545,6 +575,9 @@ def render_handbook_doc_header(
         )
 
     meta_parts: list[str] = []
+    policy_badge = render_policy_badge(policy_status)
+    if policy_badge:
+        meta_parts.append(policy_badge)
     if page_type.strip():
         meta_parts.append(
             f'<span class="ks-doc-meta__badge badge rounded-pill '
