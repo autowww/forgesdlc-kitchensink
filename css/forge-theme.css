@@ -3338,3 +3338,498 @@ code {
     font-size: 1.2rem;
   }
 }
+
+/* =================================================================
+   SCROLL REGION UTILITIES (page-only native scrollbars)
+   ================================================================= */
+.ks-scroll-region {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.ks-scroll-region::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.forge-sidebar .nav-scroll,
+.forge-toc {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.forge-sidebar .nav-scroll::-webkit-scrollbar,
+.forge-toc::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+pre,
+.doc-content pre {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+pre::-webkit-scrollbar,
+.doc-content pre::-webkit-scrollbar {
+  display: none;
+}
+
+/* =================================================================
+   HANDBOOK LANDING SPATIAL BANDS (L1/L2) — forge-theme consumer bundle
+   ================================================================= */
+.ks-handbook-landing-band {
+  margin-top: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.ks-handbook-landing-band .fs-rail__scroller {
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ks-handbook-landing-band .fs-rail__track {
+  min-width: min-content;
+}
+
+.ks-handbook-landing-band .fs-rail__item {
+  scroll-snap-align: start;
+  width: 14.5rem;
+}
+
+.ks-handbook-landing-band .fs-rail__item .forge-card {
+  min-height: 9.5rem;
+}
+
+.ks-handbook-steps {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .ks-handbook-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+  }
+}
+
+.ks-handbook-steps__item {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--forge-border);
+  background: color-mix(in srgb, var(--forge-surface) 88%, var(--forge-bg));
+}
+
+.ks-handbook-steps__num {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--forge-amber);
+  background: var(--forge-amber-dim);
+  border: 1px solid color-mix(in srgb, var(--forge-amber) 35%, transparent);
+}
+
+.ks-handbook-trust-deck {
+  width: min(100%, 22rem);
+  min-height: 14rem;
+  margin-inline: auto;
+}
+
+html[data-bs-theme="light"] .ks-handbook-steps__item,
+html[data-bs-theme="light"] .ks-handbook-landing-band .forge-card {
+  background: var(--forge-surface);
+  border-color: var(--forge-border);
+}
+
+html[data-bs-theme="light"] .ks-editorial-peek-rail__prev,
+html[data-bs-theme="light"] .ks-editorial-peek-rail__next {
+  color: var(--forge-text-2);
+  background: var(--forge-surface);
+  border-color: var(--forge-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-deck--stack__card {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .ks-handbook-trust-deck .ks-deck--stack__card {
+    position: relative;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Vertical layer flow / pyramid (Hlf) — replaces horizontal peek rail on L1 */
+.ks-handbook-layer-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+.ks-handbook-layer-flow__step {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.ks-handbook-layer-flow__step .forge-card {
+  min-height: 5.5rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ks-handbook-layer-flow__step .forge-card:hover,
+.ks-handbook-layer-flow__step .forge-card:focus-visible {
+  border-color: color-mix(in srgb, var(--forge-cyan) 45%, var(--forge-border));
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.08);
+}
+
+.ks-handbook-layer-flow__connector {
+  display: flex;
+  justify-content: center;
+  padding: 0.35rem 0 0.5rem;
+}
+
+.ks-handbook-layer-flow__arrow {
+  display: block;
+  width: 2px;
+  height: 1.25rem;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--forge-cyan) 55%, transparent),
+    var(--forge-border)
+  );
+  position: relative;
+}
+
+.ks-handbook-layer-flow__arrow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.35rem;
+  transform: translateX(-50%);
+  border-left: 0.35rem solid transparent;
+  border-right: 0.35rem solid transparent;
+  border-top: 0.45rem solid color-mix(in srgb, var(--forge-cyan) 50%, var(--forge-border));
+}
+
+/* Pyramid: each layer wider than the one above (methodology narrow → integration wide) */
+.ks-handbook-layer-flow--pyramid .ks-handbook-layer-flow__step {
+  width: calc(62% + var(--ks-layer-i) * 6.5%);
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .ks-handbook-layer-flow {
+    max-width: 40rem;
+  }
+
+  .ks-handbook-layer-flow--pyramid .ks-handbook-layer-flow__step {
+    width: calc(58% + var(--ks-layer-i) * 7%);
+  }
+}
+
+html[data-bs-theme="light"] .ks-handbook-layer-flow__arrow {
+  background: linear-gradient(180deg, rgba(8, 145, 178, 0.45), var(--forge-border));
+}
+
+html[data-bs-theme="light"] .ks-handbook-layer-flow__arrow::after {
+  border-top-color: rgba(8, 145, 178, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-handbook-layer-flow__step .forge-card {
+    transition: none;
+  }
+}
+
+/* Multi-component operating strata (Hls) + evidence spine (Hes) */
+.ks-handbook-layer-strata {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+.ks-handbook-layer-stratum {
+  display: flex;
+  flex-direction: column;
+  width: calc(70% + var(--ks-stratum-i) * 5%);
+  margin-inline: auto;
+  padding-bottom: 0.25rem;
+}
+
+.ks-handbook-layer-stratum__header {
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.ks-handbook-layer-stratum__grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 576px) {
+  .ks-handbook-layer-stratum__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ks-handbook-layer-stratum--dual .ks-handbook-layer-stratum__grid {
+  grid-template-columns: 1fr;
+}
+
+.ks-handbook-layer-stratum__cell .forge-card,
+.ks-handbook-layer-stratum__column .forge-card {
+  min-height: 5.25rem;
+}
+
+.ks-handbook-layer-stratum__dual {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .ks-handbook-layer-strata {
+    max-width: 52rem;
+  }
+
+  .ks-handbook-layer-stratum__dual {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .ks-handbook-layer-stratum__grid:has(> :nth-child(3):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ks-handbook-layer-stratum__column-title {
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--forge-text-3);
+  margin-bottom: 0.5rem;
+}
+
+.ks-handbook-layer-stratum__column ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.ks-handbook-layer-strata__connector {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0 0.65rem;
+}
+
+.ks-handbook-layer-strata__arrow {
+  display: block;
+  width: 2px;
+  height: 1.1rem;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--forge-cyan) 50%, transparent),
+    var(--forge-border)
+  );
+  position: relative;
+}
+
+.ks-handbook-layer-strata__arrow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.3rem;
+  transform: translateX(-50%);
+  border-left: 0.32rem solid transparent;
+  border-right: 0.32rem solid transparent;
+  border-top: 0.4rem solid color-mix(in srgb, var(--forge-cyan) 45%, var(--forge-border));
+}
+
+.ks-handbook-evidence-spine {
+  border: 1px solid color-mix(in srgb, var(--forge-amber) 35%, var(--forge-border));
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  background: color-mix(in srgb, var(--forge-amber-dim) 40%, var(--forge-surface));
+  margin-bottom: 1.25rem;
+}
+
+.ks-handbook-evidence-spine__list {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 576px) {
+  .ks-handbook-evidence-spine__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 992px) {
+  .ks-handbook-evidence-spine__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ks-handbook-evidence-spine__item .forge-card {
+  min-height: 4.5rem;
+  background: var(--forge-surface);
+}
+
+html[data-bs-theme="light"] .ks-handbook-evidence-spine {
+  background: color-mix(in srgb, var(--forge-amber-dim) 25%, var(--forge-surface));
+}
+
+html[data-bs-theme="light"] .ks-handbook-layer-stratum__column-title {
+  color: var(--forge-text-2);
+}
+
+/* Expandable operating-strata disclosures (Hls / Hes) */
+.ks-handbook-layer-strata--expandable {
+  gap: 0.75rem;
+}
+
+.ks-handbook-stratum-disclosure {
+  border: 1px solid var(--forge-border);
+  border-radius: 12px;
+  background: var(--forge-surface);
+  overflow: hidden;
+}
+
+.ks-handbook-stratum-disclosure--evidence {
+  border-color: color-mix(in srgb, var(--forge-amber) 35%, var(--forge-border));
+  background: color-mix(in srgb, var(--forge-amber-dim) 40%, var(--forge-surface));
+}
+
+.ks-handbook-stratum-disclosure__summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ks-handbook-stratum-disclosure__summary::-webkit-details-marker {
+  display: none;
+}
+
+.ks-handbook-stratum-disclosure__summary::marker {
+  content: "";
+}
+
+.ks-handbook-stratum-disclosure[open] .ks-handbook-stratum-disclosure__chevron {
+  transform: rotate(225deg);
+}
+
+.ks-handbook-stratum-disclosure__chevron {
+  display: block;
+  width: 0.55rem;
+  height: 0.55rem;
+  flex-shrink: 0;
+  margin-top: 0.35rem;
+  border-right: 2px solid var(--forge-cyan);
+  border-bottom: 2px solid var(--forge-cyan);
+  transform: rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+.ks-handbook-stratum-disclosure__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ks-handbook-stratum-disclosure__title {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--forge-cyan);
+  margin-bottom: 0.2rem;
+}
+
+.ks-handbook-stratum-disclosure__lede {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.ks-handbook-stratum-disclosure__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.ks-handbook-stratum-disclosure__count {
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--forge-text-3);
+  white-space: nowrap;
+}
+
+.ks-handbook-stratum-disclosure__panel {
+  padding: 0 1rem 1rem;
+  border-top: 1px solid var(--forge-border);
+}
+
+.ks-handbook-stratum-disclosure__panel .ks-handbook-layer-stratum__header {
+  display: none;
+}
+
+.ks-handbook-element-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-height: 5.25rem;
+}
+
+a.ks-handbook-element-card {
+  color: inherit;
+}
+
+a.ks-handbook-element-card:hover,
+a.ks-handbook-element-card:focus-visible {
+  border-color: color-mix(in srgb, var(--forge-cyan) 50%, var(--forge-border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--forge-cyan) 25%, transparent);
+}
+
+.ks-handbook-element-card__name {
+  color: var(--forge-text-1);
+}
+
+.ks-handbook-element-card__role {
+  flex: 1 1 auto;
+}
+
+.ks-handbook-element-card__link {
+  margin-top: 0.35rem;
+}
+
+html[data-bs-theme="light"] .ks-handbook-stratum-disclosure--evidence {
+  background: color-mix(in srgb, var(--forge-amber-dim) 25%, var(--forge-surface));
+}

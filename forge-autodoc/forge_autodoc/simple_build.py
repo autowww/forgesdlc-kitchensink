@@ -57,7 +57,7 @@ from forge_autodoc.agent_contract import render_agent_contract_panel
 from forge_autodoc.source_map import emit_docs_source_map
 from forge_autodoc.text import plain_text_from_first_paragraph
 from forge_autodoc.transforms_api import apply_handbook_body_transforms, extract_toc_from_html
-from forge_autodoc.html_assets import cache_bust_handbook_img_src
+from forge_autodoc.html_assets import cache_bust_handbook_img_src, rewrite_handbook_asset_img_src
 from forge_autodoc.landing_blocks import (
     apply_landing_blocks_to_body,
     needs_spatial_landing_assets,
@@ -634,8 +634,9 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
         if cfg.link_check:
             broken_md_links += _broken_internal_md_links(md_path, body_md, href_by_md)
         body_html = markdown_to_handbook_html(maintainer_banner + body_md)
-        body_html = apply_landing_blocks_to_body(cfg.kitchensink, body_html, _fm_yaml)
+        body_html = apply_landing_blocks_to_body(cfg.kitchensink, body_html, _fm_yaml, content_root=root)
         body_html = _rewrite_relative_md_links(body_html, md_path, root, href_by_md)
+        body_html = rewrite_handbook_asset_img_src(body_html, cfg.handbook_assets_public_prefix)
         body_html = neutralize_repo_artifact_links(body_html)
         body_html, _hm, has_ks, has_ks_dual = apply_handbook_body_transforms(cfg.kitchensink, body_html)
         body_html = cache_bust_handbook_img_src(body_html, assets_dir)

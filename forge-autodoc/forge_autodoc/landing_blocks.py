@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any, Mapping
 
 from forge_autodoc.ks_path import ensure_kitchensink_importable
+
+try:
+    import yaml
+except ImportError:  # pragma: no cover
+    yaml = None  # type: ignore[assignment]
 
 
 def _normalize_blocks(raw: Any) -> dict[str, Any]:
@@ -29,6 +35,49 @@ def _normalize_blocks(raw: Any) -> dict[str, Any]:
 
 def parse_landing_blocks(frontmatter: Mapping[str, Any]) -> dict[str, Any]:
     return _normalize_blocks(frontmatter.get("landing_blocks"))
+
+
+def _apply_href_prefix(value: Any, prefix: str) -> Any:
+    """Prefix relative handbook hrefs (e.g. architecture hub one level deeper)."""
+    if not prefix:
+        return value
+    if isinstance(value, list):
+        return [_apply_href_prefix(item, prefix) for item in value]
+    if isinstance(value, dict):
+        out = {k: _apply_href_prefix(v, prefix) for k, v in value.items()}
+        href = out.get("href")
+        if isinstance(href, str) and href and not href.startswith(("http://", "https://", "#", "mailto:")):
+            out["href"] = f"{prefix}{href.lstrip('/')}"
+        return out
+    return value
+
+
+def resolve_landing_block_sources(
+    blocks: Mapping[str, Any],
+    *,
+    content_root: Path | None,
+) -> dict[str, Any]:
+    """Inline ``source: relative/path.yaml`` for blocks such as ``layer_strata``."""
+    if not content_root or yaml is None:
+        return dict(blocks)
+    resolved: dict[str, Any] = {}
+    for block_type, config in blocks.items():
+        if not isinstance(config, Mapping):
+            resolved[block_type] = config
+            continue
+        cfg = dict(config)
+        source = str(cfg.get("source", "")).strip()
+        if source:
+            src_path = (content_root / source.replace("\\", "/")).resolve()
+            if src_path.is_file():
+                loaded = yaml.safe_load(src_path.read_text(encoding="utf-8"))
+                if isinstance(loaded, dict):
+                    cfg = {**loaded, **{k: v for k, v in cfg.items() if k != "source"}}
+        href_prefix = str(cfg.pop("href_prefix", "")).strip()
+        if href_prefix:
+            cfg = _apply_href_prefix(cfg, href_prefix)
+        resolved[block_type] = cfg
+    return resolved
 
 
 def needs_spatial_landing_assets(
@@ -70,8 +119,13 @@ def apply_landing_blocks_to_body(
     kitchensink_root,
     body_html: str,
     frontmatter: Mapping[str, Any],
+    *,
+    content_root: Path | None = None,
 ) -> str:
-    blocks = parse_landing_blocks(frontmatter)
+    blocks = resolve_landing_block_sources(
+        parse_landing_blocks(frontmatter),
+        content_root=content_root,
+    )
     if not blocks:
         return body_html
     ensure_kitchensink_importable(kitchensink_root)
