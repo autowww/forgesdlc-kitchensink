@@ -186,7 +186,8 @@ Unit tests in `tools/website-ux-auditor/auditor-tests/`.
 1. **forgesdlc-kitchensink** — commit primitives + CSS + autodoc + tests + showcase rebuild.
 2. **blueprints-website** — submodule bump, `build-handbook.py` wiring, rebuild `website/`, deploy `forge-sdlc-blueprints`.
 3. **forge-fleet-website** — align topnav/breadcrumb with generalized Kpn/Kbc; deploy `fleet-2f1d3`.
-4. **forge-lcdl-website**, **forge-lenses-website**, **forge-platform-website** — submodule bump + build + deploy.
+4. **forge-lcdl-website**, **forge-lenses-website** — submodule bump + build + deploy.
+5. **forge-platform-website** — **shipped (2026-07):** `docs/site-nav.yaml`, `handbook_homepage_minimal_shell`, `platform_nav` filter, `ks-handbook-topnav`, hydration-runs excluded from build; see [platform-site-prompt-pack.md](../../prompt-packs/platform-site-prompt-pack.md).
 5. **forgesdlc** — tutorials/handbook pages if they use `handbook_page`.
 6. **`sync-kitchensink-and-rebuild.sh`** for public sites; manual bump for private handbooks if Fleet submodule dirty.
 
@@ -250,6 +251,17 @@ Unit tests in `tools/website-ux-auditor/auditor-tests/`.
 | Portal inject (legacy) | `blueprints-website/generator/inject-portal-nav.py` |
 | Grid audit | `forgesdlc-kitchensink/tools/website-ux-auditor/design-rules/deterministic/generated/det-layout-grid-consistency.check.js` |
 | Reference page | `blueprints-website/website/sdlc--methodologies-forge-autonomy-levels.html` |
+
+---
+
+## Phase 4 — Light chrome + spatial L1/L2 (2026-07)
+
+| Item | Detail |
+|------|--------|
+| **Light theme** | Kpn/Kbc/Ksr explicit `html[data-bs-theme="light"]` overrides in `forge-theme.css` + `forge-light-theme.css` |
+| **Spatial bands** | `handbook_landing.py` — Hlr/Hst/Dck/Hlp; wired via `landing_blocks` frontmatter in forge-autodoc |
+| **Platform** | Richest L1 (`docs/index.md`) + L2 hubs (`start/`, `architecture/`, `guides/`, `sprints/`) |
+| **Peers** | Fleet/LCDL/Lenses L1 landing rails after KS submodule bump |
 
 ---
 

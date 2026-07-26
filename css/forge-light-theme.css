@@ -113,3 +113,40 @@ html[data-bs-theme="light"] .forge-widget-host {
   border-color: color-mix(in srgb, var(--forge-border) 90%, #94a3b8);
   background: color-mix(in srgb, var(--forge-surface) 92%, #fff);
 }
+
+/* Handbook shell — light chrome readability */
+html[data-bs-theme="light"] .forge-sidebar .nav-link,
+html[data-bs-theme="light"] .forge-sidebar .doc-sidebar-link,
+html[data-bs-theme="light"] .forge-sidebar .doc-sidebar-sublink {
+  color: var(--forge-text-2);
+}
+
+html[data-bs-theme="light"] .forge-sidebar .nav-link:hover,
+html[data-bs-theme="light"] .forge-sidebar .doc-sidebar-link:hover,
+html[data-bs-theme="light"] .forge-sidebar .nav-link.active,
+html[data-bs-theme="light"] .forge-sidebar .doc-sidebar-link.active {
+  color: var(--forge-text);
+}
+
+html[data-bs-theme="light"] .forge-sidebar .nav-section-label,
+html[data-bs-theme="light"] .forge-sidebar .doc-sidebar-heading {
+  color: var(--forge-text-3);
+}
+
+html[data-bs-theme="light"] .doc-content .text-secondary,
+html[data-bs-theme="light"] .ks-handbook-shell .text-secondary {
+  color: var(--forge-text-3) !important;
+}
+
+html[data-bs-theme="light"] .doc-content .table-secondary,
+html[data-bs-theme="light"] .doc-content thead.table-secondary th {
+  --bs-table-bg: var(--forge-surface-2);
+  --bs-table-color: var(--forge-text);
+  color: var(--forge-text);
+}
+
+html[data-bs-theme="light"] .ks-doc-meta,
+html[data-bs-theme="light"] .ks-doc-meta .badge,
+html[data-bs-theme="light"] .forge-badge {
+  color: var(--forge-text-2);
+}

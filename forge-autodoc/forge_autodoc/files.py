@@ -175,6 +175,29 @@ def strip_leading_yaml_frontmatter(text: str) -> str:
     return text
 
 
+def parse_yaml_frontmatter(text: str) -> tuple[dict, str]:
+    """Parse leading ``---`` YAML block with ``yaml.safe_load``; return ``(meta, body)``."""
+    import yaml
+
+    if not text.startswith("---"):
+        return {}, text
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return {}, text
+    end: int | None = None
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            end = i
+            break
+    if end is None:
+        return {}, text
+    block = "\n".join(lines[1:end])
+    data = yaml.safe_load(block) if block.strip() else {}
+    meta = data if isinstance(data, dict) else {}
+    body = "\n".join(lines[end + 1 :]).lstrip("\n")
+    return meta, body
+
+
 def split_yaml_frontmatter(text: str) -> tuple[dict[str, str], str]:
     """Parse leading ``---`` YAML block into a flat ``key: value`` map; return ``(meta, body)``.
 

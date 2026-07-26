@@ -23,6 +23,7 @@ from forge_autodoc.files import (
     slug_from_lens_repo_handbook_md,
     slug_from_md_path,
     split_yaml_frontmatter,
+    parse_yaml_frontmatter,
     title_from_filename,
     title_from_md_content,
 )
@@ -57,6 +58,10 @@ from forge_autodoc.source_map import emit_docs_source_map
 from forge_autodoc.text import plain_text_from_first_paragraph
 from forge_autodoc.transforms_api import apply_handbook_body_transforms, extract_toc_from_html
 from forge_autodoc.html_assets import cache_bust_handbook_img_src
+from forge_autodoc.landing_blocks import (
+    apply_landing_blocks_to_body,
+    needs_spatial_landing_assets,
+)
 
 
 # Markdown links to sibling/relative ``*.md`` files (not images: exclude leading ``!``).
@@ -616,6 +621,9 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
         text = md_path.read_text(encoding="utf-8")
         page_title = title_from_md_content(text, title_from_filename(md_path.name))
         _fm, body_md = split_yaml_frontmatter(text)
+        _fm_yaml, _body_yaml = parse_yaml_frontmatter(text)
+        if _body_yaml:
+            body_md = _body_yaml
         maintainer_banner = ""
         if _fm.get("audience", "").strip().lower() == "maintainer":
             maintainer_banner = (
@@ -626,6 +634,7 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
         if cfg.link_check:
             broken_md_links += _broken_internal_md_links(md_path, body_md, href_by_md)
         body_html = markdown_to_handbook_html(maintainer_banner + body_md)
+        body_html = apply_landing_blocks_to_body(cfg.kitchensink, body_html, _fm_yaml)
         body_html = _rewrite_relative_md_links(body_html, md_path, root, href_by_md)
         body_html = neutralize_repo_artifact_links(body_html)
         body_html, _hm, has_ks, has_ks_dual = apply_handbook_body_transforms(cfg.kitchensink, body_html)
@@ -882,6 +891,20 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             offcanvas_html = ""
             toc = []
 
+        page_type_fm = (
+            _fm.get("page_type")
+            or _fm.get("page_contract_profile")
+            or _fm.get("page_kind")
+            or ""
+        ).strip()
+        policy_status_fm = (_fm.get("policy_status") or "").strip()
+        platform_hub_fm = (_fm.get("platform_hub") or _fm.get("platform_hub_url") or "").strip()
+        spatial_assets = needs_spatial_landing_assets(
+            minimal_shell=minimal_home,
+            page_contract_profile=page_type_fm,
+            landing_blocks=_fm_yaml.get("landing_blocks"),
+        )
+
         html_out = assemble_handbook_page(
             kitchensink_root=cfg.kitchensink,
             browser_title=page_title,
@@ -910,6 +933,10 @@ def run_simple_build(cfg: HandbookBuildConfig, *, dry_run: bool = False) -> int:
             extra_head_metas_html=provenance_head_html,
             handbook_section_label_override="" if minimal_home else None,
             minimal_shell=minimal_home,
+            page_type=str(page_type_fm),
+            policy_status=policy_status_fm,
+            platform_hub_url=platform_hub_fm,
+            spatial_landing_assets=spatial_assets,
         )
         out_path = cfg.output_dir / fslug
         out_path.parent.mkdir(parents=True, exist_ok=True)

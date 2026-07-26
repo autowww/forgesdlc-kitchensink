@@ -256,15 +256,18 @@ def render_card_fan(labels: list[str]) -> str:
     )
 
 
-def render_card_deck_stack(*, count: int = 4) -> str:
-    """Stacked card deck."""
-    cards = "".join(
-        f'<div class="ks-card-deck__card forge-card" style="--ks-deck-i:{i}"></div>'
-        for i in range(count)
-    )
+def render_card_deck_stack(*, count: int = 4, cards_html: str = "") -> str:
+    """Stacked card deck (Dck)."""
+    if cards_html:
+        stack = cards_html
+    else:
+        stack = "".join(
+            f'<div class="ks-deck--stack__card forge-card" style="--ks-deck-i:{i}"></div>'
+            for i in range(count)
+        )
     return (
-        f'<div class="ks-card-deck" {_attrs(HASH_CARD_DECK, "card-deck-stack")}>'
-        f'<div class="ks-card-deck__stack">{cards}</div></div>'
+        f'<div class="ks-deck--stack" {_attrs(HASH_CARD_DECK, "card-deck-stack")}>'
+        f"{stack}</div>"
     )
 
 

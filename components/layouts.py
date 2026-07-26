@@ -670,6 +670,7 @@ def handbook_page(
     og_image_href: str = "",
     json_ld_script: str = "",
     extra_head_metas_html: str = "",
+    extra_footer_scripts_html: str = "",
     ks_page_attrs: str = "",
     doc_header_html: str = "",
 ) -> str:
@@ -745,6 +746,9 @@ def handbook_page(
         html_lang=html_lang,
     )
     head_extras = (extra_head_metas_html.rstrip() + "\n") if extra_head_metas_html.strip() else ""
+    footer_scripts = (
+        (extra_footer_scripts_html.rstrip() + "\n") if extra_footer_scripts_html.strip() else ""
+    )
 
     has_top_shell = bool(top_shell_html.strip())
     sidebar_sticky_top = "3.75rem" if has_top_shell else "0"
@@ -811,7 +815,7 @@ def handbook_page(
 {top_shell_html}{THEME_TOGGLE_DROPDOWN}
 {mobile_nav_btn}
   <div {shell_attrs}>
-    <div class="{HANDBOOK_SHELL_ROW}">
+    <div class="{HANDBOOK_SHELL_ROW}" data-ks-handbook-surface="enterprise">
 {sidebar_col}{offcanvas_block}
       <main id="main" class="{main_classes}" style="position:relative" {ks_page_attrs}>
         {doc_content_open}
@@ -826,7 +830,7 @@ def handbook_page(
   </div>
   {CDN_BOOTSTRAP_JS}
 {_resolve_theme_js(theme_js_href)}
-{living_scripts}{diagram_scripts}
+{living_scripts}{footer_scripts}{diagram_scripts}
 {diagram_modal}
 </body>
 </html>

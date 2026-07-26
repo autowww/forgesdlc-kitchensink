@@ -214,7 +214,7 @@ def build_top_nav_html(
     slug_by_md: dict[str, str],
     current_md_rel: str,
     *,
-    nav_id: str = "fleet-handbook-topnav",
+    nav_id: str = "ks-handbook-topnav",
     lens_manifest: LensNavManifest | None = None,
 ) -> str:
     """Bootstrap 5 navbar: primary links, section dropdowns, More menu."""
@@ -321,8 +321,8 @@ def build_top_nav_html(
         '<span class="navbar-toggler-icon"></span></button>'
     )
     return (
-        f'<header class="fleet-handbook-topnav border-bottom border-secondary">'
-        f'<nav class="navbar navbar-expand-lg navbar-dark py-2 fleet-handbook-topnav__bar" '
+        f'<header class="ks-handbook-topnav fleet-handbook-topnav border-bottom border-secondary">'
+        f'<nav class="navbar navbar-expand-lg navbar-dark py-2 ks-handbook-topnav__bar fleet-handbook-topnav__bar" '
         f'id="{_esc(nav_id)}" aria-label="Site">'
         f'<div class="container-fluid px-2 px-md-3 gx-2">'
         f'{brand}{toggler}'

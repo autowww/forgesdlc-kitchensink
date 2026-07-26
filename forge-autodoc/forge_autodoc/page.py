@@ -51,8 +51,11 @@ def assemble_handbook_page(
     extra_head_metas_html: str = "",
     breadcrumb_items: list[tuple[str | None, str]] | None = None,
     page_type: str = "",
+    policy_status: str = "",
+    platform_hub_url: str = "",
     canonical_source_href: str = "",
     canonical_source_label: str = "Source",
+    spatial_landing_assets: bool = False,
 ) -> str:
     """Render fragments into a complete document using KS ``handbook_page``."""
     ensure_kitchensink_importable(kitchensink_root)
@@ -64,6 +67,7 @@ def assemble_handbook_page(
         render_footer,
         render_handbook_doc_header,
         render_nav_buttons,
+        render_platform_hub_callout,
         render_template_banner,
         render_toc_sidebar,
     )
@@ -125,10 +129,27 @@ def assemble_handbook_page(
         breadcrumb_items=breadcrumb_items,
         section_label=section_label if not breadcrumb_items else "",
         page_type=page_type_label,
+        policy_status=policy_status,
         last_updated=when,
         canonical_source_href=canonical_source_href or (canonical_md if show_canonical_note else ""),
         canonical_source_label=canonical_source_label,
     )
+    hub_callout = render_platform_hub_callout(platform_hub_url)
+    if hub_callout:
+        body_html = hub_callout + body_html
+
+    spatial_head = ""
+    spatial_scripts = ""
+    if spatial_landing_assets:
+        from forge_autodoc.landing_blocks import (
+            spatial_landing_footer_scripts_html,
+            spatial_landing_head_html,
+        )
+
+        spatial_head = spatial_landing_head_html(asset_base)
+        spatial_scripts = spatial_landing_footer_scripts_html(asset_base)
+
+    combined_head = (extra_head_metas_html or "") + spatial_head
 
     hp_kwargs = dict(
         browser_title=browser_title,
@@ -164,7 +185,8 @@ def assemble_handbook_page(
         json_ld_script=json_ld_script,
         top_shell_html=top_shell_html,
         handbook_sidebar_brand_tagline=handbook_sidebar_brand_tagline,
-        extra_head_metas_html=extra_head_metas_html,
+        extra_head_metas_html=combined_head,
+        extra_footer_scripts_html=spatial_scripts,
         doc_header_html=doc_header,
         ks_page_attrs=page_main_attrs("handbook-chapter"),
     )

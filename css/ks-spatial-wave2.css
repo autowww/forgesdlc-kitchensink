@@ -483,8 +483,15 @@
 .ks-deck--stack__card:nth-child(1) { transform: translateZ(0) rotateZ(-2deg); }
 .ks-deck--stack__card:nth-child(2) { transform: translateZ(4px) rotateZ(1deg); }
 .ks-deck--stack__card:nth-child(3) { transform: translateZ(8px) rotateZ(-1deg); }
+.ks-deck--stack__card:nth-child(4) { transform: translateZ(12px) rotateZ(2deg); }
+.ks-deck--stack__card:nth-child(5) { transform: translateZ(16px) rotateZ(-1.5deg); }
+.ks-deck--stack__card:nth-child(6) { transform: translateZ(20px) rotateZ(1.5deg); }
 .ks-deck--stack:hover .ks-deck--stack__card:nth-child(3) {
   transform: translateZ(24px) rotateZ(4deg) translateY(-12px);
+}
+.ks-handbook-trust-deck.ks-deck--stack {
+  width: min(100%, 24rem);
+  min-height: 16rem;
 }
 
 /* ── Vinyl sleeve media ──────────────────────────────────────────── */

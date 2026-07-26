@@ -1,249 +1,164 @@
 # Platform site prompt pack
 
-Target site: `platform.forgesdlc.com`
+Target site: `platform.forgesdlc.com` (Firebase `forge-platform-1541d`, handbook shell **fpw**)
 
-## Shell and routing
+Canonical UX standard: [forge-enterprise-ai-website-standard.md](../design/forge-enterprise-ai-website-standard.md) (Platform root **mode 1**).
 
-- **Public root `/`** must use **page mode 1** ([v2 addendum](../design/forge-enterprise-ai-website-standard-v2-addendum.md)): product/landing shell, **curated top nav only** — no full generated handbook sidebar or ADR/Sprints/Evidence tree as the dominant first-screen chrome.
-- Move the **generated handbook** (chapters, docs index, maintainer operations) under deep routes such as `/handbook`, `/docs`, `/reference`, or `/maintainer`. The homepage surfaces a **Docs/Handbook** CTA and maybe a **For maintainers** card — not the full tree before the hero.
-- **Desktop home:** no persistent full documentation rail beside the hero; use full-width landing sections (hero, outcomes, layer map, trust block, role paths, final CTA). See the v2 addendum for first-screen budgets and screenshot acceptance.
+## Repos and commands
+
+| Abbr | Repo | Role |
+|------|------|------|
+| **fp** | `forge-platform/` | Markdown source (`docs/`, `adr/`, `sprints/`, `mcp/`) |
+| **fpw** | `forge-platform-website/` | `generator/build-site.py` → `website/` |
+| **ks** | `forgesdlc-kitchensink/` | `kitchensink/` submodule — forge-autodoc, Hbk/Kpn chrome |
+
+```bash
+# Edit fp standalone, then bump fp submodule in fpw when integrating.
+cd forge-platform-website
+git submodule update --init --recursive
+pip install markdown
+python3 generator/build-site.py
+python3 scripts/check-generated-site.py --strict-diagrams
+```
+
+Deploy (when asked): `./deploy-websites.sh --only forge-platform-website` from workspace root.
+
+## Handbook chrome stack (dual-wiki)
+
+| Hash | Contract | Platform wiring |
+|------|----------|-----------------|
+| **Hbk** | [Hbk-layout-handbook.md](../design/catalog/layouts/Hbk-layout-handbook.md) | All inner handbook pages via forge-autodoc |
+| **Kpn** | [Kpn-product-primary-nav.md](../design/catalog/chrome/Kpn-product-primary-nav.md) | `docs/site-nav.yaml` → `fleet_site_nav.build_top_nav_html` |
+| **Kbc** | [Kbc-doc-breadcrumb.md](../design/catalog/chrome/Kbc-doc-breadcrumb.md) | Emitted when `seo_public_origin` set + site nav |
+| **Ksr** | [Ksr-doc-sidebar.md](../design/catalog/chrome/Ksr-doc-sidebar.md) | Section-scoped via `site-nav.yaml` `sidebar_prefix` + `platform_nav.filter_sidebar_pages` |
+| **Ktx** | [Ktx-doc-toc-sidebar.md](../design/catalog/chrome/Ktx-doc-toc-sidebar.md) | On-page ToC from headings |
+| **Ksf** | [Ksf-site-footer.md](../design/catalog/chrome/Ksf-site-footer.md) | Handbook footer |
+
+Homepage mode 1: `HandbookBuildConfig.handbook_homepage_minimal_shell=True` on `docs/index.md` — **Kpn** top nav only, no **Ksr** mega-rail on `/`.
+
+Nav exclusions (sidebar + sitemap): `docs/hydration-runs/`, `docs-governance/`, `prompts/`, `product-repo-stubs/`, `hermes/`.
 
 ## Site role
 
-Platform should be the ecosystem architecture layer of Forge. It should explain how methodology, workspace visibility, governed reasoning, controlled execution, and reusable practice knowledge fit together.
+Platform is the ecosystem architecture layer of Forge: methodology, workspace visibility, governed reasoning, controlled execution, and reusable practice knowledge.
 
 ## Primary UX goal
 
-Make Platform understandable as a public ecosystem/product architecture page, not an internal maintainer handbook. Keep canonical Markdown, submodules, generator scripts, repo thesis, and maintainer operations in a deeper Maintainer or Architecture docs area.
+Public `/` is a product landing (mode 1). Maintainer corpus (submodule bumps, generators, hydration WIP, governance registries) stays reachable under **More → Maintainers** — not in first-screen chrome.
 
 ## Target storyline
 
-Agentic delivery needs more than a methodology and more than individual AI tools. Teams need a connected operating layer: a method for shaping work, a local view of workspace state, a governed way to call LLMs, a controlled way to run jobs, and a body of reusable practice knowledge. Forge Platform connects those layers.
+Agentic delivery needs more than a methodology and more than individual AI tools. Teams need a connected operating layer. Forge Platform connects those layers while keeping humans in control and agents in bounded workcells.
 
-Recommended narrative arc:
+## Phased execution (Composer 2.5)
 
-1. AI-assisted delivery fails when tools, docs, agents, and automation are disconnected.
-2. Forge Platform gives the ecosystem a coherent operating architecture.
-3. Each product owns a layer: ForgeSDLC, Lenses, LCDL, Fleet, Blueprints, and Platform glue.
-4. The architecture keeps humans in control while giving agents clearer context and boundaries.
-5. Technical maintainers can still access canonical repo docs, generation scripts, schemas, and submodule guidance deeper in the site.
+Run phases **sequentially**. One commit per repo when committing.
 
-## Recommended product one-liner
-
-Forge Platform is the integrated architecture for methodology, workspace visibility, governed reasoning, and controlled execution.
-
-## Homepage hero direction
-
-Headline options:
-
-- A governed platform for human + agent delivery.
-- The operating architecture for Forge delivery.
-- Connect methodology, agents, and execution.
-
-Preferred subhead:
-
-Forge Platform connects the layers teams need for agentic delivery: methodology, workspace visibility, governed LLM tasks, controlled job execution, and reusable practice knowledge.
-
-Primary CTA:
-
-- Explore the architecture
-
-Secondary CTA:
-
-- Open maintainer docs
-
-## Recommended homepage structure
-
-1. Hero
-   - Explain Platform as the ecosystem architecture.
-   - Visual: ForgeSDLC -> Lenses -> LCDL -> Fleet -> Blueprints -> Evidence/Delivery.
-2. Why Platform
-   - AI tools create speed but also fragmentation.
-   - Platform connects method, context, execution, and evidence.
-3. The Forge layers
-   - ForgeSDLC: methodology.
-   - Lenses: workspace visibility.
-   - LCDL: governed reasoning.
-   - Fleet: controlled execution.
-   - Blueprints: practice knowledge.
-   - Platform: integration architecture and conventions.
-4. How the system works
-   - Human intent.
-   - Structured workspace.
-   - Agent-ready tasks.
-   - Governed LLM calls.
-   - Controlled jobs.
-   - Evidence and review.
-5. Trust model
-   - Human ownership remains explicit.
-   - Integrations have boundaries.
-   - Technical details remain inspectable.
-   - Maintainer paths are separated from product overview.
-6. Role paths
-   - Executive sponsor.
-   - Platform architect.
-   - Engineering lead.
-   - Maintainer.
-   - Agent builder.
-7. Maintainer path
-   - Link canonical Markdown, submodule, generator, schema, and release docs, but do not make them the homepage story.
-8. Final CTA
-   - Explore architecture.
-   - Open maintainer docs.
-
-## Content to move deeper
-
-Move or keep outside the homepage:
-
-- Canonical Markdown instructions.
-- Submodule refresh instructions.
-- Generator scripts.
-- Schema internals.
-- Repo bootstrap commands.
-- Maintainer-only release steps.
-- Internal repository thesis language.
-
-Do not delete. Move to Maintainer docs, Architecture reference, or Repository operations pages.
-
-## Prompt 1 - discovery and plan
+### P0 — Baseline inventory (read-only)
 
 ```text
-You are improving platform.forgesdlc.com using the Forge enterprise AI website standard.
-
-Inspect the repo, homepage, architecture docs, maintainer docs, nav, generation scripts references, schema pages, and ecosystem links. Do not edit yet.
-
-Produce a plan that identifies:
-1. Homepage entry file(s).
-2. Header/footer/nav files.
-3. Maintainer docs pages or pages that can receive internal operations content.
-4. Current sections that feel internal-first rather than public/product-first.
-5. Existing architecture or ecosystem diagrams that can be reused.
-6. Build/test commands.
-
-Use this target storyline:
-Forge Platform connects methodology, workspace visibility, governed LLM tasks, controlled job execution, and reusable practice knowledge into a coherent architecture for human + agent delivery.
-
-Do not invent product capabilities, integrations, customer claims, certifications, or architecture that the repo does not support.
+Inventory fpw generator/build-site.py, fp docs/index.md, hydration page count, and peer handbooks (ffw, flw).
+Compare against forge-enterprise-ai-website-standard.md Platform section.
+Output gap matrix + top 10 junk drivers. No edits.
 ```
 
-## Prompt 2 - homepage rewrite
+### P1 — KS dual-wiki uplift
 
 ```text
-Implement a first-pass Platform homepage redesign.
-
-Goal:
-Make Platform feel like the clear ecosystem architecture page for Forge, not a maintainer handbook.
-
-Use this page structure:
-1. Hero
-   - Headline: "A governed platform for human + agent delivery."
-   - Subhead: "Forge Platform connects the layers teams need for agentic delivery: methodology, workspace visibility, governed LLM tasks, controlled job execution, and reusable practice knowledge."
-   - Primary CTA: "Explore the architecture"
-   - Secondary CTA: "Open maintainer docs"
-   - Visual: ForgeSDLC -> Lenses -> LCDL -> Fleet -> Blueprints -> Evidence/Delivery.
-2. Why Platform
-   - Explain that AI tools create speed but also fragmentation.
-   - Platform connects method, context, execution, and evidence.
-3. The Forge layers
-   - Cards for ForgeSDLC, Lenses, LCDL, Fleet, Blueprints, Platform.
-4. How it works
-   - Human intent -> structured workspace -> governed reasoning -> controlled execution -> review/evidence.
-5. Trust and boundaries
-   - Humans own judgment.
-   - Integrations have explicit boundaries.
-   - Technical details are inspectable.
-   - Maintainer operations are separated from product overview.
-6. Role paths
-   - Executive sponsor, platform architect, engineering lead, maintainer, agent builder.
-7. Maintainer path
-   - Link canonical Markdown, generators, submodules, schemas, and repo operations from a dedicated Maintainer card.
-8. Final CTA
-   - "Explore architecture" and "Open maintainer docs".
-
-Constraints:
-- Do not lead with canonical Markdown, submodule, generator, schema, or repo bootstrap details.
-- Preserve all internal technical content by moving/linking it.
-- Do not invent product claims or ecosystem relationships not present in docs.
-- Keep the landing page concise.
-
-After editing, summarize changed files and moved content.
+Repo: forgesdlc-kitchensink only.
+Update this prompt pack (phased prompts + chrome stack table).
+Patch docs/design/plans/handbook-enterprise-uplift.md — Platform consumer: in progress (site-nav + minimal home).
+If Hbk/Kpn contracts contradict minimal_shell + Kpn coexistence, add one clarifying paragraph.
+Docs-only unless showcase contracts change.
 ```
 
-## Prompt 3 - ecosystem architecture visual
+### P2 — Nav manifest + generator wire
 
 ```text
-Create or improve the Platform ecosystem architecture visual.
-
-The visual should show:
-- ForgeSDLC as the methodology layer.
-- Lenses as workspace visibility/control plane.
-- LCDL as governed LLM task layer.
-- Fleet as controlled execution layer.
-- Blueprints as reusable practice knowledge.
-- Platform as the integration architecture/conventions tying the layers together.
-- Evidence/review as the delivery outcome.
-
-Rules:
-- Keep the diagram simple and readable.
-- Use existing design tokens/styles.
-- Add meaningful alt text.
-- Do not imply integrations or data flows that are not supported by docs.
-- Provide a text fallback for screen readers.
+Repo: forge-platform + forge-platform-website.
+Add fp/docs/site-nav.yaml (Home, Start, Architecture, Standout, Guides, Deliver, Reference, More).
+In fpw generator/build-site.py: site_nav_yaml, handbook_homepage_minimal_shell=True,
+expanded nav_exclude_path_prefixes, seo_public_origin, platform_nav.filter_sidebar_pages,
+robots.txt + sitemap.xml (exclude hydration/governance slugs).
+Rebuild; verify ks-handbook-topnav on index.html and no hydration in default sidebar.
 ```
 
-## Prompt 4 - maintainer docs separation
+### P3 — Mode-1 homepage rewrite
 
 ```text
-Separate public Platform positioning from maintainer documentation.
-
-Tasks:
-1. Identify homepage content that is maintainer-only: canonical Markdown rules, submodule refresh, generation scripts, schemas, repo operations, bootstrap commands.
-2. Move or link this content under a dedicated Maintainer docs area.
-3. Add a homepage card called "For maintainers" that points to that area.
-4. Keep public architecture sections short and user-facing.
-5. Ensure no canonical instructions are lost.
-6. Add redirects or cross-links if URLs change.
-
-The homepage should explain the platform; maintainer docs should explain how to operate the repo.
+Repo: forge-platform.
+Rewrite docs/index.md with layout_type: landing / page_contract_profile: landing.
+Hero, outcomes, layer map (reuse docs/assets/ecosystem/platform-layers.svg), how-it-works,
+trust, role paths, maintainer CTA. Move numbered "Start here" list to docs/start/index.md.
+Rebuild fpw.
 ```
 
-## Prompt 5 - nav and IA cleanup
+### P4 — Hub pages + KS controls
 
 ```text
-Clean up Platform navigation for a public enterprise architecture site.
-
-Target nav:
-- Overview
-- Architecture
-- Forge layers
-- Trust model
-- Maintainer docs
-- Ecosystem
-
-Tasks:
-1. Reduce any global link wall.
-2. Move generated indexes deeper.
-3. Keep architecture and maintainer docs reachable.
-4. Add ecosystem links to ForgeSDLC, Lenses, LCDL, Fleet, and Blueprints.
-5. Use user-facing labels before repo-internal labels.
-6. Verify mobile nav.
+Repo: forge-platform.
+Ensure hubs: docs/start/index.md, docs/architecture/index.md, docs/standout/index.md (polish),
+docs/guides/README.md, sprints/index.md, mcp/servers/README.md (reference hub).
+Link docs/for-architects.md from Architecture hub. hide_from_nav on moved stubs (docs/forge-agent.md).
+Use blueprint-diagram or existing SVGs where present; no new one-off CSS.
 ```
 
-## Prompt 6 - QA
+### P5 — Deliver + Reference polish
 
 ```text
-Run QA for platform.forgesdlc.com after UX changes.
-
-Check:
-1. First screen explains Platform as the Forge ecosystem architecture.
-2. Homepage no longer opens with maintainer/repo operations detail.
-3. Maintainer content remains reachable.
-4. Layer descriptions are accurate and not overclaimed.
-5. Architecture diagram does not imply unsupported integrations.
-6. CTAs resolve.
-7. Navigation and mobile layout work.
-8. Headings, focus states, contrast, and alt text are acceptable.
-9. No unsupported security, compliance, customer, or metric claims were added.
-
-Fix verifiable issues and summarize final changes.
+Repo: forge-platform/docs/site-nav.yaml.
+Deliver dropdown caps milestone charters (M0–M6, selfhost-alpha); not every evidence leaf.
+Reference: MCP hub + ecosystem/schema pointers. Confirm prompts/hermes still excluded from nav.
 ```
+
+### P6 — QA loop
+
+```text
+cd forge-platform-website && python3 generator/build-site.py
+python3 scripts/check-generated-site.py --strict-diagrams
+Fix broken links on primary nav paths only. Summarize remaining link_report debt.
+Toggle light theme on `/` and one L2 hub — Kpn/Kbc/Ksr labels must stay readable (no light-on-light).
+Confirm spatial landing hashes on homepage: Hlr, Hst, Dck, Hlp.
+```
+
+## Spatial L1–L2 uplift
+
+Homepage and hub pages use `landing_blocks` frontmatter + `<!-- ks-landing:TYPE -->` markers in Markdown. Renderers live in `forgesdlc-kitchensink/components/handbook_landing.py` (Hlr layer rail, Hst steps band, Dck trust deck, Hlp role-path rail). forge-autodoc injects `ks-nav-layout.css`, `ks-spatial*.css`, and peek-rail JS when `page_contract_profile` is `landing` or `hub`.
+
+```yaml
+landing_blocks:
+  layer_rail:
+    items:
+      - layer: Methodology
+        product: ForgeSDLC
+        role: Governed delivery
+        href: https://forgesdlc.com
+```
+
+## Light-theme QA
+
+Handbook chrome light overrides live in `forge-theme.css`, `forge-light-theme.css`, and `docs-theme.css`. After CSS changes, rebuild and verify `data-bs-theme="light"` on Kpn nav links, sidebar labels, and landing spatial cards.
+
+### P7 — Drift gate
+
+```text
+Confirm fp docs, fpw README, ks prompt pack, and built index.html tell the same story.
+Report files changed per repo and before/after nav behavior.
+```
+
+## Homepage hero (normative copy)
+
+- **Headline:** A governed platform for human + agent delivery.
+- **Subhead:** Forge Platform connects the layers teams need for agentic delivery: methodology, workspace visibility, governed LLM tasks, controlled job execution, and reusable practice knowledge.
+- **Primary CTA:** Explore the architecture → `docs/architecture/index.md`
+- **Secondary CTA:** Open maintainer docs → `docs-governance/OPERATING-CADENCE.md`
+
+## Ecosystem links (footer / role paths)
+
+- ForgeSDLC — https://forgesdlc.com
+- Blueprints — https://blueprints.forgesdlc.com
+- Lenses — https://lenses.forgesdlc.com
+- LCDL — https://lcdl.forgesdlc.com
+- Fleet — https://fleet.forgesdlc.com
+
+Do not invent customers, certifications, metrics, or integrations not documented in fp.
