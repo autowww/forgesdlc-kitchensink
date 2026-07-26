@@ -70,6 +70,8 @@ class HandbookBuildConfig:
     """When set, replaces the visible sidebar rail heading (shown above nav links); default remains \"Chapters\" in layouts."""
     handbook_homepage_minimal_shell: bool = False
     """When True with *handbook_homepage_md_rel*, emit the handbook home without the handbook sidebar/offcanvas rail."""
+    handbook_assets_public_prefix: str | None = None
+    """When set (e.g. ``platform-handbook-assets``), rewrite ``img src`` from ``assets/`` and ``../assets/`` to this published prefix."""
 
 def _resolve_path(base: Path, value: str | Path) -> Path:
     p = Path(value)
@@ -162,6 +164,11 @@ def load_handbook_config(path: Path) -> HandbookBuildConfig:
             else None
         ),
         handbook_homepage_minimal_shell=bool(raw.get("handbook_homepage_minimal_shell", False)),
+        handbook_assets_public_prefix=(
+            str(raw["handbook_assets_public_prefix"]).strip().strip("/")
+            if raw.get("handbook_assets_public_prefix")
+            else None
+        ),
     )
 
 
@@ -250,4 +257,9 @@ def handbook_config_from_mapping(raw: dict[str, Any], base_dir: Path) -> Handboo
             else None
         ),
         handbook_homepage_minimal_shell=bool(raw.get("handbook_homepage_minimal_shell", False)),
+        handbook_assets_public_prefix=(
+            str(raw["handbook_assets_public_prefix"]).strip().strip("/")
+            if raw.get("handbook_assets_public_prefix")
+            else None
+        ),
     )
