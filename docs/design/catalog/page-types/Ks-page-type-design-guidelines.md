@@ -20,11 +20,11 @@ Component- and layout-level expectations are summarized in **Cross-reference** a
 
 **Enterprise trust expectations:** Explicit human control, data or execution boundaries, and where evidence or review fits—without inventing certifications, customers, or metrics.
 
-**Responsive behavior:** Stack hero and cards cleanly; tap targets meet KS sizing; no horizontal scroll traps.
+**Responsive behavior:** Stack hero and cards cleanly; tap targets meet KS sizing; no horizontal scroll traps. **Scroll policy:** only the page viewport shows a native scrollbar; rails use peek controls ([scroll-overflow-policy.md](../../../design/scroll-overflow-policy.md)).
 
 **Accessibility expectations:** Landmark order (`header`/`nav`/`main`/`footer`); visible focus; meaningful headings; decorative imagery not required for understanding.
 
-**Forbidden patterns:** Auto-generated index dumps as the hero; competing primary CTAs; icon-only controls without names; motion that is the only signal for state.
+**Forbidden patterns:** Auto-generated index dumps as the hero; competing primary CTAs; icon-only controls without names; motion that is the only signal for state; `overflow-auto` on marketing rails without peek controls; duplicate diagram under an interactive layer rail.
 
 ---
 

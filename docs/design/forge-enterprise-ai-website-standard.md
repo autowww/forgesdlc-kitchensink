@@ -491,3 +491,14 @@ node ks/tools/website-ux-auditor/analyze-website-ux.mjs \
 ```
 
 The generated plan sequence is intentionally tree-like: foundation plans first, then shell/layout separation before hero copy, then information architecture and content depth, then trust/visual polish, then final QA. This keeps broad website changes reviewable and reduces the risk of one large uncontrolled patch.
+
+## Scroll and overflow policy
+
+Only the **browser viewport** may show the native/default scrollbar. Regional overflow uses hidden scrollbars and explicit controls (peek-rail chevrons, expand, wrap/stack) except:
+
+- **Tables** — `.forge-table-wrap` horizontal containment may show scroll.
+- **Functional viewports** — maps/canvases ship dedicated pan controls, not default bars.
+
+L1–L2 landing bands (Hlr, Hlp, Hst, Dck) must not expose rail scrollbars; use `ks-peek-rail.js` or vertical stack. Handbook sidebars hide scrollbar chrome when overflow is unavoidable.
+
+Full matrix and KS implementation notes: [scroll-overflow-policy.md](scroll-overflow-policy.md). Deterministic check: **`DET.SCROLL.PAGE_ONLY`**.

@@ -616,3 +616,49 @@
     opacity: 0.35;
   }
 }
+
+/* Base horizontal rail (handbook landing + spatial consumers) */
+.fs-rail {
+  position: relative;
+  width: 100%;
+}
+
+.fs-rail__scroller {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scroll-padding: 0 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fs-rail__scroller.ks-scroll-region {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.fs-rail__scroller.ks-scroll-region::-webkit-scrollbar {
+  display: none;
+}
+
+.fs-rail__track {
+  display: flex;
+  flex-direction: row;
+  gap: 0.85rem;
+  padding: 0.25rem 0;
+}
+
+.fs-rail--cards .fs-rail__item {
+  min-width: 0;
+}
+
+.fs-rail--cards .fs-rail__item > a,
+.fs-rail--cards .fs-rail__item > .forge-card {
+  height: 100%;
+}
+
+.fs-rail--peek .fs-rail__item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}

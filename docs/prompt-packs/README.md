@@ -12,4 +12,6 @@ They are reference material for authors, generators, and the **[Forge Website UX
 | [lenses-site-prompt-pack.md](lenses-site-prompt-pack.md) | Lenses site |
 | [platform-site-prompt-pack.md](platform-site-prompt-pack.md) | Platform site |
 
+Before authoring L1–L2 pages, read the site repo's **`docs/PAGE-DESIGN-CONSTRAINTS.md`** (from [`docs/templates/PAGE-DESIGN-CONSTRAINTS.md`](../templates/PAGE-DESIGN-CONSTRAINTS.md)) and [scroll-overflow-policy.md](../design/scroll-overflow-policy.md).
+
 Source: Forge UX prompt pack (zip); keep in sync when the pack is revised.

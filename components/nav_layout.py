@@ -388,7 +388,7 @@ def render_editorial_peek_rail(items_html: str) -> str:
     return (
         f'<div class="fs-rail fs-rail--peek fs-rail--cards ks-editorial-peek-rail" '
         f'data-ks-peek-rail {_attrs(HASH_EPR, "editorial-peek-rail")}>'
-        f'<div class="fs-rail__scroller overflow-auto"><div class="fs-rail__track d-flex gap-3 py-2">'
+        f'<div class="fs-rail__scroller ks-scroll-region"><div class="fs-rail__track d-flex gap-3 py-2">'
         f"{items_html}</div></div>"
         f'<button type="button" class="ks-editorial-peek-rail__prev" aria-label="Scroll previous">‹</button>'
         f'<button type="button" class="ks-editorial-peek-rail__next" aria-label="Scroll next">›</button>'

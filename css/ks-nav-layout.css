@@ -375,6 +375,12 @@
 /* Editorial peek rail */
 .ks-editorial-peek-rail {
   position: relative;
+  --ks-peek-rail-gutter: 2.75rem;
+}
+.ks-editorial-peek-rail .fs-rail__scroller {
+  padding-inline: var(--ks-peek-rail-gutter);
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
 .ks-editorial-peek-rail__prev,
 .ks-editorial-peek-rail__next {

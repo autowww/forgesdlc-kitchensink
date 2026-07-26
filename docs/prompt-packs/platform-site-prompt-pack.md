@@ -40,15 +40,15 @@ Nav exclusions (sidebar + sitemap): `docs/hydration-runs/`, `docs-governance/`, 
 
 ## Site role
 
-Platform is the ecosystem architecture layer of Forge: methodology, workspace visibility, governed reasoning, controlled execution, and reusable practice knowledge.
+Platform is the ecosystem **operating architecture** of Forge: five planes — conceptual intent, instrumental services, agent interaction, human judgment, and evidence — with products as instruments inside those planes.
 
 ## Primary UX goal
 
-Public `/` is a product landing (mode 1). Maintainer corpus (submodule bumps, generators, hydration WIP, governance registries) stays reachable under **More → Maintainers** — not in first-screen chrome.
+Public `/` is a product landing (mode 1). The homepage pyramid tells the **plane** story (not a product carousel). Maintainer corpus stays under **More → Maintainers**.
 
 ## Target storyline
 
-Agentic delivery needs more than a methodology and more than individual AI tools. Teams need a connected operating layer. Forge Platform connects those layers while keeping humans in control and agents in bounded workcells.
+Agentic delivery needs more than a methodology and more than individual AI tools. Teams need connected operating planes. Forge Platform shows how intent, services, agent envelopes, human gates, and evidence fit together while keeping humans in control and agents in bounded workcells.
 
 ## Phased execution (Composer 2.5)
 
@@ -138,6 +138,10 @@ landing_blocks:
 ## Light-theme QA
 
 Handbook chrome light overrides live in `forge-theme.css`, `forge-light-theme.css`, and `docs-theme.css`. After CSS changes, rebuild and verify `data-bs-theme="light"` on Kpn nav links, sidebar labels, and landing spatial cards.
+
+## Page design constraints
+
+Before editing L1–L2 Markdown or hub shells, read **`forge-platform-website/docs/PAGE-DESIGN-CONSTRAINTS.md`** and KS [scroll-overflow-policy.md](../design/scroll-overflow-policy.md). Only the page viewport may show a native scrollbar; landing rails use peek controls.
 
 ### P7 — Drift gate
 

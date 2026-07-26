@@ -262,6 +262,7 @@ Unit tests in `tools/website-ux-auditor/auditor-tests/`.
 | **Spatial bands** | `handbook_landing.py` — Hlr/Hst/Dck/Hlp; wired via `landing_blocks` frontmatter in forge-autodoc |
 | **Platform** | Richest L1 (`docs/index.md`) + L2 hubs (`start/`, `architecture/`, `guides/`, `sprints/`) |
 | **Peers** | Fleet/LCDL/Lenses L1 landing rails after KS submodule bump |
+| **Scroll policy** | [scroll-overflow-policy.md](../scroll-overflow-policy.md) — page-only native scrollbars; landing bands use peek rails; `DET.SCROLL.PAGE_ONLY` |
 
 ---
 

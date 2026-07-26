@@ -303,7 +303,9 @@ export async function collectNavFocusOrderReport(page) {
         }
       }
 
-      const hasTopnav = Boolean(document.querySelector('.fleet-handbook-topnav'));
+      const hasTopnav = Boolean(
+        document.querySelector('.ks-handbook-topnav, .fleet-handbook-topnav'),
+      );
       let suppressedChromeTabCount = 0;
       if (hasTopnav) {
         for (const anchor of document.querySelectorAll(

@@ -203,6 +203,7 @@ Scoped to **generic** sites (`rulesScope` `generic` / `auto` when not KS-driven)
 | `DET.METADATA.SOCIAL_PREVIEW` | Non-placeholder description, canonical, favicon, OG/Twitter basics. | DOM |
 | `DET.EXTERNAL_LINK.SAFETY` | `target=_blank` uses `rel=noopener`; downloads/contact links labeled. | DOM |
 | `DET.MEDIA.ASPECT_RATIO` | Hero/card media has aspect hints; no viewport overflow. | DOM |
+| `DET.SCROLL.PAGE_ONLY` | No visible native scrollbar on elements other than `html`/`body`, except `.forge-table-wrap` and documented functional viewports with custom pan controls. Peek rails expose prev/next when track overflows. | Viewport metrics / DOM |
 
 ---
 

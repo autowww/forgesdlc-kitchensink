@@ -29,6 +29,7 @@ Provides the handbook shell: fluid container, doc sidebar rail, optional off-can
 ## Expected look
 
 - **Handbook shell**: fluid container with **Kpn** masthead, optional **Kbc**, **Ksr** doc rail, wide reading `main`, optional **Ktx** ToC column, **Ksf** footer.
+- **Mode-1 product home** (`handbook_homepage_minimal_shell`): **Kpn** only on `/` — omit **Ksr**, offcanvas, and mobile doc-rail toggle; full-width `main` for landing sections per [platform-site-prompt-pack.md](../../../prompt-packs/platform-site-prompt-pack.md).
 - Optical weight favors long-form reading: predictable column widths, subdued chrome ([forge-enterprise-ai-website-standard.md](../../../design/forge-enterprise-ai-website-standard.md)).
 
 ## Anatomy
@@ -55,7 +56,9 @@ Registry **root_selector:** `div.container-fluid.px-0`.
 - Below `lg`, **Ksr**/**Ktx** collapse per variant; `main` spans full width with comfortable gutters.
 - From ≥1200px, `.ks-handbook-shell` flex layout gives `main` the remaining width beside a fixed **16–20rem** sidebar (`--ks-sidebar-width`); nav/ToC type scales via `--ks-nav-*` / `--ks-toc-*` tokens (≥1rem links at ≥1400px).
 - At ≥1200px / ≥1400px, body/support typography scales up; prose inside `.ks-doc-toc-flow` fills the `1fr` track (full width beside Ktx, no trailing dead gutter).
-- Wide tables/diagrams scroll inside regional containers.
+- Wide tables scroll inside `.forge-table-wrap` (visible horizontal scroll permitted per [scroll-overflow-policy.md](../../../design/scroll-overflow-policy.md)).
+- L1–L2 landing bands (Hlr, Hst, Dck, Hlp): no native rail scrollbars — peek controls or vertical stack.
+- Handbook sidebar/ToC: hidden scrollbar chrome when overflow is unavoidable.
 
 ## Accessibility contract
 

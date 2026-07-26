@@ -22,13 +22,49 @@
 body.cap-app-shell,
 body.cap-console-body {
   margin: 0;
-  min-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   font-family: var(--font);
   background: var(--forge-bg);
   color: var(--forge-text);
   line-height: 1.5;
+}
+
+body.cap-app-shell .cap-top-band,
+body.cap-console-body .cap-top-band {
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+  flex-shrink: 0;
+}
+
+body.cap-app-shell .cap-app-grid,
+body.cap-console-body .cap-app-grid {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cap-app-shell {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cap-app-shell > .cap-app-grid {
+  flex: 1;
+  min-height: 0;
+}
+
+body.cap-app-shell.cap-nav-open,
+body.cap-console-body.cap-nav-open {
+  overflow: hidden;
 }
 
 /* —— Top band —— */
@@ -109,17 +145,30 @@ body.cap-console-body {
 .cap-app-grid > .forge-sidebar {
   width: var(--cap-sidebar-w);
   flex-shrink: 0;
-  min-height: calc(100vh - var(--cap-top-band-h));
-  max-height: calc(100vh - var(--cap-top-band-h));
+  min-height: 0;
+  max-height: none;
+  height: 100%;
   overflow-y: auto;
   padding: 0.75rem 0.65rem 1.5rem;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+}
+
+.cap-app-shell--locked .cap-app-grid > .forge-sidebar,
+body.cap-app-shell .cap-app-grid > .forge-sidebar,
+body.cap-console-body .cap-app-grid > .forge-sidebar {
+  max-height: 100%;
 }
 
 .cap-workspace {
   flex: 1;
   min-width: 0;
+  min-height: 0;
   padding: var(--cap-workspace-pad);
   overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   max-width: none;
   margin: 0;
   width: auto;
@@ -171,7 +220,41 @@ body.cap-console-body {
 
 /* —— Page chrome —— */
 .cap-page-header {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
+  position: relative;
+  top: auto;
+  z-index: 1;
+  padding-bottom: 0.25rem;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.cap-page-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.cap-breadcrumb__link {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: var(--forge-cyan);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.cap-breadcrumb__link:hover {
+  color: var(--forge-text);
+}
+
+.forge-sidebar .cap-nav-link--disabled,
+.forge-sidebar button.cap-nav-link--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .cap-breadcrumb {
@@ -374,16 +457,227 @@ html[data-fs-pack="enterprise"] .cap-dash-card:hover {
   scroll-margin-top: 1rem;
 }
 
+/* —— Home journey snapshot (cap-panel + glass stats + read-only stagebar) —— */
+.cap-home-journey {
+  margin: 0 0 1.25rem;
+}
+
+.cap-home-journey__panel .cap-panel__head .status-badge {
+  flex-shrink: 0;
+}
+
+.cap-home-journey__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+}
+
+.cap-journey-stat {
+  text-align: left;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--forge-border);
+}
+
+.cap-journey-stat .stat-value {
+  font-family: var(--font-display, inherit);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0.15rem 0 0;
+}
+
+.cap-journey-stat__hint {
+  margin: 0.45rem 0 0;
+  font-size: 0.78rem;
+  color: var(--forge-text-2);
+  line-height: 1.35;
+}
+
+.cap-journey-stat--emerald {
+  border-color: rgba(52, 211, 153, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(52, 211, 153, 0.07),
+    0 0 22px rgba(52, 211, 153, 0.06);
+}
+
+.cap-journey-stat--cyan {
+  border-color: rgba(6, 182, 212, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(6, 182, 212, 0.07),
+    0 0 20px rgba(6, 182, 212, 0.05);
+}
+
+.cap-journey-stat--amber {
+  border-color: rgba(245, 158, 11, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(245, 158, 11, 0.07),
+    0 0 20px rgba(245, 158, 11, 0.05);
+}
+
+.cap-home-journey__stagebar-wrap {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--forge-border);
+}
+
+.cap-home-journey__stagebar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.35rem 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cap-home-journey__stagebar .ks-fe-stagebar__step {
+  display: flex;
+  align-items: center;
+  flex: 0 1 auto;
+}
+
+.cap-home-journey__stagebar .ks-fe-stagebar__connector {
+  width: 0.75rem;
+  height: 2px;
+  background: var(--forge-border);
+  margin: 0 0.15rem;
+  align-self: center;
+}
+
+.cap-home-journey__stagebar .ks-fe-stagebar__node {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.38rem 0.65rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--forge-border);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  max-width: 11rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: var(--forge-surface);
+}
+
+.cap-home-journey__stagebar .ks-fe-stagebar__node--pending {
+  opacity: 0.65;
+}
+
+.cap-home-journey__stagebar .ks-fe-stagebar__node--active {
+  border-color: rgba(6, 182, 212, 0.55);
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.15);
+}
+
+.cap-home-journey__stagebar .ks-fe-stagebar__node--completed {
+  border-color: rgba(34, 197, 94, 0.45);
+}
+
+/* Persistent sidebar — end-user app keeps nav visible (no hamburger drawer). */
+.cap-nav-toggle,
+.cap-nav-backdrop {
+  display: none !important;
+}
+
+.cap-pdp-segmented {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  margin: 0 0 1rem;
+  padding: 0.35rem 0 0.65rem;
+  background: color-mix(in srgb, var(--forge-bg) 94%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.cap-pdp-segmented .ks-segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  background: var(--forge-surface-2);
+  gap: 0.15rem;
+  border: 1px solid var(--forge-border);
+}
+
+.cap-pdp-segmented .ks-segmented__item {
+  margin: 0;
+  cursor: pointer;
+}
+
+.cap-pdp-segmented .ks-segmented__item input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cap-pdp-segmented .ks-segmented__item span {
+  display: block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.cap-pdp-segmented .ks-segmented__item.is-active span,
+.cap-pdp-segmented .ks-segmented__item input:checked + span {
+  background: var(--forge-cyan);
+  color: var(--forge-bg);
+}
+
+.cap-pdp-cycle-picker {
+  margin: 0 0 1rem;
+  font-size: 0.88rem;
+}
+
+.cap-pdp-cycle-picker summary {
+  cursor: pointer;
+  color: var(--forge-text-2);
+  font-weight: 600;
+}
+
+.cap-pdp-cycle-picker[open] .cap-pdp-toolbar {
+  margin-top: 0.65rem;
+}
+
 @media (max-width: 900px) {
+  :root {
+    --cap-sidebar-w: 12.5rem;
+    --cap-workspace-pad: 0.85rem;
+  }
+
   .cap-app-grid {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: stretch;
   }
 
   .cap-app-grid > .forge-sidebar {
-    width: 100%;
+    width: var(--cap-sidebar-w);
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    align-self: stretch;
     max-height: none;
     min-height: 0;
-    border-right: none;
-    border-bottom: 1px solid var(--forge-border);
+    height: auto;
+    border-right: 1px solid var(--forge-border);
+    border-bottom: none;
+    transform: none;
+  }
+
+  .forge-sidebar .cap-nav-link,
+  .forge-sidebar button.cap-nav-link {
+    font-size: 0.82rem;
+    padding: 0.38rem 0.45rem;
+  }
+
+  .nav-section-label {
+    font-size: 0.62rem;
+  }
+
+  .cap-workspace {
+    width: auto;
+    padding: var(--cap-workspace-pad);
   }
 }
