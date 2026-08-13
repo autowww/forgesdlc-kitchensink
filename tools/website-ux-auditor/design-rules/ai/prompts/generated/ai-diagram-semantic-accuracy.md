@@ -1,6 +1,6 @@
 <!-- generated-by: design-rules-blender -->
 <!-- rule-id: AI.DIAGRAM.SEMANTIC_ACCURACY -->
-<!-- rules-version: 47749a271e9d176c8205d060ee029907c41b7602fb5cbeacc17feb8d3dc88ff1 -->
+<!-- rules-version: dae8aa73b4601f7fbfd1b61659409fefa323f756cc3ab1057c24cda5ba09f85e -->
 # AI.DIAGRAM.SEMANTIC_ACCURACY
 
 This AI rule is explicitly referenced in KS UX rule docs (matrix/taxonomy) and runs as a judgment overlay.

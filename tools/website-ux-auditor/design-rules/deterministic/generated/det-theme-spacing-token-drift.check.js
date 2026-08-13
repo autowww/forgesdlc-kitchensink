@@ -1,6 +1,6 @@
 // generated-by: design-rules-blender
 // rule-id: DET.THEME.SPACING_TOKEN_DRIFT
-// rules-version: 14421f098db389b21117457c9a02a143bebce5732fb6bc806cf8ea24e0df7e7c
+// rules-version: 8d47fb7987f13063120557ec778207b40c573b3caf428d6080879bc25a0b5c7d
 export const rule = {
   id: 'DET.THEME.SPACING_TOKEN_DRIFT',
   lane: 'deterministic',

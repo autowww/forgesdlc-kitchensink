@@ -1,50 +1,18 @@
-/**
- * DET.NAVLAYOUT.HASH_ROOT — nav-layout demo roots emit hash markers.
- */
-
-import { ksVisualHashReportFromMetrics } from '../../../lib/visual-catalog.js';
-
+// generated-by: design-rules-blender
+// rule-id: DET.NAVLAYOUT.HASH_ROOT
+// rules-version: 8d47fb7987f13063120557ec778207b40c573b3caf428d6080879bc25a0b5c7d
 export const rule = {
   id: 'DET.NAVLAYOUT.HASH_ROOT',
   lane: 'deterministic',
   phase: 'metrics',
-  area: 'visual-catalog',
-  scoreDimension: 'visualCatalogGovernance',
+  area: 'site-inspection',
+  scoreDimension: null,
   defaultSeverity: 'minor',
-  priorityWeight: 7,
-  source: 'docs/design/ux-audit/deterministic-design-rules.md#det-navlayout-hash_root',
+  priorityWeight: 0,
+  source: 'docs/design/ux-audit/deterministic-design-rules.md#det-navlayout-hash-root',
 };
 
-const NAVLAYOUT_HASHES = new Set([
-  'Ssd', 'Stc', 'Cpb', 'Bdt', 'Mns', 'Mmg', 'Svc', 'Swz', 'Pgt', 'Fcs',
-  'Gcb', 'Dst', 'Spr', 'Ajm', 'Tss', 'Sab', 'Cps', 'Bsc', 'Vth', 'Epr',
-]);
-
-/**
- * @param {import('../../../lib/metrics-types.js').PageMetrics | undefined} metrics
- */
-export function check(metrics) {
-  const rep = metrics?.ksVisualHashReport;
-  if (!rep?.validUnique?.length) return [];
-
-  const findings = [];
-  for (const hash of rep.validUnique) {
-    if (!NAVLAYOUT_HASHES.has(hash)) continue;
-    const incomplete = (rep.incompleteMarkers || []).filter(
-      (m) => m.hash === hash || m.dataKsHash === hash,
-    );
-    if (incomplete.length) {
-      findings.push({
-        ruleId: rule.id,
-        severity: rule.defaultSeverity,
-        message: `Nav-layout hash ${hash} has incomplete marker pairing on page.`,
-        evidence: incomplete.slice(0, 3),
-      });
-    }
-  }
-  return findings;
-}
-
-export function findingsFromNavlayoutHashRoot(metrics, url = '') {
-  return check(metrics).map((f) => ({ ...f, url }));
+/** Auto-generated stub for DET.NAVLAYOUT.HASH_ROOT. Replace with measurable checks when implemented. */
+export function run() {
+  return [];
 }

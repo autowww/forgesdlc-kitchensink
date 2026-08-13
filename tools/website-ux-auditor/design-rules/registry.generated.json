@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-22T05:22:29.273Z",
+  "generatedAt": "2026-08-13T01:58:48.442Z",
   "blender": {
     "version": 1,
     "entry": "design-rules/blender/design-rules-blender.mjs"
   },
-  "fingerprint": "540764779552a2988421c6f1827290c7c170fedd7e868333b135b9d488ccb0e7",
+  "fingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
   "sources": {
     "deterministicRulesDoc": {
       "path": "docs/design/ux-audit/deterministic-design-rules.md",
-      "sha256": "14421f098db389b21117457c9a02a143bebce5732fb6bc806cf8ea24e0df7e7c"
+      "sha256": "8d47fb7987f13063120557ec778207b40c573b3caf428d6080879bc25a0b5c7d"
     },
     "aiRulesDoc": {
       "path": "docs/design/ux-audit/ai-enabled-design-principles.md",
@@ -17,7 +17,7 @@
     },
     "matrixDoc": {
       "path": "docs/design/ux-audit/element-level-ruleset-matrix.md",
-      "sha256": "859cbb4db477701fa1ef37a7e06af77da8e829d6c2288db285b1ca9e8bb74eba"
+      "sha256": "e08d4a81fcc65647484807a02e367d62cbdb874b8defb23a5e44d00aff2f768e"
     },
     "taxonomyDoc": {
       "path": "docs/design/ux-audit/component-design-ruleset-taxonomy.md",
@@ -36,19 +36,19 @@
     "selectedCount": 30
   },
   "versioning": {
-    "deterministicRulesVersion": "14421f098db389b21117457c9a02a143bebce5732fb6bc806cf8ea24e0df7e7c",
-    "aiRulesVersion": "47749a271e9d176c8205d060ee029907c41b7602fb5cbeacc17feb8d3dc88ff1",
+    "deterministicRulesVersion": "8d47fb7987f13063120557ec778207b40c573b3caf428d6080879bc25a0b5c7d",
+    "aiRulesVersion": "dae8aa73b4601f7fbfd1b61659409fefa323f756cc3ab1057c24cda5ba09f85e",
     "overrideVersionApplied": false,
     "policy": "Generated files are not rewritten when embedded rules-version matches, unless --override-version is passed."
   },
   "generatedLibrary": {
-    "deterministicChecksGenerated": 6,
-    "aiPromptsGenerated": 0
+    "deterministicChecksGenerated": 18,
+    "aiPromptsGenerated": 16
   },
   "deterministicCoverage": {
-    "documentedRuleCount": 94,
+    "documentedRuleCount": 106,
     "implementedCount": 88,
-    "stubCount": 6,
+    "stubCount": 18,
     "implementedRuleIds": [
       "DET.AMBIENT.Z_INDEX",
       "DET.APP.BULK_ACTION_SCOPE",
@@ -140,10 +140,22 @@
       "DET.VISUAL.RHYTHM"
     ],
     "stubRuleIds": [
+      "DET.NAVLAYOUT.FOCUS_TRAP",
+      "DET.NAVLAYOUT.HASH_ROOT",
+      "DET.NAVLAYOUT.ORACLE_PRESENT",
+      "DET.NAVLAYOUT.REDUCED_MOTION",
+      "DET.SCROLL.PAGE_ONLY",
       "DET.SPATIAL.ORACLE_PRESENT",
       "DET.SPATIAL.POINTER_COARSE_SKIP",
       "DET.SPATIAL.PRESERVE_3D_SUPPORT",
       "DET.SPATIAL.REDUCED_MOTION_STATIC",
+      "DET.STUDIO.FULLPAGE_SHOT",
+      "DET.STUDIO.H1",
+      "DET.STUDIO.HASH",
+      "DET.STUDIO.JOB_BUDGET",
+      "DET.STUDIO.MECHANISM_LEAD",
+      "DET.STUDIO.TESTID",
+      "DET.STUDIO.TITLE_NAV_MATCH",
       "DET.THEME.RADIUS_SHADOW_TOKEN_DRIFT",
       "DET.THEME.SPACING_TOKEN_DRIFT"
     ],
@@ -1134,6 +1146,58 @@
       "implementationSource": "explicit-map"
     },
     {
+      "id": "DET.NAVLAYOUT.FOCUS_TRAP",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-navlayout-focus-trap.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-navlayout-focus_trap",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.NAVLAYOUT.HASH_ROOT",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-navlayout-hash-root.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-navlayout-hash_root",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.NAVLAYOUT.ORACLE_PRESENT",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-navlayout-oracle-present.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-navlayout-oracle_present",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.NAVLAYOUT.REDUCED_MOTION",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-navlayout-reduced-motion.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-navlayout-reduced_motion",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
       "id": "DET.PAGE.LANG",
       "lane": "deterministic",
       "status": "implemented",
@@ -1288,6 +1352,19 @@
       "implementationSource": "explicit-map"
     },
     {
+      "id": "DET.SCROLL.PAGE_ONLY",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-scroll-page-only.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-scroll-page_only",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
       "id": "DET.SEARCH.FILTER_STATE",
       "lane": "deterministic",
       "status": "implemented",
@@ -1408,6 +1485,97 @@
       "modulePath": "design-rules/deterministic/generated/det-status-feedback-region.check.js",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-status-feedback-region",
       "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.STUDIO.FULLPAGE_SHOT",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-studio-fullpage-shot.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-fullpage_shot",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.STUDIO.H1",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-studio-h1.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-h1",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.STUDIO.HASH",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-studio-hash.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-hash",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.STUDIO.JOB_BUDGET",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-studio-job-budget.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-job_budget",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.STUDIO.MECHANISM_LEAD",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-studio-mechanism-lead.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-mechanism_lead",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.STUDIO.TESTID",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-studio-testid.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-testid",
+      "implementationSource": "generated-stub-locked"
+    },
+    {
+      "id": "DET.STUDIO.TITLE_NAV_MATCH",
+      "lane": "deterministic",
+      "status": "stub",
+      "phase": "metrics",
+      "area": null,
+      "scoreDimension": null,
+      "defaultSeverity": "minor",
+      "priorityWeight": 0,
+      "modulePath": "design-rules/deterministic/generated/det-studio-title-nav-match.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-title_nav_match",
+      "implementationSource": "generated-stub-locked"
     },
     {
       "id": "DET.SURFACE.ELEVATION_TOKEN",

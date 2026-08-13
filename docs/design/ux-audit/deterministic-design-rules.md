@@ -134,6 +134,24 @@ Scoped to **KS-driven** sites (`rulesScope` `ks` / `auto` when repo or DOM detec
 | `DET.APP.DATA_REFRESH_STALENESS` | Data-heavy panels show last-updated/stale signal and refresh/retry action. | DOM |
 | `DET.APP.CLIENT_ERROR_LOG_CLEAN` | Scenario step interactions produce no console/page errors (post-step capture). | Playwright |
 
+## Studio / enterprise operator apps (`DET.STUDIO.*`)
+
+Scoped to **Studio SPAs** (`main.fc-main`, `.fc-app-rail`, `[data-studio-workspace]`) and the **Studio UX PDCA** workcell. These rules use DOM/capture heuristics tuned for operator UIs—not marketing section NLP.
+
+**Do not** score Studio pages with **`DET.SECTION.SINGLE_JOB`**; use **`DET.STUDIO.JOB_BUDGET`** instead. See [`enterprise-app-ux-rules.md`](enterprise-app-ux-rules.md).
+
+| Rule ID | Check (pass condition) | Typical evidence |
+|---------|-------------------------|------------------|
+| `DET.STUDIO.H1` | Workspace exposes a visible `h1` with non-empty text. | DOM (`page.json`) |
+| `DET.STUDIO.TITLE_NAV_MATCH` | Normalized `h1` matches active app-rail label (`.fc-app-rail__btn--active` or `[aria-current="page"]`). | DOM |
+| `DET.STUDIO.JOB_BUDGET` | Without `[role=tablist]`: ≤2 `h2` (warn), ≤4 `h2` (pass). Without tabs: >4 `h2` fails (competing scroll jobs). With tablist: secondary jobs may live in panels. | DOM |
+| `DET.STUDIO.MECHANISM_LEAD` | Lead paragraph (after `h1`) uses outcome verbs before mechanism-only vocabulary (harvest, API, pipeline, EDGAR, XBRL). | Text heuristic |
+| `DET.STUDIO.FULLPAGE_SHOT` | Nested scroll root expanded for capture; screenshot height ≥ 90% of scroll height when content > 900px. | `capture-page.mjs` |
+| `DET.STUDIO.HASH` | At least one `data-ks-hash` on governed roots. | DOM |
+| `DET.STUDIO.TESTID` | At least one `data-testid` for automation anchors. | DOM |
+
+**Machine pack:** `tools/studio-ux-pdca/lib/enterprise-app-ruleset.json`. **Standard:** [`forge-enterprise-app-ux-standard.md`](../forge-enterprise-app-ux-standard.md).
+
 ## Python-generated HTML modules
 
 | Rule ID | Check (pass condition) | Typical evidence |

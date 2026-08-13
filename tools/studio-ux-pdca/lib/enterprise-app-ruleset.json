@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "id": "forge-enterprise-app-pdca",
+  "title": "Forge enterprise app UX (Studio PDCA)",
+  "standardPath": "docs/design/forge-enterprise-app-ux-standard.md",
+  "catalogPath": "docs/design/ux-audit/enterprise-app-ux-rules.md",
+  "updated": "2026-08-13",
+  "ksHandbookIndex": "ux-audit-rules.html",
+  "axes": [
+    {
+      "id": "page_identity",
+      "label": "Page identity",
+      "description": "H1 present and matches active app-rail label",
+      "weight": 1
+    },
+    {
+      "id": "job_budget",
+      "label": "Job budget",
+      "description": "One primary job in first viewport; secondary jobs behind tabs",
+      "weight": 1
+    },
+    {
+      "id": "control_density",
+      "label": "Control density",
+      "description": "≤3 buttons per action row; ≤1 primary CTA",
+      "weight": 1
+    },
+    {
+      "id": "human_outcome",
+      "label": "Human outcome",
+      "description": "Outcome-led lead copy and clear next step",
+      "weight": 1
+    },
+    {
+      "id": "wiki_functionality",
+      "label": "Wiki functionality",
+      "description": "Dual-wiki affordances on wiki/graph pages only",
+      "weight": 1,
+      "naUnlessPageTypes": ["wiki_graph"]
+    }
+  ],
+  "pageTypes": {
+    "studio_ops": {
+      "label": "Studio operations",
+      "wikiAxisWeight": 0
+    },
+    "wiki_graph": {
+      "label": "Dual-wiki / graph",
+      "wikiAxisWeight": 1
+    }
+  },
+  "ksComponents": [
+    { "id": "Svc", "name": "Segmented control / tabs", "useWhen": "Secondary jobs (Screen, Alerts, Compare, Charts)" },
+    { "id": "Ftb", "name": "Filter toolbar", "useWhen": "Scope filters that are chrome, not a peer page job" },
+    { "id": "Sab", "name": "Sticky action bar", "useWhen": "Bulk actions after row selection" },
+    { "id": "Cap", "name": "App shell panel", "useWhen": "Workspace regions inside Cap layout" }
+  ],
+  "rules": [
+    {
+      "id": "DET.STUDIO.H1",
+      "lane": "deterministic",
+      "axis": "page_identity",
+      "severityDefault": "major",
+      "handbookSlug": "det-studio-h1",
+      "summary": "Workspace exposes a visible H1 with non-empty text.",
+      "suggestedKsComponent": null,
+      "scorer": true
+    },
+    {
+      "id": "DET.STUDIO.TITLE_NAV_MATCH",
+      "lane": "deterministic",
+      "axis": "page_identity",
+      "severityDefault": "critical",
+      "handbookSlug": "det-studio-title-nav-match",
+      "summary": "H1 matches the active app-rail label after normalization.",
+      "suggestedKsComponent": null,
+      "scorer": true
+    },
+    {
+      "id": "DET.STUDIO.JOB_BUDGET",
+      "lane": "deterministic",
+      "axis": "job_budget",
+      "severityDefault": "major",
+      "handbookSlug": "det-studio-job-budget",
+      "summary": "At most one primary scroll job without mode tabs; use Svc for secondary jobs.",
+      "suggestedKsComponent": "Svc",
+      "scorer": true,
+      "replacesMarketingRule": "DET.SECTION.SINGLE_JOB"
+    },
+    {
+      "id": "DET.STUDIO.MECHANISM_LEAD",
+      "lane": "deterministic",
+      "axis": "human_outcome",
+      "severityDefault": "warn",
+      "handbookSlug": "det-studio-mechanism-lead",
+      "summary": "Lead copy is outcome-led, not mechanism-first (harvest/API/pipeline).",
+      "suggestedKsComponent": null,
+      "scorer": true
+    },
+    {
+      "id": "DET.STUDIO.FULLPAGE_SHOT",
+      "lane": "deterministic",
+      "axis": "job_budget",
+      "severityDefault": "critical",
+      "handbookSlug": "det-studio-fullpage-shot",
+      "summary": "Capture expands nested scroll so assessors see below-the-fold jobs.",
+      "suggestedKsComponent": null,
+      "scorer": true,
+      "captureGate": true
+    },
+    {
+      "id": "DET.STUDIO.HASH",
+      "lane": "deterministic",
+      "axis": "control_density",
+      "severityDefault": "warn",
+      "handbookSlug": "det-studio-hash",
+      "summary": "At least one data-ks-hash on governed visual roots.",
+      "suggestedKsComponent": null,
+      "scorer": true
+    },
+    {
+      "id": "DET.STUDIO.TESTID",
+      "lane": "deterministic",
+      "axis": "control_density",
+      "severityDefault": "minor",
+      "handbookSlug": "det-studio-testid",
+      "summary": "At least one data-testid anchor for Playwright stability.",
+      "suggestedKsComponent": null,
+      "scorer": true
+    },
+    {
+      "id": "DET.BUTTON.GROUP.MAX",
+      "lane": "deterministic",
+      "axis": "control_density",
+      "severityDefault": "major",
+      "handbookSlug": "det-button-group-max",
+      "summary": "≤3 visible horizontal actions per toolbar row.",
+      "suggestedKsComponent": "Ftb",
+      "scorer": true,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.APP.PRIMARY_CTA",
+      "lane": "deterministic",
+      "axis": "control_density",
+      "severityDefault": "major",
+      "handbookSlug": "det-app-primary-cta",
+      "summary": "≤1 primary filled CTA per workspace.",
+      "suggestedKsComponent": null,
+      "scorer": true,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.CARD.ACTION_LIMIT",
+      "lane": "deterministic",
+      "axis": "control_density",
+      "severityDefault": "warn",
+      "handbookSlug": "det-card-action-limit",
+      "summary": "≤1 primary action per card unless toolbar-card contract.",
+      "suggestedKsComponent": null,
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.APP.TAB_PANEL",
+      "lane": "deterministic",
+      "axis": "job_budget",
+      "severityDefault": "major",
+      "handbookSlug": "det-app-tab-panel",
+      "summary": "Selected tab has aria-selected, aria-controls, and visible panel.",
+      "suggestedKsComponent": "Svc",
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.APP.PERSISTENT_CHROME",
+      "lane": "deterministic",
+      "axis": "page_identity",
+      "severityDefault": "major",
+      "handbookSlug": "det-app-persistent-chrome",
+      "summary": "App rail and header stable across routes.",
+      "suggestedKsComponent": "Cap",
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "AI.APP.DENSITY_BALANCE",
+      "lane": "ai",
+      "axis": "control_density",
+      "severityDefault": "major",
+      "handbookSlug": "ai-app-density-balance",
+      "summary": "Information-dense but grouped and labeled—not a flat widget wall.",
+      "suggestedKsComponent": "Cap",
+      "scorer": false
+    },
+    {
+      "id": "AI.APP.WORKFLOW_CONTINUITY",
+      "lane": "ai",
+      "axis": "job_budget",
+      "severityDefault": "major",
+      "handbookSlug": "ai-app-workflow-continuity",
+      "summary": "Sense of place; selection paths show next step (Sab when rows selected).",
+      "suggestedKsComponent": "Sab",
+      "scorer": false
+    },
+    {
+      "id": "AI.DASHBOARD.ACTIONABILITY_PRIORITY",
+      "lane": "ai",
+      "axis": "human_outcome",
+      "severityDefault": "warn",
+      "handbookSlug": "ai-dashboard-actionability-priority",
+      "summary": "Operators see what to do next—not only vanity counts.",
+      "suggestedKsComponent": null,
+      "scorer": false
+    },
+    {
+      "id": "AI.PREMIUM.ENTERPRISE_FEEL",
+      "lane": "ai",
+      "axis": "enterprise_ux",
+      "severityDefault": "warn",
+      "handbookSlug": "ai-premium-enterprise-feel",
+      "summary": "Calm matte enterprise polish on operator chrome.",
+      "suggestedKsComponent": null,
+      "scorer": false
+    }
+  ]
+}

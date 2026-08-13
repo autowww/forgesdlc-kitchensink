@@ -23,6 +23,7 @@ This folder holds **KS-wide** vocabulary for website UX audits, visual catalog g
 | [`industry-standard-page-quality.md`](industry-standard-page-quality.md) | Industry-aligned quality bar (accessibility, landing conventions, trust) mapped to **`DET.*`** / **`AI.*`**. |
 | [`harness/README.md`](harness/README.md) | Ruleset harness **Definition of Ready / Done**, E2E coverage matrix, fixture×script test map. |
 | [`auditor-fixing-ecosystem.md`](auditor-fixing-ecosystem.md) | **Auditor + fixers + remediation loop** narrative; links to showcase gallery with every rule’s Before/After. |
+| [`enterprise-app-ux-rules.md`](enterprise-app-ux-rules.md) | **Studio / operator SPA** rule pack for Studio UX PDCA (`DET.STUDIO.*` + shared `DET.APP.*` / `AI.APP.*`). |
 
 ## Deterministic vs AI-enabled (non-negotiable split)
 
@@ -46,4 +47,6 @@ For standards-aware accessibility audits (axe lane, `DET.A11Y.GENERIC.*` / `DET.
 
 - Catalog ontology: [`../catalog/ONTOLOGY.md`](../catalog/ONTOLOGY.md)
 - Enterprise website standard (consumer-facing bar): [`../forge-enterprise-ai-website-standard.md`](../forge-enterprise-ai-website-standard.md)
+- Enterprise app / Studio standard: [`../forge-enterprise-app-ux-standard.md`](../forge-enterprise-app-ux-standard.md)
+- Studio UX PDCA ruleset: [`enterprise-app-ux-rules.md`](enterprise-app-ux-rules.md)
 - Website UX auditor: [`../../tools/forge-website-ux-auditor-cursor.md`](../../tools/forge-website-ux-auditor-cursor.md) (repo `docs/tools/`)
