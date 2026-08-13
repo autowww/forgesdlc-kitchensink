@@ -1,0 +1,39 @@
+{
+  "id": "studio-ux-assess-gpt",
+  "kind": "unit",
+  "version": "1.0.0",
+  "specVersion": "0.8",
+  "automationFlowVersion": 4,
+  "name": "Studio UX ChatGPT assessment",
+  "params": {
+    "cycle_dir": { "type": "string", "required": true },
+    "chatgpt_project": { "type": "string", "default": "" }
+  },
+  "outputs": {
+    "assessment_path": "${ .last_output.assessment_path }",
+    "pdca_prompt_path": "${ .last_output.pdca_prompt_path }"
+  },
+  "start": "Assess",
+  "states": [
+    {
+      "name": "Assess",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "studio_ux_assess_gpt",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "chatgpt_project": "${ .chatgpt_project }"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}

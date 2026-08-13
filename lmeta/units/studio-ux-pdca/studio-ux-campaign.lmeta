@@ -1,0 +1,64 @@
+{
+  "id": "studio-ux-campaign",
+  "version": "1.0.0",
+  "specVersion": "0.8",
+  "automationFlowVersion": 4,
+  "name": "Studio UX PDCA campaign",
+  "description": "Page-by-page Studio UX rewrite loop with consumer hooks for repo-specific build, gates, and persistence.",
+  "include": [{ "unit": "studio-ux-page-iteration" }],
+  "start": "InitCampaign",
+  "states": [
+    {
+      "name": "InitCampaign",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "init_campaign",
+              "input": {
+                "consumer_id": "${ .consumer_id }",
+                "repo_root": "${ .repo_root }",
+                "manifest_path": "${ .manifest_path }",
+                "campaign_id": "${ .campaign_id }"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "transition": "PageLoop"
+    },
+    {
+      "name": "PageLoop",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeLoopWhile",
+            "arguments": {
+              "condition": "${ .last_output.has_more_pages == true }",
+              "max_iterations": "${ .max_pages | default(50) }",
+              "body": {
+                "unit": "studio-ux-page-iteration",
+                "input": {
+                  "consumer_id": "${ .consumer_id }",
+                  "repo_root": "${ .repo_root }",
+                  "campaign_dir": "${ .campaign_dir }",
+                  "page_slug": "${ .last_output.current_page_slug }",
+                  "iteration": "${ .last_output.current_iteration }",
+                  "cycle_dir": "${ .last_output.cycle_dir }",
+                  "chatgpt_project": "${ .chatgpt_project }",
+                  "matrix_room_id": "${ .matrix_room_id }",
+                  "score_thresholds": "${ .score_thresholds }"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}

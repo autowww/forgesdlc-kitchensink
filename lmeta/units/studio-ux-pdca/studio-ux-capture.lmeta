@@ -1,0 +1,39 @@
+{
+  "id": "studio-ux-capture",
+  "kind": "unit",
+  "version": "1.0.0",
+  "specVersion": "0.8",
+  "automationFlowVersion": 4,
+  "name": "Studio UX capture page",
+  "params": {
+    "cycle_dir": { "type": "string", "required": true },
+    "mode": { "type": "string", "default": "before" }
+  },
+  "outputs": {
+    "screenshot_path": "${ .last_output.screenshot_path }",
+    "page_json_path": "${ .last_output.page_json_path }"
+  },
+  "start": "Capture",
+  "states": [
+    {
+      "name": "Capture",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "studio_ux_capture_page",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "mode": "${ .mode }"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}

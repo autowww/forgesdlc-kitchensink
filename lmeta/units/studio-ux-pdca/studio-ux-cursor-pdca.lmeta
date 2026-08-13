@@ -1,0 +1,61 @@
+{
+  "id": "studio-ux-cursor-pdca",
+  "kind": "unit",
+  "version": "1.0.0",
+  "specVersion": "0.8",
+  "automationFlowVersion": 4,
+  "name": "Studio UX Cursor PDCA implementation",
+  "params": {
+    "cycle_dir": { "type": "string", "required": true },
+    "repo_root": { "type": "string", "required": true },
+    "page_slug": { "type": "string", "required": true }
+  },
+  "outputs": {
+    "agent_log_path": "${ .last_output.agent_log_path }"
+  },
+  "start": "WritePlan",
+  "states": [
+    {
+      "name": "WritePlan",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "write_cursor_plan",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "repo_root": "${ .repo_root }",
+                "page_slug": "${ .page_slug }"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "transition": "Implement"
+    },
+    {
+      "name": "Implement",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "studio_ux_run_cursor",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "repo_root": "${ .repo_root }",
+                "page_slug": "${ .page_slug }"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}

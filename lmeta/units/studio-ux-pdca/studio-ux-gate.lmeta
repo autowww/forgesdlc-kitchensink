@@ -1,0 +1,61 @@
+{
+  "id": "studio-ux-gate",
+  "kind": "unit",
+  "version": "1.0.0",
+  "specVersion": "0.8",
+  "automationFlowVersion": 4,
+  "name": "Studio UX score and gate",
+  "params": {
+    "cycle_dir": { "type": "string", "required": true },
+    "page_slug": { "type": "string", "required": true },
+    "score_thresholds": { "type": "object", "default": {} }
+  },
+  "outputs": {
+    "gates_passed": "${ .last_output.gates_passed }",
+    "scores_path": "${ .last_output.scores_path }"
+  },
+  "start": "Score",
+  "states": [
+    {
+      "name": "Score",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "studio_ux_score_page",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "page_slug": "${ .page_slug }"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "transition": "RunGates"
+    },
+    {
+      "name": "RunGates",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "run_gates",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "page_slug": "${ .page_slug }",
+                "score_thresholds": "${ .score_thresholds }"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}

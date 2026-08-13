@@ -1,0 +1,66 @@
+{
+  "id": "studio-ux-notify-matrix",
+  "kind": "unit",
+  "version": "1.1.0",
+  "specVersion": "0.8",
+  "automationFlowVersion": 4,
+  "name": "Studio UX Matrix cycle notification",
+  "params": {
+    "cycle_dir": { "type": "string", "required": true },
+    "matrix_room_id": { "type": "string", "default": "" },
+    "consumer_id": { "type": "string", "required": true },
+    "page_slug": { "type": "string", "default": "" },
+    "iteration": { "type": "integer", "default": 1 },
+    "event": {
+      "type": "string",
+      "default": "cycle-complete",
+      "description": "cycle-start | cycle-complete | progress | campaign-start | campaign-complete"
+    },
+    "campaign_id": { "type": "string", "default": "" },
+    "page_title": { "type": "string", "default": "" },
+    "page_path": { "type": "string", "default": "" },
+    "purpose": { "type": "string", "default": "" },
+    "status": { "type": "string", "default": "" },
+    "detail": { "type": "string", "default": "" },
+    "page_index": { "type": "integer", "default": 0 },
+    "page_total": { "type": "integer", "default": 0 }
+  },
+  "outputs": {
+    "notified": "${ .last_output.notified }"
+  },
+  "start": "Notify",
+  "states": [
+    {
+      "name": "Notify",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "studio_ux_notify_matrix",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "matrix_room_id": "${ .matrix_room_id }",
+                "consumer_id": "${ .consumer_id }",
+                "page_slug": "${ .page_slug }",
+                "iteration": "${ .iteration }",
+                "event": "${ .event }",
+                "campaign_id": "${ .campaign_id }",
+                "page_title": "${ .page_title }",
+                "page_path": "${ .page_path }",
+                "purpose": "${ .purpose }",
+                "status": "${ .status }",
+                "detail": "${ .detail }",
+                "page_index": "${ .page_index }",
+                "page_total": "${ .page_total }"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}

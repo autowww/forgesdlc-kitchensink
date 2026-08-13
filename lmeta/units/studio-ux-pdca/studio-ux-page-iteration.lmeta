@@ -1,0 +1,234 @@
+{
+  "id": "studio-ux-page-iteration",
+  "kind": "unit",
+  "version": "1.0.0",
+  "specVersion": "0.8",
+  "automationFlowVersion": 4,
+  "name": "Studio UX single page iteration",
+  "params": {
+    "consumer_id": { "type": "string", "required": true },
+    "repo_root": { "type": "string", "required": true },
+    "campaign_dir": { "type": "string", "required": true },
+    "page_slug": { "type": "string", "required": true },
+    "iteration": { "type": "integer", "default": 1 },
+    "chatgpt_project": { "type": "string", "default": "" },
+    "matrix_room_id": { "type": "string", "default": "" },
+    "score_thresholds": { "type": "object", "default": {} }
+  },
+  "outputs": {
+    "gates_passed": "${ .outputs.Notify.gates_passed }"
+  },
+  "include": [
+    { "unit": "studio-ux-capture" },
+    { "unit": "studio-ux-assess-gpt" },
+    { "unit": "studio-ux-cursor-pdca" },
+    { "unit": "studio-ux-gate" },
+    { "unit": "studio-ux-notify-matrix" }
+  ],
+  "start": "Bootstrap",
+  "states": [
+    {
+      "name": "Bootstrap",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "bootstrap_fixtures",
+              "input": { "page_slug": "${ .page_slug }" },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "transition": "CaptureBefore"
+    },
+    {
+      "name": "CaptureBefore",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeSubflow",
+            "arguments": {
+              "unit": "studio-ux-capture",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "mode": "before"
+              },
+              "as": "capture_before"
+            }
+          }
+        }
+      ],
+      "transition": "PersistBundle"
+    },
+    {
+      "name": "PersistBundle",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "persist_cycle_bundle",
+              "input": {
+                "campaign_dir": "${ .campaign_dir }",
+                "page_slug": "${ .page_slug }",
+                "iteration": "${ .iteration }",
+                "phase": "pre_assess"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "transition": "AssessGpt"
+    },
+    {
+      "name": "AssessGpt",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeSubflow",
+            "arguments": {
+              "unit": "studio-ux-assess-gpt",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "chatgpt_project": "${ .chatgpt_project }"
+              },
+              "as": "assess"
+            }
+          }
+        }
+      ],
+      "transition": "ImplementCursor"
+    },
+    {
+      "name": "ImplementCursor",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeSubflow",
+            "arguments": {
+              "unit": "studio-ux-cursor-pdca",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "repo_root": "${ .repo_root }",
+                "page_slug": "${ .page_slug }"
+              },
+              "as": "cursor"
+            }
+          }
+        }
+      ],
+      "transition": "BuildRedeploy"
+    },
+    {
+      "name": "BuildRedeploy",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "build_and_restart",
+              "input": { "repo_root": "${ .repo_root }" },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "transition": "CaptureAfter"
+    },
+    {
+      "name": "CaptureAfter",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeSubflow",
+            "arguments": {
+              "unit": "studio-ux-capture",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "mode": "after"
+              },
+              "as": "capture_after"
+            }
+          }
+        }
+      ],
+      "transition": "ScoreAndGate"
+    },
+    {
+      "name": "ScoreAndGate",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeSubflow",
+            "arguments": {
+              "unit": "studio-ux-gate",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "page_slug": "${ .page_slug }",
+                "score_thresholds": "${ .score_thresholds }"
+              },
+              "as": "gate"
+            }
+          }
+        }
+      ],
+      "transition": "Notify"
+    },
+    {
+      "name": "Notify",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeSubflow",
+            "arguments": {
+              "unit": "studio-ux-notify-matrix",
+              "input": {
+                "cycle_dir": "${ .cycle_dir }",
+                "matrix_room_id": "${ .matrix_room_id }",
+                "consumer_id": "${ .consumer_id }",
+                "page_slug": "${ .page_slug }",
+                "iteration": "${ .iteration }"
+              },
+              "as": "notify"
+            }
+          }
+        }
+      ],
+      "transition": "Advance"
+    },
+    {
+      "name": "Advance",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "forgeConsumerHook",
+            "arguments": {
+              "hook": "advance_page_queue",
+              "input": {
+                "campaign_dir": "${ .campaign_dir }",
+                "page_slug": "${ .page_slug }",
+                "iteration": "${ .iteration }",
+                "gates_passed": "${ .last_output.gates_passed }"
+              },
+              "set_last_output": true
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}
