@@ -18,6 +18,15 @@ Oracle scenarios (see `docs/design/nav-layout/oracles/Sab.json`):
 
 - **sab-dom-present** — root `[data-ks-hash="Sab"]` visible; threshold 1.0 after scenario actions.
 
+## Enterprise use
+
+| Enterprise use | Related ENT.APP | Related DET |
+|----------------|-----------------|-------------|
+| Bulk actions after row selection with visible count | ENT.APP.05, ENT.APP.08 | `DET.APP.BULK_ACTION_SCOPE`, `AI.APP.WORKFLOW_CONTINUITY` |
+| Contextual next step when checkboxes present | ENT.APP.08 | `DET.BUTTON.GROUP.MAX` |
+
+Contract: [`enterprise-app/rules/ENT.APP.05.yaml`](../../enterprise-app/rules/ENT.APP.05.yaml).
+
 ## Root element
 
 ```html

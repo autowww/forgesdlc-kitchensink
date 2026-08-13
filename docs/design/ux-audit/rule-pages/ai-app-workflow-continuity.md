@@ -3,18 +3,12 @@ rule_id: AI.APP.WORKFLOW_CONTINUITY
 lane: ai
 title: App workflow continuity
 summary: Panels, tabs, and routes must preserve sense of place—stable chrome, orientation cues, and predictable back/forward context.
-page_version: c35c4eb008088d86aab8a090414d895b6d6a6162a117e0447c99c553e8f5c76b
+page_version: 79fa610b7940f84b0ef2f0647c06ed6e29591e7cd5f9eb973e2155acd5cd5da3
 generated_at: 2026-05-19T20:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-workflow-continuity
-related_rules:
-  - DET.APP.PERSISTENT_CHROME
-  - DET.NAV.BREADCRUMB
-  - DET.CHROME.BOUNDARY
-  - DET.NAV.DEDUP
-  - AI.APP.DENSITY_BALANCE
 ---
 
 ## Purpose

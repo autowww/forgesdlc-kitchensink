@@ -3,18 +3,12 @@ rule_id: DET.DATA.TABLE_HEADERS
 lane: deterministic
 title: Data table header scope
 summary: Visible Kitchen Sink data tables expose column or row headers with valid th scope or explicit headers associations on body cells.
-page_version: c7bf5ba070b6cf5956699b142b0ff07574630b940eec46477fb9ab7891e2f04e
+page_version: 6dbce3c22b6397eb694581019ef6b119aa3162eb5380057bde800d7ebbf28a1b
 generated_at: 2026-05-19T22:35:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-data-table_headers
-related_rules:
-  - DET.CHART.ALT_SUMMARY
-  - DET.DATA.COLOR_ONLY
-  - AI.DATA.INSIGHT_LEGIBILITY
-  - DET.LANDMARKS.REQUIRED
-  - AI.VISUAL.PRODUCT_EXPLANATORY_VALUE
 ---
 
 ## Purpose

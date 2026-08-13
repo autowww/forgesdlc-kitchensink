@@ -3,20 +3,12 @@ rule_id: AI.CREDIBILITY.NO_OVERCLAIM
 lane: ai
 title: Credibility without overclaim
 summary: Capabilities, metrics, certifications, and social proof are stated in bounded, verifiable ways—no invented logos, compliance badges, or performance numbers.
-page_version: b6ac8bcdc1ace2f7490170e0cacd3998d65907b6706a1567725aef7d4629a357
+page_version: eb595178c11d50120ebaa7b554384e21953a8df59ae947421afa6a47ea7bc2b7
 generated_at: 2026-05-19T21:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-credibility-no-overclaim
-related_rules:
-  - AI.GOVERNANCE.CREDIBILITY
-  - AI.TRUST.BOUNDARY_CLARITY
-  - AI.PREMIUM.ENTERPRISE_FEEL
-  - AI.NARRATIVE.COHERENCE
-  - DET.CTA.HIERARCHY
-  - DET.CTA.LABEL_NONEMPTY
-  - AI.CONTEXT.COGNITIVE_CLARITY
 ---
 
 ## Purpose

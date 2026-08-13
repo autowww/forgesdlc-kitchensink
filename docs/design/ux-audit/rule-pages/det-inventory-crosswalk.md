@@ -3,18 +3,12 @@ rule_id: DET.INVENTORY.CROSSWALK
 lane: deterministic
 title: Showcase inventory crosswalk
 summary: Showcase-emitted KS hashes must be a subset of visual-registry.generated.json; no invalid-format hash tokens in showcase HTML or JS.
-page_version: 1ff85299f06dc68add4d86309b7e7f7baa939d1767e55cee5288b001d5d0c73b
+page_version: 0fd08e4e5faaa32b1464eb426f621cc8788f24ee840e7cc50de5a1d352e3097c
 generated_at: 2026-05-25T14:32:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-inventory-crosswalk
-related_rules:
-  - DET.HASH.MARKERS
-  - DET.HASH.REGISTRY_ROW
-  - DET.CONTRACT.PATH
-  - DET.DIAGRAM.ASSET_REGISTRY
-  - DET.PY.KS_HASH_ATTRS
 ---
 
 ## Purpose

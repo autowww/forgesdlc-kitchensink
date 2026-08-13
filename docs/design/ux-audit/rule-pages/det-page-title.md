@@ -3,17 +3,12 @@ rule_id: DET.PAGE.TITLE
 lane: deterministic
 title: Document page title
 summary: Every page exposes a non-empty, descriptive document title so browser tabs, bookmarks, search snippets, and assistive tech can identify the page without reading the body.
-page_version: 4040ca340c20e070ac3646e7875cf98f539cdb90d66b4145dd5874f55ad35dfd
+page_version: 13c9253bbc821dc30c1fdbd8b80593dfaf9e7051d4d8e45977e6318dbf4d7cb5
 generated_at: 2026-05-25T16:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-page-title
-related_rules:
-  - DET.PAGE.LANG
-  - DET.PAGE.VIEWPORT
-  - DET.LANDMARKS.REQUIRED
-  - DET.PAGE.MODE
 ---
 
 ## Purpose

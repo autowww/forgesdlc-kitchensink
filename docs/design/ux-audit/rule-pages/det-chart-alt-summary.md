@@ -3,18 +3,12 @@ rule_id: DET.CHART.ALT_SUMMARY
 lane: deterministic
 title: Chart accessible summary
 summary: Every visible Kitchen Sink chart or graph mount exposes a non-trivial text summary, aria-describedby target, or nearby caption for non-visual readers.
-page_version: 6c251e266ae748fcae1c2704355aa3b9e01b41b427713414b2268dc540d32340
+page_version: 4754463fa80177e3ee82113fef787203ed3bf9bd28bafe960f5c5426f4b950d5
 generated_at: 2026-05-19T20:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-chart-alt-summary
-related_rules:
-  - AI.DATA.INSIGHT_LEGIBILITY
-  - DET.DATA.COLOR_ONLY
-  - DET.DATA.TABLE_HEADERS
-  - DET.DIAGRAM.ALT
-  - AI.VISUAL.PRODUCT_EXPLANATORY_VALUE
 ---
 
 ## Purpose

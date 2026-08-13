@@ -3,14 +3,12 @@ rule_id: DET.KS.CONSUMER_ASSET_BUNDLE
 lane: deterministic
 title: Consumer asset bundles
 summary: KS consumer pages load required theme and react-primitive CSS; Vite asset links resolve in live crawl.
-page_version: ks-governance-v1
+page_version: 61b5d5dbd1f44aa5873f398ed7edab35677b364e67daa1650af11466ce3354a6
 generated_at: 2026-05-28T20:30:00.000Z
 agent_model: composer-2.5-fast
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-ks-consumer-asset-bundle
-related_rules:
-  - DET.APP.PRIMITIVE_STYLES
-  - DET.KS.PRIMITIVE_VERSION_MATCH
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 ---
 
 ## Purpose

@@ -3,13 +3,11 @@ rule_id: DET.STUDIO.HASH
 lane: deterministic
 title: Studio KS hash markers
 summary: Governed Studio surfaces emit data-ks-hash on visual roots for catalog and regression traceability.
-page_version: studio-hash-v1
+page_version: df3197008328d726b1c6bec9e811599d2e98be5126f0ec3bead162cbb3189f8e
 generated_at: 2026-08-13T00:00:00.000Z
 registry_status: documented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-studio-hash
-related_rules:
-  - DET.HASH.MARKERS
-  - DET.APP.PRIMITIVE_MARKERS
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 ---
 
 ## Purpose

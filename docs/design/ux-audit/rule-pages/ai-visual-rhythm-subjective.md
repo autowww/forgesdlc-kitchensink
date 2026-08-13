@@ -3,19 +3,12 @@ rule_id: AI.VISUAL.RHYTHM_SUBJECTIVE
 lane: ai
 title: Visual rhythm (subjective)
 summary: Spacing and grouping feel intentional and repeatable—aligned grids, consistent section motifs, and predictable vertical cadence—not accidental pile-ups that pass numeric gap checks.
-page_version: 9a851787584568a259e62976e032bb67cd92f6ea87b1ab2857cffe41f939ef30
+page_version: 54181d0c64e3b2de9625d8efc839bdf0d3987dd490fa5a05b02d39b1ce1f67f0
 generated_at: 2026-05-19T23:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-rhythm-subjective
-related_rules:
-  - DET.VISUAL.RHYTHM
-  - DET.LAYOUT.GRID_CONSISTENCY
-  - DET.SECTION.HEADING
-  - AI.VISUAL.HIERARCHY_CONFIDENCE
-  - AI.PREMIUM.ENTERPRISE_FEEL
-  - AI.CONTEXT.BURDEN_SUBJECTIVE
 ---
 
 ## Purpose

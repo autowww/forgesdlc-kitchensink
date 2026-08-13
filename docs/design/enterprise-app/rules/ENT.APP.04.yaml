@@ -1,0 +1,41 @@
+id: ENT.APP.04
+title: Prevent errors first, then make recovery inexpensive
+
+recommended_components:
+  - createFormController
+  - createStepperWizard
+  - ForgeReviewPanel
+  - ForgeDecisionActionBar
+  - callout
+  - ForgeErrorSummary
+  - ForgeUndoToast
+  - inline-validation
+
+recommended_composition:
+  - name: ForgeGovernedForm
+    status: shipped
+    module: js/ks-governed-form.js
+    hash: Fgf
+
+required_states:
+  - pristine
+  - dirty
+  - validating
+  - invalid
+  - submitting
+  - success
+  - partial-success
+  - failure
+
+audit_rules:
+  - DET.FORM.LABEL_ERROR_SUMMARY
+  - DET.APP.DISABLED_REASON
+  - DET.APP.MODAL_DISMISSAL_GUARD
+  - DET.APP.TOAST_LIFECYCLE
+  - DET.APP.PRIMARY_CTA
+  - DET.BUTTON.GROUP.MAX
+
+known_gaps:
+  - ForgeImpactPreview
+  - ForgeConfirmationGuard
+  - ForgeVersionHistory

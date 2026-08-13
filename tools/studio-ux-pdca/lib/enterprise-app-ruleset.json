@@ -4,6 +4,7 @@
   "title": "Forge enterprise app UX (Studio PDCA)",
   "standardPath": "docs/design/forge-enterprise-app-ux-standard.md",
   "catalogPath": "docs/design/ux-audit/enterprise-app-ux-rules.md",
+  "enterpriseAppContractsPath": "docs/design/enterprise-app/README.md",
   "updated": "2026-08-13",
   "ksHandbookIndex": "ux-audit-rules.html",
   "axes": [
@@ -53,7 +54,18 @@
     { "id": "Svc", "name": "Segmented control / tabs", "useWhen": "Secondary jobs (Screen, Alerts, Compare, Charts)" },
     { "id": "Ftb", "name": "Filter toolbar", "useWhen": "Scope filters that are chrome, not a peer page job" },
     { "id": "Sab", "name": "Sticky action bar", "useWhen": "Bulk actions after row selection" },
-    { "id": "Cap", "name": "App shell panel", "useWhen": "Workspace regions inside Cap layout" }
+    { "id": "Cap", "name": "App shell panel", "useWhen": "Workspace regions inside Cap layout" },
+    { "id": "Dtb", "name": "Data table", "useWhen": "Sortable paginated operational lists (read-only workbench)" },
+    { "id": "Frh", "name": "ForgeRunHeader", "useWhen": "Record/run metadata header with top-level actions" },
+    { "id": "Fsb", "name": "ForgeStatusBanner", "useWhen": "Page-level operational state (stale, error, approval waiting)" },
+    { "id": "Fwb", "name": "ForgeWorkflowStageBar", "useWhen": "Record lifecycle stages (system-driven, not user wizard)" },
+    { "id": "Fen", "name": "ForgeEventTimeline", "useWhen": "Historical audit/events sequence" },
+    { "id": "Fda", "name": "ForgeDecisionActionBar", "useWhen": "Approve/reject/verify/governed commit decisions" },
+    { "id": "Fvw", "name": "ForgeReviewPanel", "useWhen": "Checklist/diff review before decision" },
+    { "id": "Fdg", "name": "ForgeDiagnosticPanel", "useWhen": "Technical evidence and diagnostic readout" },
+    { "id": "Fkg", "name": "ForgeKeyValueGrid", "useWhen": "Dense operational metadata inspector" },
+    { "id": "Wlc", "name": "WorkspaceLensControl", "useWhen": "Workspace lens / role view selector" },
+    { "id": "Swz", "name": "Stepper wizard", "useWhen": "User-driven linear multistep input (not lifecycle stage bar)" }
   ],
   "rules": [
     {
@@ -64,6 +76,7 @@
       "handbookSlug": "det-studio-h1",
       "summary": "Workspace exposes a visible H1 with non-empty text.",
       "suggestedKsComponent": null,
+      "principles": ["ENT.APP.01"],
       "scorer": true
     },
     {
@@ -74,6 +87,7 @@
       "handbookSlug": "det-studio-title-nav-match",
       "summary": "H1 matches the active app-rail label after normalization.",
       "suggestedKsComponent": null,
+      "principles": ["ENT.APP.01"],
       "scorer": true
     },
     {
@@ -84,6 +98,7 @@
       "handbookSlug": "det-studio-job-budget",
       "summary": "At most one primary scroll job without mode tabs; use Svc for secondary jobs.",
       "suggestedKsComponent": "Svc",
+      "principles": ["ENT.APP.01"],
       "scorer": true,
       "replacesMarketingRule": "DET.SECTION.SINGLE_JOB"
     },
@@ -95,6 +110,7 @@
       "handbookSlug": "det-studio-mechanism-lead",
       "summary": "Lead copy is outcome-led, not mechanism-first (harvest/API/pipeline).",
       "suggestedKsComponent": null,
+      "principles": ["ENT.APP.01"],
       "scorer": true
     },
     {
@@ -105,6 +121,7 @@
       "handbookSlug": "det-studio-fullpage-shot",
       "summary": "Capture expands nested scroll so assessors see below-the-fold jobs.",
       "suggestedKsComponent": null,
+      "principles": ["ENT.APP.01"],
       "scorer": true,
       "captureGate": true
     },
@@ -116,6 +133,7 @@
       "handbookSlug": "det-studio-hash",
       "summary": "At least one data-ks-hash on governed visual roots.",
       "suggestedKsComponent": null,
+      "principles": ["ENT.APP.09"],
       "scorer": true
     },
     {
@@ -126,6 +144,7 @@
       "handbookSlug": "det-studio-testid",
       "summary": "At least one data-testid anchor for Playwright stability.",
       "suggestedKsComponent": null,
+      "principles": ["ENT.APP.09"],
       "scorer": true
     },
     {
@@ -136,6 +155,7 @@
       "handbookSlug": "det-button-group-max",
       "summary": "≤3 visible horizontal actions per toolbar row.",
       "suggestedKsComponent": "Ftb",
+      "principles": ["ENT.APP.04", "ENT.APP.07"],
       "scorer": true,
       "uiAppAudit": true
     },
@@ -146,7 +166,8 @@
       "severityDefault": "major",
       "handbookSlug": "det-app-primary-cta",
       "summary": "≤1 primary filled CTA per workspace.",
-      "suggestedKsComponent": null,
+      "suggestedKsComponent": "Fda",
+      "principles": ["ENT.APP.04", "ENT.APP.07", "ENT.APP.AI"],
       "scorer": true,
       "uiAppAudit": true
     },
@@ -158,6 +179,7 @@
       "handbookSlug": "det-card-action-limit",
       "summary": "≤1 primary action per card unless toolbar-card contract.",
       "suggestedKsComponent": null,
+      "principles": ["ENT.APP.04"],
       "scorer": false,
       "uiAppAudit": true
     },
@@ -169,6 +191,7 @@
       "handbookSlug": "det-app-tab-panel",
       "summary": "Selected tab has aria-selected, aria-controls, and visible panel.",
       "suggestedKsComponent": "Svc",
+      "principles": ["ENT.APP.01"],
       "scorer": false,
       "uiAppAudit": true
     },
@@ -180,6 +203,91 @@
       "handbookSlug": "det-app-persistent-chrome",
       "summary": "App rail and header stable across routes.",
       "suggestedKsComponent": "Cap",
+      "principles": ["ENT.APP.02"],
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.APP.PRIMARY_STATE",
+      "lane": "deterministic",
+      "axis": "human_outcome",
+      "severityDefault": "major",
+      "handbookSlug": "det-app-primary-state",
+      "summary": "One visible primary workspace state region (empty/loading/error/success).",
+      "suggestedKsComponent": "Fsb",
+      "principles": ["ENT.APP.03"],
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.APP.EMPTY_LOADING_ERROR_SUCCESS",
+      "lane": "deterministic",
+      "axis": "human_outcome",
+      "severityDefault": "major",
+      "handbookSlug": "det-app-empty-loading-error-success",
+      "summary": "Data workspaces expose one primary state with heading and next action.",
+      "suggestedKsComponent": "Fsb",
+      "principles": ["ENT.APP.03", "ENT.APP.05"],
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.APP.DATA_REFRESH_STALENESS",
+      "lane": "deterministic",
+      "axis": "human_outcome",
+      "severityDefault": "major",
+      "handbookSlug": "det-app-data-refresh-staleness",
+      "summary": "Data-heavy panels show last-updated/stale signal and refresh/retry action.",
+      "suggestedKsComponent": "Fsb",
+      "principles": ["ENT.APP.03", "ENT.APP.05", "ENT.APP.10"],
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.APP.BULK_ACTION_SCOPE",
+      "lane": "deterministic",
+      "axis": "job_budget",
+      "severityDefault": "major",
+      "handbookSlug": "det-app-bulk-action-scope",
+      "summary": "Bulk/destructive toolbars state selected count/scope before execution.",
+      "suggestedKsComponent": "Sab",
+      "principles": ["ENT.APP.05", "ENT.APP.08"],
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.APP.DISABLED_REASON",
+      "lane": "deterministic",
+      "axis": "control_density",
+      "severityDefault": "major",
+      "handbookSlug": "det-app-disabled-reason",
+      "summary": "Disabled primary controls expose visible reason (aria-describedby, title, or help).",
+      "suggestedKsComponent": "Fda",
+      "principles": ["ENT.APP.04", "ENT.APP.06", "ENT.APP.AI"],
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.APP.TOAST_LIFECYCLE",
+      "lane": "deterministic",
+      "axis": "human_outcome",
+      "severityDefault": "warn",
+      "handbookSlug": "det-app-toast-lifecycle",
+      "summary": "Toasts use role=status/aria-live, dismiss when persistent, do not cover primary CTAs.",
+      "suggestedKsComponent": null,
+      "principles": ["ENT.APP.03", "ENT.APP.04"],
+      "scorer": false,
+      "uiAppAudit": true
+    },
+    {
+      "id": "DET.FORM.LABEL_ERROR_SUMMARY",
+      "lane": "deterministic",
+      "axis": "human_outcome",
+      "severityDefault": "major",
+      "handbookSlug": "det-form-label-error-summary",
+      "summary": "Forms have visible labels, inline errors, and error summary on multi-field submit.",
+      "suggestedKsComponent": "Swz",
+      "principles": ["ENT.APP.04"],
       "scorer": false,
       "uiAppAudit": true
     },
@@ -191,6 +299,7 @@
       "handbookSlug": "ai-app-density-balance",
       "summary": "Information-dense but grouped and labeled—not a flat widget wall.",
       "suggestedKsComponent": "Cap",
+      "principles": ["ENT.APP.01"],
       "scorer": false
     },
     {
@@ -201,6 +310,7 @@
       "handbookSlug": "ai-app-workflow-continuity",
       "summary": "Sense of place; selection paths show next step (Sab when rows selected).",
       "suggestedKsComponent": "Sab",
+      "principles": ["ENT.APP.08"],
       "scorer": false
     },
     {
@@ -211,6 +321,7 @@
       "handbookSlug": "ai-dashboard-actionability-priority",
       "summary": "Operators see what to do next—not only vanity counts.",
       "suggestedKsComponent": null,
+      "principles": ["ENT.APP.10"],
       "scorer": false
     },
     {
@@ -221,6 +332,7 @@
       "handbookSlug": "ai-premium-enterprise-feel",
       "summary": "Calm matte enterprise polish on operator chrome.",
       "suggestedKsComponent": null,
+      "principles": ["ENT.APP.01"],
       "scorer": false
     }
   ]

@@ -535,3 +535,251 @@
 .ks-fe-kvgrid--stack .ks-fe-kvgrid__label:first-child {
   margin-top: 0;
 }
+
+/* —— Error summary (Fes) —— */
+.ks-fe-error-summary {
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  background: rgba(127, 29, 29, 0.22);
+  margin-bottom: 0.75rem;
+}
+
+.ks-fe-error-summary__title {
+  font-size: 0.95rem;
+  margin: 0 0 0.35rem;
+}
+
+.ks-fe-error-summary__list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.ks-fe-error-summary__link {
+  background: none;
+  border: none;
+  color: #fca5a5;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+}
+
+/* —— Autosave status (Fas) —— */
+.ks-fe-autosave {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.ks-fe-autosave__dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #94a3b8;
+}
+
+.ks-fe-autosave--saved .ks-fe-autosave__dot { background: #34d399; }
+.ks-fe-autosave--saving .ks-fe-autosave__dot { background: #38bdf8; animation: ks-fe-pulse 1s infinite; }
+.ks-fe-autosave--dirty .ks-fe-autosave__dot { background: #fbbf24; }
+.ks-fe-autosave--error .ks-fe-autosave__dot { background: #f87171; }
+
+@keyframes ks-fe-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.ks-fe-autosave__detail {
+  opacity: 0.75;
+}
+
+/* —— Draft recovery (Fdr) —— */
+.ks-fe-draft-recovery {
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 0.35rem;
+  padding: 0.65rem 0.85rem;
+  background: rgba(120, 53, 15, 0.15);
+}
+
+.ks-fe-draft-recovery__title {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.ks-fe-draft-recovery__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ks-fe-draft-recovery__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ks-fe-draft-recovery__scope {
+  display: block;
+  font-size: 0.78rem;
+  opacity: 0.8;
+}
+
+.ks-fe-draft-recovery__time {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* —— Saved views (Fsm) —— */
+.ks-fe-saved-views__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.ks-fe-saved-views__label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+}
+
+.ks-fe-saved-views__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ks-fe-saved-views__item {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.ks-fe-saved-views__btn {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: transparent;
+  color: inherit;
+  font-size: 0.78rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.32rem;
+  cursor: pointer;
+}
+
+.ks-fe-saved-views__btn--active {
+  background: rgba(6, 182, 212, 0.18);
+}
+
+.ks-fe-saved-views__shared {
+  margin-left: 0.25rem;
+  font-size: 0.68rem;
+  opacity: 0.75;
+}
+
+.ks-fe-saved-views__delete {
+  border: none;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+/* —— Operation progress (Fop) —— */
+.ks-fe-op-progress__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.ks-fe-op-progress__track {
+  height: 0.35rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.2);
+  overflow: hidden;
+}
+
+.ks-fe-op-progress__fill {
+  height: 100%;
+  background: rgba(6, 182, 212, 0.85);
+  transition: width 0.2s ease;
+}
+
+.ks-fe-op-progress__detail {
+  margin: 0.25rem 0 0.35rem;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* —— Freshness (Ffi) —— */
+.ks-fe-freshness {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.ks-fe-freshness--stale .ks-fe-freshness__label {
+  color: #fbbf24;
+}
+
+/* —— Object inspector (Foi) —— */
+.ks-fe-inspector {
+  display: flex;
+  flex-direction: column;
+  min-height: 12rem;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 0.35rem;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.ks-fe-inspector__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.ks-fe-inspector__title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.ks-fe-inspector__subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.ks-fe-inspector__body {
+  padding: 0.65rem 0.85rem;
+  flex: 1;
+  overflow: auto;
+}
+
+/* —— Access reason (Far) —— */
+.ks-fe-access-reason {
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  font-size: 0.85rem;
+}
+
+.ks-fe-access-reason--denied {
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
+.ks-fe-access-reason__text {
+  margin: 0.25rem 0 0.35rem;
+}

@@ -3,14 +3,11 @@ rule_id: DET.STUDIO.TITLE_NAV_MATCH
 lane: deterministic
 title: Studio title matches app rail
 summary: Page H1 matches the active app-rail label so operators always know where they are.
-page_version: studio-title-nav-match-v1
+page_version: d4a1c54ca76992afcee20e32ff8b24aaff0ba5d9aa9d21e0b996b45e1fc84164
 generated_at: 2026-08-13T00:00:00.000Z
 registry_status: documented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-studio-title_nav_match
-related_rules:
-  - DET.STUDIO.H1
-  - DET.APP.PERSISTENT_CHROME
-  - AI.APP.WORKFLOW_CONTINUITY
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 ---
 
 ## Purpose

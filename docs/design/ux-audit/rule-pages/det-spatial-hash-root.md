@@ -3,14 +3,12 @@ rule_id: DET.SPATIAL.HASH_ROOT
 lane: deterministic
 title: Spatial effect hash roots
 summary: Spatial showcase demos (Flp, Hol, Tlz, …) must emit paired hash and data-ks-hash markers on their root element.
-page_version: spatial-bootstrap-001
+page_version: 5f762406a8ab70023eb84c68980b7f70b93359cca91c5d096c32392f5ed6a461
 generated_at: 2026-07-22T00:00:00.000Z
 agent_model: ks-spatial-pdca
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-spatial-hash_root
-related_rules:
-  - DET.HASH.MARKERS
-  - DET.SPATIAL.ORACLE_PRESENT
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 ---
 
 ## Purpose

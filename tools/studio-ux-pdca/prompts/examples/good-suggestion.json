@@ -1,0 +1,29 @@
+{
+  "rank": 1,
+  "id": "watchlists-tab-secondary-jobs",
+  "title": "Move Screen and Alerts behind Svc tabs",
+  "axis": "job_budget",
+  "rule_id": "DET.STUDIO.JOB_BUDGET",
+  "severity": "major",
+  "expected_uplift": "high",
+  "uplift_rationale": "Removes competing jobs from first viewport; restores one primary list-review job",
+  "suggested_ks_component": "Svc",
+  "evidence": "Above-fold: three H2 sections (Lists, Screen, Alerts) visible without tabs",
+  "plan": [
+    "Goal: one primary job (review active watchlist) in first viewport",
+    "Rule: DET.STUDIO.JOB_BUDGET",
+    "KS component: Svc segmented control for Lists / Screen / Alerts / Compare"
+  ],
+  "do": [
+    "Remount watchlists center pane with Svc tabs; only Lists table visible by default",
+    "Demote Screen and Alerts panels behind tab panels",
+    "Keep one primary CTA per tab (Add symbol on Lists)"
+  ],
+  "check": [
+    "pytest -q",
+    "cd studio-ui && npx playwright test tests/api-smoke.spec.ts"
+  ],
+  "adjust": [
+    "If tab switch breaks deep links, preserve route hash but keep single visible job"
+  ]
+}

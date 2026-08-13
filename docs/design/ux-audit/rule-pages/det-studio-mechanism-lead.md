@@ -3,14 +3,11 @@ rule_id: DET.STUDIO.MECHANISM_LEAD
 lane: deterministic
 title: Studio outcome-led lead
 summary: Lead paragraph after H1 states human outcome before harvest/API/pipeline mechanism vocabulary.
-page_version: studio-mechanism-lead-v1
+page_version: 8a2bff7709e73a1aaf3170f4c3c4df5a9be336b47ed4c424f9e71caf7c581331
 generated_at: 2026-08-13T00:00:00.000Z
 registry_status: documented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-studio-mechanism_lead
-related_rules:
-  - DET.STUDIO.TITLE_NAV_MATCH
-  - AI.DASHBOARD.ACTIONABILITY_PRIORITY
-  - AI.CREDIBILITY.NO_OVERCLAIM
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 ---
 
 ## Purpose

@@ -3,20 +3,12 @@ rule_id: AI.NARRATIVE.COHERENCE
 lane: ai
 title: Narrative coherence
 summary: The page tells one ordered story—problem, outcome, mechanism, next step—with section sequencing that does not contradict earlier claims.
-page_version: 3e1187c7e66cb94ddb158cf40e3b1769a235a7e9f8c8c875ff6cdbb1041dc4e1
+page_version: 26835095a6d66285ef743edb515f113b827e25b0a5778e2e11f570a49904553f
 generated_at: 2026-05-19T23:12:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-narrative-coherence
-related_rules:
-  - DET.PAGE.MODE
-  - DET.SECTION.SINGLE_JOB
-  - DET.SECTION.HEADING
-  - AI.CONTEXT.COGNITIVE_CLARITY
-  - AI.TRUST.BOUNDARY_CLARITY
-  - AI.VISUAL.HIERARCHY_CONFIDENCE
-  - AI.CREDIBILITY.NO_OVERCLAIM
 ---
 
 ## Purpose

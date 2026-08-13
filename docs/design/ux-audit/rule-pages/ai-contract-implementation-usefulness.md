@@ -3,18 +3,12 @@ rule_id: AI.CONTRACT.IMPLEMENTATION_USEFULNESS
 lane: ai
 title: Contract implementation usefulness
 summary: Design contracts must give engineers element-specific anatomy, states, and verification so hashed KS surfaces ship without guessing UX intent.
-page_version: dd48bd94ca99c402b47d74f66bb8c69406f864cfc5300464985a1a1e8b8f761b
+page_version: f7ff82700a1d09b1e3cadd2e41ab3466a52a73692ba53f2f8fbf67274be91e1f
 generated_at: 2026-05-19T17:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-contract-implementation-usefulness
-related_rules:
-  - DET.CATALOG.CONTRACT_SPECIFICITY
-  - DET.CONTRACT.PATH
-  - DET.CONTRACT.PLACEHOLDERS
-  - DET.HASH.MARKERS
-  - AI.CONTRACT.FAMILY_COVERAGE_JUSTIFIED
 ---
 
 ## Purpose

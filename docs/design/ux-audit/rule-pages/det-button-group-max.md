@@ -3,10 +3,10 @@ rule_id: DET.BUTTON.GROUP.MAX
 lane: deterministic
 title: Horizontal button group cap
 summary: Horizontal CTA and toolbar clusters expose at most three visible actions before overflow or disclosure; extras belong in menus, secondary links, or follow-on sections.
-page_version: b7cc93206211ddd3f1dfbb848bad56ec5aec6bc6024f3c745c3c4a1245136f0f
+page_version: 82f1265bbe1389ebd0ca946151743638df325b6a694654b54b126aa9599022b5
 generated_at: 2026-05-19T20:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-button-group-max
 ---

@@ -3,20 +3,12 @@ rule_id: DET.CHROME.BOUNDARY
 lane: deterministic
 title: Chrome boundary separation
 summary: Visible header, footer, and sidebar chrome outside main must separate from the reading canvas via border, distinct background, or box-shadow per chrome-region contracts.
-page_version: f76b4b124b9d5e2362faab0ea9bf8d6854faecdaee21e15455e8fc96a942335c
+page_version: b62351acab338f40afff43bf8f9d00cf7264b4bc868ae4328ddf2c2f5b6c13cd
 generated_at: 2026-05-19T20:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-chrome-boundary
-related_rules:
-  - DET.LANDMARKS.REQUIRED
-  - DET.LAYOUT.GRID_CONSISTENCY
-  - DET.APP.PERSISTENT_CHROME
-  - DET.NAV.BREADCRUMB
-  - DET.NAV.DEDUP
-  - AI.APP.WORKFLOW_CONTINUITY
-  - AI.VISUAL.HIERARCHY
 ---
 
 ## Purpose

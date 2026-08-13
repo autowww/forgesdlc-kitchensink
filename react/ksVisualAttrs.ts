@@ -37,6 +37,14 @@ export const KS_REACT_PRIMITIVE = {
   ForgeRunHeader: { hash: 'Frh', name: 'forge-run-header' },
   ForgeDecisionActionBar: { hash: 'Fda', name: 'forge-decision-action-bar' },
   WorkspaceLensControl: { hash: 'Wlc', name: 'workspace-lens-control' },
+  ForgeErrorSummary: { hash: 'Fes', name: 'forge-error-summary' },
+  ForgeAutosaveStatus: { hash: 'Fas', name: 'forge-autosave-status' },
+  ForgeDraftRecovery: { hash: 'Fdr', name: 'forge-draft-recovery' },
+  ForgeSavedViewManager: { hash: 'Fsm', name: 'forge-saved-view-manager' },
+  ForgeOperationProgress: { hash: 'Fop', name: 'forge-operation-progress' },
+  ForgeFreshnessIndicator: { hash: 'Ffi', name: 'forge-freshness-indicator' },
+  ForgeObjectInspector: { hash: 'Foi', name: 'forge-object-inspector' },
+  ForgeAccessReason: { hash: 'Far', name: 'forge-access-reason' },
 } as const;
 
 export function ksReactPrimitiveAttrs(componentKey: keyof typeof KS_REACT_PRIMITIVE): KsVisualDomProps {

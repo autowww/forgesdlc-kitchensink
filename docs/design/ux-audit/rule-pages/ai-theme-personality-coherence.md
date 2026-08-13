@@ -3,20 +3,12 @@ rule_id: AI.THEME.PERSONALITY_COHERENCE
 lane: ai
 title: Theme personality coherence
 summary: Forge theme accents, dark foundation, and typography reinforce calm enterprise temperament—amber and cyan play predictable roles without fighting copy or mixing unrelated palettes.
-page_version: c55d81ed3a33aedc15eb7162fdfc84805ab6d5f34b1b8ee11afd5b9fa9af67aa
+page_version: aebc8f3a70ca0a7be73927bca9202acd7aa2cf32a6d9b3c9c7c733b4cedf4d66
 generated_at: 2026-05-19T22:35:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-theme-personality-coherence
-related_rules:
-  - AI.PREMIUM.ENTERPRISE_FEEL
-  - AI.AMBIENT.READABILITY_CONFLICT
-  - AI.VISUAL.HIERARCHY_CONFIDENCE
-  - DET.TOKEN.NO_DRIFT
-  - DET.THEME.FONT_STACK
-  - DET.THEME.CONTRAST_MIN
-  - DET.SURFACE.ELEVATION_TOKEN
 ---
 
 ## Purpose

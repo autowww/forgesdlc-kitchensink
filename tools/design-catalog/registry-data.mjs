@@ -7,6 +7,7 @@ const ST = 'docs/design/forge-enterprise-ai-website-standard.md';
 const cssPaths = [
   'css/forge-theme.css',
   'css/forge-react-primitives.css',
+  'css/forge-enterprise-compositions.css',
   'css/script-assembly.css',
   'css/forge-fleet-admin.css',
   'css/tile-dropdown.css',
@@ -48,6 +49,13 @@ const jsPaths = [
   'js/svg-background-gallery.js',
   'js/portal-nav.js',
   'js/docs-nav.js',
+  'js/ks-undo-toast.js',
+  'js/ks-editable-grid-adapter.js',
+  'js/ks-queue-workbench.js',
+  'js/ks-governed-form.js',
+  'js/ks-async-operation.js',
+  'js/ks-record-workspace.js',
+  'js/ks-permission-boundary.js',
 ];
 
 const svgPaths = [
@@ -275,6 +283,14 @@ const reactHashes = [
   ['Frh', 'ForgeRunHeader', 'ForgeRunHeader.tsx'],
   ['Fda', 'ForgeDecisionActionBar', 'ForgeDecisionActionBar.tsx'],
   ['Wlc', 'WorkspaceLensControl', 'WorkspaceLensControl.tsx'],
+  ['Fes', 'ForgeErrorSummary', 'ForgeErrorSummary.tsx'],
+  ['Fas', 'ForgeAutosaveStatus', 'ForgeAutosaveStatus.tsx'],
+  ['Fdr', 'ForgeDraftRecovery', 'ForgeDraftRecovery.tsx'],
+  ['Fsm', 'ForgeSavedViewManager', 'ForgeSavedViewManager.tsx'],
+  ['Fop', 'ForgeOperationProgress', 'ForgeOperationProgress.tsx'],
+  ['Ffi', 'ForgeFreshnessIndicator', 'ForgeFreshnessIndicator.tsx'],
+  ['Foi', 'ForgeObjectInspector', 'ForgeObjectInspector.tsx'],
+  ['Far', 'ForgeAccessReason', 'ForgeAccessReason.tsx'],
 ];
 
 const reactChildHashes = reactHashes.map((r) => r[0]);
@@ -324,6 +340,40 @@ entries.push(
     notes: 'Family contract lists covered react primitive hashes.',
   }),
 );
+
+const enterpriseCompositions = [
+  ['Fqw', 'ForgeQueueWorkbench', 'js/ks-queue-workbench.js', 'docs/design/catalog/components/Fqw-forge-queue-workbench.md'],
+  ['Fgf', 'ForgeGovernedForm', 'js/ks-governed-form.js', 'docs/design/catalog/components/Fgf-forge-governed-form.md'],
+  ['Fao', 'ForgeAsyncOperation', 'js/ks-async-operation.js', 'docs/design/catalog/components/Fao-forge-async-operation.md'],
+  ['Frw', 'ForgeRecordWorkspace', 'js/ks-record-workspace.js', 'docs/design/catalog/components/Frw-forge-record-workspace.md'],
+  ['Fpb', 'ForgePermissionBoundary', 'js/ks-permission-boundary.js', 'docs/design/catalog/components/Fpb-forge-permission-boundary.md'],
+  ['Fut', 'ForgeUndoToast', 'js/ks-undo-toast.js', 'docs/design/catalog/components/Fut-forge-undo-toast.md'],
+  ['Feg', 'ForgeEditableGridAdapter', 'js/ks-editable-grid-adapter.js', 'docs/design/catalog/components/Feg-forge-editable-grid-adapter.md'],
+];
+
+for (const [hash, name, src, contract] of enterpriseCompositions) {
+  entries.push(
+    base({
+      hash,
+      name,
+      slug: name.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, ''),
+      type: 'app-composition',
+      family: 'enterprise-app',
+      status: 'active',
+      source_paths: [src],
+      source_symbols: [`create${name.replace(/^Forge/, '')}`],
+      root_selector: `[data-ks-hash="${hash}"]`,
+      contract,
+      contract_status: 'own',
+      showcase_url: 'https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html',
+      screenshot_url: null,
+      screenshot_status: 'planned',
+      emit_marker_in_showcase: true,
+      parent_hash: null,
+      child_hashes: [],
+    }),
+  );
+}
 
 entries.push(
   base({

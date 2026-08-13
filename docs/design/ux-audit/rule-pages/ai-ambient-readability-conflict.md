@@ -3,17 +3,12 @@ rule_id: AI.AMBIENT.READABILITY_CONFLICT
 lane: ai
 title: Ambient readability conflict
 summary: Ambient SVG, canvas, and parallax layers must not compete with foreground copy, controls, or affordance clarity.
-page_version: b57d41c04c058844ed2078a8c6d7d7c371c12771c57c68fe8ae70e719a110e9b
+page_version: 399d7b008f2322763477231de6c5c4b6f3f8ae474cf88de692efe036235709ba
 generated_at: 2026-05-19T16:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-ambient-readability-conflict
-related_rules:
-  - DET.AMBIENT.Z_INDEX
-  - DET.THEME.CONTRAST_MIN
-  - DET.MOTION.PREFERS_REDUCED
-  - AI.MOTION.INTENTIONALITY
 ---
 
 ## Purpose

@@ -3,21 +3,12 @@ rule_id: DET.PROSE.LENGTH
 lane: deterministic
 title: Prose length and list caps
 summary: Visible paragraphs stay within the 85-word readability budget; card lists cap at three outcome bullets and main-column lists at twelve scannable items.
-page_version: b246000e8074dc2ec8325cca1ad2af3f39e46152d69d019a9536befacd6887f9
+page_version: 87451d17996b62bf66240ff2f8e5df3178ef8cfb8bb7108cf0d954e879d2aabc
 generated_at: 2026-05-25T18:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-prose-length
-related_rules:
-  - DET.LAYOUT.GRID_CONSISTENCY
-  - DET.SECTION.HEADING
-  - DET.SECTION.SINGLE_JOB
-  - DET.CONTEXT.BURDEN
-  - DET.HTML.EMPTY_INLINE
-  - AI.CONTEXT.COGNITIVE_CLARITY
-  - AI.NARRATIVE.COHERENCE
-  - AI.TRUST.BOUNDARY_CLARITY
 ---
 
 ## Purpose

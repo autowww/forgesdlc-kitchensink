@@ -55,6 +55,13 @@ Handbook pages: `rule-pages/det-studio-*.md`.
 | `DET.CARD.ACTION_LIMIT` | ≤1 primary action per card |
 | `DET.APP.TAB_PANEL` | Tab ↔ panel ARIA wiring |
 | `DET.APP.PERSISTENT_CHROME` | Stable rail/header across routes |
+| `DET.APP.PRIMARY_STATE` | One visible primary workspace state region |
+| `DET.APP.EMPTY_LOADING_ERROR_SUCCESS` | Empty/loading/error states with heading + next action |
+| `DET.APP.DATA_REFRESH_STALENESS` | Stale data signal + refresh/retry |
+| `DET.APP.BULK_ACTION_SCOPE` | Bulk toolbar states selected count before execute |
+| `DET.APP.DISABLED_REASON` | Disabled controls show visible reason |
+| `DET.APP.TOAST_LIFECYCLE` | Toasts use live regions; do not cover primary CTA |
+| `DET.FORM.LABEL_ERROR_SUMMARY` | Labels, inline errors, multi-field error summary |
 | `DET.LANDMARKS.REQUIRED` | `main`, `nav` landmarks |
 | `AI.APP.DENSITY_BALANCE` | Governed density, not flat widget walls |
 | `AI.APP.WORKFLOW_CONTINUITY` | Sense of place; selection → next step (`Sab`) |

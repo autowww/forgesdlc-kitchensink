@@ -1,0 +1,35 @@
+id: ENT.APP.01
+title: Design the complete job, not an isolated screen
+
+recommended_components:
+  - ForgeRunHeader
+  - ForgeKeyValueGrid
+  - ForgeWorkflowStageBar
+  - ForgeEventTimeline
+  - breadcrumbs
+  - sidebar-navigation
+  - ks-split-pane
+
+recommended_composition:
+  - name: ForgeRecordWorkspace
+    status: shipped
+    module: js/ks-record-workspace.js
+    hash: Frw
+
+required_states:
+  - default
+  - loading
+  - error
+  - permission-denied
+  - stale
+
+audit_rules:
+  - DET.STUDIO.H1
+  - DET.STUDIO.JOB_BUDGET
+  - DET.APP.PRIMARY_STATE
+  - DET.LANDMARKS.REQUIRED
+  - DET.STUDIO.TITLE_NAV_MATCH
+
+known_gaps:
+  - unified record metadata schema
+  - handoff/ownership affordances in header

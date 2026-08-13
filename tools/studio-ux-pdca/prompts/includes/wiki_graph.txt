@@ -1,0 +1,20 @@
+## Page-type include: wiki_graph
+
+This page is a **dual-wiki / graph** surface. Weight **wiki_functionality** fully.
+
+### Dual-wiki uplift rubric (rank highest-impact first)
+
+| Pattern | Axis | Typical uplift | Rule |
+|---------|------|----------------|------|
+| Article read/edit is the default center job (Svc) | job_budget | high | `DET.STUDIO.JOB_BUDGET` |
+| Human-readable revision + evidence path (not hash-only) | wiki_functionality | high | `null` |
+| Plain-language Domain vs System in lead or inspector | wiki_functionality | high | `null` |
+| One canonical backlink/impact list (dedupe center vs inspector) | wiki_functionality | medium | `null` |
+| One state-aware primary CTA + ≤2 lifecycle actions | control_density | high | `DET.APP.PRIMARY_CTA` |
+| Graph rails expose Explorer / Hierarchies / Search outcomes | wiki_functionality | medium | `null` |
+
+When `wiki_functionality` < 85, include **at least one** wiki-axis item in `prioritized_suggestions`.
+
+Acceptance reference: `studio-ui/tests/dual-wiki-walkthrough.spec.ts` (wiki list → detail → graph Explorer/Hierarchies/Search/MCP/Scenarios/Bundle).
+
+Do **not** invent FM-WIKI / FM-GRAPH capabilities beyond the feature map excerpt in wiki context.

@@ -3,14 +3,12 @@ rule_id: DET.KS.HASH_SEMANTIC_UNIQUENESS
 lane: deterministic
 title: Hash semantic uniqueness
 summary: A KS hash is not reused for unrelated data-ks-type and data-ks-name anatomy on the same page or build output.
-page_version: ks-governance-v1
+page_version: 141d92a7f3895fec59de94986650adff42ba0b75bf3984386ac117a38d0d7395
 generated_at: 2026-05-28T20:30:00.000Z
 agent_model: composer-2.5-fast
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-ks-hash-semantic-uniqueness
-related_rules:
-  - DET.HASH.MARKERS
-  - DET.HASH.REGISTRY_ROW
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 ---
 
 ## Purpose

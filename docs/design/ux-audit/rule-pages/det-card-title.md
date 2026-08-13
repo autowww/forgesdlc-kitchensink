@@ -3,10 +3,10 @@ rule_id: DET.CARD.TITLE
 lane: deterministic
 title: Card accessible title
 summary: Every Kitchen Sink card root exposes a visible title (heading or .card-title) or an equivalent accessible name via aria-labelledby or aria-label.
-page_version: a732dcb372ec3f85140b7aa893abe068a469503c3edf9664834e1fd488a37661
+page_version: 06178a2e75c75a2820806309add1bb146011198005e3e353dbbd8e7068d12b3a
 generated_at: 2026-05-19T19:12:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-card-title
 ---

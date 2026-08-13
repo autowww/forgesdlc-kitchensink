@@ -1,0 +1,37 @@
+id: ENT.APP.03
+title: Make system state, data freshness, and consequences visible
+
+recommended_components:
+  - ForgeStatusBanner
+  - badge
+  - ForgeWorkflowStageBar
+  - ForgeEventTimeline
+  - ForgeDiagnosticPanel
+  - ForgeKeyValueGrid
+  - ForgeOperationProgress
+  - ForgeFreshnessIndicator
+
+recommended_composition:
+  - name: ForgeAsyncOperation
+    status: shipped
+    module: js/ks-async-operation.js
+    hash: Fao
+
+required_states:
+  - idle
+  - loading
+  - stale
+  - partial-success
+  - error
+  - success
+  - waiting-external
+
+audit_rules:
+  - DET.APP.DATA_REFRESH_STALENESS
+  - DET.APP.EMPTY_LOADING_ERROR_SUCCESS
+  - DET.APP.PRIMARY_STATE
+  - DET.APP.TOAST_LIFECYCLE
+
+known_gaps:
+  - ForgeResultReceipt
+  - ForgeJobCenter

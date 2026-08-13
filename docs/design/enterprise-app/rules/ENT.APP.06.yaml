@@ -1,0 +1,31 @@
+id: ENT.APP.06
+title: Separate authorization, role defaults, and user preferences
+
+recommended_components:
+  - sidebar-navigation
+  - WorkspaceLensControl
+  - createSegmentedControl
+  - ForgeStatusBanner
+  - createGovernedCombobox
+  - ForgeAccessReason
+
+recommended_composition:
+  - name: ForgePermissionBoundary
+    status: shipped
+    module: js/ks-permission-boundary.js
+    hash: Fpb
+
+required_states:
+  - full-access
+  - read-only
+  - partial-access
+  - permission-denied
+  - demo-disclosure
+
+audit_rules:
+  - DET.APP.DISABLED_REASON
+  - DET.APP.DEMO_DISCLOSURE
+
+known_gaps:
+  - ForgeReadOnlyFieldGroup
+  - ForgeRolePreset

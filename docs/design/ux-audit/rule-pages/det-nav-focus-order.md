@@ -3,19 +3,12 @@ rule_id: DET.NAV.FOCUS_ORDER
 lane: deterministic
 title: Keyboard focus order matches visual reading order
 summary: Tab traversal follows top-to-bottom, left-to-right reading order on sampled paths through header, main, and footer chrome—no positive tabindex, large upward jumps, or row inversions.
-page_version: 84636f49a8af2c9595b613d075ec4f5c84d25ca7537f8b8fc84b43684a3d0210
+page_version: 1757c216531d1210eaf224bb59a18d6246e088af7f8e089ab9679282654afd86
 generated_at: 2026-05-25T21:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-nav-focus_order
-related_rules:
-  - DET.LANDMARKS.REQUIRED
-  - DET.NAV.DEPTH
-  - DET.NAV.DEDUP
-  - DET.NAV.BREADCRUMB
-  - DET.NAV.IN_PAGE_TOC
-  - DET.APP.FOCUS_TRAP
 ---
 
 ## Purpose

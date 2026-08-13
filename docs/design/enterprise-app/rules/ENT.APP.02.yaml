@@ -1,0 +1,32 @@
+id: ENT.APP.02
+title: Never make users reconstruct their work
+
+recommended_components:
+  - createFormController
+  - createFilterToolbar
+  - WorkspaceLensControl
+  - ks-split-pane
+  - ForgeAutosaveStatus
+  - ForgeDraftRecovery
+  - ForgeSavedViewManager
+
+recommended_composition:
+  - name: ForgePersistentWorkspace
+    status: planned
+
+required_states:
+  - saved
+  - saving
+  - dirty
+  - draft-available
+  - conflict
+  - restored
+
+audit_rules:
+  - planned: DET.APP.WORK_STATE_PERSISTENCE
+  - DET.APP.ROUTE_DEEPLINK_STATE
+  - DET.APP.PERSISTENT_CHROME
+
+known_gaps:
+  - ForgeRecentItems
+  - ForgePersistentWorkspace composition wrapper

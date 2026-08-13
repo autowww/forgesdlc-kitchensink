@@ -3,12 +3,11 @@ rule_id: DET.STUDIO.TESTID
 lane: deterministic
 title: Studio test anchors
 summary: Pages expose data-testid hooks for Playwright PDCA gates and stable automation.
-page_version: studio-testid-v1
+page_version: 4f3536bbf96acd4ba8e0255fd2e69cd49f6076e39942e6c9e981351eb7d7b76a
 generated_at: 2026-08-13T00:00:00.000Z
 registry_status: documented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-studio-testid
-related_rules:
-  - DET.APP.ROUTE_DEEPLINK_STATE
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 ---
 
 ## Purpose

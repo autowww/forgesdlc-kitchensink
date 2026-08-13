@@ -1,0 +1,32 @@
+id: ENT.APP.09
+title: Accessibility and keyboard behavior as component contracts
+
+recommended_components:
+  - accessible-table
+  - createStepperWizard
+  - overlays
+  - skip-links
+  - breadcrumbs
+  - reduced-motion-handling
+
+recommended_composition: []
+
+required_states:
+  - default
+  - focus
+  - disabled-with-reason
+  - error
+  - loading
+  - reduced-motion
+  - screen-reader-busy
+
+audit_rules:
+  - DET.APP.CONTROL_A11Y
+  - DET.APP.PRIMITIVE_MARKERS
+  - DET.LANDMARKS.REQUIRED
+  - DET.NAV.FOCUS_ORDER
+
+known_gaps:
+  - per-primitive state matrices
+  - contract test harness for required_states
+  - manual testing evidence templates

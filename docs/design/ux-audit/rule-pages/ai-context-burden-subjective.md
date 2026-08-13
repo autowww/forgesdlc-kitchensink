@@ -3,18 +3,12 @@ rule_id: AI.CONTEXT.BURDEN_SUBJECTIVE
 lane: ai
 title: Subjective context burden
 summary: Even when numeric first-screen caps pass, the page must not feel visually noisy, cognitively dense, or split by competing focal points.
-page_version: 5957d05615097c23a160058f2f2bdf5a180df71a172761243ae0e4fc4b8a7549
+page_version: f356ba7bb636d2596498d06c6443c8032635404c5d946ead499ec5874dd4908e
 generated_at: 2026-05-19T19:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-context-burden-subjective
-related_rules:
-  - DET.CONTEXT.BURDEN
-  - AI.CONTEXT.COGNITIVE_CLARITY
-  - AI.NARRATIVE.COHERENCE
-  - AI.VISUAL.HIERARCHY_CONFIDENCE
-  - DET.SECTION.SINGLE_JOB
 ---
 
 ## Purpose

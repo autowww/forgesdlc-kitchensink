@@ -37,8 +37,8 @@ elif [[ -n "${MATRIX_USER:-}" && -n "${MATRIX_PASSWORD:-}" ]]; then
 else
   _fail "Matrix auth: set MATRIX_ACCESS_TOKEN or MATRIX_USER + MATRIX_PASSWORD"
 fi
-ROOM="${FM_STUDIO_UX_MATRIX_ROOM_ID:-${MATRIX_CURSOR_ROOM:-${MATRIX_OPS_ROOM:-}}}"
-[[ -n "$ROOM" ]] && _ok "notify room=$ROOM" || _warn "FM_STUDIO_UX_MATRIX_ROOM_ID / MATRIX_OPS_ROOM unset (default #ops)"
+ROOM="${FM_STUDIO_UX_MATRIX_ROOM_ID:-${MATRIX_STUDIO_UX_ROOM:-${MATRIX_CURSOR_ROOM:-${MATRIX_OPS_ROOM:-}}}}"
+[[ -n "$ROOM" ]] && _ok "notify room=$ROOM" || _warn "FM_STUDIO_UX_MATRIX_ROOM_ID unset (default #studio-ux:matrix.forgedc.net)"
 
 # Studio
 STUDIO_URL="${FM_STUDIO_BASE_URL:-http://127.0.0.1:9792}"

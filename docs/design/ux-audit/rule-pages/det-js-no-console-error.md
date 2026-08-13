@@ -3,17 +3,12 @@ rule_id: DET.JS.NO_CONSOLE_ERROR
 lane: deterministic
 title: No console errors on scripted golden paths
 summary: Playwright smoke must complete tab, collapse, theme, and nav toggles without console errors or uncaught page exceptions on Kitchen Sink scripted surfaces.
-page_version: 01cb5ec00334415a9f9108a46f624c90a59e31b6735c536e0871f57174fd74e7
+page_version: 7a8cb1547ea56eed3b176876bf28dd518ac482526fca9fecf69ab79c277f4787
 generated_at: 2026-05-25T20:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-js-no_console_error
-related_rules:
-  - DET.JS.PROGRESSIVE
-  - DET.NAV.FOCUS_ORDER
-  - DET.MOTION.PREFERS_REDUCED
-  - AI.JS.BEHAVIOR_DISCOVERABILITY
 ---
 
 ## Purpose

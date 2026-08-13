@@ -21,7 +21,28 @@ fi
 
 ABS_PLAN="$(cd "$(dirname "$PLAN_PATH")" && pwd)/$(basename "$PLAN_PATH")"
 MODEL="${FORGE_STUDIO_UX_CURSOR_MODEL:-composer-2.5}"
+SUGGESTION_RANK="${STUDIO_UX_SUGGESTION_RANK:-}"
+SUGGESTION_TOTAL="${STUDIO_UX_SUGGESTION_TOTAL:-}"
+SCOPE_BLOCK=""
+if [[ -n "$SUGGESTION_RANK" && -n "$SUGGESTION_TOTAL" ]]; then
+  SCOPE_BLOCK="## HARD SCOPE GATE (mandatory)
+
+This run is prioritized suggestion **${SUGGESTION_RANK} of ${SUGGESTION_TOTAL}** for this page cycle.
+
+- Implement **only** the scoped change in the plan file below.
+- Do **not** implement, stage, or partially apply other assessment suggestions.
+- Do **not** bundle unrelated IA remounts, copy edits, or visual polish from the batch index.
+- If the plan references other suggestions, treat them as out of scope for this run."
+else
+  SCOPE_BLOCK="## HARD SCOPE GATE (mandatory)
+
+- Implement **only** the scoped change in the plan file below.
+- If the assessment batch lists multiple suggestions, ignore all except what this plan describes."
+fi
+
 PROMPT="Repository root: $(pwd)
+
+${SCOPE_BLOCK}
 
 Execute the Studio UX PDCA plan at:
 ${ABS_PLAN}

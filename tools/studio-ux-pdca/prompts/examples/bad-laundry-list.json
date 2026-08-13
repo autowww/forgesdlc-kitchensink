@@ -1,0 +1,25 @@
+{
+  "rank": 1,
+  "id": "everything-at-once",
+  "title": "Fix all UX issues on watchlists",
+  "axis": "job_budget",
+  "rule_id": "DET.STUDIO.JOB_BUDGET",
+  "severity": "major",
+  "expected_uplift": "high",
+  "uplift_rationale": "Fixes everything",
+  "suggested_ks_component": "Svc",
+  "evidence": "Many problems",
+  "plan": ["Fix everything"],
+  "do": [
+    "Rename H1",
+    "Add tabs",
+    "Fix copy on all panels",
+    "Reduce button count",
+    "Add wiki links",
+    "Restyle cards",
+    "Update footer",
+    "Refactor API hooks"
+  ],
+  "check": ["run tests"],
+  "adjust": ["try again"]
+}

@@ -37,6 +37,7 @@ def format_prompt_appendix(ks_public_base: str, ruleset: dict[str, Any] | None =
         "## Enterprise app UX ruleset (Studio PDCA pack)",
         "",
         f"Canonical standard: `{data.get('standardPath', '')}`",
+        f"ENT.APP contracts: `{data.get('enterpriseAppContractsPath', 'docs/design/enterprise-app/README.md')}`",
         f"Rule catalog index: {base}/cases/showcase/ux-audit-rules.html",
         "",
         "Cite **only** rule IDs from this closed pack (or `null` when no rule applies):",

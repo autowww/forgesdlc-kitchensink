@@ -1,0 +1,8 @@
+## Page-type include: studio_ops
+
+This page is a **Studio operations** surface (lists, filings, ingest, analysis, company hub sub-tabs).
+
+- **wiki_functionality** axis: score **N/A as 100** — do not penalize missing wiki affordances.
+- Primary job examples: review one list scope; run one pipeline stage; inspect one issuer summary.
+- Secondary jobs belong behind **Svc** tabs (Screen, Alerts, Compare, Charts) — not simultaneous peer panels.
+- Cross-links to wiki/graph are fine; do not require dual-wiki evidence paths on non-wiki pages.

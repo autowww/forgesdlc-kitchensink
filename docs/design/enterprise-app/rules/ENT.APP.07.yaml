@@ -1,0 +1,31 @@
+id: ENT.APP.07
+title: Support beginners and experts in the same interface
+
+recommended_components:
+  - disclosure-stack
+  - ks-command-palette
+  - callout
+  - createGovernedCombobox
+  - action-dropdown
+  - createStepperWizard
+
+recommended_composition:
+  - name: ForgeAdaptiveWorkspace
+    status: planned
+
+required_states:
+  - guided
+  - standard
+  - expert
+  - shortcut-available
+
+audit_rules:
+  - DET.APP.PRIMARY_CTA
+  - DET.BUTTON.GROUP.MAX
+  - DET.APP.WIZARD_PROGRESS_CONTROLS
+
+known_gaps:
+  - ForgeContextHelp
+  - ForgeShortcutRegistry
+  - ForgeTemplatePicker
+  - ForgeSmartDefault

@@ -5,8 +5,8 @@ title: App shell integration
 summary: No Bootstrap alert/badge metaphors beside governed react-primitive roots.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-shell_integration
 registry_status: implemented
-page_version: 6dd4b00f88ac436ec18a428e36d29cdb99c488cfb214472e05ceacaacc05d8d7
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+page_version: 82dba35f18de4ad30952738bb5176028db552df7e650be02a1f5b4f8b1d90ace
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 generated_at: 2026-05-28T17:05:34.736Z
 ---
 

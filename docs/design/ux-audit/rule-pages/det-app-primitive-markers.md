@@ -3,10 +3,10 @@ rule_id: DET.APP.PRIMITIVE_MARKERS
 lane: deterministic
 title: React Ks Attrs
 summary: Harness bootstrap handbook page for DET.APP.PRIMITIVE_MARKERS.
-page_version: bea28d34baf7530df4a75aaa0348712067b5ef581b6de321e9b1986ab50d8f62
+page_version: 3a6187cbcb464af3f4e2b5e4d062871160f71cc6662192b03526f9bb8bdff848
 generated_at: 2026-05-23T13:24:10Z
 agent_model: handbook-version-sync
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_markers
 related_rules: []

@@ -5,8 +5,8 @@ title: App primary state
 summary: One visible primary workspace state region per active studio page.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-primary-state
 registry_status: implemented
-page_version: 7f62082ab82c1c2ce9ab7f016fcb2e54839413386514bb23d04c6112a1021d75
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+page_version: 822b0d45d1d63841d7348fe6d8799b7cdb86857e7e8de5203b31d60144b3bba1
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 generated_at: 2026-05-28T17:05:34.727Z
 ---
 

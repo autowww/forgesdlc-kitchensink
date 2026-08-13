@@ -1,0 +1,41 @@
+id: ENT.APP.05
+title: Treat tables, search, and filters as a workbench
+
+recommended_components:
+  - createFilterToolbar
+  - createFilterChipScroller
+  - createDataTable
+  - createPaginationTactile
+  - createGovernedCombobox
+  - createStickyActionBar
+  - ks-split-pane
+  - chart-slicers
+  - ForgeEditableGridAdapter
+  - ForgeSavedViewManager
+
+recommended_composition:
+  - name: ForgeQueueWorkbench
+    status: shipped
+    module: js/ks-queue-workbench.js
+    hash: Fqw
+
+required_states:
+  - loading
+  - empty
+  - error
+  - success
+  - stale
+  - partial-success
+  - permission-denied
+  - selection-active
+
+audit_rules:
+  - DET.APP.BULK_ACTION_SCOPE
+  - DET.APP.DATA_REFRESH_STALENESS
+  - DET.APP.EMPTY_LOADING_ERROR_SUCCESS
+  - DET.DATA.TABLE_HEADERS
+  - DET.DATA.COLOR_ONLY
+
+known_gaps:
+  - column-manager-ui
+  - server-persisted-saved-views

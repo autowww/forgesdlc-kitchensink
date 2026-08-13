@@ -47,6 +47,7 @@ export function formatRulesetPromptAppendix(ksPublicBase, ruleset = loadEnterpri
     "## Enterprise app UX ruleset (Studio PDCA pack)",
     "",
     `Canonical standard: \`${ruleset.standardPath}\``,
+    `ENT.APP contracts: \`${ruleset.enterpriseAppContractsPath || "docs/design/enterprise-app/README.md"}\``,
     `Rule catalog index: ${base}/cases/showcase/ux-audit-rules.html`,
     "",
     "Cite **only** rule IDs from this closed pack (or `null` when no rule applies):",

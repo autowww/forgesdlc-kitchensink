@@ -3,17 +3,12 @@ rule_id: AI.MOTION.INTENTIONALITY
 lane: ai
 title: Motion intentionality
 summary: Motion and transitions should guide attention toward the next read or action—not compete with copy, controls, or reading rhythm.
-page_version: 74c3a3b237d7b20f8b0915547e41ac1d3fe3655ef5a2c13112644eec7b36d82b
+page_version: d46a4e63044039c222479848d644a5ff9bb6d90c99bab927cd1a1bb123957c7b
 generated_at: 2026-05-19T22:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-motion-intentionality
-related_rules:
-  - DET.MOTION.PREFERS_REDUCED
-  - DET.MOTION.NO_AUTO_PLAY_FLASH
-  - AI.AMBIENT.READABILITY_CONFLICT
-  - AI.JS.BEHAVIOR_DISCOVERABILITY
 ---
 
 ## Purpose

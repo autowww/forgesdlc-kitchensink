@@ -3,20 +3,12 @@ rule_id: DET.NAV.BREADCRUMB
 lane: deterministic
 title: Doc hub breadcrumb orientation
 summary: Handbook, product, and showcase hub pages expose visible Kbc breadcrumb chrome when doc-sidebar rails or showcase mastheads signal deep IA—home and marketing landing layouts are exempt.
-page_version: d29db46cf5a6dfbe5acb196335691d0cb791e2dd6772b11ce191aa93713bb303
+page_version: 78432403f7b834b8b4ab64d4dd743e8b6afdcd2dfecd25238bf362def0906639
 generated_at: 2026-05-25T15:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-nav-breadcrumb
-related_rules:
-  - DET.LANDMARKS.REQUIRED
-  - DET.CHROME.BOUNDARY
-  - DET.APP.PERSISTENT_CHROME
-  - DET.NAV.DEPTH
-  - DET.NAV.DEDUP
-  - DET.HASH.MARKERS
-  - AI.APP.WORKFLOW_CONTINUITY
 ---
 
 ## Purpose

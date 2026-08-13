@@ -14,6 +14,14 @@ source_paths:
   - react/ForgeRunHeader.tsx
   - react/ForgeDecisionActionBar.tsx
   - react/WorkspaceLensControl.tsx
+  - react/ForgeErrorSummary.tsx
+  - react/ForgeAutosaveStatus.tsx
+  - react/ForgeDraftRecovery.tsx
+  - react/ForgeSavedViewManager.tsx
+  - react/ForgeOperationProgress.tsx
+  - react/ForgeFreshnessIndicator.tsx
+  - react/ForgeObjectInspector.tsx
+  - react/ForgeAccessReason.tsx
 showcase_url: "https://ks.forgesdlc.com/showcase/forge-react-primitives.html"
 screenshot_url: null
 screenshot_status: "not-applicable"
@@ -51,6 +59,14 @@ Each child hash uses **contract_status: family-covered** pointing to this file:
 | Frh | ForgeRunHeader | Run metadata header |
 | Fda | ForgeDecisionActionBar | Decision buttons with guardrails |
 | Wlc | WorkspaceLensControl | Workspace lens selector |
+| Fes | ForgeErrorSummary | Multi-field form error summary |
+| Fas | ForgeAutosaveStatus | Save/draft state indicator |
+| Fdr | ForgeDraftRecovery | Draft recovery list |
+| Fsm | ForgeSavedViewManager | Saved view picker |
+| Fop | ForgeOperationProgress | Long-running job progress |
+| Ffi | ForgeFreshnessIndicator | Data freshness + refresh |
+| Foi | ForgeObjectInspector | Desktop side-panel inspector |
+| Far | ForgeAccessReason | Permission/read-only explanation |
 
 ## Expected look
 
@@ -87,6 +103,31 @@ Dark Forge studio chrome: readable sans-serif body, monospace accents where data
 
 - Copy assumes operator literacy—short labels, no influencer tone.
 - Density is allowed (grids, timelines) but maintains alignment, zebra readability, and quiet separators.
+
+## Enterprise use (per child)
+
+| Hash | Enterprise use | Related ENT.APP | Related DET |
+|------|----------------|-----------------|-------------|
+| Frh | Record/run header with status and top actions | ENT.APP.01 | `DET.STUDIO.H1`, `DET.APP.PRIMARY_CTA` |
+| Fkg | Operational metadata beside records | ENT.APP.01, ENT.APP.08 | `DET.APP.PRIMARY_STATE` |
+| Fwb | Business lifecycle stages (read-only progression) | ENT.APP.01, ENT.APP.03 | — |
+| Fen | Audit trail and event history | ENT.APP.01, ENT.APP.08 | — |
+| Fsb | Page-level operational state (stale, error, approval) | ENT.APP.03 | `DET.APP.DATA_REFRESH_STALENESS`, `DET.APP.EMPTY_LOADING_ERROR_SUCCESS` |
+| Fda | Governed approve/reject/verify decisions | ENT.APP.04, ENT.APP.08, ENT.APP.AI | `DET.APP.PRIMARY_CTA`, `DET.APP.DISABLED_REASON` |
+| Fvw | Pre-decision checklist / diff review | ENT.APP.04, ENT.APP.08 | `DET.FORM.LABEL_ERROR_SUMMARY` |
+| Fdg | Technical diagnostic evidence | ENT.APP.03, ENT.APP.AI | — |
+| Wlc | Role lens / workspace view selector | ENT.APP.06, ENT.APP.07 | `DET.APP.PERSISTENT_CHROME` |
+| Tdc | Compact tile dropdown (secondary utility) | ENT.APP.07 | `DET.BUTTON.GROUP.MAX` |
+| Fes | Multi-field submit error summary | ENT.APP.04 | `DET.FORM.LABEL_ERROR_SUMMARY` |
+| Fas | Visible save/draft state | ENT.APP.02 | `planned: DET.APP.WORK_STATE_PERSISTENCE` |
+| Fdr | Recover interrupted drafts | ENT.APP.02 | — |
+| Fsm | Saved/shared workbench views | ENT.APP.05 | — |
+| Fop | Long-running operation progress | ENT.APP.03 | `DET.APP.PRIMARY_STATE` |
+| Ffi | Stale data signal + refresh | ENT.APP.03, ENT.APP.05 | `DET.APP.DATA_REFRESH_STALENESS` |
+| Foi | Desktop object inspector panel | ENT.APP.08 | `AI.APP.WORKFLOW_CONTINUITY` |
+| Far | Why read-only / denied | ENT.APP.06 | `DET.APP.DISABLED_REASON` |
+
+YAML contracts: [`enterprise-app/README.md`](../../enterprise-app/README.md).
 
 ## Deterministic checks
 

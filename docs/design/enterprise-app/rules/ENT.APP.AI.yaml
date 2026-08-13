@@ -1,0 +1,36 @@
+id: ENT.APP.AI
+title: Governed AI overlay
+
+recommended_components:
+  - ForgeReviewPanel
+  - ForgeDecisionActionBar
+  - ForgeEventTimeline
+  - ForgeDiagnosticPanel
+  - ForgeStatusBanner
+
+recommended_composition:
+  - name: ForgeAISuggestionReview
+    status: planned
+
+required_states:
+  - suggestion-pending
+  - reviewing
+  - accepted
+  - rejected
+  - reverted
+  - provenance-visible
+  - confidence-visible
+
+audit_rules:
+  - DET.APP.DISABLED_REASON
+  - DET.APP.PRIMARY_CTA
+  - DET.BUTTON.GROUP.MAX
+  - DET.CTA.HIERARCHY
+  - planned: DET.APP.AI_PROVENANCE
+
+known_gaps:
+  - AILabel primitive
+  - ProvenancePanel
+  - ConfidenceIndicator
+  - RevertAction
+  - human-in-the-loop policy markers

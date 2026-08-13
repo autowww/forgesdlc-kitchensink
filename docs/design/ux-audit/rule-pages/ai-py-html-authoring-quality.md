@@ -3,19 +3,12 @@ rule_id: AI.PY.HTML_AUTHORING_QUALITY
 lane: ai
 title: Python HTML authoring quality
 summary: Python renderers should emit intentional Kitchen Sink markup with clear section shells and stable heading ladders, not redundant wrapper soup.
-page_version: 9612773abc083bc074cce0ff2d407a12d9c644290bb098f2c79f335ea54c80f8
+page_version: 8ab47d7ff2991947f0a83306596a272bad1c64f3202ec42946aa4eb10a16ae94
 generated_at: 2026-05-19T19:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-py-html-authoring-quality
-related_rules:
-  - DET.PY.KS_HASH_ATTRS
-  - DET.PY.OPTIONAL_REGIONS
-  - DET.SECTION.HEADING
-  - DET.SECTION.SINGLE_JOB
-  - DET.HASH.MARKERS
-  - AI.CONTRACT.IMPLEMENTATION_USEFULNESS
 ---
 
 ## Purpose

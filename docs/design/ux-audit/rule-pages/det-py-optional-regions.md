@@ -3,10 +3,10 @@ rule_id: DET.PY.OPTIONAL_REGIONS
 lane: deterministic
 title: Py Optional Regions
 summary: Harness bootstrap handbook page for DET.PY.OPTIONAL_REGIONS.
-page_version: 855a50dba569006c705edcf7d346e6220f908e672ab7a26044839f3e45a69106
+page_version: 9387ccfec40850b7a8acde843655f2457fb0e976b212a4527a18323c9c9b2669
 generated_at: 2026-05-23T13:24:10Z
 agent_model: handbook-version-sync
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-py-optional_regions
 related_rules: []

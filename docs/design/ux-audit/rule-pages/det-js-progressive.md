@@ -3,10 +3,10 @@ rule_id: DET.JS.PROGRESSIVE
 lane: deterministic
 title: Js Progressive
 summary: Harness bootstrap handbook page for DET.JS.PROGRESSIVE.
-page_version: bd3eaea0e12fe06c64420bbf6af200f2022ca4a0c0b4d6916116271a762093e2
+page_version: e68b5b9e9e9296e6aaa48e13693ac5a07f077f06aade5eea9dba1077578615d4
 generated_at: 2026-05-23T13:24:10Z
 agent_model: handbook-version-sync
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-js-progressive
 related_rules: []

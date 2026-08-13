@@ -3,19 +3,12 @@ rule_id: DET.PY.KS_HASH_ATTRS
 lane: deterministic
 title: Python ks_hash_attrs emitters
 summary: Python HTML renderers stamp governed visual roots through ks_hash_attrs or ks_catalog_hashes helpers—not inline hash or data-ks-* attribute strings.
-page_version: 2714cbe739f8cd59a730c408f5fd8b07d826fbff93b3ad3707bc7ff0aab86d03
+page_version: 48909d6366c5c9c2cb694779a0c480eb0fac5f8be49e471b3b9a0624cfb24d5e
 generated_at: 2026-05-25T16:20:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-py-ks_hash_attrs
-related_rules:
-  - DET.HASH.MARKERS
-  - DET.HASH.REGISTRY_ROW
-  - DET.INVENTORY.CROSSWALK
-  - DET.CONTRACT.PATH
-  - DET.APP.PRIMITIVE_MARKERS
-  - AI.PY.HTML_AUTHORING_QUALITY
 ---
 
 ## Purpose

@@ -4,28 +4,15 @@ Judge from the **full-length screenshot of the entire scrollable main pane** (no
 
 ## Canonical standard
 
-Forge **enterprise app UX** (operator SPAs): cite rules from the **Studio PDCA closed pack** injected below (`DET.STUDIO.*` + shared `DET.APP.*` / `AI.APP.*`). Do **not** use marketing `DET.SECTION.SINGLE_JOB` on Studio pages — use **`DET.STUDIO.JOB_BUDGET`** instead.
+Forge **enterprise app UX** (operator SPAs): cite rules from the **Studio PDCA closed pack** injected below (`DET.STUDIO.*` + shared `DET.APP.*` / `DET.FORM.*` / `AI.APP.*`). Do **not** use marketing `DET.SECTION.SINGLE_JOB` on Studio pages — use **`DET.STUDIO.JOB_BUDGET`** instead.
 
 Repo standard (maintainers): `docs/design/forge-enterprise-app-ux-standard.md` in forgesdlc-kitchensink.
 
-## KS public handbook (open and apply)
+ENT.APP principle contracts (YAML, Phase A): `docs/design/enterprise-app/README.md` — map findings to `ENT.APP.01`–`10` / `ENT.APP.AI` when citing workflow gaps beyond shell density.
 
-Base: use `KS_PUBLIC_BASE` if provided in context, else `https://ks.forgesdlc.com`
-Showcase prefix: `{KS_PUBLIC_BASE}/cases/showcase` (hosted KS UX audit handbook — not `/showcase/` at site root)
+## Handbook links
 
-- **Rule catalog** (DET.* + AI.* index): `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-rules.html`
-- **Enterprise app rules** (Studio pack index): see injected ruleset table below
-- **Auditor & fixing ecosystem**: `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-ecosystem.html`
-- Studio job budget (`DET.STUDIO.JOB_BUDGET`): `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-rules/det-studio-job-budget.html`
-- Title / rail match (`DET.STUDIO.TITLE_NAV_MATCH`): `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-rules/det-studio-title-nav-match.html`
-- Outcome lead (`DET.STUDIO.MECHANISM_LEAD`): `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-rules/det-studio-mechanism-lead.html`
-- Density balance (`AI.APP.DENSITY_BALANCE`): `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-rules/ai-app-density-balance.html`
-- Workflow continuity (`AI.APP.WORKFLOW_CONTINUITY`): `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-rules/ai-app-workflow-continuity.html`
-- Dashboard actionability (`AI.DASHBOARD.ACTIONABILITY_PRIORITY`): `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-rules/ai-dashboard-actionability-priority.html`
-- Button group max (`DET.BUTTON.GROUP.MAX`): `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-rules/det-button-group-max.html`
-- Primary CTA (`DET.APP.PRIMARY_CTA`): `{KS_PUBLIC_BASE}/cases/showcase/ux-audit-rules/det-app-primary-cta.html`
-
-Cite **only** rule IDs from the injected enterprise app pack (or `null`).
+Cite **only** rule IDs from the injected enterprise app pack appendix (or `null`). Do **not** invent handbook URLs — the harness injects the authoritative link table.
 
 ## Required checklist axes (score each 0–100)
 
@@ -43,7 +30,7 @@ Cite **only** rule IDs from the injected enterprise app pack (or `null`).
 - **Density / stacked chrome**: Mode tabs (Svc) plus one in-panel scope control (Ftb or secondary Svc) are **progressive disclosure**, not competing jobs, when **only one data table/section** is visible at a time. Penalize `AI.APP.DENSITY_BALANCE` only when two or more peer jobs (tables, builders, wikis) are simultaneously expanded.
 - **Primary CTA**: `.fc-btn--ghost`, disclosure toggles (“Show details”), and “Select all” utilities are **not** primary CTAs. Count only filled/emphasized primary buttons. Do not treat two ghost utilities as violating `DET.APP.PRIMARY_CTA`.
 - **Rail descriptor vs H1**: When H1 matches the active rail label, treat rail subtitle/description mismatches as **minor** `page_identity` at most — not major.
-- **Pass threshold**: If `page_identity`, `job_budget`, and `control_density` are all ≥ 85 and no critical/blocker findings, prefer **warn/minor** follow-ups over major rewrites in `pdca_prompt`.
+- **Pass threshold**: If `page_identity`, `job_budget`, and `control_density` are all ≥ 85 and no critical/blocker findings, prefer **warn/minor** follow-ups over major rewrites.
 - **Evidence**: Cite above-fold vs below-fold. Reference `data-testid` hooks when visible in the DOM description.
 
 ## Page-type expectations
@@ -57,7 +44,27 @@ Cite **only** rule IDs from the injected enterprise app pack (or `null`).
 
 ## Preferred KS remediations (closed list for suggested_ks_component)
 
-Use one of: `Svc` (segmented / tabs), `Ftb` (filter toolbar), `Sab` (sticky action bar), `Cap` (app shell panels), `studio-ui/src/ks/*` wrapper name, or `null`.
+Use one of: `Svc`, `Ftb`, `Sab`, `Cap`, `Dtb`, `Frh`, `Fsb`, `Fwb`, `Fen`, `Fda`, `Fvw`, `Fdg`, `Fkg`, `Wlc`, `Swz`, `studio-ui/src/ks/*` wrapper name, or `null`.
+
+## Prioritized suggestions (implementation batch)
+
+GPT must **rank** remediations by expected UX uplift and emit **at most 5** implementation items per cycle in `prioritized_suggestions`. The harness renders PDCA markdown locally from structured fields — **do not** emit markdown `pdca_prompt` strings.
+
+Ranking rules (highest uplift first):
+
+1. **Blocker / critical** structural issues (wrong page job, broken identity, missing primary path)
+2. **Major** `job_budget` and `control_density` (competing jobs, action overload)
+3. **Major** `human_outcome` (mechanism-first copy, unclear next step)
+4. On **wiki/graph** pages (`requires_dual_wiki_gate` or page type `wiki_graph`): include at least one **wiki_functionality** item when that axis scores < 85 (evidence path, Domain/System clarity, deduped backlinks/impact, graph rail affordances)
+5. **Warn/minor** polish only when overall ≥ 85 and no blocker/critical — then cap at **≤2** suggestions
+
+Each `prioritized_suggestions[]` entry is **one scoped remount** (not a laundry list). Do not split the same IA change across multiple ranks. Each `do[]` array must have **1–4** concrete implementation bullets for **this suggestion only**.
+
+## Few-shot shape
+
+**Good** (single-scope, structured): see `prompts/examples/good-suggestion.json` — one job, 3 `do` bullets, pack rule_id.
+
+**Bad** (laundry list): see `prompts/examples/bad-laundry-list.json` — 8 unrelated `do` items; never emit this shape.
 
 ## Inputs
 
@@ -65,12 +72,13 @@ Use one of: `Svc` (segmented / tabs), `Ftb` (filter toolbar), `Sab` (sticky acti
 - Page description and DOM facts
 - Dual-wiki context (feature map excerpt) — ignore for non-wiki pages except cross-links if present
 - Prior scores (if re-iteration)
+- Page-type include (`studio_ops` or `wiki_graph`) appended below
 
 ## Required output
 
 Respond with **only** a JSON object (no markdown fences) matching this schema.
 
-**JSON safety:** In all string values (`evidence`, `changes_summary`, `pdca_prompt`), use single quotes for inner quotations — never raw double quotes inside JSON strings. Escape backslashes and newlines.
+**JSON safety:** In all string values (`evidence`, `changes_summary`, array items), use single quotes for inner quotations — never raw double quotes inside JSON strings. Escape backslashes and newlines.
 
 ```json
 {
@@ -94,19 +102,34 @@ Respond with **only** a JSON object (no markdown fences) matching this schema.
     }
   ],
   "wiki_gaps": ["string"],
-  "changes_summary": "one paragraph",
-  "pdca_prompt": "markdown Plan-Do-Check-Adjust prompt for Cursor agent"
+  "prioritized_suggestions": [
+    {
+      "rank": 1,
+      "id": "kebab-slug",
+      "title": "short outcome-led change title",
+      "axis": "job_budget",
+      "rule_id": "DET.STUDIO.JOB_BUDGET",
+      "severity": "major",
+      "expected_uplift": "high|medium|low",
+      "uplift_rationale": "why this ranks above other fixes",
+      "suggested_ks_component": "Svc|Ftb|Sab|Cap|null",
+      "evidence": "above-fold vs below-fold",
+      "plan": ["goal bullet", "rule bullet", "KS component bullet"],
+      "do": ["one scoped remount bullet", "second bullet max 4 total"],
+      "check": ["pytest -q", "cd studio-ui && npx playwright test tests/api-smoke.spec.ts"],
+      "adjust": ["revert cosmetic tweaks before abandoning IA change"]
+    }
+  ],
+  "changes_summary": "one paragraph"
 }
 ```
 
+Emit **1–5** `prioritized_suggestions` (never more than 5). Sort `rank` 1 = highest uplift.
+
+`findings` may list more than 5 audit observations; only the top 5 by uplift belong in `prioritized_suggestions`.
+
 Also set `enterprise_ux` ≈ mean(page_identity, job_budget, control_density) and `human_friendliness` ≈ human_outcome for backward compatibility.
 
-The `pdca_prompt` must:
-- Plan: goals tied to findings and KS rule IDs from the enterprise app pack
-- Do: remount IA first (rename H1 to match rail, tabs for secondary jobs, demote dense controls) before cosmetic polish; mandate KS reuse; **do not** prescribe changes already visible in the screenshot (existing tabs, Sab, Ftb)
-- Check: pytest + Playwright commands
-- Adjust: what to revisit if gates fail
-
-If overall ≥ 85 with no critical/blocker findings, `pdca_prompt` should focus on minor polish or “no structural change” rather than another full remount.
+If overall ≥ 85 with no critical/blocker findings, emit **0–2** minor `prioritized_suggestions` or empty array with `changes_summary` noting no structural change.
 
 Do not invent product capabilities or compliance claims.

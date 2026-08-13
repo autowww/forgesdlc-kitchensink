@@ -5,8 +5,8 @@ title: App primitive source
 summary: KS_REACT_PRIMITIVE components spread ksReactPrimitiveAttrs in source.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_source
 registry_status: implemented
-page_version: dcd89ed635e96f69d709fef2924729dc2e975effe9d98a4b3bcb2ec0020c4671
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+page_version: 5b0918ec75bec9e915ce9ff01e37f4bc151455a166e54d6ed04aa78023dcba98
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 generated_at: 2026-05-28T17:05:34.731Z
 ---
 

@@ -1,0 +1,30 @@
+id: ENT.APP.10
+title: Measure workflow outcomes by role
+
+recommended_components:
+  - kpi-cards
+  - bullet-charts
+  - sparklines
+  - trend-charts
+  - createDataTable
+  - chart-slicers
+
+recommended_composition:
+  - name: ForgeWorkflowMetrics
+    status: planned
+
+required_states:
+  - loading
+  - empty
+  - error
+  - drilldown-available
+
+audit_rules:
+  - AI.DASHBOARD.ACTIONABILITY_PRIORITY
+  - DET.APP.TILE_AFFORDANCE
+  - DET.APP.DATA_REFRESH_STALENESS
+
+known_gaps:
+  - shared-telemetry-schema
+  - control-event emission on KS primitives
+  - role-based metric presets

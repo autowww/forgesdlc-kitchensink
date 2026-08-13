@@ -11,11 +11,16 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROMPT_FILE = Path(__file__).resolve().parent / "prompts" / "assess-studio-ux.txt"
+PROMPT_DIR = Path(__file__).resolve().parent / "prompts"
+PROMPT_FILE = PROMPT_DIR / "assess-studio-ux.txt"
+INCLUDES_DIR = PROMPT_DIR / "includes"
 LIB_DIR = Path(__file__).resolve().parent / "lib"
+DESCRIPTION_MAX_CHARS = int(os.environ.get("STUDIO_UX_DESCRIPTION_MAX_CHARS", "8000"))
 if str(LIB_DIR) not in sys.path:
     sys.path.insert(0, str(LIB_DIR))
 from load_ruleset import format_prompt_appendix, validate_findings  # noqa: E402
+from emit_pdca_prompts import emit_pdca_prompts, MAX_SUGGESTIONS  # noqa: E402
+from validate_suggestions import validate_suggestions  # noqa: E402
 
 
 def _load_text(path: Path) -> str:
@@ -52,23 +57,80 @@ def _mock_assessment(cycle_dir: Path) -> dict:
             }
         ],
         "wiki_gaps": [],
+        "prioritized_suggestions": [
+            {
+                "rank": 1,
+                "id": "title-nav-match" if title_mismatch else "watchlists-tab-jobs",
+                "title": (
+                    "Align H1 with active rail label"
+                    if title_mismatch
+                    else "Move Screen and Alerts behind Svc tabs"
+                ),
+                "axis": "page_identity" if title_mismatch else "job_budget",
+                "rule_id": "DET.STUDIO.TITLE_NAV_MATCH" if title_mismatch else "DET.STUDIO.JOB_BUDGET",
+                "severity": "critical" if title_mismatch else "major",
+                "expected_uplift": "high",
+                "uplift_rationale": (
+                    "Restores page identity and navigation trust"
+                    if title_mismatch
+                    else "Removes competing jobs from first viewport"
+                ),
+                "suggested_ks_component": "Svc",
+                "evidence": desc[:280] or "DOM density / title mismatch",
+                "plan": [
+                    (
+                        "Goal: H1 matches active rail label"
+                        if title_mismatch
+                        else "Goal: one primary list-review job in first viewport"
+                    ),
+                    f"Rule: {'DET.STUDIO.TITLE_NAV_MATCH' if title_mismatch else 'DET.STUDIO.JOB_BUDGET'}",
+                    "KS component: Svc",
+                ],
+                "do": (
+                    [
+                        "Rename H1 to match the active app-rail label",
+                        "Verify rail subtitle does not override page identity",
+                    ]
+                    if title_mismatch
+                    else [
+                        "Remount watchlists center pane with Svc tabs",
+                        "Demote Screen and Alerts behind tab panels",
+                        "Keep one primary CTA per tab",
+                    ]
+                ),
+                "check": [
+                    "pytest -q",
+                    "cd studio-ui && npx playwright test tests/api-smoke.spec.ts",
+                ],
+                "adjust": [
+                    "Re-capture full scroll if density findings remain after IA remount"
+                ],
+            }
+        ],
         "changes_summary": "Align H1 with rail; tab secondary jobs; reduce control density.",
-        "pdca_prompt": (
-            "# Studio UX PDCA\n\n"
-            "## Plan\nFix page identity and job budget per DET.STUDIO.JOB_BUDGET / TITLE_NAV_MATCH.\n\n"
-            "## Do\n- Rename H1 to match rail (Watchlists)\n"
-            "- Add Lists/Screen/Alerts/Compare tabs (Svc)\n"
-            "- One primary CTA per tab\n\n"
-            "## Check\n- pytest\n- npx playwright test\n\n"
-            "## Adjust\nRe-capture full scroll if density findings remain.\n"
-        ),
         "_source": "mock",
         "_mock": True,
     }
 
 
+def _truncate_text(text: str, *, max_chars: int = DESCRIPTION_MAX_CHARS) -> str:
+    if len(text) <= max_chars:
+        return text
+    return (
+        text[: max_chars - 120].rstrip()
+        + f"\n\n…(truncated — {len(text) - max_chars} chars omitted for token budget)\n"
+    )
+
+
+def _load_page_include(page_type: str) -> str:
+    include_path = INCLUDES_DIR / f"{page_type}.txt"
+    if include_path.exists():
+        return include_path.read_text(encoding="utf-8")
+    return ""
+
+
 def _build_prompt(cycle_dir: Path) -> str:
-    description = _load_text(cycle_dir / "description.md")
+    description = _truncate_text(_load_text(cycle_dir / "description.md"))
     wiki = _load_text(cycle_dir / "wiki-context.md")
     prior = ""
     scores_path = cycle_dir / "scores.json"
@@ -83,8 +145,8 @@ def _build_prompt(cycle_dir: Path) -> str:
     )
     page_type = "wiki_graph" if is_wiki_page else "studio_ops"
     ks_base = os.environ.get("KS_PUBLIC_BASE", "https://ks.forgesdlc.com").rstrip("/")
-    template = PROMPT_FILE.read_text(encoding="utf-8").replace("{KS_PUBLIC_BASE}", ks_base)
-    template = template.replace("`KS_PUBLIC_BASE`", ks_base)
+    template = PROMPT_FILE.read_text(encoding="utf-8")
+    page_include = _load_page_include(page_type)
     screenshot = cycle_dir / "before.png"
     shot_note = (
         "A full-length screenshot of the scrollable main pane is ATTACHED to this message. "
@@ -94,9 +156,9 @@ def _build_prompt(cycle_dir: Path) -> str:
     )
     return (
         f"{template}\n\n---\n\n{format_prompt_appendix(ks_base)}\n\n"
-        f"## KS_PUBLIC_BASE\n\n{ks_base}\n\n"
         f"## Page type\n\n`{page_type}` — slug={page_meta.get('slug', '?')}, "
         f"title={page_meta.get('title', '?')}, path={page_meta.get('path', '?')}\n\n"
+        f"{page_include}\n\n"
         f"## Screenshot\n\n{shot_note}\n\n"
         f"## Page description\n\n{description}\n\n"
         f"## Wiki context\n\n{wiki}\n\n## Prior scores\n\n{prior or '(none)'}\n"
@@ -328,10 +390,22 @@ def main() -> int:
         assessment = assess_with_chatgpt(cycle_dir, args.project)
 
     assessment_path = cycle_dir / "assessment.json"
+    page_meta = {}
+    page_json = cycle_dir / "page.json"
+    if page_json.exists():
+        page_meta = json.loads(page_json.read_text(encoding="utf-8"))
+
+    validation = validate_suggestions(
+        assessment, page_meta, max_suggestions=MAX_SUGGESTIONS
+    )
+    if validation["warnings"]:
+        assessment["_suggestion_warnings"] = validation["warnings"]
+    if validation["suggestions"]:
+        assessment["prioritized_suggestions"] = validation["suggestions"]
+
+    emit_info = emit_pdca_prompts(assessment, cycle_dir, page_meta)
     assessment_path.write_text(json.dumps(assessment, indent=2) + "\n", encoding="utf-8")
-    pdca = assessment.get("pdca_prompt", "")
     pdca_path = cycle_dir / "pdca-prompt.md"
-    pdca_path.write_text(pdca if pdca.endswith("\n") else pdca + "\n", encoding="utf-8")
     summary = assessment.get("changes_summary", "")
     if summary:
         (cycle_dir / "changes-summary.md").write_text(summary + "\n", encoding="utf-8")
@@ -342,6 +416,8 @@ def main() -> int:
                 "source": assessment.get("_source", "unknown"),
                 "assessment_path": str(assessment_path),
                 "pdca_prompt_path": str(pdca_path),
+                "pdca_suggestion_count": emit_info.get("count", 0),
+                "pdca_prompt_paths": emit_info.get("prompt_paths", []),
             }
         )
     )

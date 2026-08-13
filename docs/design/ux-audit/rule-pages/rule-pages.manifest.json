@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T01:58:53.851Z",
+  "generatedAt": "2026-08-13T02:31:57.286Z",
   "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
   "registryGeneratedAt": "2026-08-13T01:58:48.442Z",
   "rulePagesDir": "docs/design/ux-audit/rule-pages",
@@ -9,9 +9,9 @@
     "total": 136,
     "deterministic": 106,
     "ai": 30,
-    "current": 0,
-    "stale": 113,
-    "missing": 23
+    "current": 114,
+    "stale": 0,
+    "missing": 22
   },
   "rules": [
     {
@@ -21,16 +21,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-ambient-readability-conflict.md",
       "htmlPath": "ux-audit-rules/ai-ambient-readability-conflict.html",
       "contentVersion": "399d7b008f2322763477231de6c5c4b6f3f8ae474cf88de692efe036235709ba",
-      "pageVersion": "b57d41c04c058844ed2078a8c6d7d7c371c12771c57c68fe8ae70e719a110e9b",
+      "pageVersion": "399d7b008f2322763477231de6c5c4b6f3f8ae474cf88de692efe036235709ba",
       "generatedAt": "2026-05-19T16:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-ambient-readability-conflict",
       "modulePath": "design-rules/ai/prompts/generated/ai-ambient-readability-conflict.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.APP.DENSITY_BALANCE",
@@ -39,16 +39,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-app-density-balance.md",
       "htmlPath": "ux-audit-rules/ai-app-density-balance.html",
       "contentVersion": "d235fe4bf58f85445e606bcbbf8ba0b335b9208aeac14c9aa6bb5f880fcffecd",
-      "pageVersion": "2d2d266d5695bd7cd7524f96ba9a8294900d4df7e4a061b26a5eea6b3681be28",
+      "pageVersion": "d235fe4bf58f85445e606bcbbf8ba0b335b9208aeac14c9aa6bb5f880fcffecd",
       "generatedAt": "2026-05-19T18:22:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-density-balance",
       "modulePath": "design-rules/ai/prompts/generated/ai-app-density-balance.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.APP.PRIMITIVE_CONSISTENCY",
@@ -57,16 +57,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-app-primitive-consistency.md",
       "htmlPath": "ux-audit-rules/ai-app-primitive-consistency.html",
       "contentVersion": "72be756bc58c2470ec7dab47f87e4426b64e23a9aa42463e0255337c04428587",
-      "pageVersion": "b27d8893c6d342e2190111978808e92912c5d1936a36e5d4ac8753189e641887",
+      "pageVersion": "72be756bc58c2470ec7dab47f87e4426b64e23a9aa42463e0255337c04428587",
       "generatedAt": "2026-05-19T19:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-primitive-consistency",
       "modulePath": "design-rules/ai/prompts/generated/ai-app-primitive-consistency.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.APP.WORKFLOW_CONTINUITY",
@@ -75,16 +75,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-app-workflow-continuity.md",
       "htmlPath": "ux-audit-rules/ai-app-workflow-continuity.html",
       "contentVersion": "79fa610b7940f84b0ef2f0647c06ed6e29591e7cd5f9eb973e2155acd5cd5da3",
-      "pageVersion": "c35c4eb008088d86aab8a090414d895b6d6a6162a117e0447c99c553e8f5c76b",
+      "pageVersion": "79fa610b7940f84b0ef2f0647c06ed6e29591e7cd5f9eb973e2155acd5cd5da3",
       "generatedAt": "2026-05-19T20:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-workflow-continuity",
       "modulePath": "design-rules/ai/prompts/generated/ai-app-workflow-continuity.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.APP.WORKFLOW_RISK_GUARDRAILS",
@@ -93,16 +93,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-app-workflow-risk-guardrails.md",
       "htmlPath": "ux-audit-rules/ai-app-workflow-risk-guardrails.html",
       "contentVersion": "a1a8d8c174b38d56753f40b7519cdb3d48f0052b89e434a3bbe66357a6245341",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "a1a8d8c174b38d56753f40b7519cdb3d48f0052b89e434a3bbe66357a6245341",
+      "generatedAt": "2026-08-13T02:31:57.132Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-workflow-risk-guardrails",
       "modulePath": "design-rules/ai/prompts/ai-app-workflow-risk-guardrails.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.BRAND.GENERICITY_AND_DIFFERENTIATION",
@@ -111,16 +111,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-brand-genericity-and-differentiation.md",
       "htmlPath": "ux-audit-rules/ai-brand-genericity-and-differentiation.html",
       "contentVersion": "943b6bc671f8d77941d7d9fd03b476a960bd8eb96c6dbae672d3ae0bf1418fd8",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "943b6bc671f8d77941d7d9fd03b476a960bd8eb96c6dbae672d3ae0bf1418fd8",
+      "generatedAt": "2026-08-13T02:31:57.132Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-brand-genericity-and-differentiation",
       "modulePath": "design-rules/ai/prompts/ai-brand-genericity-and-differentiation.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.CONTEXT.BURDEN_SUBJECTIVE",
@@ -129,16 +129,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-context-burden-subjective.md",
       "htmlPath": "ux-audit-rules/ai-context-burden-subjective.html",
       "contentVersion": "f356ba7bb636d2596498d06c6443c8032635404c5d946ead499ec5874dd4908e",
-      "pageVersion": "5957d05615097c23a160058f2f2bdf5a180df71a172761243ae0e4fc4b8a7549",
+      "pageVersion": "f356ba7bb636d2596498d06c6443c8032635404c5d946ead499ec5874dd4908e",
       "generatedAt": "2026-05-19T19:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-context-burden-subjective",
       "modulePath": "design-rules/ai/prompts/generated/ai-context-burden-subjective.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.CONTEXT.COGNITIVE_CLARITY",
@@ -147,16 +147,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-context-cognitive-clarity.md",
       "htmlPath": "ux-audit-rules/ai-context-cognitive-clarity.html",
       "contentVersion": "01aae83c1a4f5dde8fefba5414fa4a7a6ae6f53d4fae5ae43f9e3435203e3e3f",
-      "pageVersion": "147f28c00ed45941c1315962642216c8aa994bc2dbb23cf8c520b91f309b0a2a",
+      "pageVersion": "01aae83c1a4f5dde8fefba5414fa4a7a6ae6f53d4fae5ae43f9e3435203e3e3f",
       "generatedAt": "2026-05-19T20:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-context-cognitive-clarity",
       "modulePath": "design-rules/ai/prompts/ai-context-cognitive-clarity.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.CONTRACT.IMPLEMENTATION_USEFULNESS",
@@ -165,16 +165,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-contract-implementation-usefulness.md",
       "htmlPath": "ux-audit-rules/ai-contract-implementation-usefulness.html",
       "contentVersion": "f7ff82700a1d09b1e3cadd2e41ab3466a52a73692ba53f2f8fbf67274be91e1f",
-      "pageVersion": "dd48bd94ca99c402b47d74f66bb8c69406f864cfc5300464985a1a1e8b8f761b",
+      "pageVersion": "f7ff82700a1d09b1e3cadd2e41ab3466a52a73692ba53f2f8fbf67274be91e1f",
       "generatedAt": "2026-05-19T17:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-contract-implementation-usefulness",
       "modulePath": "design-rules/ai/prompts/generated/ai-contract-implementation-usefulness.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.CREDIBILITY.NO_OVERCLAIM",
@@ -183,16 +183,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-credibility-no-overclaim.md",
       "htmlPath": "ux-audit-rules/ai-credibility-no-overclaim.html",
       "contentVersion": "eb595178c11d50120ebaa7b554384e21953a8df59ae947421afa6a47ea7bc2b7",
-      "pageVersion": "b6ac8bcdc1ace2f7490170e0cacd3998d65907b6706a1567725aef7d4629a357",
+      "pageVersion": "eb595178c11d50120ebaa7b554384e21953a8df59ae947421afa6a47ea7bc2b7",
       "generatedAt": "2026-05-19T21:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-credibility-no-overclaim",
       "modulePath": "design-rules/ai/prompts/generated/ai-credibility-no-overclaim.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.DASHBOARD.ACTIONABILITY_PRIORITY",
@@ -201,16 +201,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-dashboard-actionability-priority.md",
       "htmlPath": "ux-audit-rules/ai-dashboard-actionability-priority.html",
       "contentVersion": "8f0d9beac6e1937a114586c1ffa5ae3f366b0f101c2dc086db8813624d763d63",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "8f0d9beac6e1937a114586c1ffa5ae3f366b0f101c2dc086db8813624d763d63",
+      "generatedAt": "2026-08-13T02:31:57.137Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-dashboard-actionability-priority",
       "modulePath": "design-rules/ai/prompts/ai-dashboard-actionability-priority.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.DATA.INSIGHT_LEGIBILITY",
@@ -219,16 +219,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-data-insight-legibility.md",
       "htmlPath": "ux-audit-rules/ai-data-insight-legibility.html",
       "contentVersion": "85055acce8a777b2d6fcf903cb3d4c705fb30d0d73ac8c8fcc87591d99b3af57",
-      "pageVersion": "c69353b3b095b3fa60b8c45e28d7ef8d6b10020381010ffacac998cb8319b7f7",
+      "pageVersion": "85055acce8a777b2d6fcf903cb3d4c705fb30d0d73ac8c8fcc87591d99b3af57",
       "generatedAt": "2026-05-19T19:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-data-insight-legibility",
       "modulePath": "design-rules/ai/prompts/generated/ai-data-insight-legibility.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.DIAGRAM.SEMANTIC_ACCURACY",
@@ -237,16 +237,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-diagram-semantic-accuracy.md",
       "htmlPath": "ux-audit-rules/ai-diagram-semantic-accuracy.html",
       "contentVersion": "3319dce935a7c7298634bba56f854c498cece01023c95f17075c4c4850066db7",
-      "pageVersion": "b2c3cd488a5b9e9c2bc8a294a6cc9bda1433047eeefebb9ce28fc0fd07fd705f",
+      "pageVersion": "3319dce935a7c7298634bba56f854c498cece01023c95f17075c4c4850066db7",
       "generatedAt": "2026-05-19T18:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-diagram-semantic-accuracy",
       "modulePath": "design-rules/ai/prompts/generated/ai-diagram-semantic-accuracy.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.EMPTY_STATE.USEFULNESS",
@@ -255,16 +255,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-empty-state-usefulness.md",
       "htmlPath": "ux-audit-rules/ai-empty-state-usefulness.html",
       "contentVersion": "b11eb66fb218edbfadca932786a83fda8bad11cd4e511ff3cad8e08229d3e68d",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "b11eb66fb218edbfadca932786a83fda8bad11cd4e511ff3cad8e08229d3e68d",
+      "generatedAt": "2026-08-13T02:31:57.139Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-empty-state-usefulness",
       "modulePath": "design-rules/ai/prompts/ai-empty-state-usefulness.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.ERROR_COPY.REASSURANCE",
@@ -273,16 +273,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-error-copy-reassurance.md",
       "htmlPath": "ux-audit-rules/ai-error-copy-reassurance.html",
       "contentVersion": "e2992e96d97062ec071d81266dc8793e07b6496328a1d832b1c652bb786fa8af",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "e2992e96d97062ec071d81266dc8793e07b6496328a1d832b1c652bb786fa8af",
+      "generatedAt": "2026-08-13T02:31:57.140Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-error-copy-reassurance",
       "modulePath": "design-rules/ai/prompts/ai-error-copy-reassurance.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.FORM.FRICTION_AND_RECOVERY",
@@ -291,16 +291,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-form-friction-and-recovery.md",
       "htmlPath": "ux-audit-rules/ai-form-friction-and-recovery.html",
       "contentVersion": "2eedb4c63e0d2c7fe13690fa254b7658212d75e77e5599076662bef7ad7cdbac",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "2eedb4c63e0d2c7fe13690fa254b7658212d75e77e5599076662bef7ad7cdbac",
+      "generatedAt": "2026-08-13T02:31:57.144Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-form-friction-and-recovery",
       "modulePath": "design-rules/ai/prompts/ai-form-friction-and-recovery.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.INFORMATION_SCENT.NEXT_STEP",
@@ -309,16 +309,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-information-scent-next-step.md",
       "htmlPath": "ux-audit-rules/ai-information-scent-next-step.html",
       "contentVersion": "f079fb20d674dd8c1440b3b2aee07eaa8f15b897bb1937fcd4c37aa87f216613",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "f079fb20d674dd8c1440b3b2aee07eaa8f15b897bb1937fcd4c37aa87f216613",
+      "generatedAt": "2026-08-13T02:31:57.146Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-information-scent-next-step",
       "modulePath": "design-rules/ai/prompts/ai-information-scent-next-step.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.JS.BEHAVIOR_DISCOVERABILITY",
@@ -327,16 +327,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-js-behavior-discoverability.md",
       "htmlPath": "ux-audit-rules/ai-js-behavior-discoverability.html",
       "contentVersion": "44ebc789ab9a9fd11bb7bb76c53edc93d1edcfffd6463f9e398bdfa2b6460916",
-      "pageVersion": "449ba47acb31c696e8e48f933cc72982605fb3541c731b0d8c7e71665973673e",
+      "pageVersion": "44ebc789ab9a9fd11bb7bb76c53edc93d1edcfffd6463f9e398bdfa2b6460916",
       "generatedAt": "2026-05-19T21:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-js-behavior-discoverability",
       "modulePath": "design-rules/ai/prompts/generated/ai-js-behavior-discoverability.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.MOTION.INTENTIONALITY",
@@ -345,16 +345,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-motion-intentionality.md",
       "htmlPath": "ux-audit-rules/ai-motion-intentionality.html",
       "contentVersion": "d46a4e63044039c222479848d644a5ff9bb6d90c99bab927cd1a1bb123957c7b",
-      "pageVersion": "74c3a3b237d7b20f8b0915547e41ac1d3fe3655ef5a2c13112644eec7b36d82b",
+      "pageVersion": "d46a4e63044039c222479848d644a5ff9bb6d90c99bab927cd1a1bb123957c7b",
       "generatedAt": "2026-05-19T22:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-motion-intentionality",
       "modulePath": "design-rules/ai/prompts/generated/ai-motion-intentionality.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.NARRATIVE.COHERENCE",
@@ -363,16 +363,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-narrative-coherence.md",
       "htmlPath": "ux-audit-rules/ai-narrative-coherence.html",
       "contentVersion": "26835095a6d66285ef743edb515f113b827e25b0a5778e2e11f570a49904553f",
-      "pageVersion": "3e1187c7e66cb94ddb158cf40e3b1769a235a7e9f8c8c875ff6cdbb1041dc4e1",
+      "pageVersion": "26835095a6d66285ef743edb515f113b827e25b0a5778e2e11f570a49904553f",
       "generatedAt": "2026-05-19T23:12:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-narrative-coherence",
       "modulePath": "design-rules/ai/prompts/generated/ai-narrative-coherence.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.ONBOARDING.PROGRESSIVE_DISCLOSURE",
@@ -381,16 +381,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-onboarding-progressive-disclosure.md",
       "htmlPath": "ux-audit-rules/ai-onboarding-progressive-disclosure.html",
       "contentVersion": "e1dc56187ea37e7b0886ae400671c205695f553503592133b7ff2a4335f9054c",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "e1dc56187ea37e7b0886ae400671c205695f553503592133b7ff2a4335f9054c",
+      "generatedAt": "2026-08-13T02:31:57.149Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-onboarding-progressive-disclosure",
       "modulePath": "design-rules/ai/prompts/ai-onboarding-progressive-disclosure.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.PREMIUM.ENTERPRISE_FEEL",
@@ -399,16 +399,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-premium-enterprise-feel.md",
       "htmlPath": "ux-audit-rules/ai-premium-enterprise-feel.html",
       "contentVersion": "6eb1efe59370f1ec926206f3deab4d7c5e63a16dd9e0fee48c8eb29d31986924",
-      "pageVersion": "62a825ef8a474ad3d6a27eaa8e2951bdd7016fa9785ce2fb9d93814753652098",
+      "pageVersion": "6eb1efe59370f1ec926206f3deab4d7c5e63a16dd9e0fee48c8eb29d31986924",
       "generatedAt": "2026-05-19T22:10:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-premium-enterprise-feel",
       "modulePath": "design-rules/ai/prompts/ai-premium-enterprise-feel.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.PY.HTML_AUTHORING_QUALITY",
@@ -417,16 +417,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-py-html-authoring-quality.md",
       "htmlPath": "ux-audit-rules/ai-py-html-authoring-quality.html",
       "contentVersion": "8ab47d7ff2991947f0a83306596a272bad1c64f3202ec42946aa4eb10a16ae94",
-      "pageVersion": "9612773abc083bc074cce0ff2d407a12d9c644290bb098f2c79f335ea54c80f8",
+      "pageVersion": "8ab47d7ff2991947f0a83306596a272bad1c64f3202ec42946aa4eb10a16ae94",
       "generatedAt": "2026-05-19T19:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-py-html-authoring-quality",
       "modulePath": "design-rules/ai/prompts/generated/ai-py-html-authoring-quality.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.RESPONSIVE.CROSS_DEVICE_COMPREHENSION",
@@ -435,16 +435,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-responsive-cross-device-comprehension.md",
       "htmlPath": "ux-audit-rules/ai-responsive-cross-device-comprehension.html",
       "contentVersion": "858c60cd3787c69dda21a2c3b2cb3bd2dba00cf9611ff9f37a69db17d37d8e3b",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "858c60cd3787c69dda21a2c3b2cb3bd2dba00cf9611ff9f37a69db17d37d8e3b",
+      "generatedAt": "2026-08-13T02:31:57.152Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-responsive-cross-device-comprehension",
       "modulePath": "design-rules/ai/prompts/ai-responsive-cross-device-comprehension.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.THEME.PERSONALITY_COHERENCE",
@@ -453,16 +453,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-theme-personality-coherence.md",
       "htmlPath": "ux-audit-rules/ai-theme-personality-coherence.html",
       "contentVersion": "aebc8f3a70ca0a7be73927bca9202acd7aa2cf32a6d9b3c9c7c733b4cedf4d66",
-      "pageVersion": "c55d81ed3a33aedc15eb7162fdfc84805ab6d5f34b1b8ee11afd5b9fa9af67aa",
+      "pageVersion": "aebc8f3a70ca0a7be73927bca9202acd7aa2cf32a6d9b3c9c7c733b4cedf4d66",
       "generatedAt": "2026-05-19T22:35:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-theme-personality-coherence",
       "modulePath": "design-rules/ai/prompts/generated/ai-theme-personality-coherence.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.TRUST.BOUNDARY_CLARITY",
@@ -471,16 +471,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-trust-boundary-clarity.md",
       "htmlPath": "ux-audit-rules/ai-trust-boundary-clarity.html",
       "contentVersion": "502b8308907958b8af6f172949d6d8284002b67d8a7f4b90b5431e41beb94c4a",
-      "pageVersion": "0929fdd3699536971fecf79ca4794c70cc1af4ef21db2378c83585da555d3cb6",
+      "pageVersion": "502b8308907958b8af6f172949d6d8284002b67d8a7f4b90b5431e41beb94c4a",
       "generatedAt": "2026-05-19T22:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-trust-boundary-clarity",
       "modulePath": "design-rules/ai/prompts/generated/ai-trust-boundary-clarity.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.TRUST.DATA_FRESHNESS_PROVENANCE",
@@ -489,16 +489,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-trust-data-freshness-provenance.md",
       "htmlPath": "ux-audit-rules/ai-trust-data-freshness-provenance.html",
       "contentVersion": "30aa54a17013878529a261b3ef5577d346499e08c6d7e8b555cd3f49a392546b",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "30aa54a17013878529a261b3ef5577d346499e08c6d7e8b555cd3f49a392546b",
+      "generatedAt": "2026-08-13T02:31:57.154Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-trust-data-freshness-provenance",
       "modulePath": "design-rules/ai/prompts/ai-trust-data-freshness-provenance.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.VISUAL.HIERARCHY",
@@ -507,16 +507,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-visual-hierarchy.md",
       "htmlPath": "ux-audit-rules/ai-visual-hierarchy.html",
       "contentVersion": "f6d81bfc0c83823cf0838eb02cbc229098bdb56c430d718f216d638b0171f77e",
-      "pageVersion": "ec93b09eb3c72879f87748ded10effcf98d81ad21640eebac2c9f0c27019584a",
+      "pageVersion": "f6d81bfc0c83823cf0838eb02cbc229098bdb56c430d718f216d638b0171f77e",
       "generatedAt": "2026-05-19T23:48:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-hierarchy",
       "modulePath": "design-rules/ai/prompts/ai-visual-hierarchy-confidence.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.VISUAL.PRODUCT_EXPLANATORY_VALUE",
@@ -525,16 +525,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-visual-product-explanatory-value.md",
       "htmlPath": "ux-audit-rules/ai-visual-product-explanatory-value.html",
       "contentVersion": "3b91fccd04491b40b0d63da2871ad696cf18b6738291b4a01022a17b91cb0d65",
-      "pageVersion": "4dee66f4af47e261345697e2c7252c0e126ffd540c16c1b299bb248142f7b72f",
+      "pageVersion": "3b91fccd04491b40b0d63da2871ad696cf18b6738291b4a01022a17b91cb0d65",
       "generatedAt": "2026-05-19T22:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-product-explanatory-value",
       "modulePath": "design-rules/ai/prompts/ai-visual-product-explanatory-value.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "AI.VISUAL.RHYTHM_SUBJECTIVE",
@@ -543,16 +543,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/ai-visual-rhythm-subjective.md",
       "htmlPath": "ux-audit-rules/ai-visual-rhythm-subjective.html",
       "contentVersion": "54181d0c64e3b2de9625d8efc839bdf0d3987dd490fa5a05b02d39b1ce1f67f0",
-      "pageVersion": "9a851787584568a259e62976e032bb67cd92f6ea87b1ab2857cffe41f939ef30",
+      "pageVersion": "54181d0c64e3b2de9625d8efc839bdf0d3987dd490fa5a05b02d39b1ce1f67f0",
       "generatedAt": "2026-05-19T23:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-rhythm-subjective",
       "modulePath": "design-rules/ai/prompts/generated/ai-visual-rhythm-subjective.md",
       "defaultSeverity": "",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.AMBIENT.Z_INDEX",
@@ -561,16 +561,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-ambient-z-index.md",
       "htmlPath": "ux-audit-rules/det-ambient-z-index.html",
       "contentVersion": "ea436414a2782c41ae2adf8b9a8bd4e1ac3b944691ad58e04c05b3175a25ee75",
-      "pageVersion": "710b2d56e2d42bcba0c515eef10b223ef323e0d35c0355f4a1563024a2c26187",
+      "pageVersion": "ea436414a2782c41ae2adf8b9a8bd4e1ac3b944691ad58e04c05b3175a25ee75",
       "generatedAt": "2026-05-19T12:00:00Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ambient-z-index",
       "modulePath": "design-rules/deterministic/generated/det-ambient-z-index.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "first-screen",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.BULK_ACTION_SCOPE",
@@ -579,16 +579,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-bulk-action-scope.md",
       "htmlPath": "ux-audit-rules/det-app-bulk-action-scope.html",
       "contentVersion": "8f688afab910e9c7fbfaa6d1fa97497a37a8628ba2f96d36fcd74c1410e13b44",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "8f688afab910e9c7fbfaa6d1fa97497a37a8628ba2f96d36fcd74c1410e13b44",
+      "generatedAt": "2026-08-13T02:31:56.997Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-bulk-action-scope",
       "modulePath": "design-rules/deterministic/generated/det-app-bulk-action-scope.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "trustAndEcosystemTruth",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.CLIENT_ERROR_LOG_CLEAN",
@@ -597,16 +597,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-client-error-log-clean.md",
       "htmlPath": "ux-audit-rules/det-app-client-error-log-clean.html",
       "contentVersion": "b1765fd5119295c6e258416eb39fa4cc7045f3eb0efcce6eba261b7b0e27b9da",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "b1765fd5119295c6e258416eb39fa4cc7045f3eb0efcce6eba261b7b0e27b9da",
+      "generatedAt": "2026-08-13T02:31:57.001Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-client-error-log-clean",
       "modulePath": "design-rules/deterministic/generated/det-app-client-error-log-clean.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "depthAndTechnicalDisclosure",
       "area": "interaction",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.CONTROL_A11Y",
@@ -615,16 +615,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-control-a11y.md",
       "htmlPath": "ux-audit-rules/det-app-control-a11y.html",
       "contentVersion": "7196bea4d702e6912611923f21c6c5930bd6ab06f360420595ff8235dee53fa0",
-      "pageVersion": "92c34366a639ff1907da7f8e2f1722cfbd0fec9683b31a9fe9122b4ece1455a1",
+      "pageVersion": "7196bea4d702e6912611923f21c6c5930bd6ab06f360420595ff8235dee53fa0",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-control_a11y",
       "modulePath": "design-rules/deterministic/generated/det-app-control-a11y.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.DATA_REFRESH_STALENESS",
@@ -633,16 +633,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-data-refresh-staleness.md",
       "htmlPath": "ux-audit-rules/det-app-data-refresh-staleness.html",
       "contentVersion": "a7bdc6cf019c51d1e139a181cd82ff56a394c9c147be5e2463b62c8fad533bb6",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "a7bdc6cf019c51d1e139a181cd82ff56a394c9c147be5e2463b62c8fad533bb6",
+      "generatedAt": "2026-08-13T02:31:57.010Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-data-refresh-staleness",
       "modulePath": "design-rules/deterministic/generated/det-app-data-refresh-staleness.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.DEMO_DISCLOSURE",
@@ -651,16 +651,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-demo-disclosure.md",
       "htmlPath": "ux-audit-rules/det-app-demo-disclosure.html",
       "contentVersion": "d6c28538b32e88f94fd45e283620939675fd8a57789c192fec095c4165f6538f",
-      "pageVersion": "cd55322e6e7b1301f87ed03ae901e3a2eee57b13092552c26d2d03b5c7e52e46",
+      "pageVersion": "d6c28538b32e88f94fd45e283620939675fd8a57789c192fec095c4165f6538f",
       "generatedAt": "2026-05-28T17:05:34.718Z",
       "agentModel": "",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-demo-disclosure",
       "modulePath": "design-rules/deterministic/generated/det-app-demo-disclosure.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "trustAndEcosystemTruth",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.DISABLED_REASON",
@@ -669,16 +669,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-disabled-reason.md",
       "htmlPath": "ux-audit-rules/det-app-disabled-reason.html",
       "contentVersion": "d8eda00e7da9a748954a55e02e4c6c640e407a405cf5c042442599c628f1d449",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "d8eda00e7da9a748954a55e02e4c6c640e407a405cf5c042442599c628f1d449",
+      "generatedAt": "2026-08-13T02:31:57.015Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-disabled-reason",
       "modulePath": "design-rules/deterministic/generated/det-app-disabled-reason.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.EMPTY_LOADING_ERROR_SUCCESS",
@@ -687,16 +687,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-empty-loading-error-success.md",
       "htmlPath": "ux-audit-rules/det-app-empty-loading-error-success.html",
       "contentVersion": "44972b37f993101f7f01b1cf80584ec9eeda2dfc0732a1c160ac80d83c629128",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "44972b37f993101f7f01b1cf80584ec9eeda2dfc0732a1c160ac80d83c629128",
+      "generatedAt": "2026-08-13T02:31:57.017Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-empty-loading-error-success",
       "modulePath": "design-rules/deterministic/generated/det-app-empty-loading-error-success.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.ERROR_BOUNDARY_RECOVERY",
@@ -705,16 +705,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-error-boundary-recovery.md",
       "htmlPath": "ux-audit-rules/det-app-error-boundary-recovery.html",
       "contentVersion": "23d2efaf38e395672525dc404ef97d4c1dd46dcd1039a36c84e6b56e326543d0",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "23d2efaf38e395672525dc404ef97d4c1dd46dcd1039a36c84e6b56e326543d0",
+      "generatedAt": "2026-08-13T02:31:57.028Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-error-boundary-recovery",
       "modulePath": "design-rules/deterministic/generated/det-app-error-boundary-recovery.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.FOCUS_TRAP",
@@ -723,16 +723,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-focus-trap.md",
       "htmlPath": "ux-audit-rules/det-app-focus-trap.html",
       "contentVersion": "f400612831d0fb39e712acda127b5973526b8dca61a2f1e1283f021373c0e579",
-      "pageVersion": "b00d291ded12c54043f412b186dfb0ed74880144c3ffab69d19386d2c6be1b47",
+      "pageVersion": "f400612831d0fb39e712acda127b5973526b8dca61a2f1e1283f021373c0e579",
       "generatedAt": "2026-05-19T20:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-focus-trap",
       "modulePath": "design-rules/deterministic/generated/det-app-focus-trap.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.MODAL_DISMISSAL_GUARD",
@@ -741,16 +741,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-modal-dismissal-guard.md",
       "htmlPath": "ux-audit-rules/det-app-modal-dismissal-guard.html",
       "contentVersion": "a81f9e214ddf53e0e5f203a22cfee8bd6404a4d2425c27bcfc6c0682a0868d63",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "a81f9e214ddf53e0e5f203a22cfee8bd6404a4d2425c27bcfc6c0682a0868d63",
+      "generatedAt": "2026-08-13T02:31:57.037Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-modal-dismissal-guard",
       "modulePath": "design-rules/deterministic/generated/det-app-modal-dismissal-guard.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.PERSISTENT_CHROME",
@@ -759,16 +759,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-persistent-chrome.md",
       "htmlPath": "ux-audit-rules/det-app-persistent-chrome.html",
       "contentVersion": "15f869cb9aba00b931fcffbe2dc91eecd21f5c2e16ef44d50a7e6eac0ef1e581",
-      "pageVersion": "a5e3e532fe7e4612f8241f9dc6dea95403cc566f17f8a5dc6a816f6bbe8e18c9",
+      "pageVersion": "15f869cb9aba00b931fcffbe2dc91eecd21f5c2e16ef44d50a7e6eac0ef1e581",
       "generatedAt": "2026-05-19T18:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-persistent-chrome",
       "modulePath": "design-rules/deterministic/generated/det-app-persistent-chrome.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.PRIMARY_CTA",
@@ -777,16 +777,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-primary-cta.md",
       "htmlPath": "ux-audit-rules/det-app-primary-cta.html",
       "contentVersion": "af34958630f56a2572b55c75db2f53627431d7313171ad41d837a26ceeea6f24",
-      "pageVersion": "8a3d48bb18ed60117a9fbc1044fa7df7f8cbcbf09e1360c0d7b3e19cec1545bf",
+      "pageVersion": "af34958630f56a2572b55c75db2f53627431d7313171ad41d837a26ceeea6f24",
       "generatedAt": "2026-05-28T17:05:34.723Z",
       "agentModel": "",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primary-cta",
       "modulePath": "design-rules/deterministic/generated/det-app-primary-cta.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "conversion",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.PRIMARY_STATE",
@@ -795,16 +795,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-primary-state.md",
       "htmlPath": "ux-audit-rules/det-app-primary-state.html",
       "contentVersion": "822b0d45d1d63841d7348fe6d8799b7cdb86857e7e8de5203b31d60144b3bba1",
-      "pageVersion": "7f62082ab82c1c2ce9ab7f016fcb2e54839413386514bb23d04c6112a1021d75",
+      "pageVersion": "822b0d45d1d63841d7348fe6d8799b7cdb86857e7e8de5203b31d60144b3bba1",
       "generatedAt": "2026-05-28T17:05:34.727Z",
       "agentModel": "",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primary-state",
       "modulePath": "design-rules/deterministic/generated/det-app-primary-state.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.PRIMITIVE_MARKERS",
@@ -813,16 +813,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-primitive-markers.md",
       "htmlPath": "ux-audit-rules/det-app-primitive-markers.html",
       "contentVersion": "3a6187cbcb464af3f4e2b5e4d062871160f71cc6662192b03526f9bb8bdff848",
-      "pageVersion": "bea28d34baf7530df4a75aaa0348712067b5ef581b6de321e9b1986ab50d8f62",
+      "pageVersion": "3a6187cbcb464af3f4e2b5e4d062871160f71cc6662192b03526f9bb8bdff848",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_markers",
       "modulePath": "design-rules/deterministic/generated/det-app-primitive-markers.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.PRIMITIVE_SOURCE",
@@ -831,16 +831,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-primitive-source.md",
       "htmlPath": "ux-audit-rules/det-app-primitive-source.html",
       "contentVersion": "5b0918ec75bec9e915ce9ff01e37f4bc151455a166e54d6ed04aa78023dcba98",
-      "pageVersion": "dcd89ed635e96f69d709fef2924729dc2e975effe9d98a4b3bcb2ec0020c4671",
+      "pageVersion": "5b0918ec75bec9e915ce9ff01e37f4bc151455a166e54d6ed04aa78023dcba98",
       "generatedAt": "2026-05-28T17:05:34.731Z",
       "agentModel": "",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_source",
       "modulePath": "design-rules/deterministic/generated/det-app-primitive-source.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.PRIMITIVE_STYLES",
@@ -849,16 +849,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-primitive-styles.md",
       "htmlPath": "ux-audit-rules/det-app-primitive-styles.html",
       "contentVersion": "76c7acb31ee30d7f4ebfab54c47113e0645f4fc2fbb72d9aac357b46fd29c066",
-      "pageVersion": "c46becf0f3421283779fd56cbf19e9b3e06aa05ebe4bc0961df91e7d5e36b73f",
+      "pageVersion": "76c7acb31ee30d7f4ebfab54c47113e0645f4fc2fbb72d9aac357b46fd29c066",
       "generatedAt": "2026-05-28T17:05:34.733Z",
       "agentModel": "",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_styles",
       "modulePath": "design-rules/deterministic/generated/det-app-primitive-styles.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.ROUTE_DEEPLINK_STATE",
@@ -867,16 +867,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-route-deeplink-state.md",
       "htmlPath": "ux-audit-rules/det-app-route-deeplink-state.html",
       "contentVersion": "bc85b704ae669ccc6c1916d1d3c3dec1379f1dc61a60a149b10fa883f7a12a50",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "bc85b704ae669ccc6c1916d1d3c3dec1379f1dc61a60a149b10fa883f7a12a50",
+      "generatedAt": "2026-08-13T02:31:57.045Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-route-deeplink-state",
       "modulePath": "design-rules/deterministic/generated/det-app-route-deeplink-state.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.SHELL_INTEGRATION",
@@ -885,16 +885,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-shell-integration.md",
       "htmlPath": "ux-audit-rules/det-app-shell-integration.html",
       "contentVersion": "82dba35f18de4ad30952738bb5176028db552df7e650be02a1f5b4f8b1d90ace",
-      "pageVersion": "6dd4b00f88ac436ec18a428e36d29cdb99c488cfb214472e05ceacaacc05d8d7",
+      "pageVersion": "82dba35f18de4ad30952738bb5176028db552df7e650be02a1f5b4f8b1d90ace",
       "generatedAt": "2026-05-28T17:05:34.736Z",
       "agentModel": "",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-shell_integration",
       "modulePath": "design-rules/deterministic/generated/det-app-shell-integration.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.TAB_PANEL",
@@ -903,16 +903,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-tab-panel.md",
       "htmlPath": "ux-audit-rules/det-app-tab-panel.html",
       "contentVersion": "60f6b6db233866f1684348e6d05161383624f404ad9821dbd8cecac7bbbee8b2",
-      "pageVersion": "cd5988e61d5012d6ced7da339f98c242cc686c3999672533de58bde548de4a3e",
+      "pageVersion": "60f6b6db233866f1684348e6d05161383624f404ad9821dbd8cecac7bbbee8b2",
       "generatedAt": "2026-05-28T17:05:34.738Z",
       "agentModel": "",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-tab-panel",
       "modulePath": "design-rules/deterministic/generated/det-app-tab-panel.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.TILE_AFFORDANCE",
@@ -921,16 +921,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-tile-affordance.md",
       "htmlPath": "ux-audit-rules/det-app-tile-affordance.html",
       "contentVersion": "e92494baf346c5ab7fdc4d4482e4e02912db890a7798939137f1b584e27ff9de",
-      "pageVersion": "391e75de16571930c294e2ad7f43f6956cb95774e175dfacdc32656850cca291",
+      "pageVersion": "e92494baf346c5ab7fdc4d4482e4e02912db890a7798939137f1b584e27ff9de",
       "generatedAt": "2026-05-28T17:05:34.739Z",
       "agentModel": "",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-tile-affordance",
       "modulePath": "design-rules/deterministic/generated/det-app-tile-affordance.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "conversion",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.TOAST_LIFECYCLE",
@@ -939,16 +939,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-toast-lifecycle.md",
       "htmlPath": "ux-audit-rules/det-app-toast-lifecycle.html",
       "contentVersion": "aff990b37f7553e56d652b5bfc6b7ca6dac570a4a6a87955ea169f4fd5c211fe",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "aff990b37f7553e56d652b5bfc6b7ca6dac570a4a6a87955ea169f4fd5c211fe",
+      "generatedAt": "2026-08-13T02:31:57.049Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-toast-lifecycle",
       "modulePath": "design-rules/deterministic/generated/det-app-toast-lifecycle.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.APP.WIZARD_PROGRESS_CONTROLS",
@@ -957,16 +957,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-app-wizard-progress-controls.md",
       "htmlPath": "ux-audit-rules/det-app-wizard-progress-controls.html",
       "contentVersion": "3256280c004f99aa8b8b5ac88220cd84bb752c58660835919ad3bacce40c3dd6",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "3256280c004f99aa8b8b5ac88220cd84bb752c58660835919ad3bacce40c3dd6",
+      "generatedAt": "2026-08-13T02:31:57.049Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-wizard-progress-controls",
       "modulePath": "design-rules/deterministic/generated/det-app-wizard-progress-controls.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.BUTTON.GROUP.MAX",
@@ -975,16 +975,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-button-group-max.md",
       "htmlPath": "ux-audit-rules/det-button-group-max.html",
       "contentVersion": "82f1265bbe1389ebd0ca946151743638df325b6a694654b54b126aa9599022b5",
-      "pageVersion": "b7cc93206211ddd3f1dfbb848bad56ec5aec6bc6024f3c745c3c4a1245136f0f",
+      "pageVersion": "82f1265bbe1389ebd0ca946151743638df325b6a694654b54b126aa9599022b5",
       "generatedAt": "2026-05-19T20:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-button-group-max",
       "modulePath": "design-rules/deterministic/generated/det-button-group-max.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "conversion",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CARD.ACTION_LIMIT",
@@ -993,16 +993,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-card-action-limit.md",
       "htmlPath": "ux-audit-rules/det-card-action-limit.html",
       "contentVersion": "d00c833ca90c2e40b0977952d99887fd4c86a8987614f405df2e6b79490f2536",
-      "pageVersion": "cf2a3260b29e73e441d945311198851f63b343202b7f0e347bb46d35a77408ed",
+      "pageVersion": "d00c833ca90c2e40b0977952d99887fd4c86a8987614f405df2e6b79490f2536",
       "generatedAt": "2026-05-19T20:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-card-action-limit",
       "modulePath": "design-rules/deterministic/generated/det-card-action-limit.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "conversion",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CARD.TITLE",
@@ -1011,16 +1011,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-card-title.md",
       "htmlPath": "ux-audit-rules/det-card-title.html",
       "contentVersion": "06178a2e75c75a2820806309add1bb146011198005e3e353dbbd8e7068d12b3a",
-      "pageVersion": "a732dcb372ec3f85140b7aa893abe068a469503c3edf9664834e1fd488a37661",
+      "pageVersion": "06178a2e75c75a2820806309add1bb146011198005e3e353dbbd8e7068d12b3a",
       "generatedAt": "2026-05-19T19:12:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-card-title",
       "modulePath": "design-rules/deterministic/generated/det-card-title.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CATALOG.CONTRACT_SPECIFICITY",
@@ -1029,16 +1029,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-catalog-contract-specificity.md",
       "htmlPath": "ux-audit-rules/det-catalog-contract-specificity.html",
       "contentVersion": "9774adebafb5f8e35f9429c74e287ea0e2dffe8d5b1bb7d4f7eced6d2d2cea54",
-      "pageVersion": "8cba9be552de740cab12a4c2d508101e424e4e77b17ae0dd898360d47d4890cf",
+      "pageVersion": "9774adebafb5f8e35f9429c74e287ea0e2dffe8d5b1bb7d4f7eced6d2d2cea54",
       "generatedAt": "2026-05-19T21:18:42.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-catalog-contract-specificity",
       "modulePath": "design-rules/deterministic/generated/det-catalog-contract-specificity.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CHART.ALT_SUMMARY",
@@ -1047,16 +1047,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-chart-alt-summary.md",
       "htmlPath": "ux-audit-rules/det-chart-alt-summary.html",
       "contentVersion": "4754463fa80177e3ee82113fef787203ed3bf9bd28bafe960f5c5426f4b950d5",
-      "pageVersion": "6c251e266ae748fcae1c2704355aa3b9e01b41b427713414b2268dc540d32340",
+      "pageVersion": "4754463fa80177e3ee82113fef787203ed3bf9bd28bafe960f5c5426f4b950d5",
       "generatedAt": "2026-05-19T20:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-chart-alt-summary",
       "modulePath": "design-rules/deterministic/generated/det-chart-alt-summary.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CHROME.BOUNDARY",
@@ -1065,16 +1065,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-chrome-boundary.md",
       "htmlPath": "ux-audit-rules/det-chrome-boundary.html",
       "contentVersion": "b62351acab338f40afff43bf8f9d00cf7264b4bc868ae4328ddf2c2f5b6c13cd",
-      "pageVersion": "f76b4b124b9d5e2362faab0ea9bf8d6854faecdaee21e15455e8fc96a942335c",
+      "pageVersion": "b62351acab338f40afff43bf8f9d00cf7264b4bc868ae4328ddf2c2f5b6c13cd",
       "generatedAt": "2026-05-19T20:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-chrome-boundary",
       "modulePath": "design-rules/deterministic/generated/det-chrome-boundary.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CONTEXT.BURDEN",
@@ -1083,16 +1083,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-context-burden.md",
       "htmlPath": "ux-audit-rules/det-context-burden.html",
       "contentVersion": "292b0ee1e765d6546938712874f88843defbed5b2628a87e85e68301e7906695",
-      "pageVersion": "3a3560d8867679c9b198e83a76c693330f1598634579afc61130ba04c2c41bf5",
+      "pageVersion": "292b0ee1e765d6546938712874f88843defbed5b2628a87e85e68301e7906695",
       "generatedAt": "2026-05-19T21:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-context-burden",
       "modulePath": "design-rules/deterministic/generated/det-context-burden.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "first-screen",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CONTRACT.PATH",
@@ -1101,16 +1101,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-contract-path.md",
       "htmlPath": "ux-audit-rules/det-contract-path.html",
       "contentVersion": "2f158b94f503d0b187c16e0be62fdcec811922449ef0d4c858444492c7a412b1",
-      "pageVersion": "6083955e6d8907caed366060a29dc76649afb4426732ba85cdadc89524e30a35",
+      "pageVersion": "2f158b94f503d0b187c16e0be62fdcec811922449ef0d4c858444492c7a412b1",
       "generatedAt": "2026-05-19T21:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-contract-path",
       "modulePath": "design-rules/deterministic/generated/det-contract-path.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CONTRACT.PLACEHOLDERS",
@@ -1119,16 +1119,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-contract-placeholders.md",
       "htmlPath": "ux-audit-rules/det-contract-placeholders.html",
       "contentVersion": "a25e1b29e769f8397ac3fe716c7daa6690e9bfff23d5d0b6a901334b67532b94",
-      "pageVersion": "6048d89765c0ff5b9b31c1014f8a33747d54076c0e6678b1c93305b2ac1e8f9d",
+      "pageVersion": "a25e1b29e769f8397ac3fe716c7daa6690e9bfff23d5d0b6a901334b67532b94",
       "generatedAt": "2026-05-19T22:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-contract-placeholders",
       "modulePath": "design-rules/deterministic/generated/det-contract-placeholders.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CTA.HIERARCHY",
@@ -1137,16 +1137,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-cta-hierarchy.md",
       "htmlPath": "ux-audit-rules/det-cta-hierarchy.html",
       "contentVersion": "5c54f7ee8c8b49d2fb13b32a1cb1ac9abd50aecbda1219e125a4feab6ea96d7f",
-      "pageVersion": "455be72677f9d86619b1984fcb7e00cf2896ac0a6816e8e52d3c8d45163b1a1a",
+      "pageVersion": "5c54f7ee8c8b49d2fb13b32a1cb1ac9abd50aecbda1219e125a4feab6ea96d7f",
       "generatedAt": "2026-05-19T22:00:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-cta-hierarchy",
       "modulePath": "design-rules/deterministic/generated/det-cta-hierarchy.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "trustAndEcosystemTruth",
       "area": "conversion",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.CTA.LABEL_NONEMPTY",
@@ -1155,16 +1155,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-cta-label-nonempty.md",
       "htmlPath": "ux-audit-rules/det-cta-label-nonempty.html",
       "contentVersion": "5b2e24410f085aa49cbca88481c9bf1b5542e80f4f051333d239898398fe2ed0",
-      "pageVersion": "c1fec213f1e4fe30dae16656019259037d7301d5b562d51489d35f33105b5de9",
+      "pageVersion": "5b2e24410f085aa49cbca88481c9bf1b5542e80f4f051333d239898398fe2ed0",
       "generatedAt": "2026-05-19T21:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-cta-label_nonempty",
       "modulePath": "design-rules/deterministic/generated/det-cta-label-nonempty.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.DATA.COLOR_ONLY",
@@ -1173,16 +1173,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-data-color-only.md",
       "htmlPath": "ux-audit-rules/det-data-color-only.html",
       "contentVersion": "70b6698a16e0a75691c9c054fbe6b3cc515bfc4ec4e0258b831683079877731b",
-      "pageVersion": "6867492406d3ec909a0742d87b388c8f118929ae94e16f369025c8fa1c41f736",
+      "pageVersion": "70b6698a16e0a75691c9c054fbe6b3cc515bfc4ec4e0258b831683079877731b",
       "generatedAt": "2026-05-19T21:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-data-color_only",
       "modulePath": "design-rules/deterministic/generated/det-data-color-only.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.DATA.TABLE_HEADERS",
@@ -1191,16 +1191,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-data-table-headers.md",
       "htmlPath": "ux-audit-rules/det-data-table-headers.html",
       "contentVersion": "6dbce3c22b6397eb694581019ef6b119aa3162eb5380057bde800d7ebbf28a1b",
-      "pageVersion": "c7bf5ba070b6cf5956699b142b0ff07574630b940eec46477fb9ab7891e2f04e",
+      "pageVersion": "6dbce3c22b6397eb694581019ef6b119aa3162eb5380057bde800d7ebbf28a1b",
       "generatedAt": "2026-05-19T22:35:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-data-table_headers",
       "modulePath": "design-rules/deterministic/generated/det-data-table-headers.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.DIAGRAM.ALT",
@@ -1209,16 +1209,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-diagram-alt.md",
       "htmlPath": "ux-audit-rules/det-diagram-alt.html",
       "contentVersion": "87e637e9588573a57e15e5568d8d1417b86f04958a8d5b92745509e5426bc702",
-      "pageVersion": "2a41d2762a8955a191adcfb2803cbf7d10eb49e43c8b575f7545749b36ddb51d",
+      "pageVersion": "87e637e9588573a57e15e5568d8d1417b86f04958a8d5b92745509e5426bc702",
       "generatedAt": "2026-05-19T21:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-diagram-alt",
       "modulePath": "design-rules/deterministic/generated/det-diagram-alt.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.DIAGRAM.ASSET_REGISTRY",
@@ -1227,16 +1227,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-diagram-asset-registry.md",
       "htmlPath": "ux-audit-rules/det-diagram-asset-registry.html",
       "contentVersion": "b35a7d0cf594693f44cc841b7fa9ce6fbc50cfb210ed159580e272a420ee3c39",
-      "pageVersion": "760457a5e7fdd76fad2a2fdc15e29a3d65de58e38a97a0e6f3b0d66d497fd4dc",
+      "pageVersion": "b35a7d0cf594693f44cc841b7fa9ce6fbc50cfb210ed159580e272a420ee3c39",
       "generatedAt": "2026-05-19T21:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-diagram-asset-registry",
       "modulePath": "design-rules/deterministic/generated/det-diagram-asset-registry.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.DIAGRAM.LABELS",
@@ -1245,16 +1245,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-diagram-labels.md",
       "htmlPath": "ux-audit-rules/det-diagram-labels.html",
       "contentVersion": "0858730d2b0252a1092b06d68f05eeb90f5106633e12ac673f4bc04f09f05986",
-      "pageVersion": "fb6f4aaa3d5b13909aef3d1985ad765661706eb320f25cc39dd286ab46784aa6",
+      "pageVersion": "0858730d2b0252a1092b06d68f05eeb90f5106633e12ac673f4bc04f09f05986",
       "generatedAt": "2026-05-19T22:35:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-diagram-labels",
       "modulePath": "design-rules/deterministic/generated/det-diagram-labels.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.EXTERNAL_LINK.SAFETY",
@@ -1281,16 +1281,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-form-label-error-summary.md",
       "htmlPath": "ux-audit-rules/det-form-label-error-summary.html",
       "contentVersion": "8364db659958ff6bbd16a3f4589c02687df685967cb8d4df68f543c3fa655c4c",
-      "pageVersion": "",
-      "generatedAt": "",
+      "pageVersion": "8364db659958ff6bbd16a3f4589c02687df685967cb8d4df68f543c3fa655c4c",
+      "generatedAt": "2026-08-13T02:31:57.071Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-form-label-error-summary",
       "modulePath": "design-rules/deterministic/generated/det-form-label-error-summary.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "missing"
+      "status": "current"
     },
     {
       "id": "DET.HASH.MARKERS",
@@ -1299,16 +1299,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-hash-markers.md",
       "htmlPath": "ux-audit-rules/det-hash-markers.html",
       "contentVersion": "d1aa2d4c999392ad3ab6ffb34581d8776d8bf2e3ced4d902d4c967a01d9ef33b",
-      "pageVersion": "d7c8001eff82b529e9c4f8919173e977dcb44b91fb8b98ac1acf792f9c81780b",
+      "pageVersion": "d1aa2d4c999392ad3ab6ffb34581d8776d8bf2e3ced4d902d4c967a01d9ef33b",
       "generatedAt": "2026-05-19T22:20:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-hash-markers",
       "modulePath": "design-rules/deterministic/generated/det-hash-markers.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.HASH.REGISTRY_ROW",
@@ -1317,16 +1317,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-hash-registry-row.md",
       "htmlPath": "ux-audit-rules/det-hash-registry-row.html",
       "contentVersion": "7a21ba7f71ebcb59647ac5a517f9cabad7e39f338561da5a3b0ba238ce0e3dca",
-      "pageVersion": "8b23253fec83e82d81039d13831251f57cd75cb62b86f892e33426a08c8c3ba9",
+      "pageVersion": "7a21ba7f71ebcb59647ac5a517f9cabad7e39f338561da5a3b0ba238ce0e3dca",
       "generatedAt": "2026-05-19T22:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "6773fda516344e110b5a7b1435e655e1264e773825ca8bbe62194189891c42ba",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-hash-registry-row",
       "modulePath": "design-rules/deterministic/generated/det-hash-registry-row.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.HTML.EMPTY_INLINE",
@@ -1335,16 +1335,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-html-empty-inline.md",
       "htmlPath": "ux-audit-rules/det-html-empty-inline.html",
       "contentVersion": "83a75c34fb363023fb0f8980cf38695108bbcbe9a22d8c08267cc4c10841fd8d",
-      "pageVersion": "dbe79823bbc33762ff1359462db1ad4daa978530a36e767f1a280470a5945241",
+      "pageVersion": "83a75c34fb363023fb0f8980cf38695108bbcbe9a22d8c08267cc4c10841fd8d",
       "generatedAt": "2026-05-25T11:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-html-empty-inline",
       "modulePath": "design-rules/deterministic/generated/det-html-empty-inline.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.INVENTORY.CROSSWALK",
@@ -1353,16 +1353,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-inventory-crosswalk.md",
       "htmlPath": "ux-audit-rules/det-inventory-crosswalk.html",
       "contentVersion": "0fd08e4e5faaa32b1464eb426f621cc8788f24ee840e7cc50de5a1d352e3097c",
-      "pageVersion": "1ff85299f06dc68add4d86309b7e7f7baa939d1767e55cee5288b001d5d0c73b",
+      "pageVersion": "0fd08e4e5faaa32b1464eb426f621cc8788f24ee840e7cc50de5a1d352e3097c",
       "generatedAt": "2026-05-25T14:32:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-inventory-crosswalk",
       "modulePath": "design-rules/deterministic/generated/det-inventory-crosswalk.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.JS.NO_CONSOLE_ERROR",
@@ -1371,16 +1371,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-js-no-console-error.md",
       "htmlPath": "ux-audit-rules/det-js-no-console-error.html",
       "contentVersion": "7a8cb1547ea56eed3b176876bf28dd518ac482526fca9fecf69ab79c277f4787",
-      "pageVersion": "01cb5ec00334415a9f9108a46f624c90a59e31b6735c536e0871f57174fd74e7",
+      "pageVersion": "7a8cb1547ea56eed3b176876bf28dd518ac482526fca9fecf69ab79c277f4787",
       "generatedAt": "2026-05-25T20:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-js-no_console_error",
       "modulePath": "design-rules/deterministic/generated/det-js-no-console-error.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "depthAndTechnicalDisclosure",
       "area": "interaction",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.JS.PROGRESSIVE",
@@ -1389,16 +1389,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-js-progressive.md",
       "htmlPath": "ux-audit-rules/det-js-progressive.html",
       "contentVersion": "e68b5b9e9e9296e6aaa48e13693ac5a07f077f06aade5eea9dba1077578615d4",
-      "pageVersion": "bd3eaea0e12fe06c64420bbf6af200f2022ca4a0c0b4d6916116271a762093e2",
+      "pageVersion": "e68b5b9e9e9296e6aaa48e13693ac5a07f077f06aade5eea9dba1077578615d4",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-js-progressive",
       "modulePath": "design-rules/deterministic/generated/det-js-progressive.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "depthAndTechnicalDisclosure",
       "area": "interaction",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.KS.CONSUMER_ASSET_BUNDLE",
@@ -1407,16 +1407,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-ks-consumer-asset-bundle.md",
       "htmlPath": "ux-audit-rules/det-ks-consumer-asset-bundle.html",
       "contentVersion": "61b5d5dbd1f44aa5873f398ed7edab35677b364e67daa1650af11466ce3354a6",
-      "pageVersion": "ks-governance-v1",
+      "pageVersion": "61b5d5dbd1f44aa5873f398ed7edab35677b364e67daa1650af11466ce3354a6",
       "generatedAt": "2026-05-28T20:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-consumer-asset-bundle",
       "modulePath": "design-rules/deterministic/generated/det-ks-consumer-asset-bundle.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.KS.CONTRACT_EXAMPLE_SYNC",
@@ -1425,16 +1425,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-ks-contract-example-sync.md",
       "htmlPath": "ux-audit-rules/det-ks-contract-example-sync.html",
       "contentVersion": "b9512b7a85f0a1b14677a75f9e2986a972dd73c53dc36bd81a10408fbbb58545",
-      "pageVersion": "ks-governance-v1",
+      "pageVersion": "b9512b7a85f0a1b14677a75f9e2986a972dd73c53dc36bd81a10408fbbb58545",
       "generatedAt": "2026-05-28T20:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-contract-example-sync",
       "modulePath": "design-rules/deterministic/generated/det-ks-contract-example-sync.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.KS.CSS_SCOPE_LEAK",
@@ -1443,16 +1443,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-ks-css-scope-leak.md",
       "htmlPath": "ux-audit-rules/det-ks-css-scope-leak.html",
       "contentVersion": "e4b56b752fa0caf3b753838ea80c081006afb92c8bc77ab3161a09e54dedf493",
-      "pageVersion": "ks-governance-v1",
+      "pageVersion": "e4b56b752fa0caf3b753838ea80c081006afb92c8bc77ab3161a09e54dedf493",
       "generatedAt": "2026-05-28T20:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-css-scope-leak",
       "modulePath": "design-rules/deterministic/generated/det-ks-css-scope-leak.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.KS.HASH_SEMANTIC_UNIQUENESS",
@@ -1461,16 +1461,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-ks-hash-semantic-uniqueness.md",
       "htmlPath": "ux-audit-rules/det-ks-hash-semantic-uniqueness.html",
       "contentVersion": "141d92a7f3895fec59de94986650adff42ba0b75bf3984386ac117a38d0d7395",
-      "pageVersion": "ks-governance-v1",
+      "pageVersion": "141d92a7f3895fec59de94986650adff42ba0b75bf3984386ac117a38d0d7395",
       "generatedAt": "2026-05-28T20:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-hash-semantic-uniqueness",
       "modulePath": "design-rules/deterministic/generated/det-ks-hash-semantic-uniqueness.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.KS.PRIMITIVE_VERSION_MATCH",
@@ -1479,16 +1479,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-ks-primitive-version-match.md",
       "htmlPath": "ux-audit-rules/det-ks-primitive-version-match.html",
       "contentVersion": "6f57f7cf85cedc2b2105866c86b352331a2451ff69cf43203d16d81a03c0bfdd",
-      "pageVersion": "ks-governance-v1",
+      "pageVersion": "6f57f7cf85cedc2b2105866c86b352331a2451ff69cf43203d16d81a03c0bfdd",
       "generatedAt": "2026-05-28T20:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-primitive-version-match",
       "modulePath": "design-rules/deterministic/generated/det-ks-primitive-version-match.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.KS.VISUAL_FAMILY_COVERAGE",
@@ -1497,16 +1497,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-ks-visual-family-coverage.md",
       "htmlPath": "ux-audit-rules/det-ks-visual-family-coverage.html",
       "contentVersion": "5b8810b3edd9205a4fb6800cc3ed322b9a208a5cdd20a8820feb1d1c7225b8be",
-      "pageVersion": "ks-governance-v1",
+      "pageVersion": "5b8810b3edd9205a4fb6800cc3ed322b9a208a5cdd20a8820feb1d1c7225b8be",
       "generatedAt": "2026-05-28T20:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ks-visual-family-coverage",
       "modulePath": "design-rules/deterministic/generated/det-ks-visual-family-coverage.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.LANDMARKS.REQUIRED",
@@ -1515,16 +1515,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-landmarks-required.md",
       "htmlPath": "ux-audit-rules/det-landmarks-required.html",
       "contentVersion": "4c493c1b3b51ee6fb684f03e22013f9be778f898ad5c2292d65b18a42a5c8d31",
-      "pageVersion": "c29f7f449fb7047c691e49d9eca95939fbfd12f1de92145468641f7c5150f192",
+      "pageVersion": "4c493c1b3b51ee6fb684f03e22013f9be778f898ad5c2292d65b18a42a5c8d31",
       "generatedAt": "2026-05-25T12:00:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-landmarks-required",
       "modulePath": "design-rules/deterministic/generated/det-landmarks-required.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.LAYOUT.GRID_CONSISTENCY",
@@ -1533,16 +1533,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-layout-grid-consistency.md",
       "htmlPath": "ux-audit-rules/det-layout-grid-consistency.html",
       "contentVersion": "cfcfd0f35e7d77c8212e1d9c4992b20c2500bff216236cba6bf07895f5548ef0",
-      "pageVersion": "c712bdd2575f6dc25d95725261f7cec1bcae2af0f85ce49b5bfaa02b2636a97d",
+      "pageVersion": "cfcfd0f35e7d77c8212e1d9c4992b20c2500bff216236cba6bf07895f5548ef0",
       "generatedAt": "2026-05-25T14:00:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-layout-grid_consistency",
       "modulePath": "design-rules/deterministic/generated/det-layout-grid-consistency.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.LOADING.EMPTY_ERROR_STATES",
@@ -1623,16 +1623,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-motion-no-auto-play-flash.md",
       "htmlPath": "ux-audit-rules/det-motion-no-auto-play-flash.html",
       "contentVersion": "2d405a18ab3e727b13f34c6a2a7355445706f0215a657e7791c620d1b977b956",
-      "pageVersion": "f6716461755c5906686a586535661bb7dc3d022d186faaf718efbf89ed7070d3",
+      "pageVersion": "2d405a18ab3e727b13f34c6a2a7355445706f0215a657e7791c620d1b977b956",
       "generatedAt": "2026-05-25T14:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-motion-no_auto_play_flash",
       "modulePath": "design-rules/deterministic/generated/det-motion-no-auto-play-flash.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.MOTION.PREFERS_REDUCED",
@@ -1641,16 +1641,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-motion-prefers-reduced.md",
       "htmlPath": "ux-audit-rules/det-motion-prefers-reduced.html",
       "contentVersion": "9040e59599bcb6abc98485f9009d3ce6b4fbc9919aab16f03d8d00edbeaff582",
-      "pageVersion": "49a23233fa7dbc7d7d980dd0891b238b19c782633c1e748896a0c6aeeac33ba5",
+      "pageVersion": "9040e59599bcb6abc98485f9009d3ce6b4fbc9919aab16f03d8d00edbeaff582",
       "generatedAt": "2026-05-25T16:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-motion-prefers_reduced",
       "modulePath": "design-rules/deterministic/generated/det-motion-prefers-reduced.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.BREADCRUMB",
@@ -1659,16 +1659,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-breadcrumb.md",
       "htmlPath": "ux-audit-rules/det-nav-breadcrumb.html",
       "contentVersion": "78432403f7b834b8b4ab64d4dd743e8b6afdcd2dfecd25238bf362def0906639",
-      "pageVersion": "d29db46cf5a6dfbe5acb196335691d0cb791e2dd6772b11ce191aa93713bb303",
+      "pageVersion": "78432403f7b834b8b4ab64d4dd743e8b6afdcd2dfecd25238bf362def0906639",
       "generatedAt": "2026-05-25T15:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-breadcrumb",
       "modulePath": "design-rules/deterministic/generated/det-nav-breadcrumb.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.DEDUP",
@@ -1677,16 +1677,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-dedup.md",
       "htmlPath": "ux-audit-rules/det-nav-dedup.html",
       "contentVersion": "c8c89d9fd1c652104f55f09f9267f6cd7cfe9d856e32e0505fbe954aef9596fc",
-      "pageVersion": "c3ab59adb095d9ee61013db48b1e31c8d82b9fe44864b413efe78f18279abe2c",
+      "pageVersion": "c8c89d9fd1c652104f55f09f9267f6cd7cfe9d856e32e0505fbe954aef9596fc",
       "generatedAt": "2026-05-25T17:00:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-dedup",
       "modulePath": "design-rules/deterministic/generated/det-nav-dedup.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.DEPTH",
@@ -1695,16 +1695,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-depth.md",
       "htmlPath": "ux-audit-rules/det-nav-depth.html",
       "contentVersion": "d51a09c85068c4d3c2523f69150ed0240fede29e479da7242abcbee6f6d8b639",
-      "pageVersion": "bd3562025ebc5525d93f3f5d235936a70a33683cf2056afc850e561df77f8aee",
+      "pageVersion": "d51a09c85068c4d3c2523f69150ed0240fede29e479da7242abcbee6f6d8b639",
       "generatedAt": "2026-05-25T18:00:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-depth",
       "modulePath": "design-rules/deterministic/generated/det-nav-depth.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.FOCUS_ORDER",
@@ -1713,16 +1713,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-focus-order.md",
       "htmlPath": "ux-audit-rules/det-nav-focus-order.html",
       "contentVersion": "1757c216531d1210eaf224bb59a18d6246e088af7f8e089ab9679282654afd86",
-      "pageVersion": "84636f49a8af2c9595b613d075ec4f5c84d25ca7537f8b8fc84b43684a3d0210",
+      "pageVersion": "1757c216531d1210eaf224bb59a18d6246e088af7f8e089ab9679282654afd86",
       "generatedAt": "2026-05-25T21:15:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-focus_order",
       "modulePath": "design-rules/deterministic/generated/det-nav-focus-order.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAV.IN_PAGE_TOC",
@@ -1731,16 +1731,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-nav-in-page-toc.md",
       "htmlPath": "ux-audit-rules/det-nav-in-page-toc.html",
       "contentVersion": "8f32fbf4e93c69049c2810650a0d3add9f7bb7582e9a36ac6b4378ddb57b4b59",
-      "pageVersion": "73ca82c130c0f8d8ea17f8412cab30621bfb8fabd1924a6a943a3653e9680f47",
+      "pageVersion": "8f32fbf4e93c69049c2810650a0d3add9f7bb7582e9a36ac6b4378ddb57b4b59",
       "generatedAt": "2026-05-25T20:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-nav-in_page_toc",
       "modulePath": "design-rules/deterministic/generated/det-nav-in-page-toc.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.NAVLAYOUT.FOCUS_TRAP",
@@ -1821,16 +1821,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-page-lang.md",
       "htmlPath": "ux-audit-rules/det-page-lang.html",
       "contentVersion": "398571201a72fbb1ad3aefab48572bb85406cf8d72df4cd9a4bf28e152b61204",
-      "pageVersion": "44c6f35dae6a383cc76fab9c0dca814bfe8c1309ffa6bd28a6473d44f81cad9e",
+      "pageVersion": "398571201a72fbb1ad3aefab48572bb85406cf8d72df4cd9a4bf28e152b61204",
       "generatedAt": "2026-05-25T14:32:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-lang",
       "modulePath": "design-rules/deterministic/page/lang.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PAGE.MODE",
@@ -1839,16 +1839,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-page-mode.md",
       "htmlPath": "ux-audit-rules/det-page-mode.html",
       "contentVersion": "99e2a22dd2911de7538d4c845ebe44d57e79c9a68c1c0fe4e8e08d5574755e6d",
-      "pageVersion": "9ab49bfba4426e3217ba3f6c40b1a27e01ad37885da289c2e4c9ab4b8e6953e2",
+      "pageVersion": "99e2a22dd2911de7538d4c845ebe44d57e79c9a68c1c0fe4e8e08d5574755e6d",
       "generatedAt": "2026-05-25T19:00:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-mode",
       "modulePath": "design-rules/deterministic/generated/det-page-mode.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PAGE.TITLE",
@@ -1857,16 +1857,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-page-title.md",
       "htmlPath": "ux-audit-rules/det-page-title.html",
       "contentVersion": "13c9253bbc821dc30c1fdbd8b80593dfaf9e7051d4d8e45977e6318dbf4d7cb5",
-      "pageVersion": "4040ca340c20e070ac3646e7875cf98f539cdb90d66b4145dd5874f55ad35dfd",
+      "pageVersion": "13c9253bbc821dc30c1fdbd8b80593dfaf9e7051d4d8e45977e6318dbf4d7cb5",
       "generatedAt": "2026-05-25T16:45:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-title",
       "modulePath": "design-rules/deterministic/page/title.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "metadata",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PAGE.VIEWPORT",
@@ -1875,16 +1875,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-page-viewport.md",
       "htmlPath": "ux-audit-rules/det-page-viewport.html",
       "contentVersion": "348bac13755a20693d1cce9c82d36d0c031f94600386699e79adc82b8d2b1603",
-      "pageVersion": "e7575c6d91dfcdd8b116c46bf9d0e72834a96f8ba28aef18b49964474c7f0736",
+      "pageVersion": "348bac13755a20693d1cce9c82d36d0c031f94600386699e79adc82b8d2b1603",
       "generatedAt": "2026-05-25T17:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-page-viewport",
       "modulePath": "design-rules/deterministic/page/viewport.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PROSE.LENGTH",
@@ -1893,16 +1893,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-prose-length.md",
       "htmlPath": "ux-audit-rules/det-prose-length.html",
       "contentVersion": "87451d17996b62bf66240ff2f8e5df3178ef8cfb8bb7108cf0d954e879d2aabc",
-      "pageVersion": "b246000e8074dc2ec8325cca1ad2af3f39e46152d69d019a9536befacd6887f9",
+      "pageVersion": "87451d17996b62bf66240ff2f8e5df3178ef8cfb8bb7108cf0d954e879d2aabc",
       "generatedAt": "2026-05-25T18:30:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-prose-length",
       "modulePath": "design-rules/deterministic/generated/det-prose-length.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "depthAndTechnicalDisclosure",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PY.KS_HASH_ATTRS",
@@ -1911,16 +1911,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-py-ks-hash-attrs.md",
       "htmlPath": "ux-audit-rules/det-py-ks-hash-attrs.html",
       "contentVersion": "48909d6366c5c9c2cb694779a0c480eb0fac5f8be49e471b3b9a0624cfb24d5e",
-      "pageVersion": "2714cbe739f8cd59a730c408f5fd8b07d826fbff93b3ad3707bc7ff0aab86d03",
+      "pageVersion": "48909d6366c5c9c2cb694779a0c480eb0fac5f8be49e471b3b9a0624cfb24d5e",
       "generatedAt": "2026-05-25T16:20:00.000Z",
       "agentModel": "composer-2.5-fast",
-      "registryFingerprint": "2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-py-ks_hash_attrs",
       "modulePath": "design-rules/deterministic/generated/det-py-ks-hash-attrs.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.PY.OPTIONAL_REGIONS",
@@ -1929,16 +1929,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-py-optional-regions.md",
       "htmlPath": "ux-audit-rules/det-py-optional-regions.html",
       "contentVersion": "9387ccfec40850b7a8acde843655f2457fb0e976b212a4527a18323c9c9b2669",
-      "pageVersion": "855a50dba569006c705edcf7d346e6220f908e672ab7a26044839f3e45a69106",
+      "pageVersion": "9387ccfec40850b7a8acde843655f2457fb0e976b212a4527a18323c9c9b2669",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-py-optional_regions",
       "modulePath": "design-rules/deterministic/generated/det-py-optional-regions.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "informationArchitecture",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.RESPONSIVE.NO_HORIZONTAL_OVERFLOW",
@@ -2001,16 +2001,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-screenshot-status.md",
       "htmlPath": "ux-audit-rules/det-screenshot-status.html",
       "contentVersion": "b50982f105d13c83b2ab49ad07c86da31a5e6b34d19178e9d4c7461af987ce91",
-      "pageVersion": "3df32ff59b36c63479998b1321ecdfed89c1da25b9dd2f3ce5cdbd800f328448",
+      "pageVersion": "b50982f105d13c83b2ab49ad07c86da31a5e6b34d19178e9d4c7461af987ce91",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-screenshot-status",
       "modulePath": "design-rules/deterministic/generated/det-screenshot-status.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.SCROLL.PAGE_ONLY",
@@ -2055,16 +2055,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-section-heading.md",
       "htmlPath": "ux-audit-rules/det-section-heading.html",
       "contentVersion": "b960990ee6bafad724cc31a3a032fa3a3b79c8e27e9a971910ad0378a4103778",
-      "pageVersion": "5dbbdcb613353fdd9dcad1fc61d00103ce2adbe6da97f019c696722c12e651ab",
+      "pageVersion": "b960990ee6bafad724cc31a3a032fa3a3b79c8e27e9a971910ad0378a4103778",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-section-heading",
       "modulePath": "design-rules/deterministic/generated/det-section-heading.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "narrativeHero",
       "area": "semantics",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.SECTION.SINGLE_JOB",
@@ -2073,16 +2073,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-section-single-job.md",
       "htmlPath": "ux-audit-rules/det-section-single-job.html",
       "contentVersion": "f2d19970eb6d951bd839725df5b8bb6d1f821c608c62d7c49e3e3c996fa5d0eb",
-      "pageVersion": "a02e490ddd88ad710ba66fb729532ee48682de2d853ce6bd6e59cf6b2ac30339",
+      "pageVersion": "f2d19970eb6d951bd839725df5b8bb6d1f821c608c62d7c49e3e3c996fa5d0eb",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-section-single-job",
       "modulePath": "design-rules/deterministic/generated/det-section-single-job.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "narrativeHero",
       "area": "informationArchitecture",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.SPATIAL.HASH_ROOT",
@@ -2091,16 +2091,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-spatial-hash-root.md",
       "htmlPath": "ux-audit-rules/det-spatial-hash-root.html",
       "contentVersion": "5f762406a8ab70023eb84c68980b7f70b93359cca91c5d096c32392f5ed6a461",
-      "pageVersion": "spatial-bootstrap-001",
+      "pageVersion": "5f762406a8ab70023eb84c68980b7f70b93359cca91c5d096c32392f5ed6a461",
       "generatedAt": "2026-07-22T00:00:00.000Z",
       "agentModel": "ks-spatial-pdca",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-spatial-hash_root",
       "modulePath": "design-rules/deterministic/generated/det-spatial-hash-root.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "visualCatalogGovernance",
       "area": "visual-catalog",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.SPATIAL.ORACLE_PRESENT",
@@ -2199,16 +2199,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-studio-fullpage-shot.md",
       "htmlPath": "ux-audit-rules/det-studio-fullpage-shot.html",
       "contentVersion": "caddcf63629093d25b6ae4df4aba9e190c9d4a11b3be2a021f8718dbcadbfd9a",
-      "pageVersion": "studio-fullpage-shot-v1",
+      "pageVersion": "caddcf63629093d25b6ae4df4aba9e190c9d4a11b3be2a021f8718dbcadbfd9a",
       "generatedAt": "2026-08-13T00:00:00.000Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-fullpage_shot",
       "modulePath": "design-rules/deterministic/generated/det-studio-fullpage-shot.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.STUDIO.H1",
@@ -2217,16 +2217,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-studio-h1.md",
       "htmlPath": "ux-audit-rules/det-studio-h1.html",
       "contentVersion": "b07cbb540b5c3996654e2ab576ef9fc6d5f015317345a9ba9c6070eb2c7fd5c4",
-      "pageVersion": "studio-h1-v1",
+      "pageVersion": "b07cbb540b5c3996654e2ab576ef9fc6d5f015317345a9ba9c6070eb2c7fd5c4",
       "generatedAt": "2026-08-13T00:00:00.000Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-h1",
       "modulePath": "design-rules/deterministic/generated/det-studio-h1.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.STUDIO.HASH",
@@ -2235,16 +2235,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-studio-hash.md",
       "htmlPath": "ux-audit-rules/det-studio-hash.html",
       "contentVersion": "df3197008328d726b1c6bec9e811599d2e98be5126f0ec3bead162cbb3189f8e",
-      "pageVersion": "studio-hash-v1",
+      "pageVersion": "df3197008328d726b1c6bec9e811599d2e98be5126f0ec3bead162cbb3189f8e",
       "generatedAt": "2026-08-13T00:00:00.000Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-hash",
       "modulePath": "design-rules/deterministic/generated/det-studio-hash.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.STUDIO.JOB_BUDGET",
@@ -2253,16 +2253,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-studio-job-budget.md",
       "htmlPath": "ux-audit-rules/det-studio-job-budget.html",
       "contentVersion": "06474ed3727ea0c55143d391d9e620c8ecc34c97e09ca684ed03905c9ef701e5",
-      "pageVersion": "studio-job-budget-v1",
+      "pageVersion": "06474ed3727ea0c55143d391d9e620c8ecc34c97e09ca684ed03905c9ef701e5",
       "generatedAt": "2026-08-13T00:00:00.000Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-job_budget",
       "modulePath": "design-rules/deterministic/generated/det-studio-job-budget.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.STUDIO.MECHANISM_LEAD",
@@ -2271,16 +2271,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-studio-mechanism-lead.md",
       "htmlPath": "ux-audit-rules/det-studio-mechanism-lead.html",
       "contentVersion": "8a2bff7709e73a1aaf3170f4c3c4df5a9be336b47ed4c424f9e71caf7c581331",
-      "pageVersion": "studio-mechanism-lead-v1",
+      "pageVersion": "8a2bff7709e73a1aaf3170f4c3c4df5a9be336b47ed4c424f9e71caf7c581331",
       "generatedAt": "2026-08-13T00:00:00.000Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-mechanism_lead",
       "modulePath": "design-rules/deterministic/generated/det-studio-mechanism-lead.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.STUDIO.TESTID",
@@ -2289,16 +2289,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-studio-testid.md",
       "htmlPath": "ux-audit-rules/det-studio-testid.html",
       "contentVersion": "4f3536bbf96acd4ba8e0255fd2e69cd49f6076e39942e6c9e981351eb7d7b76a",
-      "pageVersion": "studio-testid-v1",
+      "pageVersion": "4f3536bbf96acd4ba8e0255fd2e69cd49f6076e39942e6c9e981351eb7d7b76a",
       "generatedAt": "2026-08-13T00:00:00.000Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-testid",
       "modulePath": "design-rules/deterministic/generated/det-studio-testid.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.STUDIO.TITLE_NAV_MATCH",
@@ -2307,16 +2307,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-studio-title-nav-match.md",
       "htmlPath": "ux-audit-rules/det-studio-title-nav-match.html",
       "contentVersion": "d4a1c54ca76992afcee20e32ff8b24aaff0ba5d9aa9d21e0b996b45e1fc84164",
-      "pageVersion": "studio-title-nav-match-v1",
+      "pageVersion": "d4a1c54ca76992afcee20e32ff8b24aaff0ba5d9aa9d21e0b996b45e1fc84164",
       "generatedAt": "2026-08-13T00:00:00.000Z",
       "agentModel": "",
-      "registryFingerprint": "",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-studio-title_nav_match",
       "modulePath": "design-rules/deterministic/generated/det-studio-title-nav-match.check.js",
       "defaultSeverity": "minor",
       "scoreDimension": "",
       "area": "",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.SURFACE.ELEVATION_TOKEN",
@@ -2325,16 +2325,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-surface-elevation-token.md",
       "htmlPath": "ux-audit-rules/det-surface-elevation-token.html",
       "contentVersion": "f717e83eb07af79d22bff78d0410dd04a3fcab0d0f703ae826f10d4e280c7e58",
-      "pageVersion": "dfa0e32571642394bbf6b082920b949482c55bdf097e4c8f459a64ffbb92d23b",
+      "pageVersion": "f717e83eb07af79d22bff78d0410dd04a3fcab0d0f703ae826f10d4e280c7e58",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-surface-elevation_token",
       "modulePath": "design-rules/deterministic/generated/det-surface-elevation-token.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.TABLE.RESPONSIVE_CONTROLS",
@@ -2361,16 +2361,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-theme-contrast-min.md",
       "htmlPath": "ux-audit-rules/det-theme-contrast-min.html",
       "contentVersion": "e487b7c9267eef1a167c6dab7403d670c3cabfec711f1672b867944699e7a293",
-      "pageVersion": "97c147779f5f6f04f6305f426ad1aebad6f7de5ded7de9b6d052f38d8f737141",
+      "pageVersion": "e487b7c9267eef1a167c6dab7403d670c3cabfec711f1672b867944699e7a293",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-theme-contrast_min",
       "modulePath": "design-rules/deterministic/generated/det-theme-contrast-min.check.js",
       "defaultSeverity": "major",
       "scoreDimension": "accessibilitySemanticsMeta",
       "area": "accessibility",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.THEME.FONT_STACK",
@@ -2379,16 +2379,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-theme-font-stack.md",
       "htmlPath": "ux-audit-rules/det-theme-font-stack.html",
       "contentVersion": "13be35b2f4c9a745397dab159f2de1f2c2fba822332a66ffb394cb637ec011c5",
-      "pageVersion": "855117ccb546d0ee21cc5acc6dc802220159feb9e559b67b64419387dde5768a",
+      "pageVersion": "13be35b2f4c9a745397dab159f2de1f2c2fba822332a66ffb394cb637ec011c5",
       "generatedAt": "2026-05-25T13:41:26Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-theme-font_stack",
       "modulePath": "design-rules/deterministic/generated/det-theme-font-stack.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.THEME.RADIUS_SHADOW_TOKEN_DRIFT",
@@ -2433,16 +2433,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-token-no-drift.md",
       "htmlPath": "ux-audit-rules/det-token-no-drift.html",
       "contentVersion": "b916f7c5ee3279164038c3c813a9a5d8f45ecb49af8df9e105a5d664d1b77c61",
-      "pageVersion": "53a3887c59e39d84ed2ca7f199dbceec852ca7bc4163d428d8cbb997c8fab24c",
+      "pageVersion": "b916f7c5ee3279164038c3c813a9a5d8f45ecb49af8df9e105a5d664d1b77c61",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-token-no_drift",
       "modulePath": "design-rules/deterministic/generated/det-token-no-drift.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     },
     {
       "id": "DET.VISUAL.RHYTHM",
@@ -2451,16 +2451,16 @@
       "mdPath": "docs/design/ux-audit/rule-pages/det-visual-rhythm.md",
       "htmlPath": "ux-audit-rules/det-visual-rhythm.html",
       "contentVersion": "1bfdea1ce0ee05e14cc421984f3187982ab189b31aa472ffae4f5f7247c2cccc",
-      "pageVersion": "34c97742f51f9ba21a25a468c09d85934f66664723a208599c485565a7016b51",
+      "pageVersion": "1bfdea1ce0ee05e14cc421984f3187982ab189b31aa472ffae4f5f7247c2cccc",
       "generatedAt": "2026-05-23T13:24:10Z",
       "agentModel": "handbook-version-sync",
-      "registryFingerprint": "87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff",
+      "registryFingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-visual-rhythm",
       "modulePath": "design-rules/deterministic/generated/det-visual-rhythm.check.js",
       "defaultSeverity": "warn",
       "scoreDimension": "visualRhythmFirstScreen",
       "area": "readability",
-      "status": "stale"
+      "status": "current"
     }
   ]
 }

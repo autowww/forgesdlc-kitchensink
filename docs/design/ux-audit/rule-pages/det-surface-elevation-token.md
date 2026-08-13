@@ -3,10 +3,10 @@ rule_id: DET.SURFACE.ELEVATION_TOKEN
 lane: deterministic
 title: Surface Elevation Token
 summary: Harness bootstrap handbook page for DET.SURFACE.ELEVATION_TOKEN.
-page_version: dfa0e32571642394bbf6b082920b949482c55bdf097e4c8f459a64ffbb92d23b
+page_version: f717e83eb07af79d22bff78d0410dd04a3fcab0d0f703ae826f10d4e280c7e58
 generated_at: 2026-05-23T13:24:10Z
 agent_model: handbook-version-sync
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-surface-elevation_token
 related_rules: []

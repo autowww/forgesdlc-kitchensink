@@ -5,8 +5,8 @@ title: App primitive styles
 summary: React primitive mounts load forge-react-primitives / ks-fe styling.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-primitive_styles
 registry_status: implemented
-page_version: c46becf0f3421283779fd56cbf19e9b3e06aa05ebe4bc0961df91e7d5e36b73f
-registry_fingerprint: 87724e906a848a7d5ec60eacbed3cb849b1fc7ec44727bf62faba16465d8b2ff
+page_version: 76c7acb31ee30d7f4ebfab54c47113e0645f4fc2fbb72d9aac357b46fd29c066
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 generated_at: 2026-05-28T17:05:34.733Z
 ---
 

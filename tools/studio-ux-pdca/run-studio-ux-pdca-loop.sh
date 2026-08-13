@@ -114,6 +114,8 @@ fi
 cp "$MANIFEST_PATH" "$CAMPAIGN_DIR/manifest-snapshot.yaml"
 
 echo "[studio-ux-pdca] consumer=$CONSUMER_ID campaign=$CAMPAIGN_ID pages=${#page_slugs[@]} dry_run=$DRY_RUN"
+STOP_ON_FAIL="${FM_STUDIO_UX_STOP_ON_FAIL:-0}"
+PAGE_TOTAL="${#page_slugs[@]}"
 
 _hooks_module() {
   python3 -c "import sys; sys.path.insert(0, '$REPO_ROOT/scripts/fm-studio-ux-pdca'); import consumer_hooks; consumer_hooks" 2>/dev/null || true
@@ -130,8 +132,25 @@ _run_hook() {
   fi
 }
 
+_notify() {
+  "$NOTIFY_PY" "$TOOL_DIR/notify-matrix.py" "$@" || true
+}
+
+if [[ "$DRY_RUN" -eq 0 ]]; then
+  _notify \
+    --event campaign-start \
+    --campaign-dir "$CAMPAIGN_DIR" \
+    --cycle-dir "$CAMPAIGN_DIR" \
+    --consumer-id "$CONSUMER_ID" \
+    --campaign-id "$CAMPAIGN_ID" \
+    --page-total "$PAGE_TOTAL" \
+    --status "queued $PAGE_TOTAL page(s)"
+fi
+
+page_idx=0
 for slug in "${page_slugs[@]}"; do
-  echo "[studio-ux-pdca] page=$slug"
+  page_idx=$((page_idx + 1))
+  echo "[studio-ux-pdca] page=$slug ($page_idx/$PAGE_TOTAL)"
   PAGE_DIR="$CAMPAIGN_DIR/pages/$slug"
   mkdir -p "$PAGE_DIR"
   page_json_tmp="$(mktemp)"
@@ -167,8 +186,18 @@ open('$page_json_tmp','w').write(json.dumps(page))
 
     PAGE_TITLE="$(python3 -c "import json; print(json.load(open('$page_json_tmp'))['title'])")"
     PAGE_PATH="$(python3 -c "import json; print(json.load(open('$page_json_tmp'))['path'])")"
-    PURPOSE="$(head -5 "$CYCLE_DIR/wiki-context.md" 2>/dev/null | tr '\n' ' ' || echo "Studio UX PDCA page review")"
-    "$NOTIFY_PY" "$TOOL_DIR/notify-matrix.py" \
+    PURPOSE="$(
+      PAGE_TITLE="$PAGE_TITLE" CYCLE_DIR="$CYCLE_DIR" TOOL_DIR="$TOOL_DIR" python3 - <<'PY'
+import os, sys
+from pathlib import Path
+sys.path.insert(0, os.environ["TOOL_DIR"] + "/lib")
+from matrix_messages import clean_purpose
+wiki = Path(os.environ["CYCLE_DIR"]) / "wiki-context.md"
+raw = wiki.read_text(encoding="utf-8") if wiki.exists() else ""
+print(clean_purpose(raw, page_title=os.environ.get("PAGE_TITLE", "")))
+PY
+    )"
+    _notify \
       --event cycle-start \
       --cycle-dir "$CYCLE_DIR" \
       --consumer-id "$CONSUMER_ID" \
@@ -176,32 +205,121 @@ open('$page_json_tmp','w').write(json.dumps(page))
       --page-title "$PAGE_TITLE" \
       --page-path "$PAGE_PATH" \
       --purpose "$PURPOSE" \
-      --campaign-id "$CAMPAIGN_ID" || true
+      --campaign-id "$CAMPAIGN_ID" \
+      --page-index "$page_idx" \
+      --page-total "$PAGE_TOTAL"
 
     node "$TOOL_DIR/build-page-bundle.mjs" "$CYCLE_DIR" || true
+
+    _notify \
+      --event progress \
+      --cycle-dir "$CYCLE_DIR" \
+      --consumer-id "$CONSUMER_ID" \
+      --page-slug "$slug" \
+      --iteration "$iter" \
+      --campaign-id "$CAMPAIGN_ID" \
+      --status "assessing (ChatGPT)" \
+      --detail "Capturing findings and ranked suggestions…"
 
     if [[ "$MOCK_GPT" -eq 1 ]]; then
       "$ASSESS_PY" "$TOOL_DIR/assess-page-gpt.py" "$CYCLE_DIR" --mock
     else
       if ! "$ASSESS_PY" "$TOOL_DIR/assess-page-gpt.py" "$CYCLE_DIR" --project "$FM_STUDIO_UX_CHATGPT_PROJECT"; then
         echo "[studio-ux-pdca] ChatGPT assessment failed for slug=$slug (continuing campaign)" >&2
+        _notify \
+          --event progress \
+          --cycle-dir "$CYCLE_DIR" \
+          --consumer-id "$CONSUMER_ID" \
+          --page-slug "$slug" \
+          --iteration "$iter" \
+          --campaign-id "$CAMPAIGN_ID" \
+          --status "assessment failed" \
+          --detail "Skipping remaining steps for this page."
         break
       fi
     fi
 
-    PLAN_PATH="$REPO_ROOT/.cursor/plans/studio-ux-pdca/${slug}.plan.md"
-    mkdir -p "$(dirname "$PLAN_PATH")"
-    if [[ -f "$CYCLE_DIR/pdca-prompt.md" ]]; then
-      cp "$CYCLE_DIR/pdca-prompt.md" "$PLAN_PATH"
+    PLAN_DIR="$REPO_ROOT/.cursor/plans/studio-ux-pdca"
+    mkdir -p "$PLAN_DIR"
+    PROMPTS_DIR="$CYCLE_DIR/pdca-prompts"
+    CURSOR_APPLIED=0
+    CURSOR_TOTAL=0
+    if [[ -d "$PROMPTS_DIR" ]] && compgen -G "$PROMPTS_DIR/"*.md >/dev/null; then
+      mapfile -t PDCA_PLANS < <(find "$PROMPTS_DIR" -maxdepth 1 -name '*.md' | sort)
+      CURSOR_TOTAL="${#PDCA_PLANS[@]}"
+      echo "[studio-ux-pdca]   cursor: ${#PDCA_PLANS[@]} prioritized suggestion(s)"
+      sug_idx=0
+      for plan_src in "${PDCA_PLANS[@]}"; do
+        sug_idx=$((sug_idx + 1))
+        plan_base="$(basename "$plan_src" .md)"
+        PLAN_PATH="$PLAN_DIR/${slug}-${plan_base}.plan.md"
+        cp "$plan_src" "$PLAN_PATH"
+        if [[ "$SKIP_CURSOR" != "1" ]]; then
+          echo "[studio-ux-pdca]   cursor suggestion $sug_idx/${#PDCA_PLANS[@]}: $plan_base"
+          _notify \
+            --event progress \
+            --cycle-dir "$CYCLE_DIR" \
+            --consumer-id "$CONSUMER_ID" \
+            --page-slug "$slug" \
+            --iteration "$iter" \
+            --campaign-id "$CAMPAIGN_ID" \
+            --status "cursor $sug_idx/$CURSOR_TOTAL" \
+            --detail "$plan_base"
+          STUDIO_UX_SUGGESTION_RANK="$sug_idx" \
+          STUDIO_UX_SUGGESTION_TOTAL="${#PDCA_PLANS[@]}" \
+            bash "$TOOL_DIR/run-cursor-pdca.sh" "$REPO_ROOT" "$PLAN_PATH" "$CYCLE_DIR" || true
+          CURSOR_APPLIED=$sug_idx
+        fi
+      done
+      if [[ "$SKIP_CURSOR" == "1" ]]; then
+        CURSOR_APPLIED=0
+      fi
+    else
+      PLAN_PATH="$PLAN_DIR/${slug}.plan.md"
+      if [[ -f "$CYCLE_DIR/pdca-prompt.md" ]]; then
+        cp "$CYCLE_DIR/pdca-prompt.md" "$PLAN_PATH"
+      fi
+      CURSOR_TOTAL=1
+      if [[ "$SKIP_CURSOR" != "1" ]]; then
+        _notify \
+          --event progress \
+          --cycle-dir "$CYCLE_DIR" \
+          --consumer-id "$CONSUMER_ID" \
+          --page-slug "$slug" \
+          --iteration "$iter" \
+          --campaign-id "$CAMPAIGN_ID" \
+          --status "cursor 1/1" \
+          --detail "legacy pdca-prompt"
+        bash "$TOOL_DIR/run-cursor-pdca.sh" "$REPO_ROOT" "$PLAN_PATH" "$CYCLE_DIR" || true
+        CURSOR_APPLIED=1
+      else
+        CURSOR_APPLIED=0
+      fi
     fi
 
-    if [[ "$SKIP_CURSOR" != "1" ]]; then
-      bash "$TOOL_DIR/run-cursor-pdca.sh" "$REPO_ROOT" "$PLAN_PATH" "$CYCLE_DIR" || true
-    fi
+    _notify \
+      --event progress \
+      --cycle-dir "$CYCLE_DIR" \
+      --consumer-id "$CONSUMER_ID" \
+      --page-slug "$slug" \
+      --iteration "$iter" \
+      --campaign-id "$CAMPAIGN_ID" \
+      --status "build + redeploy" \
+      --detail "Then capture after / score / gates"
 
     _run_hook build_and_restart "$(python3 -c "import json; print(json.dumps({'repo_root':'$REPO_ROOT'}))")" >/dev/null || true
 
     node "$TOOL_DIR/capture-page.mjs" "$STUDIO_URL" "$page_json_tmp" "$CYCLE_DIR" --mode after
+
+    _notify \
+      --event progress \
+      --cycle-dir "$CYCLE_DIR" \
+      --consumer-id "$CONSUMER_ID" \
+      --page-slug "$slug" \
+      --iteration "$iter" \
+      --campaign-id "$CAMPAIGN_ID" \
+      --status "gating" \
+      --detail "Score + pytest / Playwright / dual-wiki"
 
     node "$TOOL_DIR/score-page.mjs" "$CYCLE_DIR"
 
@@ -239,12 +357,17 @@ json.dump(d, open(p,'w'), indent=2)
     gates_passed="$(python3 -c "import json; print(1 if json.load(open('$CYCLE_DIR/gates.json'))['gates']['passed'] else 0)")"
     consecutive_pass=$(( gates_passed ? consecutive_pass + 1 : 0 ))
 
-    "$NOTIFY_PY" "$TOOL_DIR/notify-matrix.py" \
+    _notify \
       --event cycle-complete \
       --cycle-dir "$CYCLE_DIR" \
       --consumer-id "$CONSUMER_ID" \
       --page-slug "$slug" \
-      --iteration "$iter" || true
+      --iteration "$iter" \
+      --campaign-id "$CAMPAIGN_ID" \
+      --page-index "$page_idx" \
+      --page-total "$PAGE_TOTAL" \
+      --cursor-applied "$CURSOR_APPLIED" \
+      --cursor-total "$CURSOR_TOTAL"
 
     node "$TOOL_DIR/build-page-bundle.mjs" "$CYCLE_DIR"
 
@@ -265,11 +388,25 @@ json.dump(d, open(p,'w'), indent=2)
 "
       break
     fi
+    if [[ "$gates_passed" -ne 1 && "$STOP_ON_FAIL" == "1" ]]; then
+      echo "[studio-ux-pdca]   STOP_ON_FAIL=1 — halting campaign after FAIL on $slug iter $iter" >&2
+      _notify \
+        --event progress \
+        --cycle-dir "$CYCLE_DIR" \
+        --consumer-id "$CONSUMER_ID" \
+        --page-slug "$slug" \
+        --iteration "$iter" \
+        --campaign-id "$CAMPAIGN_ID" \
+        --status "stopped on FAIL" \
+        --detail "FM_STUDIO_UX_STOP_ON_FAIL=1 — fix gates or unset to continue"
+      break 2
+    fi
     iter=$((iter + 1))
   done
   rm -f "$page_json_tmp"
 done
 
+PAGES_DONE="$(python3 -c "import json; print(len(json.load(open('$SUMMARY_PATH')).get('pages_done',[])))")"
 python3 -c "
 import json
 from datetime import datetime, timezone
@@ -279,5 +416,17 @@ d['status']='completed'
 d['finished_at']=datetime.now(timezone.utc).isoformat()
 json.dump(d, open(p,'w'), indent=2)
 "
+
+if [[ "$DRY_RUN" -eq 0 ]]; then
+  _notify \
+    --event campaign-complete \
+    --campaign-dir "$CAMPAIGN_DIR" \
+    --cycle-dir "$CAMPAIGN_DIR" \
+    --consumer-id "$CONSUMER_ID" \
+    --campaign-id "$CAMPAIGN_ID" \
+    --page-total "$PAGE_TOTAL" \
+    --pages-done "$PAGES_DONE" \
+    --status "completed"
+fi
 
 echo "[studio-ux-pdca] done campaign=$CAMPAIGN_DIR"

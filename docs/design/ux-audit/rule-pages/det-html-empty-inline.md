@@ -3,17 +3,12 @@ rule_id: DET.HTML.EMPTY_INLINE
 lane: deterministic
 title: Empty inline emphasis in main
 summary: Main content must not contain empty strong or em tags—common when autodoc table focus rows or Markdown transforms emit emphasis wrappers without visible text.
-page_version: dbe79823bbc33762ff1359462db1ad4daa978530a36e767f1a280470a5945241
+page_version: 83a75c34fb363023fb0f8980cf38695108bbcbe9a22d8c08267cc4c10841fd8d
 generated_at: 2026-05-25T11:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 2ce40848effce579d3e4879f6ca85535183a14db201870a6c007da424624550c
+registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-html-empty-inline
-related_rules:
-  - DET.DATA.TABLE_HEADERS
-  - DET.CTA.LABEL_NONEMPTY
-  - DET.PY.OPTIONAL_REGIONS
-  - DET.PROSE.LENGTH
 ---
 
 ## Purpose

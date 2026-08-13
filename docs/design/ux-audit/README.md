@@ -24,6 +24,7 @@ This folder holds **KS-wide** vocabulary for website UX audits, visual catalog g
 | [`harness/README.md`](harness/README.md) | Ruleset harness **Definition of Ready / Done**, E2E coverage matrix, fixture×script test map. |
 | [`auditor-fixing-ecosystem.md`](auditor-fixing-ecosystem.md) | **Auditor + fixers + remediation loop** narrative; links to showcase gallery with every rule’s Before/After. |
 | [`enterprise-app-ux-rules.md`](enterprise-app-ux-rules.md) | **Studio / operator SPA** rule pack for Studio UX PDCA (`DET.STUDIO.*` + shared `DET.APP.*` / `AI.APP.*`). |
+| [`../enterprise-app/README.md`](../enterprise-app/README.md) | **ENT.APP.01–10 + AI** YAML principle contracts (rules → components → states → audit). |
 
 ## Deterministic vs AI-enabled (non-negotiable split)
 

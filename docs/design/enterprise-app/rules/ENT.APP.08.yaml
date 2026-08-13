@@ -1,0 +1,31 @@
+id: ENT.APP.08
+title: Keep inspection, decisions, and handoffs in context
+
+recommended_components:
+  - ks-split-pane
+  - ForgeReviewPanel
+  - ForgeEventTimeline
+  - ForgeKeyValueGrid
+  - ForgeDecisionActionBar
+  - ForgeObjectInspector
+
+recommended_composition:
+  - name: ForgeInspectionWorkspace
+    status: planned
+
+required_states:
+  - inspect
+  - compare
+  - assign
+  - handoff-pending
+  - comment-thread-open
+
+audit_rules:
+  - AI.APP.WORKFLOW_CONTINUITY
+  - DET.APP.BULK_ACTION_SCOPE
+
+known_gaps:
+  - ForgeAssignmentControl
+  - ForgeCommentThread
+  - ForgeHandoffSummary
+  - ForgeInspectionWorkspace composition wrapper
