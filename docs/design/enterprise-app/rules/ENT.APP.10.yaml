@@ -11,7 +11,9 @@ recommended_components:
 
 recommended_composition:
   - name: ForgeWorkflowMetrics
-    status: planned
+    status: shipped
+    module: js/ks-workflow-metrics.js
+    hash: Fwm
 
 required_states:
   - loading
@@ -24,7 +26,4 @@ audit_rules:
   - DET.APP.TILE_AFFORDANCE
   - DET.APP.DATA_REFRESH_STALENESS
 
-known_gaps:
-  - shared-telemetry-schema
-  - control-event emission on KS primitives
-  - role-based metric presets
+known_gaps: []

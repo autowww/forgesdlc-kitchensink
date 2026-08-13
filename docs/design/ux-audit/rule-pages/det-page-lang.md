@@ -3,10 +3,10 @@ rule_id: DET.PAGE.LANG
 lane: deterministic
 title: Document language declaration
 summary: The root html element declares a BCP 47 language tag so assistive tech, hyphenation, and translation tools can infer the page's primary language.
-page_version: 398571201a72fbb1ad3aefab48572bb85406cf8d72df4cd9a4bf28e152b61204
+page_version: 661657afbda75b63c84430bc654890c3401ce02c8661fef862dfba04642f4fc6
 generated_at: 2026-05-25T14:32:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-page-lang
 ---

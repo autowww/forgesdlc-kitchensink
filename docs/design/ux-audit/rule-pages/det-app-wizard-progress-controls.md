@@ -5,8 +5,8 @@ title: App wizard progress controls
 summary: Wizards expose step progress, Back/Next, and disabled-next reasons.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-wizard-progress-controls
 registry_status: implemented
-page_version: 3256280c004f99aa8b8b5ac88220cd84bb752c58660835919ad3bacce40c3dd6
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: 441aea767ca5d2031afd056da22e30deb9af56e424ac38a6416c33d68370931e
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.049Z
 ---
 

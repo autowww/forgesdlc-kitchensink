@@ -6,29 +6,31 @@ Sibling to the narrative **[Forge enterprise app UX standard](../forge-enterpris
 
 ## Index
 
-| ID | Title | Composition (planned) |
+| ID | Title | Composition (shipped) |
 |----|-------|----------------------|
-| [ENT.APP.01](rules/ENT.APP.01.yaml) | Design the complete job | `ForgeRecordWorkspace` |
-| [ENT.APP.02](rules/ENT.APP.02.yaml) | Never make users reconstruct work | `ForgePersistentWorkspace` |
-| [ENT.APP.03](rules/ENT.APP.03.yaml) | State, freshness, consequences | `ForgeAsyncOperation` |
-| [ENT.APP.04](rules/ENT.APP.04.yaml) | Error prevention and recovery | `ForgeGovernedForm` |
-| [ENT.APP.05](rules/ENT.APP.05.yaml) | Data workbench | `ForgeQueueWorkbench` (shipped) |
-| [ENT.APP.06](rules/ENT.APP.06.yaml) | Permissions vs preferences | `ForgePermissionBoundary` |
-| [ENT.APP.07](rules/ENT.APP.07.yaml) | Beginner and expert | `ForgeAdaptiveWorkspace` |
-| [ENT.APP.08](rules/ENT.APP.08.yaml) | Contextual inspection and handoffs | `ForgeInspectionWorkspace` |
-| [ENT.APP.09](rules/ENT.APP.09.yaml) | Accessibility as API | Component state matrices |
-| [ENT.APP.10](rules/ENT.APP.10.yaml) | Workflow measurement | `ForgeWorkflowMetrics` |
-| [ENT.APP.AI](rules/ENT.APP.AI.yaml) | Governed AI overlay | `ForgeAISuggestionReview` |
+| [ENT.APP.01](rules/ENT.APP.01.yaml) | Design the complete job | `ForgeRecordWorkspace` (`Frw`) |
+| [ENT.APP.02](rules/ENT.APP.02.yaml) | Never make users reconstruct work | `ForgePersistentWorkspace` (`Fpw`) |
+| [ENT.APP.03](rules/ENT.APP.03.yaml) | State, freshness, consequences | `ForgeAsyncOperation` (`Fao`) |
+| [ENT.APP.04](rules/ENT.APP.04.yaml) | Error prevention and recovery | `ForgeGovernedForm` (`Fgf`) |
+| [ENT.APP.05](rules/ENT.APP.05.yaml) | Data workbench | `ForgeQueueWorkbench` (`Fqw`) |
+| [ENT.APP.06](rules/ENT.APP.06.yaml) | Permissions vs preferences | `ForgePermissionBoundary` (`Fpb`) |
+| [ENT.APP.07](rules/ENT.APP.07.yaml) | Beginner and expert | `ForgeAdaptiveWorkspace` (`Faw`) |
+| [ENT.APP.08](rules/ENT.APP.08.yaml) | Contextual inspection and handoffs | `ForgeInspectionWorkspace` (`Fix`) |
+| [ENT.APP.09](rules/ENT.APP.09.yaml) | Accessibility as API | Component state matrices (see [a11y-state-matrices.md](a11y-state-matrices.md)) |
+| [ENT.APP.10](rules/ENT.APP.10.yaml) | Workflow measurement | `ForgeWorkflowMetrics` (`Fwm`) |
+| [ENT.APP.AI](rules/ENT.APP.AI.yaml) | Governed AI overlay | `ForgeAISuggestionReview` (`Fai`) |
 
 ## Schema
 
 Each YAML file includes:
 
 - `recommended_components` — existing KS primitives/APIs
-- `recommended_composition` — planned compositions with `status: planned`
+- `recommended_composition` — shipped compositions with `status: shipped`, `module`, and `hash`
 - `required_states` — UX states consumers must implement
-- `audit_rules` — implemented DET/AI ids or `planned: <id>`
-- `known_gaps` — Phase B primitives/compositions
+- `audit_rules` — implemented DET/AI ids (use `planned: <id>` only for rules not yet wired)
+- `known_gaps` — remaining consumer or integration gaps (empty when Phase B scope is complete)
+
+Per-primitive accessibility state matrices ship in [a11y-state-matrices.md](a11y-state-matrices.md) and [`tools/studio-ux-pdca/lib/enterprise-app-a11y-matrices.json`](../../tools/studio-ux-pdca/lib/enterprise-app-a11y-matrices.json).
 
 ## Deprecate / demote (summary)
 
@@ -45,7 +47,7 @@ Full ledger: [standard § Deprecate](../forge-enterprise-app-ux-standard.md#depr
 
 ## Phase B
 
-Implementations tracked in **[PHASE-B-BACKLOG.md](PHASE-B-BACKLOG.md)** — QueueWorkbench + GovernedForm first.
+**P0 + P1 shipped** — implementations and hashes tracked in **[PHASE-B-BACKLOG.md](PHASE-B-BACKLOG.md)**. Showcase: [`enterprise-app-compositions.html`](../../showcase/enterprise-app-compositions.html) (after build).
 
 ## Related
 

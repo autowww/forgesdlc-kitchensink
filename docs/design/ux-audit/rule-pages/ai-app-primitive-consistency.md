@@ -3,10 +3,10 @@ rule_id: AI.APP.PRIMITIVE_CONSISTENCY
 lane: ai
 title: React primitive consistency
 summary: KS React primitives on a run console must share one token-driven system for states, focus rings, density, and severity—not mixed Bootstrap one-offs.
-page_version: 72be756bc58c2470ec7dab47f87e4426b64e23a9aa42463e0255337c04428587
+page_version: 234258d3237a75d1a1473c235912ac5dd3dc056603d228ea90df347f6e9a4684
 generated_at: 2026-05-19T19:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-primitive-consistency
 ---

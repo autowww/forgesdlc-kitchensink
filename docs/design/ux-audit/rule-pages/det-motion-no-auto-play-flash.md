@@ -3,10 +3,10 @@ rule_id: DET.MOTION.NO_AUTO_PLAY_FLASH
 lane: deterministic
 title: No auto-play flash patterns
 summary: Visible CSS animations and autoplay video must stay below WCAG general flash frequency (more than three flashes per second) and avoid blink/strobe keyframe names.
-page_version: 2d405a18ab3e727b13f34c6a2a7355445706f0215a657e7791c620d1b977b956
+page_version: 9b9cc8e4e70ccca5e8a80ca50209b95781ab2a9b511a8453cdb7a154b0453013
 generated_at: 2026-05-25T14:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-motion-no_auto_play_flash
 ---

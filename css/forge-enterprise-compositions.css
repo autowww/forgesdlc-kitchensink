@@ -261,3 +261,220 @@
 .forge-permission-boundary__content [readonly] {
   opacity: 0.75;
 }
+
+/* —— Persistent workspace (Fpw) —— */
+.forge-persistent-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.forge-persistent-workspace__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.forge-persistent-workspace__title {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.forge-persistent-workspace__autosave,
+.ks-fe-autosave {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+.forge-persistent-workspace__views,
+.forge-persistent-workspace__drafts,
+.forge-persistent-workspace__recent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.forge-persistent-workspace__view-btn.is-active {
+  border-color: #22d3ee;
+  color: #22d3ee;
+}
+
+/* —— Inspection workspace (Fix) —— */
+.forge-inspection-workspace__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(14rem, 0.9fr);
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  .forge-inspection-workspace__split {
+    grid-template-columns: 1fr;
+  }
+}
+.forge-inspection-workspace__inspector {
+  border-left: 1px solid rgba(148, 163, 184, 0.25);
+  padding-left: 0.75rem;
+}
+.forge-inspection-workspace__inspector-title {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+/* —— Adaptive workspace (Faw) —— */
+.forge-adaptive-workspace__mode-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.forge-adaptive-workspace__mode-btn--active,
+.forge-adaptive-workspace__mode-btn[aria-pressed="true"] {
+  border-color: #22d3ee;
+  color: #22d3ee;
+}
+.forge-adaptive-workspace__panels {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* —— Workflow metrics (Fwm) —— */
+.forge-workflow-metrics__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+}
+.forge-workflow-metrics__card {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 0.45rem;
+  padding: 0.75rem;
+}
+.forge-workflow-metrics__value {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.forge-workflow-metrics__role {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-left: 0.5rem;
+}
+
+/* —— AI suggestion review (Fai) —— */
+.forge-ai-suggestion-review {
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.forge-ai-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #67e8f9;
+}
+.forge-provenance-panel {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+.forge-confidence-indicator__bar {
+  height: 0.35rem;
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 0.25rem;
+}
+.forge-confidence-indicator__fill {
+  height: 100%;
+  background: #22d3ee;
+}
+.forge-ai-suggestion-review__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* —— Job center (Fjc) —— */
+.forge-job-center__list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.forge-job-center__job {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 0.45rem;
+  padding: 0.65rem 0.75rem;
+}
+.forge-job-center__track {
+  height: 0.35rem;
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 0.35rem;
+}
+.forge-job-center__fill {
+  height: 100%;
+  background: #38bdf8;
+}
+
+/* —— Impact preview (Fip) —— */
+.forge-impact-preview__list {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.forge-impact-preview__diff {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+.forge-impact-preview__before {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+.forge-impact-preview__after {
+  color: #67e8f9;
+}
+.forge-impact-preview__item--high .forge-impact-preview__after {
+  color: #fbbf24;
+}
+
+/* —— Supporting components —— */
+.forge-result-receipt,
+.forge-version-history,
+.forge-readonly-field-group,
+.forge-role-preset,
+.forge-recent-items,
+.forge-comment-thread,
+.forge-handoff-summary,
+.forge-assignment-control,
+.forge-context-help,
+.forge-shortcut-registry,
+.forge-template-picker,
+.forge-smart-default,
+.forge-confirmation-guard {
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.45rem;
+  padding: 0.75rem;
+}
+.forge-version-history__list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.forge-readonly-field-group__label {
+  font-size: 0.8rem;
+  opacity: 0.75;
+  margin: 0.35rem 0 0;
+}
+.forge-readonly-field-group__value {
+  margin: 0 0 0.35rem;
+}
+

@@ -4,8 +4,8 @@ lane: ai
 title: Responsive cross-device comprehension
 summary: Meaning and hierarchy survive across breakpoints—not only reflow.
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-responsive-cross-device-comprehension
-page_version: 858c60cd3787c69dda21a2c3b2cb3bd2dba00cf9611ff9f37a69db17d37d8e3b
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: b7ea0962cceff748ab7a047c7e4cccd36f356f784eedf0312c5bf6cca85b6286
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.152Z
 ---
 

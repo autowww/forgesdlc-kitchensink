@@ -10,6 +10,8 @@ recommended_components:
   - ForgeKeyValueGrid
   - ForgeOperationProgress
   - ForgeFreshnessIndicator
+  - ForgeJobCenter
+  - ForgeResultReceipt
 
 recommended_composition:
   - name: ForgeAsyncOperation
@@ -32,6 +34,4 @@ audit_rules:
   - DET.APP.PRIMARY_STATE
   - DET.APP.TOAST_LIFECYCLE
 
-known_gaps:
-  - ForgeResultReceipt
-  - ForgeJobCenter
+known_gaps: []

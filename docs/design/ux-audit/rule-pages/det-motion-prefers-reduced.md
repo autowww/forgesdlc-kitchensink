@@ -3,10 +3,10 @@ rule_id: DET.MOTION.PREFERS_REDUCED
 lane: deterministic
 title: Prefers-reduced-motion compliance
 summary: When the user enables reduced motion, non-essential CSS animation, transitions, autoplay video, and SVG SMIL must stop; essential loading and progress indicators may continue.
-page_version: 9040e59599bcb6abc98485f9009d3ce6b4fbc9919aab16f03d8d00edbeaff582
+page_version: ba704b046845ce6fcdea084db5af1cd163ca13cf56793f90320ff772ce3da90a
 generated_at: 2026-05-25T16:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-motion-prefers_reduced
 ---

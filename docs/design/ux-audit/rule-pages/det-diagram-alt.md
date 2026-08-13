@@ -3,10 +3,10 @@ rule_id: DET.DIAGRAM.ALT
 lane: deterministic
 title: Diagram decorative vs informative alt
 summary: aria-hidden, role, and alt/aria-label must agree for Kitchen Sink diagram tiles, ASCII figures, and catalog-linked SVG mounts.
-page_version: 87e637e9588573a57e15e5568d8d1417b86f04958a8d5b92745509e5426bc702
+page_version: c2ab7e7153de1333e8a8198ebf2c0806c9e4b0e71300abab137e52f8fd66d199
 generated_at: 2026-05-19T21:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-diagram-alt
 ---

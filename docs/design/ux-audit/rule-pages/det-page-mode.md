@@ -3,10 +3,10 @@ rule_id: DET.PAGE.MODE
 lane: deterministic
 title: Page primary mode
 summary: Each page declares one primary mode above the fold (marketing, handbook, listing, product, presentation, app) via KS layout metadata or compatible shell signals—no competing handbook chrome on landing routes.
-page_version: 99e2a22dd2911de7538d4c845ebe44d57e79c9a68c1c0fe4e8e08d5574755e6d
+page_version: dcd1e91b8f8ccccc2a17f9d8430dcf22a57d680124aaf93385ef24e873b1f8ca
 generated_at: 2026-05-25T19:00:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-page-mode
 ---

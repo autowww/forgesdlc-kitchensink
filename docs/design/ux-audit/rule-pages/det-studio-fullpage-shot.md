@@ -3,11 +3,11 @@ rule_id: DET.STUDIO.FULLPAGE_SHOT
 lane: deterministic
 title: Studio full-page capture
 summary: PDCA capture expands nested scroll roots so assessors see below-the-fold competing jobs.
-page_version: caddcf63629093d25b6ae4df4aba9e190c9d4a11b3be2a021f8718dbcadbfd9a
+page_version: 7a4fa8e1a9f25f9cd5bdec4f4d105c8813f082be5cb7d09ae83b87a04ae6e1f9
 generated_at: 2026-08-13T00:00:00.000Z
 registry_status: documented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-studio-fullpage_shot
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 ---
 
 ## Purpose

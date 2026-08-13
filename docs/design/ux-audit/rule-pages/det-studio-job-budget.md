@@ -3,11 +3,11 @@ rule_id: DET.STUDIO.JOB_BUDGET
 lane: deterministic
 title: Studio job budget
 summary: One primary workspace job per view; secondary jobs behind Svc tabs or disclosure—not competing H2 scroll sections.
-page_version: 06474ed3727ea0c55143d391d9e620c8ecc34c97e09ca684ed03905c9ef701e5
+page_version: 3a4db172c90476c51294ff608ee3816489a846b1d1499cc07d387a2fc92f6549
 generated_at: 2026-08-13T00:00:00.000Z
 registry_status: documented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-studio-job_budget
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 ---
 
 ## Purpose

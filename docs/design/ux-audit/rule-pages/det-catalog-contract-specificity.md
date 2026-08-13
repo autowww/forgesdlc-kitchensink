@@ -3,10 +3,10 @@ rule_id: DET.CATALOG.CONTRACT_SPECIFICITY
 lane: deterministic
 title: Catalog contract element specificity
 summary: Registry-linked design contracts must carry hash-specific Expected look, Anatomy, Forbidden patterns, and Deterministic checks—not thin generic boilerplate or duplicated slabs pasted across unrelated hashes.
-page_version: 9774adebafb5f8e35f9429c74e287ea0e2dffe8d5b1bb7d4f7eced6d2d2cea54
+page_version: ead5bfa4ac1bb0cf1c76e124b8c4a87bf36bd4c89fba6009f2bbdfbce791aee5
 generated_at: 2026-05-19T21:18:42.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-catalog-contract-specificity
 ---

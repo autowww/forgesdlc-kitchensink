@@ -3,10 +3,10 @@ rule_id: AI.PREMIUM.ENTERPRISE_FEEL
 lane: ai
 title: Premium enterprise feel
 summary: Pages feel deliberate, calm, and confident—generous spacing, refined typography, consistent surfaces, and purposeful visuals—not hectic template soup.
-page_version: 6eb1efe59370f1ec926206f3deab4d7c5e63a16dd9e0fee48c8eb29d31986924
+page_version: 654052a99fedd59f007f886b8b9aee4bf82b5b2857426b3de9dbe1f5577782ff
 generated_at: 2026-05-19T22:10:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-premium-enterprise-feel
 ---

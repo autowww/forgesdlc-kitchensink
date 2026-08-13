@@ -3,10 +3,10 @@ rule_id: DET.PAGE.VIEWPORT
 lane: deterministic
 title: Responsive viewport meta
 summary: Every web page declares a viewport meta tag so mobile browsers scale layout to device width instead of rendering a desktop-width column with pinch-zoom only.
-page_version: 348bac13755a20693d1cce9c82d36d0c031f94600386699e79adc82b8d2b1603
+page_version: 0c328d35ecd814375472930d5a2201390d80dcae3ba60ed8511339df23ca72cb
 generated_at: 2026-05-25T17:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-page-viewport
 ---

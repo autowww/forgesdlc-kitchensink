@@ -3,10 +3,10 @@ rule_id: AI.VISUAL.PRODUCT_EXPLANATORY_VALUE
 lane: ai
 title: Product explanatory value
 summary: Product visuals, diagrams, and hero imagery must explain structure or user benefit—not generic decoration that could ship on any SaaS landing page.
-page_version: 3b91fccd04491b40b0d63da2871ad696cf18b6738291b4a01022a17b91cb0d65
+page_version: e7ab9b3f6c3c1aebb070b32038485ee1b020647f568f8908b3e1cba25fbbd01d
 generated_at: 2026-05-19T22:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-product-explanatory-value
 ---

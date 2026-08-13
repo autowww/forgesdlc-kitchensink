@@ -3,12 +3,12 @@ rule_id: DET.KS.PRIMITIVE_VERSION_MATCH
 lane: deterministic
 title: Primitive version alignment
 summary: Runtime data-ks-primitive-version matches registry/contract primitive_version when either is present.
-page_version: 6f57f7cf85cedc2b2105866c86b352331a2451ff69cf43203d16d81a03c0bfdd
+page_version: d62aa3874ad23258093eb86857f84022eb29a00430830ee1d05102f79d3d46e8
 generated_at: 2026-05-28T20:30:00.000Z
 agent_model: composer-2.5-fast
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-ks-primitive-version-match
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 ---
 
 ## Purpose

@@ -8,10 +8,16 @@ recommended_components:
   - createGovernedCombobox
   - action-dropdown
   - createStepperWizard
+  - ForgeContextHelp
+  - ForgeShortcutRegistry
+  - ForgeTemplatePicker
+  - ForgeSmartDefault
 
 recommended_composition:
   - name: ForgeAdaptiveWorkspace
-    status: planned
+    status: shipped
+    module: js/ks-adaptive-workspace.js
+    hash: Faw
 
 required_states:
   - guided
@@ -24,8 +30,4 @@ audit_rules:
   - DET.BUTTON.GROUP.MAX
   - DET.APP.WIZARD_PROGRESS_CONTROLS
 
-known_gaps:
-  - ForgeContextHelp
-  - ForgeShortcutRegistry
-  - ForgeTemplatePicker
-  - ForgeSmartDefault
+known_gaps: []

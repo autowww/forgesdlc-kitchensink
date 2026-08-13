@@ -130,6 +130,8 @@ Scoped to **KS-driven** sites (`rulesScope` `ks` / `auto` when repo or DOM detec
 | `DET.APP.TOAST_LIFECYCLE` | Toasts use `role=status` / `aria-live`, dismiss when persistent, and do not cover primary CTAs. | DOM |
 | `DET.APP.MODAL_DISMISSAL_GUARD` | Open modals include close affordance; destructive editable modals include cancel/unsaved guard. | DOM |
 | `DET.APP.WIZARD_PROGRESS_CONTROLS` | Wizards show step X of Y, Back/Next controls, and disabled-next explanation. | DOM |
+| `DET.APP.WORK_STATE_PERSISTENCE` | Editable workspaces expose autosave, draft recovery, or saved-view persistence cues. | DOM |
+| `DET.APP.AI_PROVENANCE` | AI suggestion surfaces show label, provenance, confidence, and accept/reject controls. | DOM |
 | `DET.APP.BULK_ACTION_SCOPE` | Bulk/destructive toolbars state selected count/scope before execution. | DOM |
 | `DET.APP.DATA_REFRESH_STALENESS` | Data-heavy panels show last-updated/stale signal and refresh/retry action. | DOM |
 | `DET.APP.CLIENT_ERROR_LOG_CLEAN` | Scenario step interactions produce no console/page errors (post-step capture). | Playwright |

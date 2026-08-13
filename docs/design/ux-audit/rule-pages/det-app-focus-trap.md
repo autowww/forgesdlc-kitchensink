@@ -3,10 +3,10 @@ rule_id: DET.APP.FOCUS_TRAP
 lane: deterministic
 title: Modal and panel focus trap
 summary: Bootstrap modals/offcanvas and KS diagram/topic-preview overlays must keep keyboard focus inside the open shell until dismiss, with a reachable exit control.
-page_version: f400612831d0fb39e712acda127b5973526b8dca61a2f1e1283f021373c0e579
+page_version: fa54f85a86239b0c8fbbf1750723b3e841785939328e35af26ec60d081b88faf
 generated_at: 2026-05-19T20:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-focus-trap
 ---

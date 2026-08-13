@@ -3,12 +3,12 @@ rule_id: DET.KS.CSS_SCOPE_LEAK
 lane: deterministic
 title: KS CSS scope leak
 summary: KS theme CSS does not apply destructive global styles to host-app controls outside governed roots.
-page_version: e4b56b752fa0caf3b753838ea80c081006afb92c8bc77ab3161a09e54dedf493
+page_version: 81a4a151ee134726b77dc8c5659543ad0255b38fa598b047dc3aaf267542a947
 generated_at: 2026-05-28T20:30:00.000Z
 agent_model: composer-2.5-fast
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-ks-css-scope-leak
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 ---
 
 ## Purpose

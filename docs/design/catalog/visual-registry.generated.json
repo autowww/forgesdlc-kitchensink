@@ -2424,6 +2424,894 @@
       "emit_marker_in_showcase": true
     },
     {
+      "hash": "Fpw",
+      "name": "ForgePersistentWorkspace",
+      "slug": "forge-persistent-workspace",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-persistent-workspace.js"
+      ],
+      "source_symbols": [
+        "createPersistentWorkspace"
+      ],
+      "root_selector": "[data-ks-hash=\"Fpw\"]",
+      "contract": "docs/design/catalog/components/Fpw-forge-persistent-workspace.md",
+      "contract_path": "docs/design/catalog/components/Fpw-forge-persistent-workspace.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fix",
+      "name": "ForgeInspectionWorkspace",
+      "slug": "forge-inspection-workspace",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-inspection-workspace.js"
+      ],
+      "source_symbols": [
+        "createInspectionWorkspace"
+      ],
+      "root_selector": "[data-ks-hash=\"Fix\"]",
+      "contract": "docs/design/catalog/components/Fix-forge-inspection-workspace.md",
+      "contract_path": "docs/design/catalog/components/Fix-forge-inspection-workspace.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Faw",
+      "name": "ForgeAdaptiveWorkspace",
+      "slug": "forge-adaptive-workspace",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-adaptive-workspace.js"
+      ],
+      "source_symbols": [
+        "createAdaptiveWorkspace"
+      ],
+      "root_selector": "[data-ks-hash=\"Faw\"]",
+      "contract": "docs/design/catalog/components/Faw-forge-adaptive-workspace.md",
+      "contract_path": "docs/design/catalog/components/Faw-forge-adaptive-workspace.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fwm",
+      "name": "ForgeWorkflowMetrics",
+      "slug": "forge-workflow-metrics",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-workflow-metrics.js"
+      ],
+      "source_symbols": [
+        "createWorkflowMetrics"
+      ],
+      "root_selector": "[data-ks-hash=\"Fwm\"]",
+      "contract": "docs/design/catalog/components/Fwm-forge-workflow-metrics.md",
+      "contract_path": "docs/design/catalog/components/Fwm-forge-workflow-metrics.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fai",
+      "name": "ForgeAISuggestionReview",
+      "slug": "forge-a-i-suggestion-review",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-ai-suggestion-review.js"
+      ],
+      "source_symbols": [
+        "createAISuggestionReview"
+      ],
+      "root_selector": "[data-ks-hash=\"Fai\"]",
+      "contract": "docs/design/catalog/components/Fai-forge-ai-suggestion-review.md",
+      "contract_path": "docs/design/catalog/components/Fai-forge-ai-suggestion-review.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fjc",
+      "name": "ForgeJobCenter",
+      "slug": "forge-job-center",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-job-center.js"
+      ],
+      "source_symbols": [
+        "createJobCenter"
+      ],
+      "root_selector": "[data-ks-hash=\"Fjc\"]",
+      "contract": "docs/design/catalog/components/Fjc-forge-job-center.md",
+      "contract_path": "docs/design/catalog/components/Fjc-forge-job-center.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fip",
+      "name": "ForgeImpactPreview",
+      "slug": "forge-impact-preview",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-impact-preview.js"
+      ],
+      "source_symbols": [
+        "createImpactPreview"
+      ],
+      "root_selector": "[data-ks-hash=\"Fip\"]",
+      "contract": "docs/design/catalog/components/Fip-forge-impact-preview.md",
+      "contract_path": "docs/design/catalog/components/Fip-forge-impact-preview.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fri",
+      "name": "ForgeRecentItems",
+      "slug": "forge-recent-items",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-recent-items.js"
+      ],
+      "source_symbols": [
+        "createRecentItems"
+      ],
+      "root_selector": "[data-ks-hash=\"Fri\"]",
+      "contract": "docs/design/catalog/components/Fri-forge-recent-items.md",
+      "contract_path": "docs/design/catalog/components/Fri-forge-recent-items.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Frt",
+      "name": "ForgeResultReceipt",
+      "slug": "forge-result-receipt",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-result-receipt.js"
+      ],
+      "source_symbols": [
+        "createResultReceipt"
+      ],
+      "root_selector": "[data-ks-hash=\"Frt\"]",
+      "contract": "docs/design/catalog/components/Frt-forge-result-receipt.md",
+      "contract_path": "docs/design/catalog/components/Frt-forge-result-receipt.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fcg",
+      "name": "ForgeConfirmationGuard",
+      "slug": "forge-confirmation-guard",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-confirmation-guard.js"
+      ],
+      "source_symbols": [
+        "createConfirmationGuard"
+      ],
+      "root_selector": "[data-ks-hash=\"Fcg\"]",
+      "contract": "docs/design/catalog/components/Fcg-forge-confirmation-guard.md",
+      "contract_path": "docs/design/catalog/components/Fcg-forge-confirmation-guard.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fvh",
+      "name": "ForgeVersionHistory",
+      "slug": "forge-version-history",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-version-history.js"
+      ],
+      "source_symbols": [
+        "createVersionHistory"
+      ],
+      "root_selector": "[data-ks-hash=\"Fvh\"]",
+      "contract": "docs/design/catalog/components/Fvh-forge-version-history.md",
+      "contract_path": "docs/design/catalog/components/Fvh-forge-version-history.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Frg",
+      "name": "ForgeReadOnlyFieldGroup",
+      "slug": "forge-read-only-field-group",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-readonly-field-group.js"
+      ],
+      "source_symbols": [
+        "createReadOnlyFieldGroup"
+      ],
+      "root_selector": "[data-ks-hash=\"Frg\"]",
+      "contract": "docs/design/catalog/components/Frg-forge-readonly-field-group.md",
+      "contract_path": "docs/design/catalog/components/Frg-forge-readonly-field-group.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Frl",
+      "name": "ForgeRolePreset",
+      "slug": "forge-role-preset",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-role-preset.js"
+      ],
+      "source_symbols": [
+        "createRolePreset"
+      ],
+      "root_selector": "[data-ks-hash=\"Frl\"]",
+      "contract": "docs/design/catalog/components/Frl-forge-role-preset.md",
+      "contract_path": "docs/design/catalog/components/Frl-forge-role-preset.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fch",
+      "name": "ForgeContextHelp",
+      "slug": "forge-context-help",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-context-help.js"
+      ],
+      "source_symbols": [
+        "createContextHelp"
+      ],
+      "root_selector": "[data-ks-hash=\"Fch\"]",
+      "contract": "docs/design/catalog/components/Fch-forge-context-help.md",
+      "contract_path": "docs/design/catalog/components/Fch-forge-context-help.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fsr",
+      "name": "ForgeShortcutRegistry",
+      "slug": "forge-shortcut-registry",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-shortcut-registry.js"
+      ],
+      "source_symbols": [
+        "createShortcutRegistry"
+      ],
+      "root_selector": "[data-ks-hash=\"Fsr\"]",
+      "contract": "docs/design/catalog/components/Fsr-forge-shortcut-registry.md",
+      "contract_path": "docs/design/catalog/components/Fsr-forge-shortcut-registry.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Ftp",
+      "name": "ForgeTemplatePicker",
+      "slug": "forge-template-picker",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-template-picker.js"
+      ],
+      "source_symbols": [
+        "createTemplatePicker"
+      ],
+      "root_selector": "[data-ks-hash=\"Ftp\"]",
+      "contract": "docs/design/catalog/components/Ftp-forge-template-picker.md",
+      "contract_path": "docs/design/catalog/components/Ftp-forge-template-picker.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fsd",
+      "name": "ForgeSmartDefault",
+      "slug": "forge-smart-default",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-smart-default.js"
+      ],
+      "source_symbols": [
+        "createSmartDefault"
+      ],
+      "root_selector": "[data-ks-hash=\"Fsd\"]",
+      "contract": "docs/design/catalog/components/Fsd-forge-smart-default.md",
+      "contract_path": "docs/design/catalog/components/Fsd-forge-smart-default.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fac",
+      "name": "ForgeAssignmentControl",
+      "slug": "forge-assignment-control",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-assignment-control.js"
+      ],
+      "source_symbols": [
+        "createAssignmentControl"
+      ],
+      "root_selector": "[data-ks-hash=\"Fac\"]",
+      "contract": "docs/design/catalog/components/Fac-forge-assignment-control.md",
+      "contract_path": "docs/design/catalog/components/Fac-forge-assignment-control.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fct",
+      "name": "ForgeCommentThread",
+      "slug": "forge-comment-thread",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-comment-thread.js"
+      ],
+      "source_symbols": [
+        "createCommentThread"
+      ],
+      "root_selector": "[data-ks-hash=\"Fct\"]",
+      "contract": "docs/design/catalog/components/Fct-forge-comment-thread.md",
+      "contract_path": "docs/design/catalog/components/Fct-forge-comment-thread.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fhs",
+      "name": "ForgeHandoffSummary",
+      "slug": "forge-handoff-summary",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-handoff-summary.js"
+      ],
+      "source_symbols": [
+        "createHandoffSummary"
+      ],
+      "root_selector": "[data-ks-hash=\"Fhs\"]",
+      "contract": "docs/design/catalog/components/Fhs-forge-handoff-summary.md",
+      "contract_path": "docs/design/catalog/components/Fhs-forge-handoff-summary.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fal",
+      "name": "ForgeAILabel",
+      "slug": "forge-a-i-label",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-ai-label.js"
+      ],
+      "source_symbols": [
+        "createAILabel"
+      ],
+      "root_selector": "[data-ks-hash=\"Fal\"]",
+      "contract": "docs/design/catalog/components/Fal-forge-ai-label.md",
+      "contract_path": "docs/design/catalog/components/Fal-forge-ai-label.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fpv",
+      "name": "ForgeProvenancePanel",
+      "slug": "forge-provenance-panel",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-provenance-panel.js"
+      ],
+      "source_symbols": [
+        "createProvenancePanel"
+      ],
+      "root_selector": "[data-ks-hash=\"Fpv\"]",
+      "contract": "docs/design/catalog/components/Fpv-forge-provenance-panel.md",
+      "contract_path": "docs/design/catalog/components/Fpv-forge-provenance-panel.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fci",
+      "name": "ForgeConfidenceIndicator",
+      "slug": "forge-confidence-indicator",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-confidence-indicator.js"
+      ],
+      "source_symbols": [
+        "createConfidenceIndicator"
+      ],
+      "root_selector": "[data-ks-hash=\"Fci\"]",
+      "contract": "docs/design/catalog/components/Fci-forge-confidence-indicator.md",
+      "contract_path": "docs/design/catalog/components/Fci-forge-confidence-indicator.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
+      "hash": "Fra",
+      "name": "ForgeRevertAction",
+      "slug": "forge-revert-action",
+      "type": "app-composition",
+      "category": null,
+      "family": "enterprise-app",
+      "status": "active",
+      "emits_html": null,
+      "source_paths": [
+        "js/ks-revert-action.js"
+      ],
+      "source_symbols": [
+        "createRevertAction"
+      ],
+      "root_selector": "[data-ks-hash=\"Fra\"]",
+      "contract": "docs/design/catalog/components/Fra-forge-revert-action.md",
+      "contract_path": "docs/design/catalog/components/Fra-forge-revert-action.md",
+      "contract_status": "own",
+      "showcase_url": "https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html",
+      "screenshot_url": null,
+      "screenshot_status": "planned",
+      "screenshot_reason": null,
+      "aliases": [],
+      "parent_hash": null,
+      "child_hashes": [],
+      "design_standard_refs": [
+        "docs/design/forge-enterprise-ai-website-standard.md"
+      ],
+      "accessibility_notes": null,
+      "responsive_notes": null,
+      "owner": "forge-ks",
+      "last_reviewed": null,
+      "notes": "",
+      "hash_exception_reason": null,
+      "emit_marker_in_showcase": true
+    },
+    {
       "hash": "Ksc",
       "name": "Kitchen Sink stylesheets",
       "slug": "fam-styles",
@@ -2514,7 +3402,31 @@
         "js/ks-governed-form.js",
         "js/ks-async-operation.js",
         "js/ks-record-workspace.js",
-        "js/ks-permission-boundary.js"
+        "js/ks-permission-boundary.js",
+        "js/ks-persistent-workspace.js",
+        "js/ks-inspection-workspace.js",
+        "js/ks-adaptive-workspace.js",
+        "js/ks-workflow-metrics.js",
+        "js/ks-ai-suggestion-review.js",
+        "js/ks-job-center.js",
+        "js/ks-impact-preview.js",
+        "js/ks-recent-items.js",
+        "js/ks-result-receipt.js",
+        "js/ks-confirmation-guard.js",
+        "js/ks-version-history.js",
+        "js/ks-readonly-field-group.js",
+        "js/ks-role-preset.js",
+        "js/ks-context-help.js",
+        "js/ks-shortcut-registry.js",
+        "js/ks-template-picker.js",
+        "js/ks-smart-default.js",
+        "js/ks-assignment-control.js",
+        "js/ks-comment-thread.js",
+        "js/ks-handoff-summary.js",
+        "js/ks-ai-label.js",
+        "js/ks-provenance-panel.js",
+        "js/ks-confidence-indicator.js",
+        "js/ks-revert-action.js"
       ],
       "source_symbols": [],
       "root_selector": null,

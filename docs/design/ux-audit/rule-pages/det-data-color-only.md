@@ -3,10 +3,10 @@ rule_id: DET.DATA.COLOR_ONLY
 lane: deterministic
 title: Data color redundancy
 summary: Chart legends, token swatches, and encoded table cells must pair color with visible text, patterns, or icons—not hue alone where the auditor can detect a swatch or fill.
-page_version: 70b6698a16e0a75691c9c054fbe6b3cc515bfc4ec4e0258b831683079877731b
+page_version: 0e2f78e4b63580f065c1b8649ce8c0d7bf178232a7b2e80ddb5335f68ded5c0c
 generated_at: 2026-05-19T21:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-data-color_only
 ---

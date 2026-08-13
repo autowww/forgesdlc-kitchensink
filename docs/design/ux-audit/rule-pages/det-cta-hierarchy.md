@@ -3,10 +3,10 @@ rule_id: DET.CTA.HIERARCHY
 lane: deterministic
 title: Primary CTA hierarchy
 summary: Each logical viewport region—hero, open modal or panel, sticky footer band—exposes at most one filled primary action; competing primaries demote to outline, text link, or disclosure.
-page_version: 5c54f7ee8c8b49d2fb13b32a1cb1ac9abd50aecbda1219e125a4feab6ea96d7f
+page_version: 7d0adc7985064ad5d08975c61d847690b1f3ad374cf267f32a175eca62583ca3
 generated_at: 2026-05-19T22:00:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-cta-hierarchy
 ---

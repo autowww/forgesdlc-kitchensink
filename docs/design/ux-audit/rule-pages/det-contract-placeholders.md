@@ -3,10 +3,10 @@ rule_id: DET.CONTRACT.PLACEHOLDERS
 lane: deterministic
 title: Design contract placeholder language
 summary: Registry-linked design contracts must not ship template filler (lorem ipsum, XYZ headings, insert markers) or unresolved TBD/TODO/FIXME stub bullets when strict catalog lint is enabled.
-page_version: a25e1b29e769f8397ac3fe716c7daa6690e9bfff23d5d0b6a901334b67532b94
+page_version: 532b64cc2b8c299e004b52d69c49bc90f36741bf0b41d60dff469a6e4a95ad24
 generated_at: 2026-05-19T22:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-contract-placeholders
 ---

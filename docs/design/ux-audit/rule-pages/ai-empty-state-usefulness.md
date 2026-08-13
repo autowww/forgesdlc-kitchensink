@@ -4,8 +4,8 @@ lane: ai
 title: Empty state usefulness
 summary: Empty views explain why data is missing and offer a concrete next step.
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-empty-state-usefulness
-page_version: b11eb66fb218edbfadca932786a83fda8bad11cd4e511ff3cad8e08229d3e68d
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: 9dfe36943d68303cedadd835d7197d2e84cd60783464fff337e07c7f97efdf74
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.139Z
 ---
 

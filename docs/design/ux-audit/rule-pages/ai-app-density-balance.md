@@ -3,10 +3,10 @@ rule_id: AI.APP.DENSITY_BALANCE
 lane: ai
 title: App density balance
 summary: Operator and console surfaces may be information-dense, but grouping, labels, and affordances must keep scans calm—not chaotic.
-page_version: d235fe4bf58f85445e606bcbbf8ba0b335b9208aeac14c9aa6bb5f880fcffecd
+page_version: 73e712370e4c9c6a1e3612ee9a966cf564f7fe263ca69312552401912cb537ca
 generated_at: 2026-05-19T18:22:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-app-density-balance
 ---

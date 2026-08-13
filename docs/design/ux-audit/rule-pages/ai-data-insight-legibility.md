@@ -3,10 +3,10 @@ rule_id: AI.DATA.INSIGHT_LEGIBILITY
 lane: ai
 title: Data insight legibility
 summary: Charts and data blocks must state the intended takeaway—not only render accurate geometry.
-page_version: 85055acce8a777b2d6fcf903cb3d4c705fb30d0d73ac8c8fcc87591d99b3af57
+page_version: b8857a2a24cd4ebadcfd6f99e70aab35d778e30a25c15475593ebe98efbe4bed
 generated_at: 2026-05-19T19:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-data-insight-legibility
 ---

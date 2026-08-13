@@ -3,10 +3,10 @@ rule_id: DET.HASH.REGISTRY_ROW
 lane: deterministic
 title: Visual hash registry crosswalk
 summary: Each emitted three-letter KS hash must exist in visual-registry.generated.json with registry type matching data-ks-type when that attribute is present.
-page_version: 7a21ba7f71ebcb59647ac5a517f9cabad7e39f338561da5a3b0ba238ce0e3dca
+page_version: 949dc8ca3b8efaca7ffa12364b75da430a4a89dd7ec15a49b4234b1364702a6e
 generated_at: 2026-05-19T22:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-hash-registry-row
 ---

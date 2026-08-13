@@ -3,10 +3,10 @@ rule_id: DET.NAV.IN_PAGE_TOC
 lane: deterministic
 title: In-page table of contents for long doc pages
 summary: Handbook and doc-hub pages expose visible Ktx on-this-page navigation when outline or word count exceeds threshold; every TOC hash link resolves to a heading inside main.
-page_version: 8f32fbf4e93c69049c2810650a0d3add9f7bb7582e9a36ac6b4378ddb57b4b59
+page_version: ff3a63a2098f666bea77bdd39bfb572930ed7f5ff6719ee50d579def6bff4876
 generated_at: 2026-05-25T20:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-nav-in_page_toc
 ---

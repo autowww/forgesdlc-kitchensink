@@ -1,6 +1,6 @@
 // generated-by: design-rules-blender
 // rule-id: DET.NAVLAYOUT.HASH_ROOT
-// rules-version: 8d47fb7987f13063120557ec778207b40c573b3caf428d6080879bc25a0b5c7d
+// rules-version: 185a9b1976d0b44138998725eb3f9445000e4f0313befb803e52d13ba2b579e6
 export const rule = {
   id: 'DET.NAVLAYOUT.HASH_ROOT',
   lane: 'deterministic',

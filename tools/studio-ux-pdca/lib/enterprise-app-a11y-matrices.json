@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "matrices": [
+    {
+      "hash": "Fes",
+      "name": "ForgeErrorSummary",
+      "required_states": ["default", "focus", "error"],
+      "keyboard": "Error links are focusable buttons; Enter/Space activates field jump",
+      "screen_reader": "role=alert with assertive live region; field labels read before messages",
+      "reduced_motion": "No motion on error reveal; instant display"
+    },
+    {
+      "hash": "Fas",
+      "name": "ForgeAutosaveStatus",
+      "required_states": ["default", "loading", "error", "screen-reader-busy"],
+      "keyboard": "Status region only; no interactive controls",
+      "screen_reader": "role=status polite; aria-busy while saving",
+      "reduced_motion": "Dot pulse suppressed; text state still updates"
+    },
+    {
+      "hash": "Fdr",
+      "name": "ForgeDraftRecovery",
+      "required_states": ["default", "focus"],
+      "keyboard": "Recover/Discard buttons in tab order",
+      "screen_reader": "Section labelled Recover draft work; actions per row",
+      "reduced_motion": "List expand without slide animation"
+    },
+    {
+      "hash": "Fsm",
+      "name": "ForgeSavedViewManager",
+      "required_states": ["default", "focus"],
+      "keyboard": "listbox/option pattern; arrow keys change selection when focused",
+      "screen_reader": "aria-selected on active view; delete buttons labelled per view",
+      "reduced_motion": "Active view highlight without transition"
+    },
+    {
+      "hash": "Fop",
+      "name": "ForgeOperationProgress",
+      "required_states": ["default", "loading", "screen-reader-busy"],
+      "keyboard": "Non-interactive progress bar",
+      "screen_reader": "progressbar when running; status text when complete or error",
+      "reduced_motion": "Bar fill jumps to percent; no indeterminate shimmer"
+    },
+    {
+      "hash": "Ffi",
+      "name": "ForgeFreshnessIndicator",
+      "required_states": ["default", "focus", "loading"],
+      "keyboard": "Refresh button tabbable; disabled while refreshing",
+      "screen_reader": "Stale/fresh label plus time element when present",
+      "reduced_motion": "Refreshing text swap without spinner unless essential"
+    },
+    {
+      "hash": "Foi",
+      "name": "ForgeObjectInspector",
+      "required_states": ["default", "focus"],
+      "keyboard": "Close button in header; focus trap when modal inspector",
+      "screen_reader": "aside labelled with inspector title",
+      "reduced_motion": "Panel open without slide when prefers-reduced-motion"
+    },
+    {
+      "hash": "Far",
+      "name": "ForgeAccessReason",
+      "required_states": ["default", "focus", "disabled-with-reason"],
+      "keyboard": "Optional action button after reason paragraph",
+      "screen_reader": "role=note; mode label precedes reason text",
+      "reduced_motion": "Static badge; no pulse on read-only"
+    },
+    {
+      "hash": "Fqw",
+      "name": "ForgeQueueWorkbench",
+      "required_states": ["default", "focus", "loading", "error", "screen-reader-busy"],
+      "keyboard": "Row checkboxes in table order; bulk bar after selection count",
+      "screen_reader": "Selection count aria-live before bulk actions",
+      "reduced_motion": "Row highlight without row flash animation"
+    },
+    {
+      "hash": "Fgf",
+      "name": "ForgeGovernedForm",
+      "required_states": ["default", "focus", "error", "disabled-with-reason"],
+      "keyboard": "Error summary links focus invalid fields",
+      "screen_reader": "Submit disabled reason exposed via aria-describedby",
+      "reduced_motion": "Validation summary appears without shake"
+    },
+    {
+      "hash": "Fao",
+      "name": "ForgeAsyncOperation",
+      "required_states": ["default", "loading", "error", "screen-reader-busy"],
+      "keyboard": "Retry button when error state",
+      "screen_reader": "Single primary state region per workspace",
+      "reduced_motion": "Spinner replaced with text-only busy state"
+    },
+    {
+      "hash": "Frw",
+      "name": "ForgeRecordWorkspace",
+      "required_states": ["default", "focus"],
+      "keyboard": "h1 title first; header actions follow reading order",
+      "screen_reader": "One visible h1 for record context",
+      "reduced_motion": "Stage badges static"
+    },
+    {
+      "hash": "Fpb",
+      "name": "ForgePermissionBoundary",
+      "required_states": ["default", "focus", "disabled-with-reason"],
+      "keyboard": "Notice is non-interactive unless action offered",
+      "screen_reader": "Demo/sample line not conveyed by color alone",
+      "reduced_motion": "Boundary banner without blink"
+    },
+    {
+      "hash": "Fpw",
+      "name": "ForgePersistentWorkspace",
+      "required_states": ["default", "focus", "loading", "reduced-motion"],
+      "keyboard": "Skip link targets workspace main fields",
+      "screen_reader": "Autosave status announced before field edits",
+      "reduced_motion": "Autosave dot animation off; text persists"
+    },
+    {
+      "hash": "Fix",
+      "name": "ForgeInspectionWorkspace",
+      "required_states": ["default", "focus", "inspect", "handoff-pending"],
+      "keyboard": "Tab through main then inspector; Escape returns focus to opener when closing",
+      "screen_reader": "Inspector labelled; assignment and comments announced in complementary region",
+      "reduced_motion": "Split layout without slide-in animation"
+    },
+    {
+      "hash": "Faw",
+      "name": "ForgeAdaptiveWorkspace",
+      "required_states": ["default", "focus", "guided", "standard", "expert", "reduced-motion"],
+      "keyboard": "Mode toggle is a button group with aria-pressed; first tab lands on mode or skip target",
+      "screen_reader": "Mode change announced; help/shortcuts/templates labelled",
+      "reduced_motion": "Mode switch without cross-fade"
+    },
+    {
+      "hash": "Fwm",
+      "name": "ForgeWorkflowMetrics",
+      "required_states": ["default", "loading", "empty", "error", "drilldown-available"],
+      "keyboard": "KPI action buttons reachable; chart drilldowns via keyboard",
+      "screen_reader": "Role label and card values exposed; loading uses aria-busy",
+      "reduced_motion": "Trend cues without animated count-up"
+    },
+    {
+      "hash": "Fai",
+      "name": "ForgeAISuggestionReview",
+      "required_states": ["default", "focus", "suggestion-pending", "accepted", "rejected", "reverted"],
+      "keyboard": "Accept/Reject/Revert after provenance block",
+      "screen_reader": "AI label precedes suggestion; confidence not color-only",
+      "reduced_motion": "Suggestion reveal without typewriter effect"
+    },
+    {
+      "hash": "Fjc",
+      "name": "ForgeJobCenter",
+      "required_states": ["default", "loading", "error", "screen-reader-busy"],
+      "keyboard": "Refresh and Retry buttons in tab order per job",
+      "screen_reader": "Freshness status polite; progressbars expose valuetext",
+      "reduced_motion": "Progress fill updates without animation"
+    },
+    {
+      "hash": "Fip",
+      "name": "ForgeImpactPreview",
+      "required_states": ["default", "focus"],
+      "keyboard": "Confirm/Cancel in confirmation guard are sequential tab stops",
+      "screen_reader": "Impact before/after read as text; severity not color-only",
+      "reduced_motion": "No entrance animation on impact list"
+    }
+  ]
+}

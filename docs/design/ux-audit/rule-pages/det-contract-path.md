@@ -3,10 +3,10 @@ rule_id: DET.CONTRACT.PATH
 lane: deterministic
 title: Registry contract path resolution
 summary: Active visual-registry rows with contract_status own or family-covered must point at an on-disk design contract Markdown file under docs/design/catalog/.
-page_version: 2f158b94f503d0b187c16e0be62fdcec811922449ef0d4c858444492c7a412b1
+page_version: 848626e86a3652322ea702d014dde7556718aa3e88bda14b221cdd1b49364352
 generated_at: 2026-05-19T21:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-contract-path
 ---

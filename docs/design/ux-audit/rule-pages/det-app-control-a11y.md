@@ -3,10 +3,10 @@ rule_id: DET.APP.CONTROL_A11Y
 lane: deterministic
 title: React A11Y Role
 summary: Harness bootstrap handbook page for DET.APP.CONTROL_A11Y.
-page_version: 7196bea4d702e6912611923f21c6c5930bd6ab06f360420595ff8235dee53fa0
+page_version: 0d83d076836cd9b2948c76002c999ac781692e7cfcf129887fc58e985821cd38
 generated_at: 2026-05-23T13:24:10Z
 agent_model: handbook-version-sync
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-control_a11y
 related_rules: []

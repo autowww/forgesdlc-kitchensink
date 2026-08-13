@@ -8,10 +8,15 @@ recommended_components:
   - ForgeKeyValueGrid
   - ForgeDecisionActionBar
   - ForgeObjectInspector
+  - ForgeAssignmentControl
+  - ForgeCommentThread
+  - ForgeHandoffSummary
 
 recommended_composition:
   - name: ForgeInspectionWorkspace
-    status: planned
+    status: shipped
+    module: js/ks-inspection-workspace.js
+    hash: Fix
 
 required_states:
   - inspect
@@ -24,8 +29,4 @@ audit_rules:
   - AI.APP.WORKFLOW_CONTINUITY
   - DET.APP.BULK_ACTION_SCOPE
 
-known_gaps:
-  - ForgeAssignmentControl
-  - ForgeCommentThread
-  - ForgeHandoffSummary
-  - ForgeInspectionWorkspace composition wrapper
+known_gaps: []

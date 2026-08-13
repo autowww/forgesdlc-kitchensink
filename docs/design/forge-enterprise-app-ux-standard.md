@@ -28,7 +28,7 @@ This standard complements:
 - **[Enterprise app contracts](enterprise-app/README.md)** — YAML principle contracts (`ENT.APP.*`) linking rules → components → states → audit IDs
 - **[UX audit enterprise app rules](ux-audit/enterprise-app-ux-rules.md)** — machine rule IDs for Studio UX PDCA and ui-app-audit
 
-**Phase B P0 compositions and primitives are shipped** — see [`enterprise-app/PHASE-B-BACKLOG.md`](enterprise-app/PHASE-B-BACKLOG.md) and showcase [`enterprise-app-compositions.html`](../../showcase/enterprise-app-compositions.html) (after build).
+**Phase B P0 + P1 compositions and primitives are shipped** — see [`enterprise-app/PHASE-B-BACKLOG.md`](enterprise-app/PHASE-B-BACKLOG.md) and showcase [`enterprise-app-compositions.html`](../../showcase/enterprise-app-compositions.html) (after build).
 
 ## Core principle
 
@@ -81,7 +81,7 @@ A record or workflow screen is a **job context**, not an isolated form or table.
 
 **Use today:** `ForgeRunHeader` (`Frh`), `ForgeKeyValueGrid` (`Fkg`), `ForgeWorkflowStageBar` (`Fwb`), `ForgeEventTimeline` (`Fen`), breadcrumbs, sidebar navigation, `ks-split-pane`.
 
-**Planned composition:** `ForgeRecordWorkspace` — bundles header, metadata grid, lifecycle stage, timeline, and split collection/detail layout.
+**Shipped composition:** `ForgeRecordWorkspace` (`Frw`, `js/ks-record-workspace.js`) — bundles header, metadata grid, lifecycle stage, timeline, and split collection/detail layout.
 
 **Required states:** default, loading, error, permission-denied, stale.
 
@@ -93,11 +93,11 @@ Contract: [`enterprise-app/rules/ENT.APP.01.yaml`](enterprise-app/rules/ENT.APP.
 
 Operators must resume drafts, saved views, and recent context without re-entering filters and scope.
 
-**Use today:** `createFormController`, `createFilterToolbar` (`Ftb`), `WorkspaceLensControl` (`Wlc`), split pane persistence patterns.
+**Use today:** `createFormController`, `createFilterToolbar` (`Ftb`), `WorkspaceLensControl` (`Wlc`), split pane persistence patterns, `ForgeAutosaveStatus` (`Fas`), `ForgeDraftRecovery` (`Fdr`), `ForgeSavedViewManager` (`Fsm`), `ForgeRecentItems` (`Fri`).
 
-**Planned:** `ForgeAutosaveStatus`, `ForgeDraftRecovery`, `ForgeSavedViewManager`, `ForgeRecentItems`, `ForgePersistentWorkspace`.
+**Shipped composition:** `ForgePersistentWorkspace` (`Fpw`, `js/ks-persistent-workspace.js`).
 
-**Audit:** `planned: DET.APP.WORK_STATE_PERSISTENCE`; today link `DET.APP.ROUTE_DEEPLINK_STATE`, `DET.APP.PERSISTENT_CHROME`.
+**Audit:** `DET.APP.WORK_STATE_PERSISTENCE`, `DET.APP.ROUTE_DEEPLINK_STATE`, `DET.APP.PERSISTENT_CHROME`.
 
 Contract: [`enterprise-app/rules/ENT.APP.02.yaml`](enterprise-app/rules/ENT.APP.02.yaml).
 
@@ -105,9 +105,9 @@ Contract: [`enterprise-app/rules/ENT.APP.02.yaml`](enterprise-app/rules/ENT.APP.
 
 Operators must see **what state the system is in**, whether data is fresh, and what happens next.
 
-**Use today:** `ForgeStatusBanner` (`Fsb`), badges, `ForgeWorkflowStageBar` (`Fwb`), `ForgeEventTimeline` (`Fen`), `ForgeDiagnosticPanel` (`Fdg`), `ForgeKeyValueGrid` (`Fkg`).
+**Use today:** `ForgeStatusBanner` (`Fsb`), badges, `ForgeWorkflowStageBar` (`Fwb`), `ForgeEventTimeline` (`Fen`), `ForgeDiagnosticPanel` (`Fdg`), `ForgeKeyValueGrid` (`Fkg`), `ForgeOperationProgress` (`Fop`), `ForgeFreshnessIndicator` (`Ffi`), `ForgeResultReceipt` (`Frt`), `ForgeJobCenter` (`Fjc`).
 
-**Planned:** `ForgeOperationProgress`, `ForgeFreshnessIndicator`, `ForgeResultReceipt`, `ForgeJobCenter`, `ForgeAsyncOperation`.
+**Shipped composition:** `ForgeAsyncOperation` (`Fao`, `js/ks-async-operation.js`).
 
 #### Badge versus banner versus callout
 
@@ -125,9 +125,9 @@ Contract: [`enterprise-app/rules/ENT.APP.03.yaml`](enterprise-app/rules/ENT.APP.
 
 Governed forms and decisions validate early, summarize errors, and offer undo where safe.
 
-**Use today:** `createFormController`, `Swz` (stepper wizard), `ForgeReviewPanel` (`Fvw`), `ForgeDecisionActionBar` (`Fda`), callouts, inline validation.
+**Use today:** `createFormController`, `Swz` (stepper wizard), `ForgeReviewPanel` (`Fvw`), `ForgeDecisionActionBar` (`Fda`), callouts, inline validation, `ForgeErrorSummary` (`Fes`), `ForgeImpactPreview` (`Fip`), `ForgeConfirmationGuard` (`Fcg`), `ForgeUndoToast` (`Fut`), `ForgeVersionHistory` (`Fvh`).
 
-**Planned:** `ForgeErrorSummary`, `ForgeImpactPreview`, `ForgeConfirmationGuard`, `ForgeUndoToast`, `ForgeVersionHistory`, `ForgeGovernedForm`.
+**Shipped composition:** `ForgeGovernedForm` (`Fgf`, `js/ks-governed-form.js`).
 
 **Recommended sequence:** validate → error summary → impact preview → confirm → submit → receipt/undo.
 
@@ -141,7 +141,7 @@ Lists are **operational work surfaces**—not read-only galleries.
 
 **Use today:** `createFilterToolbar` (`Ftb`), `createFilterChipScroller`, `createGovernedCombobox`, `createDataTable` (`Dtb`), `createPaginationTactile`, `createStickyActionBar` (`Sab`), chart slicers for linked analytics.
 
-**Planned composition:** `ForgeQueueWorkbench` (saved views, column manager, bulk selection, object inspector).
+**Shipped composition:** `ForgeQueueWorkbench` (`Fqw`, `js/ks-queue-workbench.js`) — saved views, column manager, bulk selection, object inspector.
 
 **Important:** Do **not** extend `createDataTable` informally with ad hoc editable cells. Use a governed `ForgeEditableGridAdapter` wrapping an external grid with KS tokens, keyboard, validation, and permissions.
 
@@ -155,13 +155,13 @@ Authorization, role presets, and user preferences are **different semantics**.
 
 | Kind | Example | Control |
 |------|---------|---------|
-| Authorization | Cannot approve over limit | `ForgeAccessReason` (planned), read-only field groups |
-| Role default | Analyst sees summary first | `Wlc`, role presets (planned) |
-| User preference | Table density, column order | Saved views (planned), not badges |
+| Authorization | Cannot approve over limit | `ForgeAccessReason` (`Far`), `ForgeReadOnlyFieldGroup` (`Frg`) |
+| Role default | Analyst sees summary first | `Wlc`, `ForgeRolePreset` (`Frl`) |
+| User preference | Table density, column order | `ForgeSavedViewManager` (`Fsm`), not badges |
 
 **Anti-pattern:** Do **not** use badges as permission controls (badge ≠ ACL).
 
-**Planned:** `ForgePermissionBoundary`, `ForgeReadOnlyFieldGroup`, `ForgeRolePreset`.
+**Shipped composition:** `ForgePermissionBoundary` (`Fpb`, `js/ks-permission-boundary.js`). **Shipped primitives:** `ForgeReadOnlyFieldGroup` (`Frg`), `ForgeRolePreset` (`Frl`).
 
 **Audit:** `DET.APP.DISABLED_REASON`, `DET.APP.DEMO_DISCLOSURE`.
 
@@ -173,7 +173,9 @@ Contract: [`enterprise-app/rules/ENT.APP.06.yaml`](enterprise-app/rules/ENT.APP.
 
 **Expert layer:** command palette (`ks-command-palette`), keyboard shortcuts, action dropdowns, saved views.
 
-**Planned:** `ForgeContextHelp`, `ForgeShortcutRegistry`, `ForgeTemplatePicker`, `ForgeSmartDefault`, `ForgeAdaptiveWorkspace`.
+**Shipped primitives:** `ForgeContextHelp` (`Fch`), `ForgeShortcutRegistry` (`Fsr`), `ForgeTemplatePicker` (`Ftp`), `ForgeSmartDefault` (`Fsd`).
+
+**Shipped composition:** `ForgeAdaptiveWorkspace` (`Faw`, `js/ks-adaptive-workspace.js`).
 
 **Audit:** `DET.APP.PRIMARY_CTA`, `DET.BUTTON.GROUP.MAX`, `DET.APP.WIZARD_PROGRESS_CONTROLS`.
 
@@ -183,9 +185,9 @@ Contract: [`enterprise-app/rules/ENT.APP.07.yaml`](enterprise-app/rules/ENT.APP.
 
 Review evidence beside the record—do not navigate away for every inspection.
 
-**Use today:** `ks-split-pane`, `ForgeReviewPanel` (`Fvw`), `ForgeEventTimeline` (`Fen`), `ForgeKeyValueGrid` (`Fkg`), `ForgeDecisionActionBar` (`Fda`).
+**Use today:** `ks-split-pane`, `ForgeReviewPanel` (`Fvw`), `ForgeEventTimeline` (`Fen`), `ForgeKeyValueGrid` (`Fkg`), `ForgeDecisionActionBar` (`Fda`), `ForgeObjectInspector` (`Foi`), `ForgeAssignmentControl` (`Fac`), `ForgeCommentThread` (`Fct`), `ForgeHandoffSummary` (`Fhs`).
 
-**Planned:** `ForgeObjectInspector`, `ForgeAssignmentControl`, `ForgeCommentThread`, `ForgeHandoffSummary`, `ForgeInspectionWorkspace`.
+**Shipped composition:** `ForgeInspectionWorkspace` (`Fix`, `js/ks-inspection-workspace.js`).
 
 **Anti-pattern:** Bottom sheet as **desktop** inspector—use split pane or object inspector panel.
 
@@ -199,7 +201,7 @@ Every interactive primitive documents **required states** (default, focus, disab
 
 **Today:** `DET.APP.CONTROL_A11Y`, `DET.APP.PRIMITIVE_MARKERS`, `DET.LANDMARKS.REQUIRED`; separate Website Accessibility Auditor for WCAG campaigns.
 
-**Phase B:** per-primitive state matrices and contract tests.
+**Shipped:** per-primitive state matrices in [`enterprise-app/a11y-state-matrices.md`](enterprise-app/a11y-state-matrices.md) and [`tools/studio-ux-pdca/lib/enterprise-app-a11y-matrices.json`](../../tools/studio-ux-pdca/lib/enterprise-app-a11y-matrices.json). Contract-test harness wiring is a consumer integration task.
 
 Contract: [`enterprise-app/rules/ENT.APP.09.yaml`](enterprise-app/rules/ENT.APP.09.yaml).
 
@@ -215,7 +217,7 @@ Dashboards answer **workflow questions**, not vanity counts.
 | Single KPI vs target? | KPI card + sparkline |
 | Drill to records? | Linked `Dtb` with slicers |
 
-**Planned:** `ForgeWorkflowMetrics` + shared telemetry schema on controls.
+**Shipped composition:** `ForgeWorkflowMetrics` (`Fwm`, `js/ks-workflow-metrics.js`) with `data-telemetry-schema="forge-workflow-v1"` and `ks-workflow-metric` `CustomEvent` on drilldown.
 
 **Audit:** `AI.DASHBOARD.ACTIONABILITY_PRIORITY`, `DET.APP.TILE_AFFORDANCE`.
 
@@ -227,7 +229,11 @@ AI suggestions are **reviewable overlays**—not silent replacements for operato
 
 **Use today:** `ForgeReviewPanel` (`Fvw`), `ForgeDecisionActionBar` (`Fda`), `ForgeDiagnosticPanel` (`Fdg`), `Fsb`, `Fen`.
 
-**Planned:** AI label, provenance, confidence, revert primitives; `ForgeAISuggestionReview` composition; `planned: DET.APP.AI_PROVENANCE` (candidate).
+**Shipped primitives:** `ForgeAILabel` (`Fal`), `ForgeProvenancePanel` (`Fpv`), `ForgeConfidenceIndicator` (`Fci`), `ForgeRevertAction` (`Fra`).
+
+**Shipped composition:** `ForgeAISuggestionReview` (`Fai`, `js/ks-ai-suggestion-review.js`).
+
+**Audit:** `DET.APP.AI_PROVENANCE`.
 
 **Use `Fda` for:** approval, rejection, verification, rerun, governed commit—not navigation or filters.
 
@@ -258,7 +264,7 @@ Contract: [`enterprise-app/rules/ENT.APP.AI.yaml`](enterprise-app/rules/ENT.APP.
 | Record moving through business lifecycle | `ForgeWorkflowStageBar` (`Fwb`) |
 | Static process explanation | `.forge-flow` |
 | Historical sequence / audit | `ForgeEventTimeline` (`Fen`) |
-| Long-running execution | `ForgeOperationProgress` (planned) |
+| Long-running execution | `ForgeOperationProgress` (`Fop`) |
 
 A workflow stage bar must **not** become a clickable wizard unless users control the transitions.
 
@@ -282,9 +288,9 @@ A workflow stage bar must **not** become a clickable wizard unless users control
 | Page-level operational state | `ForgeStatusBanner` (`Fsb`) |
 | Guidance or business-rule warning | Callout |
 | Field-specific validation | Inline validation |
-| Multiple form errors | `ForgeErrorSummary` (planned); `DET.FORM.LABEL_ERROR_SUMMARY` today |
+| Multiple form errors | `ForgeErrorSummary` (`Fes`); `DET.FORM.LABEL_ERROR_SUMMARY` |
 | Technical details | `ForgeDiagnosticPanel` (`Fdg`) |
-| Transient result or undo | Toast / `ForgeUndoToast` (planned) |
+| Transient result or undo | Toast / `ForgeUndoToast` (`Fut`) |
 | Historical evidence | `ForgeEventTimeline` (`Fen`) |
 
 ### Data controls
@@ -296,7 +302,7 @@ A workflow stage bar must **not** become a clickable wizard unless users control
 | Analytical cross-tab | Matrix |
 | Intensity comparison | Heatmap |
 | Small trend inside a row | Table with sparkline |
-| Spreadsheet editing | `ForgeEditableGridAdapter` (planned) |
+| Spreadsheet editing | `ForgeEditableGridAdapter` (`Feg`) |
 
 ### Detail and disclosure
 
@@ -344,7 +350,7 @@ Machine-readable pack: `tools/studio-ux-pdca/lib/enterprise-app-ruleset.json`.
 | Pattern | Action |
 |---------|--------|
 | `DET.SECTION.SINGLE_JOB` on Studio SPAs | **Demote** — use `DET.STUDIO.JOB_BUDGET` |
-| Badge as permission / ACL indicator | **Deprecate** — use `ForgeAccessReason` / read-only groups (planned) |
+| Badge as permission / ACL indicator | **Deprecate** — use `ForgeAccessReason` (`Far`) / `ForgeReadOnlyFieldGroup` (`Frg`) |
 | Informal editable `createDataTable` cells | **Deprecate** — require `ForgeEditableGridAdapter` |
 | `ForgeWorkflowStageBar` as clickable wizard | **Demote** — use `Swz` when user drives steps |
 | Bottom sheet as desktop object inspector | **Deprecate** — use split pane / `ForgeObjectInspector` |
@@ -355,7 +361,7 @@ Machine-readable pack: `tools/studio-ux-pdca/lib/enterprise-app-ruleset.json`.
 
 - Do **not** add product-specific audit profiles (e.g. a named Fleet-only pack). Forge Market may appear only as a generic regression example.
 - Do **not** merge website auditor and scorer CLIs; Studio PDCA may **reuse** shared DET checks via ui-app-audit allowlists.
-- Do **not** claim Phase B compositions ship in Phase A docs without `status: planned`.
+- Do **not** claim Phase B compositions are planned when ENT.APP YAML marks them `status: shipped`.
 
 ## References
 

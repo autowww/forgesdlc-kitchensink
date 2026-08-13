@@ -308,6 +308,24 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     priorityWeight: 8,
     sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-app-wizard-progress-controls',
   },
+  'DET.APP.WORK_STATE_PERSISTENCE': {
+    modulePath: 'design-rules/deterministic/generated/det-app-work-state-persistence.check.js',
+    status: 'implemented',
+    defaultSeverity: 'warn',
+    area: 'informationArchitecture',
+    scoreDimension: 'informationArchitecture',
+    priorityWeight: 8,
+    sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-app-work-state-persistence',
+  },
+  'DET.APP.AI_PROVENANCE': {
+    modulePath: 'design-rules/deterministic/generated/det-app-ai-provenance.check.js',
+    status: 'implemented',
+    defaultSeverity: 'warn',
+    area: 'trustAndEcosystemTruth',
+    scoreDimension: 'trustAndEcosystemTruth',
+    priorityWeight: 8,
+    sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-app-ai-provenance',
+  },
   'DET.APP.BULK_ACTION_SCOPE': {
     modulePath: 'design-rules/deterministic/generated/det-app-bulk-action-scope.check.js',
     status: 'implemented',
@@ -905,6 +923,15 @@ export const DETERMINISTIC_IMPLEMENTATIONS = {
     scoreDimension: 'visualRhythmFirstScreen',
     priorityWeight: 7,
     sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-media-aspect-ratio',
+  },
+  'workflow': {
+    modulePath: 'design-rules/deterministic/generated/det-section-single-job.check.js',
+    status: 'implemented',
+    defaultSeverity: 'minor',
+    area: 'informationArchitecture',
+    scoreDimension: 'narrativeHero',
+    priorityWeight: 8,
+    sourceRule: 'docs/design/ux-audit/deterministic-design-rules.md#det-section-single-job',
   },
 };
 

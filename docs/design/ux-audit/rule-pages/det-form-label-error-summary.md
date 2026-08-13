@@ -5,8 +5,8 @@ title: Form labels and error summary
 summary: Multi-field forms expose visible labels, inline field errors, and a submit-time error summary.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-form-label-error-summary
 registry_status: implemented
-page_version: 8364db659958ff6bbd16a3f4589c02687df685967cb8d4df68f543c3fa655c4c
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: ff733229fa88cc37c75e966866c1f02f28af0b0ff4bf873f3065ae00584bd0d3
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.071Z
 ---
 

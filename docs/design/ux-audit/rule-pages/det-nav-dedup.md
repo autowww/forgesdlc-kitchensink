@@ -3,10 +3,10 @@ rule_id: DET.NAV.DEDUP
 lane: deterministic
 title: Navigation deduplication
 summary: Same navigational destination must not repeat across conflicting chrome bands (primary, sidebar, offcanvas) without breadcrumb hierarchy or intentional IA split.
-page_version: c8c89d9fd1c652104f55f09f9267f6cd7cfe9d856e32e0505fbe954aef9596fc
+page_version: bcb3250c8589083c2836ce6fe155f56bbcf0c877cc7a16c2052060969f891082
 generated_at: 2026-05-25T17:00:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-nav-dedup
 ---

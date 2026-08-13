@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T01:58:48.442Z",
+  "generatedAt": "2026-08-13T02:54:48.948Z",
   "blender": {
     "version": 1,
     "entry": "design-rules/blender/design-rules-blender.mjs"
   },
-  "fingerprint": "7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4",
+  "fingerprint": "aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72",
   "sources": {
     "deterministicRulesDoc": {
       "path": "docs/design/ux-audit/deterministic-design-rules.md",
-      "sha256": "8d47fb7987f13063120557ec778207b40c573b3caf428d6080879bc25a0b5c7d"
+      "sha256": "185a9b1976d0b44138998725eb3f9445000e4f0313befb803e52d13ba2b579e6"
     },
     "aiRulesDoc": {
       "path": "docs/design/ux-audit/ai-enabled-design-principles.md",
@@ -17,7 +17,7 @@
     },
     "matrixDoc": {
       "path": "docs/design/ux-audit/element-level-ruleset-matrix.md",
-      "sha256": "e08d4a81fcc65647484807a02e367d62cbdb874b8defb23a5e44d00aff2f768e"
+      "sha256": "e70352ef58908f8aa58ea7e3c402dd0f856530c487dbf5f2e125f68649544d9b"
     },
     "taxonomyDoc": {
       "path": "docs/design/ux-audit/component-design-ruleset-taxonomy.md",
@@ -36,8 +36,8 @@
     "selectedCount": 30
   },
   "versioning": {
-    "deterministicRulesVersion": "8d47fb7987f13063120557ec778207b40c573b3caf428d6080879bc25a0b5c7d",
-    "aiRulesVersion": "dae8aa73b4601f7fbfd1b61659409fefa323f756cc3ab1057c24cda5ba09f85e",
+    "deterministicRulesVersion": "185a9b1976d0b44138998725eb3f9445000e4f0313befb803e52d13ba2b579e6",
+    "aiRulesVersion": "0508ef13ef8485765d6f84fda8e2374320c8a426d3bd41ce54465e3fb42413e8",
     "overrideVersionApplied": false,
     "policy": "Generated files are not rewritten when embedded rules-version matches, unless --override-version is passed."
   },
@@ -46,11 +46,12 @@
     "aiPromptsGenerated": 16
   },
   "deterministicCoverage": {
-    "documentedRuleCount": 106,
-    "implementedCount": 88,
+    "documentedRuleCount": 108,
+    "implementedCount": 90,
     "stubCount": 18,
     "implementedRuleIds": [
       "DET.AMBIENT.Z_INDEX",
+      "DET.APP.AI_PROVENANCE",
       "DET.APP.BULK_ACTION_SCOPE",
       "DET.APP.CLIENT_ERROR_LOG_CLEAN",
       "DET.APP.CONTROL_A11Y",
@@ -73,6 +74,7 @@
       "DET.APP.TILE_AFFORDANCE",
       "DET.APP.TOAST_LIFECYCLE",
       "DET.APP.WIZARD_PROGRESS_CONTROLS",
+      "DET.APP.WORK_STATE_PERSISTENCE",
       "DET.BUTTON.GROUP.MAX",
       "DET.CARD.ACTION_LIMIT",
       "DET.CARD.TITLE",
@@ -160,7 +162,7 @@
       "DET.THEME.SPACING_TOKEN_DRIFT"
     ],
     "byImplementationSource": {
-      "explicit-map": 88
+      "explicit-map": 90
     }
   },
   "requiredAiFindingMetadata": [
@@ -233,6 +235,20 @@
       "scope": "generic",
       "modulePath": "design-rules/deterministic/generated/det-ambient-z-index.check.js",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-ambient-z-index",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.AI_PROVENANCE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "trustAndEcosystemTruth",
+      "scoreDimension": "trustAndEcosystemTruth",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "scope": "generic",
+      "modulePath": "design-rules/deterministic/generated/det-app-ai-provenance.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-ai-provenance",
       "implementationSource": "explicit-map"
     },
     {
@@ -541,6 +557,20 @@
       "scope": "generic",
       "modulePath": "design-rules/deterministic/generated/det-app-wizard-progress-controls.check.js",
       "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-wizard-progress-controls",
+      "implementationSource": "explicit-map"
+    },
+    {
+      "id": "DET.APP.WORK_STATE_PERSISTENCE",
+      "lane": "deterministic",
+      "status": "implemented",
+      "phase": "metrics",
+      "area": "informationArchitecture",
+      "scoreDimension": "informationArchitecture",
+      "defaultSeverity": "warn",
+      "priorityWeight": 8,
+      "scope": "generic",
+      "modulePath": "design-rules/deterministic/generated/det-app-work-state-persistence.check.js",
+      "sourceRule": "docs/design/ux-audit/deterministic-design-rules.md#det-app-work-state-persistence",
       "implementationSource": "explicit-map"
     },
     {

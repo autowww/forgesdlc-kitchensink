@@ -3,10 +3,10 @@ rule_id: AI.TRUST.BOUNDARY_CLARITY
 lane: ai
 title: Trust boundary clarity
 summary: Data, execution, and human-control boundaries are stated in plain language a first-time reader can map—without insider jargon or hand-wavy AI magic.
-page_version: 502b8308907958b8af6f172949d6d8284002b67d8a7f4b90b5431e41beb94c4a
+page_version: 4f2bac3c4e7a8cad71451e4c6ef070cde226b89a1b3ae854aaa074c3217c5d9d
 generated_at: 2026-05-19T22:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-trust-boundary-clarity
 ---

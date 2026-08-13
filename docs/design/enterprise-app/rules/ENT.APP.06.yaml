@@ -8,6 +8,8 @@ recommended_components:
   - ForgeStatusBanner
   - createGovernedCombobox
   - ForgeAccessReason
+  - ForgeReadOnlyFieldGroup
+  - ForgeRolePreset
 
 recommended_composition:
   - name: ForgePermissionBoundary
@@ -26,6 +28,4 @@ audit_rules:
   - DET.APP.DISABLED_REASON
   - DET.APP.DEMO_DISCLOSURE
 
-known_gaps:
-  - ForgeReadOnlyFieldGroup
-  - ForgeRolePreset
+known_gaps: []

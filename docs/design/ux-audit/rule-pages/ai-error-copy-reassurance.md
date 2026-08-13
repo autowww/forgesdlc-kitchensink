@@ -4,8 +4,8 @@ lane: ai
 title: Error copy reassurance
 summary: Errors reassure without blame and state a recovery path.
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-error-copy-reassurance
-page_version: e2992e96d97062ec071d81266dc8793e07b6496328a1d832b1c652bb786fa8af
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: e17ad2cb30864d1f44a525d93059a7f5c04297a6616b51360460cb59643fee5c
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.140Z
 ---
 

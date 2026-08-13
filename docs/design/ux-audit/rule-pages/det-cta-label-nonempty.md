@@ -3,10 +3,10 @@ rule_id: DET.CTA.LABEL_NONEMPTY
 lane: deterministic
 title: CTA accessible names are non-empty
 summary: Every visible button, link, and role=button/link control exposes at least one trimmed character of accessible name via visible text, aria-label, aria-labelledby, value/alt, or sr-only helper text.
-page_version: 5b2e24410f085aa49cbca88481c9bf1b5542e80f4f051333d239898398fe2ed0
+page_version: 0cc9e7ee9238b539ceea42e469da1c7d549f7b6457010390c387c1c780f4ffcc
 generated_at: 2026-05-19T21:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-cta-label_nonempty
 ---

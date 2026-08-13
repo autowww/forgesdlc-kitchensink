@@ -5,8 +5,8 @@ title: App client error log clean
 summary: Scenario steps must not leave console/page errors after interactions.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-client-error-log-clean
 registry_status: implemented
-page_version: b1765fd5119295c6e258416eb39fa4cc7045f3eb0efcce6eba261b7b0e27b9da
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: 8c10a5efa9df3db86ff8fc6c5f89f543f39306298f38ccb1e2389895ea0a96a2
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.001Z
 ---
 

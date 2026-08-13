@@ -9,10 +9,13 @@ recommended_components:
   - ForgeAutosaveStatus
   - ForgeDraftRecovery
   - ForgeSavedViewManager
+  - ForgeRecentItems
 
 recommended_composition:
   - name: ForgePersistentWorkspace
-    status: planned
+    status: shipped
+    module: js/ks-persistent-workspace.js
+    hash: Fpw
 
 required_states:
   - saved
@@ -23,10 +26,8 @@ required_states:
   - restored
 
 audit_rules:
-  - planned: DET.APP.WORK_STATE_PERSISTENCE
+  - DET.APP.WORK_STATE_PERSISTENCE
   - DET.APP.ROUTE_DEEPLINK_STATE
   - DET.APP.PERSISTENT_CHROME
 
-known_gaps:
-  - ForgeRecentItems
-  - ForgePersistentWorkspace composition wrapper
+known_gaps: []

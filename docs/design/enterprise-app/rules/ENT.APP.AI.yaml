@@ -7,10 +7,16 @@ recommended_components:
   - ForgeEventTimeline
   - ForgeDiagnosticPanel
   - ForgeStatusBanner
+  - ForgeAILabel
+  - ForgeProvenancePanel
+  - ForgeConfidenceIndicator
+  - ForgeRevertAction
 
 recommended_composition:
   - name: ForgeAISuggestionReview
-    status: planned
+    status: shipped
+    module: js/ks-ai-suggestion-review.js
+    hash: Fai
 
 required_states:
   - suggestion-pending
@@ -26,11 +32,6 @@ audit_rules:
   - DET.APP.PRIMARY_CTA
   - DET.BUTTON.GROUP.MAX
   - DET.CTA.HIERARCHY
-  - planned: DET.APP.AI_PROVENANCE
+  - DET.APP.AI_PROVENANCE
 
-known_gaps:
-  - AILabel primitive
-  - ProvenancePanel
-  - ConfidenceIndicator
-  - RevertAction
-  - human-in-the-loop policy markers
+known_gaps: []

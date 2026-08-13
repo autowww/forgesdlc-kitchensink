@@ -26,7 +26,4 @@ audit_rules:
   - DET.LANDMARKS.REQUIRED
   - DET.NAV.FOCUS_ORDER
 
-known_gaps:
-  - per-primitive state matrices
-  - contract test harness for required_states
-  - manual testing evidence templates
+known_gaps: []

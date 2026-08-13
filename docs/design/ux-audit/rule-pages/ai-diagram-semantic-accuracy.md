@@ -3,10 +3,10 @@ rule_id: AI.DIAGRAM.SEMANTIC_ACCURACY
 lane: ai
 title: Diagram semantic accuracy
 summary: Diagram topology, arrow direction, and node labels must match the mechanism described in captions, body copy, and catalog legend keys—not merely look polished.
-page_version: 3319dce935a7c7298634bba56f854c498cece01023c95f17075c4c4850066db7
+page_version: c252a8777c94594a08961b84065e5dc6a39050f2f4300f0f157945374c3cbbb9
 generated_at: 2026-05-19T18:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-diagram-semantic-accuracy
 ---

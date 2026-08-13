@@ -5,8 +5,8 @@ title: App disabled control reason
 summary: Disabled primary controls expose why they are disabled.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-disabled-reason
 registry_status: implemented
-page_version: d8eda00e7da9a748954a55e02e4c6c640e407a405cf5c042442599c628f1d449
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: 92ed77c94c7904dda26b1a1b8dda4895d3272b05daff64a5d4da381c2cfcac13
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.015Z
 ---
 

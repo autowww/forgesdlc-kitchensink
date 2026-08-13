@@ -3,10 +3,10 @@ rule_id: DET.VISUAL.RHYTHM
 lane: deterministic
 title: Visual Rhythm
 summary: Harness bootstrap handbook page for DET.VISUAL.RHYTHM.
-page_version: 1bfdea1ce0ee05e14cc421984f3187982ab189b31aa472ffae4f5f7247c2cccc
+page_version: 6ac555668c53ab0ead3ba75c9c7091aa619ecc4bb231f18227b8db1f31f80303
 generated_at: 2026-05-23T13:24:10Z
 agent_model: handbook-version-sync
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-visual-rhythm
 related_rules: []

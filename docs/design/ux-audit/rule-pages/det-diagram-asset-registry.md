@@ -3,10 +3,10 @@ rule_id: DET.DIAGRAM.ASSET_REGISTRY
 lane: deterministic
 title: Diagram asset registry
 summary: Diagram catalog keys and shipped assets/svg paths must roll up under active diagram-family and diagram-asset-group rows in the Kitchen Sink visual registry before consumers render them.
-page_version: b35a7d0cf594693f44cc841b7fa9ce6fbc50cfb210ed159580e272a420ee3c39
+page_version: cd428cae4e8e5dcd60697ab3c79fd9dca3c7cbeb117a0775293acf33fd548baf
 generated_at: 2026-05-19T21:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-diagram-asset-registry
 ---

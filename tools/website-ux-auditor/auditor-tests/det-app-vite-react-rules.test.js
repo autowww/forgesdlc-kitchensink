@@ -10,6 +10,8 @@ import { findingsFromModalDismissalReport } from '../design-rules/deterministic/
 import { findingsFromWizardProgressReport } from '../design-rules/deterministic/generated/det-app-wizard-progress-controls.check.js';
 import { findingsFromBulkActionScopeReport } from '../design-rules/deterministic/generated/det-app-bulk-action-scope.check.js';
 import { findingsFromDataRefreshReport } from '../design-rules/deterministic/generated/det-app-data-refresh-staleness.check.js';
+import { findingsFromWorkStateReport } from '../design-rules/deterministic/generated/det-app-work-state-persistence.check.js';
+import { findingsFromAiProvenanceReport } from '../design-rules/deterministic/generated/det-app-ai-provenance.check.js';
 import {
   findingsFromClientErrorLogReport,
   run as runClientErrorLog,
@@ -123,4 +125,29 @@ test('runRouteDeeplink returns empty without violations', async () => {
     }),
     [],
   );
+});
+
+test('findingsFromWorkStateReport returns empty without violations', () => {
+  assert.deepEqual(findingsFromWorkStateReport({ violations: [] }), []);
+});
+
+test('findingsFromWorkStateReport flags missing persistence cues', () => {
+  const findings = findingsFromWorkStateReport({
+    violations: [{ workspaceHint: '#editor' }],
+  });
+  assert.ok(findings.length >= 1);
+  assert.ok(findings[0].remediation.includes('ForgeAutosaveStatus'));
+  assert.ok(findings[0].remediation.includes('DET.APP.WORK_STATE_PERSISTENCE'));
+});
+
+test('findingsFromAiProvenanceReport returns empty without violations', () => {
+  assert.deepEqual(findingsFromAiProvenanceReport({ violations: [] }), []);
+});
+
+test('findingsFromAiProvenanceReport flags missing provenance controls', () => {
+  const findings = findingsFromAiProvenanceReport({
+    violations: [{ surfaceHint: '#ai-panel', missing: 'label,confidence' }],
+  });
+  assert.ok(findings.length >= 1);
+  assert.ok(findings[0].message.includes('provenance'));
 });

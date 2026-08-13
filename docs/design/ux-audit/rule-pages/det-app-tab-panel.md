@@ -5,8 +5,8 @@ title: App tab panel
 summary: Selected tabs expose aria-selected, aria-controls, and a visible panel.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-tab-panel
 registry_status: implemented
-page_version: 60f6b6db233866f1684348e6d05161383624f404ad9821dbd8cecac7bbbee8b2
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: b2b1b6cdf3d830b2d74a2ec8e30d27cd80f3a5d9a28a6a1391274fbdcaa88177
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-05-28T17:05:34.738Z
 ---
 

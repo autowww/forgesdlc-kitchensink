@@ -5,8 +5,8 @@ title: App demo disclosure
 summary: Demo and mock regions must be visibly labeled in the same section.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-demo-disclosure
 registry_status: implemented
-page_version: d6c28538b32e88f94fd45e283620939675fd8a57789c192fec095c4165f6538f
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: 21ddb6237563e9cc3fac1a8eceefab6a2ba6543079414b007adafcfd15292323
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-05-28T17:05:34.718Z
 ---
 

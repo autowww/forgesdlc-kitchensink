@@ -5,8 +5,8 @@ title: App primary CTA
 summary: At most one visible primary action per workspace.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-primary-cta
 registry_status: implemented
-page_version: af34958630f56a2572b55c75db2f53627431d7313171ad41d837a26ceeea6f24
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: c77e5e20f41bdde93395a9104263c7186fd27a3bf2446472ba39546a4e929fb6
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-05-28T17:05:34.723Z
 ---
 

@@ -3,10 +3,10 @@ rule_id: DET.THEME.FONT_STACK
 lane: deterministic
 title: Theme Font Stack
 summary: Harness bootstrap handbook page for DET.THEME.FONT_STACK.
-page_version: 13be35b2f4c9a745397dab159f2de1f2c2fba822332a66ffb394cb637ec011c5
+page_version: 98a09642577c12bdb7970e39495209846242f7cbfe29c251149f3cc71b744a95
 generated_at: 2026-05-25T13:41:26Z
 agent_model: handbook-version-sync
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-theme-font_stack
 related_rules: []

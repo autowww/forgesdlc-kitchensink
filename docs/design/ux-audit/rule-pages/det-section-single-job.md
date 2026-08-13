@@ -3,10 +3,10 @@ rule_id: DET.SECTION.SINGLE_JOB
 lane: deterministic
 title: Section Single Job
 summary: Harness bootstrap handbook page for DET.SECTION.SINGLE_JOB.
-page_version: f2d19970eb6d951bd839725df5b8bb6d1f821c608c62d7c49e3e3c996fa5d0eb
+page_version: 8127174a3da197c9b4482fa02555df5fa72e1c3b2f4233ef77caa880eee2c730
 generated_at: 2026-05-23T13:24:10Z
 agent_model: handbook-version-sync
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-section-single-job
 related_rules: []

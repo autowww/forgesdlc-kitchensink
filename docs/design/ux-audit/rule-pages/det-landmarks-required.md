@@ -3,10 +3,10 @@ rule_id: DET.LANDMARKS.REQUIRED
 lane: deterministic
 title: Required document landmarks
 summary: Each page exposes exactly one main landmark, a navigation landmark when global wayfinding exists outside main, and semantic header/footer landmarks when site chrome is present—each unique at document level.
-page_version: 4c493c1b3b51ee6fb684f03e22013f9be778f898ad5c2292d65b18a42a5c8d31
+page_version: 881b1032b396bfc9b7f6683f951150c8268bc36f73a54f7d4ed8523f847bd708
 generated_at: 2026-05-25T12:00:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-landmarks-required
 ---

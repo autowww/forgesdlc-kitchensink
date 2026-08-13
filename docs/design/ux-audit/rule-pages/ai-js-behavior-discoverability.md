@@ -3,10 +3,10 @@ rule_id: AI.JS.BEHAVIOR_DISCOVERABILITY
 lane: ai
 title: JavaScript behavior discoverability
 summary: Non-obvious scripted interactions must be hinted or documented—visible affordances, helper copy, and keyboard/touch parity—not hover-only secrets.
-page_version: 44ebc789ab9a9fd11bb7bb76c53edc93d1edcfffd6463f9e398bdfa2b6460916
+page_version: e638667f9d533645c674de90c85c95850f2beb4d8c45892240832af5e61139e4
 generated_at: 2026-05-19T21:45:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-js-behavior-discoverability
 ---

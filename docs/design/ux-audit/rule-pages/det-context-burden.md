@@ -3,10 +3,10 @@ rule_id: DET.CONTEXT.BURDEN
 lane: deterministic
 title: First-screen context burden
 summary: Quantitative caps on header navigation, pre-main link clusters, nav chrome bands, and hero-fold interactive controls keep public homepages story-led instead of docs-shaped.
-page_version: 292b0ee1e765d6546938712874f88843defbed5b2628a87e85e68301e7906695
+page_version: 8ed7dbbf91a9eefe79c802d31265d29e4463a94aee61c7c6fda856a057dd2108
 generated_at: 2026-05-19T21:30:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-context-burden
 ---

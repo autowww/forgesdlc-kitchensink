@@ -4,8 +4,8 @@ lane: ai
 title: Information scent and next step
 summary: Labels, hierarchy, and CTAs make the next action obvious.
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-information-scent-next-step
-page_version: f079fb20d674dd8c1440b3b2aee07eaa8f15b897bb1937fcd4c37aa87f216613
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: 392ea68b88d5e6053c9a388d0e9ad2d3e233735b1335389a15e8dbe699a6afa0
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.146Z
 ---
 

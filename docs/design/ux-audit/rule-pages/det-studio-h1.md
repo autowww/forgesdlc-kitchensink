@@ -3,11 +3,11 @@ rule_id: DET.STUDIO.H1
 lane: deterministic
 title: Studio visible H1
 summary: Workspace exposes a non-empty h1 so page identity and rail match checks can run.
-page_version: b07cbb540b5c3996654e2ab576ef9fc6d5f015317345a9ba9c6070eb2c7fd5c4
+page_version: 0280725bc69635b7a8821e8d2776e49243f48742e5bf6b3a589ad9c1d71e7e79
 generated_at: 2026-08-13T00:00:00.000Z
 registry_status: documented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-studio-h1
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 ---
 
 ## Purpose

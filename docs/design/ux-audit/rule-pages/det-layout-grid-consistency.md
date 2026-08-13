@@ -3,10 +3,10 @@ rule_id: DET.LAYOUT.GRID_CONSISTENCY
 lane: deterministic
 title: Layout grid consistency
 summary: Long-form body copy aligns to KS layout containers (max width, gutters); no accidental full-bleed text rivers, section gutter drift, excessive measure, or handbook dead gutter beside the doc sidebar.
-page_version: cfcfd0f35e7d77c8212e1d9c4992b20c2500bff216236cba6bf07895f5548ef0
+page_version: c6b2a80fec72bb05a3edcb47c7622390adae2926e9aebba55f874f8c4ee61861
 generated_at: 2026-05-25T14:00:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-layout-grid_consistency
 ---

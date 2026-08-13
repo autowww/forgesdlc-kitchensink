@@ -3,10 +3,10 @@ rule_id: DET.NAV.DEPTH
 lane: deterministic
 title: Global navigation depth
 summary: Global primary nav outside main stays at top level plus one flyout tier (list depth ≤ 2); deeper trees belong in Ksr sidebar, offcanvas, or an explicit mega-menu pattern (≤ 4 tiers).
-page_version: d51a09c85068c4d3c2523f69150ed0240fede29e479da7242abcbee6f6d8b639
+page_version: bac5e0016081460bd1766e485a42e55ae0df55b911a968353dd77bd33ca337a8
 generated_at: 2026-05-25T18:00:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-nav-depth
 ---

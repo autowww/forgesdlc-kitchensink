@@ -3,10 +3,10 @@ rule_id: AI.VISUAL.HIERARCHY
 lane: ai
 title: Visual hierarchy
 summary: Scale, contrast, and grouping establish an obvious focal path—hero → proof → depth—with one primary next read and no equal-weight shouting.
-page_version: f6d81bfc0c83823cf0838eb02cbc229098bdb56c430d718f216d638b0171f77e
+page_version: 9f51b35ba3d4a1955aeed358a2b8bbbfb0a5ba0e210b68f9e6caec168d08e1d7
 generated_at: 2026-05-19T23:48:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: generated
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-visual-hierarchy
 ---

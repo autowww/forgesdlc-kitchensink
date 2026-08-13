@@ -3,12 +3,12 @@ rule_id: DET.KS.VISUAL_FAMILY_COVERAGE
 lane: deterministic
 title: Visual family coverage
 summary: Consumer-bound components, react primitives, and SVG assets have registry rows and contracts where policy requires.
-page_version: 5b8810b3edd9205a4fb6800cc3ed322b9a208a5cdd20a8820feb1d1c7225b8be
+page_version: 372fb6ccde94dcae83a6f9aa45f05d1e4c4816ab65d2929fa23dcc5a2b0c7c43
 generated_at: 2026-05-28T20:30:00.000Z
 agent_model: composer-2.5-fast
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-ks-visual-family-coverage
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 ---
 
 ## Purpose

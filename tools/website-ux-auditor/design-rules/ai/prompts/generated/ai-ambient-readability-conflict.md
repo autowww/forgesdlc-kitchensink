@@ -1,6 +1,6 @@
 <!-- generated-by: design-rules-blender -->
 <!-- rule-id: AI.AMBIENT.READABILITY_CONFLICT -->
-<!-- rules-version: dae8aa73b4601f7fbfd1b61659409fefa323f756cc3ab1057c24cda5ba09f85e -->
+<!-- rules-version: 0508ef13ef8485765d6f84fda8e2374320c8a426d3bd41ce54465e3fb42413e8 -->
 # AI.AMBIENT.READABILITY_CONFLICT
 
 This AI rule is explicitly referenced in KS UX rule docs (matrix/taxonomy) and runs as a judgment overlay.

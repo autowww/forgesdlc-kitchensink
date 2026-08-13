@@ -3,12 +3,12 @@ rule_id: DET.KS.CONTRACT_EXAMPLE_SYNC
 lane: deterministic
 title: Contract and example sync
 summary: Rule-page examples, defect fixtures, and contract verification snippets stay aligned per governed hash and rule id.
-page_version: b9512b7a85f0a1b14677a75f9e2986a972dd73c53dc36bd81a10408fbbb58545
+page_version: 373d976454d3f1c1135c7b115042a2d202e7b7f5c38b61ec8fe7b3d4ac2adb42
 generated_at: 2026-05-28T20:30:00.000Z
 agent_model: composer-2.5-fast
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-ks-contract-example-sync
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 ---
 
 ## Purpose

@@ -4,8 +4,8 @@ lane: ai
 title: Data freshness and provenance
 summary: Users can judge whether numbers are current, scoped, and trustworthy.
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-trust-data-freshness-provenance
-page_version: 30aa54a17013878529a261b3ef5577d346499e08c6d7e8b555cd3f49a392546b
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: 0fa9c050f73cc64af6a8bb7cecade42644f585cf4769db4a1984907e04cc6fef
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.154Z
 ---
 

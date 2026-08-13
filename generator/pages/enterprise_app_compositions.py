@@ -1,15 +1,14 @@
-"""Enterprise app compositions — Phase B P0 workbenches (ENT.APP.04–06)."""
+"""Enterprise app compositions — ENT.APP Phase B P0+P1 workbenches and primitives."""
 from __future__ import annotations
 
 PAGE = {
     "slug": "enterprise-app-compositions",
     "title": "Enterprise app compositions",
     "intro": (
-        "Governed operator workbenches: <code>ForgeQueueWorkbench</code>, "
-        "<code>ForgeGovernedForm</code>, <code>ForgeAsyncOperation</code>, "
-        "<code>ForgeRecordWorkspace</code>, and <code>ForgePermissionBoundary</code>. "
-        "See <code>docs/design/enterprise-app/</code> and "
-        "<code>docs/design/forge-enterprise-app-ux-standard.md</code>."
+        "Governed operator workbenches for ENT.APP.01–10 and ENT.APP.AI: "
+        "queue, form, async, record, permission, persistent, inspection, adaptive, "
+        "metrics, AI review, job center, impact preview, and supporting primitives. "
+        "See <code>docs/design/enterprise-app/</code>."
     ),
     "family": "Components",
     "layout": "showcase",
@@ -20,8 +19,16 @@ PAGE = {
         ("sec-eac-async", "Async operation"),
         ("sec-eac-record", "Record workspace"),
         ("sec-eac-permission", "Permission boundary"),
+        ("sec-eac-persistent", "Persistent workspace"),
+        ("sec-eac-inspection", "Inspection workspace"),
+        ("sec-eac-adaptive", "Adaptive workspace"),
+        ("sec-eac-metrics", "Workflow metrics"),
+        ("sec-eac-ai", "AI suggestion review"),
+        ("sec-eac-jobs", "Job center"),
+        ("sec-eac-impact", "Impact preview"),
         ("sec-eac-toast", "Undo toast"),
         ("sec-eac-grid", "Editable grid adapter"),
+        ("sec-eac-support", "Supporting primitives"),
     ],
 }
 
@@ -47,6 +54,30 @@ def extra_js_paths() -> list[str]:
         "assets/ks-permission-boundary.js",
         "assets/ks-undo-toast.js",
         "assets/ks-editable-grid-adapter.js",
+        "assets/ks-recent-items.js",
+        "assets/ks-persistent-workspace.js",
+        "assets/ks-assignment-control.js",
+        "assets/ks-comment-thread.js",
+        "assets/ks-handoff-summary.js",
+        "assets/ks-inspection-workspace.js",
+        "assets/ks-context-help.js",
+        "assets/ks-shortcut-registry.js",
+        "assets/ks-template-picker.js",
+        "assets/ks-smart-default.js",
+        "assets/ks-adaptive-workspace.js",
+        "assets/ks-workflow-metrics.js",
+        "assets/ks-ai-label.js",
+        "assets/ks-provenance-panel.js",
+        "assets/ks-confidence-indicator.js",
+        "assets/ks-revert-action.js",
+        "assets/ks-ai-suggestion-review.js",
+        "assets/ks-job-center.js",
+        "assets/ks-confirmation-guard.js",
+        "assets/ks-impact-preview.js",
+        "assets/ks-result-receipt.js",
+        "assets/ks-version-history.js",
+        "assets/ks-readonly-field-group.js",
+        "assets/ks-role-preset.js",
     ]
 
 
@@ -83,6 +114,48 @@ def render() -> str:
   <div id="demo-permission-boundary"></div>
 </section>
 
+<section id="sec-eac-persistent" class="ks-section" hash="Fpw" data-ks-hash="Fpw">
+  <h2 class="ks-section-title">Persistent workspace</h2>
+  <p class="forge-support mb-3">Autosave, draft recovery, saved views, recent items (<code>DET.APP.WORK_STATE_PERSISTENCE</code>).</p>
+  <div id="demo-persistent-workspace"></div>
+</section>
+
+<section id="sec-eac-inspection" class="ks-section" hash="Fix" data-ks-hash="Fix">
+  <h2 class="ks-section-title">Inspection workspace</h2>
+  <p class="forge-support mb-3">Main + inspector with assignment, comments, and handoff summary.</p>
+  <div id="demo-inspection-workspace"></div>
+</section>
+
+<section id="sec-eac-adaptive" class="ks-section" hash="Faw" data-ks-hash="Faw">
+  <h2 class="ks-section-title">Adaptive workspace</h2>
+  <p class="forge-support mb-3">Guided / standard / expert modes with help, shortcuts, templates, and smart defaults.</p>
+  <div id="demo-adaptive-workspace"></div>
+</section>
+
+<section id="sec-eac-metrics" class="ks-section" hash="Fwm" data-ks-hash="Fwm">
+  <h2 class="ks-section-title">Workflow metrics</h2>
+  <p class="forge-support mb-3">Role-scoped KPI cards with <code>data-telemetry-schema="forge-workflow-v1"</code>.</p>
+  <div id="demo-workflow-metrics"></div>
+</section>
+
+<section id="sec-eac-ai" class="ks-section" hash="Fai" data-ks-hash="Fai">
+  <h2 class="ks-section-title">AI suggestion review</h2>
+  <p class="forge-support mb-3">Label, provenance, confidence, accept/reject/revert (<code>DET.APP.AI_PROVENANCE</code>).</p>
+  <div id="demo-ai-suggestion-review"></div>
+</section>
+
+<section id="sec-eac-jobs" class="ks-section" hash="Fjc" data-ks-hash="Fjc">
+  <h2 class="ks-section-title">Job center</h2>
+  <p class="forge-support mb-3">Long-running jobs with freshness and retry.</p>
+  <div id="demo-job-center"></div>
+</section>
+
+<section id="sec-eac-impact" class="ks-section" hash="Fip" data-ks-hash="Fip">
+  <h2 class="ks-section-title">Impact preview</h2>
+  <p class="forge-support mb-3">Before/after impact list with confirmation guard.</p>
+  <div id="demo-impact-preview"></div>
+</section>
+
 <section id="sec-eac-toast" class="ks-section" hash="Fut" data-ks-hash="Fut">
   <h2 class="ks-section-title">Undo toast</h2>
   <p class="forge-support mb-3">Transient result with undo action (<code>DET.APP.TOAST_LIFECYCLE</code>).</p>
@@ -95,6 +168,17 @@ def render() -> str:
   <div id="demo-editable-grid"></div>
 </section>
 
+<section id="sec-eac-support" class="ks-section">
+  <h2 class="ks-section-title">Supporting primitives</h2>
+  <p class="forge-support mb-3">Result receipt, version history, read-only fields, role presets.</p>
+  <div class="row g-3">
+    <div class="col-md-6" id="demo-result-receipt"></div>
+    <div class="col-md-6" id="demo-version-history"></div>
+    <div class="col-md-6" id="demo-readonly-fields"></div>
+    <div class="col-md-6" id="demo-role-preset"></div>
+  </div>
+</section>
+
 <script type="module">
 import { createQueueWorkbench } from "./assets/ks-queue-workbench.js";
 import { createGovernedForm } from "./assets/ks-governed-form.js";
@@ -103,6 +187,17 @@ import { createRecordWorkspace } from "./assets/ks-record-workspace.js";
 import { createPermissionBoundary } from "./assets/ks-permission-boundary.js";
 import { createUndoToast } from "./assets/ks-undo-toast.js";
 import { createEditableGridAdapter } from "./assets/ks-editable-grid-adapter.js";
+import { createPersistentWorkspace } from "./assets/ks-persistent-workspace.js";
+import { createInspectionWorkspace } from "./assets/ks-inspection-workspace.js";
+import { createAdaptiveWorkspace } from "./assets/ks-adaptive-workspace.js";
+import { createWorkflowMetrics } from "./assets/ks-workflow-metrics.js";
+import { createAISuggestionReview } from "./assets/ks-ai-suggestion-review.js";
+import { createJobCenter } from "./assets/ks-job-center.js";
+import { createImpactPreview } from "./assets/ks-impact-preview.js";
+import { createResultReceipt } from "./assets/ks-result-receipt.js";
+import { createVersionHistory } from "./assets/ks-version-history.js";
+import { createReadOnlyFieldGroup } from "./assets/ks-readonly-field-group.js";
+import { createRolePreset } from "./assets/ks-role-preset.js";
 
 const queueRows = [
   { id: "q-101", title: "Review Q4 filing", owner: "Alex", status: "open", risk: "high" },
@@ -211,6 +306,82 @@ createPermissionBoundary(document.getElementById("demo-permission-boundary"), {
     </form>`,
 });
 
+createPersistentWorkspace(document.getElementById("demo-persistent-workspace"), {
+  title: "Filing draft workspace",
+  autosaveState: "saved",
+  lastSavedAt: new Date().toISOString(),
+  storageKey: "ks-demo-persistent-view",
+  drafts: [{ id: "d1", title: "Q4 filing draft", updatedAt: "2026-08-12T18:00:00Z" }],
+  savedViews: [
+    { id: "mine", name: "Mine", active: true },
+    { id: "team", name: "Team", shared: true },
+  ],
+  recentItems: [
+    { id: "r1", label: "REQ-8842" },
+    { id: "r2", label: "Vendor ACME" },
+  ],
+  mainHtml: '<p class="mb-0">Editable work area — state survives navigation via autosave and drafts.</p><textarea class="form-control mt-2" rows="3">Draft body…</textarea>',
+});
+
+createInspectionWorkspace(document.getElementById("demo-inspection-workspace"), {
+  title: "Exception review",
+  subtitle: "EXC-220 · Compare evidence before decision",
+  mainHtml: "<p>Primary evidence and diff review content.</p>",
+  inspectorTitle: "Inspector",
+  inspectorHtml: "<p class='forge-support'>Linked policies and prior decisions.</p>",
+  assignment: { assignee: "Alex", options: ["Alex", "Sam", "Riley"] },
+  comments: [{ id: "c1", author: "Sam", body: "Needs finance sign-off.", at: "2026-08-12T10:00:00Z" }],
+  handoff: { summary: "Ready for approver queue", to: "Approvers", status: "pending" },
+});
+
+createAdaptiveWorkspace(document.getElementById("demo-adaptive-workspace"), {
+  title: "Onboarding workspace",
+  mode: "guided",
+  guidedHtml: "<p>Step-by-step guided path with explanations.</p>",
+  standardHtml: "<p>Standard form density for daily operators.</p>",
+  expertHtml: "<p>Dense expert controls and keyboard-first actions.</p>",
+  helpTopics: [{ id: "h1", title: "What is a cost center?", body: "A cost center groups spend for approval routing." }],
+  shortcuts: [{ keys: "Ctrl+S", action: "save", label: "Save draft" }],
+  templates: [{ id: "t1", name: "Vendor intake", description: "Pre-filled vendor change fields" }],
+  smartDefaults: [{ field: "Region", value: "EMEA", reason: "Based on your last 5 filings" }],
+});
+
+createWorkflowMetrics(document.getElementById("demo-workflow-metrics"), {
+  title: "Queue outcomes",
+  role: "Approver",
+  metrics: [
+    { id: "m1", label: "Median cycle time", value: "4.2", unit: "h", trend: "down", actionLabel: "Drill down" },
+    { id: "m2", label: "First-pass yield", value: "87", unit: "%", trend: "up", actionLabel: "Open" },
+    { id: "m3", label: "Escalations", value: "6", unit: "", trend: "flat", actionLabel: "Review" },
+  ],
+});
+
+createAISuggestionReview(document.getElementById("demo-ai-suggestion-review"), {
+  suggestionHtml: "<p>Suggested risk tier: <strong>High</strong> based on vendor concentration.</p>",
+  provenance: { source: "Forge Intelligence", model: "gpt-pro", promptId: "risk-tier-v2", generatedAt: new Date().toISOString() },
+  confidence: 0.82,
+  status: "pending",
+});
+
+createJobCenter(document.getElementById("demo-job-center"), {
+  jobs: [
+    { id: "j1", title: "Nightly harvest", status: "running", percent: 45, updatedAt: new Date().toISOString(), detail: "Batch 3/8" },
+    { id: "j2", title: "Export pack", status: "error", percent: 100, updatedAt: new Date().toISOString(), detail: "S3 timeout" },
+  ],
+  onRefresh: () => {},
+  onRetry: () => {},
+});
+
+createImpactPreview(document.getElementById("demo-impact-preview"), {
+  title: "Approve vendor change",
+  impacts: [
+    { label: "Approval limit", before: "$5k", after: "$25k", severity: "high" },
+    { label: "Watchlist", before: "None", after: "Finance review", severity: "medium" },
+  ],
+  confirmLabel: "Confirm change",
+  cancelLabel: "Cancel",
+});
+
 document.getElementById("demo-undo-toast-btn").addEventListener("click", () => {
   createUndoToast({ message: "3 items archived", undoLabel: "Undo", onUndo: () => {} });
 });
@@ -224,6 +395,32 @@ createEditableGridAdapter(document.getElementById("demo-editable-grid"), {
     { sku: "WID-01", qty: "4" },
     { sku: "WID-02", qty: "12" },
   ],
+});
+
+createResultReceipt(document.getElementById("demo-result-receipt"), {
+  title: "Submission receipt",
+  detail: "REQ-8842 accepted for review · Owner: Alex · SLA: 2 business days",
+  status: "success",
+});
+
+createVersionHistory(document.getElementById("demo-version-history"), {
+  versions: [
+    { id: "v3", label: "v3 · Alex", at: "2026-08-12T12:00:00Z", author: "Alex" },
+    { id: "v2", label: "v2 · Sam", at: "2026-08-11T09:00:00Z", author: "Sam" },
+  ],
+});
+
+createReadOnlyFieldGroup(document.getElementById("demo-readonly-fields"), {
+  title: "Amount locked by policy",
+  fields: [
+    { label: "Vendor", value: "ACME Corp" },
+    { label: "Amount", value: "$12,000" },
+  ],
+});
+
+createRolePreset(document.getElementById("demo-role-preset"), {
+  role: "Analyst",
+  presets: ["Analyst", "Approver", "Admin"],
 });
 </script>
 """

@@ -5,8 +5,8 @@ title: App route deep-link state
 summary: Deep-linked routes render main content and active nav matches location.
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-app-route-deeplink-state
 registry_status: implemented
-page_version: bc85b704ae669ccc6c1916d1d3c3dec1379f1dc61a60a149b10fa883f7a12a50
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+page_version: bd901511c6c891a5c2b0093c77251491a93d988fdffaadf4824a02e4bf6bc685
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 generated_at: 2026-08-13T02:31:57.045Z
 ---
 

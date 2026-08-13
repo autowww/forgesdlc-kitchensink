@@ -10,6 +10,9 @@ recommended_components:
   - ForgeErrorSummary
   - ForgeUndoToast
   - inline-validation
+  - ForgeImpactPreview
+  - ForgeConfirmationGuard
+  - ForgeVersionHistory
 
 recommended_composition:
   - name: ForgeGovernedForm
@@ -35,7 +38,4 @@ audit_rules:
   - DET.APP.PRIMARY_CTA
   - DET.BUTTON.GROUP.MAX
 
-known_gaps:
-  - ForgeImpactPreview
-  - ForgeConfirmationGuard
-  - ForgeVersionHistory
+known_gaps: []

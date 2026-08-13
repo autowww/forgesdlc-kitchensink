@@ -3,10 +3,10 @@ rule_id: AI.CONTEXT.COGNITIVE_CLARITY
 lane: ai
 title: Cognitive clarity
 summary: A first-time reader can form a correct mental model in one pass—jargon is explained before reuse, headings match substance, and depth is staged.
-page_version: 01aae83c1a4f5dde8fefba5414fa4a7a6ae6f53d4fae5ae43f9e3435203e3e3f
+page_version: c98f19a56c2b082c37cb1d42807999dbe41e920ab262a3ca15acf9a67f7644ab
 generated_at: 2026-05-19T20:15:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/ai-enabled-design-principles.md#ai-context-cognitive-clarity
 ---

@@ -31,6 +31,8 @@ test("widened DET.APP and FORM rules are in pack", () => {
     "DET.APP.DISABLED_REASON",
     "DET.APP.TOAST_LIFECYCLE",
     "DET.APP.PRIMARY_STATE",
+    "DET.APP.WORK_STATE_PERSISTENCE",
+    "DET.APP.AI_PROVENANCE",
     "DET.FORM.LABEL_ERROR_SUMMARY",
   ]) {
     assert.ok(ids.includes(id), `missing ${id}`);
@@ -40,7 +42,7 @@ test("widened DET.APP and FORM rules are in pack", () => {
 test("ksComponents include React primitives", () => {
   const rs = loadEnterpriseAppRuleset();
   const ids = rs.ksComponents.map((c) => c.id);
-  for (const hash of ["Frh", "Fsb", "Fwb", "Dtb", "Swz"]) {
+  for (const hash of ["Frh", "Fsb", "Fwb", "Dtb", "Swz", "Fpw", "Fix", "Fai", "Fqw", "Fes"]) {
     assert.ok(ids.includes(hash), `missing ksComponent ${hash}`);
   }
 });

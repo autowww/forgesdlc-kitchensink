@@ -3,10 +3,10 @@ rule_id: DET.HASH.MARKERS
 lane: deterministic
 title: Visual hash marker pairing
 summary: Each governed visual root emits matching hash="XYZ" and data-ks-hash="XYZ" values (exactly three ASCII letters).
-page_version: d1aa2d4c999392ad3ab6ffb34581d8776d8bf2e3ced4d902d4c967a01d9ef33b
+page_version: f1ae381bf7bcb852bfd9003985c12a0b91c9d4fd8e075dcb96dbec2b98015c14
 generated_at: 2026-05-19T22:20:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-hash-markers
 ---

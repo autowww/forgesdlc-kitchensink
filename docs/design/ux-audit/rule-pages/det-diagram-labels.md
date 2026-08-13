@@ -3,10 +3,10 @@ rule_id: DET.DIAGRAM.LABELS
 lane: deterministic
 title: Diagram legend labels on surface
 summary: Catalog-linked diagram tiles must expose readable SVG or ASCII text that matches js/ks-diagram-catalog.js legend node keys (items[].node).
-page_version: 0858730d2b0252a1092b06d68f05eeb90f5106633e12ac673f4bc04f09f05986
+page_version: a7d1ca51d575ec6d91c6a5bfc37e4f482d9986c1d3956609ae2702f68c720abb
 generated_at: 2026-05-19T22:35:00.000Z
 agent_model: composer-2.5-fast
-registry_fingerprint: 7a15a7be7af91647cbbfc3980fa46689f53c2e2847742c4feaf57baaee5004e4
+registry_fingerprint: aef1de6082cf0f50d463783c843dee0ffb9132fbd5ed4ea6e5bb3f031f359c72
 registry_status: implemented
 source_rule: docs/design/ux-audit/deterministic-design-rules.md#det-diagram-labels
 ---
