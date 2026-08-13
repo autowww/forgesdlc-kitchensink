@@ -4,6 +4,20 @@
  */
 const ST = 'docs/design/forge-enterprise-ai-website-standard.md';
 
+/** Public KS origin (Studio UX PDCA `KS_PUBLIC_BASE` default). */
+const KS_PUBLIC_ORIGIN = 'https://ks.forgesdlc.com';
+/** Firebase dist path — see scripts/stage-dist.sh (`dist/cases/showcase`). */
+const KS_SHOWCASE_PUBLIC = `${KS_PUBLIC_ORIGIN}/cases/showcase`;
+
+function ksShowcaseUrl(path) {
+  if (!path) return null;
+  return `${KS_SHOWCASE_PUBLIC}/${String(path).replace(/^\//, '')}`;
+}
+
+function ksScreenshotUrl(hash) {
+  return `${KS_SHOWCASE_PUBLIC}/screenshots/${hash}.png`;
+}
+
 const cssPaths = [
   'css/forge-theme.css',
   'css/forge-react-primitives.css',
@@ -197,10 +211,8 @@ function addLayout(hash, name, slug, symbol, showcasePreview) {
       root_selector: 'div.container-fluid.px-0',
       contract: `docs/design/catalog/layouts/${hash}-${slug}.md`,
       contract_status: 'own',
-      showcase_url: showcasePreview
-        ? `https://ks.forgesdlc.com/showcase/${showcasePreview}`
-        : null,
-      screenshot_url: `https://ks.forgesdlc.com/showcase/screenshots/${hash}.png`,
+      showcase_url: ksShowcaseUrl(showcasePreview),
+      screenshot_url: ksScreenshotUrl(hash),
       screenshot_status: 'planned',
       emit_marker_in_showcase: true,
     }),
@@ -256,8 +268,8 @@ function addPage(hash, name, slug, module) {
       root_selector: 'main#main',
       contract: `docs/design/catalog/pages/${hash}-${slug}.md`,
       contract_status: 'own',
-      showcase_url: `https://ks.forgesdlc.com/showcase/${slug}.html`,
-      screenshot_url: `https://ks.forgesdlc.com/showcase/screenshots/${hash}.png`,
+      showcase_url: ksShowcaseUrl(`${slug}.html`),
+      screenshot_url: ksScreenshotUrl(hash),
       screenshot_status: 'planned',
       emit_marker_in_showcase: true,
     }),
@@ -280,8 +292,8 @@ function addPreview(hash, name, slug, file) {
       root_selector: 'main#main',
       contract: `docs/design/catalog/pages/${hash}-${slug}.md`,
       contract_status: 'own',
-      showcase_url: `https://ks.forgesdlc.com/showcase/${file}`,
-      screenshot_url: `https://ks.forgesdlc.com/showcase/screenshots/${hash}.png`,
+      showcase_url: ksShowcaseUrl(file),
+      screenshot_url: ksScreenshotUrl(hash),
       screenshot_status: 'planned',
       emit_marker_in_showcase: true,
     }),
@@ -333,8 +345,8 @@ for (const [hash, comp, file] of reactHashes) {
       root_selector: '[data-ks-react-root]',
       contract: 'docs/design/catalog/primitives/FAM-react-primitives.md',
       contract_status: 'family-covered',
-      showcase_url: 'https://ks.forgesdlc.com/showcase/forge-react-primitives.html',
-      screenshot_url: `https://ks.forgesdlc.com/showcase/screenshots/${hash}.png`,
+      showcase_url: ksShowcaseUrl('forge-react-primitives.html'),
+      screenshot_url: ksScreenshotUrl(hash),
       screenshot_status: 'planned',
       emit_marker_in_showcase: true,
       parent_hash: null,
@@ -356,7 +368,7 @@ entries.push(
     root_selector: null,
     contract: 'docs/design/catalog/primitives/FAM-react-primitives.md',
     contract_status: 'own',
-    showcase_url: 'https://ks.forgesdlc.com/showcase/forge-react-primitives.html',
+    showcase_url: ksShowcaseUrl('forge-react-primitives.html'),
     screenshot_url: null,
     screenshot_status: 'not-applicable',
     emit_marker_in_showcase: false,
@@ -413,7 +425,7 @@ for (const [hash, name, src, contract] of enterpriseCompositions) {
       root_selector: `[data-ks-hash="${hash}"]`,
       contract,
       contract_status: 'own',
-      showcase_url: 'https://ks.forgesdlc.com/showcase/enterprise-app-compositions.html',
+      showcase_url: ksShowcaseUrl('enterprise-app-compositions.html'),
       screenshot_url: null,
       screenshot_status: 'planned',
       emit_marker_in_showcase: true,
@@ -577,7 +589,7 @@ entries.push(
     contract: 'docs/design/catalog/desktop-interfaces/Msm-museum-studio.md',
     contract_status: 'own',
     showcase_url: null,
-    screenshot_url: 'https://ks.forgesdlc.com/showcase/screenshots/Msm.png',
+    screenshot_url: ksScreenshotUrl('Msm'),
     screenshot_status: 'planned',
     emit_marker_in_showcase: false,
     notes: 'Static bundled studio;-marker optional—emit on body when paths are stable.',

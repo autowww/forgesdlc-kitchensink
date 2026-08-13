@@ -24,7 +24,7 @@ import YAML from 'yaml';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const HOSTED_SCREENSHOT_BASE = 'https://ks.forgesdlc.com/showcase/screenshots';
+const HOSTED_SCREENSHOT_BASE = 'https://ks.forgesdlc.com/cases/showcase/screenshots';
 
 /** When `showcase_url` is null but the layout appears on a known showcase page. */
 const SHOWCASE_HTML_FALLBACK_BY_HASH = {
